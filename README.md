@@ -26,7 +26,7 @@ const orb = new Orb({
 });
 
 async function main() {
-  const customer = await orb.customers.create({ email: 'string', name: 'string' });
+  const customer = await orb.customers.create({ email: 'example-customer@withorb.com', name: 'My Customer' });
 
   console.log(customer);
 }
@@ -46,7 +46,7 @@ const orb = new Orb({
 });
 
 async function main() {
-  const params: Orb.CustomerCreateParams = { email: 'string', name: 'string' };
+  const params: Orb.CustomerCreateParams = { email: 'example-customer@withorb.com', name: 'My Customer' };
   const customer: Orb.Customer = await orb.customers.create(params);
 }
 
@@ -63,16 +63,18 @@ a subclass of `APIError` will be thrown:
 
 ```ts
 async function main() {
-  const customer = await orb.customers.create({ email: 'string', name: 'string' }).catch((err) => {
-    if (err instanceof Orb.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
+  const customer = await orb.customers
+    .create({ email: 'example-customer@withorb.com', name: 'My Customer' })
+    .catch((err) => {
+      if (err instanceof Orb.APIError) {
+        console.log(err.status); // 400
+        console.log(err.name); // BadRequestError
 
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
+        console.log(err.headers); // {server: 'nginx', ...}
+      } else {
+        throw err;
+      }
+    });
 }
 
 main();
@@ -107,7 +109,7 @@ const orb = new Orb({
 });
 
 // Or, configure per-request:
-await orb.customers.create({ email: 'string', name: 'string' }, {
+await orb.customers.create({ email: 'example-customer@withorb.com', name: 'My Customer' }, {
   maxRetries: 5,
 });
 ```
@@ -124,7 +126,7 @@ const orb = new Orb({
 });
 
 // Override per-request:
-await orb.customers.create({ email: 'string', name: 'string' }, {
+await orb.customers.create({ email: 'example-customer@withorb.com', name: 'My Customer' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -175,12 +177,14 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const orb = new Orb();
 
-const response = await orb.customers.create({ email: 'string', name: 'string' }).asResponse();
+const response = await orb.customers
+  .create({ email: 'example-customer@withorb.com', name: 'My Customer' })
+  .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: customer, response: raw } = await orb.customers
-  .create({ email: 'string', name: 'string' })
+  .create({ email: 'example-customer@withorb.com', name: 'My Customer' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(customer.id);
@@ -203,7 +207,7 @@ const orb = new Orb({
 });
 
 // Override per-request:
-await orb.customers.create({ email: 'string', name: 'string' }, {
+await orb.customers.create({ email: 'example-customer@withorb.com', name: 'My Customer' }, {
   baseURL: 'http://localhost:8080/test-api',
   httpAgent: new http.Agent({ keepAlive: false }),
 })
