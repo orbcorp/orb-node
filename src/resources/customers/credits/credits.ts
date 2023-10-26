@@ -102,12 +102,12 @@ export namespace Credits {
   export import Ledger = LedgerAPI.Ledger;
   export import LedgerListResponse = LedgerAPI.LedgerListResponse;
   export import LedgerCreateEntryResponse = LedgerAPI.LedgerCreateEntryResponse;
-  export import LedgerCreateEntryByExteralIDResponse = LedgerAPI.LedgerCreateEntryByExteralIDResponse;
+  export import LedgerCreateEntryByExternalIDResponse = LedgerAPI.LedgerCreateEntryByExternalIDResponse;
   export import LedgerListByExternalIDResponse = LedgerAPI.LedgerListByExternalIDResponse;
   export import LedgerListResponsesPage = LedgerAPI.LedgerListResponsesPage;
   export import LedgerListByExternalIDResponsesPage = LedgerAPI.LedgerListByExternalIDResponsesPage;
   export import LedgerListParams = LedgerAPI.LedgerListParams;
   export import LedgerCreateEntryParams = LedgerAPI.LedgerCreateEntryParams;
-  export import LedgerCreateEntryByExteralIDParams = LedgerAPI.LedgerCreateEntryByExteralIDParams;
+  export import LedgerCreateEntryByExternalIDParams = LedgerAPI.LedgerCreateEntryByExternalIDParams;
   export import LedgerListByExternalIDParams = LedgerAPI.LedgerListByExternalIDParams;
 }

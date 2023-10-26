@@ -64,7 +64,7 @@ export class APIError extends OrbError {
     }
 
     if (type === 'https://docs.withorb.com/reference/error-responses#400-request-validation-errors') {
-      return new RequestValidationErrors(status, error, message, headers);
+      return new RequestValidationError(status, error, message, headers);
     }
 
     if (type === 'https://docs.withorb.com/reference/error-responses#401-authentication-error') {
@@ -240,7 +240,7 @@ export class FeatureNotAvailable extends BadRequestError {
   }
 }
 
-export class RequestValidationErrors extends BadRequestError {
+export class RequestValidationError extends BadRequestError {
   override status: 400;
 
   type: 'https://docs.withorb.com/reference/error-responses#400-request-validation-errors';

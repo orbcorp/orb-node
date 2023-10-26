@@ -12,11 +12,11 @@ export {
 export {
   LedgerListResponse,
   LedgerCreateEntryResponse,
-  LedgerCreateEntryByExteralIDResponse,
+  LedgerCreateEntryByExternalIDResponse,
   LedgerListByExternalIDResponse,
   LedgerListParams,
   LedgerCreateEntryParams,
-  LedgerCreateEntryByExteralIDParams,
+  LedgerCreateEntryByExternalIDParams,
   LedgerListByExternalIDParams,
   LedgerListResponsesPage,
   LedgerListByExternalIDResponsesPage,
