@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.24.2 (2023-10-26)
+
+Full Changelog: [v1.24.1...v1.24.2](https://github.com/orbcorp/orb-node/compare/v1.24.1...v1.24.2)
+
+### Bug Fixes
+
+* **client:** include more detail in error messages ([#13](https://github.com/orbcorp/orb-node/issues/13)) ([178571c](https://github.com/orbcorp/orb-node/commit/178571c28fc3be1593670b0aaf5122cb60afb366))
+
 ## 1.24.1 (2023-10-26)
 
 Full Changelog: [v1.24.0...v1.24.1](https://github.com/orbcorp/orb-node/compare/v1.24.0...v1.24.1)
