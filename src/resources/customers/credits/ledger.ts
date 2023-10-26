@@ -343,11 +343,11 @@ export class Ledger extends APIResource {
    * that was originally decremented from, and `amount` indicates how many credits to
    * return to the customer, up to the block's initial balance.
    */
-  createEntryByExteralId(
+  createEntryByExternalId(
     externalCustomerId: string | null,
-    body: LedgerCreateEntryByExteralIDParams,
+    body: LedgerCreateEntryByExternalIDParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<LedgerCreateEntryByExteralIDResponse> {
+  ): Core.APIPromise<LedgerCreateEntryByExternalIDResponse> {
     return this.post(`/customers/external_customer_id/${externalCustomerId}/credits/ledger_entry`, {
       body,
       ...options,
@@ -1124,16 +1124,16 @@ export namespace LedgerCreateEntryResponse {
  * The [Credit Ledger Entry resource](/guides/product-catalog/prepurchase) models
  * prepaid credits within Orb.
  */
-export type LedgerCreateEntryByExteralIDResponse =
-  | LedgerCreateEntryByExteralIDResponse.IncrementLedgerEntry
-  | LedgerCreateEntryByExteralIDResponse.DecrementLedgerEntry
-  | LedgerCreateEntryByExteralIDResponse.ExpirationChangeLedgerEntry
-  | LedgerCreateEntryByExteralIDResponse.CreditBlockExpiryLedgerEntry
-  | LedgerCreateEntryByExteralIDResponse.VoidLedgerEntry
-  | LedgerCreateEntryByExteralIDResponse.VoidInitiatedLedgerEntry
-  | LedgerCreateEntryByExteralIDResponse.AmendmentLedgerEntry;
+export type LedgerCreateEntryByExternalIDResponse =
+  | LedgerCreateEntryByExternalIDResponse.IncrementLedgerEntry
+  | LedgerCreateEntryByExternalIDResponse.DecrementLedgerEntry
+  | LedgerCreateEntryByExternalIDResponse.ExpirationChangeLedgerEntry
+  | LedgerCreateEntryByExternalIDResponse.CreditBlockExpiryLedgerEntry
+  | LedgerCreateEntryByExternalIDResponse.VoidLedgerEntry
+  | LedgerCreateEntryByExternalIDResponse.VoidInitiatedLedgerEntry
+  | LedgerCreateEntryByExternalIDResponse.AmendmentLedgerEntry;
 
-export namespace LedgerCreateEntryByExteralIDResponse {
+export namespace LedgerCreateEntryByExternalIDResponse {
   export interface IncrementLedgerEntry {
     id: string;
 
@@ -2007,14 +2007,14 @@ export namespace LedgerCreateEntryParams {
   }
 }
 
-export type LedgerCreateEntryByExteralIDParams =
-  | LedgerCreateEntryByExteralIDParams.AddIncrementCreditLedgerEntryRequestParams
-  | LedgerCreateEntryByExteralIDParams.AddDecrementCreditLedgerEntryRequestParams
-  | LedgerCreateEntryByExteralIDParams.AddExpirationChangeCreditLedgerEntryRequestParams
-  | LedgerCreateEntryByExteralIDParams.AddVoidCreditLedgerEntryRequestParams
-  | LedgerCreateEntryByExteralIDParams.AddAmendmentCreditLedgerEntryRequestParams;
+export type LedgerCreateEntryByExternalIDParams =
+  | LedgerCreateEntryByExternalIDParams.AddIncrementCreditLedgerEntryRequestParams
+  | LedgerCreateEntryByExternalIDParams.AddDecrementCreditLedgerEntryRequestParams
+  | LedgerCreateEntryByExternalIDParams.AddExpirationChangeCreditLedgerEntryRequestParams
+  | LedgerCreateEntryByExternalIDParams.AddVoidCreditLedgerEntryRequestParams
+  | LedgerCreateEntryByExternalIDParams.AddAmendmentCreditLedgerEntryRequestParams;
 
-export namespace LedgerCreateEntryByExteralIDParams {
+export namespace LedgerCreateEntryByExternalIDParams {
   export interface AddIncrementCreditLedgerEntryRequestParams {
     /**
      * The number of credits to effect. Note that this is required for increment,
@@ -2049,7 +2049,7 @@ export namespace LedgerCreateEntryByExteralIDParams {
      * per_unit_cost_basis, as the calculation of the invoice total is done on that
      * basis.
      */
-    invoice_settings?: LedgerCreateEntryByExteralIDParams.AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
+    invoice_settings?: LedgerCreateEntryByExternalIDParams.AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
 
     /**
      * User-specified key/value pairs for the ledger entry resource.
@@ -2243,12 +2243,12 @@ export interface LedgerListByExternalIDParams extends PageParams {
 export namespace Ledger {
   export import LedgerListResponse = LedgerAPI.LedgerListResponse;
   export import LedgerCreateEntryResponse = LedgerAPI.LedgerCreateEntryResponse;
-  export import LedgerCreateEntryByExteralIDResponse = LedgerAPI.LedgerCreateEntryByExteralIDResponse;
+  export import LedgerCreateEntryByExternalIDResponse = LedgerAPI.LedgerCreateEntryByExternalIDResponse;
   export import LedgerListByExternalIDResponse = LedgerAPI.LedgerListByExternalIDResponse;
   export import LedgerListResponsesPage = LedgerAPI.LedgerListResponsesPage;
   export import LedgerListByExternalIDResponsesPage = LedgerAPI.LedgerListByExternalIDResponsesPage;
   export import LedgerListParams = LedgerAPI.LedgerListParams;
   export import LedgerCreateEntryParams = LedgerAPI.LedgerCreateEntryParams;
-  export import LedgerCreateEntryByExteralIDParams = LedgerAPI.LedgerCreateEntryByExteralIDParams;
+  export import LedgerCreateEntryByExternalIDParams = LedgerAPI.LedgerCreateEntryByExternalIDParams;
   export import LedgerListByExternalIDParams = LedgerAPI.LedgerListByExternalIDParams;
 }
