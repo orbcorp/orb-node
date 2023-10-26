@@ -82,7 +82,15 @@ export interface BalanceTransactionCreateResponse {
    */
   id: string;
 
-  action: 'applied_to_invoice' | 'prorated_refund' | 'manual_adjustment';
+  action:
+    | 'applied_to_invoice'
+    | 'manual_adjustment'
+    | 'prorated_refund'
+    | 'revert_prorated_refund'
+    | 'return_from_voiding'
+    | 'credit_note_applied'
+    | 'credit_note_voided'
+    | 'overpayment_refund';
 
   /**
    * The value of the amount changed in the transaction.
@@ -140,7 +148,15 @@ export interface BalanceTransactionListResponse {
    */
   id: string;
 
-  action: 'applied_to_invoice' | 'prorated_refund' | 'manual_adjustment';
+  action:
+    | 'applied_to_invoice'
+    | 'manual_adjustment'
+    | 'prorated_refund'
+    | 'revert_prorated_refund'
+    | 'return_from_voiding'
+    | 'credit_note_applied'
+    | 'credit_note_voided'
+    | 'overpayment_refund';
 
   /**
    * The value of the amount changed in the transaction.

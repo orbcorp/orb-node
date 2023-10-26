@@ -10,7 +10,19 @@ const orb = new Orb({
 
 describe('resource plans', () => {
   test('create: only required params', async () => {
-    const responsePromise = orb.plans.create({ currency: 'string', name: 'string', prices: [{}] });
+    const responsePromise = orb.plans.create({
+      currency: 'string',
+      name: 'string',
+      prices: [
+        {
+          name: 'Annual fee',
+          item_id: 'string',
+          cadence: 'annual',
+          model_type: 'unit',
+          unit_config: { unit_amount: 'string' },
+        },
+      ],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -24,7 +36,20 @@ describe('resource plans', () => {
     const response = await orb.plans.create({
       currency: 'string',
       name: 'string',
-      prices: [{}],
+      prices: [
+        {
+          external_price_id: 'string',
+          name: 'Annual fee',
+          billable_metric_id: 'string',
+          item_id: 'string',
+          billed_in_advance: true,
+          fixed_price_quantity: 0,
+          invoice_grouping_key: 'string',
+          cadence: 'annual',
+          model_type: 'unit',
+          unit_config: { unit_amount: 'string', scaling_factor: 0 },
+        },
+      ],
       default_invoice_memo: 'string',
       external_plan_id: 'string',
       metadata: {},

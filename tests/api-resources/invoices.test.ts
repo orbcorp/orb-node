@@ -12,7 +12,7 @@ describe('resource invoices', () => {
   test('create: only required params', async () => {
     const responsePromise = orb.invoices.create({
       currency: 'USD',
-      invoice_date: '2022-05-01T07:00:00+00:00',
+      invoice_date: '2019-12-27T18:11:19.117Z',
       line_items: [
         {
           start_date: '2023-09-22',
@@ -56,7 +56,7 @@ describe('resource invoices', () => {
   test('create: required and optional params', async () => {
     const response = await orb.invoices.create({
       currency: 'USD',
-      invoice_date: '2022-05-01T07:00:00+00:00',
+      invoice_date: '2019-12-27T18:11:19.117Z',
       line_items: [
         {
           start_date: '2023-09-22',
@@ -132,7 +132,7 @@ describe('resource invoices', () => {
           'invoice_date[lte]': '2019-12-27T18:11:19.117Z',
           is_recurring: true,
           limit: 0,
-          status: 'draft',
+          'status[]': ['draft', 'issued', 'paid'],
           subscription_id: 'string',
         },
         { path: '/_stainless_unknown_path' },

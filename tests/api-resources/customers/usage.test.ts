@@ -11,9 +11,11 @@ const orb = new Orb({
 describe('resource usage', () => {
   test('update: only required params', async () => {
     const responsePromise = orb.customers.usage.update('string', {
-      event_name: 'string',
-      properties: {},
-      timestamp: '2020-12-09T16:09:53Z',
+      events: [
+        { event_name: 'string', timestamp: '2020-12-09T16:09:53Z', properties: {} },
+        { event_name: 'string', timestamp: '2020-12-09T16:09:53Z', properties: {} },
+        { event_name: 'string', timestamp: '2020-12-09T16:09:53Z', properties: {} },
+      ],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -26,21 +28,41 @@ describe('resource usage', () => {
 
   test('update: required and optional params', async () => {
     const response = await orb.customers.usage.update('string', {
-      event_name: 'string',
-      properties: {},
-      timestamp: '2020-12-09T16:09:53Z',
+      events: [
+        {
+          customer_id: 'string',
+          external_customer_id: 'string',
+          event_name: 'string',
+          timestamp: '2020-12-09T16:09:53Z',
+          properties: {},
+        },
+        {
+          customer_id: 'string',
+          external_customer_id: 'string',
+          event_name: 'string',
+          timestamp: '2020-12-09T16:09:53Z',
+          properties: {},
+        },
+        {
+          customer_id: 'string',
+          external_customer_id: 'string',
+          event_name: 'string',
+          timestamp: '2020-12-09T16:09:53Z',
+          properties: {},
+        },
+      ],
       timeframe_end: '2019-12-27T18:11:19.117Z',
       timeframe_start: '2019-12-27T18:11:19.117Z',
-      customer_id: 'string',
-      external_customer_id: 'string',
     });
   });
 
   test('updateByExternalId: only required params', async () => {
     const responsePromise = orb.customers.usage.updateByExternalId('string', {
-      event_name: 'string',
-      properties: {},
-      timestamp: '2020-12-09T16:09:53Z',
+      events: [
+        { event_name: 'string', timestamp: '2020-12-09T16:09:53Z', properties: {} },
+        { event_name: 'string', timestamp: '2020-12-09T16:09:53Z', properties: {} },
+        { event_name: 'string', timestamp: '2020-12-09T16:09:53Z', properties: {} },
+      ],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -53,13 +75,31 @@ describe('resource usage', () => {
 
   test('updateByExternalId: required and optional params', async () => {
     const response = await orb.customers.usage.updateByExternalId('string', {
-      event_name: 'string',
-      properties: {},
-      timestamp: '2020-12-09T16:09:53Z',
+      events: [
+        {
+          customer_id: 'string',
+          external_customer_id: 'string',
+          event_name: 'string',
+          timestamp: '2020-12-09T16:09:53Z',
+          properties: {},
+        },
+        {
+          customer_id: 'string',
+          external_customer_id: 'string',
+          event_name: 'string',
+          timestamp: '2020-12-09T16:09:53Z',
+          properties: {},
+        },
+        {
+          customer_id: 'string',
+          external_customer_id: 'string',
+          event_name: 'string',
+          timestamp: '2020-12-09T16:09:53Z',
+          properties: {},
+        },
+      ],
       timeframe_end: '2019-12-27T18:11:19.117Z',
       timeframe_start: '2019-12-27T18:11:19.117Z',
-      customer_id: 'string',
-      external_customer_id: 'string',
     });
   });
 });

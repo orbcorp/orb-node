@@ -57,7 +57,7 @@ describe('resource customers', () => {
         postal_code: 'string',
         country: 'string',
       },
-      tax_id: { country: 'string', type: 'string', value: 'string' },
+      tax_id: { country: 'AE', type: 'ae_trn', value: 'string' },
       timezone: 'string',
     });
   });
@@ -121,7 +121,7 @@ describe('resource customers', () => {
             postal_code: 'string',
             country: 'string',
           },
-          tax_id: { country: 'string', type: 'string', value: 'string' },
+          tax_id: { country: 'AE', type: 'ae_trn', value: 'string' },
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -274,7 +274,7 @@ describe('resource customers', () => {
             postal_code: 'string',
             country: 'string',
           },
-          tax_id: { country: 'string', type: 'string', value: 'string' },
+          tax_id: { country: 'AE', type: 'ae_trn', value: 'string' },
         },
         { path: '/_stainless_unknown_path' },
       ),

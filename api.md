@@ -1,3 +1,9 @@
+# Shared
+
+Types:
+
+- <code><a href="./src/resources/shared.ts">Discount</a></code>
+
 # TopLevel
 
 Types:
@@ -167,7 +173,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/invoices.ts">Invoice</a></code>
-- <code><a href="./src/resources/invoices.ts">InvoiceDiscount</a></code>
 - <code><a href="./src/resources/invoices.ts">InvoiceFetchUpcomingResponse</a></code>
 
 Methods:
@@ -230,7 +235,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/prices/prices.ts">Discount</a></code>
 - <code><a href="./src/resources/prices/prices.ts">Price</a></code>
 
 Methods:
@@ -250,8 +254,8 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/subscriptions.ts">Subscription</a></code>
-- <code><a href="./src/resources/subscriptions.ts">Subscriptions</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionUsage</a></code>
+- <code><a href="./src/resources/subscriptions.ts">Subscriptions</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionFetchCostsResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionFetchScheduleResponse</a></code>
 

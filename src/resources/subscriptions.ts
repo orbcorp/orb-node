@@ -65,13 +65,13 @@ export class Subscriptions extends APIResource {
    *
    * ```json
    * {
-   * ...
-   * "id": "price_id",
-   * "model_type": "unit",
-   * "unit_config": {
-   * "unit_amount": "0.50"
-   * }
-   * ...
+   *   ...
+   *   "id": "price_id",
+   *   "model_type": "unit",
+   *   "unit_config": {
+   *     "unit_amount": "0.50"
+   *   }
+   *   ...
    * }
    * ```
    *
@@ -85,24 +85,24 @@ export class Subscriptions extends APIResource {
    *
    * ```json
    * {
-   * ...
-   * "id": "price_id",
-   * "model_type": "tiered",
-   * "tiered_config": {
-   * "tiers": [
-   * {
-   * "first_unit":"1",
-   * "last_unit": "10",
-   * "unit_amount": "0.50"
-   * },
-   * {
-   * "first_unit": "10",
-   * "last_unit": null,
-   * "unit_amount": "0.10"
-   * }
-   * ]
-   * }
-   * ...
+   *   ...
+   *   "id": "price_id",
+   *   "model_type": "tiered",
+   *   "tiered_config": {
+   *     "tiers": [
+   *       {
+   *         "first_unit":"1",
+   *         "last_unit": "10",
+   *         "unit_amount": "0.50"
+   *       },
+   *       {
+   *         "first_unit": "10",
+   *         "last_unit": null,
+   *         "unit_amount": "0.10"
+   *       }
+   *     ]
+   *   }
+   *   ...
    * }
    * ```
    *
@@ -117,22 +117,22 @@ export class Subscriptions extends APIResource {
    *
    * ```json
    * {
-   * ...
-   * "id": "price_id",
-   * "model_type": "bulk",
-   * "bulk_config": {
-   * "tiers": [
-   * {
-   * "maximum_units": "10",
-   * "unit_amount": "0.50"
-   * },
-   * {
-   * "maximum_units": "1000",
-   * "unit_amount": "0.40"
-   * }
-   * ]
-   * }
-   * ...
+   *   ...
+   *   "id": "price_id",
+   *   "model_type": "bulk",
+   *   "bulk_config": {
+   *     "tiers": [
+   *       {
+   *         "maximum_units": "10",
+   *         "unit_amount": "0.50"
+   *       },
+   *       {
+   *         "maximum_units": "1000",
+   *         "unit_amount": "0.40"
+   *       }
+   *     ]
+   *   }
+   *   ...
    * }
    * ```
    *
@@ -144,14 +144,14 @@ export class Subscriptions extends APIResource {
    *
    * ```json
    * {
-   * ...
-   * "id": "price_id",
-   * "model_type": "package",
-   * "package_config": {
-   * "package_amount": "0.80",
-   * "package_size": 10
-   * }
-   * ...
+   *   ...
+   *   "id": "price_id",
+   *   "model_type": "package",
+   *   "package_config": {
+   *     "package_amount": "0.80",
+   *     "package_size": 10
+   *   }
+   *   ...
    * }
    * ```
    *
@@ -164,14 +164,14 @@ export class Subscriptions extends APIResource {
    *
    * ```json
    * {
-   * ...
-   * "id": "price_id"
-   * "model_type": "bps",
-   * "bps_config": {
-   * "bps": 125,
-   * "per_event_cap": "11.00"
-   * }
-   * ...
+   *   ...
+   *   "id": "price_id"
+   *   "model_type": "bps",
+   *   "bps_config": {
+   *     "bps": 125,
+   *     "per_event_cap": "11.00"
+   *   }
+   *   ...
    * }
    * ```
    *
@@ -186,25 +186,25 @@ export class Subscriptions extends APIResource {
    *
    * ```json
    * {
-   * ...
-   * "id": "price_id"
-   * "model_type": "bulk_bps",
-   * "bulk_bps_config": {
-   * "tiers": [
-   * {
-   * "minimum_amount": "0.00",
-   * "maximum_amount": "1000000.00",
-   * "bps": 125,
-   * "per_event_cap": "19.00"
-   * },
-   * {
-   * "minimum_amount":"1000000.00",
-   * "maximum_amount": null,
-   * "bps": 115,
-   * "per_event_cap": "4.00"
-   * }
-   * ]
-   * }
+   *   ...
+   *   "id": "price_id"
+   *   "model_type": "bulk_bps",
+   *   "bulk_bps_config": {
+   *     "tiers": [
+   *       {
+   *         "minimum_amount": "0.00",
+   *         "maximum_amount": "1000000.00",
+   *         "bps": 125,
+   *         "per_event_cap": "19.00"
+   *       },
+   *       {
+   *         "minimum_amount":"1000000.00",
+   *         "maximum_amount": null,
+   *         "bps": 115,
+   *         "per_event_cap": "4.00"
+   *       }
+   *     ]
+   *   }
    * ...
    * }
    * ```
@@ -221,26 +221,26 @@ export class Subscriptions extends APIResource {
    *
    * ```json
    * {
-   * ...
-   * "id": "price_id"
-   * "model_type": "tiered_bps",
-   * "tiered_bps_config": {
-   * "tiers": [
-   * {
-   * "minimum_amount": "0.00",
-   * "maximum_amount": "1000000.00",
-   * "bps": 125,
-   * "per_event_cap": "19.00"
-   * },
-   * {
-   * "minimum_amount":"1000000",
-   * "maximum_amount": null,
-   * "bps": 115,
-   * "per_event_cap": "4.00"
-   * }
-   * ]
-   * }
-   * ...
+   *   ...
+   *   "id": "price_id"
+   *   "model_type": "tiered_bps",
+   *   "tiered_bps_config": {
+   *     "tiers": [
+   *       {
+   *         "minimum_amount": "0.00",
+   *         "maximum_amount": "1000000.00",
+   *         "bps": 125,
+   *         "per_event_cap": "19.00"
+   *       },
+   *       {
+   *         "minimum_amount":"1000000",
+   *         "maximum_amount": null,
+   *         "bps": 115,
+   *         "per_event_cap": "4.00"
+   *       }
+   *     ]
+   *   }
+   *   ...
    * }
    * ```
    *
@@ -256,26 +256,27 @@ export class Subscriptions extends APIResource {
    * `default_unit_amount`.
    *
    * ```json
-   * ...
-   * "model_type": "matrix"
-   * "matrix_config": {
-   * "default_unit_amount": "3.00",
-   * "dimensions": [
-   * "cluster_name",
-   * "region"
-   * ],
-   * "matrix_values": [
    * {
-   * "dimension_values": [
-   * "alpha",
-   * "west"
-   * ],
-   * "unit_amount": "2.00"
-   * },
-   * ...
-   * ]
+   *   ...
+   *   "model_type": "matrix",
+   *   "matrix_config": {
+   *     "default_unit_amount": "3.00",
+   *     "dimensions": [
+   *       "cluster_name",
+   *       "region"
+   *     ],
+   *     "matrix_values": [
+   *       {
+   *         "dimension_values": [
+   *           "alpha",
+   *           "west"
+   *         ],
+   *         "unit_amount": "2.00"
+   *       },
+   *       ...
+   *     ]
+   *   }
    * }
-   * ...
    * ```
    *
    * ### Fixed fees
@@ -286,14 +287,14 @@ export class Subscriptions extends APIResource {
    *
    * ```json
    * {
-   * ...
-   * "id": "price_id",
-   * "model_type": "unit",
-   * "unit_config": {
-   * "unit_amount": "2.00"
-   * },
-   * "fixed_price_quantity": 3.0
-   * ...
+   *   ...
+   *   "id": "price_id",
+   *   "model_type": "unit",
+   *   "unit_config": {
+   *     "unit_amount": "2.00"
+   *   },
+   *   "fixed_price_quantity": 3.0
+   *   ...
    * }
    * ```
    *
@@ -318,14 +319,14 @@ export class Subscriptions extends APIResource {
    *
    * ```json
    * {
-   * ...
-   * "id": "price_id",
-   * "model_type": "unit",
-   * "unit_config": {
-   * "unit_amount": "0.50"
-   * },
-   * "minimum_amount": "100.00"
-   * ...
+   *   ...
+   *   "id": "price_id",
+   *   "model_type": "unit",
+   *   "unit_config": {
+   *     "unit_amount": "0.50"
+   *   },
+   *   "minimum_amount": "100.00"
+   *   ...
    * }
    * ```
    *
@@ -333,14 +334,14 @@ export class Subscriptions extends APIResource {
    *
    * ```json
    * {
-   * ...
-   * "id": "price_id",
-   * "model_type": "unit",
-   * "unit_config": {
-   * "unit_amount": "0.50"
-   * },
-   * "minimum_amount": null
-   * ...
+   *   ...
+   *   "id": "price_id",
+   *   "model_type": "unit",
+   *   "unit_config": {
+   *     "unit_amount": "0.50"
+   *   },
+   *   "minimum_amount": null
+   *   ...
    * }
    * ```
    *
@@ -355,12 +356,12 @@ export class Subscriptions extends APIResource {
    * To add a discount for a specific price, add `discount` to the price in the
    * `price_overrides` object. Discount should be a dictionary of the format:
    *
-   * ```json
+   * ```ts
    * {
-   * "discount_type": "amount" | "percentage" | "usage",
-   * "amount_discount": string,
-   * "percentage_discount": string,
-   * "usage_discount": string
+   *   "discount_type": "amount" | "percentage" | "usage",
+   *   "amount_discount": string,
+   *   "percentage_discount": string,
+   *   "usage_discount": string
    * }
    * ```
    *
@@ -371,13 +372,13 @@ export class Subscriptions extends APIResource {
    *
    * ```json
    * {
-   * ...
-   * "id": "price_id",
-   * "model_type": "unit",
-   * "unit_config": {
-   * "unit_amount": "0.50"
-   * },
-   * "discount": {"discount_type": "amount", "amount_discount": "175"},
+   *   ...
+   *   "id": "price_id",
+   *   "model_type": "unit",
+   *   "unit_config": {
+   *     "unit_amount": "0.50"
+   *   },
+   *   "discount": {"discount_type": "amount", "amount_discount": "175"},
    * }
    * ```
    *
@@ -385,11 +386,11 @@ export class Subscriptions extends APIResource {
    *
    * ```json
    * {
-   * "customer_id": "customer_id",
-   * "plan_id": "plan_id",
-   * "discount": null,
-   * "price_overrides": [ ... ]
-   * ...
+   *   "customer_id": "customer_id",
+   *   "plan_id": "plan_id",
+   *   "discount": null,
+   *   "price_overrides": [ ... ]
+   *   ...
    * }
    * ```
    *
@@ -1626,20 +1627,6 @@ export namespace Subscription {
   }
 }
 
-export interface Subscriptions {
-  data: Array<Subscription>;
-
-  pagination_metadata: Subscriptions.PaginationMetadata;
-}
-
-export namespace Subscriptions {
-  export interface PaginationMetadata {
-    has_more: boolean;
-
-    next_cursor: string | null;
-  }
-}
-
 export type SubscriptionUsage =
   | SubscriptionUsage.UngroupedSubscriptionUsage
   | SubscriptionUsage.GroupedSubscriptionUsage;
@@ -1719,6 +1706,20 @@ export namespace SubscriptionUsage {
 
       next_cursor: string | null;
     }
+  }
+}
+
+export interface Subscriptions {
+  data: Array<Subscription>;
+
+  pagination_metadata: Subscriptions.PaginationMetadata;
+}
+
+export namespace Subscriptions {
+  export interface PaginationMetadata {
+    has_more: boolean;
+
+    next_cursor: string | null;
   }
 }
 
@@ -2132,7 +2133,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideUnitPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2162,6 +2163,41 @@ export namespace SubscriptionCreateParams {
        */
       scaling_factor?: number | null;
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverridePackagePrice {
@@ -2174,7 +2210,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverridePackagePrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2205,6 +2241,41 @@ export namespace SubscriptionCreateParams {
        */
       package_size?: number | null;
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideMatrixPrice {
@@ -2217,7 +2288,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideMatrixPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2279,6 +2350,41 @@ export namespace SubscriptionCreateParams {
         scaling_factor?: number | null;
       }
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideTieredPrice {
@@ -2291,7 +2397,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideTieredPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2335,6 +2441,41 @@ export namespace SubscriptionCreateParams {
         last_unit?: number | null;
       }
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideTieredBpsPrice {
@@ -2347,7 +2488,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideTieredBpsPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2397,6 +2538,41 @@ export namespace SubscriptionCreateParams {
         per_unit_maximum?: string | null;
       }
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideBpsPrice {
@@ -2409,7 +2585,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideBpsPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2439,6 +2615,41 @@ export namespace SubscriptionCreateParams {
        */
       per_unit_maximum?: string | null;
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideBulkBpsPrice {
@@ -2451,7 +2662,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideBulkBpsPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2496,6 +2707,41 @@ export namespace SubscriptionCreateParams {
         per_unit_maximum?: string | null;
       }
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideBulkPrice {
@@ -2508,7 +2754,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideBulkPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2547,6 +2793,41 @@ export namespace SubscriptionCreateParams {
         maximum_units?: number | null;
       }
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideTestRatingFunctionPrice {
@@ -2559,7 +2840,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideTestRatingFunctionPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2575,6 +2856,43 @@ export namespace SubscriptionCreateParams {
      * The subscription's override minimum amount for the plan.
      */
     minimum_amount?: string | null;
+  }
+
+  export namespace OverrideTestRatingFunctionPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideFivetranExamplePrice {
@@ -2587,7 +2905,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideFivetranExamplePrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2603,6 +2921,43 @@ export namespace SubscriptionCreateParams {
      * The subscription's override minimum amount for the plan.
      */
     minimum_amount?: string | null;
+  }
+
+  export namespace OverrideFivetranExamplePrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideThresholdTotalAmountPrice {
@@ -2615,7 +2970,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideThresholdTotalAmountPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2631,6 +2986,43 @@ export namespace SubscriptionCreateParams {
      * The subscription's override minimum amount for the plan.
      */
     minimum_amount?: string | null;
+  }
+
+  export namespace OverrideThresholdTotalAmountPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideTieredPackagePrice {
@@ -2643,7 +3035,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideTieredPackagePrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2659,6 +3051,43 @@ export namespace SubscriptionCreateParams {
      * The subscription's override minimum amount for the plan.
      */
     minimum_amount?: string | null;
+  }
+
+  export namespace OverrideTieredPackagePrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideTieredWithMinimumPrice {
@@ -2671,7 +3100,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideTieredWithMinimumPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2689,6 +3118,43 @@ export namespace SubscriptionCreateParams {
     minimum_amount?: string | null;
   }
 
+  export namespace OverrideTieredWithMinimumPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
+  }
+
   export interface OverridePackageWithAllocationPrice {
     id: string;
 
@@ -2699,7 +3165,7 @@ export namespace SubscriptionCreateParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverridePackageWithAllocationPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -2715,6 +3181,43 @@ export namespace SubscriptionCreateParams {
      * The subscription's override minimum amount for the plan.
      */
     minimum_amount?: string | null;
+  }
+
+  export namespace OverridePackageWithAllocationPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 }
 
@@ -2900,18 +3403,18 @@ export namespace SubscriptionPriceIntervalsParams {
      * The definition of a new price to create and add to the subscription.
      */
     price?:
-      | Add.NewUnitPrice
-      | Add.NewPackagePrice
-      | Add.NewMatrixPrice
-      | Add.NewTieredPrice
-      | Add.NewTieredBpsPrice
-      | Add.NewBpsPrice
-      | Add.NewBulkBpsPrice
-      | Add.NewBulkPrice
-      | Add.NewThresholdTotalAmountPrice
-      | Add.NewTieredPackagePrice
-      | Add.NewTieredWithMinimumPrice
-      | Add.NewPackageWithAllocationPrice
+      | Add.NewFloatingUnitPrice
+      | Add.NewFloatingPackagePrice
+      | Add.NewFloatingMatrixPrice
+      | Add.NewFloatingTieredPrice
+      | Add.NewFloatingTieredBpsPrice
+      | Add.NewFloatingBpsPrice
+      | Add.NewFloatingBulkBpsPrice
+      | Add.NewFloatingBulkPrice
+      | Add.NewFloatingThresholdTotalAmountPrice
+      | Add.NewFloatingTieredPackagePrice
+      | Add.NewFloatingTieredWithMinimumPrice
+      | Add.NewFloatingPackageWithAllocationPrice
       | null;
 
     /**
@@ -2962,11 +3465,11 @@ export namespace SubscriptionPriceIntervalsParams {
       quantity: number;
     }
 
-    export interface NewUnitPrice {
+    export interface NewFloatingUnitPrice {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly';
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -2985,7 +3488,7 @@ export namespace SubscriptionPriceIntervalsParams {
        */
       name: string;
 
-      unit_config: NewUnitPrice.UnitConfig;
+      unit_config: NewFloatingUnitPrice.UnitConfig;
 
       /**
        * The id of the billable metric for the price. Only needed if the price is
@@ -3016,7 +3519,7 @@ export namespace SubscriptionPriceIntervalsParams {
       invoice_grouping_key?: string | null;
     }
 
-    export namespace NewUnitPrice {
+    export namespace NewFloatingUnitPrice {
       export interface UnitConfig {
         /**
          * Rate per unit of usage
@@ -3030,11 +3533,11 @@ export namespace SubscriptionPriceIntervalsParams {
       }
     }
 
-    export interface NewPackagePrice {
+    export interface NewFloatingPackagePrice {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly';
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3053,7 +3556,7 @@ export namespace SubscriptionPriceIntervalsParams {
        */
       name: string;
 
-      package_config: NewPackagePrice.PackageConfig;
+      package_config: NewFloatingPackagePrice.PackageConfig;
 
       /**
        * The id of the billable metric for the price. Only needed if the price is
@@ -3084,7 +3587,7 @@ export namespace SubscriptionPriceIntervalsParams {
       invoice_grouping_key?: string | null;
     }
 
-    export namespace NewPackagePrice {
+    export namespace NewFloatingPackagePrice {
       export interface PackageConfig {
         /**
          * A currency amount to rate usage by
@@ -3099,11 +3602,11 @@ export namespace SubscriptionPriceIntervalsParams {
       }
     }
 
-    export interface NewMatrixPrice {
+    export interface NewFloatingMatrixPrice {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly';
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3115,7 +3618,7 @@ export namespace SubscriptionPriceIntervalsParams {
        */
       item_id: string;
 
-      matrix_config: NewMatrixPrice.MatrixConfig;
+      matrix_config: NewFloatingMatrixPrice.MatrixConfig;
 
       model_type: 'matrix';
 
@@ -3153,7 +3656,7 @@ export namespace SubscriptionPriceIntervalsParams {
       invoice_grouping_key?: string | null;
     }
 
-    export namespace NewMatrixPrice {
+    export namespace NewFloatingMatrixPrice {
       export interface MatrixConfig {
         /**
          * Default per unit rate for any usage not bucketed into a specified matrix_value
@@ -3199,11 +3702,11 @@ export namespace SubscriptionPriceIntervalsParams {
       }
     }
 
-    export interface NewTieredPrice {
+    export interface NewFloatingTieredPrice {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly';
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3222,7 +3725,7 @@ export namespace SubscriptionPriceIntervalsParams {
        */
       name: string;
 
-      tiered_config: NewTieredPrice.TieredConfig;
+      tiered_config: NewFloatingTieredPrice.TieredConfig;
 
       /**
        * The id of the billable metric for the price. Only needed if the price is
@@ -3253,7 +3756,7 @@ export namespace SubscriptionPriceIntervalsParams {
       invoice_grouping_key?: string | null;
     }
 
-    export namespace NewTieredPrice {
+    export namespace NewFloatingTieredPrice {
       export interface TieredConfig {
         /**
          * Tiers for rating based on total usage quantities into the specified tier
@@ -3281,11 +3784,11 @@ export namespace SubscriptionPriceIntervalsParams {
       }
     }
 
-    export interface NewTieredBpsPrice {
+    export interface NewFloatingTieredBpsPrice {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly';
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3304,7 +3807,7 @@ export namespace SubscriptionPriceIntervalsParams {
        */
       name: string;
 
-      tiered_bps_config: NewTieredBpsPrice.TieredBpsConfig;
+      tiered_bps_config: NewFloatingTieredBpsPrice.TieredBpsConfig;
 
       /**
        * The id of the billable metric for the price. Only needed if the price is
@@ -3335,7 +3838,7 @@ export namespace SubscriptionPriceIntervalsParams {
       invoice_grouping_key?: string | null;
     }
 
-    export namespace NewTieredBpsPrice {
+    export namespace NewFloatingTieredBpsPrice {
       export interface TieredBpsConfig {
         /**
          * Tiers for a Graduated BPS pricing model, where usage is bucketed into specified
@@ -3369,13 +3872,13 @@ export namespace SubscriptionPriceIntervalsParams {
       }
     }
 
-    export interface NewBpsPrice {
-      bps_config: NewBpsPrice.BpsConfig;
+    export interface NewFloatingBpsPrice {
+      bps_config: NewFloatingBpsPrice.BpsConfig;
 
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly';
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3423,7 +3926,7 @@ export namespace SubscriptionPriceIntervalsParams {
       invoice_grouping_key?: string | null;
     }
 
-    export namespace NewBpsPrice {
+    export namespace NewFloatingBpsPrice {
       export interface BpsConfig {
         /**
          * Basis point take rate per event
@@ -3437,13 +3940,13 @@ export namespace SubscriptionPriceIntervalsParams {
       }
     }
 
-    export interface NewBulkBpsPrice {
-      bulk_bps_config: NewBulkBpsPrice.BulkBpsConfig;
+    export interface NewFloatingBulkBpsPrice {
+      bulk_bps_config: NewFloatingBulkBpsPrice.BulkBpsConfig;
 
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly';
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3491,7 +3994,7 @@ export namespace SubscriptionPriceIntervalsParams {
       invoice_grouping_key?: string | null;
     }
 
-    export namespace NewBulkBpsPrice {
+    export namespace NewFloatingBulkBpsPrice {
       export interface BulkBpsConfig {
         /**
          * Tiers for a bulk BPS pricing model where all usage is aggregated to a single
@@ -3520,13 +4023,13 @@ export namespace SubscriptionPriceIntervalsParams {
       }
     }
 
-    export interface NewBulkPrice {
-      bulk_config: NewBulkPrice.BulkConfig;
+    export interface NewFloatingBulkPrice {
+      bulk_config: NewFloatingBulkPrice.BulkConfig;
 
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly';
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3574,7 +4077,7 @@ export namespace SubscriptionPriceIntervalsParams {
       invoice_grouping_key?: string | null;
     }
 
-    export namespace NewBulkPrice {
+    export namespace NewFloatingBulkPrice {
       export interface BulkConfig {
         /**
          * Bulk tiers for rating based on total usage volume
@@ -3597,11 +4100,11 @@ export namespace SubscriptionPriceIntervalsParams {
       }
     }
 
-    export interface NewThresholdTotalAmountPrice {
+    export interface NewFloatingThresholdTotalAmountPrice {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly';
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3651,11 +4154,11 @@ export namespace SubscriptionPriceIntervalsParams {
       invoice_grouping_key?: string | null;
     }
 
-    export interface NewTieredPackagePrice {
+    export interface NewFloatingTieredPackagePrice {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly';
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3705,11 +4208,11 @@ export namespace SubscriptionPriceIntervalsParams {
       invoice_grouping_key?: string | null;
     }
 
-    export interface NewTieredWithMinimumPrice {
+    export interface NewFloatingTieredWithMinimumPrice {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly';
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3759,11 +4262,11 @@ export namespace SubscriptionPriceIntervalsParams {
       invoice_grouping_key?: string | null;
     }
 
-    export interface NewPackageWithAllocationPrice {
+    export interface NewFloatingPackageWithAllocationPrice {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly';
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3821,6 +4324,13 @@ export namespace SubscriptionPriceIntervalsParams {
     price_interval_id: string;
 
     /**
+     * The updated billing cycle day for this price interval. If not specified, the
+     * billing cycle day will not be updated. Note that overlapping price intervals
+     * must have the same billing cycle day.
+     */
+    billing_cycle_day?: number | null;
+
+    /**
      * The updated end date of this price interval. If not specified, the start date
      * will not be updated.
      */
@@ -3837,7 +4347,7 @@ export namespace SubscriptionPriceIntervalsParams {
      * The updated start date of this price interval. If not specified, the start date
      * will not be updated.
      */
-    start_date?: (string & {}) | 'start_of_term' | 'end_of_term' | null;
+    start_date?: (string & {}) | 'start_of_term' | 'end_of_term';
   }
 
   export namespace Edit {
@@ -3944,7 +4454,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideUnitPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -3974,6 +4484,41 @@ export namespace SubscriptionSchedulePlanChangeParams {
        */
       scaling_factor?: number | null;
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverridePackagePrice {
@@ -3986,7 +4531,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverridePackagePrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4017,6 +4562,41 @@ export namespace SubscriptionSchedulePlanChangeParams {
        */
       package_size?: number | null;
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideMatrixPrice {
@@ -4029,7 +4609,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideMatrixPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4091,6 +4671,41 @@ export namespace SubscriptionSchedulePlanChangeParams {
         scaling_factor?: number | null;
       }
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideTieredPrice {
@@ -4103,7 +4718,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideTieredPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4147,6 +4762,41 @@ export namespace SubscriptionSchedulePlanChangeParams {
         last_unit?: number | null;
       }
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideTieredBpsPrice {
@@ -4159,7 +4809,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideTieredBpsPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4209,6 +4859,41 @@ export namespace SubscriptionSchedulePlanChangeParams {
         per_unit_maximum?: string | null;
       }
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideBpsPrice {
@@ -4221,7 +4906,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideBpsPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4251,6 +4936,41 @@ export namespace SubscriptionSchedulePlanChangeParams {
        */
       per_unit_maximum?: string | null;
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideBulkBpsPrice {
@@ -4263,7 +4983,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideBulkBpsPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4308,6 +5028,41 @@ export namespace SubscriptionSchedulePlanChangeParams {
         per_unit_maximum?: string | null;
       }
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideBulkPrice {
@@ -4320,7 +5075,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideBulkPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4359,6 +5114,41 @@ export namespace SubscriptionSchedulePlanChangeParams {
         maximum_units?: number | null;
       }
     }
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideTestRatingFunctionPrice {
@@ -4371,7 +5161,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideTestRatingFunctionPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4387,6 +5177,43 @@ export namespace SubscriptionSchedulePlanChangeParams {
      * The subscription's override minimum amount for the plan.
      */
     minimum_amount?: string | null;
+  }
+
+  export namespace OverrideTestRatingFunctionPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideFivetranExamplePrice {
@@ -4399,7 +5226,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideFivetranExamplePrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4415,6 +5242,43 @@ export namespace SubscriptionSchedulePlanChangeParams {
      * The subscription's override minimum amount for the plan.
      */
     minimum_amount?: string | null;
+  }
+
+  export namespace OverrideFivetranExamplePrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideThresholdTotalAmountPrice {
@@ -4427,7 +5291,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideThresholdTotalAmountPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4443,6 +5307,43 @@ export namespace SubscriptionSchedulePlanChangeParams {
      * The subscription's override minimum amount for the plan.
      */
     minimum_amount?: string | null;
+  }
+
+  export namespace OverrideThresholdTotalAmountPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideTieredPackagePrice {
@@ -4455,7 +5356,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideTieredPackagePrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4471,6 +5372,43 @@ export namespace SubscriptionSchedulePlanChangeParams {
      * The subscription's override minimum amount for the plan.
      */
     minimum_amount?: string | null;
+  }
+
+  export namespace OverrideTieredPackagePrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 
   export interface OverrideTieredWithMinimumPrice {
@@ -4483,7 +5421,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverrideTieredWithMinimumPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4501,6 +5439,43 @@ export namespace SubscriptionSchedulePlanChangeParams {
     minimum_amount?: string | null;
   }
 
+  export namespace OverrideTieredWithMinimumPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
+  }
+
   export interface OverridePackageWithAllocationPrice {
     id: string;
 
@@ -4511,7 +5486,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     /**
      * The subscription's override discount for the plan.
      */
-    discount?: PricesAPI.Discount | null;
+    discount?: OverridePackageWithAllocationPrice.Discount | null;
 
     /**
      * The starting quantity of the price, if the price is a fixed price.
@@ -4527,6 +5502,43 @@ export namespace SubscriptionSchedulePlanChangeParams {
      * The subscription's override minimum amount for the plan.
      */
     minimum_amount?: string | null;
+  }
+
+  export namespace OverridePackageWithAllocationPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
   }
 }
 
@@ -4570,8 +5582,8 @@ export interface SubscriptionUpdateFixedFeeQuantityParams {
 
 export namespace Subscriptions {
   export import Subscription = SubscriptionsAPI.Subscription;
-  export import Subscriptions = SubscriptionsAPI.Subscriptions;
   export import SubscriptionUsage = SubscriptionsAPI.SubscriptionUsage;
+  export import Subscriptions = SubscriptionsAPI.Subscriptions;
   export import SubscriptionFetchCostsResponse = SubscriptionsAPI.SubscriptionFetchCostsResponse;
   export import SubscriptionFetchScheduleResponse = SubscriptionsAPI.SubscriptionFetchScheduleResponse;
   export import SubscriptionsPage = SubscriptionsAPI.SubscriptionsPage;

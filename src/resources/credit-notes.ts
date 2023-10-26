@@ -68,7 +68,7 @@ export interface CreditNote {
   /**
    * Any discounts applied on the original invoice.
    */
-  discounts: Array<unknown>;
+  discounts: Array<CreditNote.Discount>;
 
   /**
    * The id of the invoice resource that this credit note is applied to.
@@ -83,7 +83,7 @@ export interface CreditNote {
   /**
    * The maximum amount applied on the original invoice
    */
-  maximum_amount_adjustment: unknown | null;
+  maximum_amount_adjustment: CreditNote.MaximumAmountAdjustment | null;
 
   /**
    * An optional memo supplied on the credit note.
@@ -95,7 +95,7 @@ export interface CreditNote {
    */
   minimum_amount_refunded: string | null;
 
-  reason: 'Duplicate' | 'Fraudulent' | 'Order change' | 'Product unsatisfactory';
+  reason: 'Duplicate' | 'Fraudulent' | 'Order change' | 'Product unsatisfactory' | null;
 
   /**
    * The total prior to any creditable invoice-level discounts or minimums.
@@ -122,6 +122,26 @@ export namespace CreditNote {
     external_customer_id: string | null;
   }
 
+  export interface Discount {
+    amount_applied: string;
+
+    discount_type: 'percentage';
+
+    percentage_discount: number;
+
+    applies_to_prices?: Array<Discount.AppliesToPrice> | null;
+
+    reason?: string | null;
+  }
+
+  export namespace Discount {
+    export interface AppliesToPrice {
+      id: string;
+
+      name: string;
+    }
+  }
+
   export interface LineItem {
     /**
      * The Orb id of this resource.
@@ -136,7 +156,7 @@ export namespace CreditNote {
     /**
      * Any line items discounts from the invoice's line item.
      */
-    discounts: Array<unknown>;
+    discounts: Array<LineItem.Discount>;
 
     /**
      * The name of the corresponding invoice line item.
@@ -161,16 +181,72 @@ export namespace CreditNote {
     /**
      * Any tax amounts applied onto the line item.
      */
-    tax_amounts: Array<unknown>;
+    tax_amounts: Array<LineItem.TaxAmount>;
   }
 
   export namespace LineItem {
+    export interface Discount {
+      id: string;
+
+      amount_applied: string;
+
+      applies_to_price_ids: Array<string>;
+
+      discount_type: 'percentage' | 'amount';
+
+      percentage_discount: number;
+
+      amount_discount?: string | null;
+
+      reason?: string | null;
+    }
+
     export interface SubLineItem {
       amount: string;
 
       name: string;
 
       quantity: number | null;
+    }
+
+    export interface TaxAmount {
+      /**
+       * The amount of additional tax incurred by this tax rate.
+       */
+      amount: string;
+
+      /**
+       * The human-readable description of the applied tax rate.
+       */
+      tax_rate_description: string;
+
+      /**
+       * The tax rate percentage, out of 100.
+       */
+      tax_rate_percentage: string | null;
+    }
+  }
+
+  /**
+   * The maximum amount applied on the original invoice
+   */
+  export interface MaximumAmountAdjustment {
+    amount_applied: string;
+
+    discount_type: 'percentage';
+
+    percentage_discount: number;
+
+    applies_to_prices?: Array<MaximumAmountAdjustment.AppliesToPrice> | null;
+
+    reason?: string | null;
+  }
+
+  export namespace MaximumAmountAdjustment {
+    export interface AppliesToPrice {
+      id: string;
+
+      name: string;
     }
   }
 }

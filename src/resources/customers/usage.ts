@@ -10,7 +10,7 @@ export class Usage extends APIResource {
    * an active subscription.
    *
    * This endpoint will mark _all_ existing events within
-   * `[timeframe_start, timeframe_end)` as _ignored_ for billing purpo ses, and Orb
+   * `[timeframe_start, timeframe_end)` as _ignored_ for billing purposes, and Orb
    * will only use the _new_ events passed in the body of this request as the source
    * of truth for that timeframe moving forwards. Note that a given time period can
    * be amended any number of times, so events can be overwritten in subsequent calls
@@ -22,7 +22,7 @@ export class Usage extends APIResource {
    * - decrease historical usage consumption because of degraded service availability
    *   in your systems
    * - account for gaps from your usage reporting mechanism
-   * - make point-in-time fixes for specific event records, while ret aining the
+   * - make point-in-time fixes for specific event records, while retaining the
    *   original time of usage and associated metadata. This amendment API is designed
    *   with two explicit goals:
    *
@@ -30,10 +30,10 @@ export class Usage extends APIResource {
    *    original events in the timeframe, though they will be ignored for billing
    *    calculations. For auditing a nd data fidelity purposes, Orb never overwrites
    *    or permanently deletes ingested usage data.
-   * 2. Amendments always preser ve data **consistency**. In other words, either an
-   *    amendment is fully processed by the system (and the new events for th e
+   * 2. Amendments always preserve data **consistency**. In other words, either an
+   *    amendment is fully processed by the system (and the new events for the
    *    timeframe are honored rather than the existing ones) or the amendment request
-   *    fails. To maintain this important proper ty, Orb prevents _partial event
+   *    fails. To maintain this important property, Orb prevents _partial event
    *    ingestion_ on this endpoint.
    *
    * ## Response semantics
@@ -45,12 +45,12 @@ export class Usage extends APIResource {
    *   also not deprecate existing events in the time period.
    * - You can assume that the amendment is successful on receipt of a `2xx`
    *   response.While a successful response from this endpoint indicates that the new
-   *   events have been ingested, updati ng usage totals happens asynchronously and
+   *   events have been ingested, updating usage totals happens asynchronously and
    *   may be delayed by a few minutes.
    *
    * As emphasized above, Orb will never show an inconsistent state (e.g. in invoice
    * previews or dashboards); either it will show the existing state (before the
-   * amend ment) or the new state (with new events in the requested timeframe).
+   * amendment) or the new state (with new events in the requested timeframe).
    *
    * ## Sample request body
    *
@@ -121,7 +121,7 @@ export class Usage extends APIResource {
    * an active subscription.
    *
    * This endpoint will mark _all_ existing events within
-   * `[timeframe_start, timeframe_end)` as _ignored_ for billing purpo ses, and Orb
+   * `[timeframe_start, timeframe_end)` as _ignored_ for billing purposes, and Orb
    * will only use the _new_ events passed in the body of this request as the source
    * of truth for that timeframe moving forwards. Note that a given time period can
    * be amended any number of times, so events can be overwritten in subsequent calls
@@ -133,7 +133,7 @@ export class Usage extends APIResource {
    * - decrease historical usage consumption because of degraded service availability
    *   in your systems
    * - account for gaps from your usage reporting mechanism
-   * - make point-in-time fixes for specific event records, while ret aining the
+   * - make point-in-time fixes for specific event records, while retaining the
    *   original time of usage and associated metadata. This amendment API is designed
    *   with two explicit goals:
    *
@@ -141,10 +141,10 @@ export class Usage extends APIResource {
    *    original events in the timeframe, though they will be ignored for billing
    *    calculations. For auditing a nd data fidelity purposes, Orb never overwrites
    *    or permanently deletes ingested usage data.
-   * 2. Amendments always preser ve data **consistency**. In other words, either an
-   *    amendment is fully processed by the system (and the new events for th e
+   * 2. Amendments always preserve data **consistency**. In other words, either an
+   *    amendment is fully processed by the system (and the new events for the
    *    timeframe are honored rather than the existing ones) or the amendment request
-   *    fails. To maintain this important proper ty, Orb prevents _partial event
+   *    fails. To maintain this important property, Orb prevents _partial event
    *    ingestion_ on this endpoint.
    *
    * ## Response semantics
@@ -156,12 +156,12 @@ export class Usage extends APIResource {
    *   also not deprecate existing events in the time period.
    * - You can assume that the amendment is successful on receipt of a `2xx`
    *   response.While a successful response from this endpoint indicates that the new
-   *   events have been ingested, updati ng usage totals happens asynchronously and
+   *   events have been ingested, updating usage totals happens asynchronously and
    *   may be delayed by a few minutes.
    *
    * As emphasized above, Orb will never show an inconsistent state (e.g. in invoice
    * previews or dashboards); either it will show the existing state (before the
-   * amend ment) or the new state (with new events in the requested timeframe).
+   * amendment) or the new state (with new events in the requested timeframe).
    *
    * ## Sample request body
    *
@@ -258,22 +258,9 @@ export interface UsageUpdateByExternalIDResponse {
 
 export interface UsageUpdateParams {
   /**
-   * Body param: A name to meaningfully identify the action or event type.
+   * Body param: Events to update
    */
-  event_name: string;
-
-  /**
-   * Body param: A dictionary of custom properties. Values in this dictionary must be
-   * numeric, boolean, or strings. Nested dictionaries are disallowed.
-   */
-  properties: unknown;
-
-  /**
-   * Body param: An ISO 8601 format date with no timezone offset (i.e. UTC). This
-   * should represent the time that usage was recorded, and is particularly important
-   * to attribute usage to a given billing period.
-   */
-  timestamp: string;
+  events: Array<UsageUpdateParams.Event>;
 
   /**
    * Query param: This bound is exclusive (i.e. events before this timestamp will be
@@ -286,37 +273,46 @@ export interface UsageUpdateParams {
    * inclusive will be updated)
    */
   timeframe_start?: string;
+}
 
-  /**
-   * Body param: The Orb Customer identifier
-   */
-  customer_id?: string | null;
+export namespace UsageUpdateParams {
+  export interface Event {
+    /**
+     * A name to meaningfully identify the action or event type.
+     */
+    event_name: string;
 
-  /**
-   * Body param: An alias for the Orb customer, whose mapping is specified when
-   * creating the customer
-   */
-  external_customer_id?: string | null;
+    /**
+     * A dictionary of custom properties. Values in this dictionary must be numeric,
+     * boolean, or strings. Nested dictionaries are disallowed.
+     */
+    properties: unknown;
+
+    /**
+     * An ISO 8601 format date with no timezone offset (i.e. UTC). This should
+     * represent the time that usage was recorded, and is particularly important to
+     * attribute usage to a given billing period.
+     */
+    timestamp: string;
+
+    /**
+     * The Orb Customer identifier
+     */
+    customer_id?: string | null;
+
+    /**
+     * An alias for the Orb customer, whose mapping is specified when creating the
+     * customer
+     */
+    external_customer_id?: string | null;
+  }
 }
 
 export interface UsageUpdateByExternalIDParams {
   /**
-   * Body param: A name to meaningfully identify the action or event type.
+   * Body param: Events to update
    */
-  event_name: string;
-
-  /**
-   * Body param: A dictionary of custom properties. Values in this dictionary must be
-   * numeric, boolean, or strings. Nested dictionaries are disallowed.
-   */
-  properties: unknown;
-
-  /**
-   * Body param: An ISO 8601 format date with no timezone offset (i.e. UTC). This
-   * should represent the time that usage was recorded, and is particularly important
-   * to attribute usage to a given billing period.
-   */
-  timestamp: string;
+  events: Array<UsageUpdateByExternalIDParams.Event>;
 
   /**
    * Query param: This bound is exclusive (i.e. events before this timestamp will be
@@ -329,17 +325,39 @@ export interface UsageUpdateByExternalIDParams {
    * inclusive will be updated)
    */
   timeframe_start?: string;
+}
 
-  /**
-   * Body param: The Orb Customer identifier
-   */
-  customer_id?: string | null;
+export namespace UsageUpdateByExternalIDParams {
+  export interface Event {
+    /**
+     * A name to meaningfully identify the action or event type.
+     */
+    event_name: string;
 
-  /**
-   * Body param: An alias for the Orb customer, whose mapping is specified when
-   * creating the customer
-   */
-  external_customer_id?: string | null;
+    /**
+     * A dictionary of custom properties. Values in this dictionary must be numeric,
+     * boolean, or strings. Nested dictionaries are disallowed.
+     */
+    properties: unknown;
+
+    /**
+     * An ISO 8601 format date with no timezone offset (i.e. UTC). This should
+     * represent the time that usage was recorded, and is particularly important to
+     * attribute usage to a given billing period.
+     */
+    timestamp: string;
+
+    /**
+     * The Orb Customer identifier
+     */
+    customer_id?: string | null;
+
+    /**
+     * An alias for the Orb customer, whose mapping is specified when creating the
+     * customer
+     */
+    external_customer_id?: string | null;
+  }
 }
 
 export namespace Usage {
