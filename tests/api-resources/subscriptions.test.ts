@@ -330,7 +330,6 @@ describe('resource subscriptions', () => {
               price: {
                 external_price_id: 'string',
                 name: 'Annual fee',
-                currency: 'string',
                 billable_metric_id: 'string',
                 item_id: 'string',
                 billed_in_advance: true,
@@ -339,9 +338,10 @@ describe('resource subscriptions', () => {
                 cadence: 'annual',
                 model_type: 'unit',
                 unit_config: { unit_amount: 'string', scaling_factor: 0 },
+                currency: 'string',
               },
-              start_date: '2019-12-27T18:11:19.117Z',
-              end_date: '2019-12-27T18:11:19.117Z',
+              start_date: '2023-05-01',
+              end_date: '2023-07-10',
               fixed_fee_quantity_transitions: [
                 { quantity: 5, effective_date: '2023-05-01' },
                 { quantity: 5, effective_date: '2023-05-01' },
@@ -361,7 +361,6 @@ describe('resource subscriptions', () => {
               price: {
                 external_price_id: 'string',
                 name: 'Annual fee',
-                currency: 'string',
                 billable_metric_id: 'string',
                 item_id: 'string',
                 billed_in_advance: true,
@@ -370,9 +369,10 @@ describe('resource subscriptions', () => {
                 cadence: 'annual',
                 model_type: 'unit',
                 unit_config: { unit_amount: 'string', scaling_factor: 0 },
+                currency: 'string',
               },
-              start_date: '2019-12-27T18:11:19.117Z',
-              end_date: '2019-12-27T18:11:19.117Z',
+              start_date: '2023-05-01',
+              end_date: '2023-07-10',
               fixed_fee_quantity_transitions: [
                 { quantity: 5, effective_date: '2023-05-01' },
                 { quantity: 5, effective_date: '2023-05-01' },
@@ -392,7 +392,6 @@ describe('resource subscriptions', () => {
               price: {
                 external_price_id: 'string',
                 name: 'Annual fee',
-                currency: 'string',
                 billable_metric_id: 'string',
                 item_id: 'string',
                 billed_in_advance: true,
@@ -401,9 +400,10 @@ describe('resource subscriptions', () => {
                 cadence: 'annual',
                 model_type: 'unit',
                 unit_config: { unit_amount: 'string', scaling_factor: 0 },
+                currency: 'string',
               },
-              start_date: '2019-12-27T18:11:19.117Z',
-              end_date: '2019-12-27T18:11:19.117Z',
+              start_date: '2023-05-01',
+              end_date: '2023-07-10',
               fixed_fee_quantity_transitions: [
                 { quantity: 5, effective_date: '2023-05-01' },
                 { quantity: 5, effective_date: '2023-05-01' },
@@ -428,6 +428,7 @@ describe('resource subscriptions', () => {
                 { quantity: 5, effective_date: '2023-05-01' },
                 { quantity: 5, effective_date: '2023-05-01' },
               ],
+              billing_cycle_day: 0,
             },
             {
               price_interval_id: 'sdfs6wdjvn7ujokd',
@@ -438,6 +439,7 @@ describe('resource subscriptions', () => {
                 { quantity: 5, effective_date: '2023-05-01' },
                 { quantity: 5, effective_date: '2023-05-01' },
               ],
+              billing_cycle_day: 0,
             },
             {
               price_interval_id: 'sdfs6wdjvn7ujokd',
@@ -448,6 +450,7 @@ describe('resource subscriptions', () => {
                 { quantity: 5, effective_date: '2023-05-01' },
                 { quantity: 5, effective_date: '2023-05-01' },
               ],
+              billing_cycle_day: 0,
             },
           ],
         },

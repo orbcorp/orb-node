@@ -4,7 +4,7 @@ import * as Core from 'orb-billing/core';
 import { APIResource } from 'orb-billing/resource';
 import { isRequestOptions } from 'orb-billing/core';
 import * as PlansAPI from 'orb-billing/resources/plans/plans';
-import * as InvoicesAPI from 'orb-billing/resources/invoices';
+import * as Shared from 'orb-billing/resources/shared';
 import * as ExternalPlanIDAPI from 'orb-billing/resources/plans/external-plan-id';
 import * as PricesAPI from 'orb-billing/resources/prices/prices';
 import { Page, type PageParams } from 'orb-billing/pagination';
@@ -116,7 +116,7 @@ export interface Plan {
 
   description: string;
 
-  discount: InvoicesAPI.InvoiceDiscount | null;
+  discount: Shared.Discount | null;
 
   /**
    * An optional user-defined ID for this plan resource, used throughout the system
@@ -212,7 +212,7 @@ export namespace Plan {
 
     description: string | null;
 
-    discount: InvoicesAPI.InvoiceDiscount | null;
+    discount: Shared.Discount | null;
 
     /**
      * How many terms of length `duration_unit` this phase is active for. If null, this
@@ -294,7 +294,20 @@ export interface PlanCreateParams {
    * Prices for this plan. If the plan has phases, this includes prices across all
    * phases of the plan.
    */
-  prices: Array<unknown>;
+  prices: Array<
+    | PlanCreateParams.NewPlanUnitPrice
+    | PlanCreateParams.NewPlanPackagePrice
+    | PlanCreateParams.NewPlanMatrixPrice
+    | PlanCreateParams.NewPlanTieredPrice
+    | PlanCreateParams.NewPlanTieredBpsPrice
+    | PlanCreateParams.NewPlanBpsPrice
+    | PlanCreateParams.NewPlanBulkBpsPrice
+    | PlanCreateParams.NewPlanBulkPrice
+    | PlanCreateParams.NewPlanThresholdTotalAmountPrice
+    | PlanCreateParams.NewPlanTieredPackagePrice
+    | PlanCreateParams.NewPlanTieredWithMinimumPrice
+    | PlanCreateParams.NewPlanPackageWithAllocationPrice
+  >;
 
   /**
    * Free-form text which is available on the invoice PDF and the Orb invoice portal.
@@ -311,6 +324,799 @@ export interface PlanCreateParams {
    * to 0.
    */
   net_terms?: number | null;
+}
+
+export namespace PlanCreateParams {
+  export interface NewPlanUnitPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'unit';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    unit_config: NewPlanUnitPrice.UnitConfig;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export namespace NewPlanUnitPrice {
+    export interface UnitConfig {
+      /**
+       * Rate per unit of usage
+       */
+      unit_amount: string;
+
+      /**
+       * Multiplier to scale rated quantity by
+       */
+      scaling_factor?: number | null;
+    }
+  }
+
+  export interface NewPlanPackagePrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'package';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    package_config: NewPlanPackagePrice.PackageConfig;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export namespace NewPlanPackagePrice {
+    export interface PackageConfig {
+      /**
+       * A currency amount to rate usage by
+       */
+      package_amount: string;
+
+      /**
+       * An integer amount to represent package size. For example, 1000 here would divide
+       * usage by 1000 before multiplying by package_amount in rating
+       */
+      package_size?: number | null;
+    }
+  }
+
+  export interface NewPlanMatrixPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    matrix_config: NewPlanMatrixPrice.MatrixConfig;
+
+    model_type: 'matrix';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export namespace NewPlanMatrixPrice {
+    export interface MatrixConfig {
+      /**
+       * Default per unit rate for any usage not bucketed into a specified matrix_value
+       */
+      default_unit_amount: string;
+
+      /**
+       * One or two event property values to evaluate matrix groups by
+       */
+      dimensions: Array<string | null>;
+
+      /**
+       * Matrix values for specified matrix grouping keys
+       */
+      matrix_values: Array<MatrixConfig.MatrixValue>;
+
+      /**
+       * Default optional multiplier to scale rated quantities that fall into the default
+       * bucket by
+       */
+      scaling_factor?: number | null;
+    }
+
+    export namespace MatrixConfig {
+      export interface MatrixValue {
+        /**
+         * One or two matrix keys to filter usage to this Matrix value by. For example,
+         * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
+         * instance tier.
+         */
+        dimension_values: Array<string | null>;
+
+        /**
+         * Unit price for the specified dimension_values
+         */
+        unit_amount: string;
+
+        /**
+         * Optional multiplier to scale rated quantities by
+         */
+        scaling_factor?: number | null;
+      }
+    }
+  }
+
+  export interface NewPlanTieredPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'tiered';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    tiered_config: NewPlanTieredPrice.TieredConfig;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export namespace NewPlanTieredPrice {
+    export interface TieredConfig {
+      /**
+       * Tiers for rating based on total usage quantities into the specified tier
+       */
+      tiers: Array<TieredConfig.Tier>;
+    }
+
+    export namespace TieredConfig {
+      export interface Tier {
+        /**
+         * Inclusive tier starting value
+         */
+        first_unit: number;
+
+        /**
+         * Amount per unit
+         */
+        unit_amount: string;
+
+        /**
+         * Exclusive tier ending value. If null, this is treated as the last tier
+         */
+        last_unit?: number | null;
+      }
+    }
+  }
+
+  export interface NewPlanTieredBpsPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'tiered_bps';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    tiered_bps_config: NewPlanTieredBpsPrice.TieredBpsConfig;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export namespace NewPlanTieredBpsPrice {
+    export interface TieredBpsConfig {
+      /**
+       * Tiers for a Graduated BPS pricing model, where usage is bucketed into specified
+       * tiers
+       */
+      tiers: Array<TieredBpsConfig.Tier>;
+    }
+
+    export namespace TieredBpsConfig {
+      export interface Tier {
+        /**
+         * Per-event basis point rate
+         */
+        bps: number;
+
+        /**
+         * Inclusive tier starting value
+         */
+        minimum_amount: string;
+
+        /**
+         * Exclusive tier ending value
+         */
+        maximum_amount?: string | null;
+
+        /**
+         * Per unit maximum to charge
+         */
+        per_unit_maximum?: string | null;
+      }
+    }
+  }
+
+  export interface NewPlanBpsPrice {
+    bps_config: NewPlanBpsPrice.BpsConfig;
+
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'bps';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export namespace NewPlanBpsPrice {
+    export interface BpsConfig {
+      /**
+       * Basis point take rate per event
+       */
+      bps: number;
+
+      /**
+       * Optional currency amount maximum to cap spend per event
+       */
+      per_unit_maximum?: string | null;
+    }
+  }
+
+  export interface NewPlanBulkBpsPrice {
+    bulk_bps_config: NewPlanBulkBpsPrice.BulkBpsConfig;
+
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'bulk_bps';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export namespace NewPlanBulkBpsPrice {
+    export interface BulkBpsConfig {
+      /**
+       * Tiers for a bulk BPS pricing model where all usage is aggregated to a single
+       * tier based on total volume
+       */
+      tiers: Array<BulkBpsConfig.Tier>;
+    }
+
+    export namespace BulkBpsConfig {
+      export interface Tier {
+        /**
+         * Basis points to rate on
+         */
+        bps: number;
+
+        /**
+         * Upper bound for tier
+         */
+        maximum_amount?: string | null;
+
+        /**
+         * The maximum amount to charge for any one event
+         */
+        per_unit_maximum?: string | null;
+      }
+    }
+  }
+
+  export interface NewPlanBulkPrice {
+    bulk_config: NewPlanBulkPrice.BulkConfig;
+
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'bulk';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export namespace NewPlanBulkPrice {
+    export interface BulkConfig {
+      /**
+       * Bulk tiers for rating based on total usage volume
+       */
+      tiers: Array<BulkConfig.Tier>;
+    }
+
+    export namespace BulkConfig {
+      export interface Tier {
+        /**
+         * Amount per unit
+         */
+        unit_amount: string;
+
+        /**
+         * Upper bound for this tier
+         */
+        maximum_units?: number | null;
+      }
+    }
+  }
+
+  export interface NewPlanThresholdTotalAmountPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'threshold_total_amount';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    threshold_total_amount_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export interface NewPlanTieredPackagePrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'tiered_package';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    tiered_package_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export interface NewPlanTieredWithMinimumPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'tiered_with_minimum';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    tiered_with_minimum_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export interface NewPlanPackageWithAllocationPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'package_with_allocation';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    package_with_allocation_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
 }
 
 export interface PlanUpdateParams {

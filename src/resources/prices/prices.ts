@@ -4,7 +4,7 @@ import * as Core from 'orb-billing/core';
 import { APIResource } from 'orb-billing/resource';
 import { isRequestOptions } from 'orb-billing/core';
 import * as PricesAPI from 'orb-billing/resources/prices/prices';
-import * as InvoicesAPI from 'orb-billing/resources/invoices';
+import * as Shared from 'orb-billing/resources/shared';
 import * as ExternalPriceIDAPI from 'orb-billing/resources/prices/external-price-id';
 import { Page, type PageParams } from 'orb-billing/pagination';
 
@@ -52,38 +52,6 @@ export class Prices extends APIResource {
 }
 
 export class PricesPage extends Page<Price> {}
-
-export interface Discount {
-  discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
-
-  /**
-   * Only available if discount_type is `amount`.
-   */
-  amount_discount?: string | null;
-
-  /**
-   * List of price_ids that this discount applies to. For plan/plan phase discounts,
-   * this can be a subset of prices.
-   */
-  applies_to_price_ids?: Array<string> | null;
-
-  /**
-   * Only available if discount_type is `percentage`. This is a number between 0
-   * and 1.
-   */
-  percentage_discount?: number | null;
-
-  /**
-   * Only available if discount_type is `trial`
-   */
-  trial_amount_discount?: string | null;
-
-  /**
-   * Only available if discount_type is `usage`. Number of usage units that this
-   * discount is for
-   */
-  usage_discount?: number | null;
-}
 
 /**
  * The Price resource represents a price that can be billed on a subscription,
@@ -362,7 +330,7 @@ export namespace Price {
 
     unit_config: UnitPrice.UnitConfig;
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: UnitPrice.Maximum | null;
 
@@ -450,7 +418,7 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: PackagePrice.Maximum | null;
 
@@ -539,7 +507,7 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: MatrixPrice.Maximum | null;
 
@@ -659,7 +627,7 @@ export namespace Price {
 
     tiered_config: TieredPrice.TieredConfig;
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: TieredPrice.Maximum | null;
 
@@ -761,7 +729,7 @@ export namespace Price {
 
     tiered_bps_config: TieredBpsPrice.TieredBpsConfig;
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: TieredBpsPrice.Maximum | null;
 
@@ -869,7 +837,7 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: BpsPrice.Maximum | null;
 
@@ -957,7 +925,7 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: BulkBpsPrice.Maximum | null;
 
@@ -1060,7 +1028,7 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: BulkPrice.Maximum | null;
 
@@ -1157,7 +1125,7 @@ export namespace Price {
 
     test_rating_function_config: Record<string, unknown>;
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: TestRatingFunctionPrice.Maximum | null;
 
@@ -1233,7 +1201,7 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: FivetranExamplePrice.Maximum | null;
 
@@ -1309,7 +1277,7 @@ export namespace Price {
 
     threshold_total_amount_config: Record<string, unknown>;
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: ThresholdTotalAmountPrice.Maximum | null;
 
@@ -1385,7 +1353,7 @@ export namespace Price {
 
     tiered_package_config: Record<string, unknown>;
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: TieredPackagePrice.Maximum | null;
 
@@ -1461,7 +1429,7 @@ export namespace Price {
 
     tiered_with_minimum_config: Record<string, unknown>;
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: TieredWithMinimumPrice.Maximum | null;
 
@@ -1537,7 +1505,7 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    discount?: InvoicesAPI.InvoiceDiscount | null;
+    discount?: Shared.Discount | null;
 
     maximum?: PackageWithAllocationPrice.Maximum | null;
 
@@ -1588,25 +1556,25 @@ export namespace Price {
 }
 
 export type PriceCreateParams =
-  | PriceCreateParams.NewUnitPrice
-  | PriceCreateParams.NewPackagePrice
-  | PriceCreateParams.NewMatrixPrice
-  | PriceCreateParams.NewTieredPrice
-  | PriceCreateParams.NewTieredBpsPrice
-  | PriceCreateParams.NewBpsPrice
-  | PriceCreateParams.NewBulkBpsPrice
-  | PriceCreateParams.NewBulkPrice
-  | PriceCreateParams.NewThresholdTotalAmountPrice
-  | PriceCreateParams.NewTieredPackagePrice
-  | PriceCreateParams.NewTieredWithMinimumPrice
-  | PriceCreateParams.NewPackageWithAllocationPrice;
+  | PriceCreateParams.NewFloatingUnitPrice
+  | PriceCreateParams.NewFloatingPackagePrice
+  | PriceCreateParams.NewFloatingMatrixPrice
+  | PriceCreateParams.NewFloatingTieredPrice
+  | PriceCreateParams.NewFloatingTieredBpsPrice
+  | PriceCreateParams.NewFloatingBpsPrice
+  | PriceCreateParams.NewFloatingBulkBpsPrice
+  | PriceCreateParams.NewFloatingBulkPrice
+  | PriceCreateParams.NewFloatingThresholdTotalAmountPrice
+  | PriceCreateParams.NewFloatingTieredPackagePrice
+  | PriceCreateParams.NewFloatingTieredWithMinimumPrice
+  | PriceCreateParams.NewFloatingPackageWithAllocationPrice;
 
 export namespace PriceCreateParams {
-  export interface NewUnitPrice {
+  export interface NewFloatingUnitPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly';
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -1625,7 +1593,7 @@ export namespace PriceCreateParams {
      */
     name: string;
 
-    unit_config: PriceCreateParams.NewUnitPrice.UnitConfig;
+    unit_config: PriceCreateParams.NewFloatingUnitPrice.UnitConfig;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1656,7 +1624,7 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
   }
 
-  export namespace NewUnitPrice {
+  export namespace NewFloatingUnitPrice {
     export interface UnitConfig {
       /**
        * Rate per unit of usage
@@ -1670,11 +1638,11 @@ export namespace PriceCreateParams {
     }
   }
 
-  export interface NewPackagePrice {
+  export interface NewFloatingPackagePrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly';
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -1693,7 +1661,7 @@ export namespace PriceCreateParams {
      */
     name: string;
 
-    package_config: PriceCreateParams.NewPackagePrice.PackageConfig;
+    package_config: PriceCreateParams.NewFloatingPackagePrice.PackageConfig;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1724,7 +1692,7 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
   }
 
-  export namespace NewPackagePrice {
+  export namespace NewFloatingPackagePrice {
     export interface PackageConfig {
       /**
        * A currency amount to rate usage by
@@ -1739,11 +1707,11 @@ export namespace PriceCreateParams {
     }
   }
 
-  export interface NewMatrixPrice {
+  export interface NewFloatingMatrixPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly';
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -1755,7 +1723,7 @@ export namespace PriceCreateParams {
      */
     item_id: string;
 
-    matrix_config: PriceCreateParams.NewMatrixPrice.MatrixConfig;
+    matrix_config: PriceCreateParams.NewFloatingMatrixPrice.MatrixConfig;
 
     model_type: 'matrix';
 
@@ -1793,7 +1761,7 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
   }
 
-  export namespace NewMatrixPrice {
+  export namespace NewFloatingMatrixPrice {
     export interface MatrixConfig {
       /**
        * Default per unit rate for any usage not bucketed into a specified matrix_value
@@ -1839,11 +1807,11 @@ export namespace PriceCreateParams {
     }
   }
 
-  export interface NewTieredPrice {
+  export interface NewFloatingTieredPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly';
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -1862,7 +1830,7 @@ export namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_config: PriceCreateParams.NewTieredPrice.TieredConfig;
+    tiered_config: PriceCreateParams.NewFloatingTieredPrice.TieredConfig;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1893,7 +1861,7 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
   }
 
-  export namespace NewTieredPrice {
+  export namespace NewFloatingTieredPrice {
     export interface TieredConfig {
       /**
        * Tiers for rating based on total usage quantities into the specified tier
@@ -1921,11 +1889,11 @@ export namespace PriceCreateParams {
     }
   }
 
-  export interface NewTieredBpsPrice {
+  export interface NewFloatingTieredBpsPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly';
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -1944,7 +1912,7 @@ export namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_bps_config: PriceCreateParams.NewTieredBpsPrice.TieredBpsConfig;
+    tiered_bps_config: PriceCreateParams.NewFloatingTieredBpsPrice.TieredBpsConfig;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1975,7 +1943,7 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
   }
 
-  export namespace NewTieredBpsPrice {
+  export namespace NewFloatingTieredBpsPrice {
     export interface TieredBpsConfig {
       /**
        * Tiers for a Graduated BPS pricing model, where usage is bucketed into specified
@@ -2009,13 +1977,13 @@ export namespace PriceCreateParams {
     }
   }
 
-  export interface NewBpsPrice {
-    bps_config: PriceCreateParams.NewBpsPrice.BpsConfig;
+  export interface NewFloatingBpsPrice {
+    bps_config: PriceCreateParams.NewFloatingBpsPrice.BpsConfig;
 
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly';
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2063,7 +2031,7 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
   }
 
-  export namespace NewBpsPrice {
+  export namespace NewFloatingBpsPrice {
     export interface BpsConfig {
       /**
        * Basis point take rate per event
@@ -2077,13 +2045,13 @@ export namespace PriceCreateParams {
     }
   }
 
-  export interface NewBulkBpsPrice {
-    bulk_bps_config: PriceCreateParams.NewBulkBpsPrice.BulkBpsConfig;
+  export interface NewFloatingBulkBpsPrice {
+    bulk_bps_config: PriceCreateParams.NewFloatingBulkBpsPrice.BulkBpsConfig;
 
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly';
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2131,7 +2099,7 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
   }
 
-  export namespace NewBulkBpsPrice {
+  export namespace NewFloatingBulkBpsPrice {
     export interface BulkBpsConfig {
       /**
        * Tiers for a bulk BPS pricing model where all usage is aggregated to a single
@@ -2160,13 +2128,13 @@ export namespace PriceCreateParams {
     }
   }
 
-  export interface NewBulkPrice {
-    bulk_config: PriceCreateParams.NewBulkPrice.BulkConfig;
+  export interface NewFloatingBulkPrice {
+    bulk_config: PriceCreateParams.NewFloatingBulkPrice.BulkConfig;
 
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly';
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2214,7 +2182,7 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
   }
 
-  export namespace NewBulkPrice {
+  export namespace NewFloatingBulkPrice {
     export interface BulkConfig {
       /**
        * Bulk tiers for rating based on total usage volume
@@ -2237,11 +2205,11 @@ export namespace PriceCreateParams {
     }
   }
 
-  export interface NewThresholdTotalAmountPrice {
+  export interface NewFloatingThresholdTotalAmountPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly';
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2291,11 +2259,11 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
   }
 
-  export interface NewTieredPackagePrice {
+  export interface NewFloatingTieredPackagePrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly';
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2345,11 +2313,11 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
   }
 
-  export interface NewTieredWithMinimumPrice {
+  export interface NewFloatingTieredWithMinimumPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly';
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2399,11 +2367,11 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
   }
 
-  export interface NewPackageWithAllocationPrice {
+  export interface NewFloatingPackageWithAllocationPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly';
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2457,7 +2425,6 @@ export namespace PriceCreateParams {
 export interface PriceListParams extends PageParams {}
 
 export namespace Prices {
-  export import Discount = PricesAPI.Discount;
   export import Price = PricesAPI.Price;
   export import PricesPage = PricesAPI.PricesPage;
   export import PriceCreateParams = PricesAPI.PriceCreateParams;

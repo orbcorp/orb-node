@@ -3,7 +3,7 @@
 import * as Core from 'orb-billing/core';
 import { APIResource } from 'orb-billing/resource';
 import * as InvoiceLineItemsAPI from 'orb-billing/resources/invoice-line-items';
-import * as InvoicesAPI from 'orb-billing/resources/invoices';
+import * as Shared from 'orb-billing/resources/shared';
 import * as PricesAPI from 'orb-billing/resources/prices/prices';
 
 export class InvoiceLineItems extends APIResource {
@@ -30,7 +30,7 @@ export interface InvoiceLineItemCreateResponse {
    */
   amount: string;
 
-  discount: InvoicesAPI.InvoiceDiscount | null;
+  discount: Shared.Discount | null;
 
   /**
    * The end date of the range of time applied for this line item's price.
