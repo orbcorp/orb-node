@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.24.1 (2023-10-26)
+
+Full Changelog: [v1.24.0...v1.24.1](https://github.com/orbcorp/orb-node/compare/v1.24.0...v1.24.1)
+
+### Bug Fixes
+
+* rename customer.credits.ledger.create_entry_by_exteral_id and RequestValidationErrors ([#11](https://github.com/orbcorp/orb-node/issues/11)) ([02404a8](https://github.com/orbcorp/orb-node/commit/02404a880c4620f4baa2d9b359ee0b88bf5efa0a))
+
 ## 1.24.0 (2023-10-26)
 
 Full Changelog: [v1.23.0...v1.24.0](https://github.com/orbcorp/orb-node/compare/v1.23.0...v1.24.0)
