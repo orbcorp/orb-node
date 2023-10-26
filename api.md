@@ -102,14 +102,14 @@ Types:
 
 - <code><a href="./src/resources/customers/credits/ledger.ts">LedgerListResponse</a></code>
 - <code><a href="./src/resources/customers/credits/ledger.ts">LedgerCreateEntryResponse</a></code>
-- <code><a href="./src/resources/customers/credits/ledger.ts">LedgerCreateEntryByExteralIDResponse</a></code>
+- <code><a href="./src/resources/customers/credits/ledger.ts">LedgerCreateEntryByExternalIDResponse</a></code>
 - <code><a href="./src/resources/customers/credits/ledger.ts">LedgerListByExternalIDResponse</a></code>
 
 Methods:
 
 - <code title="get /customers/{customer_id}/credits/ledger">client.customers.credits.ledger.<a href="./src/resources/customers/credits/ledger.ts">list</a>(customerId, { ...params }) -> LedgerListResponsesPage</code>
 - <code title="post /customers/{customer_id}/credits/ledger_entry">client.customers.credits.ledger.<a href="./src/resources/customers/credits/ledger.ts">createEntry</a>(customerId, { ...params }) -> LedgerCreateEntryResponse</code>
-- <code title="post /customers/external_customer_id/{external_customer_id}/credits/ledger_entry">client.customers.credits.ledger.<a href="./src/resources/customers/credits/ledger.ts">createEntryByExteralId</a>(externalCustomerId, { ...params }) -> LedgerCreateEntryByExteralIDResponse</code>
+- <code title="post /customers/external_customer_id/{external_customer_id}/credits/ledger_entry">client.customers.credits.ledger.<a href="./src/resources/customers/credits/ledger.ts">createEntryByExternalId</a>(externalCustomerId, { ...params }) -> LedgerCreateEntryByExternalIDResponse</code>
 - <code title="get /customers/external_customer_id/{external_customer_id}/credits/ledger">client.customers.credits.ledger.<a href="./src/resources/customers/credits/ledger.ts">listByExternalId</a>(externalCustomerId, { ...params }) -> LedgerListByExternalIDResponsesPage</code>
 
 ## BalanceTransactions

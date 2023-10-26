@@ -166,9 +166,9 @@ export class Orb extends Core.APIClient {
   static InternalServerError = Errors.InternalServerError;
   static FeatureNotAvailable = Errors.FeatureNotAvailable;
   static PermissionDeniedError = Errors.PermissionDeniedError;
+  static RequestValidationError = Errors.RequestValidationError;
   static OrbAuthenticationError = Errors.OrbAuthenticationError;
   static OrbInternalServerError = Errors.OrbInternalServerError;
-  static RequestValidationErrors = Errors.RequestValidationErrors;
   static UnprocessableEntityError = Errors.UnprocessableEntityError;
   static DuplicateResourceCreation = Errors.DuplicateResourceCreation;
 }
@@ -193,9 +193,9 @@ export const {
   InternalServerError,
   FeatureNotAvailable,
   PermissionDeniedError,
+  RequestValidationError,
   OrbAuthenticationError,
   OrbInternalServerError,
-  RequestValidationErrors,
   UnprocessableEntityError,
   DuplicateResourceCreation,
 } = Errors;

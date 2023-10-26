@@ -76,8 +76,8 @@ describe('resource ledger', () => {
     });
   });
 
-  test('createEntryByExteralId: only required params', async () => {
-    const responsePromise = orb.customers.credits.ledger.createEntryByExteralId('string', {
+  test('createEntryByExternalId: only required params', async () => {
+    const responsePromise = orb.customers.credits.ledger.createEntryByExternalId('string', {
       amount: 0,
       entry_type: 'increment',
     });
@@ -90,8 +90,8 @@ describe('resource ledger', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('createEntryByExteralId: required and optional params', async () => {
-    const response = await orb.customers.credits.ledger.createEntryByExteralId('string', {
+  test('createEntryByExternalId: required and optional params', async () => {
+    const response = await orb.customers.credits.ledger.createEntryByExternalId('string', {
       amount: 0,
       entry_type: 'increment',
       description: 'string',
