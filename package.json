@@ -1,6 +1,6 @@
 {
   "name": "orb-billing",
-  "version": "1.24.1",
+  "version": "1.24.2",
   "description": "Client library for the Orb API",
   "author": "Orb <team@withorb.com>",
   "types": "dist/index.d.ts",
