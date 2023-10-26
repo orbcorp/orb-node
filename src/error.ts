@@ -206,7 +206,7 @@ export class DuplicateResourceCreation extends BadRequestError {
     headers: Headers | undefined,
   ) {
     const data = error as Record<string, any>;
-    super(status, error, data?.['title'] || message, headers);
+    super(status, error, message, headers);
 
     this.status = data?.['status'];
     this.type = data?.['type'];
@@ -231,7 +231,7 @@ export class FeatureNotAvailable extends BadRequestError {
     headers: Headers | undefined,
   ) {
     const data = error as Record<string, any>;
-    super(status, error, data?.['title'] || message, headers);
+    super(status, error, message, headers);
 
     this.status = data?.['status'];
     this.type = data?.['type'];
@@ -258,7 +258,7 @@ export class RequestValidationError extends BadRequestError {
     headers: Headers | undefined,
   ) {
     const data = error as Record<string, any>;
-    super(status, error, data?.['title'] || message, headers);
+    super(status, error, message, headers);
 
     this.status = data?.['status'];
     this.type = data?.['type'];
@@ -284,7 +284,7 @@ export class OrbAuthenticationError extends AuthenticationError {
     headers: Headers | undefined,
   ) {
     const data = error as Record<string, any>;
-    super(status, error, data?.['title'] || message, headers);
+    super(status, error, message, headers);
 
     this.status = data?.['status'];
     this.type = data?.['type'];
@@ -309,7 +309,7 @@ export class ResourceNotFound extends NotFoundError {
     headers: Headers | undefined,
   ) {
     const data = error as Record<string, any>;
-    super(status, error, data?.['title'] || message, headers);
+    super(status, error, message, headers);
 
     this.status = data?.['status'];
     this.title = data?.['title'];
@@ -334,7 +334,7 @@ export class URLNotFound extends NotFoundError {
     headers: Headers | undefined,
   ) {
     const data = error as Record<string, any>;
-    super(status, error, data?.['title'] || message, headers);
+    super(status, error, message, headers);
 
     this.status = data?.['status'];
     this.type = data?.['type'];
@@ -359,7 +359,7 @@ export class ResourceConflict extends ConflictError {
     headers: Headers | undefined,
   ) {
     const data = error as Record<string, any>;
-    super(status, error, data?.['title'] || message, headers);
+    super(status, error, message, headers);
 
     this.status = data?.['status'];
     this.type = data?.['type'];
@@ -384,7 +384,7 @@ export class RequestTooLarge extends APIError {
     headers: Headers | undefined,
   ) {
     const data = error as Record<string, any>;
-    super(status, error, data?.['title'] || message, headers);
+    super(status, error, message, headers);
 
     this.status = data?.['status'];
     this.type = data?.['type'];
@@ -409,7 +409,7 @@ export class ResourceTooLarge extends APIError {
     headers: Headers | undefined,
   ) {
     const data = error as Record<string, any>;
-    super(status, error, data?.['title'] || message, headers);
+    super(status, error, message, headers);
 
     this.status = data?.['status'];
     this.type = data?.['type'];
@@ -434,7 +434,7 @@ export class TooManyRequests extends RateLimitError {
     headers: Headers | undefined,
   ) {
     const data = error as Record<string, any>;
-    super(status, error, data?.['title'] || message, headers);
+    super(status, error, message, headers);
 
     this.status = data?.['status'];
     this.type = data?.['type'];
@@ -459,7 +459,7 @@ export class OrbInternalServerError extends InternalServerError {
     headers: Headers | undefined,
   ) {
     const data = error as Record<string, any>;
-    super(status, error, data?.['title'] || message, headers);
+    super(status, error, message, headers);
 
     this.status = data?.['status'];
     this.type = data?.['type'];
