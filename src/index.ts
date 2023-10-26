@@ -5,6 +5,7 @@ import * as Pagination from './pagination';
 import * as Errors from './error';
 import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
+import * as qs from 'qs';
 import * as API from 'orb-billing/resources/index';
 
 export interface ClientOptions {
@@ -140,6 +141,10 @@ export class Orb extends Core.APIClient {
     return { Authorization: `Bearer ${this.apiKey}` };
   }
 
+  protected override stringifyQuery(query: Record<string, unknown>): string {
+    return qs.stringify(query, { arrayFormat: 'comma' });
+  }
+
   static Orb = this;
 
   static OrbError = Errors.OrbError;
@@ -246,7 +251,6 @@ export namespace Orb {
 
   export import Invoices = API.Invoices;
   export import Invoice = API.Invoice;
-  export import InvoiceDiscount = API.InvoiceDiscount;
   export import InvoiceFetchUpcomingResponse = API.InvoiceFetchUpcomingResponse;
   export import InvoicesPage = API.InvoicesPage;
   export import InvoiceCreateParams = API.InvoiceCreateParams;
@@ -276,7 +280,6 @@ export namespace Orb {
   export import PlanListParams = API.PlanListParams;
 
   export import Prices = API.Prices;
-  export import Discount = API.Discount;
   export import Price = API.Price;
   export import PricesPage = API.PricesPage;
   export import PriceCreateParams = API.PriceCreateParams;
@@ -300,6 +303,8 @@ export namespace Orb {
   export import SubscriptionTriggerPhaseParams = API.SubscriptionTriggerPhaseParams;
   export import SubscriptionUnscheduleFixedFeeQuantityUpdatesParams = API.SubscriptionUnscheduleFixedFeeQuantityUpdatesParams;
   export import SubscriptionUpdateFixedFeeQuantityParams = API.SubscriptionUpdateFixedFeeQuantityParams;
+
+  export import Discount = API.Discount;
 }
 
 export default Orb;

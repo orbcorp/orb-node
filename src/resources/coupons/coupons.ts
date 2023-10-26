@@ -81,7 +81,7 @@ export interface Coupon {
    */
   archived_at: string | null;
 
-  discount: unknown;
+  discount: Coupon.PercentageDiscount | Coupon.AmountDiscount;
 
   /**
    * This allows for a coupon's discount to apply for a limited time (determined in
@@ -106,8 +106,45 @@ export interface Coupon {
   times_redeemed: number;
 }
 
+export namespace Coupon {
+  export interface PercentageDiscount {
+    /**
+     * List of price_ids that this discount applies to. For plan/plan phase discounts,
+     * this can be a subset of prices.
+     */
+    applies_to_price_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * Only available if discount_type is `percentage`. This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    reason?: string | null;
+  }
+
+  export interface AmountDiscount {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * List of price_ids that this discount applies to. For plan/plan phase discounts,
+     * this can be a subset of prices.
+     */
+    applies_to_price_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    reason?: string | null;
+  }
+}
+
 export interface CouponCreateParams {
-  discount: unknown;
+  discount: CouponCreateParams.PercentageDiscount | CouponCreateParams.AmountDiscount;
 
   /**
    * This string can be used to redeem this coupon for a given subscription.
@@ -125,6 +162,43 @@ export interface CouponCreateParams {
    * exhausted;`null` here means "unlimited".
    */
   max_redemptions?: number | null;
+}
+
+export namespace CouponCreateParams {
+  export interface PercentageDiscount {
+    /**
+     * List of price_ids that this discount applies to. For plan/plan phase discounts,
+     * this can be a subset of prices.
+     */
+    applies_to_price_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * Only available if discount_type is `percentage`. This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    reason?: string | null;
+  }
+
+  export interface AmountDiscount {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * List of price_ids that this discount applies to. For plan/plan phase discounts,
+     * this can be a subset of prices.
+     */
+    applies_to_price_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    reason?: string | null;
+  }
 }
 
 export interface CouponListParams extends PageParams {
