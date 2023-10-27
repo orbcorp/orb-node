@@ -164,6 +164,7 @@ export class Orb extends Core.APIClient {
   static ResourceTooLarge = Errors.ResourceTooLarge;
   static AuthenticationError = Errors.AuthenticationError;
   static InternalServerError = Errors.InternalServerError;
+  static ConstraintViolation = Errors.ConstraintViolation;
   static FeatureNotAvailable = Errors.FeatureNotAvailable;
   static PermissionDeniedError = Errors.PermissionDeniedError;
   static RequestValidationError = Errors.RequestValidationError;
@@ -191,6 +192,7 @@ export const {
   ResourceTooLarge,
   AuthenticationError,
   InternalServerError,
+  ConstraintViolation,
   FeatureNotAvailable,
   PermissionDeniedError,
   RequestValidationError,
@@ -259,9 +261,9 @@ export namespace Orb {
   export import InvoiceMarkPaidParams = API.InvoiceMarkPaidParams;
 
   export import Items = API.Items;
-  export import ItemListResponse = API.ItemListResponse;
-  export import ItemFetchResponse = API.ItemFetchResponse;
-  export import ItemListResponsesPage = API.ItemListResponsesPage;
+  export import Item = API.Item;
+  export import ItemsPage = API.ItemsPage;
+  export import ItemCreateParams = API.ItemCreateParams;
   export import ItemListParams = API.ItemListParams;
 
   export import Metrics = API.Metrics;

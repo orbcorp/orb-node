@@ -55,6 +55,10 @@ export class APIError extends OrbError {
 
     const type = error?.['type'];
 
+    if (type === 'https://docs.withorb.com/reference/error-responses#400-constraint-violation') {
+      return new ConstraintViolation(status, error, message, headers);
+    }
+
     if (type === 'https://docs.withorb.com/reference/error-responses#400-duplicate-resource-creation') {
       return new DuplicateResourceCreation(status, error, message, headers);
     }
@@ -189,6 +193,31 @@ export class RateLimitError extends APIError {
 }
 
 export class InternalServerError extends APIError {}
+
+export class ConstraintViolation extends BadRequestError {
+  override status: 400;
+
+  type: 'https://docs.withorb.com/reference/error-responses#400-constraint-violation';
+
+  detail?: string | null;
+
+  title?: string | null;
+
+  constructor(
+    status: number | undefined,
+    error: Object | undefined,
+    message: string | undefined,
+    headers: Headers | undefined,
+  ) {
+    const data = error as Record<string, any>;
+    super(status, error, message, headers);
+
+    this.status = data?.['status'];
+    this.type = data?.['type'];
+    this.detail = data?.['detail'];
+    this.title = data?.['title'];
+  }
+}
 
 export class DuplicateResourceCreation extends BadRequestError {
   override status: 400;

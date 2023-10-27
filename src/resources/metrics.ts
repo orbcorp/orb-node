@@ -4,6 +4,7 @@ import * as Core from 'orb-billing/core';
 import { APIResource } from 'orb-billing/resource';
 import { isRequestOptions } from 'orb-billing/core';
 import * as MetricsAPI from 'orb-billing/resources/metrics';
+import * as ItemsAPI from 'orb-billing/resources/items';
 import { Page, type PageParams } from 'orb-billing/pagination';
 
 export class Metrics extends APIResource {
@@ -63,45 +64,13 @@ export interface MetricCreateResponse {
    * with all line items, billable metrics, and prices and are used for defining
    * external sync behavior for invoices and tax calculation purposes.
    */
-  item: MetricCreateResponse.Item;
+  item: ItemsAPI.Item;
 
   metadata: Record<string, string>;
 
   name: string;
 
   status: 'active' | 'draft' | 'archived';
-}
-
-export namespace MetricCreateResponse {
-  /**
-   * The Item resource represents a sellable product or good. Items are associated
-   * with all line items, billable metrics, and prices and are used for defining
-   * external sync behavior for invoices and tax calculation purposes.
-   */
-  export interface Item {
-    id: string;
-
-    created_at: string;
-
-    external_connections: Array<Item.ExternalConnection>;
-
-    name: string;
-  }
-
-  export namespace Item {
-    export interface ExternalConnection {
-      external_connection_name:
-        | 'stripe'
-        | 'quickbooks'
-        | 'bill.com'
-        | 'netsuite'
-        | 'taxjar'
-        | 'avalara'
-        | 'anrok';
-
-      external_entity_id: string;
-    }
-  }
 }
 
 /**
@@ -119,45 +88,13 @@ export interface MetricListResponse {
    * with all line items, billable metrics, and prices and are used for defining
    * external sync behavior for invoices and tax calculation purposes.
    */
-  item: MetricListResponse.Item;
+  item: ItemsAPI.Item;
 
   metadata: Record<string, string>;
 
   name: string;
 
   status: 'active' | 'draft' | 'archived';
-}
-
-export namespace MetricListResponse {
-  /**
-   * The Item resource represents a sellable product or good. Items are associated
-   * with all line items, billable metrics, and prices and are used for defining
-   * external sync behavior for invoices and tax calculation purposes.
-   */
-  export interface Item {
-    id: string;
-
-    created_at: string;
-
-    external_connections: Array<Item.ExternalConnection>;
-
-    name: string;
-  }
-
-  export namespace Item {
-    export interface ExternalConnection {
-      external_connection_name:
-        | 'stripe'
-        | 'quickbooks'
-        | 'bill.com'
-        | 'netsuite'
-        | 'taxjar'
-        | 'avalara'
-        | 'anrok';
-
-      external_entity_id: string;
-    }
-  }
 }
 
 /**
@@ -175,45 +112,13 @@ export interface MetricFetchResponse {
    * with all line items, billable metrics, and prices and are used for defining
    * external sync behavior for invoices and tax calculation purposes.
    */
-  item: MetricFetchResponse.Item;
+  item: ItemsAPI.Item;
 
   metadata: Record<string, string>;
 
   name: string;
 
   status: 'active' | 'draft' | 'archived';
-}
-
-export namespace MetricFetchResponse {
-  /**
-   * The Item resource represents a sellable product or good. Items are associated
-   * with all line items, billable metrics, and prices and are used for defining
-   * external sync behavior for invoices and tax calculation purposes.
-   */
-  export interface Item {
-    id: string;
-
-    created_at: string;
-
-    external_connections: Array<Item.ExternalConnection>;
-
-    name: string;
-  }
-
-  export namespace Item {
-    export interface ExternalConnection {
-      external_connection_name:
-        | 'stripe'
-        | 'quickbooks'
-        | 'bill.com'
-        | 'netsuite'
-        | 'taxjar'
-        | 'avalara'
-        | 'anrok';
-
-      external_entity_id: string;
-    }
-  }
 }
 
 export interface MetricCreateParams {
