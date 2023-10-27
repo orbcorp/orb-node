@@ -189,13 +189,13 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/items.ts">ItemListResponse</a></code>
-- <code><a href="./src/resources/items.ts">ItemFetchResponse</a></code>
+- <code><a href="./src/resources/items.ts">Item</a></code>
 
 Methods:
 
-- <code title="get /items">client.items.<a href="./src/resources/items.ts">list</a>({ ...params }) -> ItemListResponsesPage</code>
-- <code title="get /items/{item_id}">client.items.<a href="./src/resources/items.ts">fetch</a>(itemId) -> ItemFetchResponse</code>
+- <code title="post /items">client.items.<a href="./src/resources/items.ts">create</a>({ ...params }) -> Item</code>
+- <code title="get /items">client.items.<a href="./src/resources/items.ts">list</a>({ ...params }) -> ItemsPage</code>
+- <code title="get /items/{item_id}">client.items.<a href="./src/resources/items.ts">fetch</a>(itemId) -> Item</code>
 
 # Metrics
 
