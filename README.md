@@ -28,7 +28,7 @@ const orb = new Orb({
 async function main() {
   const customer = await orb.customers.create({ email: 'example-customer@withorb.com', name: 'My Customer' });
 
-  console.log(customer);
+  console.log(customer.id);
 }
 
 main();
@@ -69,7 +69,6 @@ async function main() {
       if (err instanceof Orb.APIError) {
         console.log(err.status); // 400
         console.log(err.name); // BadRequestError
-
         console.log(err.headers); // {server: 'nginx', ...}
       } else {
         throw err;
