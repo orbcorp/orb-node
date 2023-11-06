@@ -2,7 +2,6 @@
 
 import * as Core from 'orb-billing/core';
 import { APIResource } from 'orb-billing/resource';
-import { isRequestOptions } from 'orb-billing/core';
 import * as EventsAPI from 'orb-billing/resources/events/events';
 import * as BackfillsAPI from 'orb-billing/resources/events/backfills';
 
@@ -26,7 +25,7 @@ export class Events extends APIResource {
    * event in cases where you need to:
    *
    * - update an event with new metadata as you iterate on your pricing model
-   * - update an event based on the result of an external API call (ex. call to a
+   * - update an event based on the result of an external API call (e.g. call to a
    *   payment gateway succeeded or failed)
    *
    * This amendment API is always audit-safe. The process will still retain the
@@ -74,7 +73,7 @@ export class Events extends APIResource {
    * event in cases where you need to:
    *
    * - no longer bill for an event that was improperly reported
-   * - no longer bill for an event based on the result of an external API call (ex.
+   * - no longer bill for an event based on the result of an external API call (e.g.
    *   call to a payment gateway failed and the user should not be billed)
    *
    * If you want to only change specific properties of an event, but keep the event
@@ -323,46 +322,14 @@ export class Events extends APIResource {
    *
    * - `event_ids`: This is an explicit array of IDs to filter by. Note that an
    *   event's ID is the `idempotency_key` that was originally used for ingestion.
-   * - `invoice_id`: This is an issued Orb invoice ID (see also
-   *   [List Invoices](list-invoices)). Orb will fetch all events that were used to
-   *   calculate the invoice. In the common case, this will be a list of events whose
-   *   `timestamp` property falls within the billing period specified by the invoice.
    *
    * By default, Orb does not return _deprecated_ events in this endpoint.
    *
    * By default, Orb will not throw a `404` if no events matched, Orb will return an
    * empty array for `data` instead.
    */
-  search(params?: EventSearchParams, options?: Core.RequestOptions): Core.APIPromise<EventSearchResponse>;
-  search(options?: Core.RequestOptions): Core.APIPromise<EventSearchResponse>;
-  search(
-    params: EventSearchParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<EventSearchResponse> {
-    if (isRequestOptions(params)) {
-      return this.search({}, params);
-    }
-    const {
-      cursor,
-      limit,
-      'timestamp[gt]': timestampGt,
-      'timestamp[gte]': timestampGte,
-      'timestamp[lt]': timestampLt,
-      'timestamp[lte]': timestampLte,
-      ...body
-    } = params;
-    return this.post('/events/search', {
-      query: {
-        cursor,
-        limit,
-        'timestamp[gt]': timestampGt,
-        'timestamp[gte]': timestampGte,
-        'timestamp[lt]': timestampLt,
-        'timestamp[lte]': timestampLte,
-      },
-      body,
-      ...options,
-    });
+  search(body: EventSearchParams, options?: Core.RequestOptions): Core.APIPromise<EventSearchResponse> {
+    return this.post('/events/search', { body, ...options });
   }
 }
 
@@ -421,8 +388,6 @@ export namespace EventIngestResponse {
 
 export interface EventSearchResponse {
   data: Array<EventSearchResponse.Data>;
-
-  pagination_metadata: EventSearchResponse.PaginationMetadata;
 }
 
 export namespace EventSearchResponse {
@@ -468,12 +433,6 @@ export namespace EventSearchResponse {
      * attribute usage to a given billing period.
      */
     timestamp: string;
-  }
-
-  export interface PaginationMetadata {
-    has_more: boolean;
-
-    next_cursor: string | null;
   }
 }
 
@@ -569,50 +528,11 @@ export namespace EventIngestParams {
 
 export interface EventSearchParams {
   /**
-   * Query param: Cursor for pagination. This can be populated by the `next_cursor`
-   * value returned from the initial request.
+   * This is an explicit array of IDs to filter by. Note that an event's ID is the
+   * idempotency_key that was originally used for ingestion. Values in this array
+   * will be treated case sensitively.
    */
-  cursor?: string | null;
-
-  /**
-   * Query param: The number of items to fetch. Defaults to 20.
-   */
-  limit?: number;
-
-  /**
-   * Query param:
-   */
-  'timestamp[gt]'?: string | null;
-
-  /**
-   * Query param:
-   */
-  'timestamp[gte]'?: string | null;
-
-  /**
-   * Query param:
-   */
-  'timestamp[lt]'?: string | null;
-
-  /**
-   * Query param:
-   */
-  'timestamp[lte]'?: string | null;
-
-  /**
-   * Body param: This is an explicit array of IDs to filter by. Note that an event's
-   * ID is the idempotency_key that was originally used for ingestion. Values in this
-   * array will be treated case sensitively.
-   */
-  event_ids?: Array<string> | null;
-
-  /**
-   * Body param: This is an issued Orb invoice ID (see also List Invoices). Orb will
-   * fetch all events that were used to calculate the invoice. In the common case,
-   * this will be a list of events whose timestamp property falls within the billing
-   * period specified by the invoice.
-   */
-  invoice_id?: string | null;
+  event_ids: Array<string>;
 }
 
 export namespace Events {
