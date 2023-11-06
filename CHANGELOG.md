@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.26.0 (2023-11-06)
+
+Full Changelog: [v1.25.0...v1.26.0](https://github.com/orbcorp/orb-node/compare/v1.25.0...v1.26.0)
+
+### Features
+
+* **api:** remove unsupported params ([#24](https://github.com/orbcorp/orb-node/issues/24)) ([546f564](https://github.com/orbcorp/orb-node/commit/546f564868e19b571bea8ec595007a104c89f7a6))
+* **client:** allow binary returns ([#21](https://github.com/orbcorp/orb-node/issues/21)) ([6cfaacb](https://github.com/orbcorp/orb-node/commit/6cfaacbc2d5604c31709c7dd94351de64c931a4b))
+* **github:** include a devcontainer setup ([#19](https://github.com/orbcorp/orb-node/issues/19)) ([cd00cda](https://github.com/orbcorp/orb-node/commit/cd00cda07f404de71c96df25ddc9362c45be5dc7))
+
+
+### Documentation
+
+* document customizing fetch ([#22](https://github.com/orbcorp/orb-node/issues/22)) ([34c9fe6](https://github.com/orbcorp/orb-node/commit/34c9fe66cb1514cc2b2596493398745126ddf655))
+* **readme:** remove redundant whitespace ([#23](https://github.com/orbcorp/orb-node/issues/23)) ([a3e47e1](https://github.com/orbcorp/orb-node/commit/a3e47e1baaa0693e5e7367c1a87d4044f455cedf))
+
 ## 1.25.0 (2023-10-27)
 
 Full Changelog: [v1.24.2...v1.25.0](https://github.com/orbcorp/orb-node/compare/v1.24.2...v1.25.0)
