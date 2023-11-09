@@ -39,7 +39,7 @@ export class Customers extends APIResource {
    * This endpoint can be used to update the `payment_provider`,
    * `payment_provider_id`, `name`, `email`, `email_delivery`, `tax_id`,
    * `auto_collection`, `metadata`, `shipping_address`, `billing_address`, and
-   * `additional_emails` of an existing customer. "Other fields on a customer are
+   * `additional_emails` of an existing customer. Other fields on a customer are
    * currently immutable.
    */
   update(
@@ -1031,13 +1031,6 @@ export interface CustomerUpdateParams {
   email_delivery?: boolean | null;
 
   /**
-   * An optional user-defined ID for this customer resource, used throughout the
-   * system as an alias for this Customer. Use this field to identify a customer by
-   * an existing identifier in your system.
-   */
-  external_customer_id?: string | null;
-
-  /**
    * User-specified key value pairs, often useful for referencing internal resources
    * or IDs. Returned as-is in the customer resource.
    */
@@ -1451,13 +1444,6 @@ export interface CustomerUpdateByExternalIDParams {
   email?: string | null;
 
   email_delivery?: boolean | null;
-
-  /**
-   * An optional user-defined ID for this customer resource, used throughout the
-   * system as an alias for this Customer. Use this field to identify a customer by
-   * an existing identifier in your system.
-   */
-  external_customer_id?: string | null;
 
   /**
    * User-specified key value pairs, often useful for referencing internal resources
