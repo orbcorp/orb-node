@@ -314,11 +314,21 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
 
     item: UnitPrice.Item;
+
+    maximum: UnitPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: UnitPrice.Minimum | null;
+
+    minimum_amount: string | null;
 
     model_type: 'unit';
 
@@ -329,16 +339,6 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     unit_config: UnitPrice.UnitConfig;
-
-    discount?: Shared.Discount | null;
-
-    maximum?: UnitPrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: UnitPrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace UnitPrice {
@@ -350,18 +350,6 @@ export namespace Price {
       id: string;
 
       name: string;
-    }
-
-    export interface UnitConfig {
-      /**
-       * Rate per unit of usage
-       */
-      unit_amount: string;
-
-      /**
-       * Multiplier to scale rated quantity by
-       */
-      scaling_factor?: number | null;
     }
 
     export interface Maximum {
@@ -388,6 +376,18 @@ export namespace Price {
        * Minimum amount applied
        */
       minimum_amount: string;
+    }
+
+    export interface UnitConfig {
+      /**
+       * Rate per unit of usage
+       */
+      unit_amount: string;
+
+      /**
+       * Multiplier to scale rated quantity by
+       */
+      scaling_factor?: number | null;
     }
   }
 
@@ -402,11 +402,21 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
 
     item: PackagePrice.Item;
+
+    maximum: PackagePrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: PackagePrice.Minimum | null;
+
+    minimum_amount: string | null;
 
     model_type: 'package';
 
@@ -417,16 +427,6 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
-
-    discount?: Shared.Discount | null;
-
-    maximum?: PackagePrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: PackagePrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace PackagePrice {
@@ -438,19 +438,6 @@ export namespace Price {
       id: string;
 
       name: string;
-    }
-
-    export interface PackageConfig {
-      /**
-       * A currency amount to rate usage by
-       */
-      package_amount: string;
-
-      /**
-       * An integer amount to represent package size. For example, 1000 here would divide
-       * usage by 1000 before multiplying by package_amount in rating
-       */
-      package_size?: number | null;
     }
 
     export interface Maximum {
@@ -478,6 +465,19 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface PackageConfig {
+      /**
+       * A currency amount to rate usage by
+       */
+      package_amount: string;
+
+      /**
+       * An integer amount to represent package size. For example, 1000 here would divide
+       * usage by 1000 before multiplying by package_amount in rating
+       */
+      package_size?: number | null;
+    }
   }
 
   export interface MatrixPrice {
@@ -491,6 +491,8 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
@@ -499,6 +501,14 @@ export namespace Price {
 
     matrix_config: MatrixPrice.MatrixConfig;
 
+    maximum: MatrixPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: MatrixPrice.Minimum | null;
+
+    minimum_amount: string | null;
+
     model_type: 'matrix';
 
     name: string;
@@ -506,16 +516,6 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
-
-    discount?: Shared.Discount | null;
-
-    maximum?: MatrixPrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: MatrixPrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace MatrixPrice {
@@ -611,11 +611,21 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
 
     item: TieredPrice.Item;
+
+    maximum: TieredPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: TieredPrice.Minimum | null;
+
+    minimum_amount: string | null;
 
     model_type: 'tiered';
 
@@ -626,16 +636,6 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     tiered_config: TieredPrice.TieredConfig;
-
-    discount?: Shared.Discount | null;
-
-    maximum?: TieredPrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: TieredPrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace TieredPrice {
@@ -647,32 +647,6 @@ export namespace Price {
       id: string;
 
       name: string;
-    }
-
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Inclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit
-         */
-        unit_amount: string;
-
-        /**
-         * Exclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
     }
 
     export interface Maximum {
@@ -700,6 +674,32 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface TieredConfig {
+      /**
+       * Tiers for rating based on total usage quantities into the specified tier
+       */
+      tiers: Array<TieredConfig.Tier>;
+    }
+
+    export namespace TieredConfig {
+      export interface Tier {
+        /**
+         * Inclusive tier starting value
+         */
+        first_unit: number;
+
+        /**
+         * Amount per unit
+         */
+        unit_amount: string;
+
+        /**
+         * Exclusive tier ending value. If null, this is treated as the last tier
+         */
+        last_unit?: number | null;
+      }
+    }
   }
 
   export interface TieredBpsPrice {
@@ -713,11 +713,21 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
 
     item: TieredBpsPrice.Item;
+
+    maximum: TieredBpsPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: TieredBpsPrice.Minimum | null;
+
+    minimum_amount: string | null;
 
     model_type: 'tiered_bps';
 
@@ -728,16 +738,6 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     tiered_bps_config: TieredBpsPrice.TieredBpsConfig;
-
-    discount?: Shared.Discount | null;
-
-    maximum?: TieredBpsPrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: TieredBpsPrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace TieredBpsPrice {
@@ -749,6 +749,32 @@ export namespace Price {
       id: string;
 
       name: string;
+    }
+
+    export interface Maximum {
+      /**
+       * List of price_ids that this maximum amount applies to. For plan/plan phase
+       * maximums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Maximum amount applied
+       */
+      maximum_amount: string;
+    }
+
+    export interface Minimum {
+      /**
+       * List of price_ids that this minimum amount applies to. For plan/plan phase
+       * minimums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Minimum amount applied
+       */
+      minimum_amount: string;
     }
 
     export interface TieredBpsConfig {
@@ -782,32 +808,6 @@ export namespace Price {
         per_unit_maximum?: string | null;
       }
     }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
   }
 
   export interface BpsPrice {
@@ -823,11 +823,21 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
 
     item: BpsPrice.Item;
+
+    maximum: BpsPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: BpsPrice.Minimum | null;
+
+    minimum_amount: string | null;
 
     model_type: 'bps';
 
@@ -836,16 +846,6 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
-
-    discount?: Shared.Discount | null;
-
-    maximum?: BpsPrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: BpsPrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace BpsPrice {
@@ -911,11 +911,21 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
 
     item: BulkBpsPrice.Item;
+
+    maximum: BulkBpsPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: BulkBpsPrice.Minimum | null;
+
+    minimum_amount: string | null;
 
     model_type: 'bulk_bps';
 
@@ -924,16 +934,6 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
-
-    discount?: Shared.Discount | null;
-
-    maximum?: BulkBpsPrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: BulkBpsPrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace BulkBpsPrice {
@@ -1014,11 +1014,21 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
 
     item: BulkPrice.Item;
+
+    maximum: BulkPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: BulkPrice.Minimum | null;
+
+    minimum_amount: string | null;
 
     model_type: 'bulk';
 
@@ -1027,16 +1037,6 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
-
-    discount?: Shared.Discount | null;
-
-    maximum?: BulkPrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: BulkPrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace BulkPrice {
@@ -1109,11 +1109,21 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
 
     item: TestRatingFunctionPrice.Item;
+
+    maximum: TestRatingFunctionPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: TestRatingFunctionPrice.Minimum | null;
+
+    minimum_amount: string | null;
 
     model_type: 'test_rating_function';
 
@@ -1124,16 +1134,6 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     test_rating_function_config: Record<string, unknown>;
-
-    discount?: Shared.Discount | null;
-
-    maximum?: TestRatingFunctionPrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: TestRatingFunctionPrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace TestRatingFunctionPrice {
@@ -1185,6 +1185,8 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fivetran_example_config: Record<string, unknown>;
@@ -1193,6 +1195,14 @@ export namespace Price {
 
     item: FivetranExamplePrice.Item;
 
+    maximum: FivetranExamplePrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: FivetranExamplePrice.Minimum | null;
+
+    minimum_amount: string | null;
+
     model_type: 'fivetran_example';
 
     name: string;
@@ -1200,16 +1210,6 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
-
-    discount?: Shared.Discount | null;
-
-    maximum?: FivetranExamplePrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: FivetranExamplePrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace FivetranExamplePrice {
@@ -1261,11 +1261,21 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
 
     item: ThresholdTotalAmountPrice.Item;
+
+    maximum: ThresholdTotalAmountPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: ThresholdTotalAmountPrice.Minimum | null;
+
+    minimum_amount: string | null;
 
     model_type: 'threshold_total_amount';
 
@@ -1276,16 +1286,6 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     threshold_total_amount_config: Record<string, unknown>;
-
-    discount?: Shared.Discount | null;
-
-    maximum?: ThresholdTotalAmountPrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: ThresholdTotalAmountPrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace ThresholdTotalAmountPrice {
@@ -1337,11 +1337,21 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
 
     item: TieredPackagePrice.Item;
+
+    maximum: TieredPackagePrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: TieredPackagePrice.Minimum | null;
+
+    minimum_amount: string | null;
 
     model_type: 'tiered_package';
 
@@ -1352,16 +1362,6 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     tiered_package_config: Record<string, unknown>;
-
-    discount?: Shared.Discount | null;
-
-    maximum?: TieredPackagePrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: TieredPackagePrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace TieredPackagePrice {
@@ -1413,11 +1413,21 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
 
     item: TieredWithMinimumPrice.Item;
+
+    maximum: TieredWithMinimumPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: TieredWithMinimumPrice.Minimum | null;
+
+    minimum_amount: string | null;
 
     model_type: 'tiered_with_minimum';
 
@@ -1428,16 +1438,6 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     tiered_with_minimum_config: Record<string, unknown>;
-
-    discount?: Shared.Discount | null;
-
-    maximum?: TieredWithMinimumPrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: TieredWithMinimumPrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace TieredWithMinimumPrice {
@@ -1489,11 +1489,21 @@ export namespace Price {
 
     currency: string;
 
+    discount: Shared.Discount | null;
+
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
 
     item: PackageWithAllocationPrice.Item;
+
+    maximum: PackageWithAllocationPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: PackageWithAllocationPrice.Minimum | null;
+
+    minimum_amount: string | null;
 
     model_type: 'package_with_allocation';
 
@@ -1504,16 +1514,6 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
-
-    discount?: Shared.Discount | null;
-
-    maximum?: PackageWithAllocationPrice.Maximum | null;
-
-    maximum_amount?: string | null;
-
-    minimum?: PackageWithAllocationPrice.Minimum | null;
-
-    minimum_amount?: string | null;
   }
 
   export namespace PackageWithAllocationPrice {
