@@ -10,13 +10,13 @@ import * as PricesAPI from 'orb-billing/resources/prices/prices';
 import { Page, type PageParams } from 'orb-billing/pagination';
 
 export class Plans extends APIResource {
-  externalPlanId: ExternalPlanIDAPI.ExternalPlanID = new ExternalPlanIDAPI.ExternalPlanID(this.client);
+  externalPlanId: ExternalPlanIDAPI.ExternalPlanID = new ExternalPlanIDAPI.ExternalPlanID(this._client);
 
   /**
    * This endpoint allows creation of plans including their prices.
    */
   create(body: PlanCreateParams, options?: Core.RequestOptions): Core.APIPromise<Plan> {
-    return this.post('/plans', { body, ...options });
+    return this._client.post('/plans', { body, ...options });
   }
 
   /**
@@ -35,7 +35,7 @@ export class Plans extends APIResource {
     if (isRequestOptions(body)) {
       return this.update(planId, {}, body);
     }
-    return this.put(`/plans/${planId}`, { body, ...options });
+    return this._client.put(`/plans/${planId}`, { body, ...options });
   }
 
   /**
@@ -54,7 +54,7 @@ export class Plans extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/plans', PlansPage, { query, ...options });
+    return this._client.getAPIList('/plans', PlansPage, { query, ...options });
   }
 
   /**
@@ -77,7 +77,7 @@ export class Plans extends APIResource {
    * the serialized prices refer to all prices across all phases.
    */
   fetch(planId: string, options?: Core.RequestOptions): Core.APIPromise<Plan> {
-    return this.get(`/plans/${planId}`, options);
+    return this._client.get(`/plans/${planId}`, options);
   }
 }
 

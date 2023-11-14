@@ -11,7 +11,7 @@ export class Items extends APIResource {
    * This endpoint is used to create an [Item](../guides/concepts#item).
    */
   create(body: ItemCreateParams, options?: Core.RequestOptions): Core.APIPromise<Item> {
-    return this.post('/items', { body, ...options });
+    return this._client.post('/items', { body, ...options });
   }
 
   /**
@@ -27,14 +27,14 @@ export class Items extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/items', ItemsPage, { query, ...options });
+    return this._client.getAPIList('/items', ItemsPage, { query, ...options });
   }
 
   /**
    * This endpoint returns an item identified by its item_id.
    */
   fetch(itemId: string, options?: Core.RequestOptions): Core.APIPromise<Item> {
-    return this.get(`/items/${itemId}`, options);
+    return this._client.get(`/items/${itemId}`, options);
   }
 }
 

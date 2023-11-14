@@ -11,11 +11,11 @@ import * as CreditsAPI from 'orb-billing/resources/customers/credits/credits';
 import { Page, type PageParams } from 'orb-billing/pagination';
 
 export class Customers extends APIResource {
-  costs: CostsAPI.Costs = new CostsAPI.Costs(this.client);
-  usage: UsageAPI.Usage = new UsageAPI.Usage(this.client);
-  credits: CreditsAPI.Credits = new CreditsAPI.Credits(this.client);
+  costs: CostsAPI.Costs = new CostsAPI.Costs(this._client);
+  usage: UsageAPI.Usage = new UsageAPI.Usage(this._client);
+  credits: CreditsAPI.Credits = new CreditsAPI.Credits(this._client);
   balanceTransactions: BalanceTransactionsAPI.BalanceTransactions =
-    new BalanceTransactionsAPI.BalanceTransactions(this.client);
+    new BalanceTransactionsAPI.BalanceTransactions(this._client);
 
   /**
    * This operation is used to create an Orb customer, who is party to the core
@@ -32,7 +32,7 @@ export class Customers extends APIResource {
    *   configured on a per-customer basis by setting the `timezone` parameter
    */
   create(body: CustomerCreateParams, options?: Core.RequestOptions): Core.APIPromise<Customer> {
-    return this.post('/customers', { body, ...options });
+    return this._client.post('/customers', { body, ...options });
   }
 
   /**
@@ -56,7 +56,7 @@ export class Customers extends APIResource {
     if (isRequestOptions(body)) {
       return this.update(customerId, {}, body);
     }
-    return this.put(`/customers/${customerId}`, { body, ...options });
+    return this._client.put(`/customers/${customerId}`, { body, ...options });
   }
 
   /**
@@ -77,7 +77,7 @@ export class Customers extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/customers', CustomersPage, { query, ...options });
+    return this._client.getAPIList('/customers', CustomersPage, { query, ...options });
   }
 
   /**
@@ -94,8 +94,8 @@ export class Customers extends APIResource {
    *
    * On successful processing, this returns an empty dictionary (`{}`) in the API.
    */
-  del(customerId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this.delete(`/customers/${customerId}`, {
+  delete(customerId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
+    return this._client.delete(`/customers/${customerId}`, {
       ...options,
       headers: { Accept: '', ...options?.headers },
     });
@@ -110,7 +110,7 @@ export class Customers extends APIResource {
    * discussion of the Customer model.
    */
   fetch(customerId: string, options?: Core.RequestOptions): Core.APIPromise<Customer> {
-    return this.get(`/customers/${customerId}`, options);
+    return this._client.get(`/customers/${customerId}`, options);
   }
 
   /**
@@ -121,7 +121,7 @@ export class Customers extends APIResource {
    * [Get Customer](fetch-customer).
    */
   fetchByExternalId(externalCustomerId: string, options?: Core.RequestOptions): Core.APIPromise<Customer> {
-    return this.get(`/customers/external_customer_id/${externalCustomerId}`, options);
+    return this._client.get(`/customers/external_customer_id/${externalCustomerId}`, options);
   }
 
   /**
@@ -144,7 +144,7 @@ export class Customers extends APIResource {
     if (isRequestOptions(body)) {
       return this.updateByExternalId(id, {}, body);
     }
-    return this.put(`/customers/external_customer_id/${id}`, { body, ...options });
+    return this._client.put(`/customers/external_customer_id/${id}`, { body, ...options });
   }
 }
 

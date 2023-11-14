@@ -14,7 +14,7 @@ export class TopLevel extends APIResource {
    * This API does not have any side-effects or return any Orb resources.
    */
   ping(options?: Core.RequestOptions): Core.APIPromise<TopLevelPingResponse> {
-    return this.get('/ping', options);
+    return this._client.get('/ping', options);
   }
 }
 

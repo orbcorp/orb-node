@@ -8,14 +8,14 @@ import * as SubscriptionsAPI from 'orb-billing/resources/coupons/subscriptions';
 import { Page, type PageParams } from 'orb-billing/pagination';
 
 export class Coupons extends APIResource {
-  subscriptions: SubscriptionsAPI.Subscriptions = new SubscriptionsAPI.Subscriptions(this.client);
+  subscriptions: SubscriptionsAPI.Subscriptions = new SubscriptionsAPI.Subscriptions(this._client);
 
   /**
    * This endpoint allows the creation of coupons, which can then be redeemed at
    * subscription creation or plan change.
    */
   create(body: CouponCreateParams, options?: Core.RequestOptions): Core.APIPromise<Coupon> {
-    return this.post('/coupons', { body, ...options });
+    return this._client.post('/coupons', { body, ...options });
   }
 
   /**
@@ -35,7 +35,7 @@ export class Coupons extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/coupons', CouponsPage, { query, ...options });
+    return this._client.getAPIList('/coupons', CouponsPage, { query, ...options });
   }
 
   /**
@@ -44,7 +44,7 @@ export class Coupons extends APIResource {
    * coupon is archived, its redemption code can be reused for a different coupon.
    */
   archive(couponId: string, options?: Core.RequestOptions): Core.APIPromise<Coupon> {
-    return this.post(`/coupons/${couponId}/archive`, options);
+    return this._client.post(`/coupons/${couponId}/archive`, options);
   }
 
   /**
@@ -53,7 +53,7 @@ export class Coupons extends APIResource {
    * parameter.
    */
   fetch(couponId: string, options?: Core.RequestOptions): Core.APIPromise<Coupon> {
-    return this.get(`/coupons/${couponId}`, options);
+    return this._client.get(`/coupons/${couponId}`, options);
   }
 }
 

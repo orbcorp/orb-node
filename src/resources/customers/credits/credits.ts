@@ -8,7 +8,7 @@ import * as LedgerAPI from 'orb-billing/resources/customers/credits/ledger';
 import { Page, type PageParams } from 'orb-billing/pagination';
 
 export class Credits extends APIResource {
-  ledger: LedgerAPI.Ledger = new LedgerAPI.Ledger(this.client);
+  ledger: LedgerAPI.Ledger = new LedgerAPI.Ledger(this._client);
 
   /**
    * Returns a paginated list of unexpired, non-zero credit blocks for a customer.
@@ -30,7 +30,7 @@ export class Credits extends APIResource {
     if (isRequestOptions(query)) {
       return this.list(customerId, {}, query);
     }
-    return this.getAPIList(`/customers/${customerId}/credits`, CreditListResponsesPage, {
+    return this._client.getAPIList(`/customers/${customerId}/credits`, CreditListResponsesPage, {
       query,
       ...options,
     });
@@ -56,7 +56,7 @@ export class Credits extends APIResource {
     if (isRequestOptions(query)) {
       return this.listByExternalId(externalCustomerId, {}, query);
     }
-    return this.getAPIList(
+    return this._client.getAPIList(
       `/customers/external_customer_id/${externalCustomerId}/credits`,
       CreditListByExternalIDResponsesPage,
       { query, ...options },
