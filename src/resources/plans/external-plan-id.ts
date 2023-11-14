@@ -35,7 +35,7 @@ export class ExternalPlanID extends APIResource {
     if (isRequestOptions(body)) {
       return this.update(otherExternalPlanId, {}, body);
     }
-    return this.put(`/plans/external_plan_id/${otherExternalPlanId}`, { body, ...options });
+    return this._client.put(`/plans/external_plan_id/${otherExternalPlanId}`, { body, ...options });
   }
 
   /**
@@ -53,7 +53,7 @@ export class ExternalPlanID extends APIResource {
    * [Price schema](../guides/concepts#plan-and-price). "
    */
   fetch(externalPlanId: string, options?: Core.RequestOptions): Core.APIPromise<PlansAPI.Plan> {
-    return this.get(`/plans/external_plan_id/${externalPlanId}`, options);
+    return this._client.get(`/plans/external_plan_id/${externalPlanId}`, options);
   }
 }
 

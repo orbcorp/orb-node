@@ -160,8 +160,8 @@ describe('resource customers', () => {
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
-  test('del', async () => {
-    const responsePromise = orb.customers.del('string');
+  test('delete', async () => {
+    const responsePromise = orb.customers.delete('string');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -171,9 +171,9 @@ describe('resource customers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('del: request options instead of params are passed correctly', async () => {
+  test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.customers.del('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.customers.delete('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });

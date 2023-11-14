@@ -24,7 +24,7 @@ export class CreditNotes extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/credit_notes', CreditNotesPage, { query, ...options });
+    return this._client.getAPIList('/credit_notes', CreditNotesPage, { query, ...options });
   }
 
   /**
@@ -32,7 +32,7 @@ export class CreditNotes extends APIResource {
    * [`Credit Note`](../guides/invoicing/credit-notes) given an identifier.
    */
   fetch(creditNoteId: string, options?: Core.RequestOptions): Core.APIPromise<CreditNote> {
-    return this.get(`/credit_notes/${creditNoteId}`, options);
+    return this._client.get(`/credit_notes/${creditNoteId}`, options);
   }
 }
 

@@ -16,7 +16,7 @@ export class BalanceTransactions extends APIResource {
     body: BalanceTransactionCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<BalanceTransactionCreateResponse> {
-    return this.post(`/customers/${customerId}/balance_transactions`, { body, ...options });
+    return this._client.post(`/customers/${customerId}/balance_transactions`, { body, ...options });
   }
 
   /**
@@ -66,7 +66,7 @@ export class BalanceTransactions extends APIResource {
     if (isRequestOptions(query)) {
       return this.list(customerId, {}, query);
     }
-    return this.getAPIList(
+    return this._client.getAPIList(
       `/customers/${customerId}/balance_transactions`,
       BalanceTransactionListResponsesPage,
       { query, ...options },

@@ -9,7 +9,7 @@ import * as ExternalPriceIDAPI from 'orb-billing/resources/prices/external-price
 import { Page, type PageParams } from 'orb-billing/pagination';
 
 export class Prices extends APIResource {
-  externalPriceId: ExternalPriceIDAPI.ExternalPriceID = new ExternalPriceIDAPI.ExternalPriceID(this.client);
+  externalPriceId: ExternalPriceIDAPI.ExternalPriceID = new ExternalPriceIDAPI.ExternalPriceID(this._client);
 
   /**
    * This endpoint is used to create a [price](../reference/price). A price created
@@ -24,7 +24,7 @@ export class Prices extends APIResource {
    * price model configurations possible in this endpoint.
    */
   create(body: PriceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Price> {
-    return this.post('/prices', { body, ...options });
+    return this._client.post('/prices', { body, ...options });
   }
 
   /**
@@ -40,14 +40,14 @@ export class Prices extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/prices', PricesPage, { query, ...options });
+    return this._client.getAPIList('/prices', PricesPage, { query, ...options });
   }
 
   /**
    * This endpoint returns a price given an identifier.
    */
   fetch(priceId: string, options?: Core.RequestOptions): Core.APIPromise<Price> {
-    return this.get(`/prices/${priceId}`, options);
+    return this._client.get(`/prices/${priceId}`, options);
   }
 }
 
