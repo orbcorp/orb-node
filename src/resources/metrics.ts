@@ -15,7 +15,7 @@ export class Metrics extends APIResource {
    * description of constructing SQL queries with examples.
    */
   create(body: MetricCreateParams, options?: Core.RequestOptions): Core.APIPromise<MetricCreateResponse> {
-    return this.post('/metrics', { body, ...options });
+    return this._client.post('/metrics', { body, ...options });
   }
 
   /**
@@ -35,7 +35,7 @@ export class Metrics extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/metrics', MetricListResponsesPage, { query, ...options });
+    return this._client.getAPIList('/metrics', MetricListResponsesPage, { query, ...options });
   }
 
   /**
@@ -43,7 +43,7 @@ export class Metrics extends APIResource {
    * information about the metrics including its name, description, and item.
    */
   fetch(metricId: string, options?: Core.RequestOptions): Core.APIPromise<MetricFetchResponse> {
-    return this.get(`/metrics/${metricId}`, options);
+    return this._client.get(`/metrics/${metricId}`, options);
   }
 }
 

@@ -11,6 +11,6 @@ export class ExternalPriceID extends APIResource {
    * external price aliases.
    */
   fetch(externalPriceId: string, options?: Core.RequestOptions): Core.APIPromise<PricesAPI.Price> {
-    return this.get(`/prices/external_price_id/${externalPriceId}`, options);
+    return this._client.get(`/prices/external_price_id/${externalPriceId}`, options);
   }
 }

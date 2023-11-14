@@ -13,7 +13,7 @@ export class Invoices extends APIResource {
    * This endpoint is used to create a one-off invoice for a customer.
    */
   create(body: InvoiceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Invoice> {
-    return this.post('/invoices', { body, ...options });
+    return this._client.post('/invoices', { body, ...options });
   }
 
   /**
@@ -36,7 +36,7 @@ export class Invoices extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/invoices', InvoicesPage, { query, ...options });
+    return this._client.getAPIList('/invoices', InvoicesPage, { query, ...options });
   }
 
   /**
@@ -44,7 +44,7 @@ export class Invoices extends APIResource {
    * an identifier.
    */
   fetch(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Invoice> {
-    return this.get(`/invoices/${invoiceId}`, options);
+    return this._client.get(`/invoices/${invoiceId}`, options);
   }
 
   /**
@@ -64,7 +64,7 @@ export class Invoices extends APIResource {
     if (isRequestOptions(query)) {
       return this.fetchUpcoming({}, query);
     }
-    return this.get('/invoices/upcoming', { query, ...options });
+    return this._client.get('/invoices/upcoming', { query, ...options });
   }
 
   /**
@@ -76,7 +76,7 @@ export class Invoices extends APIResource {
    * providers, etc).
    */
   issue(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Invoice> {
-    return this.post(`/invoices/${invoiceId}/issue`, options);
+    return this._client.post(`/invoices/${invoiceId}/issue`, options);
   }
 
   /**
@@ -88,7 +88,7 @@ export class Invoices extends APIResource {
     body: InvoiceMarkPaidParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Invoice> {
-    return this.post(`/invoices/${invoiceId}/mark_paid`, { body, ...options });
+    return this._client.post(`/invoices/${invoiceId}/mark_paid`, { body, ...options });
   }
 
   /**
@@ -101,7 +101,7 @@ export class Invoices extends APIResource {
    * customer balance upon voiding.
    */
   void(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Invoice> {
-    return this.post(`/invoices/${invoiceId}/void`, options);
+    return this._client.post(`/invoices/${invoiceId}/void`, options);
   }
 }
 

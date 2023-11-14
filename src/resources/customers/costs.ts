@@ -157,7 +157,7 @@ export class Costs extends APIResource {
     if (isRequestOptions(query)) {
       return this.list(customerId, {}, query);
     }
-    return this.get(`/customers/${customerId}/costs`, { query, ...options });
+    return this._client.get(`/customers/${customerId}/costs`, { query, ...options });
   }
 
   /**
@@ -313,7 +313,10 @@ export class Costs extends APIResource {
     if (isRequestOptions(query)) {
       return this.listByExternalId(externalCustomerId, {}, query);
     }
-    return this.get(`/customers/external_customer_id/${externalCustomerId}/costs`, { query, ...options });
+    return this._client.get(`/customers/external_customer_id/${externalCustomerId}/costs`, {
+      query,
+      ...options,
+    });
   }
 }
 

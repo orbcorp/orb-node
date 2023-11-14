@@ -107,7 +107,7 @@ export class Ledger extends APIResource {
     if (isRequestOptions(query)) {
       return this.list(customerId, {}, query);
     }
-    return this.getAPIList(`/customers/${customerId}/credits/ledger`, LedgerListResponsesPage, {
+    return this._client.getAPIList(`/customers/${customerId}/credits/ledger`, LedgerListResponsesPage, {
       query,
       ...options,
     });
@@ -229,7 +229,7 @@ export class Ledger extends APIResource {
     body: LedgerCreateEntryParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<LedgerCreateEntryResponse> {
-    return this.post(`/customers/${customerId}/credits/ledger_entry`, { body, ...options });
+    return this._client.post(`/customers/${customerId}/credits/ledger_entry`, { body, ...options });
   }
 
   /**
@@ -348,7 +348,7 @@ export class Ledger extends APIResource {
     body: LedgerCreateEntryByExternalIDParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<LedgerCreateEntryByExternalIDResponse> {
-    return this.post(`/customers/external_customer_id/${externalCustomerId}/credits/ledger_entry`, {
+    return this._client.post(`/customers/external_customer_id/${externalCustomerId}/credits/ledger_entry`, {
       body,
       ...options,
     });
@@ -454,7 +454,7 @@ export class Ledger extends APIResource {
     if (isRequestOptions(query)) {
       return this.listByExternalId(externalCustomerId, {}, query);
     }
-    return this.getAPIList(
+    return this._client.getAPIList(
       `/customers/external_customer_id/${externalCustomerId}/credits/ledger`,
       LedgerListByExternalIDResponsesPage,
       { query, ...options },

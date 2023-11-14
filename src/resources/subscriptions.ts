@@ -411,7 +411,7 @@ export class Subscriptions extends APIResource {
     if (isRequestOptions(body)) {
       return this.create({}, body);
     }
-    return this.post('/subscriptions', { body, ...options });
+    return this._client.post('/subscriptions', { body, ...options });
   }
 
   /**
@@ -435,7 +435,7 @@ export class Subscriptions extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/subscriptions', SubscriptionsPage, { query, ...options });
+    return this._client.getAPIList('/subscriptions', SubscriptionsPage, { query, ...options });
   }
 
   /**
@@ -506,7 +506,7 @@ export class Subscriptions extends APIResource {
     body: SubscriptionCancelParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Subscription> {
-    return this.post(`/subscriptions/${subscriptionId}/cancel`, { body, ...options });
+    return this._client.post(`/subscriptions/${subscriptionId}/cancel`, { body, ...options });
   }
 
   /**
@@ -514,7 +514,7 @@ export class Subscriptions extends APIResource {
    * given an identifier.
    */
   fetch(subscriptionId: string, options?: Core.RequestOptions): Core.APIPromise<Subscription> {
-    return this.get(`/subscriptions/${subscriptionId}`, options);
+    return this._client.get(`/subscriptions/${subscriptionId}`, options);
   }
 
   /**
@@ -546,7 +546,7 @@ export class Subscriptions extends APIResource {
     if (isRequestOptions(query)) {
       return this.fetchCosts(subscriptionId, {}, query);
     }
-    return this.get(`/subscriptions/${subscriptionId}/costs`, { query, ...options });
+    return this._client.get(`/subscriptions/${subscriptionId}/costs`, { query, ...options });
   }
 
   /**
@@ -572,7 +572,7 @@ export class Subscriptions extends APIResource {
     if (isRequestOptions(query)) {
       return this.fetchSchedule(subscriptionId, {}, query);
     }
-    return this.getAPIList(
+    return this._client.getAPIList(
       `/subscriptions/${subscriptionId}/schedule`,
       SubscriptionFetchScheduleResponsesPage,
       { query, ...options },
@@ -789,7 +789,7 @@ export class Subscriptions extends APIResource {
     if (isRequestOptions(query)) {
       return this.fetchUsage(subscriptionId, {}, query);
     }
-    return this.get(`/subscriptions/${subscriptionId}/usage`, { query, ...options });
+    return this._client.get(`/subscriptions/${subscriptionId}/usage`, { query, ...options });
   }
 
   /**
@@ -865,7 +865,7 @@ export class Subscriptions extends APIResource {
     if (isRequestOptions(body)) {
       return this.priceIntervals(subscriptionId, {}, body);
     }
-    return this.post(`/subscriptions/${subscriptionId}/price_intervals`, { body, ...options });
+    return this._client.post(`/subscriptions/${subscriptionId}/price_intervals`, { body, ...options });
   }
 
   /**
@@ -914,7 +914,7 @@ export class Subscriptions extends APIResource {
     body: SubscriptionSchedulePlanChangeParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Subscription> {
-    return this.post(`/subscriptions/${subscriptionId}/schedule_plan_change`, { body, ...options });
+    return this._client.post(`/subscriptions/${subscriptionId}/schedule_plan_change`, { body, ...options });
   }
 
   /**
@@ -935,7 +935,7 @@ export class Subscriptions extends APIResource {
     if (isRequestOptions(body)) {
       return this.triggerPhase(subscriptionId, {}, body);
     }
-    return this.post(`/subscriptions/${subscriptionId}/trigger_phase`, { body, ...options });
+    return this._client.post(`/subscriptions/${subscriptionId}/trigger_phase`, { body, ...options });
   }
 
   /**
@@ -950,7 +950,7 @@ export class Subscriptions extends APIResource {
     subscriptionId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Subscription> {
-    return this.post(`/subscriptions/${subscriptionId}/unschedule_cancellation`, options);
+    return this._client.post(`/subscriptions/${subscriptionId}/unschedule_cancellation`, options);
   }
 
   /**
@@ -964,7 +964,7 @@ export class Subscriptions extends APIResource {
     body: SubscriptionUnscheduleFixedFeeQuantityUpdatesParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Subscription> {
-    return this.post(`/subscriptions/${subscriptionId}/unschedule_fixed_fee_quantity_updates`, {
+    return this._client.post(`/subscriptions/${subscriptionId}/unschedule_fixed_fee_quantity_updates`, {
       body,
       ...options,
     });
@@ -978,7 +978,7 @@ export class Subscriptions extends APIResource {
     subscriptionId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Subscription> {
-    return this.post(`/subscriptions/${subscriptionId}/unschedule_pending_plan_changes`, options);
+    return this._client.post(`/subscriptions/${subscriptionId}/unschedule_pending_plan_changes`, options);
   }
 
   /**
@@ -1002,7 +1002,10 @@ export class Subscriptions extends APIResource {
     body: SubscriptionUpdateFixedFeeQuantityParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Subscription> {
-    return this.post(`/subscriptions/${subscriptionId}/update_fixed_fee_quantity`, { body, ...options });
+    return this._client.post(`/subscriptions/${subscriptionId}/update_fixed_fee_quantity`, {
+      body,
+      ...options,
+    });
   }
 }
 

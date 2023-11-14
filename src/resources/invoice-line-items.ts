@@ -15,7 +15,7 @@ export class InvoiceLineItems extends APIResource {
     body: InvoiceLineItemCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<InvoiceLineItemCreateResponse> {
-    return this.post('/invoice_line_items', { body, ...options });
+    return this._client.post('/invoice_line_items', { body, ...options });
   }
 }
 

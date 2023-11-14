@@ -35,7 +35,7 @@ export class Backfills extends APIResource {
    * events.
    */
   create(body: BackfillCreateParams, options?: Core.RequestOptions): Core.APIPromise<BackfillCreateResponse> {
-    return this.post('/events/backfills', { body, ...options });
+    return this._client.post('/events/backfills', { body, ...options });
   }
 
   /**
@@ -59,7 +59,7 @@ export class Backfills extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/events/backfills', BackfillListResponsesPage, { query, ...options });
+    return this._client.getAPIList('/events/backfills', BackfillListResponsesPage, { query, ...options });
   }
 
   /**
@@ -69,14 +69,14 @@ export class Backfills extends APIResource {
    * will transition to `reflected`.
    */
   close(backfillId: string, options?: Core.RequestOptions): Core.APIPromise<BackfillCloseResponse> {
-    return this.post(`/events/backfills/${backfillId}/close`, options);
+    return this._client.post(`/events/backfills/${backfillId}/close`, options);
   }
 
   /**
    * This endpoint is used to fetch a backfill given an identifier.
    */
   fetch(backfillId: string, options?: Core.RequestOptions): Core.APIPromise<BackfillFetchResponse> {
-    return this.get(`/events/backfills/${backfillId}`, options);
+    return this._client.get(`/events/backfills/${backfillId}`, options);
   }
 
   /**
@@ -89,7 +89,7 @@ export class Backfills extends APIResource {
    * result of the backfill and it will immediately transition to `reverted`.
    */
   revert(backfillId: string, options?: Core.RequestOptions): Core.APIPromise<BackfillRevertResponse> {
-    return this.post(`/events/backfills/${backfillId}/revert`, options);
+    return this._client.post(`/events/backfills/${backfillId}/revert`, options);
   }
 }
 

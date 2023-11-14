@@ -6,7 +6,7 @@ import * as EventsAPI from 'orb-billing/resources/events/events';
 import * as BackfillsAPI from 'orb-billing/resources/events/backfills';
 
 export class Events extends APIResource {
-  backfills: BackfillsAPI.Backfills = new BackfillsAPI.Backfills(this.client);
+  backfills: BackfillsAPI.Backfills = new BackfillsAPI.Backfills(this._client);
 
   /**
    * This endpoint is used to amend a single usage event with a given `event_id`.
@@ -58,7 +58,7 @@ export class Events extends APIResource {
     body: EventUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<EventUpdateResponse> {
-    return this.put(`/events/${eventId}`, { body, ...options });
+    return this._client.put(`/events/${eventId}`, { body, ...options });
   }
 
   /**
@@ -101,7 +101,7 @@ export class Events extends APIResource {
    *   deprecating events for customers not in the Orb system.
    */
   deprecate(eventId: string, options?: Core.RequestOptions): Core.APIPromise<EventDeprecateResponse> {
-    return this.put(`/events/${eventId}/deprecate`, options);
+    return this._client.put(`/events/${eventId}/deprecate`, options);
   }
 
   /**
@@ -306,7 +306,7 @@ export class Events extends APIResource {
    */
   ingest(params: EventIngestParams, options?: Core.RequestOptions): Core.APIPromise<EventIngestResponse> {
     const { backfill_id, debug, ...body } = params;
-    return this.post('/ingest', { query: { backfill_id, debug }, body, ...options });
+    return this._client.post('/ingest', { query: { backfill_id, debug }, body, ...options });
   }
 
   /**
@@ -329,7 +329,7 @@ export class Events extends APIResource {
    * empty array for `data` instead.
    */
   search(body: EventSearchParams, options?: Core.RequestOptions): Core.APIPromise<EventSearchResponse> {
-    return this.post('/events/search', { body, ...options });
+    return this._client.post('/events/search', { body, ...options });
   }
 }
 

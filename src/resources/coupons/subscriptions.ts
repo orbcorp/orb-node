@@ -32,7 +32,10 @@ export class Subscriptions extends APIResource {
     if (isRequestOptions(query)) {
       return this.list(couponId, {}, query);
     }
-    return this.getAPIList(`/coupons/${couponId}/subscriptions`, SubscriptionsPage, { query, ...options });
+    return this._client.getAPIList(`/coupons/${couponId}/subscriptions`, SubscriptionsPage, {
+      query,
+      ...options,
+    });
   }
 }
 

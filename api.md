@@ -55,7 +55,7 @@ Methods:
 - <code title="post /customers">client.customers.<a href="./src/resources/customers/customers.ts">create</a>({ ...params }) -> Customer</code>
 - <code title="put /customers/{customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">update</a>(customerId, { ...params }) -> Customer</code>
 - <code title="get /customers">client.customers.<a href="./src/resources/customers/customers.ts">list</a>({ ...params }) -> CustomersPage</code>
-- <code title="delete /customers/{customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">del</a>(customerId) -> void</code>
+- <code title="delete /customers/{customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">delete</a>(customerId) -> void</code>
 - <code title="get /customers/{customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">fetch</a>(customerId) -> Customer</code>
 - <code title="get /customers/external_customer_id/{external_customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">fetchByExternalId</a>(externalCustomerId) -> Customer</code>
 - <code title="put /customers/external_customer_id/{external_customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">updateByExternalId</a>(id, { ...params }) -> Customer</code>

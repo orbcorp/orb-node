@@ -109,7 +109,7 @@ export class Usage extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<UsageUpdateResponse> {
     const { timeframe_end, timeframe_start, ...body } = params;
-    return this.patch(`/customers/${id}/usage`, {
+    return this._client.patch(`/customers/${id}/usage`, {
       query: { timeframe_end, timeframe_start },
       body,
       ...options,
@@ -220,7 +220,7 @@ export class Usage extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<UsageUpdateByExternalIDResponse> {
     const { timeframe_end, timeframe_start, ...body } = params;
-    return this.patch(`/customers/external_customer_id/${id}/usage`, {
+    return this._client.patch(`/customers/external_customer_id/${id}/usage`, {
       query: { timeframe_end, timeframe_start },
       body,
       ...options,
