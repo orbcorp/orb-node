@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.28.0 (2023-11-16)
+
+Full Changelog: [v1.27.0...v1.28.0](https://github.com/orbcorp/orb-node/compare/v1.27.0...v1.28.0)
+
+### Features
+
+* **api:** updates ([#33](https://github.com/orbcorp/orb-node/issues/33)) ([5e82f4c](https://github.com/orbcorp/orb-node/commit/5e82f4c7df7b492122884c590a3f0fc9c8572a37))
+
+
+### Chores
+
+* **internal:** update APIResource structure ([#32](https://github.com/orbcorp/orb-node/issues/32)) ([27b274a](https://github.com/orbcorp/orb-node/commit/27b274a8629933d77ec4ef1829f4f42c2a28617b))
+* **internal:** update jest config ([#30](https://github.com/orbcorp/orb-node/issues/30)) ([bb4611b](https://github.com/orbcorp/orb-node/commit/bb4611bbf3f5f6ef18be0c080585de881f9354d3))
+
 ## 1.27.0 (2023-11-09)
 
 Full Changelog: [v1.26.0...v1.27.0](https://github.com/orbcorp/orb-node/compare/v1.26.0...v1.27.0)
