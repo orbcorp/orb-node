@@ -135,7 +135,11 @@ export interface Plan {
 
   maximum_amount: string | null;
 
-  metadata: unknown;
+  /**
+   * User specified key-value pairs. If not provided, this defaults to an empty
+   * dictionary.
+   */
+  metadata: Record<string, string>;
 
   minimum: Plan.Minimum | null;
 
@@ -316,7 +320,10 @@ export interface PlanCreateParams {
 
   external_plan_id?: string | null;
 
-  metadata?: unknown | null;
+  /**
+   * User-specified key/value pairs for the resource.
+   */
+  metadata?: Record<string, string | null> | null;
 
   /**
    * The net terms determines the difference between the invoice date and the issue
@@ -1127,7 +1134,10 @@ export interface PlanUpdateParams {
    */
   external_plan_id?: string | null;
 
-  metadata?: unknown | null;
+  /**
+   * User-specified key/value pairs for the resource.
+   */
+  metadata?: Record<string, string | null> | null;
 }
 
 export interface PlanListParams extends PageParams {

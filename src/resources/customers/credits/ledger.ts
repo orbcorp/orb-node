@@ -501,6 +501,10 @@ export namespace LedgerListResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -543,6 +547,10 @@ export namespace LedgerListResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -591,6 +599,10 @@ export namespace LedgerListResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     new_block_expiry_date: string;
@@ -635,6 +647,10 @@ export namespace LedgerListResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -677,6 +693,10 @@ export namespace LedgerListResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -723,6 +743,10 @@ export namespace LedgerListResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     new_block_expiry_date: string;
@@ -771,6 +795,10 @@ export namespace LedgerListResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -828,6 +856,10 @@ export namespace LedgerCreateEntryResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -870,6 +902,10 @@ export namespace LedgerCreateEntryResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -918,6 +954,10 @@ export namespace LedgerCreateEntryResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     new_block_expiry_date: string;
@@ -962,6 +1002,10 @@ export namespace LedgerCreateEntryResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1004,6 +1048,10 @@ export namespace LedgerCreateEntryResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1050,6 +1098,10 @@ export namespace LedgerCreateEntryResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     new_block_expiry_date: string;
@@ -1098,6 +1150,10 @@ export namespace LedgerCreateEntryResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1155,6 +1211,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1197,6 +1257,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1245,6 +1309,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     new_block_expiry_date: string;
@@ -1289,6 +1357,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1331,6 +1403,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1377,6 +1453,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     new_block_expiry_date: string;
@@ -1425,6 +1505,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1482,6 +1566,10 @@ export namespace LedgerListByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1524,6 +1612,10 @@ export namespace LedgerListByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1572,6 +1664,10 @@ export namespace LedgerListByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     new_block_expiry_date: string;
@@ -1616,6 +1712,10 @@ export namespace LedgerListByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1658,6 +1758,10 @@ export namespace LedgerListByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1704,6 +1808,10 @@ export namespace LedgerListByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     new_block_expiry_date: string;
@@ -1752,6 +1860,10 @@ export namespace LedgerListByExternalIDResponse {
 
     ledger_sequence_number: number;
 
+    /**
+     * User specified key-value pairs. If not provided, this defaults to an empty
+     * dictionary.
+     */
     metadata: Record<string, string>;
 
     starting_balance: number;
@@ -1845,9 +1957,9 @@ export namespace LedgerCreateEntryParams {
     invoice_settings?: LedgerCreateEntryParams.AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
 
     /**
-     * User-specified key/value pairs for the ledger entry resource.
+     * User-specified key/value pairs for the resource.
      */
-    metadata?: unknown;
+    metadata?: Record<string, string | null> | null;
 
     /**
      * Can only be specified when entry_type=increment. How much, in USD, a customer
@@ -1901,9 +2013,9 @@ export namespace LedgerCreateEntryParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the ledger entry resource.
+     * User-specified key/value pairs for the resource.
      */
-    metadata?: unknown;
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface AddExpirationChangeCreditLedgerEntryRequestParams {
@@ -1942,9 +2054,9 @@ export namespace LedgerCreateEntryParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the ledger entry resource.
+     * User-specified key/value pairs for the resource.
      */
-    metadata?: unknown;
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface AddVoidCreditLedgerEntryRequestParams {
@@ -1969,9 +2081,9 @@ export namespace LedgerCreateEntryParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the ledger entry resource.
+     * User-specified key/value pairs for the resource.
      */
-    metadata?: unknown;
+    metadata?: Record<string, string | null> | null;
 
     /**
      * Can only be specified when `entry_type=void`. The reason for the void.
@@ -2001,9 +2113,9 @@ export namespace LedgerCreateEntryParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the ledger entry resource.
+     * User-specified key/value pairs for the resource.
      */
-    metadata?: unknown;
+    metadata?: Record<string, string | null> | null;
   }
 }
 
@@ -2052,9 +2164,9 @@ export namespace LedgerCreateEntryByExternalIDParams {
     invoice_settings?: LedgerCreateEntryByExternalIDParams.AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
 
     /**
-     * User-specified key/value pairs for the ledger entry resource.
+     * User-specified key/value pairs for the resource.
      */
-    metadata?: unknown;
+    metadata?: Record<string, string | null> | null;
 
     /**
      * Can only be specified when entry_type=increment. How much, in USD, a customer
@@ -2108,9 +2220,9 @@ export namespace LedgerCreateEntryByExternalIDParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the ledger entry resource.
+     * User-specified key/value pairs for the resource.
      */
-    metadata?: unknown;
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface AddExpirationChangeCreditLedgerEntryRequestParams {
@@ -2149,9 +2261,9 @@ export namespace LedgerCreateEntryByExternalIDParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the ledger entry resource.
+     * User-specified key/value pairs for the resource.
      */
-    metadata?: unknown;
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface AddVoidCreditLedgerEntryRequestParams {
@@ -2176,9 +2288,9 @@ export namespace LedgerCreateEntryByExternalIDParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the ledger entry resource.
+     * User-specified key/value pairs for the resource.
      */
-    metadata?: unknown;
+    metadata?: Record<string, string | null> | null;
 
     /**
      * Can only be specified when `entry_type=void`. The reason for the void.
@@ -2208,9 +2320,9 @@ export namespace LedgerCreateEntryByExternalIDParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the ledger entry resource.
+     * User-specified key/value pairs for the resource.
      */
-    metadata?: unknown;
+    metadata?: Record<string, string | null> | null;
   }
 }
 

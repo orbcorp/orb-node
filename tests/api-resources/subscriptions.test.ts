@@ -46,7 +46,7 @@ describe('resource subscriptions', () => {
           external_plan_id: 'ZMwNQefe7J3ecf7W',
           initial_phase_order: 0,
           invoicing_threshold: 'string',
-          metadata: {},
+          metadata: { foo: 'string' },
           net_terms: 0,
           per_credit_overage_amount: 'string',
           plan_id: 'ZMwNQefe7J3ecf7W',
