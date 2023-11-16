@@ -298,7 +298,11 @@ export interface Invoice {
    */
   memo: string | null;
 
-  metadata: unknown;
+  /**
+   * User specified key-value pairs. If not provided, this defaults to an empty
+   * dictionary.
+   */
+  metadata: Record<string, string>;
 
   minimum: Invoice.Minimum | null;
 
@@ -1363,7 +1367,11 @@ export interface InvoiceFetchUpcomingResponse {
    */
   memo: string | null;
 
-  metadata: unknown;
+  /**
+   * User specified key-value pairs. If not provided, this defaults to an empty
+   * dictionary.
+   */
+  metadata: Record<string, string>;
 
   minimum: InvoiceFetchUpcomingResponse.Minimum | null;
 

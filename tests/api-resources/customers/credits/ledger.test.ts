@@ -71,7 +71,7 @@ describe('resource ledger', () => {
       effective_date: '2019-12-27',
       expiry_date: '2019-12-27',
       invoice_settings: { auto_collection: true, net_terms: 0, memo: 'string' },
-      metadata: {},
+      metadata: { foo: 'string' },
       per_unit_cost_basis: 'string',
     });
   });
@@ -98,7 +98,7 @@ describe('resource ledger', () => {
       effective_date: '2019-12-27',
       expiry_date: '2019-12-27',
       invoice_settings: { auto_collection: true, net_terms: 0, memo: 'string' },
-      metadata: {},
+      metadata: { foo: 'string' },
       per_unit_cost_basis: 'string',
     });
   });

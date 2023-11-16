@@ -65,7 +65,10 @@ export interface ExternalPlanIDUpdateParams {
    */
   external_plan_id?: string | null;
 
-  metadata?: unknown | null;
+  /**
+   * User-specified key/value pairs for the resource.
+   */
+  metadata?: Record<string, string | null> | null;
 }
 
 export namespace ExternalPlanID {
