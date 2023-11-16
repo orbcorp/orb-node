@@ -32,7 +32,7 @@ describe('resource externalPlanId', () => {
     await expect(
       orb.plans.externalPlanId.update(
         'string',
-        { external_plan_id: 'string', metadata: {} },
+        { external_plan_id: 'string', metadata: { foo: 'string' } },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);

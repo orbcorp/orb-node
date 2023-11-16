@@ -66,6 +66,10 @@ export interface MetricCreateResponse {
    */
   item: ItemsAPI.Item;
 
+  /**
+   * User specified key-value pairs. If not provided, this defaults to an empty
+   * dictionary.
+   */
   metadata: Record<string, string>;
 
   name: string;
@@ -90,6 +94,10 @@ export interface MetricListResponse {
    */
   item: ItemsAPI.Item;
 
+  /**
+   * User specified key-value pairs. If not provided, this defaults to an empty
+   * dictionary.
+   */
   metadata: Record<string, string>;
 
   name: string;
@@ -114,6 +122,10 @@ export interface MetricFetchResponse {
    */
   item: ItemsAPI.Item;
 
+  /**
+   * User specified key-value pairs. If not provided, this defaults to an empty
+   * dictionary.
+   */
   metadata: Record<string, string>;
 
   name: string;
@@ -143,10 +155,9 @@ export interface MetricCreateParams {
   sql: string;
 
   /**
-   * User-specified key value pairs, often useful for referencing internal resources
-   * or IDs. Returned as-is in the metric resource.
+   * User-specified key/value pairs for the resource.
    */
-  metadata?: unknown | null;
+  metadata?: Record<string, string | null> | null;
 }
 
 export interface MetricListParams extends PageParams {

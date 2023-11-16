@@ -52,7 +52,7 @@ describe('resource plans', () => {
       ],
       default_invoice_memo: 'string',
       external_plan_id: 'string',
-      metadata: {},
+      metadata: { foo: 'string' },
       net_terms: 0,
     });
   });
@@ -80,7 +80,7 @@ describe('resource plans', () => {
     await expect(
       orb.plans.update(
         'string',
-        { external_plan_id: 'string', metadata: {} },
+        { external_plan_id: 'string', metadata: { foo: 'string' } },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);

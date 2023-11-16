@@ -205,6 +205,10 @@ export interface Customer {
    */
   external_customer_id: string | null;
 
+  /**
+   * User specified key-value pairs. If not provided, this defaults to an empty
+   * dictionary.
+   */
   metadata: Record<string, string>;
 
   /**
@@ -628,10 +632,9 @@ export interface CustomerCreateParams {
   external_customer_id?: string | null;
 
   /**
-   * User-specified key value pairs, often useful for referencing internal resources
-   * or IDs. Returned as-is in the customer resource.
+   * User-specified key/value pairs for the resource.
    */
-  metadata?: unknown | null;
+  metadata?: Record<string, string | null> | null;
 
   /**
    * This is used for creating charges or invoices in an external system via Orb.
@@ -1031,10 +1034,9 @@ export interface CustomerUpdateParams {
   email_delivery?: boolean | null;
 
   /**
-   * User-specified key value pairs, often useful for referencing internal resources
-   * or IDs. Returned as-is in the customer resource.
+   * User-specified key/value pairs for the resource.
    */
-  metadata?: unknown | null;
+  metadata?: Record<string, string | null> | null;
 
   /**
    * The full name of the customer
@@ -1446,10 +1448,9 @@ export interface CustomerUpdateByExternalIDParams {
   email_delivery?: boolean | null;
 
   /**
-   * User-specified key value pairs, often useful for referencing internal resources
-   * or IDs. Returned as-is in the customer resource.
+   * User-specified key/value pairs for the resource.
    */
-  metadata?: unknown | null;
+  metadata?: Record<string, string | null> | null;
 
   /**
    * The full name of the customer

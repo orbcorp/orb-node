@@ -1127,10 +1127,10 @@ export interface Subscription {
   maximum_intervals: Array<Subscription.MaximumInterval>;
 
   /**
-   * User specified key-value pairs. If no metadata was specified at subscription
-   * creation time, this defaults to an empty dictionary.
+   * User specified key-value pairs. If not provided, this defaults to an empty
+   * dictionary.
    */
-  metadata: unknown;
+  metadata: Record<string, string>;
 
   /**
    * The minimum intervals for this subscription.
@@ -2090,7 +2090,10 @@ export interface SubscriptionCreateParams {
 
   invoicing_threshold?: string | null;
 
-  metadata?: unknown | null;
+  /**
+   * User-specified key/value pairs for the resource.
+   */
+  metadata?: Record<string, string | null> | null;
 
   net_terms?: number | null;
 
