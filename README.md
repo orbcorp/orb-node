@@ -4,7 +4,7 @@
 
 This library provides convenient access to the Orb REST API from server-side TypeScript or JavaScript.
 
-The API documentation can be found [here](https://www.withorb.com/https://docs.withorb.com/reference/api-reference).
+The API documentation can be found [here](https://docs.withorb.com/reference/api-reference).
 
 ## Installation
 
