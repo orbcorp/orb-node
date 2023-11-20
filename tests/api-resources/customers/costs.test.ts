@@ -34,8 +34,8 @@ describe('resource costs', () => {
         'string',
         {
           group_by: 'string',
-          timeframe_end: '2019-12-27T18:11:19.117Z',
-          timeframe_start: '2019-12-27T18:11:19.117Z',
+          timeframe_end: '2022-03-01T05:00:00Z',
+          timeframe_start: '2022-02-01T05:00:00Z',
           view_mode: 'periodic',
         },
         { path: '/_stainless_unknown_path' },
@@ -68,8 +68,8 @@ describe('resource costs', () => {
         'string',
         {
           group_by: 'string',
-          timeframe_end: '2019-12-27T18:11:19.117Z',
-          timeframe_start: '2019-12-27T18:11:19.117Z',
+          timeframe_end: '2022-03-01T05:00:00Z',
+          timeframe_start: '2022-02-01T05:00:00Z',
           view_mode: 'periodic',
         },
         { path: '/_stainless_unknown_path' },
