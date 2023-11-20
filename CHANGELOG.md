@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.28.1 (2023-11-20)
+
+Full Changelog: [v1.28.0...v1.28.1](https://github.com/orbcorp/orb-node/compare/v1.28.0...v1.28.1)
+
+### Chores
+
+* **internal:** update some test values ([#36](https://github.com/orbcorp/orb-node/issues/36)) ([5fbb843](https://github.com/orbcorp/orb-node/commit/5fbb8434dae21355c7ef55981212b254c71291d9))
+
+
+### Documentation
+
+* **readme:** fix link to docs website ([#34](https://github.com/orbcorp/orb-node/issues/34)) ([3f8f962](https://github.com/orbcorp/orb-node/commit/3f8f962deb0771ccfda27de253035016fe298356))
+
 ## 1.28.0 (2023-11-16)
 
 Full Changelog: [v1.27.0...v1.28.0](https://github.com/orbcorp/orb-node/compare/v1.27.0...v1.28.0)
