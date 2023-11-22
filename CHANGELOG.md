@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.29.0 (2023-11-22)
+
+Full Changelog: [v1.28.1...v1.29.0](https://github.com/orbcorp/orb-node/compare/v1.28.1...v1.29.0)
+
+### Features
+
+* allow installing package directly from github ([#37](https://github.com/orbcorp/orb-node/issues/37)) ([8791b26](https://github.com/orbcorp/orb-node/commit/8791b26c93d33807434ad51f40f4e998567216f7))
+* **api:** updates ([#40](https://github.com/orbcorp/orb-node/issues/40)) ([2a17035](https://github.com/orbcorp/orb-node/commit/2a1703539b5c4df7c2b1dc6a5a10b720fa53fa0d))
+
+
+### Chores
+
+* **internal:** don't call prepare in dist ([#39](https://github.com/orbcorp/orb-node/issues/39)) ([986847c](https://github.com/orbcorp/orb-node/commit/986847ce30bdf30bb5e8b8f5e7269b146e726a9c))
+
 ## 1.28.1 (2023-11-20)
 
 Full Changelog: [v1.28.0...v1.28.1](https://github.com/orbcorp/orb-node/compare/v1.28.0...v1.28.1)
