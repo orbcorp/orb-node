@@ -502,8 +502,10 @@ export namespace LedgerListResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -548,8 +550,10 @@ export namespace LedgerListResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -600,8 +604,10 @@ export namespace LedgerListResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -648,8 +654,10 @@ export namespace LedgerListResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -694,8 +702,10 @@ export namespace LedgerListResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -744,8 +754,10 @@ export namespace LedgerListResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -796,8 +808,10 @@ export namespace LedgerListResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -857,8 +871,10 @@ export namespace LedgerCreateEntryResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -903,8 +919,10 @@ export namespace LedgerCreateEntryResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -955,8 +973,10 @@ export namespace LedgerCreateEntryResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1003,8 +1023,10 @@ export namespace LedgerCreateEntryResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1049,8 +1071,10 @@ export namespace LedgerCreateEntryResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1099,8 +1123,10 @@ export namespace LedgerCreateEntryResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1151,8 +1177,10 @@ export namespace LedgerCreateEntryResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1212,8 +1240,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1258,8 +1288,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1310,8 +1342,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1358,8 +1392,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1404,8 +1440,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1454,8 +1492,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1506,8 +1546,10 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1567,8 +1609,10 @@ export namespace LedgerListByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1613,8 +1657,10 @@ export namespace LedgerListByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1665,8 +1711,10 @@ export namespace LedgerListByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1713,8 +1761,10 @@ export namespace LedgerListByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1759,8 +1809,10 @@ export namespace LedgerListByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1809,8 +1861,10 @@ export namespace LedgerListByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1861,8 +1915,10 @@ export namespace LedgerListByExternalIDResponse {
     ledger_sequence_number: number;
 
     /**
-     * User specified key-value pairs. If not provided, this defaults to an empty
-     * dictionary.
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
      */
     metadata: Record<string, string>;
 
@@ -1957,7 +2013,9 @@ export namespace LedgerCreateEntryParams {
     invoice_settings?: LedgerCreateEntryParams.AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
 
     /**
-     * User-specified key/value pairs for the resource.
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
 
@@ -2013,7 +2071,9 @@ export namespace LedgerCreateEntryParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the resource.
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
   }
@@ -2054,7 +2114,9 @@ export namespace LedgerCreateEntryParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the resource.
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
   }
@@ -2081,7 +2143,9 @@ export namespace LedgerCreateEntryParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the resource.
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
 
@@ -2113,7 +2177,9 @@ export namespace LedgerCreateEntryParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the resource.
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
   }
@@ -2164,7 +2230,9 @@ export namespace LedgerCreateEntryByExternalIDParams {
     invoice_settings?: LedgerCreateEntryByExternalIDParams.AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
 
     /**
-     * User-specified key/value pairs for the resource.
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
 
@@ -2220,7 +2288,9 @@ export namespace LedgerCreateEntryByExternalIDParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the resource.
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
   }
@@ -2261,7 +2331,9 @@ export namespace LedgerCreateEntryByExternalIDParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the resource.
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
   }
@@ -2288,7 +2360,9 @@ export namespace LedgerCreateEntryByExternalIDParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the resource.
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
 
@@ -2320,7 +2394,9 @@ export namespace LedgerCreateEntryByExternalIDParams {
     description?: string | null;
 
     /**
-     * User-specified key/value pairs for the resource.
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
   }

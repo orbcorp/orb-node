@@ -136,8 +136,10 @@ export interface Plan {
   maximum_amount: string | null;
 
   /**
-   * User specified key-value pairs. If not provided, this defaults to an empty
-   * dictionary.
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
    */
   metadata: Record<string, string>;
 
@@ -321,7 +323,9 @@ export interface PlanCreateParams {
   external_plan_id?: string | null;
 
   /**
-   * User-specified key/value pairs for the resource.
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
 
@@ -1135,7 +1139,9 @@ export interface PlanUpdateParams {
   external_plan_id?: string | null;
 
   /**
-   * User-specified key/value pairs for the resource.
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
 }
