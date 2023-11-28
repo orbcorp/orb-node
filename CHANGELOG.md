@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.30.0 (2023-11-28)
+
+Full Changelog: [v1.29.0...v1.30.0](https://github.com/orbcorp/orb-node/compare/v1.29.0...v1.30.0)
+
+### Features
+
+* **api:** updates ([#45](https://github.com/orbcorp/orb-node/issues/45)) ([7a04e1a](https://github.com/orbcorp/orb-node/commit/7a04e1aab11063627d2ef73701864d60d0c1cbbe))
+
+
+### Chores
+
+* **internal:** remove file import and conditionally run prepare ([#43](https://github.com/orbcorp/orb-node/issues/43)) ([c65b596](https://github.com/orbcorp/orb-node/commit/c65b5961a26fa2eda9fe806a2214dfe518f6e447))
+
+
+### Documentation
+
+* **api:** update metadata docstrings ([#41](https://github.com/orbcorp/orb-node/issues/41)) ([4334af2](https://github.com/orbcorp/orb-node/commit/4334af25186dae687ad96ab323d5fa53d15b220f))
+
 ## 1.29.0 (2023-11-22)
 
 Full Changelog: [v1.28.1...v1.29.0](https://github.com/orbcorp/orb-node/compare/v1.28.1...v1.29.0)
