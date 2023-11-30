@@ -132,6 +132,21 @@ describe('instantiate client', () => {
       const client = new Orb({ baseURL: 'http://localhost:5000/custom/path', apiKey: 'My API Key' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
+
+    afterEach(() => {
+      process.env['SINK_BASE_URL'] = undefined;
+    });
+
+    test('explicit option', () => {
+      const client = new Orb({ baseURL: 'https://example.com', apiKey: 'My API Key' });
+      expect(client.baseURL).toEqual('https://example.com');
+    });
+
+    test('env variable', () => {
+      process.env['ORB_BASE_URL'] = 'https://example.com/from_env';
+      const client = new Orb({ apiKey: 'My API Key' });
+      expect(client.baseURL).toEqual('https://example.com/from_env');
+    });
   });
 
   test('maxRetries option is correctly set', () => {
