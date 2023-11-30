@@ -22,7 +22,7 @@ The full API of this library can be found in [api.md](https://www.github.com/orb
 import Orb from 'orb-billing';
 
 const orb = new Orb({
-  apiKey: 'My API Key', // defaults to process.env["ORB_API_KEY"]
+  apiKey: process.env['ORB_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
@@ -42,7 +42,7 @@ This library includes TypeScript definitions for all request params and response
 import Orb from 'orb-billing';
 
 const orb = new Orb({
-  apiKey: 'My API Key', // defaults to process.env["ORB_API_KEY"]
+  apiKey: process.env['ORB_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
