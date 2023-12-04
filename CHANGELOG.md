@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.31.0 (2023-12-04)
+
+Full Changelog: [v1.30.0...v1.31.0](https://github.com/orbcorp/orb-node/compare/v1.30.0...v1.31.0)
+
+### Features
+
+* **client:** support reading the base url from an env variable ([#48](https://github.com/orbcorp/orb-node/issues/48)) ([e147a4a](https://github.com/orbcorp/orb-node/commit/e147a4a96b0f798ba98a7f12eabe2f8bb40b3021))
+
+
+### Documentation
+
+* **readme:** update example snippets ([#46](https://github.com/orbcorp/orb-node/issues/46)) ([3ec5d0b](https://github.com/orbcorp/orb-node/commit/3ec5d0bc95b7522153ff57836aa7c234e363089c))
+
 ## 1.30.0 (2023-11-28)
 
 Full Changelog: [v1.29.0...v1.30.0](https://github.com/orbcorp/orb-node/compare/v1.29.0...v1.30.0)
