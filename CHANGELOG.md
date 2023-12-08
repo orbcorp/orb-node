@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.32.0 (2023-12-08)
+
+Full Changelog: [v1.31.0...v1.32.0](https://github.com/orbcorp/orb-node/compare/v1.31.0...v1.32.0)
+
+### Features
+
+* **api:** remove unsupported field ([#52](https://github.com/orbcorp/orb-node/issues/52)) ([58cd13d](https://github.com/orbcorp/orb-node/commit/58cd13de2af144cfd8f8f9e105b316f311e51ac4))
+
 ## 1.31.0 (2023-12-04)
 
 Full Changelog: [v1.30.0...v1.31.0](https://github.com/orbcorp/orb-node/compare/v1.30.0...v1.31.0)
