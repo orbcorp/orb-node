@@ -118,7 +118,7 @@ describe('resource events', () => {
   });
 
   test('search: only required params', async () => {
-    const responsePromise = orb.events.search({ event_ids: ['string', 'string', 'string'] });
+    const responsePromise = orb.events.search({ event_ids: ['string'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -129,6 +129,10 @@ describe('resource events', () => {
   });
 
   test('search: required and optional params', async () => {
-    const response = await orb.events.search({ event_ids: ['string', 'string', 'string'] });
+    const response = await orb.events.search({
+      event_ids: ['string'],
+      timeframe_end: '2019-12-27T18:11:19.117Z',
+      timeframe_start: '2019-12-27T18:11:19.117Z',
+    });
   });
 });
