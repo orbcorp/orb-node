@@ -408,7 +408,7 @@ export namespace EventSearchResponse {
     /**
      * The Orb Customer identifier
      */
-    customer_id: string;
+    customer_id: string | null;
 
     /**
      * A name to meaningfully identify the action or event type.
@@ -529,10 +529,23 @@ export namespace EventIngestParams {
 export interface EventSearchParams {
   /**
    * This is an explicit array of IDs to filter by. Note that an event's ID is the
-   * idempotency_key that was originally used for ingestion. Values in this array
-   * will be treated case sensitively.
+   * idempotency_key that was originally used for ingestion, and this only supports
+   * events that have not been amended. Values in this array will be treated case
+   * sensitively.
    */
   event_ids: Array<string>;
+
+  /**
+   * The end of the timeframe, exclusive, in which to search events. If not
+   * specified, the current time is used.
+   */
+  timeframe_end?: string | null;
+
+  /**
+   * The start of the timeframe, inclusive, in which to search events. If not
+   * specified, the one week ago is used.
+   */
+  timeframe_start?: string | null;
 }
 
 export namespace Events {
