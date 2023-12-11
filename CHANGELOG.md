@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.33.0 (2023-12-11)
+
+Full Changelog: [v1.32.0...v1.33.0](https://github.com/orbcorp/orb-node/compare/v1.32.0...v1.33.0)
+
+### Features
+
+* **api:** updates ([#55](https://github.com/orbcorp/orb-node/issues/55)) ([1a22a28](https://github.com/orbcorp/orb-node/commit/1a22a28cf0b2800ecfbd8204f2e8dc502e73abd2))
+
+
+### Build System
+
+* specify `packageManager: yarn` ([#53](https://github.com/orbcorp/orb-node/issues/53)) ([78de30f](https://github.com/orbcorp/orb-node/commit/78de30fb75637d6848d1793f6c5ff6315446668f))
+
 ## 1.32.0 (2023-12-08)
 
 Full Changelog: [v1.31.0...v1.32.0](https://github.com/orbcorp/orb-node/compare/v1.31.0...v1.32.0)
