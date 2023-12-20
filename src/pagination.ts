@@ -37,12 +37,12 @@ export class Page<Item> extends AbstractPage<Item> implements PageResponse<Item>
   constructor(client: APIClient, response: Response, body: PageResponse<Item>, options: FinalRequestOptions) {
     super(client, response, body, options);
 
-    this.data = body.data;
+    this.data = body.data || [];
     this.pagination_metadata = body.pagination_metadata;
   }
 
   getPaginatedItems(): Item[] {
-    return this.data;
+    return this.data ?? [];
   }
 
   // @deprecated Please use `nextPageInfo()` instead
@@ -56,8 +56,15 @@ export class Page<Item> extends AbstractPage<Item> implements PageResponse<Item>
   }
 
   nextPageInfo(): PageInfo | null {
-    if (!this.pagination_metadata.next_cursor) return null;
+    const cursor = this.pagination_metadata.next_cursor;
+    if (!cursor) {
+      return null;
+    }
 
-    return { params: { cursor: this.pagination_metadata.next_cursor } };
+    return {
+      params: {
+        cursor: cursor,
+      },
+    };
   }
 }
