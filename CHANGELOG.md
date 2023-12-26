@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.33.1 (2023-12-26)
+
+Full Changelog: [v1.33.0...v1.33.1](https://github.com/orbcorp/orb-node/compare/v1.33.0...v1.33.1)
+
+### Bug Fixes
+
+* use brackets instead of commas for array query params ([#66](https://github.com/orbcorp/orb-node/issues/66)) ([1bb118c](https://github.com/orbcorp/orb-node/commit/1bb118cf59d4aace1adcdb8f809f3d0daedf0fb2))
+
+
+### Chores
+
+* **ci:** run release workflow once per day ([#59](https://github.com/orbcorp/orb-node/issues/59)) ([719bda1](https://github.com/orbcorp/orb-node/commit/719bda1f38042a018828838f1a7839845d421226))
+* **deps:** update dependency ts-jest to v29.1.1 ([#60](https://github.com/orbcorp/orb-node/issues/60)) ([a011800](https://github.com/orbcorp/orb-node/commit/a0118008c2f18ad16ae93222053d98e40739cdd7))
+* **deps:** update jest ([#61](https://github.com/orbcorp/orb-node/issues/61)) ([7c35eb0](https://github.com/orbcorp/orb-node/commit/7c35eb094855e67758614435cec8ebea8ef71d80))
+* **internal:** minor updates to pagination ([#64](https://github.com/orbcorp/orb-node/issues/64)) ([993b3d0](https://github.com/orbcorp/orb-node/commit/993b3d0337dce7158ddf3a14668d0ff72af6c8c9))
+* update dependencies ([#58](https://github.com/orbcorp/orb-node/issues/58)) ([cea16a0](https://github.com/orbcorp/orb-node/commit/cea16a0f158912dcf840cda52e2fc1d5d1063ee8))
+
+
+### Documentation
+
+* **api:** updates ([#62](https://github.com/orbcorp/orb-node/issues/62)) ([f601aa0](https://github.com/orbcorp/orb-node/commit/f601aa0d60bb6429259383ec6b57dabf3c3410cf))
+* avoid normalizing trailing space ([#56](https://github.com/orbcorp/orb-node/issues/56)) ([e127ac0](https://github.com/orbcorp/orb-node/commit/e127ac017cb0e60eceacf7a3ce71b437067d6065))
+* reformat README.md ([#65](https://github.com/orbcorp/orb-node/issues/65)) ([390cb50](https://github.com/orbcorp/orb-node/commit/390cb507d8f45277374b9bc98d70a27041a4db8b))
+
+
+### Refactors
+
+* write jest config in typescript ([#63](https://github.com/orbcorp/orb-node/issues/63)) ([43d6bf7](https://github.com/orbcorp/orb-node/commit/43d6bf7abf0b7c7adbb337183944641fddf228ae))
+
 ## 1.33.0 (2023-12-11)
 
 Full Changelog: [v1.32.0...v1.33.0](https://github.com/orbcorp/orb-node/compare/v1.32.0...v1.33.0)
