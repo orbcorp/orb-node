@@ -489,6 +489,8 @@ export namespace LedgerListResponse {
 
     credit_block: IncrementLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: IncrementLedgerEntry.Customer;
 
     description: string | null;
@@ -536,6 +538,8 @@ export namespace LedgerListResponse {
     created_at: string;
 
     credit_block: DecrementLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: DecrementLedgerEntry.Customer;
 
@@ -591,6 +595,8 @@ export namespace LedgerListResponse {
 
     credit_block: ExpirationChangeLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: ExpirationChangeLedgerEntry.Customer;
 
     description: string | null;
@@ -641,6 +647,8 @@ export namespace LedgerListResponse {
 
     credit_block: CreditBlockExpiryLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: CreditBlockExpiryLedgerEntry.Customer;
 
     description: string | null;
@@ -688,6 +696,8 @@ export namespace LedgerListResponse {
     created_at: string;
 
     credit_block: VoidLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: VoidLedgerEntry.Customer;
 
@@ -740,6 +750,8 @@ export namespace LedgerListResponse {
     created_at: string;
 
     credit_block: VoidInitiatedLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: VoidInitiatedLedgerEntry.Customer;
 
@@ -794,6 +806,8 @@ export namespace LedgerListResponse {
     created_at: string;
 
     credit_block: AmendmentLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: AmendmentLedgerEntry.Customer;
 
@@ -858,6 +872,8 @@ export namespace LedgerCreateEntryResponse {
 
     credit_block: IncrementLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: IncrementLedgerEntry.Customer;
 
     description: string | null;
@@ -905,6 +921,8 @@ export namespace LedgerCreateEntryResponse {
     created_at: string;
 
     credit_block: DecrementLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: DecrementLedgerEntry.Customer;
 
@@ -960,6 +978,8 @@ export namespace LedgerCreateEntryResponse {
 
     credit_block: ExpirationChangeLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: ExpirationChangeLedgerEntry.Customer;
 
     description: string | null;
@@ -1010,6 +1030,8 @@ export namespace LedgerCreateEntryResponse {
 
     credit_block: CreditBlockExpiryLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: CreditBlockExpiryLedgerEntry.Customer;
 
     description: string | null;
@@ -1057,6 +1079,8 @@ export namespace LedgerCreateEntryResponse {
     created_at: string;
 
     credit_block: VoidLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: VoidLedgerEntry.Customer;
 
@@ -1109,6 +1133,8 @@ export namespace LedgerCreateEntryResponse {
     created_at: string;
 
     credit_block: VoidInitiatedLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: VoidInitiatedLedgerEntry.Customer;
 
@@ -1163,6 +1189,8 @@ export namespace LedgerCreateEntryResponse {
     created_at: string;
 
     credit_block: AmendmentLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: AmendmentLedgerEntry.Customer;
 
@@ -1227,6 +1255,8 @@ export namespace LedgerCreateEntryByExternalIDResponse {
 
     credit_block: IncrementLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: IncrementLedgerEntry.Customer;
 
     description: string | null;
@@ -1274,6 +1304,8 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     created_at: string;
 
     credit_block: DecrementLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: DecrementLedgerEntry.Customer;
 
@@ -1329,6 +1361,8 @@ export namespace LedgerCreateEntryByExternalIDResponse {
 
     credit_block: ExpirationChangeLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: ExpirationChangeLedgerEntry.Customer;
 
     description: string | null;
@@ -1379,6 +1413,8 @@ export namespace LedgerCreateEntryByExternalIDResponse {
 
     credit_block: CreditBlockExpiryLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: CreditBlockExpiryLedgerEntry.Customer;
 
     description: string | null;
@@ -1426,6 +1462,8 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     created_at: string;
 
     credit_block: VoidLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: VoidLedgerEntry.Customer;
 
@@ -1478,6 +1516,8 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     created_at: string;
 
     credit_block: VoidInitiatedLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: VoidInitiatedLedgerEntry.Customer;
 
@@ -1532,6 +1572,8 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     created_at: string;
 
     credit_block: AmendmentLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: AmendmentLedgerEntry.Customer;
 
@@ -1596,6 +1638,8 @@ export namespace LedgerListByExternalIDResponse {
 
     credit_block: IncrementLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: IncrementLedgerEntry.Customer;
 
     description: string | null;
@@ -1643,6 +1687,8 @@ export namespace LedgerListByExternalIDResponse {
     created_at: string;
 
     credit_block: DecrementLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: DecrementLedgerEntry.Customer;
 
@@ -1698,6 +1744,8 @@ export namespace LedgerListByExternalIDResponse {
 
     credit_block: ExpirationChangeLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: ExpirationChangeLedgerEntry.Customer;
 
     description: string | null;
@@ -1748,6 +1796,8 @@ export namespace LedgerListByExternalIDResponse {
 
     credit_block: CreditBlockExpiryLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: CreditBlockExpiryLedgerEntry.Customer;
 
     description: string | null;
@@ -1795,6 +1845,8 @@ export namespace LedgerListByExternalIDResponse {
     created_at: string;
 
     credit_block: VoidLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: VoidLedgerEntry.Customer;
 
@@ -1847,6 +1899,8 @@ export namespace LedgerListByExternalIDResponse {
     created_at: string;
 
     credit_block: VoidInitiatedLedgerEntry.CreditBlock;
+
+    currency: string;
 
     customer: VoidInitiatedLedgerEntry.Customer;
 
@@ -1902,6 +1956,8 @@ export namespace LedgerListByExternalIDResponse {
 
     credit_block: AmendmentLedgerEntry.CreditBlock;
 
+    currency: string;
+
     customer: AmendmentLedgerEntry.Customer;
 
     description: string | null;
@@ -1951,6 +2007,9 @@ export interface LedgerListParams extends PageParams {
 
   'created_at[lte]'?: string | null;
 
+  /**
+   * The ledger currency or custom pricing unit to use.
+   */
   currency?: string | null;
 
   entry_status?: 'committed' | 'pending' | null;
@@ -1984,6 +2043,12 @@ export namespace LedgerCreateEntryParams {
     amount: number;
 
     entry_type: 'increment';
+
+    /**
+     * The currency or custom pricing unit to use for this ledger entry. If this is a
+     * real-world currency, it must match the customer's invoicing currency.
+     */
+    currency?: string | null;
 
     /**
      * Optional metadata that can be specified when adding ledger results via the API.
@@ -2064,6 +2129,12 @@ export namespace LedgerCreateEntryParams {
     entry_type: 'decrement';
 
     /**
+     * The currency or custom pricing unit to use for this ledger entry. If this is a
+     * real-world currency, it must match the customer's invoicing currency.
+     */
+    currency?: string | null;
+
+    /**
      * Optional metadata that can be specified when adding ledger results via the API.
      * For example, this can be used to note an increment refers to trial credits, or
      * for noting corrections as a result of an incident, etc.
@@ -2107,6 +2178,12 @@ export namespace LedgerCreateEntryParams {
     block_id?: string | null;
 
     /**
+     * The currency or custom pricing unit to use for this ledger entry. If this is a
+     * real-world currency, it must match the customer's invoicing currency.
+     */
+    currency?: string | null;
+
+    /**
      * Optional metadata that can be specified when adding ledger results via the API.
      * For example, this can be used to note an increment refers to trial credits, or
      * for noting corrections as a result of an incident, etc.
@@ -2134,6 +2211,12 @@ export namespace LedgerCreateEntryParams {
     block_id: string;
 
     entry_type: 'void';
+
+    /**
+     * The currency or custom pricing unit to use for this ledger entry. If this is a
+     * real-world currency, it must match the customer's invoicing currency.
+     */
+    currency?: string | null;
 
     /**
      * Optional metadata that can be specified when adding ledger results via the API.
@@ -2170,6 +2253,12 @@ export namespace LedgerCreateEntryParams {
     entry_type: 'amendment';
 
     /**
+     * The currency or custom pricing unit to use for this ledger entry. If this is a
+     * real-world currency, it must match the customer's invoicing currency.
+     */
+    currency?: string | null;
+
+    /**
      * Optional metadata that can be specified when adding ledger results via the API.
      * For example, this can be used to note an increment refers to trial credits, or
      * for noting corrections as a result of an incident, etc.
@@ -2201,6 +2290,12 @@ export namespace LedgerCreateEntryByExternalIDParams {
     amount: number;
 
     entry_type: 'increment';
+
+    /**
+     * The currency or custom pricing unit to use for this ledger entry. If this is a
+     * real-world currency, it must match the customer's invoicing currency.
+     */
+    currency?: string | null;
 
     /**
      * Optional metadata that can be specified when adding ledger results via the API.
@@ -2281,6 +2376,12 @@ export namespace LedgerCreateEntryByExternalIDParams {
     entry_type: 'decrement';
 
     /**
+     * The currency or custom pricing unit to use for this ledger entry. If this is a
+     * real-world currency, it must match the customer's invoicing currency.
+     */
+    currency?: string | null;
+
+    /**
      * Optional metadata that can be specified when adding ledger results via the API.
      * For example, this can be used to note an increment refers to trial credits, or
      * for noting corrections as a result of an incident, etc.
@@ -2324,6 +2425,12 @@ export namespace LedgerCreateEntryByExternalIDParams {
     block_id?: string | null;
 
     /**
+     * The currency or custom pricing unit to use for this ledger entry. If this is a
+     * real-world currency, it must match the customer's invoicing currency.
+     */
+    currency?: string | null;
+
+    /**
      * Optional metadata that can be specified when adding ledger results via the API.
      * For example, this can be used to note an increment refers to trial credits, or
      * for noting corrections as a result of an incident, etc.
@@ -2351,6 +2458,12 @@ export namespace LedgerCreateEntryByExternalIDParams {
     block_id: string;
 
     entry_type: 'void';
+
+    /**
+     * The currency or custom pricing unit to use for this ledger entry. If this is a
+     * real-world currency, it must match the customer's invoicing currency.
+     */
+    currency?: string | null;
 
     /**
      * Optional metadata that can be specified when adding ledger results via the API.
@@ -2387,6 +2500,12 @@ export namespace LedgerCreateEntryByExternalIDParams {
     entry_type: 'amendment';
 
     /**
+     * The currency or custom pricing unit to use for this ledger entry. If this is a
+     * real-world currency, it must match the customer's invoicing currency.
+     */
+    currency?: string | null;
+
+    /**
      * Optional metadata that can be specified when adding ledger results via the API.
      * For example, this can be used to note an increment refers to trial credits, or
      * for noting corrections as a result of an incident, etc.
@@ -2411,6 +2530,9 @@ export interface LedgerListByExternalIDParams extends PageParams {
 
   'created_at[lte]'?: string | null;
 
+  /**
+   * The ledger currency or custom pricing unit to use.
+   */
   currency?: string | null;
 
   entry_status?: 'committed' | 'pending' | null;
