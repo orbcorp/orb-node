@@ -67,6 +67,7 @@ describe('resource ledger', () => {
     const response = await orb.customers.credits.ledger.createEntry('string', {
       amount: 0,
       entry_type: 'increment',
+      currency: 'string',
       description: 'string',
       effective_date: '2019-12-27',
       expiry_date: '2019-12-27',
@@ -94,6 +95,7 @@ describe('resource ledger', () => {
     const response = await orb.customers.credits.ledger.createEntryByExternalId('string', {
       amount: 0,
       entry_type: 'increment',
+      currency: 'string',
       description: 'string',
       effective_date: '2019-12-27',
       expiry_date: '2019-12-27',

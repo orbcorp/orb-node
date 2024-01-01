@@ -243,6 +243,7 @@ export interface Customer {
    *
    * | Country              | Type         | Description                                                                                             |
    * | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Andorra              | `ad_nrt`     | Andorran NRT number                                                                                     |
    * | Australia            | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
    * | Australia            | `au_arn`     | Australian Taxation Office Reference Number                                                             |
    * | Austria              | `eu_vat`     | European VAT number                                                                                     |
@@ -372,6 +373,7 @@ export namespace Customer {
    *
    * | Country              | Type         | Description                                                                                             |
    * | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Andorra              | `ad_nrt`     | Andorran NRT number                                                                                     |
    * | Australia            | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
    * | Australia            | `au_arn`     | Australian Taxation Office Reference Number                                                             |
    * | Austria              | `eu_vat`     | European VAT number                                                                                     |
@@ -452,6 +454,7 @@ export namespace Customer {
    */
   export interface TaxID {
     country:
+      | 'AD'
       | 'AE'
       | 'AT'
       | 'AU'
@@ -514,6 +517,7 @@ export namespace Customer {
       | 'ZA';
 
     type:
+      | 'ad_nrt'
       | 'ae_trn'
       | 'eu_vat'
       | 'au_abn'
@@ -665,6 +669,7 @@ export interface CustomerCreateParams {
    *
    * | Country              | Type         | Description                                                                                             |
    * | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Andorra              | `ad_nrt`     | Andorran NRT number                                                                                     |
    * | Australia            | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
    * | Australia            | `au_arn`     | Australian Taxation Office Reference Number                                                             |
    * | Austria              | `eu_vat`     | European VAT number                                                                                     |
@@ -808,6 +813,7 @@ export namespace CustomerCreateParams {
    *
    * | Country              | Type         | Description                                                                                             |
    * | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Andorra              | `ad_nrt`     | Andorran NRT number                                                                                     |
    * | Australia            | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
    * | Australia            | `au_arn`     | Australian Taxation Office Reference Number                                                             |
    * | Austria              | `eu_vat`     | European VAT number                                                                                     |
@@ -888,6 +894,7 @@ export namespace CustomerCreateParams {
    */
   export interface TaxID {
     country:
+      | 'AD'
       | 'AE'
       | 'AT'
       | 'AU'
@@ -950,6 +957,7 @@ export namespace CustomerCreateParams {
       | 'ZA';
 
     type:
+      | 'ad_nrt'
       | 'ae_trn'
       | 'eu_vat'
       | 'au_abn'
@@ -1078,6 +1086,7 @@ export interface CustomerUpdateParams {
    *
    * | Country              | Type         | Description                                                                                             |
    * | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Andorra              | `ad_nrt`     | Andorran NRT number                                                                                     |
    * | Australia            | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
    * | Australia            | `au_arn`     | Australian Taxation Office Reference Number                                                             |
    * | Austria              | `eu_vat`     | European VAT number                                                                                     |
@@ -1214,6 +1223,7 @@ export namespace CustomerUpdateParams {
    *
    * | Country              | Type         | Description                                                                                             |
    * | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Andorra              | `ad_nrt`     | Andorran NRT number                                                                                     |
    * | Australia            | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
    * | Australia            | `au_arn`     | Australian Taxation Office Reference Number                                                             |
    * | Austria              | `eu_vat`     | European VAT number                                                                                     |
@@ -1294,6 +1304,7 @@ export namespace CustomerUpdateParams {
    */
   export interface TaxID {
     country:
+      | 'AD'
       | 'AE'
       | 'AT'
       | 'AU'
@@ -1356,6 +1367,7 @@ export namespace CustomerUpdateParams {
       | 'ZA';
 
     type:
+      | 'ad_nrt'
       | 'ae_trn'
       | 'eu_vat'
       | 'au_abn'
@@ -1494,6 +1506,7 @@ export interface CustomerUpdateByExternalIDParams {
    *
    * | Country              | Type         | Description                                                                                             |
    * | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Andorra              | `ad_nrt`     | Andorran NRT number                                                                                     |
    * | Australia            | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
    * | Australia            | `au_arn`     | Australian Taxation Office Reference Number                                                             |
    * | Austria              | `eu_vat`     | European VAT number                                                                                     |
@@ -1630,6 +1643,7 @@ export namespace CustomerUpdateByExternalIDParams {
    *
    * | Country              | Type         | Description                                                                                             |
    * | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Andorra              | `ad_nrt`     | Andorran NRT number                                                                                     |
    * | Australia            | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
    * | Australia            | `au_arn`     | Australian Taxation Office Reference Number                                                             |
    * | Austria              | `eu_vat`     | European VAT number                                                                                     |
@@ -1710,6 +1724,7 @@ export namespace CustomerUpdateByExternalIDParams {
    */
   export interface TaxID {
     country:
+      | 'AD'
       | 'AE'
       | 'AT'
       | 'AU'
@@ -1772,6 +1787,7 @@ export namespace CustomerUpdateByExternalIDParams {
       | 'ZA';
 
     type:
+      | 'ad_nrt'
       | 'ae_trn'
       | 'eu_vat'
       | 'au_abn'

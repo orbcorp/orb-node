@@ -154,6 +154,7 @@ export interface Invoice {
    *
    * | Country              | Type         | Description                                                                                             |
    * | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Andorra              | `ad_nrt`     | Andorran NRT number                                                                                     |
    * | Australia            | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
    * | Australia            | `au_arn`     | Australian Taxation Office Reference Number                                                             |
    * | Austria              | `eu_vat`     | European VAT number                                                                                     |
@@ -508,6 +509,7 @@ export namespace Invoice {
    *
    * | Country              | Type         | Description                                                                                             |
    * | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Andorra              | `ad_nrt`     | Andorran NRT number                                                                                     |
    * | Australia            | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
    * | Australia            | `au_arn`     | Australian Taxation Office Reference Number                                                             |
    * | Austria              | `eu_vat`     | European VAT number                                                                                     |
@@ -588,6 +590,7 @@ export namespace Invoice {
    */
   export interface CustomerTaxID {
     country:
+      | 'AD'
       | 'AE'
       | 'AT'
       | 'AU'
@@ -650,6 +653,7 @@ export namespace Invoice {
       | 'ZA';
 
     type:
+      | 'ad_nrt'
       | 'ae_trn'
       | 'eu_vat'
       | 'au_abn'
@@ -1230,6 +1234,7 @@ export interface InvoiceFetchUpcomingResponse {
    *
    * | Country              | Type         | Description                                                                                             |
    * | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Andorra              | `ad_nrt`     | Andorran NRT number                                                                                     |
    * | Australia            | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
    * | Australia            | `au_arn`     | Australian Taxation Office Reference Number                                                             |
    * | Austria              | `eu_vat`     | European VAT number                                                                                     |
@@ -1584,6 +1589,7 @@ export namespace InvoiceFetchUpcomingResponse {
    *
    * | Country              | Type         | Description                                                                                             |
    * | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Andorra              | `ad_nrt`     | Andorran NRT number                                                                                     |
    * | Australia            | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
    * | Australia            | `au_arn`     | Australian Taxation Office Reference Number                                                             |
    * | Austria              | `eu_vat`     | European VAT number                                                                                     |
@@ -1664,6 +1670,7 @@ export namespace InvoiceFetchUpcomingResponse {
    */
   export interface CustomerTaxID {
     country:
+      | 'AD'
       | 'AE'
       | 'AT'
       | 'AU'
@@ -1726,6 +1733,7 @@ export namespace InvoiceFetchUpcomingResponse {
       | 'ZA';
 
     type:
+      | 'ad_nrt'
       | 'ae_trn'
       | 'eu_vat'
       | 'au_abn'
