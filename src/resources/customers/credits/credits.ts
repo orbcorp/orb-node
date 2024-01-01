@@ -88,9 +88,19 @@ export interface CreditListByExternalIDResponse {
   per_unit_cost_basis: string | null;
 }
 
-export interface CreditListParams extends PageParams {}
+export interface CreditListParams extends PageParams {
+  /**
+   * The ledger currency or custom pricing unit to use.
+   */
+  currency?: string | null;
+}
 
-export interface CreditListByExternalIDParams extends PageParams {}
+export interface CreditListByExternalIDParams extends PageParams {
+  /**
+   * The ledger currency or custom pricing unit to use.
+   */
+  currency?: string | null;
+}
 
 export namespace Credits {
   export import CreditListResponse = CreditsAPI.CreditListResponse;
