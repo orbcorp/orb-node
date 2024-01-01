@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.34.0 (2024-01-01)
+
+Full Changelog: [v1.33.1...v1.34.0](https://github.com/orbcorp/orb-node/compare/v1.33.1...v1.34.0)
+
+### Features
+
+* **api:** add currency fields ([#67](https://github.com/orbcorp/orb-node/issues/67)) ([7147ea7](https://github.com/orbcorp/orb-node/commit/7147ea7e24352f824a44038373294f1a7cd55ac5))
+
 ## 1.33.1 (2023-12-26)
 
 Full Changelog: [v1.33.0...v1.33.1](https://github.com/orbcorp/orb-node/compare/v1.33.0...v1.33.1)
