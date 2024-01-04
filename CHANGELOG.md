@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.34.1 (2024-01-04)
+
+Full Changelog: [v1.34.0...v1.34.1](https://github.com/orbcorp/orb-node/compare/v1.34.0...v1.34.1)
+
+### Bug Fixes
+
+* **headers:** always send lowercase headers and strip undefined (BREAKING in rare cases) ([#69](https://github.com/orbcorp/orb-node/issues/69)) ([b05815f](https://github.com/orbcorp/orb-node/commit/b05815fe17d2596b65f32af0c5e095b2a27af6f6))
+
 ## 1.34.0 (2024-01-01)
 
 Full Changelog: [v1.33.1...v1.34.0](https://github.com/orbcorp/orb-node/compare/v1.33.1...v1.34.0)
