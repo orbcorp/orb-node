@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.34.2 (2024-01-08)
+
+Full Changelog: [v1.34.1...v1.34.2](https://github.com/orbcorp/orb-node/compare/v1.34.1...v1.34.2)
+
+### Chores
+
+* **internal:** improve type signatures ([#71](https://github.com/orbcorp/orb-node/issues/71)) ([453e66e](https://github.com/orbcorp/orb-node/commit/453e66ec72e92ed94672f4be150c96e5bbb173f2))
+
 ## 1.34.1 (2024-01-04)
 
 Full Changelog: [v1.34.0...v1.34.1](https://github.com/orbcorp/orb-node/compare/v1.34.0...v1.34.1)
