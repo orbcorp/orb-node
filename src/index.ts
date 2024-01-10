@@ -103,7 +103,7 @@ export class Orb extends Core.APIClient {
     const options: ClientOptions = {
       apiKey,
       ...opts,
-      baseURL: baseURL ?? `https://api.withorb.com/v1`,
+      baseURL: baseURL || `https://api.withorb.com/v1`,
     };
 
     super({
