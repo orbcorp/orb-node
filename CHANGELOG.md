@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.34.2 (2024-01-10)
+
+Full Changelog: [v1.34.1...v1.34.2](https://github.com/orbcorp/orb-node/compare/v1.34.1...v1.34.2)
+
+### Bug Fixes
+
+* use default base url if BASE_URL env var is blank ([#74](https://github.com/orbcorp/orb-node/issues/74)) ([ad971d0](https://github.com/orbcorp/orb-node/commit/ad971d0fab1418375db9fdc3a3d5fbec22afb01c))
+
+
+### Chores
+
+* add .keep files for examples and custom code directories ([#73](https://github.com/orbcorp/orb-node/issues/73)) ([5bebfd9](https://github.com/orbcorp/orb-node/commit/5bebfd9d5d81ef44786882cb580b872289d7479b))
+* **internal:** improve type signatures ([#71](https://github.com/orbcorp/orb-node/issues/71)) ([453e66e](https://github.com/orbcorp/orb-node/commit/453e66ec72e92ed94672f4be150c96e5bbb173f2))
+
 ## 1.34.1 (2024-01-04)
 
 Full Changelog: [v1.34.0...v1.34.1](https://github.com/orbcorp/orb-node/compare/v1.34.0...v1.34.1)
