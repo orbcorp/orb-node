@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.35.0 (2024-01-12)
+
+Full Changelog: [v1.34.2...v1.35.0](https://github.com/orbcorp/orb-node/compare/v1.34.2...v1.35.0)
+
+### Features
+
+* **api:** add beta evaluate price endpoint ([#78](https://github.com/orbcorp/orb-node/issues/78)) ([a0dbd55](https://github.com/orbcorp/orb-node/commit/a0dbd55d9b98efbf6d2797e0a4fc5d8a74bbc90f))
+
+
+### Chores
+
+* **internal:** narrow type into stringifyQuery ([#75](https://github.com/orbcorp/orb-node/issues/75)) ([f93f20f](https://github.com/orbcorp/orb-node/commit/f93f20fb9d631ee71deabefa2ae6e318822c349b))
+
+
+### Documentation
+
+* **readme:** improve api reference ([#77](https://github.com/orbcorp/orb-node/issues/77)) ([680bcb0](https://github.com/orbcorp/orb-node/commit/680bcb0216a90ee5e4a985b611f534dcd5539763))
+
 ## 1.34.2 (2024-01-10)
 
 Full Changelog: [v1.34.1...v1.34.2](https://github.com/orbcorp/orb-node/compare/v1.34.1...v1.34.2)
