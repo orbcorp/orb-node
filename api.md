@@ -275,3 +275,16 @@ Methods:
 - <code title="post /subscriptions/{subscription_id}/unschedule_fixed_fee_quantity_updates">client.subscriptions.<a href="./src/resources/subscriptions.ts">unscheduleFixedFeeQuantityUpdates</a>(subscriptionId, { ...params }) -> Subscription</code>
 - <code title="post /subscriptions/{subscription_id}/unschedule_pending_plan_changes">client.subscriptions.<a href="./src/resources/subscriptions.ts">unschedulePendingPlanChanges</a>(subscriptionId) -> Subscription</code>
 - <code title="post /subscriptions/{subscription_id}/update_fixed_fee_quantity">client.subscriptions.<a href="./src/resources/subscriptions.ts">updateFixedFeeQuantity</a>(subscriptionId, { ...params }) -> Subscription</code>
+
+# Beta
+
+## Price
+
+Types:
+
+- <code><a href="./src/resources/beta/price.ts">EvaluatePriceGroup</a></code>
+- <code><a href="./src/resources/beta/price.ts">PriceEvaluateResponse</a></code>
+
+Methods:
+
+- <code title="post /prices/{price_id}/evaluate">client.beta.price.<a href="./src/resources/beta/price.ts">evaluate</a>(priceId, { ...params }) -> PriceEvaluateResponse</code>
