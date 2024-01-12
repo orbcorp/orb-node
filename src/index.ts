@@ -131,6 +131,7 @@ export class Orb extends Core.APIClient {
   plans: API.Plans = new API.Plans(this);
   prices: API.Prices = new API.Prices(this);
   subscriptions: API.Subscriptions = new API.Subscriptions(this);
+  beta: API.Beta = new API.Beta(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -311,6 +312,8 @@ export namespace Orb {
   export import SubscriptionTriggerPhaseParams = API.SubscriptionTriggerPhaseParams;
   export import SubscriptionUnscheduleFixedFeeQuantityUpdatesParams = API.SubscriptionUnscheduleFixedFeeQuantityUpdatesParams;
   export import SubscriptionUpdateFixedFeeQuantityParams = API.SubscriptionUpdateFixedFeeQuantityParams;
+
+  export import Beta = API.Beta;
 
   export import Discount = API.Discount;
 }

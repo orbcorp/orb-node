@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
 
 export * from './shared';
+export { Beta } from './beta/beta';
 export { Coupon, CouponCreateParams, CouponListParams, CouponsPage, Coupons } from './coupons/coupons';
 export { CreditNote, CreditNoteListParams, CreditNotesPage, CreditNotes } from './credit-notes';
 export {
