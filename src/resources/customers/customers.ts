@@ -296,7 +296,7 @@ export interface Customer {
    * | Netherlands          | `eu_vat`     | European VAT number                                                                                     |
    * | New Zealand          | `nz_gst`     | New Zealand GST number                                                                                  |
    * | Norway               | `no_vat`     | Norwegian VAT number                                                                                    |
-   * | Philippines          | `ph_tin   `  | Philippines Tax Identification Number                                                                   |
+   * | Philippines          | `ph_tin `    | Philippines Tax Identification Number                                                                   |
    * | Poland               | `eu_vat`     | European VAT number                                                                                     |
    * | Portugal             | `eu_vat`     | European VAT number                                                                                     |
    * | Romania              | `eu_vat`     | European VAT number                                                                                     |
@@ -426,7 +426,7 @@ export namespace Customer {
    * | Netherlands          | `eu_vat`     | European VAT number                                                                                     |
    * | New Zealand          | `nz_gst`     | New Zealand GST number                                                                                  |
    * | Norway               | `no_vat`     | Norwegian VAT number                                                                                    |
-   * | Philippines          | `ph_tin   `  | Philippines Tax Identification Number                                                                   |
+   * | Philippines          | `ph_tin `    | Philippines Tax Identification Number                                                                   |
    * | Poland               | `eu_vat`     | European VAT number                                                                                     |
    * | Portugal             | `eu_vat`     | European VAT number                                                                                     |
    * | Romania              | `eu_vat`     | European VAT number                                                                                     |
@@ -722,7 +722,7 @@ export interface CustomerCreateParams {
    * | Netherlands          | `eu_vat`     | European VAT number                                                                                     |
    * | New Zealand          | `nz_gst`     | New Zealand GST number                                                                                  |
    * | Norway               | `no_vat`     | Norwegian VAT number                                                                                    |
-   * | Philippines          | `ph_tin   `  | Philippines Tax Identification Number                                                                   |
+   * | Philippines          | `ph_tin `    | Philippines Tax Identification Number                                                                   |
    * | Poland               | `eu_vat`     | European VAT number                                                                                     |
    * | Portugal             | `eu_vat`     | European VAT number                                                                                     |
    * | Romania              | `eu_vat`     | European VAT number                                                                                     |
@@ -866,7 +866,7 @@ export namespace CustomerCreateParams {
    * | Netherlands          | `eu_vat`     | European VAT number                                                                                     |
    * | New Zealand          | `nz_gst`     | New Zealand GST number                                                                                  |
    * | Norway               | `no_vat`     | Norwegian VAT number                                                                                    |
-   * | Philippines          | `ph_tin   `  | Philippines Tax Identification Number                                                                   |
+   * | Philippines          | `ph_tin `    | Philippines Tax Identification Number                                                                   |
    * | Poland               | `eu_vat`     | European VAT number                                                                                     |
    * | Portugal             | `eu_vat`     | European VAT number                                                                                     |
    * | Romania              | `eu_vat`     | European VAT number                                                                                     |
@@ -1139,7 +1139,7 @@ export interface CustomerUpdateParams {
    * | Netherlands          | `eu_vat`     | European VAT number                                                                                     |
    * | New Zealand          | `nz_gst`     | New Zealand GST number                                                                                  |
    * | Norway               | `no_vat`     | Norwegian VAT number                                                                                    |
-   * | Philippines          | `ph_tin   `  | Philippines Tax Identification Number                                                                   |
+   * | Philippines          | `ph_tin `    | Philippines Tax Identification Number                                                                   |
    * | Poland               | `eu_vat`     | European VAT number                                                                                     |
    * | Portugal             | `eu_vat`     | European VAT number                                                                                     |
    * | Romania              | `eu_vat`     | European VAT number                                                                                     |
@@ -1276,7 +1276,7 @@ export namespace CustomerUpdateParams {
    * | Netherlands          | `eu_vat`     | European VAT number                                                                                     |
    * | New Zealand          | `nz_gst`     | New Zealand GST number                                                                                  |
    * | Norway               | `no_vat`     | Norwegian VAT number                                                                                    |
-   * | Philippines          | `ph_tin   `  | Philippines Tax Identification Number                                                                   |
+   * | Philippines          | `ph_tin `    | Philippines Tax Identification Number                                                                   |
    * | Poland               | `eu_vat`     | European VAT number                                                                                     |
    * | Portugal             | `eu_vat`     | European VAT number                                                                                     |
    * | Romania              | `eu_vat`     | European VAT number                                                                                     |
@@ -1559,7 +1559,7 @@ export interface CustomerUpdateByExternalIDParams {
    * | Netherlands          | `eu_vat`     | European VAT number                                                                                     |
    * | New Zealand          | `nz_gst`     | New Zealand GST number                                                                                  |
    * | Norway               | `no_vat`     | Norwegian VAT number                                                                                    |
-   * | Philippines          | `ph_tin   `  | Philippines Tax Identification Number                                                                   |
+   * | Philippines          | `ph_tin `    | Philippines Tax Identification Number                                                                   |
    * | Poland               | `eu_vat`     | European VAT number                                                                                     |
    * | Portugal             | `eu_vat`     | European VAT number                                                                                     |
    * | Romania              | `eu_vat`     | European VAT number                                                                                     |
@@ -1696,7 +1696,7 @@ export namespace CustomerUpdateByExternalIDParams {
    * | Netherlands          | `eu_vat`     | European VAT number                                                                                     |
    * | New Zealand          | `nz_gst`     | New Zealand GST number                                                                                  |
    * | Norway               | `no_vat`     | Norwegian VAT number                                                                                    |
-   * | Philippines          | `ph_tin   `  | Philippines Tax Identification Number                                                                   |
+   * | Philippines          | `ph_tin `    | Philippines Tax Identification Number                                                                   |
    * | Poland               | `eu_vat`     | European VAT number                                                                                     |
    * | Portugal             | `eu_vat`     | European VAT number                                                                                     |
    * | Romania              | `eu_vat`     | European VAT number                                                                                     |
