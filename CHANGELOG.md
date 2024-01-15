@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.36.0 (2024-01-15)
+
+Full Changelog: [v1.35.0...v1.36.0](https://github.com/orbcorp/orb-node/compare/v1.35.0...v1.36.0)
+
+### Features
+
+* **api:** updates ([#82](https://github.com/orbcorp/orb-node/issues/82)) ([555e380](https://github.com/orbcorp/orb-node/commit/555e380da29de37420b3f5925fcdc92a90585c33))
+
+
+### Chores
+
+* formatting ([#79](https://github.com/orbcorp/orb-node/issues/79)) ([0e02096](https://github.com/orbcorp/orb-node/commit/0e02096f3bb435b489e653d7c97b7e788c423ccd))
+
+
+### Documentation
+
+* fix missing async in readme code sample ([#81](https://github.com/orbcorp/orb-node/issues/81)) ([a0f6c26](https://github.com/orbcorp/orb-node/commit/a0f6c262a8fcf40844ba39ebc402cb0f89f8a7ea))
+
 ## 1.35.0 (2024-01-12)
 
 Full Changelog: [v1.34.2...v1.35.0](https://github.com/orbcorp/orb-node/compare/v1.34.2...v1.35.0)
