@@ -2037,6 +2037,8 @@ export namespace SubscriptionFetchCostsResponse {
 }
 
 export interface SubscriptionFetchScheduleResponse {
+  created_at: string;
+
   end_date: string | null;
 
   plan: SubscriptionFetchScheduleResponse.Plan;
