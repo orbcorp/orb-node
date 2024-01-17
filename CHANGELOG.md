@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.37.2 (2024-01-17)
+
+Full Changelog: [v1.37.1...v1.37.2](https://github.com/orbcorp/orb-node/compare/v1.37.1...v1.37.2)
+
+### Bug Fixes
+
+* **types:** accept undefined for optional client options ([#89](https://github.com/orbcorp/orb-node/issues/89)) ([b0566d0](https://github.com/orbcorp/orb-node/commit/b0566d0e24e3556352a127306a03858eadddd161))
+
+
+### Chores
+
+* **internal:** debug logging for retries; speculative retry-after-ms support ([#87](https://github.com/orbcorp/orb-node/issues/87)) ([97db8bc](https://github.com/orbcorp/orb-node/commit/97db8bc873502e3d2eef1647748e067b0fc5490c))
+
 ## 1.37.1 (2024-01-17)
 
 Full Changelog: [v1.37.0...v1.37.1](https://github.com/orbcorp/orb-node/compare/v1.37.0...v1.37.1)
