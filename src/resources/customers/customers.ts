@@ -97,7 +97,7 @@ export class Customers extends APIResource {
   delete(customerId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.delete(`/customers/${customerId}`, {
       ...options,
-      headers: { Accept: '', ...options?.headers },
+      headers: { Accept: '*/*', ...options?.headers },
     });
   }
 
