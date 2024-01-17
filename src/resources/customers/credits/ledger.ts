@@ -2058,14 +2058,13 @@ export namespace LedgerCreateEntryParams {
     description?: string | null;
 
     /**
-     * A future date (specified in YYYY-MM-DD format) that denotes when this credit
-     * balance should become available for use.
+     * An ISO 8601 format date that denotes when this credit balance should become
+     * available for use.
      */
     effective_date?: string | null;
 
     /**
-     * A future date (specified in YYYY-MM-DD format) that denotes when this credit
-     * balance should expire.
+     * An ISO 8601 format date that denotes when this credit balance should expire.
      */
     expiry_date?: string | null;
 
@@ -2153,8 +2152,7 @@ export namespace LedgerCreateEntryParams {
     entry_type: 'expiration_change';
 
     /**
-     * A future date (specified in YYYY-MM-DD format) that identifies the origination
-     * credit block to expire
+     * An ISO 8601 format date that identifies the origination credit block to expire
      */
     expiry_date: string | null;
 
@@ -2305,14 +2303,13 @@ export namespace LedgerCreateEntryByExternalIDParams {
     description?: string | null;
 
     /**
-     * A future date (specified in YYYY-MM-DD format) that denotes when this credit
-     * balance should become available for use.
+     * An ISO 8601 format date that denotes when this credit balance should become
+     * available for use.
      */
     effective_date?: string | null;
 
     /**
-     * A future date (specified in YYYY-MM-DD format) that denotes when this credit
-     * balance should expire.
+     * An ISO 8601 format date that denotes when this credit balance should expire.
      */
     expiry_date?: string | null;
 
@@ -2400,8 +2397,7 @@ export namespace LedgerCreateEntryByExternalIDParams {
     entry_type: 'expiration_change';
 
     /**
-     * A future date (specified in YYYY-MM-DD format) that identifies the origination
-     * credit block to expire
+     * An ISO 8601 format date that identifies the origination credit block to expire
      */
     expiry_date: string | null;
 
