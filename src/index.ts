@@ -12,7 +12,7 @@ export interface ClientOptions {
   /**
    * Defaults to process.env['ORB_API_KEY'].
    */
-  apiKey?: string;
+  apiKey?: string | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -80,7 +80,7 @@ export class Orb extends Core.APIClient {
   /**
    * API Client for interfacing with the Orb API.
    *
-   * @param {string} [opts.apiKey=process.env['ORB_API_KEY'] ?? undefined]
+   * @param {string | undefined} [opts.apiKey=process.env['ORB_API_KEY'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['ORB_BASE_URL'] ?? https://api.withorb.com/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
