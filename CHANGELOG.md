@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.37.1 (2024-01-17)
+
+Full Changelog: [v1.37.0...v1.37.1](https://github.com/orbcorp/orb-node/compare/v1.37.0...v1.37.1)
+
+### Bug Fixes
+
+* use `Accept: */*` as a default Header for void endpoints ([#85](https://github.com/orbcorp/orb-node/issues/85)) ([b9f2713](https://github.com/orbcorp/orb-node/commit/b9f2713c20f691fc91a5b538d0bd56860ba093bb))
+
 ## 1.37.0 (2024-01-17)
 
 Full Changelog: [v1.36.0...v1.37.0](https://github.com/orbcorp/orb-node/compare/v1.36.0...v1.37.0)
