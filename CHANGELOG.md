@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.37.0 (2024-01-17)
+
+Full Changelog: [v1.36.0...v1.37.0](https://github.com/orbcorp/orb-node/compare/v1.36.0...v1.37.0)
+
+### Features
+
+* **api:** updates ([#83](https://github.com/orbcorp/orb-node/issues/83)) ([1b4638b](https://github.com/orbcorp/orb-node/commit/1b4638b31ef22d3555ae672e2fd8ad5a57091765))
+
 ## 1.36.0 (2024-01-15)
 
 Full Changelog: [v1.35.0...v1.36.0](https://github.com/orbcorp/orb-node/compare/v1.35.0...v1.36.0)
