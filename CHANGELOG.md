@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.37.3 (2024-01-18)
+
+Full Changelog: [v1.37.2...v1.37.3](https://github.com/orbcorp/orb-node/compare/v1.37.2...v1.37.3)
+
+### Bug Fixes
+
+* **ci:** ignore stainless-app edits to release PR title ([#90](https://github.com/orbcorp/orb-node/issues/90)) ([29a405c](https://github.com/orbcorp/orb-node/commit/29a405ce6ddfeaa4c9177cb285df159a16805961))
+
 ## 1.37.2 (2024-01-17)
 
 Full Changelog: [v1.37.1...v1.37.2](https://github.com/orbcorp/orb-node/compare/v1.37.1...v1.37.2)
