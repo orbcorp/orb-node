@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.37.4 (2024-01-18)
+
+Full Changelog: [v1.37.3...v1.37.4](https://github.com/orbcorp/orb-node/compare/v1.37.3...v1.37.4)
+
+### Bug Fixes
+
+* allow body type in RequestOptions to be null ([#92](https://github.com/orbcorp/orb-node/issues/92)) ([6a4506f](https://github.com/orbcorp/orb-node/commit/6a4506f1bef90976fc5d3eae3adb9656fa1e3bb4))
+
 ## 1.37.3 (2024-01-18)
 
 Full Changelog: [v1.37.2...v1.37.3](https://github.com/orbcorp/orb-node/compare/v1.37.2...v1.37.3)
