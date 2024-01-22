@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.38.0 (2024-01-22)
+
+Full Changelog: [v1.37.4...v1.38.0](https://github.com/orbcorp/orb-node/compare/v1.37.4...v1.38.0)
+
+### Features
+
+* **api:** introduce per-price cost v2, credit top-ups ([#96](https://github.com/orbcorp/orb-node/issues/96)) ([13451c5](https://github.com/orbcorp/orb-node/commit/13451c50e8a1a4926c7be5b6b44a0d84077fcb23))
+
+
+### Chores
+
+* **internal:** add internal helpers & improve build scripts ([#94](https://github.com/orbcorp/orb-node/issues/94)) ([66e335a](https://github.com/orbcorp/orb-node/commit/66e335a74e67d3a409fc74bbe91b6282c469070c))
+
 ## 1.37.4 (2024-01-18)
 
 Full Changelog: [v1.37.3...v1.37.4](https://github.com/orbcorp/orb-node/compare/v1.37.3...v1.37.4)
