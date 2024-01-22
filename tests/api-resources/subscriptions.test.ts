@@ -205,7 +205,6 @@ describe('resource subscriptions', () => {
       orb.subscriptions.fetchCosts(
         'string',
         {
-          group_by: 'string',
           timeframe_end: '2022-03-01T05:00:00Z',
           timeframe_start: '2022-02-01T05:00:00Z',
           view_mode: 'periodic',

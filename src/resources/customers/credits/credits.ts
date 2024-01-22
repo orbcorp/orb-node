@@ -5,10 +5,12 @@ import { APIResource } from 'orb-billing/resource';
 import { isRequestOptions } from 'orb-billing/core';
 import * as CreditsAPI from 'orb-billing/resources/customers/credits/credits';
 import * as LedgerAPI from 'orb-billing/resources/customers/credits/ledger';
+import * as TopUpsAPI from 'orb-billing/resources/customers/credits/top-ups';
 import { Page, type PageParams } from 'orb-billing/pagination';
 
 export class Credits extends APIResource {
   ledger: LedgerAPI.Ledger = new LedgerAPI.Ledger(this._client);
+  topUps: TopUpsAPI.TopUps = new TopUpsAPI.TopUps(this._client);
 
   /**
    * Returns a paginated list of unexpired, non-zero credit blocks for a customer.
@@ -120,4 +122,15 @@ export namespace Credits {
   export import LedgerCreateEntryParams = LedgerAPI.LedgerCreateEntryParams;
   export import LedgerCreateEntryByExternalIDParams = LedgerAPI.LedgerCreateEntryByExternalIDParams;
   export import LedgerListByExternalIDParams = LedgerAPI.LedgerListByExternalIDParams;
+  export import TopUps = TopUpsAPI.TopUps;
+  export import TopUpCreateResponse = TopUpsAPI.TopUpCreateResponse;
+  export import TopUpListResponse = TopUpsAPI.TopUpListResponse;
+  export import TopUpCreateByExternalIDResponse = TopUpsAPI.TopUpCreateByExternalIDResponse;
+  export import TopUpListByExternalIDResponse = TopUpsAPI.TopUpListByExternalIDResponse;
+  export import TopUpListResponsesPage = TopUpsAPI.TopUpListResponsesPage;
+  export import TopUpListByExternalIDResponsesPage = TopUpsAPI.TopUpListByExternalIDResponsesPage;
+  export import TopUpCreateParams = TopUpsAPI.TopUpCreateParams;
+  export import TopUpListParams = TopUpsAPI.TopUpListParams;
+  export import TopUpCreateByExternalIDParams = TopUpsAPI.TopUpCreateByExternalIDParams;
+  export import TopUpListByExternalIDParams = TopUpsAPI.TopUpListByExternalIDParams;
 }
