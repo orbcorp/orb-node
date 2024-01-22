@@ -112,6 +112,24 @@ Methods:
 - <code title="post /customers/external_customer_id/{external_customer_id}/credits/ledger_entry">client.customers.credits.ledger.<a href="./src/resources/customers/credits/ledger.ts">createEntryByExternalId</a>(externalCustomerId, { ...params }) -> LedgerCreateEntryByExternalIDResponse</code>
 - <code title="get /customers/external_customer_id/{external_customer_id}/credits/ledger">client.customers.credits.ledger.<a href="./src/resources/customers/credits/ledger.ts">listByExternalId</a>(externalCustomerId, { ...params }) -> LedgerListByExternalIDResponsesPage</code>
 
+### TopUps
+
+Types:
+
+- <code><a href="./src/resources/customers/credits/top-ups.ts">TopUpCreateResponse</a></code>
+- <code><a href="./src/resources/customers/credits/top-ups.ts">TopUpListResponse</a></code>
+- <code><a href="./src/resources/customers/credits/top-ups.ts">TopUpCreateByExternalIDResponse</a></code>
+- <code><a href="./src/resources/customers/credits/top-ups.ts">TopUpListByExternalIDResponse</a></code>
+
+Methods:
+
+- <code title="post /customers/{customer_id}/credits/top_ups">client.customers.credits.topUps.<a href="./src/resources/customers/credits/top-ups.ts">create</a>(customerId, { ...params }) -> TopUpCreateResponse</code>
+- <code title="get /customers/{customer_id}/credits/top_ups">client.customers.credits.topUps.<a href="./src/resources/customers/credits/top-ups.ts">list</a>(customerId, { ...params }) -> TopUpListResponsesPage</code>
+- <code title="delete /customers/{customer_id}/credits/top_ups/{top_up_id}">client.customers.credits.topUps.<a href="./src/resources/customers/credits/top-ups.ts">delete</a>(customerId, topUpId) -> void</code>
+- <code title="post /customers/external_customer_id/{external_customer_id}/credits/top_ups">client.customers.credits.topUps.<a href="./src/resources/customers/credits/top-ups.ts">createByExternalId</a>(externalCustomerId, { ...params }) -> TopUpCreateByExternalIDResponse</code>
+- <code title="delete /customers/external_customer_id/{external_customer_id}/credits/top_ups/{top_up_id}">client.customers.credits.topUps.<a href="./src/resources/customers/credits/top-ups.ts">deleteByExternalId</a>(externalCustomerId, topUpId) -> void</code>
+- <code title="get /customers/external_customer_id/{external_customer_id}/credits/top_ups">client.customers.credits.topUps.<a href="./src/resources/customers/credits/top-ups.ts">listByExternalId</a>(externalCustomerId, { ...params }) -> TopUpListByExternalIDResponsesPage</code>
+
 ## BalanceTransactions
 
 Types:

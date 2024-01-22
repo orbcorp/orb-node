@@ -22,3 +22,16 @@ export {
   LedgerListByExternalIDResponsesPage,
   Ledger,
 } from './ledger';
+export {
+  TopUpCreateResponse,
+  TopUpListResponse,
+  TopUpCreateByExternalIDResponse,
+  TopUpListByExternalIDResponse,
+  TopUpCreateParams,
+  TopUpListParams,
+  TopUpCreateByExternalIDParams,
+  TopUpListByExternalIDParams,
+  TopUpListResponsesPage,
+  TopUpListByExternalIDResponsesPage,
+  TopUps,
+} from './top-ups';
