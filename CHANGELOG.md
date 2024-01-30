@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.39.0 (2024-01-30)
+
+Full Changelog: [v1.38.0...v1.39.0](https://github.com/orbcorp/orb-node/compare/v1.38.0...v1.39.0)
+
+### Features
+
+* **api:** add `external_customer_id` ([#97](https://github.com/orbcorp/orb-node/issues/97)) ([b974b31](https://github.com/orbcorp/orb-node/commit/b974b31004e59ca863cde0cfa376b007a6ba6757))
+
 ## 1.38.0 (2024-01-22)
 
 Full Changelog: [v1.37.4...v1.38.0](https://github.com/orbcorp/orb-node/compare/v1.37.4...v1.38.0)
