@@ -1046,6 +1046,12 @@ export interface CustomerUpdateParams {
   email_delivery?: boolean | null;
 
   /**
+   * The external customer ID. This can only be set if empty and the customer has no
+   * past or current subscriptions.
+   */
+  external_customer_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -1464,6 +1470,12 @@ export interface CustomerUpdateByExternalIDParams {
   email?: string | null;
 
   email_delivery?: boolean | null;
+
+  /**
+   * The external customer ID. This can only be set if empty and the customer has no
+   * past or current subscriptions.
+   */
+  external_customer_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
