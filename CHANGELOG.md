@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.41.0 (2024-02-01)
+
+Full Changelog: [v1.40.0...v1.41.0](https://github.com/orbcorp/orb-node/compare/v1.40.0...v1.41.0)
+
+### Features
+
+* **api:** add `version` to plan ([#103](https://github.com/orbcorp/orb-node/issues/103)) ([79d5e78](https://github.com/orbcorp/orb-node/commit/79d5e782ef96c336f1533b49856443c7571d3cf8))
+
+
+### Chores
+
+* **internal:** support pre-release versioning ([#101](https://github.com/orbcorp/orb-node/issues/101)) ([fde3f1e](https://github.com/orbcorp/orb-node/commit/fde3f1e11401994115d4b82ece010d27b3742687))
+
 ## 1.40.0 (2024-01-30)
 
 Full Changelog: [v1.39.0...v1.40.0](https://github.com/orbcorp/orb-node/compare/v1.39.0...v1.40.0)
