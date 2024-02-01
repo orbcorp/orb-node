@@ -171,6 +171,8 @@ export interface Plan {
   status: 'active' | 'archived' | 'draft';
 
   trial_config: Plan.TrialConfig;
+
+  version: number;
 }
 
 export namespace Plan {
