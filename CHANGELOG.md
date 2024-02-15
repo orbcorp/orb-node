@@ -1,5 +1,54 @@
 # Changelog
 
+## 0.0.1 (2024-02-15)
+
+Full Changelog: [...abc-v0.0.1](https://github.com/orbcorp/orb-node/compare/...abc-v0.0.1)
+
+### ⚠ BREAKING CHANGES
+
+* remove brackets from array param names ([#109](https://github.com/orbcorp/orb-node/issues/109))
+
+### Features
+
+* allow installing package directly from github ([#37](https://github.com/orbcorp/orb-node/issues/37)) ([25f0598](https://github.com/orbcorp/orb-node/commit/25f0598dd7783c93d70a6776b971086a35417380))
+* **api:** add `external_customer_id` ([#97](https://github.com/orbcorp/orb-node/issues/97)) ([523cf8d](https://github.com/orbcorp/orb-node/commit/523cf8d9293232cf4f79004777a47c9eb77238a5))
+* **api:** add `version` to plan ([#103](https://github.com/orbcorp/orb-node/issues/103)) ([82a25a1](https://github.com/orbcorp/orb-node/commit/82a25a179003d7a40103f418ee0502dafe879b7f))
+* **api:** add beta evaluate price endpoint ([#78](https://github.com/orbcorp/orb-node/issues/78)) ([6f40379](https://github.com/orbcorp/orb-node/commit/6f403792a3709ceb3a26dbf2f5a4e5de70965eee))
+* **api:** add currency fields ([#67](https://github.com/orbcorp/orb-node/issues/67)) ([7112eb8](https://github.com/orbcorp/orb-node/commit/7112eb89726fe1edde3768af81f6e13afcfa0399))
+* **api:** introduce per-price cost v2, credit top-ups ([#96](https://github.com/orbcorp/orb-node/issues/96)) ([5dff635](https://github.com/orbcorp/orb-node/commit/5dff6350214bf04e968f9346fdb3dda799930e57))
+* **api:** price schema updates ([#99](https://github.com/orbcorp/orb-node/issues/99)) ([37fd7ce](https://github.com/orbcorp/orb-node/commit/37fd7ce1c2d661d5eec839ba1d5027c6aaf30ed7))
+* **api:** remove unsupported field ([#52](https://github.com/orbcorp/orb-node/issues/52)) ([d373a99](https://github.com/orbcorp/orb-node/commit/d373a99fc3f385ac1831f97baaa7a4af5e4918c8))
+* **api:** remove unsupported params ([#24](https://github.com/orbcorp/orb-node/issues/24)) ([fe3cd55](https://github.com/orbcorp/orb-node/commit/fe3cd55fd67ee968e40b35af1a2afd7a6e828187))
+* **api:** updates ([#15](https://github.com/orbcorp/orb-node/issues/15)) ([bf92400](https://github.com/orbcorp/orb-node/commit/bf924000fd9a8d6e331ed010ae9765191e621e90))
+* **api:** updates ([#29](https://github.com/orbcorp/orb-node/issues/29)) ([d9f528d](https://github.com/orbcorp/orb-node/commit/d9f528d803fb579c776fc0d39ed00e4008f43dc2))
+* **api:** updates ([#33](https://github.com/orbcorp/orb-node/issues/33)) ([90aec70](https://github.com/orbcorp/orb-node/commit/90aec70812f2e123e8ad5dcb5e01f6778378acab))
+* **api:** updates ([#40](https://github.com/orbcorp/orb-node/issues/40)) ([c0c5c9c](https://github.com/orbcorp/orb-node/commit/c0c5c9c40db128923e6d9bd62d39cc43478180fa))
+* **api:** updates ([#45](https://github.com/orbcorp/orb-node/issues/45)) ([ea549a8](https://github.com/orbcorp/orb-node/commit/ea549a8a7fcc837da811b2088bfa7359820b34d7))
+* **api:** updates ([#55](https://github.com/orbcorp/orb-node/issues/55)) ([0c2f869](https://github.com/orbcorp/orb-node/commit/0c2f8690e0bdbe7387611152a5ddf849a8efbf34))
+* **api:** updates ([#82](https://github.com/orbcorp/orb-node/issues/82)) ([267df70](https://github.com/orbcorp/orb-node/commit/267df708207177258d6472be3f4d1720394f4592))
+* **api:** updates ([#83](https://github.com/orbcorp/orb-node/issues/83)) ([f54cc88](https://github.com/orbcorp/orb-node/commit/f54cc88b2366a977d1199c2d64e7b004d4801b82))
+* **api:** updates ([#9](https://github.com/orbcorp/orb-node/issues/9)) ([ad31339](https://github.com/orbcorp/orb-node/commit/ad3133905255b991c17f28e9db8bc804fa2b3a8d))
+* **client:** adjust retry behavior to be exponential backoff ([#5](https://github.com/orbcorp/orb-node/issues/5)) ([c31acd5](https://github.com/orbcorp/orb-node/commit/c31acd5d6b49b49fe6db1d340581b1255f1d6f15))
+* **client:** allow binary returns ([#21](https://github.com/orbcorp/orb-node/issues/21)) ([db061a8](https://github.com/orbcorp/orb-node/commit/db061a8b6ead7346ce6284b5420c6e9fb054e8b0))
+* **client:** support reading the base url from an env variable ([#48](https://github.com/orbcorp/orb-node/issues/48)) ([507eb65](https://github.com/orbcorp/orb-node/commit/507eb652d95b75a1c0242f9f74c0e18b2b3bbccb))
+* **github:** include a devcontainer setup ([#19](https://github.com/orbcorp/orb-node/issues/19)) ([387f5e9](https://github.com/orbcorp/orb-node/commit/387f5e97c082e6df2fabc01860fb4248d2687929))
+* **init:** initial commit ([c0c9395](https://github.com/orbcorp/orb-node/commit/c0c93952f0c3e5fabd96c50f2c7ece64ea84a8b7))
+
+
+### Bug Fixes
+
+* allow body type in RequestOptions to be null ([#92](https://github.com/orbcorp/orb-node/issues/92)) ([596bcee](https://github.com/orbcorp/orb-node/commit/596bcee3bfee0e9fd4c9cec4f92d20b0541d9f1e))
+* **ci:** ignore stainless-app edits to release PR title ([#90](https://github.com/orbcorp/orb-node/issues/90)) ([ca1fa8e](https://github.com/orbcorp/orb-node/commit/ca1fa8eb0e694b5294b6752fb1851599b18d3094))
+* **client:** include more detail in error messages ([#13](https://github.com/orbcorp/orb-node/issues/13)) ([a6da079](https://github.com/orbcorp/orb-node/commit/a6da079d302f776688899430813f4d53e5796531))
+* **headers:** always send lowercase headers and strip undefined (BREAKING in rare cases) ([#69](https://github.com/orbcorp/orb-node/issues/69)) ([781b7a7](https://github.com/orbcorp/orb-node/commit/781b7a7a62e40171d8ca3fcc6f2e5f4cff1c4d29))
+* remove brackets from array param names ([#109](https://github.com/orbcorp/orb-node/issues/109)) ([19ec1af](https://github.com/orbcorp/orb-node/commit/19ec1af60197490d0c91b66f6f67f829ecc04cc4))
+* rename customer.credits.ledger.create_entry_by_exteral_id and RequestValidationErrors ([#11](https://github.com/orbcorp/orb-node/issues/11)) ([e02f60e](https://github.com/orbcorp/orb-node/commit/e02f60e4ad64969a6b86d62147929d738bbfde21))
+* **types:** accept undefined for optional client options ([#89](https://github.com/orbcorp/orb-node/issues/89)) ([1a9127b](https://github.com/orbcorp/orb-node/commit/1a9127b18cce51db5e4a5e651a992269ae7fe4e5))
+* typo in build script ([#8](https://github.com/orbcorp/orb-node/issues/8)) ([da39be0](https://github.com/orbcorp/orb-node/commit/da39be07d22f7ef794efcfdace128fffd10685c7))
+* use `Accept: */*` as a default Header for void endpoints ([#85](https://github.com/orbcorp/orb-node/issues/85)) ([d74a4c1](https://github.com/orbcorp/orb-node/commit/d74a4c1c69b5b6a23c03ebbda30c4a10b2ba641b))
+* use brackets instead of commas for array query params ([#66](https://github.com/orbcorp/orb-node/issues/66)) ([13358aa](https://github.com/orbcorp/orb-node/commit/13358aafe34206c3ec8eb82bc6cf07fab8de7be5))
+* use default base url if BASE_URL env var is blank ([#74](https://github.com/orbcorp/orb-node/issues/74)) ([dba41b1](https://github.com/orbcorp/orb-node/commit/dba41b1bb4ffca81f40300754964af1561866fa2))
+
 ## 1.41.0 (2024-02-01)
 
 Full Changelog: [v1.40.0...v1.41.0](https://github.com/orbcorp/orb-node/compare/v1.40.0...v1.41.0)
