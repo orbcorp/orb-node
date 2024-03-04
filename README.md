@@ -69,7 +69,7 @@ a subclass of `APIError` will be thrown:
 async function main() {
   const customer = await orb.customers
     .create({ email: 'example-customer@withorb.com', name: 'My Customer' })
-    .catch((err) => {
+    .catch(async (err) => {
       if (err instanceof Orb.APIError) {
         console.log(err.status); // 400
         console.log(err.name); // BadRequestError
