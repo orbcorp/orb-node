@@ -9,10 +9,7 @@ The REST API documentation can be found [on docs.withorb.com](https://docs.witho
 ## Installation
 
 ```sh
-# install from NPM
-npm install --save orb-billing
-# or
-yarn add orb-billing
+npm install orb-billing
 ```
 
 ## Usage
