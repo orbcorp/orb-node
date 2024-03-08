@@ -314,6 +314,7 @@ export interface PlanCreateParams {
     | PlanCreateParams.NewPlanThresholdTotalAmountPrice
     | PlanCreateParams.NewPlanTieredPackagePrice
     | PlanCreateParams.NewPlanTieredWithMinimumPrice
+    | PlanCreateParams.NewPlanUnitWithPercentPrice
     | PlanCreateParams.NewPlanPackageWithAllocationPrice
   >;
 
@@ -1052,6 +1053,55 @@ export namespace PlanCreateParams {
     name: string;
 
     tiered_with_minimum_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export interface NewPlanUnitWithPercentPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'unit_with_percent';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    unit_with_percent_config: Record<string, unknown>;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is

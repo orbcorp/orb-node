@@ -298,7 +298,8 @@ export type Price =
   | Price.ThresholdTotalAmountPrice
   | Price.TieredPackagePrice
   | Price.TieredWithMinimumPrice
-  | Price.PackageWithAllocationPrice;
+  | Price.PackageWithAllocationPrice
+  | Price.UnitWithPercentPrice;
 
 export namespace Price {
   export interface UnitPrice {
@@ -1399,6 +1400,82 @@ export namespace Price {
       minimum_amount: string;
     }
   }
+
+  export interface UnitWithPercentPrice {
+    id: string;
+
+    billable_metric: UnitWithPercentPrice.BillableMetric | null;
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+
+    created_at: string;
+
+    currency: string;
+
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    item: UnitWithPercentPrice.Item;
+
+    maximum: UnitWithPercentPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: UnitWithPercentPrice.Minimum | null;
+
+    minimum_amount: string | null;
+
+    model_type: 'unit_with_percent';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price';
+
+    unit_with_percent_config: Record<string, unknown>;
+  }
+
+  export namespace UnitWithPercentPrice {
+    export interface BillableMetric {
+      id: string;
+    }
+
+    export interface Item {
+      id: string;
+
+      name: string;
+    }
+
+    export interface Maximum {
+      /**
+       * List of price_ids that this maximum amount applies to. For plan/plan phase
+       * maximums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Maximum amount applied
+       */
+      maximum_amount: string;
+    }
+
+    export interface Minimum {
+      /**
+       * List of price_ids that this minimum amount applies to. For plan/plan phase
+       * minimums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Minimum amount applied
+       */
+      minimum_amount: string;
+    }
+  }
 }
 
 export type PriceCreateParams =
@@ -1413,7 +1490,9 @@ export type PriceCreateParams =
   | PriceCreateParams.NewFloatingThresholdTotalAmountPrice
   | PriceCreateParams.NewFloatingTieredPackagePrice
   | PriceCreateParams.NewFloatingTieredWithMinimumPrice
-  | PriceCreateParams.NewFloatingPackageWithAllocationPrice;
+  | PriceCreateParams.NewFloatingPackageWithAllocationPrice
+  | PriceCreateParams.NewFloatingTieredPackageWithMinimumPrice
+  | PriceCreateParams.NewFloatingUnitWithPercentPrice;
 
 export namespace PriceCreateParams {
   export interface NewFloatingUnitPrice {
@@ -2237,6 +2316,114 @@ export namespace PriceCreateParams {
     name: string;
 
     package_with_allocation_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export interface NewFloatingTieredPackageWithMinimumPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'tiered_package_with_minimum';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    tiered_package_with_minimum_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export interface NewFloatingUnitWithPercentPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'unit_with_percent';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    unit_with_percent_config: Record<string, unknown>;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
