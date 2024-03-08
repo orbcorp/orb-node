@@ -2097,6 +2097,7 @@ export interface SubscriptionCreateParams {
     | SubscriptionCreateParams.OverrideTieredPackagePrice
     | SubscriptionCreateParams.OverrideTieredWithMinimumPrice
     | SubscriptionCreateParams.OverridePackageWithAllocationPrice
+    | SubscriptionCreateParams.OverrideUnitWithPercentPrice
   > | null;
 
   start_date?: string | null;
@@ -3069,6 +3070,71 @@ export namespace SubscriptionCreateParams {
       usage_discount?: number | null;
     }
   }
+
+  export interface OverrideUnitWithPercentPrice {
+    id: string;
+
+    model_type: 'unit_with_percent';
+
+    unit_with_percent_config: Record<string, unknown>;
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    discount?: OverrideUnitWithPercentPrice.Discount | null;
+
+    /**
+     * The starting quantity of the price, if the price is a fixed price.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The subscription's override maximum amount for the plan.
+     */
+    maximum_amount?: string | null;
+
+    /**
+     * The subscription's override minimum amount for the plan.
+     */
+    minimum_amount?: string | null;
+  }
+
+  export namespace OverrideUnitWithPercentPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
+  }
 }
 
 export interface SubscriptionListParams extends PageParams {
@@ -3260,6 +3326,8 @@ export namespace SubscriptionPriceIntervalsParams {
       | Add.NewFloatingTieredPackagePrice
       | Add.NewFloatingTieredWithMinimumPrice
       | Add.NewFloatingPackageWithAllocationPrice
+      | Add.NewFloatingTieredPackageWithMinimumPrice
+      | Add.NewFloatingUnitWithPercentPrice
       | null;
 
     /**
@@ -4160,6 +4228,114 @@ export namespace SubscriptionPriceIntervalsParams {
        */
       invoice_grouping_key?: string | null;
     }
+
+    export interface NewFloatingTieredPackageWithMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the plan will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'tiered_package_with_minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      tiered_package_with_minimum_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+    }
+
+    export interface NewFloatingUnitWithPercentPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the plan will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'unit_with_percent';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      unit_with_percent_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+    }
   }
 
   export interface Edit {
@@ -4283,6 +4459,7 @@ export interface SubscriptionSchedulePlanChangeParams {
     | SubscriptionSchedulePlanChangeParams.OverrideTieredPackagePrice
     | SubscriptionSchedulePlanChangeParams.OverrideTieredWithMinimumPrice
     | SubscriptionSchedulePlanChangeParams.OverridePackageWithAllocationPrice
+    | SubscriptionSchedulePlanChangeParams.OverrideUnitWithPercentPrice
   > | null;
 }
 
@@ -5218,6 +5395,71 @@ export namespace SubscriptionSchedulePlanChangeParams {
   }
 
   export namespace OverridePackageWithAllocationPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
+  }
+
+  export interface OverrideUnitWithPercentPrice {
+    id: string;
+
+    model_type: 'unit_with_percent';
+
+    unit_with_percent_config: Record<string, unknown>;
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    discount?: OverrideUnitWithPercentPrice.Discount | null;
+
+    /**
+     * The starting quantity of the price, if the price is a fixed price.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The subscription's override maximum amount for the plan.
+     */
+    maximum_amount?: string | null;
+
+    /**
+     * The subscription's override minimum amount for the plan.
+     */
+    minimum_amount?: string | null;
+  }
+
+  export namespace OverrideUnitWithPercentPrice {
     /**
      * The subscription's override discount for the plan.
      */
