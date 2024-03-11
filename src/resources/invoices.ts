@@ -42,6 +42,9 @@ export class Invoices extends APIResource {
   /**
    * This endpoint is used to fetch an [`Invoice`](../guides/concepts#invoice) given
    * an identifier.
+   *
+   * This endpoint supports returning ApiCachedUsageData (see
+   * api/cache_control_utils.py)
    */
   fetch(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Invoice> {
     return this._client.get(`/invoices/${invoiceId}`, options);
@@ -51,6 +54,9 @@ export class Invoices extends APIResource {
    * This endpoint can be used to fetch the upcoming
    * [invoice](../guides/concepts#invoice) for the current billing period given a
    * subscription.
+   *
+   * This endpoint supports returning ApiCachedUsageData (see
+   * api/cache_control_utils.py)
    */
   fetchUpcoming(
     query?: InvoiceFetchUpcomingParams,
