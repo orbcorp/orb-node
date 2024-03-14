@@ -299,7 +299,8 @@ export type Price =
   | Price.TieredPackagePrice
   | Price.TieredWithMinimumPrice
   | Price.PackageWithAllocationPrice
-  | Price.UnitWithPercentPrice;
+  | Price.UnitWithPercentPrice
+  | Price.MatrixWithAllocationPrice;
 
 export namespace Price {
   export interface UnitPrice {
@@ -1476,12 +1477,138 @@ export namespace Price {
       minimum_amount: string;
     }
   }
+
+  export interface MatrixWithAllocationPrice {
+    id: string;
+
+    billable_metric: MatrixWithAllocationPrice.BillableMetric | null;
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+
+    created_at: string;
+
+    currency: string;
+
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    item: MatrixWithAllocationPrice.Item;
+
+    matrix_with_allocation_config: MatrixWithAllocationPrice.MatrixWithAllocationConfig;
+
+    maximum: MatrixWithAllocationPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: MatrixWithAllocationPrice.Minimum | null;
+
+    minimum_amount: string | null;
+
+    model_type: 'matrix_with_allocation';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price';
+  }
+
+  export namespace MatrixWithAllocationPrice {
+    export interface BillableMetric {
+      id: string;
+    }
+
+    export interface Item {
+      id: string;
+
+      name: string;
+    }
+
+    export interface MatrixWithAllocationConfig {
+      /**
+       * Allocation to be used to calculate the price
+       */
+      allocation: number;
+
+      /**
+       * Default per unit rate for any usage not bucketed into a specified matrix_value
+       */
+      default_unit_amount: string;
+
+      /**
+       * One or two event property values to evaluate matrix groups by
+       */
+      dimensions: Array<string | null>;
+
+      /**
+       * Matrix values for specified matrix grouping keys
+       */
+      matrix_values: Array<MatrixWithAllocationConfig.MatrixValue>;
+
+      /**
+       * Default optional multiplier to scale rated quantities that fall into the default
+       * bucket by
+       */
+      scaling_factor?: number | null;
+    }
+
+    export namespace MatrixWithAllocationConfig {
+      export interface MatrixValue {
+        /**
+         * One or two matrix keys to filter usage to this Matrix value by. For example,
+         * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
+         * instance tier.
+         */
+        dimension_values: Array<string | null>;
+
+        /**
+         * Unit price for the specified dimension_values
+         */
+        unit_amount: string;
+
+        /**
+         * Optional multiplier to scale rated quantities by
+         */
+        scaling_factor?: number | null;
+      }
+    }
+
+    export interface Maximum {
+      /**
+       * List of price_ids that this maximum amount applies to. For plan/plan phase
+       * maximums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Maximum amount applied
+       */
+      maximum_amount: string;
+    }
+
+    export interface Minimum {
+      /**
+       * List of price_ids that this minimum amount applies to. For plan/plan phase
+       * minimums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Minimum amount applied
+       */
+      minimum_amount: string;
+    }
+  }
 }
 
 export type PriceCreateParams =
   | PriceCreateParams.NewFloatingUnitPrice
   | PriceCreateParams.NewFloatingPackagePrice
   | PriceCreateParams.NewFloatingMatrixPrice
+  | PriceCreateParams.NewFloatingMatrixWithAllocationPrice
   | PriceCreateParams.NewFloatingTieredPrice
   | PriceCreateParams.NewFloatingTieredBpsPrice
   | PriceCreateParams.NewFloatingBpsPrice
@@ -1711,6 +1838,111 @@ export namespace PriceCreateParams {
     }
 
     export namespace MatrixConfig {
+      export interface MatrixValue {
+        /**
+         * One or two matrix keys to filter usage to this Matrix value by. For example,
+         * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
+         * instance tier.
+         */
+        dimension_values: Array<string | null>;
+
+        /**
+         * Unit price for the specified dimension_values
+         */
+        unit_amount: string;
+
+        /**
+         * Optional multiplier to scale rated quantities by
+         */
+        scaling_factor?: number | null;
+      }
+    }
+  }
+
+  export interface NewFloatingMatrixWithAllocationPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    matrix_with_allocation_config: PriceCreateParams.NewFloatingMatrixWithAllocationPrice.MatrixWithAllocationConfig;
+
+    model_type: 'matrix_with_allocation';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export namespace NewFloatingMatrixWithAllocationPrice {
+    export interface MatrixWithAllocationConfig {
+      /**
+       * Allocation to be used to calculate the price
+       */
+      allocation: number;
+
+      /**
+       * Default per unit rate for any usage not bucketed into a specified matrix_value
+       */
+      default_unit_amount: string;
+
+      /**
+       * One or two event property values to evaluate matrix groups by
+       */
+      dimensions: Array<string | null>;
+
+      /**
+       * Matrix values for specified matrix grouping keys
+       */
+      matrix_values: Array<MatrixWithAllocationConfig.MatrixValue>;
+
+      /**
+       * Default optional multiplier to scale rated quantities that fall into the default
+       * bucket by
+       */
+      scaling_factor?: number | null;
+    }
+
+    export namespace MatrixWithAllocationConfig {
       export interface MatrixValue {
         /**
          * One or two matrix keys to filter usage to this Matrix value by. For example,

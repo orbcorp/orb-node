@@ -422,6 +422,11 @@ export namespace Invoice {
 
     credit_note_number: string;
 
+    /**
+     * An optional memo supplied on the credit note.
+     */
+    memo: string | null;
+
     reason: string;
 
     total: string;
@@ -1501,6 +1506,11 @@ export namespace InvoiceFetchUpcomingResponse {
     id: string;
 
     credit_note_number: string;
+
+    /**
+     * An optional memo supplied on the credit note.
+     */
+    memo: string | null;
 
     reason: string;
 
