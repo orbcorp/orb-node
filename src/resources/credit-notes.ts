@@ -154,7 +154,7 @@ export namespace CreditNote {
     amount: string;
 
     /**
-     * Any line items discounts from the invoice's line item.
+     * Any line item discounts from the invoice's line item.
      */
     discounts: Array<LineItem.Discount>;
 
