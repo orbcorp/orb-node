@@ -1,5 +1,48 @@
 # Changelog
 
+## 2.0.0 (2024-03-15)
+
+Full Changelog: [v1.41.0...v2.0.0](https://github.com/orbcorp/orb-node/compare/v1.41.0...v2.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* remove brackets from array param names ([#109](https://github.com/orbcorp/orb-node/issues/109))
+
+### Features
+
+* **api:** add matrix with allocation price ([#125](https://github.com/orbcorp/orb-node/issues/125)) ([6f5326c](https://github.com/orbcorp/orb-node/commit/6f5326cf9880d411ef0195a6b30cdb7b28efb1ba))
+* **api:** create invoice metadata param ([#126](https://github.com/orbcorp/orb-node/issues/126)) ([fbd1fe2](https://github.com/orbcorp/orb-node/commit/fbd1fe2359c84af7e96e75be593d3802f104273e))
+* **api:** updates ([#123](https://github.com/orbcorp/orb-node/issues/123)) ([da21006](https://github.com/orbcorp/orb-node/commit/da21006557813e5840ad5c976cbc5f7cdb490d80))
+* **api:** updates ([#124](https://github.com/orbcorp/orb-node/issues/124)) ([b38e885](https://github.com/orbcorp/orb-node/commit/b38e885c10405d866051b49bec3110c388ebaa38))
+
+
+### Bug Fixes
+
+* remove brackets from array param names ([#109](https://github.com/orbcorp/orb-node/issues/109)) ([eb8d87a](https://github.com/orbcorp/orb-node/commit/eb8d87ab56e1c0f0aa1550488e1be9adfb82b46c))
+
+
+### Chores
+
+* **ci:** update actions/setup-node action to v4 ([#114](https://github.com/orbcorp/orb-node/issues/114)) ([cb18285](https://github.com/orbcorp/orb-node/commit/cb182857aab933915d07299375cec7556e64b22a))
+* **ci:** uses Stainless GitHub App for releases ([#111](https://github.com/orbcorp/orb-node/issues/111)) ([b32a3db](https://github.com/orbcorp/orb-node/commit/b32a3db0956464737a7692d47dee726a58870aa2))
+* **docs:** mention install from git repo ([#118](https://github.com/orbcorp/orb-node/issues/118)) ([80ab072](https://github.com/orbcorp/orb-node/commit/80ab072ce57e6caf6490e57302b67900c7a00702))
+* fix error handler in readme ([#119](https://github.com/orbcorp/orb-node/issues/119)) ([91ab80e](https://github.com/orbcorp/orb-node/commit/91ab80e3e3e07e9af2f6065594f29cae558a48e0))
+* **interal:** make link to api.md relative ([#104](https://github.com/orbcorp/orb-node/issues/104)) ([10b9053](https://github.com/orbcorp/orb-node/commit/10b9053e1cf9afc7a6ce3750650f9cee91ff5890))
+* **internal:** enable building when git installed ([#107](https://github.com/orbcorp/orb-node/issues/107)) ([9d6c4aa](https://github.com/orbcorp/orb-node/commit/9d6c4aa517116a5c5f9e2a242429f52cd86f88b8))
+* **internal:** re-order pagination import ([#106](https://github.com/orbcorp/orb-node/issues/106)) ([3869080](https://github.com/orbcorp/orb-node/commit/38690803e060a343400da766e4b783d4cc8b0d2a))
+* **internal:** refactor release environment script ([#112](https://github.com/orbcorp/orb-node/issues/112)) ([73a6e40](https://github.com/orbcorp/orb-node/commit/73a6e409f780f9961d22a2515f861d32a639e0ba))
+* **internal:** update deps ([#115](https://github.com/orbcorp/orb-node/issues/115)) ([42f5dcd](https://github.com/orbcorp/orb-node/commit/42f5dcd408f813ee4371a50095bb454d1173f30e))
+* respect `application/vnd.api+json` content-type header ([#110](https://github.com/orbcorp/orb-node/issues/110)) ([af334b3](https://github.com/orbcorp/orb-node/commit/af334b32adc1f446cb65b25f0fa670bbc18da170))
+
+
+### Documentation
+
+* add a CONTRIBUTING.md ([#108](https://github.com/orbcorp/orb-node/issues/108)) ([97829ba](https://github.com/orbcorp/orb-node/commit/97829ba3cef5cf3435bfa6bd467b24e83676168f))
+* **contributing:** improve wording ([#116](https://github.com/orbcorp/orb-node/issues/116)) ([154baf1](https://github.com/orbcorp/orb-node/commit/154baf11174879ba98ec0f8b6b298c69496ab537))
+* fix example of fetch overwrite ([d3cf8c0](https://github.com/orbcorp/orb-node/commit/d3cf8c0b94c49cc88ec0c5f70a36e85e121b13a8))
+* **readme:** fix https proxy example ([#120](https://github.com/orbcorp/orb-node/issues/120)) ([e284311](https://github.com/orbcorp/orb-node/commit/e2843116e45bbae8d532ebcc10bd9e0c84ff806c))
+* remove extraneous --save and yarn install instructions ([#121](https://github.com/orbcorp/orb-node/issues/121)) ([38785df](https://github.com/orbcorp/orb-node/commit/38785df64cf6ddaf07a103967856fbce3a56674c))
+
 ## 1.41.0 (2024-02-01)
 
 Full Changelog: [v1.40.0...v1.41.0](https://github.com/orbcorp/orb-node/compare/v1.40.0...v1.41.0)
