@@ -154,7 +154,7 @@ export namespace CreditNote {
     amount: string;
 
     /**
-     * Any line items discounts from the invoice's line item.
+     * Any line item discounts from the invoice's line item.
      */
     discounts: Array<LineItem.Discount>;
 
@@ -167,11 +167,6 @@ export namespace CreditNote {
      * An optional quantity credited.
      */
     quantity: number | null;
-
-    /**
-     * Any sub line items that may be credited.
-     */
-    sub_line_items: Array<LineItem.SubLineItem>;
 
     /**
      * The amount of the line item, excluding any line item minimums and discounts.
@@ -199,14 +194,6 @@ export namespace CreditNote {
       amount_discount?: string | null;
 
       reason?: string | null;
-    }
-
-    export interface SubLineItem {
-      amount: string;
-
-      name: string;
-
-      quantity: number | null;
     }
 
     export interface TaxAmount {

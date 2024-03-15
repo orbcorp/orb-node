@@ -42,6 +42,9 @@ export class Invoices extends APIResource {
   /**
    * This endpoint is used to fetch an [`Invoice`](../guides/concepts#invoice) given
    * an identifier.
+   *
+   * This endpoint supports returning ApiCachedUsageData (see
+   * api/cache_control_utils.py)
    */
   fetch(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Invoice> {
     return this._client.get(`/invoices/${invoiceId}`, options);
@@ -51,6 +54,9 @@ export class Invoices extends APIResource {
    * This endpoint can be used to fetch the upcoming
    * [invoice](../guides/concepts#invoice) for the current billing period given a
    * subscription.
+   *
+   * This endpoint supports returning ApiCachedUsageData (see
+   * api/cache_control_utils.py)
    */
   fetchUpcoming(
     query?: InvoiceFetchUpcomingParams,
@@ -415,6 +421,11 @@ export namespace Invoice {
     id: string;
 
     credit_note_number: string;
+
+    /**
+     * An optional memo supplied on the credit note.
+     */
+    memo: string | null;
 
     reason: string;
 
@@ -1496,6 +1507,11 @@ export namespace InvoiceFetchUpcomingResponse {
 
     credit_note_number: string;
 
+    /**
+     * An optional memo supplied on the credit note.
+     */
+    memo: string | null;
+
     reason: string;
 
     total: string;
@@ -2315,6 +2331,13 @@ export interface InvoiceCreateParams {
   memo?: string | null;
 
   /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: Record<string, string | null> | null;
+
+  /**
    * When true, this invoice will automatically be issued upon creation. When false,
    * the resulting invoice will require manual review to issue. Defaulted to false.
    */
@@ -2396,7 +2419,7 @@ export interface InvoiceListParams extends PageParams {
 
   is_recurring?: boolean | null;
 
-  'status[]'?: Array<'draft' | 'issued' | 'paid' | 'synced' | 'void'> | null;
+  status?: Array<'draft' | 'issued' | 'paid' | 'synced' | 'void'> | null;
 
   subscription_id?: string | null;
 }

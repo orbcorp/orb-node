@@ -4,19 +4,17 @@
 
 This library provides convenient access to the Orb REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found [on docs.withorb.com](https://docs.withorb.com/reference/api-reference). The full API of this library can be found in [api.md](https://www.github.com/orbcorp/orb-node/blob/main/api.md).
+The REST API documentation can be found [on docs.withorb.com](https://docs.withorb.com/reference/api-reference). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
 ```sh
-npm install --save orb-billing
-# or
-yarn add orb-billing
+npm install orb-billing
 ```
 
 ## Usage
 
-The full API of this library can be found in [api.md](https://www.github.com/orbcorp/orb-node/blob/main/api.md).
+The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
@@ -68,7 +66,7 @@ a subclass of `APIError` will be thrown:
 async function main() {
   const customer = await orb.customers
     .create({ email: 'example-customer@withorb.com', name: 'My Customer' })
-    .catch((err) => {
+    .catch(async (err) => {
       if (err instanceof Orb.APIError) {
         console.log(err.status); // 400
         console.log(err.name); // BadRequestError
@@ -209,7 +207,7 @@ import Orb from 'orb-billing';
 ```
 
 To do the inverse, add `import "orb-billing/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` - more details [here](https://github.com/orbcorp/orb-node/tree/main/src/_shims#readme).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/orbcorp/orb-node/tree/main/src/_shims#readme)).
 
 You may also provide a custom `fetch` function when instantiating the client,
 which can be used to inspect or alter the `Request` or `Response` before/after each request:
@@ -240,7 +238,7 @@ If you would like to disable or customize this behavior, for example to use the 
 <!-- prettier-ignore -->
 ```ts
 import http from 'http';
-import HttpsProxyAgent from 'https-proxy-agent';
+import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
 const orb = new Orb({
@@ -248,10 +246,12 @@ const orb = new Orb({
 });
 
 // Override per-request:
-await orb.customers.create({ email: 'example-customer@withorb.com', name: 'My Customer' }, {
-  baseURL: 'http://localhost:8080/test-api',
-  httpAgent: new http.Agent({ keepAlive: false }),
-})
+await orb.customers.create(
+  { email: 'example-customer@withorb.com', name: 'My Customer' },
+  {
+    httpAgent: new http.Agent({ keepAlive: false }),
+  },
+);
 ```
 
 ## Semantic Versioning

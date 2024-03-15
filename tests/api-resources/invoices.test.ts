@@ -90,6 +90,7 @@ describe('resource invoices', () => {
       customer_id: '4khy3nwzktxv7',
       external_customer_id: 'external-customer-id',
       memo: 'An optional memo for my invoice.',
+      metadata: { foo: 'string' },
       will_auto_issue: false,
     });
   });
@@ -132,7 +133,7 @@ describe('resource invoices', () => {
           'invoice_date[lte]': '2019-12-27T18:11:19.117Z',
           is_recurring: true,
           limit: 0,
-          'status[]': ['draft', 'issued', 'paid'],
+          status: ['draft', 'issued', 'paid'],
           subscription_id: 'string',
         },
         { path: '/_stainless_unknown_path' },
