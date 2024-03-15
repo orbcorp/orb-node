@@ -2331,6 +2331,13 @@ export interface InvoiceCreateParams {
   memo?: string | null;
 
   /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: Record<string, string | null> | null;
+
+  /**
    * When true, this invoice will automatically be issued upon creation. When false,
    * the resulting invoice will require manual review to issue. Defaulted to false.
    */

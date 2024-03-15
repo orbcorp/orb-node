@@ -90,6 +90,7 @@ describe('resource invoices', () => {
       customer_id: '4khy3nwzktxv7',
       external_customer_id: 'external-customer-id',
       memo: 'An optional memo for my invoice.',
+      metadata: { foo: 'string' },
       will_auto_issue: false,
     });
   });
