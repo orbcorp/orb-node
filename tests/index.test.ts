@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Orb from 'orb-billing';
 import { APIUserAbortError } from 'orb-billing';
