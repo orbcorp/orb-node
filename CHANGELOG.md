@@ -1,5 +1,24 @@
 # Changelog
 
+## 2.0.1 (2024-03-19)
+
+Full Changelog: [v2.0.0...v2.0.1](https://github.com/orbcorp/orb-node/compare/v2.0.0...v2.0.1)
+
+### Bug Fixes
+
+* **internal:** make toFile use input file's options ([#131](https://github.com/orbcorp/orb-node/issues/131)) ([3dcf78e](https://github.com/orbcorp/orb-node/commit/3dcf78ef86120dd23d70c4c0207b7e261767f1c8))
+
+
+### Chores
+
+* **internal:** update generated pragma comment ([#129](https://github.com/orbcorp/orb-node/issues/129)) ([a981349](https://github.com/orbcorp/orb-node/commit/a9813499738e9790135030ae5b35ba3d09cf82bd))
+
+
+### Documentation
+
+* fix typo in CONTRIBUTING.md ([#127](https://github.com/orbcorp/orb-node/issues/127)) ([bfbc496](https://github.com/orbcorp/orb-node/commit/bfbc49621d93dabf52800163a304f3f50b7916d5))
+* updated invoice description ([#130](https://github.com/orbcorp/orb-node/issues/130)) ([f73fa8c](https://github.com/orbcorp/orb-node/commit/f73fa8c79ec9f881fb4e89db72367783bec3b5aa))
+
 ## 2.0.0 (2024-03-15)
 
 Full Changelog: [v1.41.0...v2.0.0](https://github.com/orbcorp/orb-node/compare/v1.41.0...v2.0.0)
