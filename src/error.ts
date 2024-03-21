@@ -292,7 +292,7 @@ export class RequestValidationError extends BadRequestError {
 
     this.status = data?.['status'];
     this.type = data?.['type'];
-    this.validation_errors = data?.['validation_errors'];
+    this.validation_errors = data?.['validation_errors'] ?? [];
     this.detail = data?.['detail'];
     this.title = data?.['title'];
   }
