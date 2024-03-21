@@ -65,7 +65,7 @@ describe('resource invoices', () => {
           name: 'Line Item Name',
           item_id: '4khy3nwzktxv7',
           model_type: 'unit',
-          unit_config: { unit_amount: 'string', scaling_factor: 0 },
+          unit_config: { unit_amount: 'string' },
         },
         {
           start_date: '2023-09-22',
@@ -74,7 +74,7 @@ describe('resource invoices', () => {
           name: 'Line Item Name',
           item_id: '4khy3nwzktxv7',
           model_type: 'unit',
-          unit_config: { unit_amount: 'string', scaling_factor: 0 },
+          unit_config: { unit_amount: 'string' },
         },
         {
           start_date: '2023-09-22',
@@ -83,7 +83,7 @@ describe('resource invoices', () => {
           name: 'Line Item Name',
           item_id: '4khy3nwzktxv7',
           model_type: 'unit',
-          unit_config: { unit_amount: 'string', scaling_factor: 0 },
+          unit_config: { unit_amount: 'string' },
         },
       ],
       net_terms: 0,
@@ -203,11 +203,7 @@ describe('resource invoices', () => {
   });
 
   test('markPaid: only required params', async () => {
-    const responsePromise = orb.invoices.markPaid('string', {
-      external_id: 'external_payment_id_123',
-      notes: 'string',
-      payment_received_date: '2023-09-22',
-    });
+    const responsePromise = orb.invoices.markPaid('string', { payment_received_date: '2023-09-22' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -219,9 +215,9 @@ describe('resource invoices', () => {
 
   test('markPaid: required and optional params', async () => {
     const response = await orb.invoices.markPaid('string', {
+      payment_received_date: '2023-09-22',
       external_id: 'external_payment_id_123',
       notes: 'string',
-      payment_received_date: '2023-09-22',
     });
   });
 
