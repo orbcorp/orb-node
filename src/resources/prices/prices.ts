@@ -266,7 +266,7 @@ export class PricesPage extends Page<Price> {}
  * }
  * ```
  *
- * ### Fixed fees
+ * ## Fixed fees
  *
  * Fixed fees are prices that are applied independent of usage quantities, and
  * follow unit pricing. They also have an additional parameter
@@ -383,11 +383,6 @@ export namespace Price {
        * Rate per unit of usage
        */
       unit_amount: string;
-
-      /**
-       * Multiplier to scale rated quantity by
-       */
-      scaling_factor?: number | null;
     }
   }
 
@@ -544,12 +539,6 @@ export namespace Price {
        * Matrix values for specified matrix grouping keys
        */
       matrix_values: Array<MatrixConfig.MatrixValue>;
-
-      /**
-       * Default optional multiplier to scale rated quantities that fall into the default
-       * bucket by
-       */
-      scaling_factor?: number | null;
     }
 
     export namespace MatrixConfig {
@@ -565,11 +554,6 @@ export namespace Price {
          * Unit price for the specified dimension_values
          */
         unit_amount: string;
-
-        /**
-         * Optional multiplier to scale rated quantities by
-         */
-        scaling_factor?: number | null;
       }
     }
 
@@ -1547,12 +1531,6 @@ export namespace Price {
        * Matrix values for specified matrix grouping keys
        */
       matrix_values: Array<MatrixWithAllocationConfig.MatrixValue>;
-
-      /**
-       * Default optional multiplier to scale rated quantities that fall into the default
-       * bucket by
-       */
-      scaling_factor?: number | null;
     }
 
     export namespace MatrixWithAllocationConfig {
@@ -1568,11 +1546,6 @@ export namespace Price {
          * Unit price for the specified dimension_values
          */
         unit_amount: string;
-
-        /**
-         * Optional multiplier to scale rated quantities by
-         */
-        scaling_factor?: number | null;
       }
     }
 
@@ -1682,11 +1655,6 @@ export namespace PriceCreateParams {
        * Rate per unit of usage
        */
       unit_amount: string;
-
-      /**
-       * Multiplier to scale rated quantity by
-       */
-      scaling_factor?: number | null;
     }
   }
 
@@ -1829,12 +1797,6 @@ export namespace PriceCreateParams {
        * Matrix values for specified matrix grouping keys
        */
       matrix_values: Array<MatrixConfig.MatrixValue>;
-
-      /**
-       * Default optional multiplier to scale rated quantities that fall into the default
-       * bucket by
-       */
-      scaling_factor?: number | null;
     }
 
     export namespace MatrixConfig {
@@ -1850,11 +1812,6 @@ export namespace PriceCreateParams {
          * Unit price for the specified dimension_values
          */
         unit_amount: string;
-
-        /**
-         * Optional multiplier to scale rated quantities by
-         */
-        scaling_factor?: number | null;
       }
     }
   }
@@ -1934,12 +1891,6 @@ export namespace PriceCreateParams {
        * Matrix values for specified matrix grouping keys
        */
       matrix_values: Array<MatrixWithAllocationConfig.MatrixValue>;
-
-      /**
-       * Default optional multiplier to scale rated quantities that fall into the default
-       * bucket by
-       */
-      scaling_factor?: number | null;
     }
 
     export namespace MatrixWithAllocationConfig {
@@ -1955,11 +1906,6 @@ export namespace PriceCreateParams {
          * Unit price for the specified dimension_values
          */
         unit_amount: string;
-
-        /**
-         * Optional multiplier to scale rated quantities by
-         */
-        scaling_factor?: number | null;
       }
     }
   }

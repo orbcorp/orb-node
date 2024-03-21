@@ -78,6 +78,8 @@ export interface CreditListResponse {
   expiry_date: string | null;
 
   per_unit_cost_basis: string | null;
+
+  status: 'active' | 'pending_payment';
 }
 
 export interface CreditListByExternalIDResponse {
@@ -88,6 +90,8 @@ export interface CreditListByExternalIDResponse {
   expiry_date: string | null;
 
   per_unit_cost_basis: string | null;
+
+  status: 'active' | 'pending_payment';
 }
 
 export interface CreditListParams extends PageParams {
