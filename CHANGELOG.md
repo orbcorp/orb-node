@@ -1,5 +1,25 @@
 # Changelog
 
+## 2.1.0 (2024-03-21)
+
+Full Changelog: [v2.0.1...v2.1.0](https://github.com/orbcorp/orb-node/compare/v2.0.1...v2.1.0)
+
+### Features
+
+* **api:** introduce credits status ([e719163](https://github.com/orbcorp/orb-node/commit/e7191637842912dbf05d98f2f811fbbde69645b1))
+* **api:** remove `scaling_factor` ([#136](https://github.com/orbcorp/orb-node/issues/136)) ([e719163](https://github.com/orbcorp/orb-node/commit/e7191637842912dbf05d98f2f811fbbde69645b1))
+
+
+### Chores
+
+* **errors:** fallback to empty array for validation errors ([#135](https://github.com/orbcorp/orb-node/issues/135)) ([50352c2](https://github.com/orbcorp/orb-node/commit/50352c2d8a1e148b7251894fee8e8d1a752deffd))
+
+
+### Documentation
+
+* **readme:** consistent use of sentence case in headings ([#132](https://github.com/orbcorp/orb-node/issues/132)) ([ef902e3](https://github.com/orbcorp/orb-node/commit/ef902e3165d5c83ca7a3154f80d226f514509279))
+* **readme:** document how to make undocumented requests ([#134](https://github.com/orbcorp/orb-node/issues/134)) ([a84bdad](https://github.com/orbcorp/orb-node/commit/a84bdad2e586a6aa9cee16a79213cc2d4c261162))
+
 ## 2.0.1 (2024-03-19)
 
 Full Changelog: [v2.0.0...v2.0.1](https://github.com/orbcorp/orb-node/compare/v2.0.0...v2.0.1)
