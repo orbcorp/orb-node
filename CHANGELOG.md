@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.1 (2024-03-21)
+
+Full Changelog: [v2.1.0...v2.1.1](https://github.com/orbcorp/orb-node/compare/v2.1.0...v2.1.1)
+
+### Bug Fixes
+
+* handle process.env being undefined in debug func ([#137](https://github.com/orbcorp/orb-node/issues/137)) ([a5bdbc9](https://github.com/orbcorp/orb-node/commit/a5bdbc9fc05aa3b4d8b0b472ee9c0d6d01fe6c2b))
+
 ## 2.1.0 (2024-03-21)
 
 Full Changelog: [v2.0.1...v2.1.0](https://github.com/orbcorp/orb-node/compare/v2.0.1...v2.1.0)
