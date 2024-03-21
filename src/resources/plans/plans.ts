@@ -396,11 +396,6 @@ export namespace PlanCreateParams {
        * Rate per unit of usage
        */
       unit_amount: string;
-
-      /**
-       * Multiplier to scale rated quantity by
-       */
-      scaling_factor?: number | null;
     }
   }
 
@@ -533,12 +528,6 @@ export namespace PlanCreateParams {
        * Matrix values for specified matrix grouping keys
        */
       matrix_values: Array<MatrixConfig.MatrixValue>;
-
-      /**
-       * Default optional multiplier to scale rated quantities that fall into the default
-       * bucket by
-       */
-      scaling_factor?: number | null;
     }
 
     export namespace MatrixConfig {
@@ -554,11 +543,6 @@ export namespace PlanCreateParams {
          * Unit price for the specified dimension_values
          */
         unit_amount: string;
-
-        /**
-         * Optional multiplier to scale rated quantities by
-         */
-        scaling_factor?: number | null;
       }
     }
   }

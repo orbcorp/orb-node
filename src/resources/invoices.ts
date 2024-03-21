@@ -965,7 +965,7 @@ export namespace Invoice {
      * }
      * ```
      *
-     * ### Fixed fees
+     * ## Fixed fees
      *
      * Fixed fees are prices that are applied independent of usage quantities, and
      * follow unit pricing. They also have an additional parameter
@@ -2050,7 +2050,7 @@ export namespace InvoiceFetchUpcomingResponse {
      * }
      * ```
      *
-     * ### Fixed fees
+     * ## Fixed fees
      *
      * Fixed fees are prices that are applied independent of usage quantities, and
      * follow unit pricing. They also have an additional parameter
@@ -2373,11 +2373,6 @@ export namespace InvoiceCreateParams {
        * Rate per unit of usage
        */
       unit_amount: string;
-
-      /**
-       * Multiplier to scale rated quantity by
-       */
-      scaling_factor?: number | null;
     }
   }
 }
@@ -2424,19 +2419,19 @@ export interface InvoiceFetchUpcomingParams {
 
 export interface InvoiceMarkPaidParams {
   /**
+   * A date string to specify the date of the payment.
+   */
+  payment_received_date: string;
+
+  /**
    * An optional external ID to associate with the payment.
    */
-  external_id: string | null;
+  external_id?: string | null;
 
   /**
    * An optional note to associate with the payment.
    */
-  notes: string | null;
-
-  /**
-   * A date string to specify the date of the payment.
-   */
-  payment_received_date: string;
+  notes?: string | null;
 }
 
 export namespace Invoices {

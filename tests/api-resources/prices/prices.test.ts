@@ -34,7 +34,7 @@ describe('resource prices', () => {
       item_id: 'string',
       model_type: 'unit',
       name: 'Annual fee',
-      unit_config: { unit_amount: 'string', scaling_factor: 0 },
+      unit_config: { unit_amount: 'string' },
       billable_metric_id: 'string',
       billed_in_advance: true,
       external_price_id: 'string',
