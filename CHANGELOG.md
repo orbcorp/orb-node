@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.2 (2024-03-25)
+
+Full Changelog: [v2.1.1...v2.1.2](https://github.com/orbcorp/orb-node/compare/v2.1.1...v2.1.2)
+
+### Bug Fixes
+
+* **client:** correctly send deno version header ([#139](https://github.com/orbcorp/orb-node/issues/139)) ([b144fb1](https://github.com/orbcorp/orb-node/commit/b144fb1b5ea7c7024d6e3f28a01922c15b945154))
+
 ## 2.1.1 (2024-03-21)
 
 Full Changelog: [v2.1.0...v2.1.1](https://github.com/orbcorp/orb-node/compare/v2.1.0...v2.1.1)
