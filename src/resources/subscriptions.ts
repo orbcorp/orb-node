@@ -3309,6 +3309,7 @@ export namespace SubscriptionPriceIntervalsParams {
       | Add.NewFloatingBulkPrice
       | Add.NewFloatingThresholdTotalAmountPrice
       | Add.NewFloatingTieredPackagePrice
+      | Add.NewFloatingGroupedTieredPrice
       | Add.NewFloatingTieredWithMinimumPrice
       | Add.NewFloatingPackageWithAllocationPrice
       | Add.NewFloatingTieredPackageWithMinimumPrice
@@ -4154,6 +4155,60 @@ export namespace SubscriptionPriceIntervalsParams {
       name: string;
 
       tiered_package_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+    }
+
+    export interface NewFloatingGroupedTieredPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      grouped_tiered_config: Record<string, unknown>;
+
+      /**
+       * The id of the item the plan will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'grouped_tiered';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
 
       /**
        * The id of the billable metric for the price. Only needed if the price is
