@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.2.0 (2024-03-28)
+
+Full Changelog: [v2.1.2...v2.2.0](https://github.com/orbcorp/orb-node/compare/v2.1.2...v2.2.0)
+
+### Features
+
+* **api:** updates ([#141](https://github.com/orbcorp/orb-node/issues/141)) ([c14e608](https://github.com/orbcorp/orb-node/commit/c14e60853f9ec7a3954c83ee8bb9275ee97e5797))
+* **client:** add webhook secret argument ([#143](https://github.com/orbcorp/orb-node/issues/143)) ([46c215a](https://github.com/orbcorp/orb-node/commit/46c215aac68387a5c43c2bc0fb620486369dcbf5))
+
+
+### Chores
+
+* **internal:** bump dependencies ([#145](https://github.com/orbcorp/orb-node/issues/145)) ([94acc13](https://github.com/orbcorp/orb-node/commit/94acc135e32597d32cce614aa4c25758600838ca))
+
 ## 2.1.2 (2024-03-25)
 
 Full Changelog: [v2.1.1...v2.1.2](https://github.com/orbcorp/orb-node/compare/v2.1.1...v2.1.2)

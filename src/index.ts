@@ -15,6 +15,11 @@ export interface ClientOptions {
   apiKey?: string | undefined;
 
   /**
+   * Defaults to process.env['ORB_WEBHOOK_SECRET'].
+   */
+  webhookSecret?: string | null | undefined;
+
+  /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
    * Defaults to process.env['ORB_BASE_URL'].
@@ -74,6 +79,7 @@ export interface ClientOptions {
 /** API Client for interfacing with the Orb API. */
 export class Orb extends Core.APIClient {
   apiKey: string;
+  webhookSecret: string | null;
 
   private _options: ClientOptions;
 
@@ -81,6 +87,7 @@ export class Orb extends Core.APIClient {
    * API Client for interfacing with the Orb API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['ORB_API_KEY'] ?? undefined]
+   * @param {string | null | undefined} [opts.webhookSecret=process.env['ORB_WEBHOOK_SECRET'] ?? null]
    * @param {string} [opts.baseURL=process.env['ORB_BASE_URL'] ?? https://api.withorb.com/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
@@ -92,6 +99,7 @@ export class Orb extends Core.APIClient {
   constructor({
     baseURL = Core.readEnv('ORB_BASE_URL'),
     apiKey = Core.readEnv('ORB_API_KEY'),
+    webhookSecret = Core.readEnv('ORB_WEBHOOK_SECRET') ?? null,
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
@@ -102,6 +110,7 @@ export class Orb extends Core.APIClient {
 
     const options: ClientOptions = {
       apiKey,
+      webhookSecret,
       ...opts,
       baseURL: baseURL || `https://api.withorb.com/v1`,
     };
@@ -117,6 +126,7 @@ export class Orb extends Core.APIClient {
     this.idempotencyHeader = 'Idempotency-Key';
 
     this.apiKey = apiKey;
+    this.webhookSecret = webhookSecret;
   }
 
   topLevel: API.TopLevel = new API.TopLevel(this);
