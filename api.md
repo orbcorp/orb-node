@@ -294,6 +294,13 @@ Methods:
 - <code title="post /subscriptions/{subscription_id}/unschedule_pending_plan_changes">client.subscriptions.<a href="./src/resources/subscriptions.ts">unschedulePendingPlanChanges</a>(subscriptionId) -> Subscription</code>
 - <code title="post /subscriptions/{subscription_id}/update_fixed_fee_quantity">client.subscriptions.<a href="./src/resources/subscriptions.ts">updateFixedFeeQuantity</a>(subscriptionId, { ...params }) -> Subscription</code>
 
+# Webhooks
+
+Methods:
+
+- <code>client.webhooks.<a href="./src/resources/webhooks.ts">unwrap</a>(payload, headers, secret) -> Object</code>
+- <code>client.webhooks.<a href="./src/resources/webhooks.ts">verifySignature</a>(body, headers, secret) -> void</code>
+
 # Beta
 
 ## Price
