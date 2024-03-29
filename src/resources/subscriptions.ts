@@ -3154,12 +3154,12 @@ export interface SubscriptionFetchCostsParams {
   /**
    * Costs returned are exclusive of `timeframe_end`.
    */
-  timeframe_end?: string | null;
+  timeframe_end?: string;
 
   /**
    * Costs returned are inclusive of `timeframe_start`.
    */
-  timeframe_start?: string | null;
+  timeframe_start?: string;
 
   /**
    * Controls whether Orb returns cumulative costs since the start of the billing
