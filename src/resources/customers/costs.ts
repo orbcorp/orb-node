@@ -880,12 +880,12 @@ export interface CostListParams {
   /**
    * Costs returned are exclusive of `timeframe_end`.
    */
-  timeframe_end?: string;
+  timeframe_end?: string | null;
 
   /**
    * Costs returned are inclusive of `timeframe_start`.
    */
-  timeframe_start?: string;
+  timeframe_start?: string | null;
 
   /**
    * Controls whether Orb returns cumulative costs since the start of the billing
@@ -900,12 +900,12 @@ export interface CostListByExternalIDParams {
   /**
    * Costs returned are exclusive of `timeframe_end`.
    */
-  timeframe_end?: string;
+  timeframe_end?: string | null;
 
   /**
    * Costs returned are inclusive of `timeframe_start`.
    */
-  timeframe_start?: string;
+  timeframe_start?: string | null;
 
   /**
    * Controls whether Orb returns cumulative costs since the start of the billing
