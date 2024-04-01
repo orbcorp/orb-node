@@ -12,7 +12,6 @@
       "orb-billing/_shims/auto/*": ["src/_shims/auto/*-node"],
       "orb-billing/*": ["src/*"],
       "orb-billing": ["src/index.ts"],
-      "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,
 
