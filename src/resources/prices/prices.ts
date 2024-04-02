@@ -299,6 +299,7 @@ export type Price =
   | Price.TieredPackagePrice
   | Price.GroupedTieredPrice
   | Price.TieredWithMinimumPrice
+  | Price.TieredPackageWithMinimumPrice
   | Price.PackageWithAllocationPrice
   | Price.UnitWithPercentPrice
   | Price.MatrixWithAllocationPrice;
@@ -1350,6 +1351,82 @@ export namespace Price {
   }
 
   export namespace TieredWithMinimumPrice {
+    export interface BillableMetric {
+      id: string;
+    }
+
+    export interface Item {
+      id: string;
+
+      name: string;
+    }
+
+    export interface Maximum {
+      /**
+       * List of price_ids that this maximum amount applies to. For plan/plan phase
+       * maximums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Maximum amount applied
+       */
+      maximum_amount: string;
+    }
+
+    export interface Minimum {
+      /**
+       * List of price_ids that this minimum amount applies to. For plan/plan phase
+       * minimums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Minimum amount applied
+       */
+      minimum_amount: string;
+    }
+  }
+
+  export interface TieredPackageWithMinimumPrice {
+    id: string;
+
+    billable_metric: TieredPackageWithMinimumPrice.BillableMetric | null;
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+
+    created_at: string;
+
+    currency: string;
+
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    item: TieredPackageWithMinimumPrice.Item;
+
+    maximum: TieredPackageWithMinimumPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: TieredPackageWithMinimumPrice.Minimum | null;
+
+    minimum_amount: string | null;
+
+    model_type: 'tiered_package_with_minimum';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price';
+
+    tiered_package_with_minimum_config: Record<string, unknown>;
+  }
+
+  export namespace TieredPackageWithMinimumPrice {
     export interface BillableMetric {
       id: string;
     }
