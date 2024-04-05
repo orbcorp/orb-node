@@ -2084,8 +2084,8 @@ export namespace LedgerCreateEntryParams {
     metadata?: Record<string, string | null> | null;
 
     /**
-     * Can only be specified when entry_type=increment. How much, in USD, a customer
-     * paid for a single credit in this block
+     * Can only be specified when entry_type=increment. How much, in the customer's
+     * currency, a customer paid for a single credit in this block
      */
     per_unit_cost_basis?: string | null;
   }
@@ -2329,8 +2329,8 @@ export namespace LedgerCreateEntryByExternalIDParams {
     metadata?: Record<string, string | null> | null;
 
     /**
-     * Can only be specified when entry_type=increment. How much, in USD, a customer
-     * paid for a single credit in this block
+     * Can only be specified when entry_type=increment. How much, in the customer's
+     * currency, a customer paid for a single credit in this block
      */
     per_unit_cost_basis?: string | null;
   }
