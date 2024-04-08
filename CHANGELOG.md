@@ -1,5 +1,27 @@
 # Changelog
 
+## 2.2.0 (2024-04-08)
+
+Full Changelog: [v2.1.2...v2.2.0](https://github.com/orbcorp/orb-node/compare/v2.1.2...v2.2.0)
+
+### Features
+
+* add webhooks verification helpers ([2beaa01](https://github.com/orbcorp/orb-node/commit/2beaa019f1f4e58ee6fde3cab29f500964dc3bc1))
+* **api:** add `invoice_source` to invoice ([#153](https://github.com/orbcorp/orb-node/issues/153)) ([8a9b15e](https://github.com/orbcorp/orb-node/commit/8a9b15e6560c1f82888bf4f7b09536ac8d3fee01))
+* **api:** add tiered package with minimum price ([#150](https://github.com/orbcorp/orb-node/issues/150)) ([6c53952](https://github.com/orbcorp/orb-node/commit/6c53952ea49a49b1565df1133f132cb0fef30215))
+* **api:** remove accidental null ([#146](https://github.com/orbcorp/orb-node/issues/146)) ([e66a755](https://github.com/orbcorp/orb-node/commit/e66a7556055d4f3638245f338769a8565cdddddc))
+* **api:** timeframe_end and timeframe_start accept null ([#148](https://github.com/orbcorp/orb-node/issues/148)) ([bab2d25](https://github.com/orbcorp/orb-node/commit/bab2d25a0e37deb6058ed9890560f5bcc6dc53cb))
+* **api:** updates ([#141](https://github.com/orbcorp/orb-node/issues/141)) ([c14e608](https://github.com/orbcorp/orb-node/commit/c14e60853f9ec7a3954c83ee8bb9275ee97e5797))
+* **client:** add webhook secret argument ([#143](https://github.com/orbcorp/orb-node/issues/143)) ([46c215a](https://github.com/orbcorp/orb-node/commit/46c215aac68387a5c43c2bc0fb620486369dcbf5))
+
+
+### Chores
+
+* **deps:** bump yarn to v1.22.22 ([#151](https://github.com/orbcorp/orb-node/issues/151)) ([4ab1e0e](https://github.com/orbcorp/orb-node/commit/4ab1e0e4e2b5e9e62c2d27c99aedc35bc8e3c00f))
+* **deps:** remove unused dependency digest-fetch ([#149](https://github.com/orbcorp/orb-node/issues/149)) ([567dbb4](https://github.com/orbcorp/orb-node/commit/567dbb4edd942bb04eb952c8dd19e8a8af8ff24e))
+* **docs:** revise currency description ([#152](https://github.com/orbcorp/orb-node/issues/152)) ([1508146](https://github.com/orbcorp/orb-node/commit/15081469303ea1b6327b2c5b3ea38650c76b8ee8))
+* **internal:** bump dependencies ([#145](https://github.com/orbcorp/orb-node/issues/145)) ([94acc13](https://github.com/orbcorp/orb-node/commit/94acc135e32597d32cce614aa4c25758600838ca))
+
 ## 2.1.2 (2024-03-25)
 
 Full Changelog: [v2.1.1...v2.1.2](https://github.com/orbcorp/orb-node/compare/v2.1.1...v2.1.2)
