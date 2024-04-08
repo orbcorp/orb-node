@@ -273,6 +273,8 @@ export interface Invoice {
    */
   invoice_pdf: string | null;
 
+  invoice_source: 'subscription' | 'partial' | 'one_off';
+
   /**
    * If the invoice failed to issue, this will be the last time it failed to issue
    * (even if it is now in a different state.)
@@ -1352,6 +1354,8 @@ export interface InvoiceFetchUpcomingResponse {
    * The link to download the PDF representation of the `Invoice`.
    */
   invoice_pdf: string | null;
+
+  invoice_source: 'subscription' | 'partial' | 'one_off';
 
   /**
    * If the invoice failed to issue, this will be the last time it failed to issue
