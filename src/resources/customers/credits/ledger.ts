@@ -2115,6 +2115,12 @@ export namespace LedgerCreateEntryParams {
        * An optional memo to display on the invoice.
        */
       memo?: string | null;
+
+      /**
+       * If true, the new credit block will require that the corresponding invoice is
+       * paid before it can be drawn down from.
+       */
+      require_successful_payment?: boolean;
     }
   }
 
@@ -2360,6 +2366,12 @@ export namespace LedgerCreateEntryByExternalIDParams {
        * An optional memo to display on the invoice.
        */
       memo?: string | null;
+
+      /**
+       * If true, the new credit block will require that the corresponding invoice is
+       * paid before it can be drawn down from.
+       */
+      require_successful_payment?: boolean;
     }
   }
 
