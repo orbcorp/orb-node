@@ -30,7 +30,12 @@ describe('resource topUps', () => {
     const response = await orb.customers.credits.topUps.create('string', {
       amount: 'string',
       currency: 'string',
-      invoice_settings: { auto_collection: true, net_terms: 0, memo: 'string' },
+      invoice_settings: {
+        auto_collection: true,
+        net_terms: 0,
+        memo: 'string',
+        require_successful_payment: true,
+      },
       per_unit_cost_basis: 'string',
       threshold: 'string',
       expires_after: 0,
@@ -106,7 +111,12 @@ describe('resource topUps', () => {
     const response = await orb.customers.credits.topUps.createByExternalId('string', {
       amount: 'string',
       currency: 'string',
-      invoice_settings: { auto_collection: true, net_terms: 0, memo: 'string' },
+      invoice_settings: {
+        auto_collection: true,
+        net_terms: 0,
+        memo: 'string',
+        require_successful_payment: true,
+      },
       per_unit_cost_basis: 'string',
       threshold: 'string',
       expires_after: 0,

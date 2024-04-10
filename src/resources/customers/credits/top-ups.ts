@@ -190,6 +190,12 @@ export namespace TopUpCreateResponse {
      * An optional memo to display on the invoice.
      */
     memo?: string | null;
+
+    /**
+     * If true, new credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they can be drawn down from.
+     */
+    require_successful_payment?: boolean;
   }
 }
 
@@ -257,6 +263,12 @@ export namespace TopUpListResponse {
      * An optional memo to display on the invoice.
      */
     memo?: string | null;
+
+    /**
+     * If true, new credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they can be drawn down from.
+     */
+    require_successful_payment?: boolean;
   }
 }
 
@@ -324,6 +336,12 @@ export namespace TopUpCreateByExternalIDResponse {
      * An optional memo to display on the invoice.
      */
     memo?: string | null;
+
+    /**
+     * If true, new credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they can be drawn down from.
+     */
+    require_successful_payment?: boolean;
   }
 }
 
@@ -391,6 +409,12 @@ export namespace TopUpListByExternalIDResponse {
      * An optional memo to display on the invoice.
      */
     memo?: string | null;
+
+    /**
+     * If true, new credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they can be drawn down from.
+     */
+    require_successful_payment?: boolean;
   }
 }
 
@@ -456,6 +480,12 @@ export namespace TopUpCreateParams {
      * An optional memo to display on the invoice.
      */
     memo?: string | null;
+
+    /**
+     * If true, new credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they can be drawn down from.
+     */
+    require_successful_payment?: boolean;
   }
 }
 
@@ -523,6 +553,12 @@ export namespace TopUpCreateByExternalIDParams {
      * An optional memo to display on the invoice.
      */
     memo?: string | null;
+
+    /**
+     * If true, new credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they can be drawn down from.
+     */
+    require_successful_payment?: boolean;
   }
 }
 
