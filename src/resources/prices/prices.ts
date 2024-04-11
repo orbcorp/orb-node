@@ -314,6 +314,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: UnitPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -346,6 +348,12 @@ export namespace Price {
   export namespace UnitPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -397,6 +405,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: PackagePrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -429,6 +439,12 @@ export namespace Price {
   export namespace PackagePrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -486,6 +502,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: MatrixPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -518,6 +536,12 @@ export namespace Price {
   export namespace MatrixPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -595,6 +619,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: TieredPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -627,6 +653,12 @@ export namespace Price {
   export namespace TieredPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -697,6 +729,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: TieredBpsPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -729,6 +763,12 @@ export namespace Price {
   export namespace TieredBpsPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -807,6 +847,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: BpsPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -849,6 +891,12 @@ export namespace Price {
        * Optional currency amount maximum to cap spend per event
        */
       per_unit_maximum?: string | null;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -894,6 +942,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
     created_at: string;
+
+    credit_allocation: BulkBpsPrice.CreditAllocation | null;
 
     currency: string;
 
@@ -954,6 +1004,12 @@ export namespace Price {
       }
     }
 
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
+    }
+
     export interface Item {
       id: string;
 
@@ -997,6 +1053,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
     created_at: string;
+
+    credit_allocation: BulkPrice.CreditAllocation | null;
 
     currency: string;
 
@@ -1051,6 +1109,12 @@ export namespace Price {
       }
     }
 
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
+    }
+
     export interface Item {
       id: string;
 
@@ -1093,6 +1157,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: ThresholdTotalAmountPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1125,6 +1191,12 @@ export namespace Price {
   export namespace ThresholdTotalAmountPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1169,6 +1241,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: TieredPackagePrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1201,6 +1275,12 @@ export namespace Price {
   export namespace TieredPackagePrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1245,6 +1325,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: GroupedTieredPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1277,6 +1359,12 @@ export namespace Price {
   export namespace GroupedTieredPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1321,6 +1409,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: TieredWithMinimumPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1353,6 +1443,12 @@ export namespace Price {
   export namespace TieredWithMinimumPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1397,6 +1493,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: TieredPackageWithMinimumPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1429,6 +1527,12 @@ export namespace Price {
   export namespace TieredPackageWithMinimumPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1473,6 +1577,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: PackageWithAllocationPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1505,6 +1611,12 @@ export namespace Price {
   export namespace PackageWithAllocationPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1549,6 +1661,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: UnitWithPercentPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1581,6 +1695,12 @@ export namespace Price {
   export namespace UnitWithPercentPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1625,6 +1745,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: MatrixWithAllocationPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1657,6 +1779,12 @@ export namespace Price {
   export namespace MatrixWithAllocationPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
