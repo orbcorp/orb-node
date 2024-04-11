@@ -2,7 +2,7 @@
 
 import { APIResource } from 'orb-billing/resource';
 import { createHmac } from 'crypto';
-import { getRequiredHeader, HeadersLike } from 'orb-billing/core';
+import { debug, getRequiredHeader, HeadersLike } from 'orb-billing/core';
 
 export class Webhooks extends APIResource {
   /**
@@ -123,7 +123,7 @@ export class Webhooks extends APIResource {
     const encoder = new globalThis.TextEncoder();
     for (const versionedSignature of passedSignatures) {
       const [version, signature] = versionedSignature.split('=');
-      console.log({ version, signature, expectedSignature, computedSignature });
+      debug('verifySignature', { version, signature, expectedSignature, computedSignature });
 
       if (version !== 'v1') {
         continue;
