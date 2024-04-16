@@ -75,6 +75,8 @@ export interface CreditListResponse {
 
   balance: number;
 
+  effective_date: string | null;
+
   expiry_date: string | null;
 
   per_unit_cost_basis: string | null;
@@ -86,6 +88,8 @@ export interface CreditListByExternalIDResponse {
   id: string;
 
   balance: number;
+
+  effective_date: string | null;
 
   expiry_date: string | null;
 
