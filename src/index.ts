@@ -326,6 +326,7 @@ export namespace Orb {
   export import Beta = API.Beta;
 
   export import Discount = API.Discount;
+  export import PaginationMetadata = API.PaginationMetadata;
 }
 
 export default Orb;

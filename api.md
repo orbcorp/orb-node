@@ -3,6 +3,7 @@
 Types:
 
 - <code><a href="./src/resources/shared.ts">Discount</a></code>
+- <code><a href="./src/resources/shared.ts">PaginationMetadata</a></code>
 
 # TopLevel
 
