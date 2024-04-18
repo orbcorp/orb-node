@@ -4,6 +4,7 @@ import * as Core from 'orb-billing/core';
 import { APIResource } from 'orb-billing/resource';
 import { isRequestOptions } from 'orb-billing/core';
 import * as SubscriptionsAPI from 'orb-billing/resources/subscriptions';
+import * as Shared from 'orb-billing/resources/shared';
 import * as CustomersAPI from 'orb-billing/resources/customers/customers';
 import * as PlansAPI from 'orb-billing/resources/plans/plans';
 import * as PricesAPI from 'orb-billing/resources/prices/prices';
@@ -1670,7 +1671,7 @@ export namespace SubscriptionUsage {
   export interface GroupedSubscriptionUsage {
     data: Array<GroupedSubscriptionUsage.Data>;
 
-    pagination_metadata?: GroupedSubscriptionUsage.PaginationMetadata | null;
+    pagination_metadata?: Shared.PaginationMetadata | null;
   }
 
   export namespace GroupedSubscriptionUsage {
@@ -1705,27 +1706,13 @@ export namespace SubscriptionUsage {
         timeframe_start: string;
       }
     }
-
-    export interface PaginationMetadata {
-      has_more: boolean;
-
-      next_cursor: string | null;
-    }
   }
 }
 
 export interface Subscriptions {
   data: Array<Subscription>;
 
-  pagination_metadata: Subscriptions.PaginationMetadata;
-}
-
-export namespace Subscriptions {
-  export interface PaginationMetadata {
-    has_more: boolean;
-
-    next_cursor: string | null;
-  }
+  pagination_metadata: Shared.PaginationMetadata;
 }
 
 export interface SubscriptionFetchCostsResponse {
