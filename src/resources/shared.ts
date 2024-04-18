@@ -82,3 +82,9 @@ export namespace Discount {
     reason?: string | null;
   }
 }
+
+export interface PaginationMetadata {
+  has_more: boolean;
+
+  next_cursor: string | null;
+}
