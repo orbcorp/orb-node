@@ -93,7 +93,9 @@ export class Webhooks extends APIResource {
     const msgSignature = getRequiredHeader(headers, 'X-Orb-Signature');
 
     const nowSeconds = Math.floor(Date.now() / 1000);
-    const timestamp = new Date(msgTimestamp);
+    // The timestamp header does not include a timezone (it is UTC by default)
+    const timezoneSuffix = msgTimestamp.includes('Z') || msgTimestamp.includes('+') ? '' : 'Z'
+    const timestamp = new Date(msgTimestamp + timezoneSuffix);
     const timestampSeconds = Math.floor(timestamp.getTime() / 1000);
     if (isNaN(timestampSeconds)) {
       throw new Error('Invalid timestamp header');
