@@ -189,6 +189,9 @@ export class Orb extends Core.APIClient {
   static OrbInternalServerError = Errors.OrbInternalServerError;
   static UnprocessableEntityError = Errors.UnprocessableEntityError;
   static DuplicateResourceCreation = Errors.DuplicateResourceCreation;
+
+  static toFile = Uploads.toFile;
+  static fileFromPath = Uploads.fileFromPath;
 }
 
 export const {
@@ -223,10 +226,6 @@ export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
 export namespace Orb {
-  // Helper functions
-  export import toFile = Uploads.toFile;
-  export import fileFromPath = Uploads.fileFromPath;
-
   export import RequestOptions = Core.RequestOptions;
 
   export import Page = Pagination.Page;
