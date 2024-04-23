@@ -144,7 +144,7 @@ export namespace Coupon {
 }
 
 export interface CouponCreateParams {
-  discount: CouponCreateParams.PercentageDiscount | CouponCreateParams.AmountDiscount;
+  discount: CouponCreateParams.NewCouponPercentageDiscount | CouponCreateParams.NewCouponAmountDiscount;
 
   /**
    * This string can be used to redeem this coupon for a given subscription.
@@ -165,39 +165,16 @@ export interface CouponCreateParams {
 }
 
 export namespace CouponCreateParams {
-  export interface PercentageDiscount {
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
+  export interface NewCouponPercentageDiscount {
     discount_type: 'percentage';
 
-    /**
-     * Only available if discount_type is `percentage`. This is a number between 0
-     * and 1.
-     */
     percentage_discount: number;
-
-    reason?: string | null;
   }
 
-  export interface AmountDiscount {
-    /**
-     * Only available if discount_type is `amount`.
-     */
+  export interface NewCouponAmountDiscount {
     amount_discount: string;
 
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
     discount_type: 'amount';
-
-    reason?: string | null;
   }
 }
 
