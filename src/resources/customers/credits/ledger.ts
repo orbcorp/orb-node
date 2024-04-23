@@ -91,16 +91,16 @@ export class Ledger extends APIResource {
    * entry will be added to the ledger to indicate the adjustment of credits.
    */
   list(
-    customerId: string | null,
+    customerId: string,
     query?: LedgerListParams,
     options?: Core.RequestOptions,
   ): Core.PagePromise<LedgerListResponsesPage, LedgerListResponse>;
   list(
-    customerId: string | null,
+    customerId: string,
     options?: Core.RequestOptions,
   ): Core.PagePromise<LedgerListResponsesPage, LedgerListResponse>;
   list(
-    customerId: string | null,
+    customerId: string,
     query: LedgerListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<LedgerListResponsesPage, LedgerListResponse> {
@@ -225,7 +225,7 @@ export class Ledger extends APIResource {
    * return to the customer, up to the block's initial balance.
    */
   createEntry(
-    customerId: string | null,
+    customerId: string,
     body: LedgerCreateEntryParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<LedgerCreateEntryResponse> {
@@ -344,7 +344,7 @@ export class Ledger extends APIResource {
    * return to the customer, up to the block's initial balance.
    */
   createEntryByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     body: LedgerCreateEntryByExternalIDParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<LedgerCreateEntryByExternalIDResponse> {
@@ -438,16 +438,16 @@ export class Ledger extends APIResource {
    * entry will be added to the ledger to indicate the adjustment of credits.
    */
   listByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     query?: LedgerListByExternalIDParams,
     options?: Core.RequestOptions,
   ): Core.PagePromise<LedgerListByExternalIDResponsesPage, LedgerListByExternalIDResponse>;
   listByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     options?: Core.RequestOptions,
   ): Core.PagePromise<LedgerListByExternalIDResponsesPage, LedgerListByExternalIDResponse>;
   listByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     query: LedgerListByExternalIDParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<LedgerListByExternalIDResponsesPage, LedgerListByExternalIDResponse> {
