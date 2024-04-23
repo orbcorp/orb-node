@@ -192,14 +192,7 @@ describe('idempotency', () => {
       apiKey: 'My API Key',
     });
     await client.coupons.create(
-      {
-        discount: {
-          discount_type: 'percentage',
-          applies_to_price_ids: ['h74gfhdjvn7ujokd', '7hfgtgjnbvc3ujkl'],
-          percentage_discount: 0.15,
-        },
-        redemption_code: 'HALFOFF',
-      },
+      { discount: { discount_type: 'percentage', percentage_discount: 0 }, redemption_code: 'HALFOFF' },
       { idempotencyKey: 'my-idempotency-key' },
     );
   });

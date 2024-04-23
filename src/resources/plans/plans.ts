@@ -374,6 +374,12 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -430,6 +436,12 @@ export namespace PlanCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
 
     /**
      * An alias for the price.
@@ -494,6 +506,12 @@ export namespace PlanCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
 
     /**
      * An alias for the price.
@@ -580,6 +598,12 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -655,6 +679,12 @@ export namespace PlanCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
 
     /**
      * An alias for the price.
@@ -740,6 +770,12 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -801,6 +837,12 @@ export namespace PlanCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
 
     /**
      * An alias for the price.
@@ -881,6 +923,12 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -953,6 +1001,12 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -1000,6 +1054,12 @@ export namespace PlanCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
 
     /**
      * An alias for the price.
@@ -1051,6 +1111,12 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -1100,6 +1166,12 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -1147,6 +1219,12 @@ export namespace PlanCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
 
     /**
      * An alias for the price.
