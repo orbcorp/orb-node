@@ -282,6 +282,7 @@ Types:
 Methods:
 
 - <code title="post /subscriptions">client.subscriptions.<a href="./src/resources/subscriptions.ts">create</a>({ ...params }) -> Subscription</code>
+- <code title="put /subscriptions/{subscription_id}">client.subscriptions.<a href="./src/resources/subscriptions.ts">update</a>(subscriptionId, { ...params }) -> Subscription</code>
 - <code title="get /subscriptions">client.subscriptions.<a href="./src/resources/subscriptions.ts">list</a>({ ...params }) -> SubscriptionsPage</code>
 - <code title="post /subscriptions/{subscription_id}/cancel">client.subscriptions.<a href="./src/resources/subscriptions.ts">cancel</a>(subscriptionId, { ...params }) -> Subscription</code>
 - <code title="get /subscriptions/{subscription_id}">client.subscriptions.<a href="./src/resources/subscriptions.ts">fetch</a>(subscriptionId) -> Subscription</code>

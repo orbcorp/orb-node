@@ -416,6 +416,28 @@ export class Subscriptions extends APIResource {
   }
 
   /**
+   * This endpoint can be used to update the `metadata`, `net terms`,
+   * `auto_collection`, `invoicing_threshold`, and `default_invoice_memo` properties
+   * on a subscription.
+   */
+  update(
+    subscriptionId: string,
+    body?: SubscriptionUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Subscription>;
+  update(subscriptionId: string, options?: Core.RequestOptions): Core.APIPromise<Subscription>;
+  update(
+    subscriptionId: string,
+    body: SubscriptionUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Subscription> {
+    if (isRequestOptions(body)) {
+      return this.update(subscriptionId, {}, body);
+    }
+    return this._client.put(`/subscriptions/${subscriptionId}`, { body, ...options });
+  }
+
+  /**
    * This endpoint returns a list of all subscriptions for an account as a
    * [paginated](../reference/pagination) list, ordered starting from the most
    * recently created subscription. For a full discussion of the subscription
@@ -3108,6 +3130,43 @@ export namespace SubscriptionCreateParams {
   }
 }
 
+export interface SubscriptionUpdateParams {
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. This property defaults to
+   * the plan's behavior.
+   */
+  auto_collection?: boolean | null;
+
+  /**
+   * Determines the default memo on this subscription's invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo?: string | null;
+
+  /**
+   * When this subscription's accrued usage reaches this threshold, an invoice will
+   * be issued for the subscription. If not specified, invoices will only be issued
+   * at the end of the billing period.
+   */
+  invoicing_threshold?: string | null;
+
+  /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: Record<string, string | null> | null;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of `0` here represents that the
+   * invoice is due on issue, whereas a value of `30` represents that the customer
+   * has a month to pay the invoice.
+   */
+  net_terms?: number | null;
+}
+
 export interface SubscriptionListParams extends PageParams {
   'created_at[gt]'?: string | null;
 
@@ -5633,6 +5692,7 @@ export namespace Subscriptions {
   export import SubscriptionsPage = SubscriptionsAPI.SubscriptionsPage;
   export import SubscriptionFetchScheduleResponsesPage = SubscriptionsAPI.SubscriptionFetchScheduleResponsesPage;
   export import SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;
+  export import SubscriptionUpdateParams = SubscriptionsAPI.SubscriptionUpdateParams;
   export import SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
   export import SubscriptionCancelParams = SubscriptionsAPI.SubscriptionCancelParams;
   export import SubscriptionFetchCostsParams = SubscriptionsAPI.SubscriptionFetchCostsParams;

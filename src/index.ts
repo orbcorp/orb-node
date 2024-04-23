@@ -311,6 +311,7 @@ export namespace Orb {
   export import SubscriptionsPage = API.SubscriptionsPage;
   export import SubscriptionFetchScheduleResponsesPage = API.SubscriptionFetchScheduleResponsesPage;
   export import SubscriptionCreateParams = API.SubscriptionCreateParams;
+  export import SubscriptionUpdateParams = API.SubscriptionUpdateParams;
   export import SubscriptionListParams = API.SubscriptionListParams;
   export import SubscriptionCancelParams = API.SubscriptionCancelParams;
   export import SubscriptionFetchCostsParams = API.SubscriptionFetchCostsParams;

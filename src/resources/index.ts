@@ -57,6 +57,7 @@ export {
   SubscriptionFetchCostsResponse,
   SubscriptionFetchScheduleResponse,
   SubscriptionCreateParams,
+  SubscriptionUpdateParams,
   SubscriptionListParams,
   SubscriptionCancelParams,
   SubscriptionFetchCostsParams,
