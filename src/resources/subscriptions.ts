@@ -3242,7 +3242,7 @@ export namespace SubscriptionPriceIntervalsParams {
      * The start date of the price interval. This is the date that the price will start
      * billing on the subscription.
      */
-    start_date: (string & {}) | 'start_of_term' | 'end_of_term';
+    start_date: (string & {}) | Shared.BillingCycleRelativeDate;
 
     /**
      * A list of discounts to initialize on the price interval.
@@ -3257,7 +3257,7 @@ export namespace SubscriptionPriceIntervalsParams {
      * The end date of the price interval. This is the date that the price will stop
      * billing on the subscription.
      */
-    end_date?: (string & {}) | 'start_of_term' | 'end_of_term' | null;
+    end_date?: (string & {}) | Shared.BillingCycleRelativeDate | null;
 
     /**
      * The external price id of the price to add to the subscription.
@@ -4460,7 +4460,7 @@ export namespace SubscriptionPriceIntervalsParams {
      * The updated end date of this price interval. If not specified, the start date
      * will not be updated.
      */
-    end_date?: (string & {}) | 'start_of_term' | 'end_of_term' | null;
+    end_date?: (string & {}) | Shared.BillingCycleRelativeDate | null;
 
     /**
      * A list of fixed fee quantity transitions to use for this price interval. Note
@@ -4473,7 +4473,7 @@ export namespace SubscriptionPriceIntervalsParams {
      * The updated start date of this price interval. If not specified, the start date
      * will not be updated.
      */
-    start_date?: (string & {}) | 'start_of_term' | 'end_of_term';
+    start_date?: (string & {}) | Shared.BillingCycleRelativeDate;
   }
 
   export namespace Edit {
