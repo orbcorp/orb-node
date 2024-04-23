@@ -324,6 +324,7 @@ export namespace Orb {
 
   export import Beta = API.Beta;
 
+  export import BillingCycleRelativeDate = API.BillingCycleRelativeDate;
   export import Discount = API.Discount;
   export import PaginationMetadata = API.PaginationMetadata;
 }
