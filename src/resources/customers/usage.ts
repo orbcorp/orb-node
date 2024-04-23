@@ -104,7 +104,7 @@ export class Usage extends APIResource {
    * using multiple calls with small adjacent (e.g. every hour) timeframes.
    */
   update(
-    id: string | null,
+    id: string,
     params: UsageUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<UsageUpdateResponse> {
@@ -215,7 +215,7 @@ export class Usage extends APIResource {
    * using multiple calls with small adjacent (e.g. every hour) timeframes.
    */
   updateByExternalId(
-    id: string | null,
+    id: string,
     params: UsageUpdateByExternalIDParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<UsageUpdateByExternalIDResponse> {
