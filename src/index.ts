@@ -141,7 +141,6 @@ export class Orb extends Core.APIClient {
   plans: API.Plans = new API.Plans(this);
   prices: API.Prices = new API.Prices(this);
   subscriptions: API.Subscriptions = new API.Subscriptions(this);
-  beta: API.Beta = new API.Beta(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
@@ -190,6 +189,9 @@ export class Orb extends Core.APIClient {
   static OrbInternalServerError = Errors.OrbInternalServerError;
   static UnprocessableEntityError = Errors.UnprocessableEntityError;
   static DuplicateResourceCreation = Errors.DuplicateResourceCreation;
+
+  static toFile = Uploads.toFile;
+  static fileFromPath = Uploads.fileFromPath;
 }
 
 export const {
@@ -224,10 +226,6 @@ export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
 export namespace Orb {
-  // Helper functions
-  export import toFile = Uploads.toFile;
-  export import fileFromPath = Uploads.fileFromPath;
-
   export import RequestOptions = Core.RequestOptions;
 
   export import Page = Pagination.Page;
@@ -300,10 +298,13 @@ export namespace Orb {
   export import PlanListParams = API.PlanListParams;
 
   export import Prices = API.Prices;
+  export import EvaluatePriceGroup = API.EvaluatePriceGroup;
   export import Price = API.Price;
+  export import PriceEvaluateResponse = API.PriceEvaluateResponse;
   export import PricesPage = API.PricesPage;
   export import PriceCreateParams = API.PriceCreateParams;
   export import PriceListParams = API.PriceListParams;
+  export import PriceEvaluateParams = API.PriceEvaluateParams;
 
   export import Subscriptions = API.Subscriptions;
   export import Subscription = API.Subscription;
@@ -313,6 +314,7 @@ export namespace Orb {
   export import SubscriptionsPage = API.SubscriptionsPage;
   export import SubscriptionFetchScheduleResponsesPage = API.SubscriptionFetchScheduleResponsesPage;
   export import SubscriptionCreateParams = API.SubscriptionCreateParams;
+  export import SubscriptionUpdateParams = API.SubscriptionUpdateParams;
   export import SubscriptionListParams = API.SubscriptionListParams;
   export import SubscriptionCancelParams = API.SubscriptionCancelParams;
   export import SubscriptionFetchCostsParams = API.SubscriptionFetchCostsParams;
@@ -324,9 +326,9 @@ export namespace Orb {
   export import SubscriptionUnscheduleFixedFeeQuantityUpdatesParams = API.SubscriptionUnscheduleFixedFeeQuantityUpdatesParams;
   export import SubscriptionUpdateFixedFeeQuantityParams = API.SubscriptionUpdateFixedFeeQuantityParams;
 
-  export import Beta = API.Beta;
-
+  export import BillingCycleRelativeDate = API.BillingCycleRelativeDate;
   export import Discount = API.Discount;
+  export import PaginationMetadata = API.PaginationMetadata;
 }
 
 export default Orb;

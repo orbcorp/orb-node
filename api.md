@@ -2,7 +2,9 @@
 
 Types:
 
+- <code><a href="./src/resources/shared.ts">BillingCycleRelativeDate</a></code>
 - <code><a href="./src/resources/shared.ts">Discount</a></code>
+- <code><a href="./src/resources/shared.ts">PaginationMetadata</a></code>
 
 # TopLevel
 
@@ -253,12 +255,15 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/prices/prices.ts">EvaluatePriceGroup</a></code>
 - <code><a href="./src/resources/prices/prices.ts">Price</a></code>
+- <code><a href="./src/resources/prices/prices.ts">PriceEvaluateResponse</a></code>
 
 Methods:
 
 - <code title="post /prices">client.prices.<a href="./src/resources/prices/prices.ts">create</a>({ ...params }) -> Price</code>
 - <code title="get /prices">client.prices.<a href="./src/resources/prices/prices.ts">list</a>({ ...params }) -> PricesPage</code>
+- <code title="post /prices/{price_id}/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluate</a>(priceId, { ...params }) -> PriceEvaluateResponse</code>
 - <code title="get /prices/{price_id}">client.prices.<a href="./src/resources/prices/prices.ts">fetch</a>(priceId) -> Price</code>
 
 ## ExternalPriceID
@@ -280,6 +285,7 @@ Types:
 Methods:
 
 - <code title="post /subscriptions">client.subscriptions.<a href="./src/resources/subscriptions.ts">create</a>({ ...params }) -> Subscription</code>
+- <code title="put /subscriptions/{subscription_id}">client.subscriptions.<a href="./src/resources/subscriptions.ts">update</a>(subscriptionId, { ...params }) -> Subscription</code>
 - <code title="get /subscriptions">client.subscriptions.<a href="./src/resources/subscriptions.ts">list</a>({ ...params }) -> SubscriptionsPage</code>
 - <code title="post /subscriptions/{subscription_id}/cancel">client.subscriptions.<a href="./src/resources/subscriptions.ts">cancel</a>(subscriptionId, { ...params }) -> Subscription</code>
 - <code title="get /subscriptions/{subscription_id}">client.subscriptions.<a href="./src/resources/subscriptions.ts">fetch</a>(subscriptionId) -> Subscription</code>
@@ -293,23 +299,3 @@ Methods:
 - <code title="post /subscriptions/{subscription_id}/unschedule_fixed_fee_quantity_updates">client.subscriptions.<a href="./src/resources/subscriptions.ts">unscheduleFixedFeeQuantityUpdates</a>(subscriptionId, { ...params }) -> Subscription</code>
 - <code title="post /subscriptions/{subscription_id}/unschedule_pending_plan_changes">client.subscriptions.<a href="./src/resources/subscriptions.ts">unschedulePendingPlanChanges</a>(subscriptionId) -> Subscription</code>
 - <code title="post /subscriptions/{subscription_id}/update_fixed_fee_quantity">client.subscriptions.<a href="./src/resources/subscriptions.ts">updateFixedFeeQuantity</a>(subscriptionId, { ...params }) -> Subscription</code>
-
-# Webhooks
-
-Methods:
-
-- <code>client.webhooks.<a href="./src/resources/webhooks.ts">unwrap</a>(payload, headers, secret) -> Object</code>
-- <code>client.webhooks.<a href="./src/resources/webhooks.ts">verifySignature</a>(body, headers, secret) -> void</code>
-
-# Beta
-
-## Price
-
-Types:
-
-- <code><a href="./src/resources/beta/price.ts">EvaluatePriceGroup</a></code>
-- <code><a href="./src/resources/beta/price.ts">PriceEvaluateResponse</a></code>
-
-Methods:
-
-- <code title="post /prices/{price_id}/evaluate">client.beta.price.<a href="./src/resources/beta/price.ts">evaluate</a>(priceId, { ...params }) -> PriceEvaluateResponse</code>

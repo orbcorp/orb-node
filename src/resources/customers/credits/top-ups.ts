@@ -17,7 +17,7 @@ export class TopUps extends APIResource {
    * top-up will be replaced.
    */
   create(
-    customerId: string | null,
+    customerId: string,
     body: TopUpCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TopUpCreateResponse> {
@@ -28,16 +28,16 @@ export class TopUps extends APIResource {
    * List top-ups
    */
   list(
-    customerId: string | null,
+    customerId: string,
     query?: TopUpListParams,
     options?: Core.RequestOptions,
   ): Core.PagePromise<TopUpListResponsesPage, TopUpListResponse>;
   list(
-    customerId: string | null,
+    customerId: string,
     options?: Core.RequestOptions,
   ): Core.PagePromise<TopUpListResponsesPage, TopUpListResponse>;
   list(
-    customerId: string | null,
+    customerId: string,
     query: TopUpListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<TopUpListResponsesPage, TopUpListResponse> {
@@ -53,7 +53,7 @@ export class TopUps extends APIResource {
   /**
    * Delete top-up
    */
-  delete(customerId: string | null, topUpId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
+  delete(customerId: string, topUpId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.delete(`/customers/${customerId}/credits/top_ups/${topUpId}`, {
       ...options,
       headers: { Accept: '*/*', ...options?.headers },
@@ -70,7 +70,7 @@ export class TopUps extends APIResource {
    * top-up will be replaced.
    */
   createByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     body: TopUpCreateByExternalIDParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TopUpCreateByExternalIDResponse> {
@@ -84,7 +84,7 @@ export class TopUps extends APIResource {
    * Delete top-up by external ID
    */
   deleteByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     topUpId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<void> {
@@ -98,16 +98,16 @@ export class TopUps extends APIResource {
    * List top-ups by external ID
    */
   listByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     query?: TopUpListByExternalIDParams,
     options?: Core.RequestOptions,
   ): Core.PagePromise<TopUpListByExternalIDResponsesPage, TopUpListByExternalIDResponse>;
   listByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     options?: Core.RequestOptions,
   ): Core.PagePromise<TopUpListByExternalIDResponsesPage, TopUpListByExternalIDResponse>;
   listByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     query: TopUpListByExternalIDParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<TopUpListByExternalIDResponsesPage, TopUpListByExternalIDResponse> {
@@ -190,6 +190,12 @@ export namespace TopUpCreateResponse {
      * An optional memo to display on the invoice.
      */
     memo?: string | null;
+
+    /**
+     * If true, new credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they can be drawn down from.
+     */
+    require_successful_payment?: boolean;
   }
 }
 
@@ -257,6 +263,12 @@ export namespace TopUpListResponse {
      * An optional memo to display on the invoice.
      */
     memo?: string | null;
+
+    /**
+     * If true, new credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they can be drawn down from.
+     */
+    require_successful_payment?: boolean;
   }
 }
 
@@ -324,6 +336,12 @@ export namespace TopUpCreateByExternalIDResponse {
      * An optional memo to display on the invoice.
      */
     memo?: string | null;
+
+    /**
+     * If true, new credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they can be drawn down from.
+     */
+    require_successful_payment?: boolean;
   }
 }
 
@@ -391,6 +409,12 @@ export namespace TopUpListByExternalIDResponse {
      * An optional memo to display on the invoice.
      */
     memo?: string | null;
+
+    /**
+     * If true, new credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they can be drawn down from.
+     */
+    require_successful_payment?: boolean;
   }
 }
 
@@ -456,6 +480,12 @@ export namespace TopUpCreateParams {
      * An optional memo to display on the invoice.
      */
     memo?: string | null;
+
+    /**
+     * If true, new credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they can be drawn down from.
+     */
+    require_successful_payment?: boolean;
   }
 }
 
@@ -523,6 +553,12 @@ export namespace TopUpCreateByExternalIDParams {
      * An optional memo to display on the invoice.
      */
     memo?: string | null;
+
+    /**
+     * If true, new credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they can be drawn down from.
+     */
+    require_successful_payment?: boolean;
   }
 }
 

@@ -44,6 +44,37 @@ export class Prices extends APIResource {
   }
 
   /**
+   * This endpoint is used to evaluate the output of a price for a given customer and
+   * time range. It enables filtering and grouping the output using
+   * [computed properties](../guides/extensibility/advanced-metrics#computed-properties),
+   * supporting the following workflows:
+   *
+   * 1. Showing detailed usage and costs to the end customer.
+   * 2. Auditing subtotals on invoice line items.
+   *
+   * For these workflows, the expressiveness of computed properties in both the
+   * filters and grouping is critical. For example, if you'd like to show your
+   * customer their usage grouped by hour and another property, you can do so with
+   * the following `grouping_keys`:
+   * `["hour_floor_timestamp_millis(timestamp_millis)", "my_property"]`. If you'd
+   * like to examine a customer's usage for a specific property value, you can do so
+   * with the following `filter`:
+   * `my_property = 'foo' AND my_other_property = 'bar'`.
+   *
+   * By default, the start of the time range must be no more than 100 days ago and
+   * the length of the results must be no greater than 1000. Note that this is a POST
+   * endpoint rather than a GET endpoint because it employs a JSON body rather than
+   * query parameters.
+   */
+  evaluate(
+    priceId: string,
+    body: PriceEvaluateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PriceEvaluateResponse> {
+    return this._client.post(`/prices/${priceId}/evaluate`, { body, ...options });
+  }
+
+  /**
    * This endpoint returns a price given an identifier.
    */
   fetch(priceId: string, options?: Core.RequestOptions): Core.APIPromise<Price> {
@@ -52,6 +83,23 @@ export class Prices extends APIResource {
 }
 
 export class PricesPage extends Page<Price> {}
+
+export interface EvaluatePriceGroup {
+  /**
+   * The price's output for the group
+   */
+  amount: string;
+
+  /**
+   * The values for the group in the order specified by `grouping_keys`
+   */
+  grouping_values: Array<string | number | boolean>;
+
+  /**
+   * The price's usage quantity for the group
+   */
+  quantity: number;
+}
 
 /**
  * The Price resource represents a price that can be billed on a subscription,
@@ -314,6 +362,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: UnitPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -346,6 +396,12 @@ export namespace Price {
   export namespace UnitPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -397,6 +453,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: PackagePrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -429,6 +487,12 @@ export namespace Price {
   export namespace PackagePrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -486,6 +550,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: MatrixPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -518,6 +584,12 @@ export namespace Price {
   export namespace MatrixPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -595,6 +667,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: TieredPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -627,6 +701,12 @@ export namespace Price {
   export namespace TieredPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -697,6 +777,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: TieredBpsPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -729,6 +811,12 @@ export namespace Price {
   export namespace TieredBpsPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -807,6 +895,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: BpsPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -849,6 +939,12 @@ export namespace Price {
        * Optional currency amount maximum to cap spend per event
        */
       per_unit_maximum?: string | null;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -894,6 +990,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
     created_at: string;
+
+    credit_allocation: BulkBpsPrice.CreditAllocation | null;
 
     currency: string;
 
@@ -954,6 +1052,12 @@ export namespace Price {
       }
     }
 
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
+    }
+
     export interface Item {
       id: string;
 
@@ -997,6 +1101,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
     created_at: string;
+
+    credit_allocation: BulkPrice.CreditAllocation | null;
 
     currency: string;
 
@@ -1051,6 +1157,12 @@ export namespace Price {
       }
     }
 
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
+    }
+
     export interface Item {
       id: string;
 
@@ -1093,6 +1205,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: ThresholdTotalAmountPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1125,6 +1239,12 @@ export namespace Price {
   export namespace ThresholdTotalAmountPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1169,6 +1289,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: TieredPackagePrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1201,6 +1323,12 @@ export namespace Price {
   export namespace TieredPackagePrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1245,6 +1373,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: GroupedTieredPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1277,6 +1407,12 @@ export namespace Price {
   export namespace GroupedTieredPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1321,6 +1457,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: TieredWithMinimumPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1353,6 +1491,12 @@ export namespace Price {
   export namespace TieredWithMinimumPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1397,6 +1541,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: TieredPackageWithMinimumPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1429,6 +1575,12 @@ export namespace Price {
   export namespace TieredPackageWithMinimumPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1473,6 +1625,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: PackageWithAllocationPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1505,6 +1659,12 @@ export namespace Price {
   export namespace PackageWithAllocationPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1549,6 +1709,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: UnitWithPercentPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1581,6 +1743,12 @@ export namespace Price {
   export namespace UnitWithPercentPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1625,6 +1793,8 @@ export namespace Price {
 
     created_at: string;
 
+    credit_allocation: MatrixWithAllocationPrice.CreditAllocation | null;
+
     currency: string;
 
     discount: Shared.Discount | null;
@@ -1657,6 +1827,12 @@ export namespace Price {
   export namespace MatrixWithAllocationPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
     }
 
     export interface Item {
@@ -1729,6 +1905,10 @@ export namespace Price {
       minimum_amount: string;
     }
   }
+}
+
+export interface PriceEvaluateResponse {
+  data: Array<EvaluatePriceGroup>;
 }
 
 export type PriceCreateParams =
@@ -2844,10 +3024,49 @@ export namespace PriceCreateParams {
 
 export interface PriceListParams extends PageParams {}
 
+export interface PriceEvaluateParams {
+  /**
+   * The exclusive upper bound for event timestamps
+   */
+  timeframe_end: string;
+
+  /**
+   * The inclusive lower bound for event timestamps
+   */
+  timeframe_start: string;
+
+  /**
+   * The ID of the customer to which this evaluation is scoped.
+   */
+  customer_id?: string | null;
+
+  /**
+   * The external customer ID of the customer to which this evaluation is scoped.
+   */
+  external_customer_id?: string | null;
+
+  /**
+   * A boolean
+   * [computed property](../guides/extensibility/advanced-metrics#computed-properties)
+   * used to filter the underlying billable metric
+   */
+  filter?: string | null;
+
+  /**
+   * Properties (or
+   * [computed properties](../guides/extensibility/advanced-metrics#computed-properties))
+   * used to group the underlying billable metric
+   */
+  grouping_keys?: Array<string>;
+}
+
 export namespace Prices {
+  export import EvaluatePriceGroup = PricesAPI.EvaluatePriceGroup;
   export import Price = PricesAPI.Price;
+  export import PriceEvaluateResponse = PricesAPI.PriceEvaluateResponse;
   export import PricesPage = PricesAPI.PricesPage;
   export import PriceCreateParams = PricesAPI.PriceCreateParams;
   export import PriceListParams = PricesAPI.PriceListParams;
+  export import PriceEvaluateParams = PricesAPI.PriceEvaluateParams;
   export import ExternalPriceID = ExternalPriceIDAPI.ExternalPriceID;
 }

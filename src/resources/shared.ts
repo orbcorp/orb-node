@@ -1,5 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export type BillingCycleRelativeDate = 'start_of_term' | 'end_of_term';
+
 export type Discount =
   | Discount.PercentageDiscount
   | Discount.TrialDiscount
@@ -81,4 +83,10 @@ export namespace Discount {
 
     reason?: string | null;
   }
+}
+
+export interface PaginationMetadata {
+  has_more: boolean;
+
+  next_cursor: string | null;
 }

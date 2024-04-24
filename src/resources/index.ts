@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export * from './shared';
-export { Beta } from './beta/beta';
 export { Coupon, CouponCreateParams, CouponListParams, CouponsPage, Coupons } from './coupons/coupons';
 export { CreditNote, CreditNoteListParams, CreditNotesPage, CreditNotes } from './credit-notes';
 export {
@@ -13,6 +12,16 @@ export {
   CustomersPage,
   Customers,
 } from './customers/customers';
+export {
+  EvaluatePriceGroup,
+  Price,
+  PriceEvaluateResponse,
+  PriceCreateParams,
+  PriceListParams,
+  PriceEvaluateParams,
+  PricesPage,
+  Prices,
+} from './prices/prices';
 export {
   EventUpdateResponse,
   EventDeprecateResponse,
@@ -49,7 +58,6 @@ export {
   Metrics,
 } from './metrics';
 export { Plan, PlanCreateParams, PlanUpdateParams, PlanListParams, PlansPage, Plans } from './plans/plans';
-export { Price, PriceCreateParams, PriceListParams, PricesPage, Prices } from './prices/prices';
 export {
   Subscription,
   SubscriptionUsage,
@@ -57,6 +65,7 @@ export {
   SubscriptionFetchCostsResponse,
   SubscriptionFetchScheduleResponse,
   SubscriptionCreateParams,
+  SubscriptionUpdateParams,
   SubscriptionListParams,
   SubscriptionCancelParams,
   SubscriptionFetchCostsParams,

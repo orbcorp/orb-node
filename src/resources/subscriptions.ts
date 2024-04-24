@@ -4,6 +4,7 @@ import * as Core from 'orb-billing/core';
 import { APIResource } from 'orb-billing/resource';
 import { isRequestOptions } from 'orb-billing/core';
 import * as SubscriptionsAPI from 'orb-billing/resources/subscriptions';
+import * as Shared from 'orb-billing/resources/shared';
 import * as CustomersAPI from 'orb-billing/resources/customers/customers';
 import * as PlansAPI from 'orb-billing/resources/plans/plans';
 import * as PricesAPI from 'orb-billing/resources/prices/prices';
@@ -412,6 +413,28 @@ export class Subscriptions extends APIResource {
       return this.create({}, body);
     }
     return this._client.post('/subscriptions', { body, ...options });
+  }
+
+  /**
+   * This endpoint can be used to update the `metadata`, `net terms`,
+   * `auto_collection`, `invoicing_threshold`, and `default_invoice_memo` properties
+   * on a subscription.
+   */
+  update(
+    subscriptionId: string,
+    body?: SubscriptionUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Subscription>;
+  update(subscriptionId: string, options?: Core.RequestOptions): Core.APIPromise<Subscription>;
+  update(
+    subscriptionId: string,
+    body: SubscriptionUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Subscription> {
+    if (isRequestOptions(body)) {
+      return this.update(subscriptionId, {}, body);
+    }
+    return this._client.put(`/subscriptions/${subscriptionId}`, { body, ...options });
   }
 
   /**
@@ -1670,7 +1693,7 @@ export namespace SubscriptionUsage {
   export interface GroupedSubscriptionUsage {
     data: Array<GroupedSubscriptionUsage.Data>;
 
-    pagination_metadata?: GroupedSubscriptionUsage.PaginationMetadata | null;
+    pagination_metadata?: Shared.PaginationMetadata | null;
   }
 
   export namespace GroupedSubscriptionUsage {
@@ -1705,27 +1728,13 @@ export namespace SubscriptionUsage {
         timeframe_start: string;
       }
     }
-
-    export interface PaginationMetadata {
-      has_more: boolean;
-
-      next_cursor: string | null;
-    }
   }
 }
 
 export interface Subscriptions {
   data: Array<Subscription>;
 
-  pagination_metadata: Subscriptions.PaginationMetadata;
-}
-
-export namespace Subscriptions {
-  export interface PaginationMetadata {
-    has_more: boolean;
-
-    next_cursor: string | null;
-  }
+  pagination_metadata: Shared.PaginationMetadata;
 }
 
 export interface SubscriptionFetchCostsResponse {
@@ -3121,6 +3130,43 @@ export namespace SubscriptionCreateParams {
   }
 }
 
+export interface SubscriptionUpdateParams {
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. This property defaults to
+   * the plan's behavior.
+   */
+  auto_collection?: boolean | null;
+
+  /**
+   * Determines the default memo on this subscription's invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo?: string | null;
+
+  /**
+   * When this subscription's accrued usage reaches this threshold, an invoice will
+   * be issued for the subscription. If not specified, invoices will only be issued
+   * at the end of the billing period.
+   */
+  invoicing_threshold?: string | null;
+
+  /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: Record<string, string | null> | null;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of `0` here represents that the
+   * invoice is due on issue, whereas a value of `30` represents that the customer
+   * has a month to pay the invoice.
+   */
+  net_terms?: number | null;
+}
+
 export interface SubscriptionListParams extends PageParams {
   'created_at[gt]'?: string | null;
 
@@ -3255,7 +3301,7 @@ export namespace SubscriptionPriceIntervalsParams {
      * The start date of the price interval. This is the date that the price will start
      * billing on the subscription.
      */
-    start_date: (string & {}) | 'start_of_term' | 'end_of_term';
+    start_date: (string & {}) | Shared.BillingCycleRelativeDate;
 
     /**
      * A list of discounts to initialize on the price interval.
@@ -3270,7 +3316,7 @@ export namespace SubscriptionPriceIntervalsParams {
      * The end date of the price interval. This is the date that the price will stop
      * billing on the subscription.
      */
-    end_date?: (string & {}) | 'start_of_term' | 'end_of_term' | null;
+    end_date?: (string & {}) | Shared.BillingCycleRelativeDate | null;
 
     /**
      * The external price id of the price to add to the subscription.
@@ -4473,7 +4519,7 @@ export namespace SubscriptionPriceIntervalsParams {
      * The updated end date of this price interval. If not specified, the start date
      * will not be updated.
      */
-    end_date?: (string & {}) | 'start_of_term' | 'end_of_term' | null;
+    end_date?: (string & {}) | Shared.BillingCycleRelativeDate | null;
 
     /**
      * A list of fixed fee quantity transitions to use for this price interval. Note
@@ -4486,7 +4532,7 @@ export namespace SubscriptionPriceIntervalsParams {
      * The updated start date of this price interval. If not specified, the start date
      * will not be updated.
      */
-    start_date?: (string & {}) | 'start_of_term' | 'end_of_term';
+    start_date?: (string & {}) | Shared.BillingCycleRelativeDate;
   }
 
   export namespace Edit {
@@ -5646,6 +5692,7 @@ export namespace Subscriptions {
   export import SubscriptionsPage = SubscriptionsAPI.SubscriptionsPage;
   export import SubscriptionFetchScheduleResponsesPage = SubscriptionsAPI.SubscriptionFetchScheduleResponsesPage;
   export import SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;
+  export import SubscriptionUpdateParams = SubscriptionsAPI.SubscriptionUpdateParams;
   export import SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
   export import SubscriptionCancelParams = SubscriptionsAPI.SubscriptionCancelParams;
   export import SubscriptionFetchCostsParams = SubscriptionsAPI.SubscriptionFetchCostsParams;

@@ -107,6 +107,41 @@ describe('resource subscriptions', () => {
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
+  test('update', async () => {
+    const responsePromise = orb.subscriptions.update('string');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('update: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(orb.subscriptions.update('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Orb.NotFoundError,
+    );
+  });
+
+  test('update: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      orb.subscriptions.update(
+        'string',
+        {
+          auto_collection: true,
+          default_invoice_memo: 'string',
+          invoicing_threshold: '10.00',
+          metadata: { foo: 'string' },
+          net_terms: 0,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Orb.NotFoundError);
+  });
+
   test('list', async () => {
     const responsePromise = orb.subscriptions.list();
     const rawResponse = await responsePromise.asResponse();

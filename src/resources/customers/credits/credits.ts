@@ -16,16 +16,16 @@ export class Credits extends APIResource {
    * Returns a paginated list of unexpired, non-zero credit blocks for a customer.
    */
   list(
-    customerId: string | null,
+    customerId: string,
     query?: CreditListParams,
     options?: Core.RequestOptions,
   ): Core.PagePromise<CreditListResponsesPage, CreditListResponse>;
   list(
-    customerId: string | null,
+    customerId: string,
     options?: Core.RequestOptions,
   ): Core.PagePromise<CreditListResponsesPage, CreditListResponse>;
   list(
-    customerId: string | null,
+    customerId: string,
     query: CreditListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<CreditListResponsesPage, CreditListResponse> {
@@ -42,16 +42,16 @@ export class Credits extends APIResource {
    * Returns a paginated list of unexpired, non-zero credit blocks for a customer.
    */
   listByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     query?: CreditListByExternalIDParams,
     options?: Core.RequestOptions,
   ): Core.PagePromise<CreditListByExternalIDResponsesPage, CreditListByExternalIDResponse>;
   listByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     options?: Core.RequestOptions,
   ): Core.PagePromise<CreditListByExternalIDResponsesPage, CreditListByExternalIDResponse>;
   listByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     query: CreditListByExternalIDParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<CreditListByExternalIDResponsesPage, CreditListByExternalIDResponse> {
@@ -75,6 +75,8 @@ export interface CreditListResponse {
 
   balance: number;
 
+  effective_date: string | null;
+
   expiry_date: string | null;
 
   per_unit_cost_basis: string | null;
@@ -86,6 +88,8 @@ export interface CreditListByExternalIDResponse {
   id: string;
 
   balance: number;
+
+  effective_date: string | null;
 
   expiry_date: string | null;
 

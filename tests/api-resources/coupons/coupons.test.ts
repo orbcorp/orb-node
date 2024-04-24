@@ -11,11 +11,7 @@ const orb = new Orb({
 describe('resource coupons', () => {
   test('create: only required params', async () => {
     const responsePromise = orb.coupons.create({
-      discount: {
-        discount_type: 'percentage',
-        applies_to_price_ids: ['h74gfhdjvn7ujokd', '7hfgtgjnbvc3ujkl'],
-        percentage_discount: 0.15,
-      },
+      discount: { discount_type: 'percentage', percentage_discount: 0 },
       redemption_code: 'HALFOFF',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -29,12 +25,7 @@ describe('resource coupons', () => {
 
   test('create: required and optional params', async () => {
     const response = await orb.coupons.create({
-      discount: {
-        discount_type: 'percentage',
-        applies_to_price_ids: ['h74gfhdjvn7ujokd', '7hfgtgjnbvc3ujkl'],
-        reason: 'string',
-        percentage_discount: 0.15,
-      },
+      discount: { discount_type: 'percentage', percentage_discount: 0 },
       redemption_code: 'HALFOFF',
       duration_in_months: 12,
       max_redemptions: 0,

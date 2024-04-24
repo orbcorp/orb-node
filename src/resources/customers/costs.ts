@@ -144,13 +144,13 @@ export class Costs extends APIResource {
    * `grouping_value` and `secondary_grouping_value` available.
    */
   list(
-    customerId: string | null,
+    customerId: string,
     query?: CostListParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<CostListResponse>;
-  list(customerId: string | null, options?: Core.RequestOptions): Core.APIPromise<CostListResponse>;
+  list(customerId: string, options?: Core.RequestOptions): Core.APIPromise<CostListResponse>;
   list(
-    customerId: string | null,
+    customerId: string,
     query: CostListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<CostListResponse> {
@@ -297,16 +297,16 @@ export class Costs extends APIResource {
    * `grouping_value` and `secondary_grouping_value` available.
    */
   listByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     query?: CostListByExternalIDParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<CostListByExternalIDResponse>;
   listByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<CostListByExternalIDResponse>;
   listByExternalId(
-    externalCustomerId: string | null,
+    externalCustomerId: string,
     query: CostListByExternalIDParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<CostListByExternalIDResponse> {
