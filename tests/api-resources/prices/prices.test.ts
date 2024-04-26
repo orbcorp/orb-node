@@ -37,6 +37,7 @@ describe('resource prices', () => {
       unit_config: { unit_amount: 'string' },
       billable_metric_id: 'string',
       billed_in_advance: true,
+      conversion_rate: 0,
       external_price_id: 'string',
       fixed_price_quantity: 0,
       invoice_grouping_key: 'string',

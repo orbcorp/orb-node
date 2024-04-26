@@ -360,6 +360,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
+    conversion_rate: number | null;
+
     created_at: string;
 
     credit_allocation: UnitPrice.CreditAllocation | null;
@@ -451,6 +453,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
+    conversion_rate: number | null;
+
     created_at: string;
 
     credit_allocation: PackagePrice.CreditAllocation | null;
@@ -537,7 +541,7 @@ export namespace Price {
        * An integer amount to represent package size. For example, 1000 here would divide
        * usage by 1000 before multiplying by package_amount in rating
        */
-      package_size?: number | null;
+      package_size: number;
     }
   }
 
@@ -547,6 +551,8 @@ export namespace Price {
     billable_metric: MatrixPrice.BillableMetric | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+
+    conversion_rate: number | null;
 
     created_at: string;
 
@@ -665,6 +671,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
+    conversion_rate: number | null;
+
     created_at: string;
 
     credit_allocation: TieredPrice.CreditAllocation | null;
@@ -774,6 +782,8 @@ export namespace Price {
     billable_metric: TieredBpsPrice.BillableMetric | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+
+    conversion_rate: number | null;
 
     created_at: string;
 
@@ -893,6 +903,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
+    conversion_rate: number | null;
+
     created_at: string;
 
     credit_allocation: BpsPrice.CreditAllocation | null;
@@ -988,6 +1000,8 @@ export namespace Price {
     bulk_bps_config: BulkBpsPrice.BulkBpsConfig;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+
+    conversion_rate: number | null;
 
     created_at: string;
 
@@ -1100,6 +1114,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
+    conversion_rate: number | null;
+
     created_at: string;
 
     credit_allocation: BulkPrice.CreditAllocation | null;
@@ -1203,6 +1219,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
+    conversion_rate: number | null;
+
     created_at: string;
 
     credit_allocation: ThresholdTotalAmountPrice.CreditAllocation | null;
@@ -1286,6 +1304,8 @@ export namespace Price {
     billable_metric: TieredPackagePrice.BillableMetric | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+
+    conversion_rate: number | null;
 
     created_at: string;
 
@@ -1371,6 +1391,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
+    conversion_rate: number | null;
+
     created_at: string;
 
     credit_allocation: GroupedTieredPrice.CreditAllocation | null;
@@ -1454,6 +1476,8 @@ export namespace Price {
     billable_metric: TieredWithMinimumPrice.BillableMetric | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+
+    conversion_rate: number | null;
 
     created_at: string;
 
@@ -1539,6 +1563,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
+    conversion_rate: number | null;
+
     created_at: string;
 
     credit_allocation: TieredPackageWithMinimumPrice.CreditAllocation | null;
@@ -1622,6 +1648,8 @@ export namespace Price {
     billable_metric: PackageWithAllocationPrice.BillableMetric | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+
+    conversion_rate: number | null;
 
     created_at: string;
 
@@ -1707,6 +1735,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
 
+    conversion_rate: number | null;
+
     created_at: string;
 
     credit_allocation: UnitWithPercentPrice.CreditAllocation | null;
@@ -1790,6 +1820,8 @@ export namespace Price {
     billable_metric: MatrixWithAllocationPrice.BillableMetric | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+
+    conversion_rate: number | null;
 
     created_at: string;
 
@@ -1968,6 +2000,11 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2031,6 +2068,11 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2058,7 +2100,7 @@ export namespace PriceCreateParams {
        * An integer amount to represent package size. For example, 1000 here would divide
        * usage by 1000 before multiplying by package_amount in rating
        */
-      package_size?: number | null;
+      package_size: number;
     }
   }
 
@@ -2098,6 +2140,11 @@ export namespace PriceCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
 
     /**
      * An alias for the price.
@@ -2187,6 +2234,11 @@ export namespace PriceCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
 
     /**
      * An alias for the price.
@@ -2283,6 +2335,11 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2363,6 +2420,11 @@ export namespace PriceCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
 
     /**
      * An alias for the price.
@@ -2453,6 +2515,11 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2519,6 +2586,11 @@ export namespace PriceCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
 
     /**
      * An alias for the price.
@@ -2604,6 +2676,11 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2681,6 +2758,11 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2733,6 +2815,11 @@ export namespace PriceCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
 
     /**
      * An alias for the price.
@@ -2789,6 +2876,11 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2841,6 +2933,11 @@ export namespace PriceCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
 
     /**
      * An alias for the price.
@@ -2897,6 +2994,11 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2951,6 +3053,11 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -3003,6 +3110,11 @@ export namespace PriceCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
 
     /**
      * An alias for the price.

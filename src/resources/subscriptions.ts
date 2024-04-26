@@ -925,6 +925,11 @@ export class Subscriptions extends APIResource {
    * default for the plan. The request format for price overrides, maximums, and
    * minimums are the same as those in [subscription creation](create-subscription).
    *
+   * ## Scheduling multiple plan changes
+   *
+   * When scheduling multiple plan changes with the same date, the latest plan change
+   * on that day takes effect.
+   *
    * ## Prorations for in-advance fees
    *
    * By default, Orb calculates the prorated difference in any fixed fees when making
@@ -2121,6 +2126,17 @@ export namespace SubscriptionCreateParams {
     unit_config: OverrideUnitPrice.UnitConfig;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverrideUnitPrice.Discount | null;
@@ -2193,6 +2209,17 @@ export namespace SubscriptionCreateParams {
     package_config: OverridePackagePrice.PackageConfig;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverridePackagePrice.Discount | null;
@@ -2224,7 +2251,7 @@ export namespace SubscriptionCreateParams {
        * An integer amount to represent package size. For example, 1000 here would divide
        * usage by 1000 before multiplying by package_amount in rating
        */
-      package_size?: number | null;
+      package_size: number;
     }
 
     /**
@@ -2269,6 +2296,17 @@ export namespace SubscriptionCreateParams {
     matrix_config: OverrideMatrixPrice.MatrixConfig;
 
     model_type: 'matrix';
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
 
     /**
      * The subscription's override discount for the plan.
@@ -2369,6 +2407,17 @@ export namespace SubscriptionCreateParams {
     tiered_config: OverrideTieredPrice.TieredConfig;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverrideTieredPrice.Discount | null;
@@ -2458,6 +2507,17 @@ export namespace SubscriptionCreateParams {
     model_type: 'tiered_bps';
 
     tiered_bps_config: OverrideTieredBpsPrice.TieredBpsConfig;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
 
     /**
      * The subscription's override discount for the plan.
@@ -2557,6 +2617,17 @@ export namespace SubscriptionCreateParams {
     model_type: 'bps';
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverrideBpsPrice.Discount | null;
@@ -2632,6 +2703,17 @@ export namespace SubscriptionCreateParams {
     bulk_bps_config: OverrideBulkBpsPrice.BulkBpsConfig;
 
     model_type: 'bulk_bps';
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
 
     /**
      * The subscription's override discount for the plan.
@@ -2726,6 +2808,17 @@ export namespace SubscriptionCreateParams {
     model_type: 'bulk';
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverrideBulkPrice.Discount | null;
@@ -2812,6 +2905,17 @@ export namespace SubscriptionCreateParams {
     threshold_total_amount_config: Record<string, unknown>;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverrideThresholdTotalAmountPrice.Discount | null;
@@ -2875,6 +2979,17 @@ export namespace SubscriptionCreateParams {
     model_type: 'tiered_package';
 
     tiered_package_config: Record<string, unknown>;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
 
     /**
      * The subscription's override discount for the plan.
@@ -2942,6 +3057,17 @@ export namespace SubscriptionCreateParams {
     tiered_with_minimum_config: Record<string, unknown>;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverrideTieredWithMinimumPrice.Discount | null;
@@ -3007,6 +3133,17 @@ export namespace SubscriptionCreateParams {
     package_with_allocation_config: Record<string, unknown>;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverridePackageWithAllocationPrice.Discount | null;
@@ -3070,6 +3207,17 @@ export namespace SubscriptionCreateParams {
     model_type: 'unit_with_percent';
 
     unit_with_percent_config: Record<string, unknown>;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
 
     /**
      * The subscription's override discount for the plan.
@@ -3448,6 +3596,11 @@ export namespace SubscriptionPriceIntervalsParams {
       billed_in_advance?: boolean | null;
 
       /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -3511,6 +3664,11 @@ export namespace SubscriptionPriceIntervalsParams {
       billed_in_advance?: boolean | null;
 
       /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -3538,7 +3696,7 @@ export namespace SubscriptionPriceIntervalsParams {
          * An integer amount to represent package size. For example, 1000 here would divide
          * usage by 1000 before multiplying by package_amount in rating
          */
-        package_size?: number | null;
+        package_size: number;
       }
     }
 
@@ -3578,6 +3736,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * this is true, and in-arrears if this is false.
        */
       billed_in_advance?: boolean | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
 
       /**
        * An alias for the price.
@@ -3667,6 +3830,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * this is true, and in-arrears if this is false.
        */
       billed_in_advance?: boolean | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
 
       /**
        * An alias for the price.
@@ -3763,6 +3931,11 @@ export namespace SubscriptionPriceIntervalsParams {
       billed_in_advance?: boolean | null;
 
       /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -3843,6 +4016,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * this is true, and in-arrears if this is false.
        */
       billed_in_advance?: boolean | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
 
       /**
        * An alias for the price.
@@ -3933,6 +4111,11 @@ export namespace SubscriptionPriceIntervalsParams {
       billed_in_advance?: boolean | null;
 
       /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -3999,6 +4182,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * this is true, and in-arrears if this is false.
        */
       billed_in_advance?: boolean | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
 
       /**
        * An alias for the price.
@@ -4084,6 +4272,11 @@ export namespace SubscriptionPriceIntervalsParams {
       billed_in_advance?: boolean | null;
 
       /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -4161,6 +4354,11 @@ export namespace SubscriptionPriceIntervalsParams {
       billed_in_advance?: boolean | null;
 
       /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -4213,6 +4411,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * this is true, and in-arrears if this is false.
        */
       billed_in_advance?: boolean | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
 
       /**
        * An alias for the price.
@@ -4269,6 +4472,11 @@ export namespace SubscriptionPriceIntervalsParams {
       billed_in_advance?: boolean | null;
 
       /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -4321,6 +4529,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * this is true, and in-arrears if this is false.
        */
       billed_in_advance?: boolean | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
 
       /**
        * An alias for the price.
@@ -4377,6 +4590,11 @@ export namespace SubscriptionPriceIntervalsParams {
       billed_in_advance?: boolean | null;
 
       /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -4431,6 +4649,11 @@ export namespace SubscriptionPriceIntervalsParams {
       billed_in_advance?: boolean | null;
 
       /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -4483,6 +4706,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * this is true, and in-arrears if this is false.
        */
       billed_in_advance?: boolean | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
 
       /**
        * An alias for the price.
@@ -4636,6 +4864,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     unit_config: OverrideUnitPrice.UnitConfig;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverrideUnitPrice.Discount | null;
@@ -4708,6 +4947,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     package_config: OverridePackagePrice.PackageConfig;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverridePackagePrice.Discount | null;
@@ -4739,7 +4989,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * An integer amount to represent package size. For example, 1000 here would divide
        * usage by 1000 before multiplying by package_amount in rating
        */
-      package_size?: number | null;
+      package_size: number;
     }
 
     /**
@@ -4784,6 +5034,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     matrix_config: OverrideMatrixPrice.MatrixConfig;
 
     model_type: 'matrix';
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
 
     /**
      * The subscription's override discount for the plan.
@@ -4884,6 +5145,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     tiered_config: OverrideTieredPrice.TieredConfig;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverrideTieredPrice.Discount | null;
@@ -4973,6 +5245,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     model_type: 'tiered_bps';
 
     tiered_bps_config: OverrideTieredBpsPrice.TieredBpsConfig;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
 
     /**
      * The subscription's override discount for the plan.
@@ -5072,6 +5355,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     model_type: 'bps';
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverrideBpsPrice.Discount | null;
@@ -5147,6 +5441,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     bulk_bps_config: OverrideBulkBpsPrice.BulkBpsConfig;
 
     model_type: 'bulk_bps';
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
 
     /**
      * The subscription's override discount for the plan.
@@ -5241,6 +5546,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     model_type: 'bulk';
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverrideBulkPrice.Discount | null;
@@ -5327,6 +5643,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     threshold_total_amount_config: Record<string, unknown>;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverrideThresholdTotalAmountPrice.Discount | null;
@@ -5390,6 +5717,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     model_type: 'tiered_package';
 
     tiered_package_config: Record<string, unknown>;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
 
     /**
      * The subscription's override discount for the plan.
@@ -5457,6 +5795,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     tiered_with_minimum_config: Record<string, unknown>;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverrideTieredWithMinimumPrice.Discount | null;
@@ -5522,6 +5871,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     package_with_allocation_config: Record<string, unknown>;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
      * The subscription's override discount for the plan.
      */
     discount?: OverridePackageWithAllocationPrice.Discount | null;
@@ -5585,6 +5945,17 @@ export namespace SubscriptionSchedulePlanChangeParams {
     model_type: 'unit_with_percent';
 
     unit_with_percent_config: Record<string, unknown>;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
 
     /**
      * The subscription's override discount for the plan.

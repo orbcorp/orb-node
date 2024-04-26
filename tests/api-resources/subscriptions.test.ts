@@ -56,6 +56,8 @@ describe('resource subscriptions', () => {
               model_type: 'unit',
               minimum_amount: '1.23',
               maximum_amount: '1.23',
+              currency: 'string',
+              conversion_rate: 0,
               discount: {
                 discount_type: 'percentage',
                 percentage_discount: 0.15,
@@ -72,6 +74,8 @@ describe('resource subscriptions', () => {
               model_type: 'unit',
               minimum_amount: '1.23',
               maximum_amount: '1.23',
+              currency: 'string',
+              conversion_rate: 0,
               discount: {
                 discount_type: 'percentage',
                 percentage_discount: 0.15,
@@ -88,6 +92,8 @@ describe('resource subscriptions', () => {
               model_type: 'unit',
               minimum_amount: '1.23',
               maximum_amount: '1.23',
+              currency: 'string',
+              conversion_rate: 0,
               discount: {
                 discount_type: 'percentage',
                 percentage_discount: 0.15,
@@ -370,6 +376,7 @@ describe('resource subscriptions', () => {
                 fixed_price_quantity: 0,
                 invoice_grouping_key: 'string',
                 cadence: 'annual',
+                conversion_rate: 0,
                 model_type: 'unit',
                 unit_config: { unit_amount: 'string' },
                 currency: 'string',
@@ -401,6 +408,7 @@ describe('resource subscriptions', () => {
                 fixed_price_quantity: 0,
                 invoice_grouping_key: 'string',
                 cadence: 'annual',
+                conversion_rate: 0,
                 model_type: 'unit',
                 unit_config: { unit_amount: 'string' },
                 currency: 'string',
@@ -432,6 +440,7 @@ describe('resource subscriptions', () => {
                 fixed_price_quantity: 0,
                 invoice_grouping_key: 'string',
                 cadence: 'annual',
+                conversion_rate: 0,
                 model_type: 'unit',
                 unit_config: { unit_amount: 'string' },
                 currency: 'string',
@@ -525,6 +534,8 @@ describe('resource subscriptions', () => {
           model_type: 'unit',
           minimum_amount: '1.23',
           maximum_amount: '1.23',
+          currency: 'string',
+          conversion_rate: 0,
           discount: {
             discount_type: 'percentage',
             percentage_discount: 0.15,
@@ -541,6 +552,8 @@ describe('resource subscriptions', () => {
           model_type: 'unit',
           minimum_amount: '1.23',
           maximum_amount: '1.23',
+          currency: 'string',
+          conversion_rate: 0,
           discount: {
             discount_type: 'percentage',
             percentage_discount: 0.15,
@@ -557,6 +570,8 @@ describe('resource subscriptions', () => {
           model_type: 'unit',
           minimum_amount: '1.23',
           maximum_amount: '1.23',
+          currency: 'string',
+          conversion_rate: 0,
           discount: {
             discount_type: 'percentage',
             percentage_discount: 0.15,
