@@ -46,6 +46,7 @@ describe('resource plans', () => {
           fixed_price_quantity: 0,
           invoice_grouping_key: 'string',
           cadence: 'annual',
+          conversion_rate: 0,
           model_type: 'unit',
           unit_config: { unit_amount: 'string' },
           currency: 'string',
