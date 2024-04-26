@@ -374,6 +374,11 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this
      * price is billed.
      */
@@ -438,6 +443,11 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this
      * price is billed.
      */
@@ -471,7 +481,7 @@ export namespace PlanCreateParams {
        * An integer amount to represent package size. For example, 1000 here would divide
        * usage by 1000 before multiplying by package_amount in rating
        */
-      package_size?: number | null;
+      package_size: number;
     }
   }
 
@@ -506,6 +516,11 @@ export namespace PlanCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
 
     /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -598,6 +613,11 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this
      * price is billed.
      */
@@ -679,6 +699,11 @@ export namespace PlanCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
 
     /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -770,6 +795,11 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this
      * price is billed.
      */
@@ -837,6 +867,11 @@ export namespace PlanCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
 
     /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -923,6 +958,11 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this
      * price is billed.
      */
@@ -1001,6 +1041,11 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this
      * price is billed.
      */
@@ -1054,6 +1099,11 @@ export namespace PlanCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
 
     /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -1111,6 +1161,11 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this
      * price is billed.
      */
@@ -1166,6 +1221,11 @@ export namespace PlanCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this
      * price is billed.
      */
@@ -1219,6 +1279,11 @@ export namespace PlanCreateParams {
      * this is true, and in-arrears if this is false.
      */
     billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
 
     /**
      * An ISO 4217 currency string, or custom pricing unit identifier, in which this

@@ -117,6 +117,11 @@ export interface BackfillCreateResponse {
   customer_id: string | null;
 
   /**
+   * The number of events ingested in this backfill.
+   */
+  events_ingested: number;
+
+  /**
    * The time at which this backfill was reverted.
    */
   reverted_at: string | null;
@@ -151,6 +156,11 @@ export interface BackfillListResponse {
    * to a single customer.
    */
   customer_id: string | null;
+
+  /**
+   * The number of events ingested in this backfill.
+   */
+  events_ingested: number;
 
   /**
    * The time at which this backfill was reverted.
@@ -189,6 +199,11 @@ export interface BackfillCloseResponse {
   customer_id: string | null;
 
   /**
+   * The number of events ingested in this backfill.
+   */
+  events_ingested: number;
+
+  /**
    * The time at which this backfill was reverted.
    */
   reverted_at: string | null;
@@ -225,6 +240,11 @@ export interface BackfillFetchResponse {
   customer_id: string | null;
 
   /**
+   * The number of events ingested in this backfill.
+   */
+  events_ingested: number;
+
+  /**
    * The time at which this backfill was reverted.
    */
   reverted_at: string | null;
@@ -259,6 +279,11 @@ export interface BackfillRevertResponse {
    * to a single customer.
    */
   customer_id: string | null;
+
+  /**
+   * The number of events ingested in this backfill.
+   */
+  events_ingested: number;
 
   /**
    * The time at which this backfill was reverted.
