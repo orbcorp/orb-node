@@ -14,6 +14,9 @@ export class Credits extends APIResource {
 
   /**
    * Returns a paginated list of unexpired, non-zero credit blocks for a customer.
+   *
+   * Note that `currency` defaults to credits if not specified. To use a real world
+   * currency, set `currency` to an ISO 4217 string.
    */
   list(
     customerId: string,
@@ -40,6 +43,9 @@ export class Credits extends APIResource {
 
   /**
    * Returns a paginated list of unexpired, non-zero credit blocks for a customer.
+   *
+   * Note that `currency` defaults to credits if not specified. To use a real world
+   * currency, set `currency` to an ISO 4217 string.
    */
   listByExternalId(
     externalCustomerId: string,
