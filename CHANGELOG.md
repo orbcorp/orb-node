@@ -1,5 +1,47 @@
 # Changelog
 
+## 2.4.0 (2024-05-02)
+
+Full Changelog: [v2.3.0...v2.4.0](https://github.com/orbcorp/orb-node/compare/v2.3.0...v2.4.0)
+
+### Features
+
+* **api:** add effective_date field ([#163](https://github.com/orbcorp/orb-node/issues/163)) ([7a5d9af](https://github.com/orbcorp/orb-node/commit/7a5d9afe4f578cfc7f1e8a03767f75bad3579751))
+* **api:** add param to backfill create ([#174](https://github.com/orbcorp/orb-node/issues/174)) ([9379644](https://github.com/orbcorp/orb-node/commit/93796449184a9b4823a83ead1fa88b3557459588))
+* **api:** add subscription update endpoint ([#168](https://github.com/orbcorp/orb-node/issues/168)) ([d7ee5ba](https://github.com/orbcorp/orb-node/commit/d7ee5bae793278692eb62159152dd5ad1f015bc9))
+* **api:** add the shared model PaginationMetadata ([#164](https://github.com/orbcorp/orb-node/issues/164)) ([85956fe](https://github.com/orbcorp/orb-node/commit/85956fea41477392b725778e7d8364616236cad9))
+* **api:** price evaluation endpoint generally available ([#169](https://github.com/orbcorp/orb-node/issues/169)) ([c1e2b83](https://github.com/orbcorp/orb-node/commit/c1e2b837cad4c1786ca553b0ea9fbabfc4623880))
+* **api:** updates ([#154](https://github.com/orbcorp/orb-node/issues/154)) ([0f7c989](https://github.com/orbcorp/orb-node/commit/0f7c989eac9d033b1c8a03420efed405d3af4b88))
+* **api:** updates ([#159](https://github.com/orbcorp/orb-node/issues/159)) ([ca602ea](https://github.com/orbcorp/orb-node/commit/ca602eaa69dcf615f4785c41a0c078b9a20af029))
+* **api:** updates ([#179](https://github.com/orbcorp/orb-node/issues/179)) ([86b9015](https://github.com/orbcorp/orb-node/commit/86b9015532a7c165a605f77938c4bbadee24d452))
+
+
+### Bug Fixes
+
+* **api:** add shared model BillingCycleRelativeDate ([#167](https://github.com/orbcorp/orb-node/issues/167)) ([bb6764e](https://github.com/orbcorp/orb-node/commit/bb6764e1eed1bce9f1629e853de6a08eef0166cd))
+* **api:** some path params were incorrectly typed as nullable ([#166](https://github.com/orbcorp/orb-node/issues/166)) ([bafd0a9](https://github.com/orbcorp/orb-node/commit/bafd0a9e007ad993fc129dd18836583074cd6b86))
+* use UTC timezone for verifying webhook signature ([5eb9d2c](https://github.com/orbcorp/orb-node/commit/5eb9d2c50f5312d4ef82bc18bb94f95d1120b906)), closes [#156](https://github.com/orbcorp/orb-node/issues/156)
+
+
+### Chores
+
+* **internal:** add link to openapi spec ([#176](https://github.com/orbcorp/orb-node/issues/176)) ([fd77e6a](https://github.com/orbcorp/orb-node/commit/fd77e6a266b2ba7a82821552afa227eb26d69443))
+* **internal:** add scripts/test and scripts/mock ([#173](https://github.com/orbcorp/orb-node/issues/173)) ([495558b](https://github.com/orbcorp/orb-node/commit/495558b5f58d1729e3cc059e1c0acdaa039640af))
+* **internal:** add scripts/test, scripts/mock and add ci job ([#177](https://github.com/orbcorp/orb-node/issues/177)) ([4440933](https://github.com/orbcorp/orb-node/commit/4440933b3f3d51740d8fcfd4ab188856b09967e9))
+* **internal:** formatting ([#161](https://github.com/orbcorp/orb-node/issues/161)) ([b4ae917](https://github.com/orbcorp/orb-node/commit/b4ae9171619c0a23f368c92cc3e4b415859ac6af))
+* **internal:** forward arguments in scripts/test ([#178](https://github.com/orbcorp/orb-node/issues/178)) ([0564bfe](https://github.com/orbcorp/orb-node/commit/0564bfe383da0efbe642ad5801c0ef9484f9f36c))
+* **internal:** move client class to separate file ([#180](https://github.com/orbcorp/orb-node/issues/180)) ([9f56e13](https://github.com/orbcorp/orb-node/commit/9f56e13cce2e88d6a4a95a73215bd348a2685a9e))
+* **internal:** refactor scripts ([#175](https://github.com/orbcorp/orb-node/issues/175)) ([76f4954](https://github.com/orbcorp/orb-node/commit/76f49549e07628aea9747f2190766c6e966c3d2e))
+* **internal:** update gitignore ([#160](https://github.com/orbcorp/orb-node/issues/160)) ([bbd39e8](https://github.com/orbcorp/orb-node/commit/bbd39e830f21ef19b95dc7cd3ff06450906c360e))
+* **internal:** use @swc/jest for running tests ([#165](https://github.com/orbcorp/orb-node/issues/165)) ([50ad2b0](https://github.com/orbcorp/orb-node/commit/50ad2b09e4d415050660adb28b4549c55a0730f1))
+* **internal:** use actions/checkout@v4 for codeflow ([#171](https://github.com/orbcorp/orb-node/issues/171)) ([dcf2157](https://github.com/orbcorp/orb-node/commit/dcf21575dda07240093966cb560585f3eb08643c))
+* use debug instead of console log for webhook signature logging ([590cbf1](https://github.com/orbcorp/orb-node/commit/590cbf17e37a7eb071d6d31295b3f9cc9bb46579))
+
+
+### Build System
+
+* configure UTF-8 locale in devcontainer ([#162](https://github.com/orbcorp/orb-node/issues/162)) ([b1b8a5a](https://github.com/orbcorp/orb-node/commit/b1b8a5a1a586305e71183cd0c02f24a70513f3b1))
+
 ## 2.3.0 (2024-04-24)
 
 Full Changelog: [v2.2.0...v2.3.0](https://github.com/orbcorp/orb-node/compare/v2.2.0...v2.3.0)
