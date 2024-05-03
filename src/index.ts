@@ -141,6 +141,7 @@ export class Orb extends Core.APIClient {
   plans: API.Plans = new API.Plans(this);
   prices: API.Prices = new API.Prices(this);
   subscriptions: API.Subscriptions = new API.Subscriptions(this);
+  webhooks: API.Webhooks = new API.Webhooks(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
