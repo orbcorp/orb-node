@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.4.1 (2024-05-03)
+
+Full Changelog: [v2.4.0...v2.4.1](https://github.com/orbcorp/orb-node/compare/v2.4.0...v2.4.1)
+
+### Bug Fixes
+
+* **package:** revert recent client file change ([#182](https://github.com/orbcorp/orb-node/issues/182)) ([682eecb](https://github.com/orbcorp/orb-node/commit/682eecb4c8ccf726e81d1ea088cb0f966e545aa6))
+
 ## 2.4.0 (2024-05-02)
 
 Full Changelog: [v2.3.0...v2.4.0](https://github.com/orbcorp/orb-node/compare/v2.3.0...v2.4.0)
