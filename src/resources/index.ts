@@ -80,3 +80,4 @@ export {
   SubscriptionFetchScheduleResponsesPage,
 } from './subscriptions';
 export { TopLevelPingResponse, TopLevel } from './top-level';
+export { Webhooks } from './webhooks';
