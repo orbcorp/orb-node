@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.5.0 (2024-05-08)
+
+Full Changelog: [v2.4.1...v2.5.0](https://github.com/orbcorp/orb-node/compare/v2.4.1...v2.5.0)
+
+### Features
+
+* **api:** add method to enable alerts ([#186](https://github.com/orbcorp/orb-node/issues/186)) ([e8b9215](https://github.com/orbcorp/orb-node/commit/e8b9215034f2c507ff148d2b1c7e39c6c4597d92))
+
 ## 2.4.1 (2024-05-03)
 
 Full Changelog: [v2.4.0...v2.4.1](https://github.com/orbcorp/orb-node/compare/v2.4.0...v2.4.1)
