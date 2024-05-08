@@ -299,3 +299,13 @@ Methods:
 - <code title="post /subscriptions/{subscription_id}/unschedule_fixed_fee_quantity_updates">client.subscriptions.<a href="./src/resources/subscriptions.ts">unscheduleFixedFeeQuantityUpdates</a>(subscriptionId, { ...params }) -> Subscription</code>
 - <code title="post /subscriptions/{subscription_id}/unschedule_pending_plan_changes">client.subscriptions.<a href="./src/resources/subscriptions.ts">unschedulePendingPlanChanges</a>(subscriptionId) -> Subscription</code>
 - <code title="post /subscriptions/{subscription_id}/update_fixed_fee_quantity">client.subscriptions.<a href="./src/resources/subscriptions.ts">updateFixedFeeQuantity</a>(subscriptionId, { ...params }) -> Subscription</code>
+
+# Alerts
+
+Types:
+
+- <code><a href="./src/resources/alerts.ts">Alert</a></code>
+
+Methods:
+
+- <code title="post /alerts/{alert_configuration_id}/enable">client.alerts.<a href="./src/resources/alerts.ts">enable</a>(alertConfigurationId) -> Alert</code>

@@ -142,6 +142,7 @@ export class Orb extends Core.APIClient {
   prices: API.Prices = new API.Prices(this);
   subscriptions: API.Subscriptions = new API.Subscriptions(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
+  alerts: API.Alerts = new API.Alerts(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -325,6 +326,9 @@ export namespace Orb {
   export import SubscriptionTriggerPhaseParams = API.SubscriptionTriggerPhaseParams;
   export import SubscriptionUnscheduleFixedFeeQuantityUpdatesParams = API.SubscriptionUnscheduleFixedFeeQuantityUpdatesParams;
   export import SubscriptionUpdateFixedFeeQuantityParams = API.SubscriptionUpdateFixedFeeQuantityParams;
+
+  export import Alerts = API.Alerts;
+  export import Alert = API.Alert;
 
   export import BillingCycleRelativeDate = API.BillingCycleRelativeDate;
   export import Discount = API.Discount;
