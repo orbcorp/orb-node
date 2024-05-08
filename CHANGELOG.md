@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.5.1 (2024-05-08)
+
+Full Changelog: [v2.5.0...v2.5.1](https://github.com/orbcorp/orb-node/compare/v2.5.0...v2.5.1)
+
+### Chores
+
+* remove unintentional file inclusion ([71a97f9](https://github.com/orbcorp/orb-node/commit/71a97f9114b56b7f9b4bc60b638028d046859b62))
+
 ## 2.5.0 (2024-05-08)
 
 Full Changelog: [v2.4.1...v2.5.0](https://github.com/orbcorp/orb-node/compare/v2.4.1...v2.5.0)
