@@ -1074,7 +1074,7 @@ export interface Subscription {
   /**
    * Determines whether issued invoices for this subscription will automatically be
    * charged with the saved payment method on the due date. This property defaults to
-   * the plan's behavior.
+   * the plan's behavior. If null, defaults to the customer's setting.
    */
   auto_collection: boolean | null;
 
