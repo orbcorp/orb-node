@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.6.0 (2024-05-09)
+
+Full Changelog: [v2.5.1...v2.6.0](https://github.com/orbcorp/orb-node/compare/v2.5.1...v2.6.0)
+
+### Features
+
+* **api:** add alert methods and models ([#191](https://github.com/orbcorp/orb-node/issues/191)) ([21a22ae](https://github.com/orbcorp/orb-node/commit/21a22ae1f617900dc9f7b4e94d0d965d3b25053f))
+
 ## 2.5.1 (2024-05-08)
 
 Full Changelog: [v2.5.0...v2.5.1](https://github.com/orbcorp/orb-node/compare/v2.5.0...v2.5.1)
