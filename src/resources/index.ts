@@ -1,7 +1,18 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export * from './shared';
-export { Alert, Alerts } from './alerts';
+export {
+  Alert,
+  AlertListParams,
+  AlertCreateForCustomerParams,
+  AlertCreateForExternalCustomerParams,
+  AlertCreateForPlanParams,
+  AlertCreateForSubscriptionParams,
+  AlertDisableParams,
+  AlertEnableParams,
+  AlertsPage,
+  Alerts,
+} from './alerts';
 export { Coupon, CouponCreateParams, CouponListParams, CouponsPage, Coupons } from './coupons/coupons';
 export { CreditNote, CreditNoteListParams, CreditNotesPage, CreditNotes } from './credit-notes';
 export {
