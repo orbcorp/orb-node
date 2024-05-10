@@ -78,29 +78,6 @@ export class Alerts extends APIResource {
   }
 
   /**
-   * This endpoint is used to create alerts at the plan level. Plan level alerts are
-   * automatically propagated to all subscriptions associated with the plan. These
-   * alerts are scoped to a specific plan version; if no version is specified, the
-   * active plan version is used.
-   *
-   * Plan level alerts can be of two types: `usage_exceeded` or `cost_exceeded`. A
-   * `usage_exceeded` alert is scoped to a particular metric and is triggered when
-   * the usage of that metric exceeds predefined thresholds during the current
-   * billing cycle. A `cost_exceeded` alert is triggered when the total amount due
-   * during the current billing cycle surpasses predefined thresholds.
-   * `cost_exceeded` alerts do not include burndown of pre-purchase credits. Each
-   * plan can have one `cost_exceeded` alert and one `usage_exceeded` alert per
-   * metric that is a part of the plan.
-   */
-  createForPlan(
-    planId: string,
-    body: AlertCreateForPlanParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert> {
-    return this._client.post(`/alerts/plan_id/${planId}`, { body, ...options });
-  }
-
-  /**
    * This endpoint is used to create alerts at the subscription level.
    *
    * Subscription level alerts can be one of two types: `usage_exceeded` or
@@ -124,49 +101,15 @@ export class Alerts extends APIResource {
   /**
    * This endpoint can be used to disable an alert.
    */
-  disable(
-    alertConfigurationId: string,
-    params?: AlertDisableParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert>;
-  disable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert>;
-  disable(
-    alertConfigurationId: string,
-    params: AlertDisableParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert> {
-    if (isRequestOptions(params)) {
-      return this.disable(alertConfigurationId, {}, params);
-    }
-    const { subscription_id } = params;
-    return this._client.post(`/alerts/${alertConfigurationId}/disable`, {
-      query: { subscription_id },
-      ...options,
-    });
+  disable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert> {
+    return this._client.post(`/alerts/${alertConfigurationId}/disable`, options);
   }
 
   /**
    * This endpoint can be used to enable an alert.
    */
-  enable(
-    alertConfigurationId: string,
-    params?: AlertEnableParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert>;
-  enable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert>;
-  enable(
-    alertConfigurationId: string,
-    params: AlertEnableParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert> {
-    if (isRequestOptions(params)) {
-      return this.enable(alertConfigurationId, {}, params);
-    }
-    const { subscription_id } = params;
-    return this._client.post(`/alerts/${alertConfigurationId}/enable`, {
-      query: { subscription_id },
-      ...options,
-    });
+  enable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert> {
+    return this._client.post(`/alerts/${alertConfigurationId}/enable`, options);
   }
 }
 
@@ -278,16 +221,6 @@ export interface AlertListParams extends PageParams {
   external_customer_id?: string | null;
 
   /**
-   * Fetch alerts scoped to this plan_id
-   */
-  plan_id?: string | null;
-
-  /**
-   * If provided alongside plan_id, only the alerts that are scoped to the specified plan_version will be returned.
-   */
-  plan_version?: number | null;
-
-  /**
    * Fetch alerts scoped to this subscription_id
    */
   subscription_id?: string | null;
@@ -357,44 +290,6 @@ export namespace AlertCreateForExternalCustomerParams {
   }
 }
 
-export interface AlertCreateForPlanParams {
-  /**
-   * The thresholds for the alert.
-   */
-  thresholds: Array<AlertCreateForPlanParams.Threshold>;
-
-  /**
-   * The thresholds that define the values at which the alert will be triggered.
-   */
-  type: string;
-
-  /**
-   * The metric to track usage for.
-   */
-  metric_id?: string | null;
-
-  /**
-   * The plan version to create alerts for. If not specified, the default will be the
-   * plan's active plan version.
-   */
-  plan_version?: number | null;
-}
-
-export namespace AlertCreateForPlanParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
-}
-
 export interface AlertCreateForSubscriptionParams {
   /**
    * The thresholds for the alert.
@@ -427,28 +322,11 @@ export namespace AlertCreateForSubscriptionParams {
   }
 }
 
-export interface AlertDisableParams {
-  /**
-   * Used to update the status of a plan alert scoped to this subscription_id
-   */
-  subscription_id?: string | null;
-}
-
-export interface AlertEnableParams {
-  /**
-   * Used to update the status of a plan alert scoped to this subscription_id
-   */
-  subscription_id?: string | null;
-}
-
 export namespace Alerts {
   export import Alert = AlertsAPI.Alert;
   export import AlertsPage = AlertsAPI.AlertsPage;
   export import AlertListParams = AlertsAPI.AlertListParams;
   export import AlertCreateForCustomerParams = AlertsAPI.AlertCreateForCustomerParams;
   export import AlertCreateForExternalCustomerParams = AlertsAPI.AlertCreateForExternalCustomerParams;
-  export import AlertCreateForPlanParams = AlertsAPI.AlertCreateForPlanParams;
   export import AlertCreateForSubscriptionParams = AlertsAPI.AlertCreateForSubscriptionParams;
-  export import AlertDisableParams = AlertsAPI.AlertDisableParams;
-  export import AlertEnableParams = AlertsAPI.AlertEnableParams;
 }
