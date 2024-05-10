@@ -332,10 +332,7 @@ export namespace Orb {
   export import AlertListParams = API.AlertListParams;
   export import AlertCreateForCustomerParams = API.AlertCreateForCustomerParams;
   export import AlertCreateForExternalCustomerParams = API.AlertCreateForExternalCustomerParams;
-  export import AlertCreateForPlanParams = API.AlertCreateForPlanParams;
   export import AlertCreateForSubscriptionParams = API.AlertCreateForSubscriptionParams;
-  export import AlertDisableParams = API.AlertDisableParams;
-  export import AlertEnableParams = API.AlertEnableParams;
 
   export import BillingCycleRelativeDate = API.BillingCycleRelativeDate;
   export import Discount = API.Discount;
