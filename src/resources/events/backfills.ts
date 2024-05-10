@@ -33,6 +33,10 @@ export class Backfills extends APIResource {
    * timeframe will be replaced with the newly ingested events associated with the
    * backfill. If `false`, newly ingested events will be added to the existing
    * events.
+   *
+   * If a `customer_id` or `external_customer_id` is specified, the backfill will
+   * only affect events for that customer. If neither is specified, the backfill will
+   * affect all customers.
    */
   create(body: BackfillCreateParams, options?: Core.RequestOptions): Core.APIPromise<BackfillCreateResponse> {
     return this._client.post('/events/backfills', { body, ...options });
