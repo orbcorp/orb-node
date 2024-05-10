@@ -15,18 +15,17 @@ export class Alerts extends APIResource {
   }
 
   /**
-   * This endpoint returns a list of all
-   * [`alerts`](https://docs.withorb.com/guides/product-catalog/configuring-alerts).
+   * This endpoint returns a list of alerts within Orb.
+   *
+   * The request must specify one of `customer_id`, `external_customer_id`, or
+   * `subscription_id`.
+   *
+   * If querying by subscripion_id, the endpoint will return the subscription level
+   * alerts as well as the plan level alerts associated with the subscription.
    *
    * The list of alerts is ordered starting from the most recently created alert.
    * This endpoint follows Orb's
    * [standardized pagination format](../reference/pagination).
-   *
-   * The request must specify one of customer_id, external_customer_id,
-   * subscription_id, or plan_id
-   *
-   * If querying by subscripion_id, the endpoint will return the subscription level
-   * alerts as well as the plan level alerts associated with the subscription.
    */
   list(query?: AlertListParams, options?: Core.RequestOptions): Core.PagePromise<AlertsPage, Alert>;
   list(options?: Core.RequestOptions): Core.PagePromise<AlertsPage, Alert>;
@@ -86,11 +85,12 @@ export class Alerts extends APIResource {
    *
    * Plan level alerts can be of two types: `usage_exceeded` or `cost_exceeded`. A
    * `usage_exceeded` alert is scoped to a particular metric and is triggered when
-   * the usage of that metric exceeds a predefined thresholds during the current
-   * invoice cycle. A `cost_exceeded` alert is triggered when the total cost of the
-   * subscription on the plan surpasses predefined thresholds in the current invoice
-   * cycle.Each plan can have one `cost_exceeded` alert and one `usage_exceeded`
-   * alert per metric that is apart of the plan.
+   * the usage of that metric exceeds predefined thresholds during the current
+   * billing cycle. A `cost_exceeded` alert is triggered when the total amount due
+   * during the current billing cycle surpasses predefined thresholds.
+   * `cost_exceeded` alerts do not include burndown of pre-purchase credits. Each
+   * plan can have one `cost_exceeded` alert and one `usage_exceeded` alert per
+   * metric that is a part of the plan.
    */
   createForPlan(
     planId: string,
@@ -105,13 +105,13 @@ export class Alerts extends APIResource {
    *
    * Subscription level alerts can be one of two types: `usage_exceeded` or
    * `cost_exceeded`. A `usage_exceeded` alert is scoped to a particular metric and
-   * is triggered when the usage of that metric exceeds a predefined thresholds
-   * during the current invoice cycle. A `cost_exceeded` alert is triggered when the
-   * total cost of the subscription surpasses predefined thresholds in the current
-   * invoice cycle. Each subscription can have one `cost_exceeded` alert and one
-   * `usage_exceeded` alert per metric that is apart of the subscription. Alerts are
-   * triggered based on usage or cost conditions met during the current invoice
-   * cycle.
+   * is triggered when the usage of that metric exceeds predefined thresholds during
+   * the current billing cycle. A `cost_exceeded` alert is triggered when the total
+   * amount due during the current billing cycle surpasses predefined thresholds.
+   * `cost_exceeded` alerts do not include burndown of pre-purchase credits. Each
+   * subscription can have one `cost_exceeded` alert and one `usage_exceeded` alert
+   * per metric that is a part of the subscription. Alerts are triggered based on
+   * usage or cost conditions met during the current billing cycle.
    */
   createForSubscription(
     subscriptionId: string,
@@ -123,11 +123,6 @@ export class Alerts extends APIResource {
 
   /**
    * This endpoint can be used to disable an alert.
-   *
-   * By default, disabling a plan level alert will apply to all subscriptions on that
-   * plan. In order to toggle a plan level alert for a specific subscription, the
-   * client must provide the plan level alert id as well as the subscription_id
-   * parameter.
    */
   disable(
     alertConfigurationId: string,
@@ -152,11 +147,6 @@ export class Alerts extends APIResource {
 
   /**
    * This endpoint can be used to enable an alert.
-   *
-   * By default, enabling a plan level alert will apply to all subscriptions on that
-   * plan. In order to toggle a plan level alert for a specific subscription, the
-   * client must provide the plan level alert id as well as the subscription_id
-   * parameter.
    */
   enable(
     alertConfigurationId: string,
@@ -183,25 +173,17 @@ export class Alerts extends APIResource {
 export class AlertsPage extends Page<Alert> {}
 
 /**
- * An
- * [Alert within Orb](https://docs.withorb.com/guides/product-catalog/configuring-alerts)
- * monitors a customer's spending, usage, or credit balance and triggers a webhook
- * when a threshold is exceeded.
+ * [Alerts within Orb](https://docs.withorb.com/guides/product-catalog/configuring-alerts)
+ * monitor spending, usage, or credit balance and trigger webhooks when a threshold
+ * is exceeded.
  *
- * Alerts can be configured to monitor usage, cost, or credit balance. Alerts can
- * be scoped to either a customer, a plan, or a subscription.
+ * Alerts created through the API can be scoped to either customers or
+ * subscriptions.
  *
- * Customer scoped alerts track a customer's credit balance. Valid customer alert
- * types are "credit_balance_depleted", "credit_balance_recovered", and
- * "credit_balance_dropped".
- *
- * Subscription scoped alerts track a subscriptions's usage or cost. Valid plan
- * alert types are "usage_exceeded" or "cost_exceeded".
- *
- * Plan scoped alerts are similar to subscriptions alerts but when a plan alert is
- * created, it is propagated to all subscriptions associated with the plan.
- * Disabling a plan alert will disable the alert for all subscriptions. Valid plan
- * alert types are "usage_exceeded" or "cost_exceeded".
+ * | Scope        | Monitors                       | Vaild Alert Types                                                                   |
+ * | ------------ | ------------------------------ | ----------------------------------------------------------------------------------- |
+ * | Customer     | A customer's credit balance    | `credit_balance_depleted`, `credit_balance_recovered`, and `credit_balance_dropped` |
+ * | Subscription | A subscription's usage or cost | `usage_exceeded` and `cost_exceeded`                                                |
  */
 export interface Alert {
   /**
@@ -215,7 +197,7 @@ export interface Alert {
   created_at: string;
 
   /**
-   * The name of the currency the credit balance for this alert is denominated in.
+   * The name of the currency the credit balance or invoice cost is denominated in.
    */
   currency: string | null;
 
@@ -268,8 +250,9 @@ export namespace Alert {
    */
   export interface Threshold {
     /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will fire at or below this value. For usage and
-     *         cost alerts, the alert will fire at or above this value.
+     * The value at which an alert will fire. For credit balance alerts, the alert will
+     * fire at or below this value. For usage and cost alerts, the alert will fire at
+     * or above this value.
      */
     value: number;
   }
@@ -334,8 +317,9 @@ export namespace AlertCreateForCustomerParams {
    */
   export interface Threshold {
     /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will fire at or below this value. For usage and
-     *         cost alerts, the alert will fire at or above this value.
+     * The value at which an alert will fire. For credit balance alerts, the alert will
+     * fire at or below this value. For usage and cost alerts, the alert will fire at
+     * or above this value.
      */
     value: number;
   }
@@ -365,8 +349,9 @@ export namespace AlertCreateForExternalCustomerParams {
    */
   export interface Threshold {
     /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will fire at or below this value. For usage and
-     *         cost alerts, the alert will fire at or above this value.
+     * The value at which an alert will fire. For credit balance alerts, the alert will
+     * fire at or below this value. For usage and cost alerts, the alert will fire at
+     * or above this value.
      */
     value: number;
   }
@@ -389,7 +374,8 @@ export interface AlertCreateForPlanParams {
   metric_id?: string | null;
 
   /**
-   * The plan version to create alerts for. If not specified, the default will be the plan's active plan version.
+   * The plan version to create alerts for. If not specified, the default will be the
+   * plan's active plan version.
    */
   plan_version?: number | null;
 }
@@ -401,8 +387,9 @@ export namespace AlertCreateForPlanParams {
    */
   export interface Threshold {
     /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will fire at or below this value. For usage and
-     *         cost alerts, the alert will fire at or above this value.
+     * The value at which an alert will fire. For credit balance alerts, the alert will
+     * fire at or below this value. For usage and cost alerts, the alert will fire at
+     * or above this value.
      */
     value: number;
   }
@@ -432,8 +419,9 @@ export namespace AlertCreateForSubscriptionParams {
    */
   export interface Threshold {
     /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will fire at or below this value. For usage and
-     *         cost alerts, the alert will fire at or above this value.
+     * The value at which an alert will fire. For credit balance alerts, the alert will
+     * fire at or below this value. For usage and cost alerts, the alert will fire at
+     * or above this value.
      */
     value: number;
   }
