@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.6.1 (2024-05-10)
+
+Full Changelog: [v2.6.0...v2.6.1](https://github.com/orbcorp/orb-node/compare/v2.6.0...v2.6.1)
+
+### Bug Fixes
+
+* **api:** remove alert parameters and method that aren't supported by the live API ([#197](https://github.com/orbcorp/orb-node/issues/197)) ([66999d9](https://github.com/orbcorp/orb-node/commit/66999d9db101bff76d53b47a50d7e32b8d65032e))
+
+
+### Chores
+
+* **docs:** improve alert endpoints descriptions ([#194](https://github.com/orbcorp/orb-node/issues/194)) ([23ee7ed](https://github.com/orbcorp/orb-node/commit/23ee7ed33bc17e63be63dff60d74ad19c957ce95))
+* rebuild project due to oas spec rename ([#196](https://github.com/orbcorp/orb-node/issues/196)) ([1afa7de](https://github.com/orbcorp/orb-node/commit/1afa7defea4a549657dded707b77208ae2b3befa))
+
 ## 2.6.0 (2024-05-09)
 
 Full Changelog: [v2.5.1...v2.6.0](https://github.com/orbcorp/orb-node/compare/v2.5.1...v2.6.0)
