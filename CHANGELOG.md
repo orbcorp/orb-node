@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.7.0 (2024-05-13)
+
+Full Changelog: [v2.6.1...v2.7.0](https://github.com/orbcorp/orb-node/compare/v2.6.1...v2.7.0)
+
+### Features
+
+* **api:** updates ([#200](https://github.com/orbcorp/orb-node/issues/200)) ([61505d5](https://github.com/orbcorp/orb-node/commit/61505d5f0beaa363f95c797a73f135c4da9a0735))
+
+
+### Chores
+
+* **docs:** add SECURITY.md ([#198](https://github.com/orbcorp/orb-node/issues/198)) ([794c13f](https://github.com/orbcorp/orb-node/commit/794c13f0928bdec7dce33e57fc08150a79ee2c8a))
+
 ## 2.6.1 (2024-05-10)
 
 Full Changelog: [v2.6.0...v2.6.1](https://github.com/orbcorp/orb-node/compare/v2.6.0...v2.6.1)
