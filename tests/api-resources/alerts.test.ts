@@ -58,7 +58,7 @@ describe('resource alerts', () => {
           cursor: 'string',
           customer_id: 'string',
           external_customer_id: 'string',
-          limit: 0,
+          limit: 1,
           subscription_id: 'string',
         },
         { path: '/_stainless_unknown_path' },
