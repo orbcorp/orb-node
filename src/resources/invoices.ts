@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'orb-billing/core';
-import { APIResource } from 'orb-billing/resource';
-import { isRequestOptions } from 'orb-billing/core';
-import * as InvoicesAPI from 'orb-billing/resources/invoices';
-import * as Shared from 'orb-billing/resources/shared';
-import * as PricesAPI from 'orb-billing/resources/prices/prices';
-import { Page, type PageParams } from 'orb-billing/pagination';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import { isRequestOptions } from '../core';
+import * as InvoicesAPI from './invoices';
+import * as Shared from './shared';
+import * as PricesAPI from './prices/prices';
+import { Page, type PageParams } from '../pagination';
 
 export class Invoices extends APIResource {
   /**

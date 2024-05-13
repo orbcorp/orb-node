@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'orb-billing/core';
-import { APIResource } from 'orb-billing/resource';
-import { isRequestOptions } from 'orb-billing/core';
-import * as BalanceTransactionsAPI from 'orb-billing/resources/customers/balance-transactions';
-import { Page, type PageParams } from 'orb-billing/pagination';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as BalanceTransactionsAPI from './balance-transactions';
+import { Page, type PageParams } from '../../pagination';
 
 export class BalanceTransactions extends APIResource {
   /**

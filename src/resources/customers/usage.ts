@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'orb-billing/core';
-import { APIResource } from 'orb-billing/resource';
-import * as UsageAPI from 'orb-billing/resources/customers/usage';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import * as UsageAPI from './usage';
 
 export class Usage extends APIResource {
   /**
