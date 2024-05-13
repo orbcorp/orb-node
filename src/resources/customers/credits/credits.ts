@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'orb-billing/core';
-import { APIResource } from 'orb-billing/resource';
-import { isRequestOptions } from 'orb-billing/core';
-import * as CreditsAPI from 'orb-billing/resources/customers/credits/credits';
-import * as LedgerAPI from 'orb-billing/resources/customers/credits/ledger';
-import * as TopUpsAPI from 'orb-billing/resources/customers/credits/top-ups';
-import { Page, type PageParams } from 'orb-billing/pagination';
+import * as Core from '../../../core';
+import { APIResource } from '../../../resource';
+import { isRequestOptions } from '../../../core';
+import * as CreditsAPI from './credits';
+import * as LedgerAPI from './ledger';
+import * as TopUpsAPI from './top-ups';
+import { Page, type PageParams } from '../../../pagination';
 
 export class Credits extends APIResource {
   ledger: LedgerAPI.Ledger = new LedgerAPI.Ledger(this._client);

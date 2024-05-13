@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'orb-billing/core';
-import { APIResource } from 'orb-billing/resource';
-import * as PricesAPI from 'orb-billing/resources/prices/prices';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import * as PricesAPI from './prices';
 
 export class ExternalPriceID extends APIResource {
   /**

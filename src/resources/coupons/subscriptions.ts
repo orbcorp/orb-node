@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'orb-billing/core';
-import { APIResource } from 'orb-billing/resource';
-import { isRequestOptions } from 'orb-billing/core';
-import * as CouponsSubscriptionsAPI from 'orb-billing/resources/coupons/subscriptions';
-import * as SubscriptionsAPI from 'orb-billing/resources/subscriptions';
-import { SubscriptionsPage } from 'orb-billing/resources/subscriptions';
-import { type PageParams } from 'orb-billing/pagination';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as CouponsSubscriptionsAPI from './subscriptions';
+import * as SubscriptionsAPI from '../subscriptions';
+import { SubscriptionsPage } from '../subscriptions';
+import { type PageParams } from '../../pagination';
 
 export class Subscriptions extends APIResource {
   /**

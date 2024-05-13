@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'orb-billing/core';
-import { APIResource } from 'orb-billing/resource';
-import { isRequestOptions } from 'orb-billing/core';
-import * as CostsAPI from 'orb-billing/resources/customers/costs';
-import * as PricesAPI from 'orb-billing/resources/prices/prices';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as CostsAPI from './costs';
+import * as PricesAPI from '../prices/prices';
 
 export class Costs extends APIResource {
   /**
