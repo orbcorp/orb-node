@@ -48,7 +48,7 @@ describe('resource subscriptions', () => {
           invoicing_threshold: 'string',
           metadata: { foo: 'string' },
           net_terms: 0,
-          per_credit_overage_amount: 'string',
+          per_credit_overage_amount: 0,
           plan_id: 'ZMwNQefe7J3ecf7W',
           price_overrides: [
             {
@@ -178,7 +178,7 @@ describe('resource subscriptions', () => {
           cursor: 'string',
           customer_id: 'string',
           external_customer_id: 'string',
-          limit: 0,
+          limit: 1,
           status: 'active',
         },
         { path: '/_stainless_unknown_path' },
@@ -280,7 +280,7 @@ describe('resource subscriptions', () => {
         'string',
         {
           cursor: 'string',
-          limit: 0,
+          limit: 1,
           'start_date[gt]': '2019-12-27T18:11:19.117Z',
           'start_date[gte]': '2019-12-27T18:11:19.117Z',
           'start_date[lt]': '2019-12-27T18:11:19.117Z',
@@ -526,7 +526,7 @@ describe('resource subscriptions', () => {
       external_plan_id: 'ZMwNQefe7J3ecf7W',
       initial_phase_order: 2,
       invoicing_threshold: '10.00',
-      per_credit_overage_amount: 'string',
+      per_credit_overage_amount: 0,
       plan_id: 'ZMwNQefe7J3ecf7W',
       price_overrides: [
         {

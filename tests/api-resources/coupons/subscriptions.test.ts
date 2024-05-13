@@ -32,7 +32,7 @@ describe('resource subscriptions', () => {
     await expect(
       orb.coupons.subscriptions.list(
         'string',
-        { cursor: 'string', limit: 0 },
+        { cursor: 'string', limit: 1 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);

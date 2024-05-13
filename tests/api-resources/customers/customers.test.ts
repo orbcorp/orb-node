@@ -154,7 +154,7 @@ describe('resource customers', () => {
           'created_at[lt]': '2019-12-27T18:11:19.117Z',
           'created_at[lte]': '2019-12-27T18:11:19.117Z',
           cursor: 'string',
-          limit: 0,
+          limit: 1,
         },
         { path: '/_stainless_unknown_path' },
       ),

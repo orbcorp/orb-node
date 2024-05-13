@@ -66,7 +66,7 @@ describe('resource topUps', () => {
     await expect(
       orb.customers.credits.topUps.list(
         'string',
-        { cursor: 'string', limit: 0 },
+        { cursor: 'string', limit: 1 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);
@@ -167,7 +167,7 @@ describe('resource topUps', () => {
     await expect(
       orb.customers.credits.topUps.listByExternalId(
         'string',
-        { cursor: 'string', limit: 0 },
+        { cursor: 'string', limit: 1 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);

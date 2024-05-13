@@ -132,7 +132,7 @@ describe('resource invoices', () => {
           'invoice_date[lt]': '2019-12-27T18:11:19.117Z',
           'invoice_date[lte]': '2019-12-27T18:11:19.117Z',
           is_recurring: true,
-          limit: 0,
+          limit: 1,
           status: ['draft', 'issued', 'paid'],
           subscription_id: 'string',
         },
