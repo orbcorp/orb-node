@@ -2087,7 +2087,7 @@ export interface SubscriptionCreateParams {
 
   net_terms?: number | null;
 
-  per_credit_overage_amount?: string | null;
+  per_credit_overage_amount?: number | null;
 
   /**
    * The plan that the given subscription should be switched to. Note that either
@@ -4827,7 +4827,7 @@ export interface SubscriptionSchedulePlanChangeParams {
    */
   invoicing_threshold?: string | null;
 
-  per_credit_overage_amount?: string | null;
+  per_credit_overage_amount?: number | null;
 
   /**
    * The plan that the given subscription should be switched to. Note that either
