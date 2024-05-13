@@ -28,7 +28,7 @@ describe('resource coupons', () => {
       discount: { discount_type: 'percentage', percentage_discount: 0 },
       redemption_code: 'HALFOFF',
       duration_in_months: 12,
-      max_redemptions: 0,
+      max_redemptions: 1,
     });
   });
 
@@ -52,7 +52,7 @@ describe('resource coupons', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       orb.coupons.list(
-        { cursor: 'string', limit: 0, redemption_code: 'string', show_archived: true },
+        { cursor: 'string', limit: 1, redemption_code: 'string', show_archived: true },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);

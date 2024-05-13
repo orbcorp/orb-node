@@ -56,7 +56,7 @@ describe('resource balanceTransactions', () => {
         'string',
         {
           cursor: 'string',
-          limit: 0,
+          limit: 1,
           'operation_time[gt]': '2019-12-27T18:11:19.117Z',
           'operation_time[gte]': '2019-12-27T18:11:19.117Z',
           'operation_time[lt]': '2019-12-27T18:11:19.117Z',
