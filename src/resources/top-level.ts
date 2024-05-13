@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'orb-billing/core';
-import { APIResource } from 'orb-billing/resource';
-import * as TopLevelAPI from 'orb-billing/resources/top-level';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import * as TopLevelAPI from './top-level';
 
 export class TopLevel extends APIResource {
   /**

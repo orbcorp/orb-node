@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'orb-billing/core';
-import { APIResource } from 'orb-billing/resource';
-import { isRequestOptions } from 'orb-billing/core';
-import * as MetricsAPI from 'orb-billing/resources/metrics';
-import * as ItemsAPI from 'orb-billing/resources/items';
-import { Page, type PageParams } from 'orb-billing/pagination';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import { isRequestOptions } from '../core';
+import * as MetricsAPI from './metrics';
+import * as ItemsAPI from './items';
+import { Page, type PageParams } from '../pagination';
 
 export class Metrics extends APIResource {
   /**

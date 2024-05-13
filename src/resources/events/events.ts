@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'orb-billing/core';
-import { APIResource } from 'orb-billing/resource';
-import * as EventsAPI from 'orb-billing/resources/events/events';
-import * as BackfillsAPI from 'orb-billing/resources/events/backfills';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import * as EventsAPI from './events';
+import * as BackfillsAPI from './backfills';
 
 export class Events extends APIResource {
   backfills: BackfillsAPI.Backfills = new BackfillsAPI.Backfills(this._client);

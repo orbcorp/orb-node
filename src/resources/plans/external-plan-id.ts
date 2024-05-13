@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'orb-billing/core';
-import { APIResource } from 'orb-billing/resource';
-import { isRequestOptions } from 'orb-billing/core';
-import * as ExternalPlanIDAPI from 'orb-billing/resources/plans/external-plan-id';
-import * as PlansAPI from 'orb-billing/resources/plans/plans';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as ExternalPlanIDAPI from './external-plan-id';
+import * as PlansAPI from './plans';
 
 export class ExternalPlanID extends APIResource {
   /**
