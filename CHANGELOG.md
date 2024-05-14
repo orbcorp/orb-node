@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.8.0 (2024-05-14)
+
+Full Changelog: [v2.7.0...v2.8.0](https://github.com/orbcorp/orb-node/compare/v2.7.0...v2.8.0)
+
+### Features
+
+* **api:** updates ([#203](https://github.com/orbcorp/orb-node/issues/203)) ([c07669e](https://github.com/orbcorp/orb-node/commit/c07669e7dcc75392fb372f5a5062ca8c0f384b54))
+
+
+### Refactors
+
+* change import paths to be relative ([#201](https://github.com/orbcorp/orb-node/issues/201)) ([843b1a9](https://github.com/orbcorp/orb-node/commit/843b1a9a6f3ef095c9a85288dc4903de1f8c89e0))
+
 ## 2.7.0 (2024-05-13)
 
 Full Changelog: [v2.6.1...v2.7.0](https://github.com/orbcorp/orb-node/compare/v2.6.1...v2.7.0)
