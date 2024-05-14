@@ -66,11 +66,6 @@ export interface CreditNote {
   customer: CreditNote.Customer;
 
   /**
-   * Any discounts applied on the original invoice.
-   */
-  discounts: Array<CreditNote.Discount>;
-
-  /**
    * The id of the invoice resource that this credit note is applied to.
    */
   invoice_id: string;
@@ -113,6 +108,11 @@ export interface CreditNote {
    * The time at which the credit note was voided in Orb, if applicable.
    */
   voided_at: string | null;
+
+  /**
+   * Any discounts applied on the original invoice.
+   */
+  discounts?: Array<CreditNote.Discount>;
 }
 
 export namespace CreditNote {
@@ -120,26 +120,6 @@ export namespace CreditNote {
     id: string;
 
     external_customer_id: string | null;
-  }
-
-  export interface Discount {
-    amount_applied: string;
-
-    discount_type: 'percentage';
-
-    percentage_discount: number;
-
-    applies_to_prices?: Array<Discount.AppliesToPrice> | null;
-
-    reason?: string | null;
-  }
-
-  export namespace Discount {
-    export interface AppliesToPrice {
-      id: string;
-
-      name: string;
-    }
   }
 
   export interface LineItem {
@@ -152,11 +132,6 @@ export namespace CreditNote {
      * The amount of the line item, including any line item minimums and discounts.
      */
     amount: string;
-
-    /**
-     * Any line item discounts from the invoice's line item.
-     */
-    discounts: Array<LineItem.Discount>;
 
     /**
      * The name of the corresponding invoice line item.
@@ -177,25 +152,14 @@ export namespace CreditNote {
      * Any tax amounts applied onto the line item.
      */
     tax_amounts: Array<LineItem.TaxAmount>;
+
+    /**
+     * Any line item discounts from the invoice's line item.
+     */
+    discounts?: Array<LineItem.Discount>;
   }
 
   export namespace LineItem {
-    export interface Discount {
-      id: string;
-
-      amount_applied: string;
-
-      applies_to_price_ids: Array<string>;
-
-      discount_type: 'percentage' | 'amount';
-
-      percentage_discount: number;
-
-      amount_discount?: string | null;
-
-      reason?: string | null;
-    }
-
     export interface TaxAmount {
       /**
        * The amount of additional tax incurred by this tax rate.
@@ -211,6 +175,22 @@ export namespace CreditNote {
        * The tax rate percentage, out of 100.
        */
       tax_rate_percentage: string | null;
+    }
+
+    export interface Discount {
+      id: string;
+
+      amount_applied: string;
+
+      applies_to_price_ids: Array<string>;
+
+      discount_type: 'percentage' | 'amount';
+
+      percentage_discount: number;
+
+      amount_discount?: string | null;
+
+      reason?: string | null;
     }
   }
 
@@ -230,6 +210,26 @@ export namespace CreditNote {
   }
 
   export namespace MaximumAmountAdjustment {
+    export interface AppliesToPrice {
+      id: string;
+
+      name: string;
+    }
+  }
+
+  export interface Discount {
+    amount_applied: string;
+
+    discount_type: 'percentage';
+
+    percentage_discount: number;
+
+    applies_to_prices?: Array<Discount.AppliesToPrice> | null;
+
+    reason?: string | null;
+  }
+
+  export namespace Discount {
     export interface AppliesToPrice {
       id: string;
 
