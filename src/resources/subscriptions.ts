@@ -1072,6 +1072,11 @@ export interface Subscription {
   active_plan_phase_order: number | null;
 
   /**
+   * The adjustment intervals for this subscription.
+   */
+  adjustment_intervals: Array<Subscription.AdjustmentInterval>;
+
+  /**
    * Determines whether issued invoices for this subscription will automatically be
    * charged with the saved payment method on the due date. This property defaults to
    * the plan's behavior. If null, defaults to the customer's setting.
@@ -1201,6 +1206,139 @@ export interface Subscription {
 }
 
 export namespace Subscription {
+  export interface AdjustmentInterval {
+    id: string;
+
+    adjustment:
+      | AdjustmentInterval.AmountDiscountAdjustment
+      | AdjustmentInterval.PercentageDiscountAdjustment
+      | AdjustmentInterval.UsageDiscountAdjustment
+      | AdjustmentInterval.MinimumAdjustment
+      | AdjustmentInterval.MaximumAdjustment;
+
+    /**
+     * The price interval IDs that this adjustment applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the adjustment interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the adjustment interval.
+     */
+    start_date: string;
+  }
+
+  export namespace AdjustmentInterval {
+    export interface AmountDiscountAdjustment {
+      adjustment_type: 'amount_discount';
+
+      /**
+       * The amount by which to discount the prices this adjustment applies to in a given
+       * billing period.
+       */
+      amount_discount: string;
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PercentageDiscountAdjustment {
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * The percentage (as a value between 0 and 1) by which to discount the price
+       * intervals this adjustment applies to in a given billing period.
+       */
+      percentage_discount: number;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface UsageDiscountAdjustment {
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The number of usage units by which to discount the price this adjustment applies
+       * to in a given billing period.
+       */
+      usage_discount: number;
+    }
+
+    export interface MinimumAdjustment {
+      adjustment_type: 'minimum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      /**
+       * The minimum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      minimum_amount: string;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface MaximumAdjustment {
+      adjustment_type: 'maximum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * The maximum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      maximum_amount: string;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+  }
+
   export interface AmountDiscountInterval {
     /**
      * Only available if discount_type is `amount`.
