@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.9.0 (2024-05-22)
+
+Full Changelog: [v2.8.0...v2.9.0](https://github.com/orbcorp/orb-node/compare/v2.8.0...v2.9.0)
+
+### Features
+
+* **api:** updates ([#206](https://github.com/orbcorp/orb-node/issues/206)) ([c315c94](https://github.com/orbcorp/orb-node/commit/c315c9426d5b385261b847d34366d261c8011380))
+
+
+### Bug Fixes
+
+* **types:** correct index signature type ([#207](https://github.com/orbcorp/orb-node/issues/207)) ([a6b66c2](https://github.com/orbcorp/orb-node/commit/a6b66c2185133095e0680c131638a9729def3d1a))
+
+
+### Chores
+
+* **internal:** add slightly better logging to scripts ([#204](https://github.com/orbcorp/orb-node/issues/204)) ([37e69d8](https://github.com/orbcorp/orb-node/commit/37e69d8c9af13301aaf636eb5ab1cf21b6cf4953))
+
 ## 2.8.0 (2024-05-14)
 
 Full Changelog: [v2.7.0...v2.8.0](https://github.com/orbcorp/orb-node/compare/v2.7.0...v2.8.0)
