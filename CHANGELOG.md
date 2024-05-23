@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.10.0 (2024-05-23)
+
+Full Changelog: [v2.9.0...v2.10.0](https://github.com/orbcorp/orb-node/compare/v2.9.0...v2.10.0)
+
+### Features
+
+* **api:** updates ([#208](https://github.com/orbcorp/orb-node/issues/208)) ([ce9e336](https://github.com/orbcorp/orb-node/commit/ce9e336a9a0e54b19a9bd507a4d04414f885813d))
+
 ## 2.9.0 (2024-05-22)
 
 Full Changelog: [v2.8.0...v2.9.0](https://github.com/orbcorp/orb-node/compare/v2.8.0...v2.9.0)
