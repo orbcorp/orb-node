@@ -1,6 +1,6 @@
 # Orb TypeScript API Library
 
-[![NPM version](https://img.shields.io/npm/v/orb-billing.svg)](https://npmjs.org/package/orb-billing)
+[![NPM version](https://img.shields.io/npm/v/orb-billing.svg)](https://npmjs.org/package/orb-billing) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/orb-billing)
 
 This library provides convenient access to the Orb REST API from server-side TypeScript or JavaScript.
 
