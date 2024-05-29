@@ -56,7 +56,7 @@ export {
   InvoiceLineItemCreateParams,
   InvoiceLineItems,
 } from './invoice-line-items';
-export { Item, ItemCreateParams, ItemListParams, ItemsPage, Items } from './items';
+export { Item, ItemCreateParams, ItemUpdateParams, ItemListParams, ItemsPage, Items } from './items';
 export {
   MetricCreateResponse,
   MetricListResponse,
