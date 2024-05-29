@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.11.0 (2024-05-29)
+
+Full Changelog: [v2.10.0...v2.11.0](https://github.com/orbcorp/orb-node/compare/v2.10.0...v2.11.0)
+
+### Features
+
+* **api:** pricing model updates ([97f4cce](https://github.com/orbcorp/orb-node/commit/97f4ccef52c3fdd91a5360f28f9efe2edcc56ab7))
+* **api:** update item endpoint ([#212](https://github.com/orbcorp/orb-node/issues/212)) ([97f4cce](https://github.com/orbcorp/orb-node/commit/97f4ccef52c3fdd91a5360f28f9efe2edcc56ab7))
+
+
+### Documentation
+
+* **readme:** add bundle size badge ([#210](https://github.com/orbcorp/orb-node/issues/210)) ([4b80558](https://github.com/orbcorp/orb-node/commit/4b80558f5a456eb5d0c9596a5f73cdfa031c8b99))
+
 ## 2.10.0 (2024-05-23)
 
 Full Changelog: [v2.9.0...v2.10.0](https://github.com/orbcorp/orb-node/compare/v2.9.0...v2.10.0)
