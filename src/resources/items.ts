@@ -15,6 +15,13 @@ export class Items extends APIResource {
   }
 
   /**
+   * Update items
+   */
+  update(itemId: string, body: ItemUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Item> {
+    return this._client.put(`/items/${itemId}`, { body, ...options });
+  }
+
+  /**
    * This endpoint returns a list of all Items, ordered in descending order by
    * creation time.
    */
@@ -77,11 +84,38 @@ export interface ItemCreateParams {
   name: string;
 }
 
+export interface ItemUpdateParams {
+  external_connections: Array<ItemUpdateParams.ExternalConnection> | null;
+
+  /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: Record<string, string | null> | null;
+}
+
+export namespace ItemUpdateParams {
+  export interface ExternalConnection {
+    external_connection_name:
+      | 'stripe'
+      | 'quickbooks'
+      | 'bill.com'
+      | 'netsuite'
+      | 'taxjar'
+      | 'avalara'
+      | 'anrok';
+
+    external_entity_id: string;
+  }
+}
+
 export interface ItemListParams extends PageParams {}
 
 export namespace Items {
   export import Item = ItemsAPI.Item;
   export import ItemsPage = ItemsAPI.ItemsPage;
   export import ItemCreateParams = ItemsAPI.ItemCreateParams;
+  export import ItemUpdateParams = ItemsAPI.ItemUpdateParams;
   export import ItemListParams = ItemsAPI.ItemListParams;
 }

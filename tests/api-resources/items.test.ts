@@ -24,6 +24,34 @@ describe('resource items', () => {
     const response = await orb.items.create({ name: 'API requests' });
   });
 
+  test('update: only required params', async () => {
+    const responsePromise = orb.items.update('string', {
+      external_connections: [
+        { external_connection_name: 'stripe', external_entity_id: 'string' },
+        { external_connection_name: 'stripe', external_entity_id: 'string' },
+        { external_connection_name: 'stripe', external_entity_id: 'string' },
+      ],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('update: required and optional params', async () => {
+    const response = await orb.items.update('string', {
+      external_connections: [
+        { external_connection_name: 'stripe', external_entity_id: 'string' },
+        { external_connection_name: 'stripe', external_entity_id: 'string' },
+        { external_connection_name: 'stripe', external_entity_id: 'string' },
+      ],
+      metadata: { foo: 'string' },
+    });
+  });
+
   test('list', async () => {
     const responsePromise = orb.items.list();
     const rawResponse = await responsePromise.asResponse();

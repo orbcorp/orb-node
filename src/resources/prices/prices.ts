@@ -350,7 +350,9 @@ export type Price =
   | Price.TieredPackageWithMinimumPrice
   | Price.PackageWithAllocationPrice
   | Price.UnitWithPercentPrice
-  | Price.MatrixWithAllocationPrice;
+  | Price.MatrixWithAllocationPrice
+  | Price.TieredWithProrationPrice
+  | Price.UnitWithProrationPrice;
 
 export namespace Price {
   export interface UnitPrice {
@@ -1937,6 +1939,178 @@ export namespace Price {
       minimum_amount: string;
     }
   }
+
+  export interface TieredWithProrationPrice {
+    id: string;
+
+    billable_metric: TieredWithProrationPrice.BillableMetric | null;
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+
+    conversion_rate: number | null;
+
+    created_at: string;
+
+    credit_allocation: TieredWithProrationPrice.CreditAllocation | null;
+
+    currency: string;
+
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    item: TieredWithProrationPrice.Item;
+
+    maximum: TieredWithProrationPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: TieredWithProrationPrice.Minimum | null;
+
+    minimum_amount: string | null;
+
+    model_type: 'tiered_with_proration';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price';
+
+    tiered_with_proration_config: Record<string, unknown>;
+  }
+
+  export namespace TieredWithProrationPrice {
+    export interface BillableMetric {
+      id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
+    }
+
+    export interface Item {
+      id: string;
+
+      name: string;
+    }
+
+    export interface Maximum {
+      /**
+       * List of price_ids that this maximum amount applies to. For plan/plan phase
+       * maximums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Maximum amount applied
+       */
+      maximum_amount: string;
+    }
+
+    export interface Minimum {
+      /**
+       * List of price_ids that this minimum amount applies to. For plan/plan phase
+       * minimums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Minimum amount applied
+       */
+      minimum_amount: string;
+    }
+  }
+
+  export interface UnitWithProrationPrice {
+    id: string;
+
+    billable_metric: UnitWithProrationPrice.BillableMetric | null;
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+
+    conversion_rate: number | null;
+
+    created_at: string;
+
+    credit_allocation: UnitWithProrationPrice.CreditAllocation | null;
+
+    currency: string;
+
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    item: UnitWithProrationPrice.Item;
+
+    maximum: UnitWithProrationPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    minimum: UnitWithProrationPrice.Minimum | null;
+
+    minimum_amount: string | null;
+
+    model_type: 'unit_with_proration';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price';
+
+    unit_with_proration_config: Record<string, unknown>;
+  }
+
+  export namespace UnitWithProrationPrice {
+    export interface BillableMetric {
+      id: string;
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
+    }
+
+    export interface Item {
+      id: string;
+
+      name: string;
+    }
+
+    export interface Maximum {
+      /**
+       * List of price_ids that this maximum amount applies to. For plan/plan phase
+       * maximums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Maximum amount applied
+       */
+      maximum_amount: string;
+    }
+
+    export interface Minimum {
+      /**
+       * List of price_ids that this minimum amount applies to. For plan/plan phase
+       * minimums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Minimum amount applied
+       */
+      minimum_amount: string;
+    }
+  }
 }
 
 export interface PriceEvaluateResponse {
@@ -1959,7 +2133,9 @@ export type PriceCreateParams =
   | PriceCreateParams.NewFloatingTieredWithMinimumPrice
   | PriceCreateParams.NewFloatingPackageWithAllocationPrice
   | PriceCreateParams.NewFloatingTieredPackageWithMinimumPrice
-  | PriceCreateParams.NewFloatingUnitWithPercentPrice;
+  | PriceCreateParams.NewFloatingUnitWithPercentPrice
+  | PriceCreateParams.NewFloatingTieredWithProrationPrice
+  | PriceCreateParams.NewFloatingUnitWithProrationPrice;
 
 export namespace PriceCreateParams {
   export interface NewFloatingUnitPrice {
@@ -3098,6 +3274,124 @@ export namespace PriceCreateParams {
     name: string;
 
     unit_with_percent_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export interface NewFloatingTieredWithProrationPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'tiered_with_proration';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    tiered_with_proration_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export interface NewFloatingUnitWithProrationPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'unit_with_proration';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    unit_with_proration_config: Record<string, unknown>;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is

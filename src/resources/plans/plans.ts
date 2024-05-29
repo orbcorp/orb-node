@@ -316,6 +316,8 @@ export interface PlanCreateParams {
     | PlanCreateParams.NewPlanTieredWithMinimumPrice
     | PlanCreateParams.NewPlanUnitWithPercentPrice
     | PlanCreateParams.NewPlanPackageWithAllocationPrice
+    | PlanCreateParams.NewPlanTierWithProrationPrice
+    | PlanCreateParams.NewPlanUnitWithProrationPrice
   >;
 
   /**
@@ -1267,6 +1269,126 @@ export namespace PlanCreateParams {
     name: string;
 
     package_with_allocation_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export interface NewPlanTierWithProrationPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'tiered_with_proration';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    tiered_with_proration_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+  }
+
+  export interface NewPlanUnitWithProrationPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'unit_with_proration';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    unit_with_proration_config: Record<string, unknown>;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
