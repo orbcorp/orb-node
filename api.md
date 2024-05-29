@@ -214,6 +214,7 @@ Types:
 Methods:
 
 - <code title="post /items">client.items.<a href="./src/resources/items.ts">create</a>({ ...params }) -> Item</code>
+- <code title="put /items/{item_id}">client.items.<a href="./src/resources/items.ts">update</a>(itemId, { ...params }) -> Item</code>
 - <code title="get /items">client.items.<a href="./src/resources/items.ts">list</a>({ ...params }) -> ItemsPage</code>
 - <code title="get /items/{item_id}">client.items.<a href="./src/resources/items.ts">fetch</a>(itemId) -> Item</code>
 
