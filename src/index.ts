@@ -280,6 +280,7 @@ export namespace Orb {
   export import Item = API.Item;
   export import ItemsPage = API.ItemsPage;
   export import ItemCreateParams = API.ItemCreateParams;
+  export import ItemUpdateParams = API.ItemUpdateParams;
   export import ItemListParams = API.ItemListParams;
 
   export import Metrics = API.Metrics;
