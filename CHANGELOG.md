@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.11.1 (2024-05-31)
+
+Full Changelog: [v2.11.0...v2.11.1](https://github.com/orbcorp/orb-node/compare/v2.11.0...v2.11.1)
+
+### Bug Fixes
+
+* allow git imports for pnpm ([#213](https://github.com/orbcorp/orb-node/issues/213)) ([25ea079](https://github.com/orbcorp/orb-node/commit/25ea0795acda956700e947cc66ee2be598522bf0))
+
 ## 2.11.0 (2024-05-29)
 
 Full Changelog: [v2.10.0...v2.11.0](https://github.com/orbcorp/orb-node/compare/v2.10.0...v2.11.0)
