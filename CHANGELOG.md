@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.11.2 (2024-06-04)
+
+Full Changelog: [v2.11.1...v2.11.2](https://github.com/orbcorp/orb-node/compare/v2.11.1...v2.11.2)
+
+### Bug Fixes
+
+* Prefix node.js imports with "node:" ([88eda87](https://github.com/orbcorp/orb-node/commit/88eda87109c8868d777a4067a70cedcccc3236c7))
+
+
+### Chores
+
+* fix lint ([9303eb1](https://github.com/orbcorp/orb-node/commit/9303eb1c269d954f16be9ba19a3ba27644697812))
+
 ## 2.11.1 (2024-05-31)
 
 Full Changelog: [v2.11.0...v2.11.1](https://github.com/orbcorp/orb-node/compare/v2.11.0...v2.11.1)
