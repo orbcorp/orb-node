@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import { APIResource } from 'orb-billing/resource';
-import { createHmac } from 'crypto';
+import { createHmac } from 'node:crypto';
 import { debug, getRequiredHeader, HeadersLike } from 'orb-billing/core';
 
 export class Webhooks extends APIResource {
