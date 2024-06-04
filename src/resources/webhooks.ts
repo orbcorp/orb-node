@@ -94,7 +94,7 @@ export class Webhooks extends APIResource {
 
     const nowSeconds = Math.floor(Date.now() / 1000);
     // The timestamp header does not include a timezone (it is UTC by default)
-    const timezoneSuffix = msgTimestamp.includes('Z') || msgTimestamp.includes('+') ? '' : 'Z'
+    const timezoneSuffix = msgTimestamp.includes('Z') || msgTimestamp.includes('+') ? '' : 'Z';
     const timestamp = new Date(msgTimestamp + timezoneSuffix);
     const timestampSeconds = Math.floor(timestamp.getTime() / 1000);
     if (isNaN(timestampSeconds)) {
