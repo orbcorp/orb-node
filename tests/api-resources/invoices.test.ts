@@ -88,6 +88,12 @@ describe('resource invoices', () => {
       ],
       net_terms: 0,
       customer_id: '4khy3nwzktxv7',
+      discount: {
+        discount_type: 'percentage',
+        applies_to_price_ids: ['h74gfhdjvn7ujokd', '7hfgtgjnbvc3ujkl'],
+        reason: 'string',
+        percentage_discount: 0.15,
+      },
       external_customer_id: 'external-customer-id',
       memo: 'An optional memo for my invoice.',
       metadata: { foo: 'string' },

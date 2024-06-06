@@ -461,6 +461,35 @@ describe('resource subscriptions', () => {
               maximum_amount: 0,
             },
           ],
+          add_adjustments: [
+            {
+              adjustment: {
+                applies_to_price_ids: ['price_1', 'price_2'],
+                adjustment_type: 'percentage_discount',
+                percentage_discount: 0,
+              },
+              start_date: '2019-12-27T18:11:19.117Z',
+              end_date: '2019-12-27T18:11:19.117Z',
+            },
+            {
+              adjustment: {
+                applies_to_price_ids: ['price_1', 'price_2'],
+                adjustment_type: 'percentage_discount',
+                percentage_discount: 0,
+              },
+              start_date: '2019-12-27T18:11:19.117Z',
+              end_date: '2019-12-27T18:11:19.117Z',
+            },
+            {
+              adjustment: {
+                applies_to_price_ids: ['price_1', 'price_2'],
+                adjustment_type: 'percentage_discount',
+                percentage_discount: 0,
+              },
+              start_date: '2019-12-27T18:11:19.117Z',
+              end_date: '2019-12-27T18:11:19.117Z',
+            },
+          ],
           edit: [
             {
               price_interval_id: 'sdfs6wdjvn7ujokd',
@@ -494,6 +523,23 @@ describe('resource subscriptions', () => {
                 { quantity: 5, effective_date: '2019-12-27T18:11:19.117Z' },
               ],
               billing_cycle_day: 0,
+            },
+          ],
+          edit_adjustments: [
+            {
+              adjustment_interval_id: 'sdfs6wdjvn7ujokd',
+              start_date: '2019-12-27T18:11:19.117Z',
+              end_date: '2019-12-27T18:11:19.117Z',
+            },
+            {
+              adjustment_interval_id: 'sdfs6wdjvn7ujokd',
+              start_date: '2019-12-27T18:11:19.117Z',
+              end_date: '2019-12-27T18:11:19.117Z',
+            },
+            {
+              adjustment_interval_id: 'sdfs6wdjvn7ujokd',
+              start_date: '2019-12-27T18:11:19.117Z',
+              end_date: '2019-12-27T18:11:19.117Z',
             },
           ],
         },

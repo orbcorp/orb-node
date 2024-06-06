@@ -409,6 +409,11 @@ export namespace Invoice {
     next_attempt_at: string | null;
 
     /**
+     * Number of auto-collection payment attempts.
+     */
+    num_attempts: number | null;
+
+    /**
      * If Orb has ever attempted payment auto-collection for this invoice, this field
      * will reflect when that attempt occurred. In conjunction with `next_attempt_at`,
      * this can be used to tell whether the invoice is currently in dunning (that is,
@@ -1572,6 +1577,11 @@ export namespace InvoiceFetchUpcomingResponse {
     next_attempt_at: string | null;
 
     /**
+     * Number of auto-collection payment attempts.
+     */
+    num_attempts: number | null;
+
+    /**
      * If Orb has ever attempted payment auto-collection for this invoice, this field
      * will reflect when that attempt occurred. In conjunction with `next_attempt_at`,
      * this can be used to tell whether the invoice is currently in dunning (that is,
@@ -2468,6 +2478,11 @@ export interface InvoiceCreateParams {
    * `external_customer_id` are required.
    */
   customer_id?: string | null;
+
+  /**
+   * An optional discount to attach to the invoice.
+   */
+  discount?: Shared.Discount | null;
 
   /**
    * The `external_customer_id` of the `Customer` to create this invoice for. One of

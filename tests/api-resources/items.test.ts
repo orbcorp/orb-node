@@ -48,7 +48,6 @@ describe('resource items', () => {
         { external_connection_name: 'stripe', external_entity_id: 'string' },
         { external_connection_name: 'stripe', external_entity_id: 'string' },
       ],
-      metadata: { foo: 'string' },
     });
   });
 
