@@ -3600,6 +3600,11 @@ export namespace SubscriptionPriceIntervalsParams {
     start_date: (string & {}) | Shared.BillingCycleRelativeDate;
 
     /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    allocation_price?: Add.AllocationPrice | null;
+
+    /**
      * A list of discounts to initialize on the price interval.
      */
     discounts?: Array<
@@ -3667,6 +3672,33 @@ export namespace SubscriptionPriceIntervalsParams {
   }
 
   export namespace Add {
+    /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    export interface AllocationPrice {
+      /**
+       * An amount of the currency to allocate to the customer at the specified cadence.
+       */
+      amount: number;
+
+      /**
+       * The cadence at which to allocate the amount to the customer.
+       */
+      cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
+
+      /**
+       * An ISO 4217 currency string or a custom pricing unit identifier in which to bill
+       * this price.
+       */
+      currency: string;
+
+      /**
+       * Whether the allocated amount should expire at the end of the cadence or roll
+       * over to the next period.
+       */
+      expires_at_end_of_cadence: boolean;
+    }
+
     export interface AmountDiscountCreationParams {
       /**
        * Only available if discount_type is `amount`.
