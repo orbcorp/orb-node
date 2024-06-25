@@ -3679,7 +3679,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * An amount of the currency to allocate to the customer at the specified cadence.
        */
-      amount: number;
+      amount: string;
 
       /**
        * The cadence at which to allocate the amount to the customer.
