@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../core';
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
+import * as Core from '../core';
 import * as ItemsAPI from './items';
 import { Page, type PageParams } from '../pagination';
 
@@ -15,9 +15,18 @@ export class Items extends APIResource {
   }
 
   /**
-   * Update items
+   * This endpoint can be used to update properties on the Item.
    */
-  update(itemId: string, body: ItemUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Item> {
+  update(itemId: string, body?: ItemUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Item>;
+  update(itemId: string, options?: Core.RequestOptions): Core.APIPromise<Item>;
+  update(
+    itemId: string,
+    body: ItemUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Item> {
+    if (isRequestOptions(body)) {
+      return this.update(itemId, {}, body);
+    }
     return this._client.put(`/items/${itemId}`, { body, ...options });
   }
 
@@ -85,14 +94,9 @@ export interface ItemCreateParams {
 }
 
 export interface ItemUpdateParams {
-  external_connections: Array<ItemUpdateParams.ExternalConnection> | null;
+  external_connections?: Array<ItemUpdateParams.ExternalConnection> | null;
 
-  /**
-   * User-specified key/value pairs for the resource. Individual keys can be removed
-   * by setting the value to `null`, and the entire metadata mapping can be cleared
-   * by setting `metadata` to `null`.
-   */
-  metadata?: Record<string, string | null> | null;
+  name?: string | null;
 }
 
 export namespace ItemUpdateParams {

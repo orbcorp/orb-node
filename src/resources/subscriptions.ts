@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../core';
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
+import * as Core from '../core';
 import * as SubscriptionsAPI from './subscriptions';
 import * as Shared from './shared';
 import * as CustomersAPI from './customers/customers';
@@ -841,6 +841,21 @@ export class Subscriptions extends APIResource {
    * Additionally, a discount, minimum, or maximum can be specified on the price
    * interval. This will only apply to this price interval, not any other price
    * intervals on the subscription.
+   *
+   * ## Adjustment intervals
+   *
+   * An adjustment interval represents the time period that a particular adjustment
+   * (a discount, minimum, or maximum) applies to the prices on a subscription.
+   * Adjustment intervals can be added to a subscription by specifying them in the
+   * `add_adjustments` array, or modified via the `edit_adjustments` array. When
+   * creating an adjustment interval, you'll need to provide the definition of the
+   * new adjustment (the type of adjustment, and which prices it applies to), as well
+   * as the start and end dates for the adjustment interval. The start and end dates
+   * of an existing adjustment interval can be edited via the `edit_adjustments`
+   * field (just like price intervals). (To "change" the amount of a discount,
+   * minimum, or maximum, then, you'll need to end the existing interval, and create
+   * a new adjustment interval with the new amount and a start date that matches the
+   * end date of the previous interval.)
    *
    * ## Editing price intervals
    *
@@ -3576,9 +3591,19 @@ export interface SubscriptionPriceIntervalsParams {
   add?: Array<SubscriptionPriceIntervalsParams.Add>;
 
   /**
+   * A list of adjustments to add to the subscription.
+   */
+  add_adjustments?: Array<SubscriptionPriceIntervalsParams.AddAdjustment>;
+
+  /**
    * A list of price intervals to edit on the subscription.
    */
   edit?: Array<SubscriptionPriceIntervalsParams.Edit>;
+
+  /**
+   * A list of adjustments to edit on the subscription.
+   */
+  edit_adjustments?: Array<SubscriptionPriceIntervalsParams.EditAdjustment>;
 }
 
 export namespace SubscriptionPriceIntervalsParams {
@@ -3588,6 +3613,11 @@ export namespace SubscriptionPriceIntervalsParams {
      * billing on the subscription.
      */
     start_date: (string & {}) | Shared.BillingCycleRelativeDate;
+
+    /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    allocation_price?: Add.AllocationPrice | null;
 
     /**
      * A list of discounts to initialize on the price interval.
@@ -3657,6 +3687,33 @@ export namespace SubscriptionPriceIntervalsParams {
   }
 
   export namespace Add {
+    /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    export interface AllocationPrice {
+      /**
+       * An amount of the currency to allocate to the customer at the specified cadence.
+       */
+      amount: string;
+
+      /**
+       * The cadence at which to allocate the amount to the customer.
+       */
+      cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
+
+      /**
+       * An ISO 4217 currency string or a custom pricing unit identifier in which to bill
+       * this price.
+       */
+      currency: string;
+
+      /**
+       * Whether the allocated amount should expire at the end of the cadence or roll
+       * over to the next period.
+       */
+      expires_at_end_of_cadence: boolean;
+    }
+
     export interface AmountDiscountCreationParams {
       /**
        * Only available if discount_type is `amount`.
@@ -3702,7 +3759,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3770,7 +3827,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3844,7 +3901,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -3938,7 +3995,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4037,7 +4094,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4124,7 +4181,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4219,7 +4276,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4292,7 +4349,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4380,7 +4437,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4460,7 +4517,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4519,7 +4576,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4578,7 +4635,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4637,7 +4694,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4696,7 +4753,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4755,7 +4812,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4814,7 +4871,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4873,7 +4930,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4932,7 +4989,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence to bill for this price on.
        */
-      cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
       /**
        * An ISO 4217 currency string for which this price is billed in.
@@ -4988,6 +5045,80 @@ export namespace SubscriptionPriceIntervalsParams {
     }
   }
 
+  export interface AddAdjustment {
+    /**
+     * The definition of a new adjustment to create and add to the subscription.
+     */
+    adjustment:
+      | AddAdjustment.NewPercentageDiscount
+      | AddAdjustment.NewAmountDiscount
+      | AddAdjustment.NewMinimum
+      | AddAdjustment.NewMaximum;
+
+    /**
+     * The start date of the adjustment interval. This is the date that the adjustment
+     * will start affecting prices on the subscription.
+     */
+    start_date: (string & {}) | Shared.BillingCycleRelativeDate;
+
+    /**
+     * The end date of the adjustment interval. This is the date that the adjustment
+     * will stop affecting prices on the subscription.
+     */
+    end_date?: (string & {}) | Shared.BillingCycleRelativeDate | null;
+  }
+
+  export namespace AddAdjustment {
+    export interface NewPercentageDiscount {
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      percentage_discount: number;
+    }
+
+    export interface NewAmountDiscount {
+      adjustment_type: 'amount_discount';
+
+      amount_discount: string;
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+    }
+
+    export interface NewMinimum {
+      adjustment_type: 'minimum';
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      minimum_amount: string;
+    }
+
+    export interface NewMaximum {
+      adjustment_type: 'maximum';
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      maximum_amount: string;
+    }
+  }
+
   export interface Edit {
     /**
      * The id of the price interval to edit.
@@ -5033,6 +5164,25 @@ export namespace SubscriptionPriceIntervalsParams {
        */
       quantity: number;
     }
+  }
+
+  export interface EditAdjustment {
+    /**
+     * The id of the adjustment interval to edit.
+     */
+    adjustment_interval_id: string;
+
+    /**
+     * The updated end date of this adjustment interval. If not specified, the start
+     * date will not be updated.
+     */
+    end_date?: (string & {}) | Shared.BillingCycleRelativeDate | null;
+
+    /**
+     * The updated start date of this adjustment interval. If not specified, the start
+     * date will not be updated.
+     */
+    start_date?: (string & {}) | Shared.BillingCycleRelativeDate;
   }
 }
 

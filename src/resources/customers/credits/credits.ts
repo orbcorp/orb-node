@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../../../core';
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
+import * as Core from '../../../core';
 import * as CreditsAPI from './credits';
 import * as LedgerAPI from './ledger';
 import * as TopUpsAPI from './top-ups';
@@ -85,6 +85,8 @@ export interface CreditListResponse {
 
   expiry_date: string | null;
 
+  maximum_initial_balance: number | null;
+
   per_unit_cost_basis: string | null;
 
   status: 'active' | 'pending_payment';
@@ -99,6 +101,8 @@ export interface CreditListByExternalIDResponse {
 
   expiry_date: string | null;
 
+  maximum_initial_balance: number | null;
+
   per_unit_cost_basis: string | null;
 
   status: 'active' | 'pending_payment';
@@ -109,6 +113,11 @@ export interface CreditListParams extends PageParams {
    * The ledger currency or custom pricing unit to use.
    */
   currency?: string | null;
+
+  /**
+   * Include all blocks, not just active ones.
+   */
+  include_all_blocks?: boolean;
 }
 
 export interface CreditListByExternalIDParams extends PageParams {
@@ -116,6 +125,11 @@ export interface CreditListByExternalIDParams extends PageParams {
    * The ledger currency or custom pricing unit to use.
    */
   currency?: string | null;
+
+  /**
+   * Include all blocks, not just active ones.
+   */
+  include_all_blocks?: boolean;
 }
 
 export namespace Credits {
