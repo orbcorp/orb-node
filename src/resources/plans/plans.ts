@@ -340,6 +340,12 @@ export interface PlanCreateParams {
    * to 0.
    */
   net_terms?: number | null;
+
+  /**
+   * The status of the plan to create (either active or draft). If not specified,
+   * this defaults to active.
+   */
+  status?: 'active' | 'draft';
 }
 
 export namespace PlanCreateParams {
