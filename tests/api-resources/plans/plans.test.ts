@@ -56,6 +56,7 @@ describe('resource plans', () => {
       external_plan_id: 'string',
       metadata: { foo: 'string' },
       net_terms: 0,
+      status: 'active',
     });
   });
 
