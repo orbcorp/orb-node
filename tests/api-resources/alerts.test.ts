@@ -10,7 +10,7 @@ const orb = new Orb({
 
 describe('resource alerts', () => {
   test('retrieve', async () => {
-    const responsePromise = orb.alerts.retrieve('string');
+    const responsePromise = orb.alerts.retrieve('alert_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource alerts', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.alerts.retrieve('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.alerts.retrieve('alert_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
@@ -55,11 +55,11 @@ describe('resource alerts', () => {
           'created_at[gte]': '2019-12-27T18:11:19.117Z',
           'created_at[lt]': '2019-12-27T18:11:19.117Z',
           'created_at[lte]': '2019-12-27T18:11:19.117Z',
-          cursor: 'string',
-          customer_id: 'string',
-          external_customer_id: 'string',
+          cursor: 'cursor',
+          customer_id: 'customer_id',
+          external_customer_id: 'external_customer_id',
           limit: 1,
-          subscription_id: 'string',
+          subscription_id: 'subscription_id',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -67,7 +67,10 @@ describe('resource alerts', () => {
   });
 
   test('createForCustomer: only required params', async () => {
-    const responsePromise = orb.alerts.createForCustomer('string', { currency: 'string', type: 'string' });
+    const responsePromise = orb.alerts.createForCustomer('customer_id', {
+      currency: 'currency',
+      type: 'type',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -78,17 +81,17 @@ describe('resource alerts', () => {
   });
 
   test('createForCustomer: required and optional params', async () => {
-    const response = await orb.alerts.createForCustomer('string', {
-      currency: 'string',
-      type: 'string',
+    const response = await orb.alerts.createForCustomer('customer_id', {
+      currency: 'currency',
+      type: 'type',
       thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
     });
   });
 
   test('createForExternalCustomer: only required params', async () => {
-    const responsePromise = orb.alerts.createForExternalCustomer('string', {
-      currency: 'string',
-      type: 'string',
+    const responsePromise = orb.alerts.createForExternalCustomer('external_customer_id', {
+      currency: 'currency',
+      type: 'type',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -100,17 +103,17 @@ describe('resource alerts', () => {
   });
 
   test('createForExternalCustomer: required and optional params', async () => {
-    const response = await orb.alerts.createForExternalCustomer('string', {
-      currency: 'string',
-      type: 'string',
+    const response = await orb.alerts.createForExternalCustomer('external_customer_id', {
+      currency: 'currency',
+      type: 'type',
       thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
     });
   });
 
   test('createForSubscription: only required params', async () => {
-    const responsePromise = orb.alerts.createForSubscription('string', {
+    const responsePromise = orb.alerts.createForSubscription('subscription_id', {
       thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
-      type: 'string',
+      type: 'type',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -122,15 +125,15 @@ describe('resource alerts', () => {
   });
 
   test('createForSubscription: required and optional params', async () => {
-    const response = await orb.alerts.createForSubscription('string', {
+    const response = await orb.alerts.createForSubscription('subscription_id', {
       thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
-      type: 'string',
-      metric_id: 'string',
+      type: 'type',
+      metric_id: 'metric_id',
     });
   });
 
   test('disable', async () => {
-    const responsePromise = orb.alerts.disable('string');
+    const responsePromise = orb.alerts.disable('alert_configuration_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -142,13 +145,13 @@ describe('resource alerts', () => {
 
   test('disable: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.alerts.disable('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
+    await expect(
+      orb.alerts.disable('alert_configuration_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('enable', async () => {
-    const responsePromise = orb.alerts.enable('string');
+    const responsePromise = orb.alerts.enable('alert_configuration_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -160,8 +163,8 @@ describe('resource alerts', () => {
 
   test('enable: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.alerts.enable('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
+    await expect(
+      orb.alerts.enable('alert_configuration_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 });

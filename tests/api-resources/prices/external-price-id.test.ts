@@ -10,7 +10,7 @@ const orb = new Orb({
 
 describe('resource externalPriceId', () => {
   test('fetch', async () => {
-    const responsePromise = orb.prices.externalPriceId.fetch('string');
+    const responsePromise = orb.prices.externalPriceId.fetch('external_price_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource externalPriceId', () => {
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.prices.externalPriceId.fetch('string', { path: '/_stainless_unknown_path' }),
+      orb.prices.externalPriceId.fetch('external_price_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 });

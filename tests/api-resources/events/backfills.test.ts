@@ -28,8 +28,8 @@ describe('resource backfills', () => {
       timeframe_end: '2019-12-27T18:11:19.117Z',
       timeframe_start: '2019-12-27T18:11:19.117Z',
       close_time: '2019-12-27T18:11:19.117Z',
-      customer_id: 'string',
-      external_customer_id: 'string',
+      customer_id: 'customer_id',
+      external_customer_id: 'external_customer_id',
       replace_existing_events: true,
     });
   });
@@ -55,12 +55,12 @@ describe('resource backfills', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.events.backfills.list({ cursor: 'string', limit: 1 }, { path: '/_stainless_unknown_path' }),
+      orb.events.backfills.list({ cursor: 'cursor', limit: 1 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('close', async () => {
-    const responsePromise = orb.events.backfills.close('string');
+    const responsePromise = orb.events.backfills.close('backfill_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -72,13 +72,13 @@ describe('resource backfills', () => {
 
   test('close: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.events.backfills.close('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
+    await expect(
+      orb.events.backfills.close('backfill_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.events.backfills.fetch('string');
+    const responsePromise = orb.events.backfills.fetch('backfill_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -90,13 +90,13 @@ describe('resource backfills', () => {
 
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.events.backfills.fetch('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
+    await expect(
+      orb.events.backfills.fetch('backfill_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('revert', async () => {
-    const responsePromise = orb.events.backfills.revert('string');
+    const responsePromise = orb.events.backfills.revert('backfill_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -108,8 +108,8 @@ describe('resource backfills', () => {
 
   test('revert: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.events.backfills.revert('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
+    await expect(
+      orb.events.backfills.revert('backfill_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 });
