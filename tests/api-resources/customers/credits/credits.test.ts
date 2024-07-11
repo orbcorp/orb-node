@@ -10,7 +10,7 @@ const orb = new Orb({
 
 describe('resource credits', () => {
   test('list', async () => {
-    const responsePromise = orb.customers.credits.list('string');
+    const responsePromise = orb.customers.credits.list('customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,24 +22,24 @@ describe('resource credits', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.customers.credits.list('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
+    await expect(
+      orb.customers.credits.list('customer_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       orb.customers.credits.list(
-        'string',
-        { currency: 'string', cursor: 'string', include_all_blocks: true, limit: 1 },
+        'customer_id',
+        { currency: 'currency', cursor: 'cursor', include_all_blocks: true, limit: 1 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('listByExternalId', async () => {
-    const responsePromise = orb.customers.credits.listByExternalId('string');
+    const responsePromise = orb.customers.credits.listByExternalId('external_customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -52,7 +52,7 @@ describe('resource credits', () => {
   test('listByExternalId: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.listByExternalId('string', { path: '/_stainless_unknown_path' }),
+      orb.customers.credits.listByExternalId('external_customer_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
@@ -60,8 +60,8 @@ describe('resource credits', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       orb.customers.credits.listByExternalId(
-        'string',
-        { currency: 'string', cursor: 'string', include_all_blocks: true, limit: 1 },
+        'external_customer_id',
+        { currency: 'currency', cursor: 'cursor', include_all_blocks: true, limit: 1 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);

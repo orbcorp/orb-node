@@ -10,8 +10,8 @@ const orb = new Orb({
 
 describe('resource events', () => {
   test('update: only required params', async () => {
-    const responsePromise = orb.events.update('string', {
-      event_name: 'string',
+    const responsePromise = orb.events.update('event_id', {
+      event_name: 'event_name',
       properties: {},
       timestamp: '2020-12-09T16:09:53Z',
     });
@@ -25,17 +25,17 @@ describe('resource events', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await orb.events.update('string', {
-      event_name: 'string',
+    const response = await orb.events.update('event_id', {
+      event_name: 'event_name',
       properties: {},
       timestamp: '2020-12-09T16:09:53Z',
-      customer_id: 'string',
-      external_customer_id: 'string',
+      customer_id: 'customer_id',
+      external_customer_id: 'external_customer_id',
     });
   });
 
   test('deprecate', async () => {
-    const responsePromise = orb.events.deprecate('string');
+    const responsePromise = orb.events.deprecate('event_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -47,7 +47,7 @@ describe('resource events', () => {
 
   test('deprecate: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.events.deprecate('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.events.deprecate('event_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
@@ -56,22 +56,22 @@ describe('resource events', () => {
     const responsePromise = orb.events.ingest({
       events: [
         {
-          event_name: 'string',
+          event_name: 'event_name',
           timestamp: '2020-12-09T16:09:53Z',
           properties: {},
-          idempotency_key: 'string',
+          idempotency_key: 'idempotency_key',
         },
         {
-          event_name: 'string',
+          event_name: 'event_name',
           timestamp: '2020-12-09T16:09:53Z',
           properties: {},
-          idempotency_key: 'string',
+          idempotency_key: 'idempotency_key',
         },
         {
-          event_name: 'string',
+          event_name: 'event_name',
           timestamp: '2020-12-09T16:09:53Z',
           properties: {},
-          idempotency_key: 'string',
+          idempotency_key: 'idempotency_key',
         },
       ],
     });
@@ -88,31 +88,31 @@ describe('resource events', () => {
     const response = await orb.events.ingest({
       events: [
         {
-          customer_id: 'string',
-          external_customer_id: 'string',
-          event_name: 'string',
+          customer_id: 'customer_id',
+          external_customer_id: 'external_customer_id',
+          event_name: 'event_name',
           timestamp: '2020-12-09T16:09:53Z',
           properties: {},
-          idempotency_key: 'string',
+          idempotency_key: 'idempotency_key',
         },
         {
-          customer_id: 'string',
-          external_customer_id: 'string',
-          event_name: 'string',
+          customer_id: 'customer_id',
+          external_customer_id: 'external_customer_id',
+          event_name: 'event_name',
           timestamp: '2020-12-09T16:09:53Z',
           properties: {},
-          idempotency_key: 'string',
+          idempotency_key: 'idempotency_key',
         },
         {
-          customer_id: 'string',
-          external_customer_id: 'string',
-          event_name: 'string',
+          customer_id: 'customer_id',
+          external_customer_id: 'external_customer_id',
+          event_name: 'event_name',
           timestamp: '2020-12-09T16:09:53Z',
           properties: {},
-          idempotency_key: 'string',
+          idempotency_key: 'idempotency_key',
         },
       ],
-      backfill_id: 'string',
+      backfill_id: 'backfill_id',
       debug: true,
     });
   });

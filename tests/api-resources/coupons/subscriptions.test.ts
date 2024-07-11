@@ -10,7 +10,7 @@ const orb = new Orb({
 
 describe('resource subscriptions', () => {
   test('list', async () => {
-    const responsePromise = orb.coupons.subscriptions.list('string');
+    const responsePromise = orb.coupons.subscriptions.list('coupon_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource subscriptions', () => {
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.coupons.subscriptions.list('string', { path: '/_stainless_unknown_path' }),
+      orb.coupons.subscriptions.list('coupon_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
@@ -31,8 +31,8 @@ describe('resource subscriptions', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       orb.coupons.subscriptions.list(
-        'string',
-        { cursor: 'string', limit: 1 },
+        'coupon_id',
+        { cursor: 'cursor', limit: 1 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);

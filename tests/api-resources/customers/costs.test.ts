@@ -10,7 +10,7 @@ const orb = new Orb({
 
 describe('resource costs', () => {
   test('list', async () => {
-    const responsePromise = orb.customers.costs.list('string');
+    const responsePromise = orb.customers.costs.list('customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,16 +22,16 @@ describe('resource costs', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.customers.costs.list('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
+    await expect(
+      orb.customers.costs.list('customer_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       orb.customers.costs.list(
-        'string',
+        'customer_id',
         {
           timeframe_end: '2022-03-01T05:00:00Z',
           timeframe_start: '2022-02-01T05:00:00Z',
@@ -43,7 +43,7 @@ describe('resource costs', () => {
   });
 
   test('listByExternalId', async () => {
-    const responsePromise = orb.customers.costs.listByExternalId('string');
+    const responsePromise = orb.customers.costs.listByExternalId('external_customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -56,7 +56,7 @@ describe('resource costs', () => {
   test('listByExternalId: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.costs.listByExternalId('string', { path: '/_stainless_unknown_path' }),
+      orb.customers.costs.listByExternalId('external_customer_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
@@ -64,7 +64,7 @@ describe('resource costs', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       orb.customers.costs.listByExternalId(
-        'string',
+        'external_customer_id',
         {
           timeframe_end: '2022-03-01T05:00:00Z',
           timeframe_start: '2022-02-01T05:00:00Z',

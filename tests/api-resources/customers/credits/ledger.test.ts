@@ -10,7 +10,7 @@ const orb = new Orb({
 
 describe('resource ledger', () => {
   test('list', async () => {
-    const responsePromise = orb.customers.credits.ledger.list('string');
+    const responsePromise = orb.customers.credits.ledger.list('customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource ledger', () => {
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.ledger.list('string', { path: '/_stainless_unknown_path' }),
+      orb.customers.credits.ledger.list('customer_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
@@ -31,18 +31,18 @@ describe('resource ledger', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       orb.customers.credits.ledger.list(
-        'string',
+        'customer_id',
         {
           'created_at[gt]': '2019-12-27T18:11:19.117Z',
           'created_at[gte]': '2019-12-27T18:11:19.117Z',
           'created_at[lt]': '2019-12-27T18:11:19.117Z',
           'created_at[lte]': '2019-12-27T18:11:19.117Z',
-          currency: 'string',
-          cursor: 'string',
+          currency: 'currency',
+          cursor: 'cursor',
           entry_status: 'committed',
           entry_type: 'increment',
           limit: 1,
-          minimum_amount: 'string',
+          minimum_amount: 'minimum_amount',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -50,7 +50,7 @@ describe('resource ledger', () => {
   });
 
   test('createEntry: only required params', async () => {
-    const responsePromise = orb.customers.credits.ledger.createEntry('string', {
+    const responsePromise = orb.customers.credits.ledger.createEntry('customer_id', {
       amount: 0,
       entry_type: 'increment',
     });
@@ -64,26 +64,26 @@ describe('resource ledger', () => {
   });
 
   test('createEntry: required and optional params', async () => {
-    const response = await orb.customers.credits.ledger.createEntry('string', {
+    const response = await orb.customers.credits.ledger.createEntry('customer_id', {
       amount: 0,
       entry_type: 'increment',
-      currency: 'string',
-      description: 'string',
+      currency: 'currency',
+      description: 'description',
       effective_date: '2019-12-27T18:11:19.117Z',
       expiry_date: '2019-12-27T18:11:19.117Z',
       invoice_settings: {
         auto_collection: true,
         net_terms: 0,
-        memo: 'string',
+        memo: 'memo',
         require_successful_payment: true,
       },
       metadata: { foo: 'string' },
-      per_unit_cost_basis: 'string',
+      per_unit_cost_basis: 'per_unit_cost_basis',
     });
   });
 
   test('createEntryByExternalId: only required params', async () => {
-    const responsePromise = orb.customers.credits.ledger.createEntryByExternalId('string', {
+    const responsePromise = orb.customers.credits.ledger.createEntryByExternalId('external_customer_id', {
       amount: 0,
       entry_type: 'increment',
     });
@@ -97,26 +97,26 @@ describe('resource ledger', () => {
   });
 
   test('createEntryByExternalId: required and optional params', async () => {
-    const response = await orb.customers.credits.ledger.createEntryByExternalId('string', {
+    const response = await orb.customers.credits.ledger.createEntryByExternalId('external_customer_id', {
       amount: 0,
       entry_type: 'increment',
-      currency: 'string',
-      description: 'string',
+      currency: 'currency',
+      description: 'description',
       effective_date: '2019-12-27T18:11:19.117Z',
       expiry_date: '2019-12-27T18:11:19.117Z',
       invoice_settings: {
         auto_collection: true,
         net_terms: 0,
-        memo: 'string',
+        memo: 'memo',
         require_successful_payment: true,
       },
       metadata: { foo: 'string' },
-      per_unit_cost_basis: 'string',
+      per_unit_cost_basis: 'per_unit_cost_basis',
     });
   });
 
   test('listByExternalId', async () => {
-    const responsePromise = orb.customers.credits.ledger.listByExternalId('string');
+    const responsePromise = orb.customers.credits.ledger.listByExternalId('external_customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -129,7 +129,9 @@ describe('resource ledger', () => {
   test('listByExternalId: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.ledger.listByExternalId('string', { path: '/_stainless_unknown_path' }),
+      orb.customers.credits.ledger.listByExternalId('external_customer_id', {
+        path: '/_stainless_unknown_path',
+      }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
@@ -137,18 +139,18 @@ describe('resource ledger', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       orb.customers.credits.ledger.listByExternalId(
-        'string',
+        'external_customer_id',
         {
           'created_at[gt]': '2019-12-27T18:11:19.117Z',
           'created_at[gte]': '2019-12-27T18:11:19.117Z',
           'created_at[lt]': '2019-12-27T18:11:19.117Z',
           'created_at[lte]': '2019-12-27T18:11:19.117Z',
-          currency: 'string',
-          cursor: 'string',
+          currency: 'currency',
+          cursor: 'cursor',
           entry_status: 'committed',
           entry_type: 'increment',
           limit: 1,
-          minimum_amount: 'string',
+          minimum_amount: 'minimum_amount',
         },
         { path: '/_stainless_unknown_path' },
       ),
