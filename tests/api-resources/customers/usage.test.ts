@@ -10,11 +10,11 @@ const orb = new Orb({
 
 describe('resource usage', () => {
   test('update: only required params', async () => {
-    const responsePromise = orb.customers.usage.update('string', {
+    const responsePromise = orb.customers.usage.update('customer_id', {
       events: [
-        { event_name: 'string', timestamp: '2020-12-09T16:09:53Z', properties: {} },
-        { event_name: 'string', timestamp: '2020-12-09T16:09:53Z', properties: {} },
-        { event_name: 'string', timestamp: '2020-12-09T16:09:53Z', properties: {} },
+        { event_name: 'event_name', timestamp: '2020-12-09T16:09:53Z', properties: {} },
+        { event_name: 'event_name', timestamp: '2020-12-09T16:09:53Z', properties: {} },
+        { event_name: 'event_name', timestamp: '2020-12-09T16:09:53Z', properties: {} },
       ],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -27,26 +27,26 @@ describe('resource usage', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await orb.customers.usage.update('string', {
+    const response = await orb.customers.usage.update('customer_id', {
       events: [
         {
-          customer_id: 'string',
-          external_customer_id: 'string',
-          event_name: 'string',
+          customer_id: 'customer_id',
+          external_customer_id: 'external_customer_id',
+          event_name: 'event_name',
           timestamp: '2020-12-09T16:09:53Z',
           properties: {},
         },
         {
-          customer_id: 'string',
-          external_customer_id: 'string',
-          event_name: 'string',
+          customer_id: 'customer_id',
+          external_customer_id: 'external_customer_id',
+          event_name: 'event_name',
           timestamp: '2020-12-09T16:09:53Z',
           properties: {},
         },
         {
-          customer_id: 'string',
-          external_customer_id: 'string',
-          event_name: 'string',
+          customer_id: 'customer_id',
+          external_customer_id: 'external_customer_id',
+          event_name: 'event_name',
           timestamp: '2020-12-09T16:09:53Z',
           properties: {},
         },
@@ -57,11 +57,11 @@ describe('resource usage', () => {
   });
 
   test('updateByExternalId: only required params', async () => {
-    const responsePromise = orb.customers.usage.updateByExternalId('string', {
+    const responsePromise = orb.customers.usage.updateByExternalId('external_customer_id', {
       events: [
-        { event_name: 'string', timestamp: '2020-12-09T16:09:53Z', properties: {} },
-        { event_name: 'string', timestamp: '2020-12-09T16:09:53Z', properties: {} },
-        { event_name: 'string', timestamp: '2020-12-09T16:09:53Z', properties: {} },
+        { event_name: 'event_name', timestamp: '2020-12-09T16:09:53Z', properties: {} },
+        { event_name: 'event_name', timestamp: '2020-12-09T16:09:53Z', properties: {} },
+        { event_name: 'event_name', timestamp: '2020-12-09T16:09:53Z', properties: {} },
       ],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -74,26 +74,26 @@ describe('resource usage', () => {
   });
 
   test('updateByExternalId: required and optional params', async () => {
-    const response = await orb.customers.usage.updateByExternalId('string', {
+    const response = await orb.customers.usage.updateByExternalId('external_customer_id', {
       events: [
         {
-          customer_id: 'string',
-          external_customer_id: 'string',
-          event_name: 'string',
+          customer_id: 'customer_id',
+          external_customer_id: 'external_customer_id',
+          event_name: 'event_name',
           timestamp: '2020-12-09T16:09:53Z',
           properties: {},
         },
         {
-          customer_id: 'string',
-          external_customer_id: 'string',
-          event_name: 'string',
+          customer_id: 'customer_id',
+          external_customer_id: 'external_customer_id',
+          event_name: 'event_name',
           timestamp: '2020-12-09T16:09:53Z',
           properties: {},
         },
         {
-          customer_id: 'string',
-          external_customer_id: 'string',
-          event_name: 'string',
+          customer_id: 'customer_id',
+          external_customer_id: 'external_customer_id',
+          event_name: 'event_name',
           timestamp: '2020-12-09T16:09:53Z',
           properties: {},
         },

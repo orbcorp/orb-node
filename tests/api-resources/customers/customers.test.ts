@@ -10,7 +10,7 @@ const orb = new Orb({
 
 describe('resource customers', () => {
   test('create: only required params', async () => {
-    const responsePromise = orb.customers.create({ email: 'string', name: 'string' });
+    const responsePromise = orb.customers.create({ email: 'email', name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,48 +22,48 @@ describe('resource customers', () => {
 
   test('create: required and optional params', async () => {
     const response = await orb.customers.create({
-      email: 'string',
-      name: 'string',
+      email: 'email',
+      name: 'name',
       accounting_sync_configuration: {
         excluded: true,
         accounting_providers: [
-          { provider_type: 'string', external_provider_id: 'string' },
-          { provider_type: 'string', external_provider_id: 'string' },
-          { provider_type: 'string', external_provider_id: 'string' },
+          { provider_type: 'provider_type', external_provider_id: 'external_provider_id' },
+          { provider_type: 'provider_type', external_provider_id: 'external_provider_id' },
+          { provider_type: 'provider_type', external_provider_id: 'external_provider_id' },
         ],
       },
       additional_emails: ['string', 'string', 'string'],
       auto_collection: true,
       billing_address: {
-        line1: 'string',
-        line2: 'string',
-        city: 'string',
-        state: 'string',
-        postal_code: 'string',
-        country: 'string',
+        line1: 'line1',
+        line2: 'line2',
+        city: 'city',
+        state: 'state',
+        postal_code: 'postal_code',
+        country: 'country',
       },
-      currency: 'string',
+      currency: 'currency',
       email_delivery: true,
-      external_customer_id: 'string',
+      external_customer_id: 'external_customer_id',
       metadata: { foo: 'string' },
       payment_provider: 'quickbooks',
-      payment_provider_id: 'string',
+      payment_provider_id: 'payment_provider_id',
       reporting_configuration: { exempt: true },
       shipping_address: {
-        line1: 'string',
-        line2: 'string',
-        city: 'string',
-        state: 'string',
-        postal_code: 'string',
-        country: 'string',
+        line1: 'line1',
+        line2: 'line2',
+        city: 'city',
+        state: 'state',
+        postal_code: 'postal_code',
+        country: 'country',
       },
-      tax_id: { country: 'AD', type: 'ad_nrt', value: 'string' },
-      timezone: 'string',
+      tax_id: { country: 'AD', type: 'ad_nrt', value: 'value' },
+      timezone: 'timezone',
     });
   });
 
   test('update', async () => {
-    const responsePromise = orb.customers.update('string');
+    const responsePromise = orb.customers.update('customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -75,7 +75,7 @@ describe('resource customers', () => {
 
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.customers.update('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.customers.update('customer_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
@@ -84,44 +84,44 @@ describe('resource customers', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       orb.customers.update(
-        'string',
+        'customer_id',
         {
           accounting_sync_configuration: {
             excluded: true,
             accounting_providers: [
-              { provider_type: 'string', external_provider_id: 'string' },
-              { provider_type: 'string', external_provider_id: 'string' },
-              { provider_type: 'string', external_provider_id: 'string' },
+              { provider_type: 'provider_type', external_provider_id: 'external_provider_id' },
+              { provider_type: 'provider_type', external_provider_id: 'external_provider_id' },
+              { provider_type: 'provider_type', external_provider_id: 'external_provider_id' },
             ],
           },
           additional_emails: ['string'],
           auto_collection: true,
           billing_address: {
-            line1: 'string',
-            line2: 'string',
-            city: 'string',
-            state: 'string',
-            postal_code: 'string',
-            country: 'string',
+            line1: 'line1',
+            line2: 'line2',
+            city: 'city',
+            state: 'state',
+            postal_code: 'postal_code',
+            country: 'country',
           },
-          currency: 'string',
-          email: 'string',
+          currency: 'currency',
+          email: 'email',
           email_delivery: true,
-          external_customer_id: 'string',
+          external_customer_id: 'external_customer_id',
           metadata: { foo: 'string' },
-          name: 'string',
+          name: 'name',
           payment_provider: 'quickbooks',
-          payment_provider_id: 'string',
+          payment_provider_id: 'payment_provider_id',
           reporting_configuration: { exempt: true },
           shipping_address: {
-            line1: 'string',
-            line2: 'string',
-            city: 'string',
-            state: 'string',
-            postal_code: 'string',
-            country: 'string',
+            line1: 'line1',
+            line2: 'line2',
+            city: 'city',
+            state: 'state',
+            postal_code: 'postal_code',
+            country: 'country',
           },
-          tax_id: { country: 'AD', type: 'ad_nrt', value: 'string' },
+          tax_id: { country: 'AD', type: 'ad_nrt', value: 'value' },
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -153,7 +153,7 @@ describe('resource customers', () => {
           'created_at[gte]': '2019-12-27T18:11:19.117Z',
           'created_at[lt]': '2019-12-27T18:11:19.117Z',
           'created_at[lte]': '2019-12-27T18:11:19.117Z',
-          cursor: 'string',
+          cursor: 'cursor',
           limit: 1,
         },
         { path: '/_stainless_unknown_path' },
@@ -162,7 +162,7 @@ describe('resource customers', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = orb.customers.delete('string');
+    const responsePromise = orb.customers.delete('customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -174,13 +174,13 @@ describe('resource customers', () => {
 
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.customers.delete('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.customers.delete('customer_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.customers.fetch('string');
+    const responsePromise = orb.customers.fetch('customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -192,13 +192,13 @@ describe('resource customers', () => {
 
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.customers.fetch('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.customers.fetch('customer_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
 
   test('fetchByExternalId', async () => {
-    const responsePromise = orb.customers.fetchByExternalId('string');
+    const responsePromise = orb.customers.fetchByExternalId('external_customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -211,12 +211,12 @@ describe('resource customers', () => {
   test('fetchByExternalId: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.fetchByExternalId('string', { path: '/_stainless_unknown_path' }),
+      orb.customers.fetchByExternalId('external_customer_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('updateByExternalId', async () => {
-    const responsePromise = orb.customers.updateByExternalId('string');
+    const responsePromise = orb.customers.updateByExternalId('external_customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -229,7 +229,7 @@ describe('resource customers', () => {
   test('updateByExternalId: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.updateByExternalId('string', { path: '/_stainless_unknown_path' }),
+      orb.customers.updateByExternalId('external_customer_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
@@ -237,44 +237,44 @@ describe('resource customers', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       orb.customers.updateByExternalId(
-        'string',
+        'external_customer_id',
         {
           accounting_sync_configuration: {
             excluded: true,
             accounting_providers: [
-              { provider_type: 'string', external_provider_id: 'string' },
-              { provider_type: 'string', external_provider_id: 'string' },
-              { provider_type: 'string', external_provider_id: 'string' },
+              { provider_type: 'provider_type', external_provider_id: 'external_provider_id' },
+              { provider_type: 'provider_type', external_provider_id: 'external_provider_id' },
+              { provider_type: 'provider_type', external_provider_id: 'external_provider_id' },
             ],
           },
           additional_emails: ['string'],
           auto_collection: true,
           billing_address: {
-            line1: 'string',
-            line2: 'string',
-            city: 'string',
-            state: 'string',
-            postal_code: 'string',
-            country: 'string',
+            line1: 'line1',
+            line2: 'line2',
+            city: 'city',
+            state: 'state',
+            postal_code: 'postal_code',
+            country: 'country',
           },
-          currency: 'string',
-          email: 'string',
+          currency: 'currency',
+          email: 'email',
           email_delivery: true,
-          external_customer_id: 'string',
+          external_customer_id: 'external_customer_id',
           metadata: { foo: 'string' },
-          name: 'string',
+          name: 'name',
           payment_provider: 'quickbooks',
-          payment_provider_id: 'string',
+          payment_provider_id: 'payment_provider_id',
           reporting_configuration: { exempt: true },
           shipping_address: {
-            line1: 'string',
-            line2: 'string',
-            city: 'string',
-            state: 'string',
-            postal_code: 'string',
-            country: 'string',
+            line1: 'line1',
+            line2: 'line2',
+            city: 'city',
+            state: 'state',
+            postal_code: 'postal_code',
+            country: 'country',
           },
-          tax_id: { country: 'AD', type: 'ad_nrt', value: 'string' },
+          tax_id: { country: 'AD', type: 'ad_nrt', value: 'value' },
         },
         { path: '/_stainless_unknown_path' },
       ),

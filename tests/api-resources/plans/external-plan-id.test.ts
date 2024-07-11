@@ -10,7 +10,7 @@ const orb = new Orb({
 
 describe('resource externalPlanId', () => {
   test('update', async () => {
-    const responsePromise = orb.plans.externalPlanId.update('string');
+    const responsePromise = orb.plans.externalPlanId.update('external_plan_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource externalPlanId', () => {
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.plans.externalPlanId.update('string', { path: '/_stainless_unknown_path' }),
+      orb.plans.externalPlanId.update('external_plan_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
@@ -31,15 +31,15 @@ describe('resource externalPlanId', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       orb.plans.externalPlanId.update(
-        'string',
-        { external_plan_id: 'string', metadata: { foo: 'string' } },
+        'external_plan_id',
+        { external_plan_id: 'external_plan_id', metadata: { foo: 'string' } },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.plans.externalPlanId.fetch('string');
+    const responsePromise = orb.plans.externalPlanId.fetch('external_plan_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -52,7 +52,7 @@ describe('resource externalPlanId', () => {
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.plans.externalPlanId.fetch('string', { path: '/_stainless_unknown_path' }),
+      orb.plans.externalPlanId.fetch('external_plan_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 });

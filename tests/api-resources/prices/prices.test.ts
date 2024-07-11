@@ -12,11 +12,11 @@ describe('resource prices', () => {
   test('create: only required params', async () => {
     const responsePromise = orb.prices.create({
       cadence: 'annual',
-      currency: 'string',
-      item_id: 'string',
+      currency: 'currency',
+      item_id: 'item_id',
       model_type: 'unit',
       name: 'Annual fee',
-      unit_config: { unit_amount: 'string' },
+      unit_config: { unit_amount: 'unit_amount' },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -30,17 +30,17 @@ describe('resource prices', () => {
   test('create: required and optional params', async () => {
     const response = await orb.prices.create({
       cadence: 'annual',
-      currency: 'string',
-      item_id: 'string',
+      currency: 'currency',
+      item_id: 'item_id',
       model_type: 'unit',
       name: 'Annual fee',
-      unit_config: { unit_amount: 'string' },
-      billable_metric_id: 'string',
+      unit_config: { unit_amount: 'unit_amount' },
+      billable_metric_id: 'billable_metric_id',
       billed_in_advance: true,
       conversion_rate: 0,
-      external_price_id: 'string',
+      external_price_id: 'external_price_id',
       fixed_price_quantity: 0,
-      invoice_grouping_key: 'string',
+      invoice_grouping_key: 'invoice_grouping_key',
     });
   });
 
@@ -63,12 +63,12 @@ describe('resource prices', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.prices.list({ cursor: 'string', limit: 1 }, { path: '/_stainless_unknown_path' }),
+      orb.prices.list({ cursor: 'cursor', limit: 1 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('evaluate: only required params', async () => {
-    const responsePromise = orb.prices.evaluate('string', {
+    const responsePromise = orb.prices.evaluate('price_id', {
       timeframe_end: '2019-12-27T18:11:19.117Z',
       timeframe_start: '2019-12-27T18:11:19.117Z',
     });
@@ -82,18 +82,18 @@ describe('resource prices', () => {
   });
 
   test('evaluate: required and optional params', async () => {
-    const response = await orb.prices.evaluate('string', {
+    const response = await orb.prices.evaluate('price_id', {
       timeframe_end: '2019-12-27T18:11:19.117Z',
       timeframe_start: '2019-12-27T18:11:19.117Z',
-      customer_id: 'string',
-      external_customer_id: 'string',
+      customer_id: 'customer_id',
+      external_customer_id: 'external_customer_id',
       filter: "my_numeric_property > 100 AND my_other_property = 'bar'",
       grouping_keys: ["case when my_event_type = 'foo' then true else false end"],
     });
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.prices.fetch('string');
+    const responsePromise = orb.prices.fetch('price_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -105,7 +105,7 @@ describe('resource prices', () => {
 
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.prices.fetch('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.prices.fetch('price_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
