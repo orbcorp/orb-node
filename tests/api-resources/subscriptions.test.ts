@@ -370,6 +370,7 @@ describe('resource subscriptions', () => {
               price_id: 'h74gfhdjvn7ujokd',
               external_price_id: 'external_price_id',
               price: {
+                metadata: { foo: 'string' },
                 external_price_id: 'external_price_id',
                 name: 'Annual fee',
                 billable_metric_id: 'billable_metric_id',
@@ -408,6 +409,7 @@ describe('resource subscriptions', () => {
               price_id: 'h74gfhdjvn7ujokd',
               external_price_id: 'external_price_id',
               price: {
+                metadata: { foo: 'string' },
                 external_price_id: 'external_price_id',
                 name: 'Annual fee',
                 billable_metric_id: 'billable_metric_id',
@@ -446,6 +448,7 @@ describe('resource subscriptions', () => {
               price_id: 'h74gfhdjvn7ujokd',
               external_price_id: 'external_price_id',
               price: {
+                metadata: { foo: 'string' },
                 external_price_id: 'external_price_id',
                 name: 'Annual fee',
                 billable_metric_id: 'billable_metric_id',

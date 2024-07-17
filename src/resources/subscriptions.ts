@@ -3812,6 +3812,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export namespace NewFloatingUnitPrice {
@@ -3880,6 +3887,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export namespace NewFloatingPackagePrice {
@@ -3954,6 +3968,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export namespace NewFloatingMatrixPrice {
@@ -4048,6 +4069,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export namespace NewFloatingMatrixWithAllocationPrice {
@@ -4147,6 +4175,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export namespace NewFloatingTieredPrice {
@@ -4234,6 +4269,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export namespace NewFloatingTieredBpsPrice {
@@ -4327,6 +4369,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export namespace NewFloatingBpsPrice {
@@ -4400,6 +4449,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export namespace NewFloatingBulkBpsPrice {
@@ -4488,6 +4544,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export namespace NewFloatingBulkPrice {
@@ -4570,6 +4633,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export interface NewFloatingTieredPackagePrice {
@@ -4629,6 +4699,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export interface NewFloatingGroupedTieredPrice {
@@ -4688,6 +4765,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export interface NewFloatingTieredWithMinimumPrice {
@@ -4747,6 +4831,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export interface NewFloatingPackageWithAllocationPrice {
@@ -4806,6 +4897,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export interface NewFloatingTieredPackageWithMinimumPrice {
@@ -4865,6 +4963,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export interface NewFloatingUnitWithPercentPrice {
@@ -4924,6 +5029,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export interface NewFloatingTieredWithProrationPrice {
@@ -4983,6 +5095,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
 
     export interface NewFloatingUnitWithProrationPrice {
@@ -5042,6 +5161,13 @@ export namespace SubscriptionPriceIntervalsParams {
        * The property used to group this price on an invoice
        */
       invoice_grouping_key?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
     }
   }
 
