@@ -41,7 +41,33 @@ describe('resource prices', () => {
       external_price_id: 'external_price_id',
       fixed_price_quantity: 0,
       invoice_grouping_key: 'invoice_grouping_key',
+      metadata: { foo: 'string' },
     });
+  });
+
+  test('update', async () => {
+    const responsePromise = orb.prices.update('price_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('update: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(orb.prices.update('price_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Orb.NotFoundError,
+    );
+  });
+
+  test('update: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      orb.prices.update('price_id', { metadata: { foo: 'string' } }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list', async () => {

@@ -17,6 +17,30 @@ export class Invoices extends APIResource {
   }
 
   /**
+   * This endpoint allows you to update the `metadata` property on an invoice. If you
+   * pass null for the metadata value, it will clear any existing metadata for that
+   * invoice.
+   *
+   * `metadata` can be modified regardless of invoice state.
+   */
+  update(
+    invoiceId: string,
+    body?: InvoiceUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Invoice>;
+  update(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Invoice>;
+  update(
+    invoiceId: string,
+    body: InvoiceUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Invoice> {
+    if (isRequestOptions(body)) {
+      return this.update(invoiceId, {}, body);
+    }
+    return this._client.put(`/invoices/${invoiceId}`, { body, ...options });
+  }
+
+  /**
    * This endpoint returns a list of all [`Invoice`](../guides/concepts#invoice)s for
    * an account in a list format.
    *
@@ -2548,6 +2572,15 @@ export namespace InvoiceCreateParams {
   }
 }
 
+export interface InvoiceUpdateParams {
+  /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: Record<string, string | null> | null;
+}
+
 export interface InvoiceListParams extends PageParams {
   amount?: string | null;
 
@@ -2610,6 +2643,7 @@ export namespace Invoices {
   export import InvoiceFetchUpcomingResponse = InvoicesAPI.InvoiceFetchUpcomingResponse;
   export import InvoicesPage = InvoicesAPI.InvoicesPage;
   export import InvoiceCreateParams = InvoicesAPI.InvoiceCreateParams;
+  export import InvoiceUpdateParams = InvoicesAPI.InvoiceUpdateParams;
   export import InvoiceListParams = InvoicesAPI.InvoiceListParams;
   export import InvoiceFetchUpcomingParams = InvoicesAPI.InvoiceFetchUpcomingParams;
   export import InvoiceMarkPaidParams = InvoicesAPI.InvoiceMarkPaidParams;

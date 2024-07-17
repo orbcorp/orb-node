@@ -407,6 +407,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanUnitPrice {
@@ -476,6 +483,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanPackagePrice {
@@ -551,6 +565,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanMatrixPrice {
@@ -646,6 +667,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanTieredPrice {
@@ -734,6 +762,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanTieredBpsPrice {
@@ -828,6 +863,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanBpsPrice {
@@ -902,6 +944,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanBulkBpsPrice {
@@ -991,6 +1040,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanBulkPrice {
@@ -1074,6 +1130,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewPlanTieredPackagePrice {
@@ -1134,6 +1197,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewPlanTieredWithMinimumPrice {
@@ -1194,6 +1264,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewPlanUnitWithPercentPrice {
@@ -1254,6 +1331,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewPlanPackageWithAllocationPrice {
@@ -1314,6 +1398,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewPlanTierWithProrationPrice {
@@ -1374,6 +1465,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewPlanUnitWithProrationPrice {
@@ -1434,6 +1532,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 }
 
