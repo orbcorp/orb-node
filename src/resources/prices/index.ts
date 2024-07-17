@@ -5,9 +5,10 @@ export {
   Price,
   PriceEvaluateResponse,
   PriceCreateParams,
+  PriceUpdateParams,
   PriceListParams,
   PriceEvaluateParams,
   PricesPage,
   Prices,
 } from './prices';
-export { ExternalPriceID } from './external-price-id';
+export { ExternalPriceIDUpdateParams, ExternalPriceID } from './external-price-id';

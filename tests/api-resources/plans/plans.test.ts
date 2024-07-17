@@ -38,6 +38,7 @@ describe('resource plans', () => {
       name: 'name',
       prices: [
         {
+          metadata: { foo: 'string' },
           external_price_id: 'external_price_id',
           name: 'Annual fee',
           billable_metric_id: 'billable_metric_id',

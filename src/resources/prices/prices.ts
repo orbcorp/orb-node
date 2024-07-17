@@ -28,6 +28,24 @@ export class Prices extends APIResource {
   }
 
   /**
+   * This endpoint allows you to update the `metadata` property on a price. If you
+   * pass null for the metadata value, it will clear any existing metadata for that
+   * price.
+   */
+  update(priceId: string, body?: PriceUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Price>;
+  update(priceId: string, options?: Core.RequestOptions): Core.APIPromise<Price>;
+  update(
+    priceId: string,
+    body: PriceUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Price> {
+    if (isRequestOptions(body)) {
+      return this.update(priceId, {}, body);
+    }
+    return this._client.put(`/prices/${priceId}`, { body, ...options });
+  }
+
+  /**
    * This endpoint is used to list all add-on prices created using the
    * [price creation endpoint](../reference/create-price).
    */
@@ -382,6 +400,14 @@ export namespace Price {
 
     maximum_amount: string | null;
 
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
     minimum: UnitPrice.Minimum | null;
 
     minimum_amount: string | null;
@@ -474,6 +500,14 @@ export namespace Price {
     maximum: PackagePrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: PackagePrice.Minimum | null;
 
@@ -575,6 +609,14 @@ export namespace Price {
     maximum: MatrixPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: MatrixPrice.Minimum | null;
 
@@ -693,6 +735,14 @@ export namespace Price {
 
     maximum_amount: string | null;
 
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
     minimum: TieredPrice.Minimum | null;
 
     minimum_amount: string | null;
@@ -804,6 +854,14 @@ export namespace Price {
     maximum: TieredBpsPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: TieredBpsPrice.Minimum | null;
 
@@ -925,6 +983,14 @@ export namespace Price {
 
     maximum_amount: string | null;
 
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
     minimum: BpsPrice.Minimum | null;
 
     minimum_amount: string | null;
@@ -1022,6 +1088,14 @@ export namespace Price {
     maximum: BulkBpsPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: BulkBpsPrice.Minimum | null;
 
@@ -1136,6 +1210,14 @@ export namespace Price {
 
     maximum_amount: string | null;
 
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
     minimum: BulkPrice.Minimum | null;
 
     minimum_amount: string | null;
@@ -1241,6 +1323,14 @@ export namespace Price {
 
     maximum_amount: string | null;
 
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
     minimum: ThresholdTotalAmountPrice.Minimum | null;
 
     minimum_amount: string | null;
@@ -1326,6 +1416,14 @@ export namespace Price {
     maximum: TieredPackagePrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: TieredPackagePrice.Minimum | null;
 
@@ -1415,6 +1513,14 @@ export namespace Price {
 
     maximum_amount: string | null;
 
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
     minimum: GroupedTieredPrice.Minimum | null;
 
     minimum_amount: string | null;
@@ -1498,6 +1604,14 @@ export namespace Price {
     maximum: TieredWithMinimumPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: TieredWithMinimumPrice.Minimum | null;
 
@@ -1585,6 +1699,14 @@ export namespace Price {
 
     maximum_amount: string | null;
 
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
     minimum: TieredPackageWithMinimumPrice.Minimum | null;
 
     minimum_amount: string | null;
@@ -1671,6 +1793,14 @@ export namespace Price {
 
     maximum_amount: string | null;
 
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
     minimum: PackageWithAllocationPrice.Minimum | null;
 
     minimum_amount: string | null;
@@ -1756,6 +1886,14 @@ export namespace Price {
     maximum: UnitWithPercentPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: UnitWithPercentPrice.Minimum | null;
 
@@ -1844,6 +1982,14 @@ export namespace Price {
     maximum: MatrixWithAllocationPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: MatrixWithAllocationPrice.Minimum | null;
 
@@ -1967,6 +2113,14 @@ export namespace Price {
 
     maximum_amount: string | null;
 
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
     minimum: TieredWithProrationPrice.Minimum | null;
 
     minimum_amount: string | null;
@@ -2052,6 +2206,14 @@ export namespace Price {
     maximum: UnitWithProrationPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: UnitWithProrationPrice.Minimum | null;
 
@@ -2195,6 +2357,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingUnitPrice {
@@ -2263,6 +2432,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingPackagePrice {
@@ -2337,6 +2513,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingMatrixPrice {
@@ -2431,6 +2614,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingMatrixWithAllocationPrice {
@@ -2530,6 +2720,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingTieredPrice {
@@ -2617,6 +2814,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingTieredBpsPrice {
@@ -2710,6 +2914,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingBpsPrice {
@@ -2783,6 +2994,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingBulkBpsPrice {
@@ -2871,6 +3089,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingBulkPrice {
@@ -2953,6 +3178,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingTieredPackagePrice {
@@ -3012,6 +3244,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingGroupedTieredPrice {
@@ -3071,6 +3310,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingTieredWithMinimumPrice {
@@ -3130,6 +3376,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingPackageWithAllocationPrice {
@@ -3189,6 +3442,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingTieredPackageWithMinimumPrice {
@@ -3248,6 +3508,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingUnitWithPercentPrice {
@@ -3307,6 +3574,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingTieredWithProrationPrice {
@@ -3366,6 +3640,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingUnitWithProrationPrice {
@@ -3425,7 +3706,23 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
+}
+
+export interface PriceUpdateParams {
+  /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: Record<string, string | null> | null;
 }
 
 export interface PriceListParams extends PageParams {}
@@ -3472,7 +3769,9 @@ export namespace Prices {
   export import PriceEvaluateResponse = PricesAPI.PriceEvaluateResponse;
   export import PricesPage = PricesAPI.PricesPage;
   export import PriceCreateParams = PricesAPI.PriceCreateParams;
+  export import PriceUpdateParams = PricesAPI.PriceUpdateParams;
   export import PriceListParams = PricesAPI.PriceListParams;
   export import PriceEvaluateParams = PricesAPI.PriceEvaluateParams;
   export import ExternalPriceID = ExternalPriceIDAPI.ExternalPriceID;
+  export import ExternalPriceIDUpdateParams = ExternalPriceIDAPI.ExternalPriceIDUpdateParams;
 }

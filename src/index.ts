@@ -275,6 +275,7 @@ export namespace Orb {
   export import InvoiceFetchUpcomingResponse = API.InvoiceFetchUpcomingResponse;
   export import InvoicesPage = API.InvoicesPage;
   export import InvoiceCreateParams = API.InvoiceCreateParams;
+  export import InvoiceUpdateParams = API.InvoiceUpdateParams;
   export import InvoiceListParams = API.InvoiceListParams;
   export import InvoiceFetchUpcomingParams = API.InvoiceFetchUpcomingParams;
   export import InvoiceMarkPaidParams = API.InvoiceMarkPaidParams;
@@ -307,6 +308,7 @@ export namespace Orb {
   export import PriceEvaluateResponse = API.PriceEvaluateResponse;
   export import PricesPage = API.PricesPage;
   export import PriceCreateParams = API.PriceCreateParams;
+  export import PriceUpdateParams = API.PriceUpdateParams;
   export import PriceListParams = API.PriceListParams;
   export import PriceEvaluateParams = API.PriceEvaluateParams;
 
