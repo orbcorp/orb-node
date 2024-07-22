@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../../core';
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
+import * as Core from '../../core';
 import * as PlansAPI from './plans';
 import * as Shared from '../shared';
 import * as ExternalPlanIDAPI from './external-plan-id';
@@ -228,7 +228,7 @@ export namespace Plan {
      */
     duration: number | null;
 
-    duration_unit: 'daily' | 'monthly' | 'quarterly' | 'annual' | null;
+    duration_unit: 'daily' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | null;
 
     maximum: PlanPhase.Maximum | null;
 
@@ -340,6 +340,12 @@ export interface PlanCreateParams {
    * to 0.
    */
   net_terms?: number | null;
+
+  /**
+   * The status of the plan to create (either active or draft). If not specified,
+   * this defaults to active.
+   */
+  status?: 'active' | 'draft';
 }
 
 export namespace PlanCreateParams {
@@ -347,7 +353,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -401,6 +407,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanUnitPrice {
@@ -416,7 +429,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -470,6 +483,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanPackagePrice {
@@ -491,7 +511,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -545,6 +565,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanMatrixPrice {
@@ -586,7 +613,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -640,6 +667,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanTieredPrice {
@@ -674,7 +708,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -728,6 +762,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanTieredBpsPrice {
@@ -770,7 +811,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -822,6 +863,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanBpsPrice {
@@ -844,7 +892,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -896,6 +944,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanBulkBpsPrice {
@@ -933,7 +988,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -985,6 +1040,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewPlanBulkPrice {
@@ -1014,7 +1076,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1068,13 +1130,20 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewPlanTieredPackagePrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1128,13 +1197,20 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewPlanTieredWithMinimumPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1188,13 +1264,20 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewPlanUnitWithPercentPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1248,13 +1331,20 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewPlanPackageWithAllocationPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1308,13 +1398,20 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewPlanTierWithProrationPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1368,13 +1465,20 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewPlanUnitWithProrationPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1428,6 +1532,13 @@ export namespace PlanCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 }
 

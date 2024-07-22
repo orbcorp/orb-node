@@ -52,14 +52,14 @@ describe('resource coupons', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       orb.coupons.list(
-        { cursor: 'string', limit: 1, redemption_code: 'string', show_archived: true },
+        { cursor: 'cursor', limit: 1, redemption_code: 'redemption_code', show_archived: true },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('archive', async () => {
-    const responsePromise = orb.coupons.archive('string');
+    const responsePromise = orb.coupons.archive('coupon_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -71,13 +71,13 @@ describe('resource coupons', () => {
 
   test('archive: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.coupons.archive('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.coupons.archive('coupon_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.coupons.fetch('string');
+    const responsePromise = orb.coupons.fetch('coupon_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -89,7 +89,7 @@ describe('resource coupons', () => {
 
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.coupons.fetch('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.coupons.fetch('coupon_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });

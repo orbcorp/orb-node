@@ -198,6 +198,7 @@ Types:
 Methods:
 
 - <code title="post /invoices">client.invoices.<a href="./src/resources/invoices.ts">create</a>({ ...params }) -> Invoice</code>
+- <code title="put /invoices/{invoice_id}">client.invoices.<a href="./src/resources/invoices.ts">update</a>(invoiceId, { ...params }) -> Invoice</code>
 - <code title="get /invoices">client.invoices.<a href="./src/resources/invoices.ts">list</a>({ ...params }) -> InvoicesPage</code>
 - <code title="get /invoices/{invoice_id}">client.invoices.<a href="./src/resources/invoices.ts">fetch</a>(invoiceId) -> Invoice</code>
 - <code title="get /invoices/upcoming">client.invoices.<a href="./src/resources/invoices.ts">fetchUpcoming</a>({ ...params }) -> InvoiceFetchUpcomingResponse</code>
@@ -263,6 +264,7 @@ Types:
 Methods:
 
 - <code title="post /prices">client.prices.<a href="./src/resources/prices/prices.ts">create</a>({ ...params }) -> Price</code>
+- <code title="put /prices/{price_id}">client.prices.<a href="./src/resources/prices/prices.ts">update</a>(priceId, { ...params }) -> Price</code>
 - <code title="get /prices">client.prices.<a href="./src/resources/prices/prices.ts">list</a>({ ...params }) -> PricesPage</code>
 - <code title="post /prices/{price_id}/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluate</a>(priceId, { ...params }) -> PriceEvaluateResponse</code>
 - <code title="get /prices/{price_id}">client.prices.<a href="./src/resources/prices/prices.ts">fetch</a>(priceId) -> Price</code>
@@ -271,6 +273,7 @@ Methods:
 
 Methods:
 
+- <code title="put /prices/external_price_id/{external_price_id}">client.prices.externalPriceId.<a href="./src/resources/prices/external-price-id.ts">update</a>(externalPriceId, { ...params }) -> Price</code>
 - <code title="get /prices/external_price_id/{external_price_id}">client.prices.externalPriceId.<a href="./src/resources/prices/external-price-id.ts">fetch</a>(externalPriceId) -> Price</code>
 
 # Subscriptions

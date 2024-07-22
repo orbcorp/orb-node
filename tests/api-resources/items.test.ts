@@ -24,14 +24,8 @@ describe('resource items', () => {
     const response = await orb.items.create({ name: 'API requests' });
   });
 
-  test('update: only required params', async () => {
-    const responsePromise = orb.items.update('string', {
-      external_connections: [
-        { external_connection_name: 'stripe', external_entity_id: 'string' },
-        { external_connection_name: 'stripe', external_entity_id: 'string' },
-        { external_connection_name: 'stripe', external_entity_id: 'string' },
-      ],
-    });
+  test('update', async () => {
+    const responsePromise = orb.items.update('item_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -41,15 +35,29 @@ describe('resource items', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('update: required and optional params', async () => {
-    const response = await orb.items.update('string', {
-      external_connections: [
-        { external_connection_name: 'stripe', external_entity_id: 'string' },
-        { external_connection_name: 'stripe', external_entity_id: 'string' },
-        { external_connection_name: 'stripe', external_entity_id: 'string' },
-      ],
-      metadata: { foo: 'string' },
-    });
+  test('update: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(orb.items.update('item_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Orb.NotFoundError,
+    );
+  });
+
+  test('update: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      orb.items.update(
+        'item_id',
+        {
+          external_connections: [
+            { external_connection_name: 'stripe', external_entity_id: 'external_entity_id' },
+            { external_connection_name: 'stripe', external_entity_id: 'external_entity_id' },
+            { external_connection_name: 'stripe', external_entity_id: 'external_entity_id' },
+          ],
+          name: 'name',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list', async () => {
@@ -71,12 +79,12 @@ describe('resource items', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.items.list({ cursor: 'string', limit: 1 }, { path: '/_stainless_unknown_path' }),
+      orb.items.list({ cursor: 'cursor', limit: 1 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.items.fetch('string');
+    const responsePromise = orb.items.fetch('item_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -88,7 +96,7 @@ describe('resource items', () => {
 
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.items.fetch('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.items.fetch('item_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });

@@ -21,7 +21,7 @@ describe('resource invoices', () => {
           name: 'Line Item Name',
           item_id: '4khy3nwzktxv7',
           model_type: 'unit',
-          unit_config: { unit_amount: 'string' },
+          unit_config: { unit_amount: 'unit_amount' },
         },
         {
           start_date: '2023-09-22',
@@ -30,7 +30,7 @@ describe('resource invoices', () => {
           name: 'Line Item Name',
           item_id: '4khy3nwzktxv7',
           model_type: 'unit',
-          unit_config: { unit_amount: 'string' },
+          unit_config: { unit_amount: 'unit_amount' },
         },
         {
           start_date: '2023-09-22',
@@ -39,7 +39,7 @@ describe('resource invoices', () => {
           name: 'Line Item Name',
           item_id: '4khy3nwzktxv7',
           model_type: 'unit',
-          unit_config: { unit_amount: 'string' },
+          unit_config: { unit_amount: 'unit_amount' },
         },
       ],
       net_terms: 0,
@@ -65,7 +65,7 @@ describe('resource invoices', () => {
           name: 'Line Item Name',
           item_id: '4khy3nwzktxv7',
           model_type: 'unit',
-          unit_config: { unit_amount: 'string' },
+          unit_config: { unit_amount: 'unit_amount' },
         },
         {
           start_date: '2023-09-22',
@@ -74,7 +74,7 @@ describe('resource invoices', () => {
           name: 'Line Item Name',
           item_id: '4khy3nwzktxv7',
           model_type: 'unit',
-          unit_config: { unit_amount: 'string' },
+          unit_config: { unit_amount: 'unit_amount' },
         },
         {
           start_date: '2023-09-22',
@@ -83,16 +83,51 @@ describe('resource invoices', () => {
           name: 'Line Item Name',
           item_id: '4khy3nwzktxv7',
           model_type: 'unit',
-          unit_config: { unit_amount: 'string' },
+          unit_config: { unit_amount: 'unit_amount' },
         },
       ],
       net_terms: 0,
       customer_id: '4khy3nwzktxv7',
+      discount: {
+        discount_type: 'percentage',
+        applies_to_price_ids: ['h74gfhdjvn7ujokd', '7hfgtgjnbvc3ujkl'],
+        reason: 'reason',
+        percentage_discount: 0.15,
+      },
       external_customer_id: 'external-customer-id',
       memo: 'An optional memo for my invoice.',
       metadata: { foo: 'string' },
       will_auto_issue: false,
     });
+  });
+
+  test('update', async () => {
+    const responsePromise = orb.invoices.update('invoice_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('update: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(orb.invoices.update('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Orb.NotFoundError,
+    );
+  });
+
+  test('update: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      orb.invoices.update(
+        'invoice_id',
+        { metadata: { foo: 'string' } },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list', async () => {
@@ -116,17 +151,17 @@ describe('resource invoices', () => {
     await expect(
       orb.invoices.list(
         {
-          amount: 'string',
-          'amount[gt]': 'string',
-          'amount[lt]': 'string',
-          cursor: 'string',
-          customer_id: 'string',
+          amount: 'amount',
+          'amount[gt]': 'amount[gt]',
+          'amount[lt]': 'amount[lt]',
+          cursor: 'cursor',
+          customer_id: 'customer_id',
           date_type: 'due_date',
           due_date: '2019-12-27',
-          due_date_window: 'string',
+          due_date_window: 'due_date_window',
           'due_date[gt]': '2019-12-27',
           'due_date[lt]': '2019-12-27',
-          external_customer_id: 'string',
+          external_customer_id: 'external_customer_id',
           'invoice_date[gt]': '2019-12-27T18:11:19.117Z',
           'invoice_date[gte]': '2019-12-27T18:11:19.117Z',
           'invoice_date[lt]': '2019-12-27T18:11:19.117Z',
@@ -134,7 +169,7 @@ describe('resource invoices', () => {
           is_recurring: true,
           limit: 1,
           status: ['draft', 'issued', 'paid'],
-          subscription_id: 'string',
+          subscription_id: 'subscription_id',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -142,7 +177,7 @@ describe('resource invoices', () => {
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.invoices.fetch('string');
+    const responsePromise = orb.invoices.fetch('invoice_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -154,7 +189,7 @@ describe('resource invoices', () => {
 
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.invoices.fetch('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.invoices.fetch('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
@@ -180,12 +215,15 @@ describe('resource invoices', () => {
   test('fetchUpcoming: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.invoices.fetchUpcoming({ subscription_id: 'string' }, { path: '/_stainless_unknown_path' }),
+      orb.invoices.fetchUpcoming(
+        { subscription_id: 'subscription_id' },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('issue', async () => {
-    const responsePromise = orb.invoices.issue('string');
+    const responsePromise = orb.invoices.issue('invoice_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -197,13 +235,13 @@ describe('resource invoices', () => {
 
   test('issue: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.invoices.issue('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.invoices.issue('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
 
   test('markPaid: only required params', async () => {
-    const responsePromise = orb.invoices.markPaid('string', { payment_received_date: '2023-09-22' });
+    const responsePromise = orb.invoices.markPaid('invoice_id', { payment_received_date: '2023-09-22' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -214,15 +252,15 @@ describe('resource invoices', () => {
   });
 
   test('markPaid: required and optional params', async () => {
-    const response = await orb.invoices.markPaid('string', {
+    const response = await orb.invoices.markPaid('invoice_id', {
       payment_received_date: '2023-09-22',
       external_id: 'external_payment_id_123',
-      notes: 'string',
+      notes: 'notes',
     });
   });
 
   test('void', async () => {
-    const responsePromise = orb.invoices.void('string');
+    const responsePromise = orb.invoices.void('invoice_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -234,7 +272,7 @@ describe('resource invoices', () => {
 
   test('void: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.invoices.void('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(orb.invoices.void('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../core';
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
+import * as Core from '../core';
 import * as InvoicesAPI from './invoices';
 import * as Shared from './shared';
 import * as PricesAPI from './prices/prices';
@@ -14,6 +14,30 @@ export class Invoices extends APIResource {
    */
   create(body: InvoiceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Invoice> {
     return this._client.post('/invoices', { body, ...options });
+  }
+
+  /**
+   * This endpoint allows you to update the `metadata` property on an invoice. If you
+   * pass null for the metadata value, it will clear any existing metadata for that
+   * invoice.
+   *
+   * `metadata` can be modified regardless of invoice state.
+   */
+  update(
+    invoiceId: string,
+    body?: InvoiceUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Invoice>;
+  update(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Invoice>;
+  update(
+    invoiceId: string,
+    body: InvoiceUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Invoice> {
+    if (isRequestOptions(body)) {
+      return this.update(invoiceId, {}, body);
+    }
+    return this._client.put(`/invoices/${invoiceId}`, { body, ...options });
   }
 
   /**
@@ -407,6 +431,11 @@ export namespace Invoice {
      * is not enabled for this invoice, this field will be `null`.
      */
     next_attempt_at: string | null;
+
+    /**
+     * Number of auto-collection payment attempts.
+     */
+    num_attempts: number | null;
 
     /**
      * If Orb has ever attempted payment auto-collection for this invoice, this field
@@ -1572,6 +1601,11 @@ export namespace InvoiceFetchUpcomingResponse {
     next_attempt_at: string | null;
 
     /**
+     * Number of auto-collection payment attempts.
+     */
+    num_attempts: number | null;
+
+    /**
      * If Orb has ever attempted payment auto-collection for this invoice, this field
      * will reflect when that attempt occurred. In conjunction with `next_attempt_at`,
      * this can be used to tell whether the invoice is currently in dunning (that is,
@@ -2470,6 +2504,11 @@ export interface InvoiceCreateParams {
   customer_id?: string | null;
 
   /**
+   * An optional discount to attach to the invoice.
+   */
+  discount?: Shared.Discount | null;
+
+  /**
    * The `external_customer_id` of the `Customer` to create this invoice for. One of
    * `customer_id` and `external_customer_id` are required.
    */
@@ -2531,6 +2570,15 @@ export namespace InvoiceCreateParams {
       unit_amount: string;
     }
   }
+}
+
+export interface InvoiceUpdateParams {
+  /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: Record<string, string | null> | null;
 }
 
 export interface InvoiceListParams extends PageParams {
@@ -2595,6 +2643,7 @@ export namespace Invoices {
   export import InvoiceFetchUpcomingResponse = InvoicesAPI.InvoiceFetchUpcomingResponse;
   export import InvoicesPage = InvoicesAPI.InvoicesPage;
   export import InvoiceCreateParams = InvoicesAPI.InvoiceCreateParams;
+  export import InvoiceUpdateParams = InvoicesAPI.InvoiceUpdateParams;
   export import InvoiceListParams = InvoicesAPI.InvoiceListParams;
   export import InvoiceFetchUpcomingParams = InvoicesAPI.InvoiceFetchUpcomingParams;
   export import InvoiceMarkPaidParams = InvoicesAPI.InvoiceMarkPaidParams;

@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from './core';
 import * as Errors from './error';
-import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
+import { type Agent } from './_shims/index';
 import * as qs from 'qs';
+import * as Core from './core';
 import * as Pagination from './pagination';
 import * as API from './resources/index';
 
@@ -76,7 +76,9 @@ export interface ClientOptions {
   defaultQuery?: Core.DefaultQuery;
 }
 
-/** API Client for interfacing with the Orb API. */
+/**
+ * API Client for interfacing with the Orb API.
+ */
 export class Orb extends Core.APIClient {
   apiKey: string;
   webhookSecret: string | null;
@@ -122,6 +124,7 @@ export class Orb extends Core.APIClient {
       maxRetries: options.maxRetries,
       fetch: options.fetch,
     });
+
     this._options = options;
     this.idempotencyHeader = 'Idempotency-Key';
 
@@ -273,6 +276,7 @@ export namespace Orb {
   export import InvoiceFetchUpcomingResponse = API.InvoiceFetchUpcomingResponse;
   export import InvoicesPage = API.InvoicesPage;
   export import InvoiceCreateParams = API.InvoiceCreateParams;
+  export import InvoiceUpdateParams = API.InvoiceUpdateParams;
   export import InvoiceListParams = API.InvoiceListParams;
   export import InvoiceFetchUpcomingParams = API.InvoiceFetchUpcomingParams;
   export import InvoiceMarkPaidParams = API.InvoiceMarkPaidParams;
@@ -305,6 +309,7 @@ export namespace Orb {
   export import PriceEvaluateResponse = API.PriceEvaluateResponse;
   export import PricesPage = API.PricesPage;
   export import PriceCreateParams = API.PriceCreateParams;
+  export import PriceUpdateParams = API.PriceUpdateParams;
   export import PriceListParams = API.PriceListParams;
   export import PriceEvaluateParams = API.PriceEvaluateParams;
 

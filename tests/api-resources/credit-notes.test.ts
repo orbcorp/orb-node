@@ -30,12 +30,12 @@ describe('resource creditNotes', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.creditNotes.list({ cursor: 'string', limit: 1 }, { path: '/_stainless_unknown_path' }),
+      orb.creditNotes.list({ cursor: 'cursor', limit: 1 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.creditNotes.fetch('string');
+    const responsePromise = orb.creditNotes.fetch('credit_note_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -47,8 +47,8 @@ describe('resource creditNotes', () => {
 
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.creditNotes.fetch('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
+    await expect(
+      orb.creditNotes.fetch('credit_note_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 });

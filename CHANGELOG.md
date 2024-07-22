@@ -1,5 +1,49 @@
 # Changelog
 
+## 3.0.0 (2024-07-18)
+
+Full Changelog: [v2.11.2...v3.0.0](https://github.com/orbcorp/orb-node/compare/v2.11.2...v3.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** endpoint expects amount of new allocation price to be a string, not a number ([#226](https://github.com/orbcorp/orb-node/issues/226))
+* **api:** add semi_annual cadence and remove metadata from update items ([#217](https://github.com/orbcorp/orb-node/issues/217))
+
+### Features
+
+* **api:** add 'status' to plan creation params ([#230](https://github.com/orbcorp/orb-node/issues/230)) ([0d738b9](https://github.com/orbcorp/orb-node/commit/0d738b9fb973d56e081901264253886718fdc270))
+* **api:** add methods to prices and invoices ([#235](https://github.com/orbcorp/orb-node/issues/235)) ([1c50e27](https://github.com/orbcorp/orb-node/commit/1c50e27f94d60647bdf99bbd2eef9c7cd0539190))
+* **api:** add semi_annual cadence and remove metadata from update items ([#217](https://github.com/orbcorp/orb-node/issues/217)) ([c1134f1](https://github.com/orbcorp/orb-node/commit/c1134f19e4d29b422fa601874b62a5894959f9a5))
+* **api:** add support for adding allocation price to subscription ([#223](https://github.com/orbcorp/orb-node/issues/223)) ([2b73c46](https://github.com/orbcorp/orb-node/commit/2b73c469e6b19ea95ff5c7ced1f6c556eaec6f25))
+* **api:** add support for query param include_all_blocks ([#227](https://github.com/orbcorp/orb-node/issues/227)) ([cbf7f33](https://github.com/orbcorp/orb-node/commit/cbf7f33382499d8d5196c74ac95f5e032fb4a258))
+* **api:** external connections made optional when updating items ([#224](https://github.com/orbcorp/orb-node/issues/224)) ([1fada3b](https://github.com/orbcorp/orb-node/commit/1fada3b670af7bfd426678b111511f8202047ad3))
+* **api:** updates ([#221](https://github.com/orbcorp/orb-node/issues/221)) ([69af019](https://github.com/orbcorp/orb-node/commit/69af019189172ffd10d418b9aead6b6ca6b1f326))
+* support `application/octet-stream` request bodies ([#219](https://github.com/orbcorp/orb-node/issues/219)) ([d4dbb98](https://github.com/orbcorp/orb-node/commit/d4dbb9885cbd6c5f123234827fb8772c234e3bdd))
+
+
+### Bug Fixes
+
+* **api:** endpoint expects amount of new allocation price to be a string, not a number ([#226](https://github.com/orbcorp/orb-node/issues/226)) ([2595cad](https://github.com/orbcorp/orb-node/commit/2595cadb368f042cfdc16720f30afd520046a92d))
+* **api:** escape browser check string ([#220](https://github.com/orbcorp/orb-node/issues/220)) ([ce68fda](https://github.com/orbcorp/orb-node/commit/ce68fdacc0b32cffac21c045f62a8bfdfe827d93))
+
+
+### Chores
+
+* **ci:** also run workflows for PRs targeting `next` ([#231](https://github.com/orbcorp/orb-node/issues/231)) ([bf5cbd5](https://github.com/orbcorp/orb-node/commit/bf5cbd59fb5e93200d024395fecc423287e9f3a5))
+* **ci:** limit release doctor target branches ([#237](https://github.com/orbcorp/orb-node/issues/237)) ([91cd764](https://github.com/orbcorp/orb-node/commit/91cd7642cbb8beaa0b3ffb04f4a0f0dd491a6fa4))
+* **docs:** improve Coupon description ([#222](https://github.com/orbcorp/orb-node/issues/222)) ([df63181](https://github.com/orbcorp/orb-node/commit/df631819cd356a83fe2b64879480eed963707edf))
+* **docs:** mention support of web browser runtimes ([#234](https://github.com/orbcorp/orb-node/issues/234)) ([60a2812](https://github.com/orbcorp/orb-node/commit/60a2812d215238569787787233c5fdd4fdffe293))
+* **docs:** minor update to formatting of API link in README ([#233](https://github.com/orbcorp/orb-node/issues/233)) ([bc2ab56](https://github.com/orbcorp/orb-node/commit/bc2ab563a742a31df5994c028004020ab5724123))
+* **docs:** updates price intervals docs ([#228](https://github.com/orbcorp/orb-node/issues/228)) ([e640a63](https://github.com/orbcorp/orb-node/commit/e640a63783cd6d141e7947348bcc22bf0908c574))
+* **docs:** use client instead of package name in Node examples ([#236](https://github.com/orbcorp/orb-node/issues/236)) ([15ec443](https://github.com/orbcorp/orb-node/commit/15ec443a3a31b2f27ac9d203543e57d078446838))
+* gitignore test server logs ([#229](https://github.com/orbcorp/orb-node/issues/229)) ([6e9959f](https://github.com/orbcorp/orb-node/commit/6e9959f99678f58b9febe2e642913e2a662b50a1))
+* **internal:** minor reformatting ([#225](https://github.com/orbcorp/orb-node/issues/225)) ([1a7b1c3](https://github.com/orbcorp/orb-node/commit/1a7b1c3b19c839161e010c4bd38a3aad9ca6a5e8))
+
+
+### Documentation
+
+* **examples:** update example values ([#232](https://github.com/orbcorp/orb-node/issues/232)) ([7315dbc](https://github.com/orbcorp/orb-node/commit/7315dbc65581cbfbb4270d909345c66857e9889a))
+
 ## 2.11.2 (2024-06-04)
 
 Full Changelog: [v2.11.1...v2.11.2](https://github.com/orbcorp/orb-node/compare/v2.11.1...v2.11.2)

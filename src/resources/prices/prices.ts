@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../../core';
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
+import * as Core from '../../core';
 import * as PricesAPI from './prices';
 import * as Shared from '../shared';
 import * as ExternalPriceIDAPI from './external-price-id';
@@ -25,6 +25,24 @@ export class Prices extends APIResource {
    */
   create(body: PriceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Price> {
     return this._client.post('/prices', { body, ...options });
+  }
+
+  /**
+   * This endpoint allows you to update the `metadata` property on a price. If you
+   * pass null for the metadata value, it will clear any existing metadata for that
+   * price.
+   */
+  update(priceId: string, body?: PriceUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Price>;
+  update(priceId: string, options?: Core.RequestOptions): Core.APIPromise<Price>;
+  update(
+    priceId: string,
+    body: PriceUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Price> {
+    if (isRequestOptions(body)) {
+      return this.update(priceId, {}, body);
+    }
+    return this._client.put(`/prices/${priceId}`, { body, ...options });
   }
 
   /**
@@ -360,7 +378,7 @@ export namespace Price {
 
     billable_metric: UnitPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -381,6 +399,14 @@ export namespace Price {
     maximum: UnitPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: UnitPrice.Minimum | null;
 
@@ -453,7 +479,7 @@ export namespace Price {
 
     billable_metric: PackagePrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -474,6 +500,14 @@ export namespace Price {
     maximum: PackagePrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: PackagePrice.Minimum | null;
 
@@ -552,7 +586,7 @@ export namespace Price {
 
     billable_metric: MatrixPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -575,6 +609,14 @@ export namespace Price {
     maximum: MatrixPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: MatrixPrice.Minimum | null;
 
@@ -671,7 +713,7 @@ export namespace Price {
 
     billable_metric: TieredPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -692,6 +734,14 @@ export namespace Price {
     maximum: TieredPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: TieredPrice.Minimum | null;
 
@@ -783,7 +833,7 @@ export namespace Price {
 
     billable_metric: TieredBpsPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -804,6 +854,14 @@ export namespace Price {
     maximum: TieredBpsPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: TieredBpsPrice.Minimum | null;
 
@@ -903,7 +961,7 @@ export namespace Price {
 
     bps_config: BpsPrice.BpsConfig;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -924,6 +982,14 @@ export namespace Price {
     maximum: BpsPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: BpsPrice.Minimum | null;
 
@@ -1001,7 +1067,7 @@ export namespace Price {
 
     bulk_bps_config: BulkBpsPrice.BulkBpsConfig;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -1022,6 +1088,14 @@ export namespace Price {
     maximum: BulkBpsPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: BulkBpsPrice.Minimum | null;
 
@@ -1114,7 +1188,7 @@ export namespace Price {
 
     bulk_config: BulkPrice.BulkConfig;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -1135,6 +1209,14 @@ export namespace Price {
     maximum: BulkPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: BulkPrice.Minimum | null;
 
@@ -1219,7 +1301,7 @@ export namespace Price {
 
     billable_metric: ThresholdTotalAmountPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -1240,6 +1322,14 @@ export namespace Price {
     maximum: ThresholdTotalAmountPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: ThresholdTotalAmountPrice.Minimum | null;
 
@@ -1305,7 +1395,7 @@ export namespace Price {
 
     billable_metric: TieredPackagePrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -1326,6 +1416,14 @@ export namespace Price {
     maximum: TieredPackagePrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: TieredPackagePrice.Minimum | null;
 
@@ -1391,7 +1489,7 @@ export namespace Price {
 
     billable_metric: GroupedTieredPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -1414,6 +1512,14 @@ export namespace Price {
     maximum: GroupedTieredPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: GroupedTieredPrice.Minimum | null;
 
@@ -1477,7 +1583,7 @@ export namespace Price {
 
     billable_metric: TieredWithMinimumPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -1498,6 +1604,14 @@ export namespace Price {
     maximum: TieredWithMinimumPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: TieredWithMinimumPrice.Minimum | null;
 
@@ -1563,7 +1677,7 @@ export namespace Price {
 
     billable_metric: TieredPackageWithMinimumPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -1584,6 +1698,14 @@ export namespace Price {
     maximum: TieredPackageWithMinimumPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: TieredPackageWithMinimumPrice.Minimum | null;
 
@@ -1649,7 +1771,7 @@ export namespace Price {
 
     billable_metric: PackageWithAllocationPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -1670,6 +1792,14 @@ export namespace Price {
     maximum: PackageWithAllocationPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: PackageWithAllocationPrice.Minimum | null;
 
@@ -1735,7 +1865,7 @@ export namespace Price {
 
     billable_metric: UnitWithPercentPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -1756,6 +1886,14 @@ export namespace Price {
     maximum: UnitWithPercentPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: UnitWithPercentPrice.Minimum | null;
 
@@ -1821,7 +1959,7 @@ export namespace Price {
 
     billable_metric: MatrixWithAllocationPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -1844,6 +1982,14 @@ export namespace Price {
     maximum: MatrixWithAllocationPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: MatrixWithAllocationPrice.Minimum | null;
 
@@ -1945,7 +2091,7 @@ export namespace Price {
 
     billable_metric: TieredWithProrationPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -1966,6 +2112,14 @@ export namespace Price {
     maximum: TieredWithProrationPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: TieredWithProrationPrice.Minimum | null;
 
@@ -2031,7 +2185,7 @@ export namespace Price {
 
     billable_metric: UnitWithProrationPrice.BillableMetric | null;
 
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'annual';
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
     conversion_rate: number | null;
 
@@ -2052,6 +2206,14 @@ export namespace Price {
     maximum: UnitWithProrationPrice.Maximum | null;
 
     maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
 
     minimum: UnitWithProrationPrice.Minimum | null;
 
@@ -2142,7 +2304,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2195,6 +2357,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingUnitPrice {
@@ -2210,7 +2379,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2263,6 +2432,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingPackagePrice {
@@ -2284,7 +2460,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2337,6 +2513,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingMatrixPrice {
@@ -2378,7 +2561,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2431,6 +2614,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingMatrixWithAllocationPrice {
@@ -2477,7 +2667,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2530,6 +2720,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingTieredPrice {
@@ -2564,7 +2761,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2617,6 +2814,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingTieredBpsPrice {
@@ -2659,7 +2863,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2710,6 +2914,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingBpsPrice {
@@ -2732,7 +2943,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2783,6 +2994,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingBulkBpsPrice {
@@ -2820,7 +3038,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2871,6 +3089,13 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export namespace NewFloatingBulkPrice {
@@ -2900,7 +3125,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2953,13 +3178,20 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingTieredPackagePrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3012,13 +3244,20 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingGroupedTieredPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3071,13 +3310,20 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingTieredWithMinimumPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3130,13 +3376,20 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingPackageWithAllocationPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3189,13 +3442,20 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingTieredPackageWithMinimumPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3248,13 +3508,20 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingUnitWithPercentPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3307,13 +3574,20 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingTieredWithProrationPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3366,13 +3640,20 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
 
   export interface NewFloatingUnitWithProrationPrice {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3425,7 +3706,23 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
   }
+}
+
+export interface PriceUpdateParams {
+  /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: Record<string, string | null> | null;
 }
 
 export interface PriceListParams extends PageParams {}
@@ -3472,7 +3769,9 @@ export namespace Prices {
   export import PriceEvaluateResponse = PricesAPI.PriceEvaluateResponse;
   export import PricesPage = PricesAPI.PricesPage;
   export import PriceCreateParams = PricesAPI.PriceCreateParams;
+  export import PriceUpdateParams = PricesAPI.PriceUpdateParams;
   export import PriceListParams = PricesAPI.PriceListParams;
   export import PriceEvaluateParams = PricesAPI.PriceEvaluateParams;
   export import ExternalPriceID = ExternalPriceIDAPI.ExternalPriceID;
+  export import ExternalPriceIDUpdateParams = ExternalPriceIDAPI.ExternalPriceIDUpdateParams;
 }
