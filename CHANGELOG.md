@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.0.1 (2024-07-25)
+
+Full Changelog: [v3.0.0...v3.0.1](https://github.com/orbcorp/orb-node/compare/v3.0.0...v3.0.1)
+
+### Bug Fixes
+
+* **compat:** remove ReadableStream polyfill redundant since node v16 ([#241](https://github.com/orbcorp/orb-node/issues/241)) ([ad290c4](https://github.com/orbcorp/orb-node/commit/ad290c452f41ef1c2f61451b8f12f2a0530eef80))
+
+
+### Chores
+
+* **tests:** update prism version ([#239](https://github.com/orbcorp/orb-node/issues/239)) ([3d42c76](https://github.com/orbcorp/orb-node/commit/3d42c76165954546c638956031293c7c46e67f0f))
+
 ## 3.0.0 (2024-07-18)
 
 Full Changelog: [v2.11.2...v3.0.0](https://github.com/orbcorp/orb-node/compare/v2.11.2...v3.0.0)
