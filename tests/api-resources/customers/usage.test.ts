@@ -3,14 +3,14 @@
 import Orb from 'orb-billing';
 import { Response } from 'node-fetch';
 
-const orb = new Orb({
+const client = new Orb({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource usage', () => {
   test('update: only required params', async () => {
-    const responsePromise = orb.customers.usage.update('customer_id', {
+    const responsePromise = client.customers.usage.update('customer_id', {
       events: [
         { event_name: 'event_name', timestamp: '2020-12-09T16:09:53Z', properties: {} },
         { event_name: 'event_name', timestamp: '2020-12-09T16:09:53Z', properties: {} },
@@ -27,7 +27,7 @@ describe('resource usage', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await orb.customers.usage.update('customer_id', {
+    const response = await client.customers.usage.update('customer_id', {
       events: [
         {
           customer_id: 'customer_id',
@@ -57,7 +57,7 @@ describe('resource usage', () => {
   });
 
   test('updateByExternalId: only required params', async () => {
-    const responsePromise = orb.customers.usage.updateByExternalId('external_customer_id', {
+    const responsePromise = client.customers.usage.updateByExternalId('external_customer_id', {
       events: [
         { event_name: 'event_name', timestamp: '2020-12-09T16:09:53Z', properties: {} },
         { event_name: 'event_name', timestamp: '2020-12-09T16:09:53Z', properties: {} },
@@ -74,7 +74,7 @@ describe('resource usage', () => {
   });
 
   test('updateByExternalId: required and optional params', async () => {
-    const response = await orb.customers.usage.updateByExternalId('external_customer_id', {
+    const response = await client.customers.usage.updateByExternalId('external_customer_id', {
       events: [
         {
           customer_id: 'customer_id',

@@ -3,14 +3,14 @@
 import Orb from 'orb-billing';
 import { Response } from 'node-fetch';
 
-const orb = new Orb({
+const client = new Orb({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource customers', () => {
   test('create: only required params', async () => {
-    const responsePromise = orb.customers.create({ email: 'email', name: 'name' });
+    const responsePromise = client.customers.create({ email: 'email', name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource customers', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await orb.customers.create({
+    const response = await client.customers.create({
       email: 'email',
       name: 'name',
       accounting_sync_configuration: {
@@ -63,7 +63,7 @@ describe('resource customers', () => {
   });
 
   test('update', async () => {
-    const responsePromise = orb.customers.update('customer_id');
+    const responsePromise = client.customers.update('customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -75,15 +75,15 @@ describe('resource customers', () => {
 
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.customers.update('customer_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
+    await expect(
+      client.customers.update('customer_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.update(
+      client.customers.update(
         'customer_id',
         {
           accounting_sync_configuration: {
@@ -129,7 +129,7 @@ describe('resource customers', () => {
   });
 
   test('list', async () => {
-    const responsePromise = orb.customers.list();
+    const responsePromise = client.customers.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -141,13 +141,15 @@ describe('resource customers', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.customers.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(Orb.NotFoundError);
+    await expect(client.customers.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Orb.NotFoundError,
+    );
   });
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.list(
+      client.customers.list(
         {
           'created_at[gt]': '2019-12-27T18:11:19.117Z',
           'created_at[gte]': '2019-12-27T18:11:19.117Z',
@@ -162,7 +164,7 @@ describe('resource customers', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = orb.customers.delete('customer_id');
+    const responsePromise = client.customers.delete('customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -174,13 +176,13 @@ describe('resource customers', () => {
 
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.customers.delete('customer_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
+    await expect(
+      client.customers.delete('customer_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.customers.fetch('customer_id');
+    const responsePromise = client.customers.fetch('customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -192,13 +194,13 @@ describe('resource customers', () => {
 
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.customers.fetch('customer_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.customers.fetch('customer_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
 
   test('fetchByExternalId', async () => {
-    const responsePromise = orb.customers.fetchByExternalId('external_customer_id');
+    const responsePromise = client.customers.fetchByExternalId('external_customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -211,12 +213,12 @@ describe('resource customers', () => {
   test('fetchByExternalId: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.fetchByExternalId('external_customer_id', { path: '/_stainless_unknown_path' }),
+      client.customers.fetchByExternalId('external_customer_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('updateByExternalId', async () => {
-    const responsePromise = orb.customers.updateByExternalId('external_customer_id');
+    const responsePromise = client.customers.updateByExternalId('external_customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -229,14 +231,14 @@ describe('resource customers', () => {
   test('updateByExternalId: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.updateByExternalId('external_customer_id', { path: '/_stainless_unknown_path' }),
+      client.customers.updateByExternalId('external_customer_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('updateByExternalId: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.updateByExternalId(
+      client.customers.updateByExternalId(
         'external_customer_id',
         {
           accounting_sync_configuration: {
