@@ -3,14 +3,14 @@
 import Orb from 'orb-billing';
 import { Response } from 'node-fetch';
 
-const orb = new Orb({
+const client = new Orb({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource subscriptions', () => {
   test('create', async () => {
-    const responsePromise = orb.subscriptions.create();
+    const responsePromise = client.subscriptions.create();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource subscriptions', () => {
 
   test('create: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.subscriptions.create({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.subscriptions.create({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
@@ -30,7 +30,7 @@ describe('resource subscriptions', () => {
   test('create: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.create(
+      client.subscriptions.create(
         {
           align_billing_with_subscription_start_date: true,
           auto_collection: true,
@@ -114,7 +114,7 @@ describe('resource subscriptions', () => {
   });
 
   test('update', async () => {
-    const responsePromise = orb.subscriptions.update('subscription_id');
+    const responsePromise = client.subscriptions.update('subscription_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -127,14 +127,14 @@ describe('resource subscriptions', () => {
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.update('subscription_id', { path: '/_stainless_unknown_path' }),
+      client.subscriptions.update('subscription_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.update(
+      client.subscriptions.update(
         'subscription_id',
         {
           auto_collection: true,
@@ -149,7 +149,7 @@ describe('resource subscriptions', () => {
   });
 
   test('list', async () => {
-    const responsePromise = orb.subscriptions.list();
+    const responsePromise = client.subscriptions.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -161,7 +161,7 @@ describe('resource subscriptions', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.subscriptions.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.subscriptions.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
@@ -169,7 +169,7 @@ describe('resource subscriptions', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.list(
+      client.subscriptions.list(
         {
           'created_at[gt]': '2019-12-27T18:11:19.117Z',
           'created_at[gte]': '2019-12-27T18:11:19.117Z',
@@ -187,7 +187,7 @@ describe('resource subscriptions', () => {
   });
 
   test('cancel: only required params', async () => {
-    const responsePromise = orb.subscriptions.cancel('subscription_id', {
+    const responsePromise = client.subscriptions.cancel('subscription_id', {
       cancel_option: 'end_of_subscription_term',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -200,14 +200,14 @@ describe('resource subscriptions', () => {
   });
 
   test('cancel: required and optional params', async () => {
-    const response = await orb.subscriptions.cancel('subscription_id', {
+    const response = await client.subscriptions.cancel('subscription_id', {
       cancel_option: 'end_of_subscription_term',
       cancellation_date: '2019-12-27T18:11:19.117Z',
     });
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.subscriptions.fetch('subscription_id');
+    const responsePromise = client.subscriptions.fetch('subscription_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -220,12 +220,12 @@ describe('resource subscriptions', () => {
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.fetch('subscription_id', { path: '/_stainless_unknown_path' }),
+      client.subscriptions.fetch('subscription_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('fetchCosts', async () => {
-    const responsePromise = orb.subscriptions.fetchCosts('subscription_id');
+    const responsePromise = client.subscriptions.fetchCosts('subscription_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -238,14 +238,14 @@ describe('resource subscriptions', () => {
   test('fetchCosts: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.fetchCosts('subscription_id', { path: '/_stainless_unknown_path' }),
+      client.subscriptions.fetchCosts('subscription_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('fetchCosts: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.fetchCosts(
+      client.subscriptions.fetchCosts(
         'subscription_id',
         {
           timeframe_end: '2022-03-01T05:00:00Z',
@@ -258,7 +258,7 @@ describe('resource subscriptions', () => {
   });
 
   test('fetchSchedule', async () => {
-    const responsePromise = orb.subscriptions.fetchSchedule('subscription_id');
+    const responsePromise = client.subscriptions.fetchSchedule('subscription_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -271,14 +271,14 @@ describe('resource subscriptions', () => {
   test('fetchSchedule: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.fetchSchedule('subscription_id', { path: '/_stainless_unknown_path' }),
+      client.subscriptions.fetchSchedule('subscription_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('fetchSchedule: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.fetchSchedule(
+      client.subscriptions.fetchSchedule(
         'subscription_id',
         {
           cursor: 'cursor',
@@ -295,7 +295,7 @@ describe('resource subscriptions', () => {
 
   // Incorrect example breaks Prism
   test.skip('fetchUsage', async () => {
-    const responsePromise = orb.subscriptions.fetchUsage('subscription_id');
+    const responsePromise = client.subscriptions.fetchUsage('subscription_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -309,7 +309,7 @@ describe('resource subscriptions', () => {
   test.skip('fetchUsage: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.fetchUsage('subscription_id', { path: '/_stainless_unknown_path' }),
+      client.subscriptions.fetchUsage('subscription_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
@@ -317,7 +317,7 @@ describe('resource subscriptions', () => {
   test.skip('fetchUsage: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.fetchUsage(
+      client.subscriptions.fetchUsage(
         'subscription_id',
         {
           billable_metric_id: 'billable_metric_id',
@@ -340,7 +340,7 @@ describe('resource subscriptions', () => {
 
   // Incorrect example breaks Prism
   test.skip('priceIntervals', async () => {
-    const responsePromise = orb.subscriptions.priceIntervals('subscription_id');
+    const responsePromise = client.subscriptions.priceIntervals('subscription_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -354,7 +354,7 @@ describe('resource subscriptions', () => {
   test.skip('priceIntervals: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.priceIntervals('subscription_id', { path: '/_stainless_unknown_path' }),
+      client.subscriptions.priceIntervals('subscription_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
@@ -362,7 +362,7 @@ describe('resource subscriptions', () => {
   test.skip('priceIntervals: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.priceIntervals(
+      client.subscriptions.priceIntervals(
         'subscription_id',
         {
           add: [
@@ -572,7 +572,7 @@ describe('resource subscriptions', () => {
   });
 
   test('schedulePlanChange: only required params', async () => {
-    const responsePromise = orb.subscriptions.schedulePlanChange('subscription_id', {
+    const responsePromise = client.subscriptions.schedulePlanChange('subscription_id', {
       change_option: 'requested_date',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -585,7 +585,7 @@ describe('resource subscriptions', () => {
   });
 
   test('schedulePlanChange: required and optional params', async () => {
-    const response = await orb.subscriptions.schedulePlanChange('subscription_id', {
+    const response = await client.subscriptions.schedulePlanChange('subscription_id', {
       change_option: 'requested_date',
       align_billing_with_plan_change_date: true,
       billing_cycle_alignment: 'unchanged',
@@ -657,7 +657,7 @@ describe('resource subscriptions', () => {
   });
 
   test('triggerPhase', async () => {
-    const responsePromise = orb.subscriptions.triggerPhase('subscription_id');
+    const responsePromise = client.subscriptions.triggerPhase('subscription_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -670,14 +670,14 @@ describe('resource subscriptions', () => {
   test('triggerPhase: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.triggerPhase('subscription_id', { path: '/_stainless_unknown_path' }),
+      client.subscriptions.triggerPhase('subscription_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('triggerPhase: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.triggerPhase(
+      client.subscriptions.triggerPhase(
         'subscription_id',
         { effective_date: '2019-12-27' },
         { path: '/_stainless_unknown_path' },
@@ -686,7 +686,7 @@ describe('resource subscriptions', () => {
   });
 
   test('unscheduleCancellation', async () => {
-    const responsePromise = orb.subscriptions.unscheduleCancellation('subscription_id');
+    const responsePromise = client.subscriptions.unscheduleCancellation('subscription_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -699,12 +699,12 @@ describe('resource subscriptions', () => {
   test('unscheduleCancellation: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.unscheduleCancellation('subscription_id', { path: '/_stainless_unknown_path' }),
+      client.subscriptions.unscheduleCancellation('subscription_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('unscheduleFixedFeeQuantityUpdates: only required params', async () => {
-    const responsePromise = orb.subscriptions.unscheduleFixedFeeQuantityUpdates('subscription_id', {
+    const responsePromise = client.subscriptions.unscheduleFixedFeeQuantityUpdates('subscription_id', {
       price_id: 'price_id',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -717,13 +717,13 @@ describe('resource subscriptions', () => {
   });
 
   test('unscheduleFixedFeeQuantityUpdates: required and optional params', async () => {
-    const response = await orb.subscriptions.unscheduleFixedFeeQuantityUpdates('subscription_id', {
+    const response = await client.subscriptions.unscheduleFixedFeeQuantityUpdates('subscription_id', {
       price_id: 'price_id',
     });
   });
 
   test('unschedulePendingPlanChanges', async () => {
-    const responsePromise = orb.subscriptions.unschedulePendingPlanChanges('subscription_id');
+    const responsePromise = client.subscriptions.unschedulePendingPlanChanges('subscription_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -736,12 +736,14 @@ describe('resource subscriptions', () => {
   test('unschedulePendingPlanChanges: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.subscriptions.unschedulePendingPlanChanges('subscription_id', { path: '/_stainless_unknown_path' }),
+      client.subscriptions.unschedulePendingPlanChanges('subscription_id', {
+        path: '/_stainless_unknown_path',
+      }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('updateFixedFeeQuantity: only required params', async () => {
-    const responsePromise = orb.subscriptions.updateFixedFeeQuantity('subscription_id', {
+    const responsePromise = client.subscriptions.updateFixedFeeQuantity('subscription_id', {
       price_id: 'price_id',
       quantity: 0,
     });
@@ -755,7 +757,7 @@ describe('resource subscriptions', () => {
   });
 
   test('updateFixedFeeQuantity: required and optional params', async () => {
-    const response = await orb.subscriptions.updateFixedFeeQuantity('subscription_id', {
+    const response = await client.subscriptions.updateFixedFeeQuantity('subscription_id', {
       price_id: 'price_id',
       quantity: 0,
       change_option: 'immediate',
