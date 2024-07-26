@@ -3,14 +3,14 @@
 import Orb from 'orb-billing';
 import { Response } from 'node-fetch';
 
-const orb = new Orb({
+const client = new Orb({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource alerts', () => {
   test('retrieve', async () => {
-    const responsePromise = orb.alerts.retrieve('alert_id');
+    const responsePromise = client.alerts.retrieve('alert_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,14 +22,14 @@ describe('resource alerts', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.alerts.retrieve('alert_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.alerts.retrieve('alert_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
 
   // plan_version=0 breaks Prism
   test.skip('list', async () => {
-    const responsePromise = orb.alerts.list();
+    const responsePromise = client.alerts.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,14 +42,14 @@ describe('resource alerts', () => {
   // plan_version=0 breaks Prism
   test.skip('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.alerts.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(Orb.NotFoundError);
+    await expect(client.alerts.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(Orb.NotFoundError);
   });
 
   // plan_version=0 breaks Prism
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.alerts.list(
+      client.alerts.list(
         {
           'created_at[gt]': '2019-12-27T18:11:19.117Z',
           'created_at[gte]': '2019-12-27T18:11:19.117Z',
@@ -67,7 +67,7 @@ describe('resource alerts', () => {
   });
 
   test('createForCustomer: only required params', async () => {
-    const responsePromise = orb.alerts.createForCustomer('customer_id', {
+    const responsePromise = client.alerts.createForCustomer('customer_id', {
       currency: 'currency',
       type: 'type',
     });
@@ -81,7 +81,7 @@ describe('resource alerts', () => {
   });
 
   test('createForCustomer: required and optional params', async () => {
-    const response = await orb.alerts.createForCustomer('customer_id', {
+    const response = await client.alerts.createForCustomer('customer_id', {
       currency: 'currency',
       type: 'type',
       thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
@@ -89,7 +89,7 @@ describe('resource alerts', () => {
   });
 
   test('createForExternalCustomer: only required params', async () => {
-    const responsePromise = orb.alerts.createForExternalCustomer('external_customer_id', {
+    const responsePromise = client.alerts.createForExternalCustomer('external_customer_id', {
       currency: 'currency',
       type: 'type',
     });
@@ -103,7 +103,7 @@ describe('resource alerts', () => {
   });
 
   test('createForExternalCustomer: required and optional params', async () => {
-    const response = await orb.alerts.createForExternalCustomer('external_customer_id', {
+    const response = await client.alerts.createForExternalCustomer('external_customer_id', {
       currency: 'currency',
       type: 'type',
       thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
@@ -111,7 +111,7 @@ describe('resource alerts', () => {
   });
 
   test('createForSubscription: only required params', async () => {
-    const responsePromise = orb.alerts.createForSubscription('subscription_id', {
+    const responsePromise = client.alerts.createForSubscription('subscription_id', {
       thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
       type: 'type',
     });
@@ -125,7 +125,7 @@ describe('resource alerts', () => {
   });
 
   test('createForSubscription: required and optional params', async () => {
-    const response = await orb.alerts.createForSubscription('subscription_id', {
+    const response = await client.alerts.createForSubscription('subscription_id', {
       thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
       type: 'type',
       metric_id: 'metric_id',
@@ -133,7 +133,7 @@ describe('resource alerts', () => {
   });
 
   test('disable', async () => {
-    const responsePromise = orb.alerts.disable('alert_configuration_id');
+    const responsePromise = client.alerts.disable('alert_configuration_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -146,12 +146,12 @@ describe('resource alerts', () => {
   test('disable: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.alerts.disable('alert_configuration_id', { path: '/_stainless_unknown_path' }),
+      client.alerts.disable('alert_configuration_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('enable', async () => {
-    const responsePromise = orb.alerts.enable('alert_configuration_id');
+    const responsePromise = client.alerts.enable('alert_configuration_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -164,7 +164,7 @@ describe('resource alerts', () => {
   test('enable: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.alerts.enable('alert_configuration_id', { path: '/_stainless_unknown_path' }),
+      client.alerts.enable('alert_configuration_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 });

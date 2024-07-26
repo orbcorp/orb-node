@@ -3,14 +3,14 @@
 import Orb from 'orb-billing';
 import { Response } from 'node-fetch';
 
-const orb = new Orb({
+const client = new Orb({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource plans', () => {
   test('create: only required params', async () => {
-    const responsePromise = orb.plans.create({
+    const responsePromise = client.plans.create({
       currency: 'currency',
       name: 'name',
       prices: [
@@ -33,7 +33,7 @@ describe('resource plans', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await orb.plans.create({
+    const response = await client.plans.create({
       currency: 'currency',
       name: 'name',
       prices: [
@@ -62,7 +62,7 @@ describe('resource plans', () => {
   });
 
   test('update', async () => {
-    const responsePromise = orb.plans.update('plan_id');
+    const responsePromise = client.plans.update('plan_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -74,7 +74,7 @@ describe('resource plans', () => {
 
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.plans.update('plan_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.plans.update('plan_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
@@ -82,7 +82,7 @@ describe('resource plans', () => {
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.plans.update(
+      client.plans.update(
         'plan_id',
         { external_plan_id: 'external_plan_id', metadata: { foo: 'string' } },
         { path: '/_stainless_unknown_path' },
@@ -91,7 +91,7 @@ describe('resource plans', () => {
   });
 
   test('list', async () => {
-    const responsePromise = orb.plans.list();
+    const responsePromise = client.plans.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -103,13 +103,13 @@ describe('resource plans', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.plans.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(Orb.NotFoundError);
+    await expect(client.plans.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.plans.list(
+      client.plans.list(
         {
           'created_at[gt]': '2019-12-27T18:11:19.117Z',
           'created_at[gte]': '2019-12-27T18:11:19.117Z',
@@ -125,7 +125,7 @@ describe('resource plans', () => {
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.plans.fetch('plan_id');
+    const responsePromise = client.plans.fetch('plan_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -137,7 +137,7 @@ describe('resource plans', () => {
 
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.plans.fetch('plan_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.plans.fetch('plan_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });

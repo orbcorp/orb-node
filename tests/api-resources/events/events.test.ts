@@ -3,14 +3,14 @@
 import Orb from 'orb-billing';
 import { Response } from 'node-fetch';
 
-const orb = new Orb({
+const client = new Orb({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource events', () => {
   test('update: only required params', async () => {
-    const responsePromise = orb.events.update('event_id', {
+    const responsePromise = client.events.update('event_id', {
       event_name: 'event_name',
       properties: {},
       timestamp: '2020-12-09T16:09:53Z',
@@ -25,7 +25,7 @@ describe('resource events', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await orb.events.update('event_id', {
+    const response = await client.events.update('event_id', {
       event_name: 'event_name',
       properties: {},
       timestamp: '2020-12-09T16:09:53Z',
@@ -35,7 +35,7 @@ describe('resource events', () => {
   });
 
   test('deprecate', async () => {
-    const responsePromise = orb.events.deprecate('event_id');
+    const responsePromise = client.events.deprecate('event_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -47,13 +47,13 @@ describe('resource events', () => {
 
   test('deprecate: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.events.deprecate('event_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.events.deprecate('event_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
 
   test('ingest: only required params', async () => {
-    const responsePromise = orb.events.ingest({
+    const responsePromise = client.events.ingest({
       events: [
         {
           event_name: 'event_name',
@@ -85,7 +85,7 @@ describe('resource events', () => {
   });
 
   test('ingest: required and optional params', async () => {
-    const response = await orb.events.ingest({
+    const response = await client.events.ingest({
       events: [
         {
           customer_id: 'customer_id',
@@ -118,7 +118,7 @@ describe('resource events', () => {
   });
 
   test('search: only required params', async () => {
-    const responsePromise = orb.events.search({ event_ids: ['string'] });
+    const responsePromise = client.events.search({ event_ids: ['string'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -129,7 +129,7 @@ describe('resource events', () => {
   });
 
   test('search: required and optional params', async () => {
-    const response = await orb.events.search({
+    const response = await client.events.search({
       event_ids: ['string'],
       timeframe_end: '2019-12-27T18:11:19.117Z',
       timeframe_start: '2019-12-27T18:11:19.117Z',

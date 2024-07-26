@@ -25,7 +25,10 @@ const client = new Orb({
 });
 
 async function main() {
-  const customer = await orb.customers.create({ email: 'example-customer@withorb.com', name: 'My Customer' });
+  const customer = await client.customers.create({
+    email: 'example-customer@withorb.com',
+    name: 'My Customer',
+  });
 
   console.log(customer.id);
 }
@@ -47,7 +50,7 @@ const client = new Orb({
 
 async function main() {
   const params: Orb.CustomerCreateParams = { email: 'example-customer@withorb.com', name: 'My Customer' };
-  const customer: Orb.Customer = await orb.customers.create(params);
+  const customer: Orb.Customer = await client.customers.create(params);
 }
 
 main();
@@ -64,7 +67,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const customer = await orb.customers
+  const customer = await client.customers
     .create({ email: 'example-customer@withorb.com', name: 'My Customer' })
     .catch(async (err) => {
       if (err instanceof Orb.APIError) {
@@ -109,7 +112,7 @@ const client = new Orb({
 });
 
 // Or, configure per-request:
-await orb.customers.create({ email: 'example-customer@withorb.com', name: 'My Customer' }, {
+await client.customers.create({ email: 'example-customer@withorb.com', name: 'My Customer' }, {
   maxRetries: 5,
 });
 ```
@@ -126,7 +129,7 @@ const client = new Orb({
 });
 
 // Override per-request:
-await orb.customers.create({ email: 'example-customer@withorb.com', name: 'My Customer' }, {
+await client.customers.create({ email: 'example-customer@withorb.com', name: 'My Customer' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -144,7 +147,7 @@ You can use `for await … of` syntax to iterate through items across all pages:
 async function fetchAllCoupons(params) {
   const allCoupons = [];
   // Automatically fetches more pages as needed.
-  for await (const coupon of orb.coupons.list()) {
+  for await (const coupon of client.coupons.list()) {
     allCoupons.push(coupon);
   }
   return allCoupons;
@@ -154,7 +157,7 @@ async function fetchAllCoupons(params) {
 Alternatively, you can make request a single page at a time:
 
 ```ts
-let page = await orb.coupons.list();
+let page = await client.coupons.list();
 for (const coupon of page.data) {
   console.log(coupon);
 }
@@ -178,13 +181,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Orb();
 
-const response = await orb.customers
+const response = await client.customers
   .create({ email: 'example-customer@withorb.com', name: 'My Customer' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: customer, response: raw } = await orb.customers
+const { data: customer, response: raw } = await client.customers
   .create({ email: 'example-customer@withorb.com', name: 'My Customer' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
@@ -292,7 +295,7 @@ const client = new Orb({
 });
 
 // Override per-request:
-await orb.customers.create(
+await client.customers.create(
   { email: 'example-customer@withorb.com', name: 'My Customer' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
