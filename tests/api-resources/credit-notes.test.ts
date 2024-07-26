@@ -3,14 +3,14 @@
 import Orb from 'orb-billing';
 import { Response } from 'node-fetch';
 
-const orb = new Orb({
+const client = new Orb({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource creditNotes', () => {
   test('list', async () => {
-    const responsePromise = orb.creditNotes.list();
+    const responsePromise = client.creditNotes.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource creditNotes', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.creditNotes.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.creditNotes.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
@@ -30,12 +30,12 @@ describe('resource creditNotes', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.creditNotes.list({ cursor: 'cursor', limit: 1 }, { path: '/_stainless_unknown_path' }),
+      client.creditNotes.list({ cursor: 'cursor', limit: 1 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.creditNotes.fetch('credit_note_id');
+    const responsePromise = client.creditNotes.fetch('credit_note_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -48,7 +48,7 @@ describe('resource creditNotes', () => {
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.creditNotes.fetch('credit_note_id', { path: '/_stainless_unknown_path' }),
+      client.creditNotes.fetch('credit_note_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 });

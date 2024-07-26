@@ -3,14 +3,14 @@
 import Orb from 'orb-billing';
 import { Response } from 'node-fetch';
 
-const orb = new Orb({
+const client = new Orb({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource invoices', () => {
   test('create: only required params', async () => {
-    const responsePromise = orb.invoices.create({
+    const responsePromise = client.invoices.create({
       currency: 'USD',
       invoice_date: '2019-12-27T18:11:19.117Z',
       line_items: [
@@ -54,7 +54,7 @@ describe('resource invoices', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await orb.invoices.create({
+    const response = await client.invoices.create({
       currency: 'USD',
       invoice_date: '2019-12-27T18:11:19.117Z',
       line_items: [
@@ -102,7 +102,7 @@ describe('resource invoices', () => {
   });
 
   test('update', async () => {
-    const responsePromise = orb.invoices.update('invoice_id');
+    const responsePromise = client.invoices.update('invoice_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -114,7 +114,7 @@ describe('resource invoices', () => {
 
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.invoices.update('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.invoices.update('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
@@ -122,7 +122,7 @@ describe('resource invoices', () => {
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.invoices.update(
+      client.invoices.update(
         'invoice_id',
         { metadata: { foo: 'string' } },
         { path: '/_stainless_unknown_path' },
@@ -131,7 +131,7 @@ describe('resource invoices', () => {
   });
 
   test('list', async () => {
-    const responsePromise = orb.invoices.list();
+    const responsePromise = client.invoices.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -143,13 +143,15 @@ describe('resource invoices', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.invoices.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(Orb.NotFoundError);
+    await expect(client.invoices.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Orb.NotFoundError,
+    );
   });
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.invoices.list(
+      client.invoices.list(
         {
           amount: 'amount',
           'amount[gt]': 'amount[gt]',
@@ -177,7 +179,7 @@ describe('resource invoices', () => {
   });
 
   test('fetch', async () => {
-    const responsePromise = orb.invoices.fetch('invoice_id');
+    const responsePromise = client.invoices.fetch('invoice_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -189,13 +191,13 @@ describe('resource invoices', () => {
 
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.invoices.fetch('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.invoices.fetch('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
 
   test('fetchUpcoming', async () => {
-    const responsePromise = orb.invoices.fetchUpcoming();
+    const responsePromise = client.invoices.fetchUpcoming();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -207,7 +209,7 @@ describe('resource invoices', () => {
 
   test('fetchUpcoming: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.invoices.fetchUpcoming({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.invoices.fetchUpcoming({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
@@ -215,7 +217,7 @@ describe('resource invoices', () => {
   test('fetchUpcoming: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.invoices.fetchUpcoming(
+      client.invoices.fetchUpcoming(
         { subscription_id: 'subscription_id' },
         { path: '/_stainless_unknown_path' },
       ),
@@ -223,7 +225,7 @@ describe('resource invoices', () => {
   });
 
   test('issue', async () => {
-    const responsePromise = orb.invoices.issue('invoice_id');
+    const responsePromise = client.invoices.issue('invoice_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -235,13 +237,13 @@ describe('resource invoices', () => {
 
   test('issue: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.invoices.issue('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.invoices.issue('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });
 
   test('markPaid: only required params', async () => {
-    const responsePromise = orb.invoices.markPaid('invoice_id', { payment_received_date: '2023-09-22' });
+    const responsePromise = client.invoices.markPaid('invoice_id', { payment_received_date: '2023-09-22' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -252,7 +254,7 @@ describe('resource invoices', () => {
   });
 
   test('markPaid: required and optional params', async () => {
-    const response = await orb.invoices.markPaid('invoice_id', {
+    const response = await client.invoices.markPaid('invoice_id', {
       payment_received_date: '2023-09-22',
       external_id: 'external_payment_id_123',
       notes: 'notes',
@@ -260,7 +262,7 @@ describe('resource invoices', () => {
   });
 
   test('void', async () => {
-    const responsePromise = orb.invoices.void('invoice_id');
+    const responsePromise = client.invoices.void('invoice_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -272,7 +274,7 @@ describe('resource invoices', () => {
 
   test('void: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(orb.invoices.void('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.invoices.void('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
   });

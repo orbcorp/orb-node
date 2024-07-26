@@ -3,14 +3,14 @@
 import Orb from 'orb-billing';
 import { Response } from 'node-fetch';
 
-const orb = new Orb({
+const client = new Orb({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource topUps', () => {
   test('create: only required params', async () => {
-    const responsePromise = orb.customers.credits.topUps.create('customer_id', {
+    const responsePromise = client.customers.credits.topUps.create('customer_id', {
       amount: 'amount',
       currency: 'currency',
       invoice_settings: { auto_collection: true, net_terms: 0 },
@@ -27,7 +27,7 @@ describe('resource topUps', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await orb.customers.credits.topUps.create('customer_id', {
+    const response = await client.customers.credits.topUps.create('customer_id', {
       amount: 'amount',
       currency: 'currency',
       invoice_settings: {
@@ -44,7 +44,7 @@ describe('resource topUps', () => {
   });
 
   test('list', async () => {
-    const responsePromise = orb.customers.credits.topUps.list('customer_id');
+    const responsePromise = client.customers.credits.topUps.list('customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -57,14 +57,14 @@ describe('resource topUps', () => {
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.topUps.list('customer_id', { path: '/_stainless_unknown_path' }),
+      client.customers.credits.topUps.list('customer_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.topUps.list(
+      client.customers.credits.topUps.list(
         'customer_id',
         { cursor: 'cursor', limit: 1 },
         { path: '/_stainless_unknown_path' },
@@ -73,7 +73,7 @@ describe('resource topUps', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = orb.customers.credits.topUps.delete('customer_id', 'top_up_id');
+    const responsePromise = client.customers.credits.topUps.delete('customer_id', 'top_up_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -86,12 +86,14 @@ describe('resource topUps', () => {
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.topUps.delete('customer_id', 'top_up_id', { path: '/_stainless_unknown_path' }),
+      client.customers.credits.topUps.delete('customer_id', 'top_up_id', {
+        path: '/_stainless_unknown_path',
+      }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('createByExternalId: only required params', async () => {
-    const responsePromise = orb.customers.credits.topUps.createByExternalId('external_customer_id', {
+    const responsePromise = client.customers.credits.topUps.createByExternalId('external_customer_id', {
       amount: 'amount',
       currency: 'currency',
       invoice_settings: { auto_collection: true, net_terms: 0 },
@@ -108,7 +110,7 @@ describe('resource topUps', () => {
   });
 
   test('createByExternalId: required and optional params', async () => {
-    const response = await orb.customers.credits.topUps.createByExternalId('external_customer_id', {
+    const response = await client.customers.credits.topUps.createByExternalId('external_customer_id', {
       amount: 'amount',
       currency: 'currency',
       invoice_settings: {
@@ -125,7 +127,7 @@ describe('resource topUps', () => {
   });
 
   test('deleteByExternalId', async () => {
-    const responsePromise = orb.customers.credits.topUps.deleteByExternalId(
+    const responsePromise = client.customers.credits.topUps.deleteByExternalId(
       'external_customer_id',
       'top_up_id',
     );
@@ -141,14 +143,14 @@ describe('resource topUps', () => {
   test('deleteByExternalId: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.topUps.deleteByExternalId('external_customer_id', 'top_up_id', {
+      client.customers.credits.topUps.deleteByExternalId('external_customer_id', 'top_up_id', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('listByExternalId', async () => {
-    const responsePromise = orb.customers.credits.topUps.listByExternalId('external_customer_id');
+    const responsePromise = client.customers.credits.topUps.listByExternalId('external_customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -161,7 +163,7 @@ describe('resource topUps', () => {
   test('listByExternalId: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.topUps.listByExternalId('external_customer_id', {
+      client.customers.credits.topUps.listByExternalId('external_customer_id', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Orb.NotFoundError);
@@ -170,7 +172,7 @@ describe('resource topUps', () => {
   test('listByExternalId: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.topUps.listByExternalId(
+      client.customers.credits.topUps.listByExternalId(
         'external_customer_id',
         { cursor: 'cursor', limit: 1 },
         { path: '/_stainless_unknown_path' },

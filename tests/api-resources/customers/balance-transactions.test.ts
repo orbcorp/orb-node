@@ -3,14 +3,14 @@
 import Orb from 'orb-billing';
 import { Response } from 'node-fetch';
 
-const orb = new Orb({
+const client = new Orb({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource balanceTransactions', () => {
   test('create: only required params', async () => {
-    const responsePromise = orb.customers.balanceTransactions.create('customer_id', {
+    const responsePromise = client.customers.balanceTransactions.create('customer_id', {
       amount: 'amount',
       type: 'increment',
     });
@@ -24,7 +24,7 @@ describe('resource balanceTransactions', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await orb.customers.balanceTransactions.create('customer_id', {
+    const response = await client.customers.balanceTransactions.create('customer_id', {
       amount: 'amount',
       type: 'increment',
       description: 'description',
@@ -32,7 +32,7 @@ describe('resource balanceTransactions', () => {
   });
 
   test('list', async () => {
-    const responsePromise = orb.customers.balanceTransactions.list('customer_id');
+    const responsePromise = client.customers.balanceTransactions.list('customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -45,14 +45,14 @@ describe('resource balanceTransactions', () => {
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.balanceTransactions.list('customer_id', { path: '/_stainless_unknown_path' }),
+      client.customers.balanceTransactions.list('customer_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.balanceTransactions.list(
+      client.customers.balanceTransactions.list(
         'customer_id',
         {
           cursor: 'cursor',

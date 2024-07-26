@@ -3,14 +3,14 @@
 import Orb from 'orb-billing';
 import { Response } from 'node-fetch';
 
-const orb = new Orb({
+const client = new Orb({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource ledger', () => {
   test('list', async () => {
-    const responsePromise = orb.customers.credits.ledger.list('customer_id');
+    const responsePromise = client.customers.credits.ledger.list('customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,14 +23,14 @@ describe('resource ledger', () => {
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.ledger.list('customer_id', { path: '/_stainless_unknown_path' }),
+      client.customers.credits.ledger.list('customer_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.ledger.list(
+      client.customers.credits.ledger.list(
         'customer_id',
         {
           'created_at[gt]': '2019-12-27T18:11:19.117Z',
@@ -50,7 +50,7 @@ describe('resource ledger', () => {
   });
 
   test('createEntry: only required params', async () => {
-    const responsePromise = orb.customers.credits.ledger.createEntry('customer_id', {
+    const responsePromise = client.customers.credits.ledger.createEntry('customer_id', {
       amount: 0,
       entry_type: 'increment',
     });
@@ -64,7 +64,7 @@ describe('resource ledger', () => {
   });
 
   test('createEntry: required and optional params', async () => {
-    const response = await orb.customers.credits.ledger.createEntry('customer_id', {
+    const response = await client.customers.credits.ledger.createEntry('customer_id', {
       amount: 0,
       entry_type: 'increment',
       currency: 'currency',
@@ -83,7 +83,7 @@ describe('resource ledger', () => {
   });
 
   test('createEntryByExternalId: only required params', async () => {
-    const responsePromise = orb.customers.credits.ledger.createEntryByExternalId('external_customer_id', {
+    const responsePromise = client.customers.credits.ledger.createEntryByExternalId('external_customer_id', {
       amount: 0,
       entry_type: 'increment',
     });
@@ -97,7 +97,7 @@ describe('resource ledger', () => {
   });
 
   test('createEntryByExternalId: required and optional params', async () => {
-    const response = await orb.customers.credits.ledger.createEntryByExternalId('external_customer_id', {
+    const response = await client.customers.credits.ledger.createEntryByExternalId('external_customer_id', {
       amount: 0,
       entry_type: 'increment',
       currency: 'currency',
@@ -116,7 +116,7 @@ describe('resource ledger', () => {
   });
 
   test('listByExternalId', async () => {
-    const responsePromise = orb.customers.credits.ledger.listByExternalId('external_customer_id');
+    const responsePromise = client.customers.credits.ledger.listByExternalId('external_customer_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -129,7 +129,7 @@ describe('resource ledger', () => {
   test('listByExternalId: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.ledger.listByExternalId('external_customer_id', {
+      client.customers.credits.ledger.listByExternalId('external_customer_id', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Orb.NotFoundError);
@@ -138,7 +138,7 @@ describe('resource ledger', () => {
   test('listByExternalId: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      orb.customers.credits.ledger.listByExternalId(
+      client.customers.credits.ledger.listByExternalId(
         'external_customer_id',
         {
           'created_at[gt]': '2019-12-27T18:11:19.117Z',
