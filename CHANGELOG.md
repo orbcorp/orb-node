@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.1.0 (2024-07-29)
+
+Full Changelog: [v3.0.1...v3.1.0](https://github.com/orbcorp/orb-node/compare/v3.0.1...v3.1.0)
+
+### Features
+
+* **api:** add cadence enum value 'custom' ([#244](https://github.com/orbcorp/orb-node/issues/244)) ([8db1917](https://github.com/orbcorp/orb-node/commit/8db19172e092e52e29d391f973742a504bcdbcb8))
+
+
+### Chores
+
+* **docs:** fix incorrect client var names ([#242](https://github.com/orbcorp/orb-node/issues/242)) ([46900a2](https://github.com/orbcorp/orb-node/commit/46900a23dcefbd766d98caf623357cbca51c78ab))
+
 ## 3.0.1 (2024-07-25)
 
 Full Changelog: [v3.0.0...v3.0.1](https://github.com/orbcorp/orb-node/compare/v3.0.0...v3.0.1)
