@@ -167,6 +167,7 @@ export class Orb extends Core.APIClient {
   }
 
   static Orb = this;
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
 
   static OrbError = Errors.OrbError;
   static APIError = Errors.APIError;
