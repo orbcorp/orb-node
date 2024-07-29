@@ -3699,7 +3699,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The cadence at which to allocate the amount to the customer.
        */
-      cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
+      cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
       /**
        * An ISO 4217 currency string or a custom pricing unit identifier in which to bill
