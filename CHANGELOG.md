@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.2.0 (2024-08-02)
+
+Full Changelog: [v3.1.0...v3.2.0](https://github.com/orbcorp/orb-node/compare/v3.1.0...v3.2.0)
+
+### Features
+
+* **api:** deprecate methods 'customers.usage.create' and 'customers.usage.update_by_external_id' ([#248](https://github.com/orbcorp/orb-node/issues/248)) ([4f5bc2e](https://github.com/orbcorp/orb-node/commit/4f5bc2e6e5c5b7dbde267bbde421a923ef94746d))
+
+
+### Chores
+
+* **ci:** correctly tag pre-release npm packages ([#247](https://github.com/orbcorp/orb-node/issues/247)) ([918a911](https://github.com/orbcorp/orb-node/commit/918a91158cdf5b667afe822d996b4b84948a6896))
+* **internal:** add constant for default timeout ([#245](https://github.com/orbcorp/orb-node/issues/245)) ([f712a96](https://github.com/orbcorp/orb-node/commit/f712a960c1669da437965338beb0b53b82e228cf))
+
 ## 3.1.0 (2024-07-29)
 
 Full Changelog: [v3.0.1...v3.1.0](https://github.com/orbcorp/orb-node/compare/v3.0.1...v3.1.0)
