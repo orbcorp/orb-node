@@ -321,12 +321,10 @@ describe('resource subscriptions', () => {
         'subscription_id',
         {
           billable_metric_id: 'billable_metric_id',
-          cursor: 'cursor',
           first_dimension_key: 'first_dimension_key',
           first_dimension_value: 'first_dimension_value',
           granularity: 'day',
           group_by: 'group_by',
-          limit: 0,
           second_dimension_key: 'second_dimension_key',
           second_dimension_value: 'second_dimension_value',
           timeframe_end: '2022-03-01T05:00:00Z',
