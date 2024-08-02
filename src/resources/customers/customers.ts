@@ -6,13 +6,11 @@ import * as Core from '../../core';
 import * as CustomersAPI from './customers';
 import * as BalanceTransactionsAPI from './balance-transactions';
 import * as CostsAPI from './costs';
-import * as UsageAPI from './usage';
 import * as CreditsAPI from './credits/credits';
 import { Page, type PageParams } from '../../pagination';
 
 export class Customers extends APIResource {
   costs: CostsAPI.Costs = new CostsAPI.Costs(this._client);
-  usage: UsageAPI.Usage = new UsageAPI.Usage(this._client);
   credits: CreditsAPI.Credits = new CreditsAPI.Credits(this._client);
   balanceTransactions: BalanceTransactionsAPI.BalanceTransactions =
     new BalanceTransactionsAPI.BalanceTransactions(this._client);
@@ -2172,11 +2170,6 @@ export namespace Customers {
   export import CostListByExternalIDResponse = CostsAPI.CostListByExternalIDResponse;
   export import CostListParams = CostsAPI.CostListParams;
   export import CostListByExternalIDParams = CostsAPI.CostListByExternalIDParams;
-  export import Usage = UsageAPI.Usage;
-  export import UsageUpdateResponse = UsageAPI.UsageUpdateResponse;
-  export import UsageUpdateByExternalIDResponse = UsageAPI.UsageUpdateByExternalIDResponse;
-  export import UsageUpdateParams = UsageAPI.UsageUpdateParams;
-  export import UsageUpdateByExternalIDParams = UsageAPI.UsageUpdateByExternalIDParams;
   export import Credits = CreditsAPI.Credits;
   export import CreditListResponse = CreditsAPI.CreditListResponse;
   export import CreditListByExternalIDResponse = CreditsAPI.CreditListByExternalIDResponse;
