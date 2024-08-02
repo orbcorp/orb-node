@@ -102,6 +102,8 @@ export class Usage extends APIResource {
    *
    * In order to overwrite timeframes with a very large number of events, we suggest
    * using multiple calls with small adjacent (e.g. every hour) timeframes.
+   *
+   * @deprecated This method will be removed in a future release. Please use the 'events.backfills.create' instead.
    */
   update(
     id: string,
@@ -213,6 +215,8 @@ export class Usage extends APIResource {
    *
    * In order to overwrite timeframes with a very large number of events, we suggest
    * using multiple calls with small adjacent (e.g. every hour) timeframes.
+   *
+   * @deprecated This method will be removed in a future release. Please use the 'events.backfills.create' instead.
    */
   updateByExternalId(
     id: string,
