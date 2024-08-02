@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.0.0 (2024-08-02)
+
+Full Changelog: [v3.2.0...v4.0.0](https://github.com/orbcorp/orb-node/compare/v3.2.0...v4.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** remove methods 'customers.usage.create' and 'customers.usage.update_by_external_id' ([#249](https://github.com/orbcorp/orb-node/issues/249))
+
+### Features
+
+* **api:** remove methods 'customers.usage.create' and 'customers.usage.update_by_external_id' ([#249](https://github.com/orbcorp/orb-node/issues/249)) ([2c10956](https://github.com/orbcorp/orb-node/commit/2c1095665ad03abe2977b2fc848ea005de34d06d))
+
 ## 3.2.0 (2024-08-02)
 
 Full Changelog: [v3.1.0...v3.2.0](https://github.com/orbcorp/orb-node/compare/v3.1.0...v3.2.0)
