@@ -378,6 +378,8 @@ export namespace Price {
 
     billable_metric: UnitPrice.BillableMetric | null;
 
+    billing_cycle_configuration: UnitPrice.BillingCycleConfiguration | null;
+
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
@@ -426,6 +428,12 @@ export namespace Price {
   export namespace UnitPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface CreditAllocation {
@@ -479,6 +487,8 @@ export namespace Price {
 
     billable_metric: PackagePrice.BillableMetric | null;
 
+    billing_cycle_configuration: PackagePrice.BillingCycleConfiguration | null;
+
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
@@ -527,6 +537,12 @@ export namespace Price {
   export namespace PackagePrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface CreditAllocation {
@@ -586,6 +602,8 @@ export namespace Price {
 
     billable_metric: MatrixPrice.BillableMetric | null;
 
+    billing_cycle_configuration: MatrixPrice.BillingCycleConfiguration | null;
+
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
@@ -634,6 +652,12 @@ export namespace Price {
   export namespace MatrixPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface CreditAllocation {
@@ -713,6 +737,8 @@ export namespace Price {
 
     billable_metric: TieredPrice.BillableMetric | null;
 
+    billing_cycle_configuration: TieredPrice.BillingCycleConfiguration | null;
+
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
@@ -761,6 +787,12 @@ export namespace Price {
   export namespace TieredPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface CreditAllocation {
@@ -833,6 +865,8 @@ export namespace Price {
 
     billable_metric: TieredBpsPrice.BillableMetric | null;
 
+    billing_cycle_configuration: TieredBpsPrice.BillingCycleConfiguration | null;
+
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
@@ -881,6 +915,12 @@ export namespace Price {
   export namespace TieredBpsPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface CreditAllocation {
@@ -959,6 +999,8 @@ export namespace Price {
 
     billable_metric: BpsPrice.BillableMetric | null;
 
+    billing_cycle_configuration: BpsPrice.BillingCycleConfiguration | null;
+
     bps_config: BpsPrice.BpsConfig;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
@@ -1007,6 +1049,12 @@ export namespace Price {
   export namespace BpsPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface BpsConfig {
@@ -1065,6 +1113,8 @@ export namespace Price {
 
     billable_metric: BulkBpsPrice.BillableMetric | null;
 
+    billing_cycle_configuration: BulkBpsPrice.BillingCycleConfiguration | null;
+
     bulk_bps_config: BulkBpsPrice.BulkBpsConfig;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
@@ -1113,6 +1163,12 @@ export namespace Price {
   export namespace BulkBpsPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface BulkBpsConfig {
@@ -1186,6 +1242,8 @@ export namespace Price {
 
     billable_metric: BulkPrice.BillableMetric | null;
 
+    billing_cycle_configuration: BulkPrice.BillingCycleConfiguration | null;
+
     bulk_config: BulkPrice.BulkConfig;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
@@ -1234,6 +1292,12 @@ export namespace Price {
   export namespace BulkPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface BulkConfig {
@@ -1301,6 +1365,8 @@ export namespace Price {
 
     billable_metric: ThresholdTotalAmountPrice.BillableMetric | null;
 
+    billing_cycle_configuration: ThresholdTotalAmountPrice.BillingCycleConfiguration | null;
+
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
@@ -1351,6 +1417,12 @@ export namespace Price {
       id: string;
     }
 
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface CreditAllocation {
       allows_rollover: boolean;
 
@@ -1394,6 +1466,8 @@ export namespace Price {
     id: string;
 
     billable_metric: TieredPackagePrice.BillableMetric | null;
+
+    billing_cycle_configuration: TieredPackagePrice.BillingCycleConfiguration | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1445,6 +1519,12 @@ export namespace Price {
       id: string;
     }
 
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface CreditAllocation {
       allows_rollover: boolean;
 
@@ -1488,6 +1568,8 @@ export namespace Price {
     id: string;
 
     billable_metric: GroupedTieredPrice.BillableMetric | null;
+
+    billing_cycle_configuration: GroupedTieredPrice.BillingCycleConfiguration | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1539,6 +1621,12 @@ export namespace Price {
       id: string;
     }
 
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface CreditAllocation {
       allows_rollover: boolean;
 
@@ -1582,6 +1670,8 @@ export namespace Price {
     id: string;
 
     billable_metric: TieredWithMinimumPrice.BillableMetric | null;
+
+    billing_cycle_configuration: TieredWithMinimumPrice.BillingCycleConfiguration | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1633,6 +1723,12 @@ export namespace Price {
       id: string;
     }
 
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface CreditAllocation {
       allows_rollover: boolean;
 
@@ -1676,6 +1772,8 @@ export namespace Price {
     id: string;
 
     billable_metric: TieredPackageWithMinimumPrice.BillableMetric | null;
+
+    billing_cycle_configuration: TieredPackageWithMinimumPrice.BillingCycleConfiguration | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1727,6 +1825,12 @@ export namespace Price {
       id: string;
     }
 
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface CreditAllocation {
       allows_rollover: boolean;
 
@@ -1770,6 +1874,8 @@ export namespace Price {
     id: string;
 
     billable_metric: PackageWithAllocationPrice.BillableMetric | null;
+
+    billing_cycle_configuration: PackageWithAllocationPrice.BillingCycleConfiguration | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1821,6 +1927,12 @@ export namespace Price {
       id: string;
     }
 
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface CreditAllocation {
       allows_rollover: boolean;
 
@@ -1864,6 +1976,8 @@ export namespace Price {
     id: string;
 
     billable_metric: UnitWithPercentPrice.BillableMetric | null;
+
+    billing_cycle_configuration: UnitWithPercentPrice.BillingCycleConfiguration | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1915,6 +2029,12 @@ export namespace Price {
       id: string;
     }
 
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface CreditAllocation {
       allows_rollover: boolean;
 
@@ -1958,6 +2078,8 @@ export namespace Price {
     id: string;
 
     billable_metric: MatrixWithAllocationPrice.BillableMetric | null;
+
+    billing_cycle_configuration: MatrixWithAllocationPrice.BillingCycleConfiguration | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2007,6 +2129,12 @@ export namespace Price {
   export namespace MatrixWithAllocationPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface CreditAllocation {
@@ -2091,6 +2219,8 @@ export namespace Price {
 
     billable_metric: TieredWithProrationPrice.BillableMetric | null;
 
+    billing_cycle_configuration: TieredWithProrationPrice.BillingCycleConfiguration | null;
+
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
@@ -2141,6 +2271,12 @@ export namespace Price {
       id: string;
     }
 
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface CreditAllocation {
       allows_rollover: boolean;
 
@@ -2184,6 +2320,8 @@ export namespace Price {
     id: string;
 
     billable_metric: UnitWithProrationPrice.BillableMetric | null;
+
+    billing_cycle_configuration: UnitWithProrationPrice.BillingCycleConfiguration | null;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2233,6 +2371,12 @@ export namespace Price {
   export namespace UnitWithProrationPrice {
     export interface BillableMetric {
       id: string;
+    }
+
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface CreditAllocation {
@@ -2304,7 +2448,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2379,7 +2523,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2460,7 +2604,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2561,7 +2705,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2667,7 +2811,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2761,7 +2905,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2863,7 +3007,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2943,7 +3087,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3038,7 +3182,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3125,7 +3269,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3191,7 +3335,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3257,7 +3401,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3323,7 +3467,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3389,7 +3533,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3455,7 +3599,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3521,7 +3665,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3587,7 +3731,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -3653,7 +3797,7 @@ export namespace PriceCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * An ISO 4217 currency string for which this price is billed in.

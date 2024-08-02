@@ -74,18 +74,6 @@ Methods:
 - <code title="get /customers/{customer_id}/costs">client.customers.costs.<a href="./src/resources/customers/costs.ts">list</a>(customerId, { ...params }) -> CostListResponse</code>
 - <code title="get /customers/external_customer_id/{external_customer_id}/costs">client.customers.costs.<a href="./src/resources/customers/costs.ts">listByExternalId</a>(externalCustomerId, { ...params }) -> CostListByExternalIDResponse</code>
 
-## Usage
-
-Types:
-
-- <code><a href="./src/resources/customers/usage.ts">UsageUpdateResponse</a></code>
-- <code><a href="./src/resources/customers/usage.ts">UsageUpdateByExternalIDResponse</a></code>
-
-Methods:
-
-- <code title="patch /customers/{customer_id}/usage">client.customers.usage.<a href="./src/resources/customers/usage.ts">update</a>(id, { ...params }) -> UsageUpdateResponse</code>
-- <code title="patch /customers/external_customer_id/{external_customer_id}/usage">client.customers.usage.<a href="./src/resources/customers/usage.ts">updateByExternalId</a>(id, { ...params }) -> UsageUpdateByExternalIDResponse</code>
-
 ## Credits
 
 Types:

@@ -353,7 +353,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -429,7 +429,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -511,7 +511,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -613,7 +613,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -708,7 +708,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -811,7 +811,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -892,7 +892,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -988,7 +988,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1076,7 +1076,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1143,7 +1143,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1210,7 +1210,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1277,7 +1277,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1344,7 +1344,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1411,7 +1411,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
@@ -1478,7 +1478,7 @@ export namespace PlanCreateParams {
     /**
      * The cadence to bill for this price on.
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time';
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
      * The id of the item the plan will be associated with.
