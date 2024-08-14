@@ -233,12 +233,17 @@ export interface AlertCreateForCustomerParams {
   currency: string;
 
   /**
-   * The thresholds that define the values at which the alert will be triggered.
+   * The type of alert to create. This must be a valid alert type.
    */
-  type: string;
+  type:
+    | 'usage_exceeded'
+    | 'cost_exceeded'
+    | 'credit_balance_depleted'
+    | 'credit_balance_dropped'
+    | 'credit_balance_recovered';
 
   /**
-   * The thresholds for the alert.
+   * The thresholds that define the values at which the alert will be triggered.
    */
   thresholds?: Array<AlertCreateForCustomerParams.Threshold> | null;
 }
@@ -265,12 +270,17 @@ export interface AlertCreateForExternalCustomerParams {
   currency: string;
 
   /**
-   * The thresholds that define the values at which the alert will be triggered.
+   * The type of alert to create. This must be a valid alert type.
    */
-  type: string;
+  type:
+    | 'usage_exceeded'
+    | 'cost_exceeded'
+    | 'credit_balance_depleted'
+    | 'credit_balance_dropped'
+    | 'credit_balance_recovered';
 
   /**
-   * The thresholds for the alert.
+   * The thresholds that define the values at which the alert will be triggered.
    */
   thresholds?: Array<AlertCreateForExternalCustomerParams.Threshold> | null;
 }
@@ -292,14 +302,19 @@ export namespace AlertCreateForExternalCustomerParams {
 
 export interface AlertCreateForSubscriptionParams {
   /**
-   * The thresholds for the alert.
+   * The thresholds that define the values at which the alert will be triggered.
    */
   thresholds: Array<AlertCreateForSubscriptionParams.Threshold>;
 
   /**
-   * The thresholds that define the values at which the alert will be triggered.
+   * The type of alert to create. This must be a valid alert type.
    */
-  type: string;
+  type:
+    | 'usage_exceeded'
+    | 'cost_exceeded'
+    | 'credit_balance_depleted'
+    | 'credit_balance_dropped'
+    | 'credit_balance_recovered';
 
   /**
    * The metric to track usage for.
