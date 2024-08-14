@@ -69,7 +69,7 @@ describe('resource alerts', () => {
   test('createForCustomer: only required params', async () => {
     const responsePromise = client.alerts.createForCustomer('customer_id', {
       currency: 'currency',
-      type: 'type',
+      type: 'usage_exceeded',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -83,7 +83,7 @@ describe('resource alerts', () => {
   test('createForCustomer: required and optional params', async () => {
     const response = await client.alerts.createForCustomer('customer_id', {
       currency: 'currency',
-      type: 'type',
+      type: 'usage_exceeded',
       thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
     });
   });
@@ -91,7 +91,7 @@ describe('resource alerts', () => {
   test('createForExternalCustomer: only required params', async () => {
     const responsePromise = client.alerts.createForExternalCustomer('external_customer_id', {
       currency: 'currency',
-      type: 'type',
+      type: 'usage_exceeded',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -105,7 +105,7 @@ describe('resource alerts', () => {
   test('createForExternalCustomer: required and optional params', async () => {
     const response = await client.alerts.createForExternalCustomer('external_customer_id', {
       currency: 'currency',
-      type: 'type',
+      type: 'usage_exceeded',
       thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
     });
   });
@@ -113,7 +113,7 @@ describe('resource alerts', () => {
   test('createForSubscription: only required params', async () => {
     const responsePromise = client.alerts.createForSubscription('subscription_id', {
       thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
-      type: 'type',
+      type: 'usage_exceeded',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -127,7 +127,7 @@ describe('resource alerts', () => {
   test('createForSubscription: required and optional params', async () => {
     const response = await client.alerts.createForSubscription('subscription_id', {
       thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
-      type: 'type',
+      type: 'usage_exceeded',
       metric_id: 'metric_id',
     });
   });
