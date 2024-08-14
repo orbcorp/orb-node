@@ -33,10 +33,3 @@ export {
   CustomersPage,
   Customers,
 } from './customers';
-export {
-  UsageUpdateResponse,
-  UsageUpdateByExternalIDResponse,
-  UsageUpdateParams,
-  UsageUpdateByExternalIDParams,
-  Usage,
-} from './usage';
