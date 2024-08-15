@@ -5305,12 +5305,12 @@ export interface SubscriptionSchedulePlanChangeParams {
 
   /**
    * [DEPRECATED] Use billing_cycle_alignment instead. Reset billing periods to be
-   * aligned with the plan change’s effective date.
+   * aligned with the plan change's effective date.
    */
   align_billing_with_plan_change_date?: boolean | null;
 
   /**
-   * Reset billing periods to be aligned with the plan change’s effective date or
+   * Reset billing periods to be aligned with the plan change's effective date or
    * start of the month. Defaults to `unchanged` which keeps subscription's existing
    * billing cycle alignment.
    */
