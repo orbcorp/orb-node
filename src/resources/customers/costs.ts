@@ -878,6 +878,11 @@ export namespace CostListByExternalIDResponse {
 
 export interface CostListParams {
   /**
+   * The currency or custom pricing unit to use.
+   */
+  currency?: string | null;
+
+  /**
    * Costs returned are exclusive of `timeframe_end`.
    */
   timeframe_end?: string | null;
@@ -897,6 +902,11 @@ export interface CostListParams {
 }
 
 export interface CostListByExternalIDParams {
+  /**
+   * The currency or custom pricing unit to use.
+   */
+  currency?: string | null;
+
   /**
    * Costs returned are exclusive of `timeframe_end`.
    */
