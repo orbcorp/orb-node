@@ -3499,6 +3499,11 @@ export interface SubscriptionCancelParams {
 
 export interface SubscriptionFetchCostsParams {
   /**
+   * The currency or custom pricing unit to use.
+   */
+  currency?: string | null;
+
+  /**
    * Costs returned are exclusive of `timeframe_end`.
    */
   timeframe_end?: string | null;
