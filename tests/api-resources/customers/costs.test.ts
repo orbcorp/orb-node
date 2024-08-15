@@ -33,6 +33,7 @@ describe('resource costs', () => {
       client.customers.costs.list(
         'customer_id',
         {
+          currency: 'currency',
           timeframe_end: '2022-03-01T05:00:00Z',
           timeframe_start: '2022-02-01T05:00:00Z',
           view_mode: 'periodic',
@@ -66,6 +67,7 @@ describe('resource costs', () => {
       client.customers.costs.listByExternalId(
         'external_customer_id',
         {
+          currency: 'currency',
           timeframe_end: '2022-03-01T05:00:00Z',
           timeframe_start: '2022-02-01T05:00:00Z',
           view_mode: 'periodic',
