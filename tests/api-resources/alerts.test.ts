@@ -27,6 +27,25 @@ describe('resource alerts', () => {
     );
   });
 
+  test('update: only required params', async () => {
+    const responsePromise = client.alerts.update('alert_configuration_id', {
+      thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('update: required and optional params', async () => {
+    const response = await client.alerts.update('alert_configuration_id', {
+      thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
+    });
+  });
+
   // plan_version=0 breaks Prism
   test.skip('list', async () => {
     const responsePromise = client.alerts.list();
