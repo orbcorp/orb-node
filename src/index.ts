@@ -289,11 +289,10 @@ export namespace Orb {
   export import ItemListParams = API.ItemListParams;
 
   export import Metrics = API.Metrics;
-  export import MetricCreateResponse = API.MetricCreateResponse;
-  export import MetricListResponse = API.MetricListResponse;
-  export import MetricFetchResponse = API.MetricFetchResponse;
-  export import MetricListResponsesPage = API.MetricListResponsesPage;
+  export import BillableMetric = API.BillableMetric;
+  export import BillableMetricsPage = API.BillableMetricsPage;
   export import MetricCreateParams = API.MetricCreateParams;
+  export import MetricUpdateParams = API.MetricUpdateParams;
   export import MetricListParams = API.MetricListParams;
 
   export import Plans = API.Plans;
@@ -336,6 +335,7 @@ export namespace Orb {
   export import Alerts = API.Alerts;
   export import Alert = API.Alert;
   export import AlertsPage = API.AlertsPage;
+  export import AlertUpdateParams = API.AlertUpdateParams;
   export import AlertListParams = API.AlertListParams;
   export import AlertCreateForCustomerParams = API.AlertCreateForCustomerParams;
   export import AlertCreateForExternalCustomerParams = API.AlertCreateForExternalCustomerParams;

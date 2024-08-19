@@ -211,15 +211,14 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/metrics.ts">MetricCreateResponse</a></code>
-- <code><a href="./src/resources/metrics.ts">MetricListResponse</a></code>
-- <code><a href="./src/resources/metrics.ts">MetricFetchResponse</a></code>
+- <code><a href="./src/resources/metrics.ts">BillableMetric</a></code>
 
 Methods:
 
-- <code title="post /metrics">client.metrics.<a href="./src/resources/metrics.ts">create</a>({ ...params }) -> MetricCreateResponse</code>
-- <code title="get /metrics">client.metrics.<a href="./src/resources/metrics.ts">list</a>({ ...params }) -> MetricListResponsesPage</code>
-- <code title="get /metrics/{metric_id}">client.metrics.<a href="./src/resources/metrics.ts">fetch</a>(metricId) -> MetricFetchResponse</code>
+- <code title="post /metrics">client.metrics.<a href="./src/resources/metrics.ts">create</a>({ ...params }) -> BillableMetric</code>
+- <code title="put /metrics/{metric_id}">client.metrics.<a href="./src/resources/metrics.ts">update</a>(metricId, { ...params }) -> BillableMetric</code>
+- <code title="get /metrics">client.metrics.<a href="./src/resources/metrics.ts">list</a>({ ...params }) -> BillableMetricsPage</code>
+- <code title="get /metrics/{metric_id}">client.metrics.<a href="./src/resources/metrics.ts">fetch</a>(metricId) -> BillableMetric</code>
 
 # Plans
 
@@ -301,6 +300,7 @@ Types:
 Methods:
 
 - <code title="get /alerts/{alert_id}">client.alerts.<a href="./src/resources/alerts.ts">retrieve</a>(alertId) -> Alert</code>
+- <code title="put /alerts/{alert_configuration_id}">client.alerts.<a href="./src/resources/alerts.ts">update</a>(alertConfigurationId, { ...params }) -> Alert</code>
 - <code title="get /alerts">client.alerts.<a href="./src/resources/alerts.ts">list</a>({ ...params }) -> AlertsPage</code>
 - <code title="post /alerts/customer_id/{customer_id}">client.alerts.<a href="./src/resources/alerts.ts">createForCustomer</a>(customerId, { ...params }) -> Alert</code>
 - <code title="post /alerts/external_customer_id/{external_customer_id}">client.alerts.<a href="./src/resources/alerts.ts">createForExternalCustomer</a>(externalCustomerId, { ...params }) -> Alert</code>

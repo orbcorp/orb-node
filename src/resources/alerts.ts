@@ -15,6 +15,17 @@ export class Alerts extends APIResource {
   }
 
   /**
+   * This endpoint updates the thresholds of an alert.
+   */
+  update(
+    alertConfigurationId: string,
+    body: AlertUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Alert> {
+    return this._client.put(`/alerts/${alertConfigurationId}`, { body, ...options });
+  }
+
+  /**
    * This endpoint returns a list of alerts within Orb.
    *
    * The request must specify one of `customer_id`, `external_customer_id`, or
@@ -201,6 +212,28 @@ export namespace Alert {
   }
 }
 
+export interface AlertUpdateParams {
+  /**
+   * The thresholds that define the values at which the alert will be triggered.
+   */
+  thresholds: Array<AlertUpdateParams.Threshold>;
+}
+
+export namespace AlertUpdateParams {
+  /**
+   * Thresholds are used to define the conditions under which an alert will be
+   * triggered.
+   */
+  export interface Threshold {
+    /**
+     * The value at which an alert will fire. For credit balance alerts, the alert will
+     * fire at or below this value. For usage and cost alerts, the alert will fire at
+     * or above this value.
+     */
+    value: number;
+  }
+}
+
 export interface AlertListParams extends PageParams {
   'created_at[gt]'?: string | null;
 
@@ -340,6 +373,7 @@ export namespace AlertCreateForSubscriptionParams {
 export namespace Alerts {
   export import Alert = AlertsAPI.Alert;
   export import AlertsPage = AlertsAPI.AlertsPage;
+  export import AlertUpdateParams = AlertsAPI.AlertUpdateParams;
   export import AlertListParams = AlertsAPI.AlertListParams;
   export import AlertCreateForCustomerParams = AlertsAPI.AlertCreateForCustomerParams;
   export import AlertCreateForExternalCustomerParams = AlertsAPI.AlertCreateForExternalCustomerParams;
