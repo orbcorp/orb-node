@@ -3,6 +3,7 @@
 export * from './shared';
 export {
   Alert,
+  AlertUpdateParams,
   AlertListParams,
   AlertCreateForCustomerParams,
   AlertCreateForExternalCustomerParams,
@@ -10,6 +11,14 @@ export {
   AlertsPage,
   Alerts,
 } from './alerts';
+export {
+  BillableMetric,
+  MetricCreateParams,
+  MetricUpdateParams,
+  MetricListParams,
+  BillableMetricsPage,
+  Metrics,
+} from './metrics';
 export { Coupon, CouponCreateParams, CouponListParams, CouponsPage, Coupons } from './coupons/coupons';
 export { CreditNote, CreditNoteListParams, CreditNotesPage, CreditNotes } from './credit-notes';
 export {
@@ -59,15 +68,6 @@ export {
   InvoiceLineItems,
 } from './invoice-line-items';
 export { Item, ItemCreateParams, ItemUpdateParams, ItemListParams, ItemsPage, Items } from './items';
-export {
-  MetricCreateResponse,
-  MetricListResponse,
-  MetricFetchResponse,
-  MetricCreateParams,
-  MetricListParams,
-  MetricListResponsesPage,
-  Metrics,
-} from './metrics';
 export { Plan, PlanCreateParams, PlanUpdateParams, PlanListParams, PlansPage, Plans } from './plans/plans';
 export {
   Subscription,
