@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.5.0 (2024-08-19)
+
+Full Changelog: [v4.4.0...v4.5.0](https://github.com/orbcorp/orb-node/compare/v4.4.0...v4.5.0)
+
+### Features
+
+* **api:** codegen changes ([#265](https://github.com/orbcorp/orb-node/issues/265)) ([7fe81e0](https://github.com/orbcorp/orb-node/commit/7fe81e0788c205d18a06fdaad0aabef4d9cce412))
+
 ## 4.4.0 (2024-08-17)
 
 Full Changelog: [v4.3.0...v4.4.0](https://github.com/orbcorp/orb-node/compare/v4.3.0...v4.4.0)
