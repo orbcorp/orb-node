@@ -418,6 +418,11 @@ export namespace EventSearchResponse {
     customer_id: string | null;
 
     /**
+     * A boolean indicating whether the event is currently deprecated.
+     */
+    deprecated: boolean;
+
+    /**
      * A name to meaningfully identify the action or event type.
      */
     event_name: string;
