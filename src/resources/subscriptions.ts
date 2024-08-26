@@ -443,22 +443,40 @@ export class Subscriptions extends APIResource {
    * recently created subscription. For a full discussion of the subscription
    * resource, see [Subscription](../guides/concepts#subscription).
    *
-   * Subscriptions can be filtered to a single customer by passing in the
-   * `customer_id` query parameter or the `external_customer_id` query parameter.
+   * Subscriptions can be filtered for a specific customer by using either the
+   * customer_id or external_customer_id query parameters. To filter subscriptions
+   * for multiple customers, use the customer_id[] or external_customer_id[] query
+   * parameters.
    */
   list(
-    query?: SubscriptionListParams,
+    params?: SubscriptionListParams,
     options?: Core.RequestOptions,
   ): Core.PagePromise<SubscriptionsPage, Subscription>;
   list(options?: Core.RequestOptions): Core.PagePromise<SubscriptionsPage, Subscription>;
   list(
-    query: SubscriptionListParams | Core.RequestOptions = {},
+    params: SubscriptionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<SubscriptionsPage, Subscription> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
+    if (isRequestOptions(params)) {
+      return this.list({}, params);
     }
-    return this._client.getAPIList('/subscriptions', SubscriptionsPage, { query, ...options });
+    const {
+      query_customer_id,
+      query_customer_id,
+      query_external_customer_id,
+      query_external_customer_id,
+      ...query
+    } = params;
+    return this._client.getAPIList('/subscriptions', SubscriptionsPage, {
+      query: {
+        customer_id: query_customer_id,
+        customer_id: query_customer_id,
+        external_customer_id: query_external_customer_id,
+        external_customer_id: query_external_customer_id,
+        ...query,
+      },
+      ...options,
+    });
   }
 
   /**
@@ -3477,9 +3495,13 @@ export interface SubscriptionListParams extends PageParams {
 
   'created_at[lte]'?: string | null;
 
-  customer_id?: string | null;
+  query_customer_id?: string | null;
 
-  external_customer_id?: string | null;
+  query_customer_id?: Array<string> | null;
+
+  query_external_customer_id?: string | null;
+
+  query_external_customer_id?: Array<string> | null;
 
   status?: 'active' | 'ended' | 'upcoming' | null;
 }
