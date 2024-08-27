@@ -449,34 +449,18 @@ export class Subscriptions extends APIResource {
    * parameters.
    */
   list(
-    params?: SubscriptionListParams,
+    query?: SubscriptionListParams,
     options?: Core.RequestOptions,
   ): Core.PagePromise<SubscriptionsPage, Subscription>;
   list(options?: Core.RequestOptions): Core.PagePromise<SubscriptionsPage, Subscription>;
   list(
-    params: SubscriptionListParams | Core.RequestOptions = {},
+    query: SubscriptionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<SubscriptionsPage, Subscription> {
-    if (isRequestOptions(params)) {
-      return this.list({}, params);
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
     }
-    const {
-      query_customer_id,
-      query_customer_id,
-      query_external_customer_id,
-      query_external_customer_id,
-      ...query
-    } = params;
-    return this._client.getAPIList('/subscriptions', SubscriptionsPage, {
-      query: {
-        customer_id: query_customer_id,
-        customer_id: query_customer_id,
-        external_customer_id: query_external_customer_id,
-        external_customer_id: query_external_customer_id,
-        ...query,
-      },
-      ...options,
-    });
+    return this._client.getAPIList('/subscriptions', SubscriptionsPage, { query, ...options });
   }
 
   /**
@@ -3495,13 +3479,9 @@ export interface SubscriptionListParams extends PageParams {
 
   'created_at[lte]'?: string | null;
 
-  query_customer_id?: string | null;
+  customer_id?: Array<string> | null;
 
-  query_customer_id?: Array<string> | null;
-
-  query_external_customer_id?: string | null;
-
-  query_external_customer_id?: Array<string> | null;
+  external_customer_id?: string | null;
 
   status?: 'active' | 'ended' | 'upcoming' | null;
 }
