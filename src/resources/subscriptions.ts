@@ -2294,6 +2294,8 @@ export interface SubscriptionCreateParams {
     | SubscriptionCreateParams.OverrideTieredWithMinimumPrice
     | SubscriptionCreateParams.OverridePackageWithAllocationPrice
     | SubscriptionCreateParams.OverrideUnitWithPercentPrice
+    | SubscriptionCreateParams.OverrideGroupedAllocationPrice
+    | SubscriptionCreateParams.OverrideBulkWithProrationPrice
   > | null;
 
   start_date?: string | null;
@@ -3446,6 +3448,158 @@ export namespace SubscriptionCreateParams {
   }
 
   export namespace OverrideUnitWithPercentPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
+  }
+
+  export interface OverrideGroupedAllocationPrice {
+    id: string;
+
+    grouped_allocation_config: Record<string, unknown>;
+
+    model_type: 'grouped_allocation';
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    discount?: OverrideGroupedAllocationPrice.Discount | null;
+
+    /**
+     * The starting quantity of the price, if the price is a fixed price.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The subscription's override maximum amount for the plan.
+     */
+    maximum_amount?: string | null;
+
+    /**
+     * The subscription's override minimum amount for the plan.
+     */
+    minimum_amount?: string | null;
+  }
+
+  export namespace OverrideGroupedAllocationPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
+  }
+
+  export interface OverrideBulkWithProrationPrice {
+    id: string;
+
+    bulk_with_proration_config: Record<string, unknown>;
+
+    model_type: 'bulk_with_proration';
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    discount?: OverrideBulkWithProrationPrice.Discount | null;
+
+    /**
+     * The starting quantity of the price, if the price is a fixed price.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The subscription's override maximum amount for the plan.
+     */
+    maximum_amount?: string | null;
+
+    /**
+     * The subscription's override minimum amount for the plan.
+     */
+    minimum_amount?: string | null;
+  }
+
+  export namespace OverrideBulkWithProrationPrice {
     /**
      * The subscription's override discount for the plan.
      */
@@ -6467,6 +6621,8 @@ export interface SubscriptionSchedulePlanChangeParams {
     | SubscriptionSchedulePlanChangeParams.OverrideTieredWithMinimumPrice
     | SubscriptionSchedulePlanChangeParams.OverridePackageWithAllocationPrice
     | SubscriptionSchedulePlanChangeParams.OverrideUnitWithPercentPrice
+    | SubscriptionSchedulePlanChangeParams.OverrideGroupedAllocationPrice
+    | SubscriptionSchedulePlanChangeParams.OverrideBulkWithProrationPrice
   > | null;
 }
 
@@ -7594,6 +7750,158 @@ export namespace SubscriptionSchedulePlanChangeParams {
   }
 
   export namespace OverrideUnitWithPercentPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
+  }
+
+  export interface OverrideGroupedAllocationPrice {
+    id: string;
+
+    grouped_allocation_config: Record<string, unknown>;
+
+    model_type: 'grouped_allocation';
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    discount?: OverrideGroupedAllocationPrice.Discount | null;
+
+    /**
+     * The starting quantity of the price, if the price is a fixed price.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The subscription's override maximum amount for the plan.
+     */
+    maximum_amount?: string | null;
+
+    /**
+     * The subscription's override minimum amount for the plan.
+     */
+    minimum_amount?: string | null;
+  }
+
+  export namespace OverrideGroupedAllocationPrice {
+    /**
+     * The subscription's override discount for the plan.
+     */
+    export interface Discount {
+      discount_type: 'percentage' | 'trial' | 'usage' | 'amount';
+
+      /**
+       * Only available if discount_type is `amount`.
+       */
+      amount_discount?: string | null;
+
+      /**
+       * List of price_ids that this discount applies to. For plan/plan phase discounts,
+       * this can be a subset of prices.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * Only available if discount_type is `percentage`. This is a number between 0
+       * and 1.
+       */
+      percentage_discount?: number | null;
+
+      /**
+       * Only available if discount_type is `trial`
+       */
+      trial_amount_discount?: string | null;
+
+      /**
+       * Only available if discount_type is `usage`. Number of usage units that this
+       * discount is for
+       */
+      usage_discount?: number | null;
+    }
+  }
+
+  export interface OverrideBulkWithProrationPrice {
+    id: string;
+
+    bulk_with_proration_config: Record<string, unknown>;
+
+    model_type: 'bulk_with_proration';
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The currency of the price. If not provided, the currency of the plan will be
+     * used.
+     */
+    currency?: string | null;
+
+    /**
+     * The subscription's override discount for the plan.
+     */
+    discount?: OverrideBulkWithProrationPrice.Discount | null;
+
+    /**
+     * The starting quantity of the price, if the price is a fixed price.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The subscription's override maximum amount for the plan.
+     */
+    maximum_amount?: string | null;
+
+    /**
+     * The subscription's override minimum amount for the plan.
+     */
+    minimum_amount?: string | null;
+  }
+
+  export namespace OverrideBulkWithProrationPrice {
     /**
      * The subscription's override discount for the plan.
      */
