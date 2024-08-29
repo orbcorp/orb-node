@@ -22,8 +22,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Bootstrap
-        run: ./scripts/bootstrap
+      - name: Install dependencies
+        run: yarn install
 
       - name: Check types
         run: ./scripts/lint
@@ -41,8 +41,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Bootstrap
-        run: ./scripts/bootstrap
+      - name: Install dependencies
+        run: yarn install
 
       - name: Check build
         run: ./scripts/build
