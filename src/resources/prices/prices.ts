@@ -380,7 +380,7 @@ export namespace Price {
 
     billable_metric: UnitPrice.BillableMetric | null;
 
-    billing_cycle_configuration: UnitPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: UnitPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -397,6 +397,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: UnitPrice.InvoicingCycleConfiguration | null;
 
     item: UnitPrice.Item;
 
@@ -444,6 +446,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -489,7 +497,7 @@ export namespace Price {
 
     billable_metric: PackagePrice.BillableMetric | null;
 
-    billing_cycle_configuration: PackagePrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: PackagePrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -506,6 +514,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: PackagePrice.InvoicingCycleConfiguration | null;
 
     item: PackagePrice.Item;
 
@@ -551,6 +561,12 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+    }
+
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface Item {
@@ -604,7 +620,7 @@ export namespace Price {
 
     billable_metric: MatrixPrice.BillableMetric | null;
 
-    billing_cycle_configuration: MatrixPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: MatrixPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -621,6 +637,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: MatrixPrice.InvoicingCycleConfiguration | null;
 
     item: MatrixPrice.Item;
 
@@ -666,6 +684,12 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+    }
+
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface Item {
@@ -739,7 +763,7 @@ export namespace Price {
 
     billable_metric: TieredPrice.BillableMetric | null;
 
-    billing_cycle_configuration: TieredPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: TieredPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -756,6 +780,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: TieredPrice.InvoicingCycleConfiguration | null;
 
     item: TieredPrice.Item;
 
@@ -801,6 +827,12 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+    }
+
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface Item {
@@ -867,7 +899,7 @@ export namespace Price {
 
     billable_metric: TieredBpsPrice.BillableMetric | null;
 
-    billing_cycle_configuration: TieredBpsPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: TieredBpsPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -884,6 +916,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: TieredBpsPrice.InvoicingCycleConfiguration | null;
 
     item: TieredBpsPrice.Item;
 
@@ -929,6 +963,12 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+    }
+
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface Item {
@@ -1001,7 +1041,7 @@ export namespace Price {
 
     billable_metric: BpsPrice.BillableMetric | null;
 
-    billing_cycle_configuration: BpsPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: BpsPrice.BillingCycleConfiguration;
 
     bps_config: BpsPrice.BpsConfig;
 
@@ -1020,6 +1060,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: BpsPrice.InvoicingCycleConfiguration | null;
 
     item: BpsPrice.Item;
 
@@ -1077,6 +1119,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -1115,7 +1163,7 @@ export namespace Price {
 
     billable_metric: BulkBpsPrice.BillableMetric | null;
 
-    billing_cycle_configuration: BulkBpsPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: BulkBpsPrice.BillingCycleConfiguration;
 
     bulk_bps_config: BulkBpsPrice.BulkBpsConfig;
 
@@ -1134,6 +1182,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: BulkBpsPrice.InvoicingCycleConfiguration | null;
 
     item: BulkBpsPrice.Item;
 
@@ -1206,6 +1256,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -1244,7 +1300,7 @@ export namespace Price {
 
     billable_metric: BulkPrice.BillableMetric | null;
 
-    billing_cycle_configuration: BulkPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: BulkPrice.BillingCycleConfiguration;
 
     bulk_config: BulkPrice.BulkConfig;
 
@@ -1263,6 +1319,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: BulkPrice.InvoicingCycleConfiguration | null;
 
     item: BulkPrice.Item;
 
@@ -1329,6 +1387,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -1367,7 +1431,7 @@ export namespace Price {
 
     billable_metric: ThresholdTotalAmountPrice.BillableMetric | null;
 
-    billing_cycle_configuration: ThresholdTotalAmountPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: ThresholdTotalAmountPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1384,6 +1448,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: ThresholdTotalAmountPrice.InvoicingCycleConfiguration | null;
 
     item: ThresholdTotalAmountPrice.Item;
 
@@ -1431,6 +1497,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -1469,7 +1541,7 @@ export namespace Price {
 
     billable_metric: TieredPackagePrice.BillableMetric | null;
 
-    billing_cycle_configuration: TieredPackagePrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: TieredPackagePrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1486,6 +1558,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: TieredPackagePrice.InvoicingCycleConfiguration | null;
 
     item: TieredPackagePrice.Item;
 
@@ -1533,6 +1607,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -1571,7 +1651,7 @@ export namespace Price {
 
     billable_metric: GroupedTieredPrice.BillableMetric | null;
 
-    billing_cycle_configuration: GroupedTieredPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: GroupedTieredPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1590,6 +1670,8 @@ export namespace Price {
     fixed_price_quantity: number | null;
 
     grouped_tiered_config: Record<string, unknown>;
+
+    invoicing_cycle_configuration: GroupedTieredPrice.InvoicingCycleConfiguration | null;
 
     item: GroupedTieredPrice.Item;
 
@@ -1635,6 +1717,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -1673,7 +1761,7 @@ export namespace Price {
 
     billable_metric: TieredWithMinimumPrice.BillableMetric | null;
 
-    billing_cycle_configuration: TieredWithMinimumPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: TieredWithMinimumPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1690,6 +1778,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: TieredWithMinimumPrice.InvoicingCycleConfiguration | null;
 
     item: TieredWithMinimumPrice.Item;
 
@@ -1737,6 +1827,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -1775,7 +1871,7 @@ export namespace Price {
 
     billable_metric: TieredPackageWithMinimumPrice.BillableMetric | null;
 
-    billing_cycle_configuration: TieredPackageWithMinimumPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: TieredPackageWithMinimumPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1792,6 +1888,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: TieredPackageWithMinimumPrice.InvoicingCycleConfiguration | null;
 
     item: TieredPackageWithMinimumPrice.Item;
 
@@ -1839,6 +1937,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -1877,7 +1981,7 @@ export namespace Price {
 
     billable_metric: PackageWithAllocationPrice.BillableMetric | null;
 
-    billing_cycle_configuration: PackageWithAllocationPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: PackageWithAllocationPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1894,6 +1998,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: PackageWithAllocationPrice.InvoicingCycleConfiguration | null;
 
     item: PackageWithAllocationPrice.Item;
 
@@ -1941,6 +2047,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -1979,7 +2091,7 @@ export namespace Price {
 
     billable_metric: UnitWithPercentPrice.BillableMetric | null;
 
-    billing_cycle_configuration: UnitWithPercentPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: UnitWithPercentPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1996,6 +2108,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: UnitWithPercentPrice.InvoicingCycleConfiguration | null;
 
     item: UnitWithPercentPrice.Item;
 
@@ -2043,6 +2157,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -2081,7 +2201,7 @@ export namespace Price {
 
     billable_metric: MatrixWithAllocationPrice.BillableMetric | null;
 
-    billing_cycle_configuration: MatrixWithAllocationPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: MatrixWithAllocationPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2098,6 +2218,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: MatrixWithAllocationPrice.InvoicingCycleConfiguration | null;
 
     item: MatrixWithAllocationPrice.Item;
 
@@ -2143,6 +2265,12 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+    }
+
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface Item {
@@ -2221,7 +2349,7 @@ export namespace Price {
 
     billable_metric: TieredWithProrationPrice.BillableMetric | null;
 
-    billing_cycle_configuration: TieredWithProrationPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: TieredWithProrationPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2238,6 +2366,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: TieredWithProrationPrice.InvoicingCycleConfiguration | null;
 
     item: TieredWithProrationPrice.Item;
 
@@ -2285,6 +2415,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -2323,7 +2459,7 @@ export namespace Price {
 
     billable_metric: UnitWithProrationPrice.BillableMetric | null;
 
-    billing_cycle_configuration: UnitWithProrationPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: UnitWithProrationPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2340,6 +2476,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: UnitWithProrationPrice.InvoicingCycleConfiguration | null;
 
     item: UnitWithProrationPrice.Item;
 
@@ -2387,6 +2525,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -2425,7 +2569,7 @@ export namespace Price {
 
     billable_metric: GroupedAllocationPrice.BillableMetric | null;
 
-    billing_cycle_configuration: GroupedAllocationPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: GroupedAllocationPrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2444,6 +2588,8 @@ export namespace Price {
     fixed_price_quantity: number | null;
 
     grouped_allocation_config: Record<string, unknown>;
+
+    invoicing_cycle_configuration: GroupedAllocationPrice.InvoicingCycleConfiguration | null;
 
     item: GroupedAllocationPrice.Item;
 
@@ -2489,6 +2635,12 @@ export namespace Price {
       currency: string;
     }
 
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
     export interface Item {
       id: string;
 
@@ -2527,7 +2679,7 @@ export namespace Price {
 
     billable_metric: BulkWithProrationPrice.BillableMetric | null;
 
-    billing_cycle_configuration: BulkWithProrationPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration: BulkWithProrationPrice.BillingCycleConfiguration;
 
     bulk_with_proration_config: Record<string, unknown>;
 
@@ -2546,6 +2698,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: BulkWithProrationPrice.InvoicingCycleConfiguration | null;
 
     item: BulkWithProrationPrice.Item;
 
@@ -2589,6 +2743,12 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+    }
+
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
     }
 
     export interface Item {
@@ -2690,6 +2850,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingUnitPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -2711,6 +2877,12 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingUnitPrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
@@ -2724,6 +2896,38 @@ export namespace PriceCreateParams {
        * Rate per unit of usage
        */
       unit_amount: string;
+    }
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
     }
   }
 
@@ -2765,6 +2969,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingPackagePrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -2786,6 +2996,12 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingPackagePrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
@@ -2805,6 +3021,38 @@ export namespace PriceCreateParams {
        * usage by 1000 before multiplying by package_amount in rating
        */
       package_size: number;
+    }
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
     }
   }
 
@@ -2846,6 +3094,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingMatrixPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -2865,6 +3119,12 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingMatrixPrice.InvoicingCycleConfiguration | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -2907,6 +3167,38 @@ export namespace PriceCreateParams {
         unit_amount: string;
       }
     }
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingMatrixWithAllocationPrice {
@@ -2947,6 +3239,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingMatrixWithAllocationPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -2966,6 +3264,12 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingMatrixWithAllocationPrice.InvoicingCycleConfiguration | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3013,6 +3317,38 @@ export namespace PriceCreateParams {
         unit_amount: string;
       }
     }
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingTieredPrice {
@@ -3053,6 +3389,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingTieredPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3072,6 +3414,12 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingTieredPrice.InvoicingCycleConfiguration | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3106,6 +3454,38 @@ export namespace PriceCreateParams {
          */
         last_unit?: number | null;
       }
+    }
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
     }
   }
 
@@ -3147,6 +3527,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingTieredBpsPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3166,6 +3552,12 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingTieredBpsPrice.InvoicingCycleConfiguration | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3207,6 +3599,38 @@ export namespace PriceCreateParams {
         per_unit_maximum?: string | null;
       }
     }
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingBpsPrice {
@@ -3247,6 +3671,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingBpsPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3268,6 +3698,12 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingBpsPrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
@@ -3286,6 +3722,38 @@ export namespace PriceCreateParams {
        * Optional currency amount maximum to cap spend per event
        */
       per_unit_maximum?: string | null;
+    }
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
     }
   }
 
@@ -3327,6 +3795,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingBulkBpsPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3346,6 +3820,12 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingBulkBpsPrice.InvoicingCycleConfiguration | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3381,6 +3861,38 @@ export namespace PriceCreateParams {
          */
         per_unit_maximum?: string | null;
       }
+    }
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
     }
   }
 
@@ -3422,6 +3934,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingBulkPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3441,6 +3959,12 @@ export namespace PriceCreateParams {
      * The property used to group this price on an invoice
      */
     invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingBulkPrice.InvoicingCycleConfiguration | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3470,6 +3994,38 @@ export namespace PriceCreateParams {
          */
         maximum_units?: number | null;
       }
+    }
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
     }
   }
 
@@ -3511,6 +4067,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingThresholdTotalAmountPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3532,11 +4094,51 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingThresholdTotalAmountPrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingThresholdTotalAmountPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingTieredPackagePrice {
@@ -3577,6 +4179,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingTieredPackagePrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3598,11 +4206,51 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingTieredPackagePrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingTieredPackagePrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingGroupedTieredPrice {
@@ -3643,6 +4291,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingGroupedTieredPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3664,11 +4318,51 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingGroupedTieredPrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingGroupedTieredPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingTieredWithMinimumPrice {
@@ -3709,6 +4403,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingTieredWithMinimumPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3730,11 +4430,51 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingTieredWithMinimumPrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingTieredWithMinimumPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingPackageWithAllocationPrice {
@@ -3775,6 +4515,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingPackageWithAllocationPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3796,11 +4542,51 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingPackageWithAllocationPrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingPackageWithAllocationPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingTieredPackageWithMinimumPrice {
@@ -3841,6 +4627,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingTieredPackageWithMinimumPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3862,11 +4654,51 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingTieredPackageWithMinimumPrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingTieredPackageWithMinimumPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingUnitWithPercentPrice {
@@ -3907,6 +4739,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingUnitWithPercentPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3928,11 +4766,51 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingUnitWithPercentPrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingUnitWithPercentPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingTieredWithProrationPrice {
@@ -3973,6 +4851,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingTieredWithProrationPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -3994,11 +4878,51 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingTieredWithProrationPrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingTieredWithProrationPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingUnitWithProrationPrice {
@@ -4039,6 +4963,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingUnitWithProrationPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -4060,11 +4990,51 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingUnitWithProrationPrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingUnitWithProrationPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingGroupedAllocationPrice {
@@ -4105,6 +5075,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingGroupedAllocationPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -4126,11 +5102,51 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingGroupedAllocationPrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingGroupedAllocationPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 
   export interface NewFloatingBulkWithProrationPrice {
@@ -4171,6 +5187,12 @@ export namespace PriceCreateParams {
     billed_in_advance?: boolean | null;
 
     /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingBulkWithProrationPrice.BillingCycleConfiguration | null;
+
+    /**
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
@@ -4192,11 +5214,51 @@ export namespace PriceCreateParams {
     invoice_grouping_key?: string | null;
 
     /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingBulkWithProrationPrice.InvoicingCycleConfiguration | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingBulkWithProrationPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
   }
 }
 

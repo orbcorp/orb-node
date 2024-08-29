@@ -37,10 +37,12 @@ describe('resource prices', () => {
       unit_config: { unit_amount: 'unit_amount' },
       billable_metric_id: 'billable_metric_id',
       billed_in_advance: true,
+      billing_cycle_configuration: { duration: 0, duration_unit: 'day' },
       conversion_rate: 0,
       external_price_id: 'external_price_id',
       fixed_price_quantity: 0,
       invoice_grouping_key: 'invoice_grouping_key',
+      invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
       metadata: { foo: 'string' },
     });
   });
