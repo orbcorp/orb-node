@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.12.0 (2024-08-29)
+
+Full Changelog: [v4.11.0...v4.12.0](https://github.com/orbcorp/orb-node/compare/v4.11.0...v4.12.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#290](https://github.com/orbcorp/orb-node/issues/290)) ([cc111fb](https://github.com/orbcorp/orb-node/commit/cc111fb9ecc18d857f712d553f982f893f3e0148))
+
+
+### Chores
+
+* run tsc as part of lint script ([#288](https://github.com/orbcorp/orb-node/issues/288)) ([e70f276](https://github.com/orbcorp/orb-node/commit/e70f27644dd69cc3708e82fd76a1ae17da7f77d6))
+
 ## 4.11.0 (2024-08-29)
 
 Full Changelog: [v4.10.0...v4.11.0](https://github.com/orbcorp/orb-node/compare/v4.10.0...v4.11.0)
