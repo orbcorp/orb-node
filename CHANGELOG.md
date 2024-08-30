@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.14.0 (2024-08-30)
+
+Full Changelog: [v4.13.0...v4.14.0](https://github.com/orbcorp/orb-node/compare/v4.13.0...v4.14.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#297](https://github.com/orbcorp/orb-node/issues/297)) ([15bdb58](https://github.com/orbcorp/orb-node/commit/15bdb58cd73e1e6be627df62b5b19d77d20c45a3))
+
 ## 4.13.0 (2024-08-30)
 
 Full Changelog: [v4.12.0...v4.13.0](https://github.com/orbcorp/orb-node/compare/v4.12.0...v4.13.0)
