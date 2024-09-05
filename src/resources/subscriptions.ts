@@ -2229,18 +2229,32 @@ export namespace SubscriptionFetchScheduleResponse {
 export interface SubscriptionCreateParams {
   align_billing_with_subscription_start_date?: boolean;
 
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. If not specified, this
+   * defaults to the behavior configured for this customer.
+   */
   auto_collection?: boolean | null;
 
   aws_region?: string | null;
 
   billing_cycle_anchor_configuration?: SubscriptionCreateParams.BillingCycleAnchorConfiguration | null;
 
+  /**
+   * Redemption code to be used for this subscription. If the coupon cannot be found
+   * by its redemption code, or cannot be redeemed, an error response will be
+   * returned and the subscription creation or plan change will not be scheduled.
+   */
   coupon_redemption_code?: string | null;
 
   credits_overage_rate?: number | null;
 
   customer_id?: string | null;
 
+  /**
+   * Determines the default memo on this subscription's invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
   default_invoice_memo?: string | null;
 
   end_date?: string | null;
@@ -2257,8 +2271,16 @@ export interface SubscriptionCreateParams {
    */
   external_plan_id?: string | null;
 
+  /**
+   * The phase of the plan to start with
+   */
   initial_phase_order?: number | null;
 
+  /**
+   * When this subscription's accrued usage reaches this threshold, an invoice will
+   * be issued for the subscription. If not specified, invoices will only be issued
+   * at the end of the billing period.
+   */
   invoicing_threshold?: string | null;
 
   /**
@@ -2268,6 +2290,11 @@ export interface SubscriptionCreateParams {
    */
   metadata?: Record<string, string | null> | null;
 
+  /**
+   * The net terms determines the difference between the invoice date and the issue
+   * date for the invoice. If you intend the invoice to be due on issue, set this
+   * to 0. If not provided, this defaults to the value specified in the plan.
+   */
   net_terms?: number | null;
 
   per_credit_overage_amount?: number | null;
@@ -6748,6 +6775,13 @@ export interface SubscriptionSchedulePlanChangeParams {
   align_billing_with_plan_change_date?: boolean | null;
 
   /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. If not specified, this
+   * defaults to the behavior configured for this customer.
+   */
+  auto_collection?: boolean | null;
+
+  /**
    * Reset billing periods to be aligned with the plan change's effective date or
    * start of the month. Defaults to `unchanged` which keeps subscription's existing
    * billing cycle alignment.
@@ -6763,11 +6797,17 @@ export interface SubscriptionSchedulePlanChangeParams {
   /**
    * Redemption code to be used for this subscription. If the coupon cannot be found
    * by its redemption code, or cannot be redeemed, an error response will be
-   * returned and the plan change will not be scheduled.
+   * returned and the subscription creation or plan change will not be scheduled.
    */
   coupon_redemption_code?: string | null;
 
   credits_overage_rate?: number | null;
+
+  /**
+   * Determines the default memo on this subscription's invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo?: string | null;
 
   /**
    * The external_plan_id of the plan that the given subscription should be switched
@@ -6786,6 +6826,13 @@ export interface SubscriptionSchedulePlanChangeParams {
    * at the end of the billing period.
    */
   invoicing_threshold?: string | null;
+
+  /**
+   * The net terms determines the difference between the invoice date and the issue
+   * date for the invoice. If you intend the invoice to be due on issue, set this
+   * to 0. If not provided, this defaults to the value specified in the plan.
+   */
+  net_terms?: number | null;
 
   per_credit_overage_amount?: number | null;
 
