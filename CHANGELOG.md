@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.15.1 (2024-09-05)
+
+Full Changelog: [v4.15.0...v4.15.1](https://github.com/orbcorp/orb-node/compare/v4.15.0...v4.15.1)
+
+### Bug Fixes
+
+* **client:** correct File construction from node-fetch Responses ([#302](https://github.com/orbcorp/orb-node/issues/302)) ([839e3d5](https://github.com/orbcorp/orb-node/commit/839e3d5923ca3da60dd92231326847f53562980d))
+
 ## 4.15.0 (2024-09-05)
 
 Full Changelog: [v4.14.0...v4.15.0](https://github.com/orbcorp/orb-node/compare/v4.14.0...v4.15.0)
