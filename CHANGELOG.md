@@ -1,5 +1,24 @@
 # Changelog
 
+## 4.16.0 (2024-09-06)
+
+Full Changelog: [v4.15.1...v4.16.0](https://github.com/orbcorp/orb-node/compare/v4.15.1...v4.16.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#308](https://github.com/orbcorp/orb-node/issues/308)) ([6ff542e](https://github.com/orbcorp/orb-node/commit/6ff542e1e1f36fad4d9c92c891872113bcb50e63))
+
+
+### Bug Fixes
+
+* **uploads:** avoid making redundant memory copies ([#309](https://github.com/orbcorp/orb-node/issues/309)) ([f626def](https://github.com/orbcorp/orb-node/commit/f626deff3d2af5dc08d0d9d44f9e91924750c0c6))
+
+
+### Chores
+
+* **internal:** dependency updates ([#305](https://github.com/orbcorp/orb-node/issues/305)) ([b647ed0](https://github.com/orbcorp/orb-node/commit/b647ed07527e9b40d86c6262cd042f906b33abe4))
+* **internal:** minor bump qs version ([#307](https://github.com/orbcorp/orb-node/issues/307)) ([e69ddaf](https://github.com/orbcorp/orb-node/commit/e69ddafc73d93581b55f05c0d86d521ecf030125))
+
 ## 4.15.1 (2024-09-05)
 
 Full Changelog: [v4.15.0...v4.15.1](https://github.com/orbcorp/orb-node/compare/v4.15.0...v4.15.1)
