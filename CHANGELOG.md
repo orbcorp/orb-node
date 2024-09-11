@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.17.1 (2024-09-11)
+
+Full Changelog: [v4.17.0...v4.17.1](https://github.com/orbcorp/orb-node/compare/v4.17.0...v4.17.1)
+
+### Bug Fixes
+
+* **errors:** pass message through to APIConnectionError ([#316](https://github.com/orbcorp/orb-node/issues/316)) ([9a99ae0](https://github.com/orbcorp/orb-node/commit/9a99ae079e595430ee77d914046e78c380c57e49))
+
 ## 4.17.0 (2024-09-11)
 
 Full Changelog: [v4.16.0...v4.17.0](https://github.com/orbcorp/orb-node/compare/v4.16.0...v4.17.0)
