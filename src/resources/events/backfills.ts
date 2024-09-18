@@ -121,8 +121,8 @@ export interface BackfillCreateResponse {
   created_at: string;
 
   /**
-   * The customer ID this backfill is scoped to. If null, this backfill is not scoped
-   * to a single customer.
+   * The Orb-generated ID of the customer to which this backfill is scoped. If
+   * `null`, this backfill is scoped to all customers.
    */
   customer_id: string | null;
 
@@ -169,8 +169,8 @@ export interface BackfillListResponse {
   created_at: string;
 
   /**
-   * The customer ID this backfill is scoped to. If null, this backfill is not scoped
-   * to a single customer.
+   * The Orb-generated ID of the customer to which this backfill is scoped. If
+   * `null`, this backfill is scoped to all customers.
    */
   customer_id: string | null;
 
@@ -217,8 +217,8 @@ export interface BackfillCloseResponse {
   created_at: string;
 
   /**
-   * The customer ID this backfill is scoped to. If null, this backfill is not scoped
-   * to a single customer.
+   * The Orb-generated ID of the customer to which this backfill is scoped. If
+   * `null`, this backfill is scoped to all customers.
    */
   customer_id: string | null;
 
@@ -265,8 +265,8 @@ export interface BackfillFetchResponse {
   created_at: string;
 
   /**
-   * The customer ID this backfill is scoped to. If null, this backfill is not scoped
-   * to a single customer.
+   * The Orb-generated ID of the customer to which this backfill is scoped. If
+   * `null`, this backfill is scoped to all customers.
    */
   customer_id: string | null;
 
@@ -313,8 +313,8 @@ export interface BackfillRevertResponse {
   created_at: string;
 
   /**
-   * The customer ID this backfill is scoped to. If null, this backfill is not scoped
-   * to a single customer.
+   * The Orb-generated ID of the customer to which this backfill is scoped. If
+   * `null`, this backfill is scoped to all customers.
    */
   customer_id: string | null;
 
@@ -364,7 +364,8 @@ export interface BackfillCreateParams {
   close_time?: string | null;
 
   /**
-   * The ID of the customer to which this backfill is scoped.
+   * The Orb-generated ID of the customer to which this backfill is scoped. Omitting
+   * this field will scope the backfill to all customers.
    */
   customer_id?: string | null;
 
@@ -377,6 +378,7 @@ export interface BackfillCreateParams {
 
   /**
    * The external customer ID of the customer to which this backfill is scoped.
+   * Omitting this field will scope the backfill to all customers.
    */
   external_customer_id?: string | null;
 
