@@ -93,11 +93,11 @@ export class Subscriptions extends APIResource {
    *     "tiers": [
    *       {
    *         "first_unit":"1",
-   *         "last_unit": "10",
+   *         "last_unit": "11",
    *         "unit_amount": "0.50"
    *       },
    *       {
-   *         "first_unit": "10",
+   *         "first_unit": "11",
    *         "last_unit": null,
    *         "unit_amount": "0.10"
    *       }
