@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.18.0 (2024-09-18)
+
+Full Changelog: [v4.17.1...v4.18.0](https://github.com/orbcorp/orb-node/compare/v4.17.1...v4.18.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#322](https://github.com/orbcorp/orb-node/issues/322)) ([b0b1637](https://github.com/orbcorp/orb-node/commit/b0b16373c9d3f38df4e0fd557557dd44996521c7))
+* **api:** OpenAPI spec update via Stainless API ([#323](https://github.com/orbcorp/orb-node/issues/323)) ([ff90e33](https://github.com/orbcorp/orb-node/commit/ff90e33f7363ca4c0102b61f760d483b4dfaffba))
+
+
+### Chores
+
+* better object fallback behaviour for casting errors ([#320](https://github.com/orbcorp/orb-node/issues/320)) ([07fc35b](https://github.com/orbcorp/orb-node/commit/07fc35bb700eea7f6537ab4056d42227ac348428))
+
 ## 4.17.1 (2024-09-11)
 
 Full Changelog: [v4.17.0...v4.17.1](https://github.com/orbcorp/orb-node/compare/v4.17.0...v4.17.1)
