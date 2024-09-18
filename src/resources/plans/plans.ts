@@ -103,8 +103,8 @@ export interface Plan {
   created_at: string;
 
   /**
-   * An ISO 4217 currency string or custom pricing unit (`credits`) for this plan's
-   * prices.
+   * @deprecated: An ISO 4217 currency string or custom pricing unit (`credits`) for
+   * this plan's prices.
    */
   currency: string;
 
