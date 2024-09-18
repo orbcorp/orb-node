@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.20.1 (2024-09-18)
+
+Full Changelog: [v4.20.0...v4.20.1](https://github.com/orbcorp/orb-node/compare/v4.20.0...v4.20.1)
+
+### Bug Fixes
+
+* **types:** remove leftover polyfill usage ([#332](https://github.com/orbcorp/orb-node/issues/332)) ([99d56de](https://github.com/orbcorp/orb-node/commit/99d56dedcdc990b2b5605c781ddd6863e676a82a))
+
 ## 4.20.0 (2024-09-18)
 
 Full Changelog: [v4.19.0...v4.20.0](https://github.com/orbcorp/orb-node/compare/v4.19.0...v4.20.0)
