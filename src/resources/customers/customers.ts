@@ -197,8 +197,6 @@ export interface Customer {
 
   email_delivery: boolean;
 
-  exempt_from_automated_tax: boolean | null;
-
   /**
    * An optional user-defined ID for this customer resource, used throughout the
    * system as an alias for this Customer. Use this field to identify a customer by
@@ -1237,11 +1235,6 @@ export interface CustomerUpdateParams {
 
   shipping_address?: CustomerUpdateParams.ShippingAddress | null;
 
-  tax_configuration?:
-    | CustomerUpdateParams.NewAvalaraTaxConfiguration
-    | CustomerUpdateParams.NewTaxJarConfiguration
-    | null;
-
   /**
    * Tax IDs are commonly required to be displayed on customer invoices, which are
    * added to the headers of invoices.
@@ -1397,22 +1390,6 @@ export namespace CustomerUpdateParams {
     postal_code?: string | null;
 
     state?: string | null;
-  }
-
-  export interface NewAvalaraTaxConfiguration {
-    tax_exempt: boolean;
-
-    tax_provider: 'avalara';
-
-    tax_exemption_code?: string | null;
-
-    tax_exemption_name?: string | null;
-  }
-
-  export interface NewTaxJarConfiguration {
-    tax_exempt: boolean;
-
-    tax_provider: 'taxjar';
   }
 
   /**
@@ -1760,11 +1737,6 @@ export interface CustomerUpdateByExternalIDParams {
 
   shipping_address?: CustomerUpdateByExternalIDParams.ShippingAddress | null;
 
-  tax_configuration?:
-    | CustomerUpdateByExternalIDParams.NewAvalaraTaxConfiguration
-    | CustomerUpdateByExternalIDParams.NewTaxJarConfiguration
-    | null;
-
   /**
    * Tax IDs are commonly required to be displayed on customer invoices, which are
    * added to the headers of invoices.
@@ -1920,22 +1892,6 @@ export namespace CustomerUpdateByExternalIDParams {
     postal_code?: string | null;
 
     state?: string | null;
-  }
-
-  export interface NewAvalaraTaxConfiguration {
-    tax_exempt: boolean;
-
-    tax_provider: 'avalara';
-
-    tax_exemption_code?: string | null;
-
-    tax_exemption_name?: string | null;
-  }
-
-  export interface NewTaxJarConfiguration {
-    tax_exempt: boolean;
-
-    tax_provider: 'taxjar';
   }
 
   /**
