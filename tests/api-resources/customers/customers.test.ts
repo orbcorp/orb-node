@@ -57,6 +57,11 @@ describe('resource customers', () => {
         postal_code: 'postal_code',
         state: 'state',
       },
+      tax_configuration: {
+        tax_exempt: true,
+        tax_provider: 'avalara',
+        tax_exemption_code: 'tax_exemption_code',
+      },
       tax_id: { country: 'AD', type: 'ad_nrt', value: 'value' },
       timezone: 'timezone',
     });
@@ -120,6 +125,11 @@ describe('resource customers', () => {
             line2: 'line2',
             postal_code: 'postal_code',
             state: 'state',
+          },
+          tax_configuration: {
+            tax_exempt: true,
+            tax_provider: 'avalara',
+            tax_exemption_code: 'tax_exemption_code',
           },
           tax_id: { country: 'AD', type: 'ad_nrt', value: 'value' },
         },
@@ -275,6 +285,11 @@ describe('resource customers', () => {
             line2: 'line2',
             postal_code: 'postal_code',
             state: 'state',
+          },
+          tax_configuration: {
+            tax_exempt: true,
+            tax_provider: 'avalara',
+            tax_exemption_code: 'tax_exemption_code',
           },
           tax_id: { country: 'AD', type: 'ad_nrt', value: 'value' },
         },
