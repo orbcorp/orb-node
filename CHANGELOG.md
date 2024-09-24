@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.22.0 (2024-09-24)
+
+Full Changelog: [v4.21.0...v4.22.0](https://github.com/orbcorp/orb-node/compare/v4.21.0...v4.22.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#340](https://github.com/orbcorp/orb-node/issues/340)) ([26681d3](https://github.com/orbcorp/orb-node/commit/26681d3be966505df5c0cec4bda3205ed9d51229))
+* **client:** send retry count header ([#338](https://github.com/orbcorp/orb-node/issues/338)) ([7b916b9](https://github.com/orbcorp/orb-node/commit/7b916b9277115bbc2ed76d79bdfd6c400331652e))
+
 ## 4.21.0 (2024-09-20)
 
 Full Changelog: [v4.20.1...v4.21.0](https://github.com/orbcorp/orb-node/compare/v4.20.1...v4.21.0)
