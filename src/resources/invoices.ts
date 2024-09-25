@@ -288,9 +288,9 @@ export interface Invoice {
    * list is provided, the first discount in the list will be returned. If the list
    * is empty, `None` will be returned.
    */
-  discount: Invoice.PercentageDiscount | Invoice.AmountDiscount | Invoice.TrialDiscount | null;
+  discount: Shared.InvoiceLevelDiscount | null;
 
-  discounts: Array<Invoice.PercentageDiscount | Invoice.AmountDiscount | Invoice.TrialDiscount>;
+  discounts: Array<Shared.InvoiceLevelDiscount>;
 
   /**
    * When the invoice payment is due.
@@ -829,120 +829,6 @@ export namespace Invoice {
       | 'za_vat';
 
     value: string;
-  }
-
-  export interface PercentageDiscount {
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'percentage';
-
-    /**
-     * Only available if discount_type is `percentage`. This is a number between 0
-     * and 1.
-     */
-    percentage_discount: number;
-
-    reason?: string | null;
-  }
-
-  export interface AmountDiscount {
-    /**
-     * Only available if discount_type is `amount`.
-     */
-    amount_discount: string;
-
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'amount';
-
-    reason?: string | null;
-  }
-
-  export interface TrialDiscount {
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'trial';
-
-    reason?: string | null;
-
-    /**
-     * Only available if discount_type is `trial`
-     */
-    trial_amount_discount?: string | null;
-
-    /**
-     * Only available if discount_type is `trial`
-     */
-    trial_percentage_discount?: number | null;
-  }
-
-  export interface PercentageDiscount {
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'percentage';
-
-    /**
-     * Only available if discount_type is `percentage`. This is a number between 0
-     * and 1.
-     */
-    percentage_discount: number;
-
-    reason?: string | null;
-  }
-
-  export interface AmountDiscount {
-    /**
-     * Only available if discount_type is `amount`.
-     */
-    amount_discount: string;
-
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'amount';
-
-    reason?: string | null;
-  }
-
-  export interface TrialDiscount {
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'trial';
-
-    reason?: string | null;
-
-    /**
-     * Only available if discount_type is `trial`
-     */
-    trial_amount_discount?: string | null;
-
-    /**
-     * Only available if discount_type is `trial`
-     */
-    trial_percentage_discount?: number | null;
   }
 
   export interface LineItem {
@@ -1576,17 +1462,9 @@ export interface InvoiceFetchUpcomingResponse {
    * list is provided, the first discount in the list will be returned. If the list
    * is empty, `None` will be returned.
    */
-  discount:
-    | InvoiceFetchUpcomingResponse.PercentageDiscount
-    | InvoiceFetchUpcomingResponse.AmountDiscount
-    | InvoiceFetchUpcomingResponse.TrialDiscount
-    | null;
+  discount: Shared.InvoiceLevelDiscount | null;
 
-  discounts: Array<
-    | InvoiceFetchUpcomingResponse.PercentageDiscount
-    | InvoiceFetchUpcomingResponse.AmountDiscount
-    | InvoiceFetchUpcomingResponse.TrialDiscount
-  >;
+  discounts: Array<Shared.InvoiceLevelDiscount>;
 
   /**
    * When the invoice payment is due.
@@ -2125,120 +2003,6 @@ export namespace InvoiceFetchUpcomingResponse {
       | 'za_vat';
 
     value: string;
-  }
-
-  export interface PercentageDiscount {
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'percentage';
-
-    /**
-     * Only available if discount_type is `percentage`. This is a number between 0
-     * and 1.
-     */
-    percentage_discount: number;
-
-    reason?: string | null;
-  }
-
-  export interface AmountDiscount {
-    /**
-     * Only available if discount_type is `amount`.
-     */
-    amount_discount: string;
-
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'amount';
-
-    reason?: string | null;
-  }
-
-  export interface TrialDiscount {
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'trial';
-
-    reason?: string | null;
-
-    /**
-     * Only available if discount_type is `trial`
-     */
-    trial_amount_discount?: string | null;
-
-    /**
-     * Only available if discount_type is `trial`
-     */
-    trial_percentage_discount?: number | null;
-  }
-
-  export interface PercentageDiscount {
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'percentage';
-
-    /**
-     * Only available if discount_type is `percentage`. This is a number between 0
-     * and 1.
-     */
-    percentage_discount: number;
-
-    reason?: string | null;
-  }
-
-  export interface AmountDiscount {
-    /**
-     * Only available if discount_type is `amount`.
-     */
-    amount_discount: string;
-
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'amount';
-
-    reason?: string | null;
-  }
-
-  export interface TrialDiscount {
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'trial';
-
-    reason?: string | null;
-
-    /**
-     * Only available if discount_type is `trial`
-     */
-    trial_amount_discount?: string | null;
-
-    /**
-     * Only available if discount_type is `trial`
-     */
-    trial_percentage_discount?: number | null;
   }
 
   export interface LineItem {

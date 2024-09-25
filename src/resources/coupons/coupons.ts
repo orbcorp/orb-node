@@ -4,6 +4,7 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as CouponsAPI from './coupons';
+import * as Shared from '../shared';
 import * as SubscriptionsAPI from './subscriptions';
 import { Page, type PageParams } from '../../pagination';
 
@@ -112,7 +113,7 @@ export interface Coupon {
    */
   archived_at: string | null;
 
-  discount: Coupon.PercentageDiscount | Coupon.AmountDiscount;
+  discount: Shared.PercentageDiscount | Shared.AmountDiscount;
 
   /**
    * This allows for a coupon's discount to apply for a limited time (determined in
@@ -135,43 +136,6 @@ export interface Coupon {
    * The number of times this coupon has been redeemed.
    */
   times_redeemed: number;
-}
-
-export namespace Coupon {
-  export interface PercentageDiscount {
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'percentage';
-
-    /**
-     * Only available if discount_type is `percentage`. This is a number between 0
-     * and 1.
-     */
-    percentage_discount: number;
-
-    reason?: string | null;
-  }
-
-  export interface AmountDiscount {
-    /**
-     * Only available if discount_type is `amount`.
-     */
-    amount_discount: string;
-
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'amount';
-
-    reason?: string | null;
-  }
 }
 
 export interface CouponCreateParams {
