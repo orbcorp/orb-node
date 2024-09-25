@@ -342,9 +342,13 @@ export namespace Orb {
   export import AlertCreateForExternalCustomerParams = API.AlertCreateForExternalCustomerParams;
   export import AlertCreateForSubscriptionParams = API.AlertCreateForSubscriptionParams;
 
+  export import AmountDiscount = API.AmountDiscount;
   export import BillingCycleRelativeDate = API.BillingCycleRelativeDate;
   export import Discount = API.Discount;
+  export import InvoiceLevelDiscount = API.InvoiceLevelDiscount;
   export import PaginationMetadata = API.PaginationMetadata;
+  export import PercentageDiscount = API.PercentageDiscount;
+  export import TrialDiscount = API.TrialDiscount;
 }
 
 export default Orb;
