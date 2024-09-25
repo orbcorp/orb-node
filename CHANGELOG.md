@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.23.0 (2024-09-25)
+
+Full Changelog: [v4.22.0...v4.23.0](https://github.com/orbcorp/orb-node/compare/v4.22.0...v4.23.0)
+
+### Features
+
+* **api:** extract discounts to models ([#342](https://github.com/orbcorp/orb-node/issues/342)) ([78f38d5](https://github.com/orbcorp/orb-node/commit/78f38d5c289a3a09e943799b3324e50dfe99de8e))
+
 ## 4.22.0 (2024-09-24)
 
 Full Changelog: [v4.21.0...v4.22.0](https://github.com/orbcorp/orb-node/compare/v4.21.0...v4.22.0)
