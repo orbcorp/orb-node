@@ -2,7 +2,7 @@
   "name": "orb-billing",
   "version": "4.23.0",
   "description": "The official TypeScript library for the Orb API",
-  "author": "Orb <team-test@withorb.com>",
+  "author": "Orb <team@withorb.com>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
