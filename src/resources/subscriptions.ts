@@ -2578,6 +2578,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionUnitPrice {
@@ -2698,6 +2704,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionPackagePrice {
@@ -2824,6 +2836,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionMatrixPrice {
@@ -2970,6 +2988,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredPrice {
@@ -3109,6 +3133,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredBpsPrice {
@@ -3254,6 +3284,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBpsPrice {
@@ -3379,6 +3415,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBulkBpsPrice {
@@ -3519,6 +3561,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBulkPrice {
@@ -3653,6 +3701,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionThresholdTotalAmountPrice {
@@ -3766,6 +3820,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredPackagePrice {
@@ -3879,6 +3939,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredWithMinimumPrice {
@@ -3992,6 +4058,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionUnitWithPercentPrice {
@@ -4105,6 +4177,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionPackageWithAllocationPrice {
@@ -4218,6 +4296,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTierWithProrationPrice {
@@ -4331,6 +4415,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionUnitWithProrationPrice {
@@ -4444,6 +4534,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionGroupedAllocationPrice {
@@ -4557,6 +4653,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionGroupedWithProratedMinimumPrice {
@@ -4670,6 +4772,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBulkWithProrationPrice {
@@ -6433,9 +6541,24 @@ export namespace SubscriptionCreateParams {
 
   export interface ReplacePrice {
     /**
+     * The id of the price on the plan to replace in the subscription.
+     */
+    replaces_price_id: string;
+
+    /**
+     * The external price id of the price to add to the subscription.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * The new quantity of the price, if the price is a fixed price.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
      * The definition of a new price to create and add to the subscription.
      */
-    price:
+    price?:
       | ReplacePrice.NewSubscriptionUnitPrice
       | ReplacePrice.NewSubscriptionPackagePrice
       | ReplacePrice.NewSubscriptionMatrixPrice
@@ -6453,12 +6576,13 @@ export namespace SubscriptionCreateParams {
       | ReplacePrice.NewSubscriptionUnitWithProrationPrice
       | ReplacePrice.NewSubscriptionGroupedAllocationPrice
       | ReplacePrice.NewSubscriptionGroupedWithProratedMinimumPrice
-      | ReplacePrice.NewSubscriptionBulkWithProrationPrice;
+      | ReplacePrice.NewSubscriptionBulkWithProrationPrice
+      | null;
 
     /**
-     * The id of the price on the plan to replace in the subscription.
+     * The id of the price to add to the subscription.
      */
-    replaces_price_id: string;
+    price_id?: string | null;
   }
 
   export namespace ReplacePrice {
@@ -6539,6 +6663,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionUnitPrice {
@@ -6659,6 +6789,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionPackagePrice {
@@ -6785,6 +6921,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionMatrixPrice {
@@ -6931,6 +7073,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredPrice {
@@ -7070,6 +7218,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredBpsPrice {
@@ -7215,6 +7369,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBpsPrice {
@@ -7340,6 +7500,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBulkBpsPrice {
@@ -7480,6 +7646,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBulkPrice {
@@ -7614,6 +7786,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionThresholdTotalAmountPrice {
@@ -7727,6 +7905,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredPackagePrice {
@@ -7840,6 +8024,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredWithMinimumPrice {
@@ -7953,6 +8143,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionUnitWithPercentPrice {
@@ -8066,6 +8262,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionPackageWithAllocationPrice {
@@ -8179,6 +8381,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTierWithProrationPrice {
@@ -8292,6 +8500,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionUnitWithProrationPrice {
@@ -8405,6 +8619,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionGroupedAllocationPrice {
@@ -8518,6 +8738,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionGroupedWithProratedMinimumPrice {
@@ -8631,6 +8857,12 @@ export namespace SubscriptionCreateParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBulkWithProrationPrice {
@@ -12153,6 +12385,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionUnitPrice {
@@ -12273,6 +12511,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionPackagePrice {
@@ -12399,6 +12643,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionMatrixPrice {
@@ -12545,6 +12795,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredPrice {
@@ -12684,6 +12940,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredBpsPrice {
@@ -12829,6 +13091,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBpsPrice {
@@ -12954,6 +13222,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBulkBpsPrice {
@@ -13094,6 +13368,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBulkPrice {
@@ -13228,6 +13508,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionThresholdTotalAmountPrice {
@@ -13341,6 +13627,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredPackagePrice {
@@ -13454,6 +13746,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredWithMinimumPrice {
@@ -13567,6 +13865,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionUnitWithPercentPrice {
@@ -13680,6 +13984,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionPackageWithAllocationPrice {
@@ -13793,6 +14103,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTierWithProrationPrice {
@@ -13906,6 +14222,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionUnitWithProrationPrice {
@@ -14019,6 +14341,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionGroupedAllocationPrice {
@@ -14132,6 +14460,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionGroupedWithProratedMinimumPrice {
@@ -14245,6 +14579,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBulkWithProrationPrice {
@@ -15985,9 +16325,24 @@ export namespace SubscriptionSchedulePlanChangeParams {
 
   export interface ReplacePrice {
     /**
+     * The id of the price on the plan to replace in the subscription.
+     */
+    replaces_price_id: string;
+
+    /**
+     * The external price id of the price to add to the subscription.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * The new quantity of the price, if the price is a fixed price.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
      * The definition of a new price to create and add to the subscription.
      */
-    price:
+    price?:
       | ReplacePrice.NewSubscriptionUnitPrice
       | ReplacePrice.NewSubscriptionPackagePrice
       | ReplacePrice.NewSubscriptionMatrixPrice
@@ -16005,12 +16360,13 @@ export namespace SubscriptionSchedulePlanChangeParams {
       | ReplacePrice.NewSubscriptionUnitWithProrationPrice
       | ReplacePrice.NewSubscriptionGroupedAllocationPrice
       | ReplacePrice.NewSubscriptionGroupedWithProratedMinimumPrice
-      | ReplacePrice.NewSubscriptionBulkWithProrationPrice;
+      | ReplacePrice.NewSubscriptionBulkWithProrationPrice
+      | null;
 
     /**
-     * The id of the price on the plan to replace in the subscription.
+     * The id of the price to add to the subscription.
      */
-    replaces_price_id: string;
+    price_id?: string | null;
   }
 
   export namespace ReplacePrice {
@@ -16091,6 +16447,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionUnitPrice {
@@ -16211,6 +16573,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionPackagePrice {
@@ -16337,6 +16705,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionMatrixPrice {
@@ -16483,6 +16857,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredPrice {
@@ -16622,6 +17002,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredBpsPrice {
@@ -16767,6 +17153,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBpsPrice {
@@ -16892,6 +17284,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBulkBpsPrice {
@@ -17032,6 +17430,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBulkPrice {
@@ -17166,6 +17570,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionThresholdTotalAmountPrice {
@@ -17279,6 +17689,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredPackagePrice {
@@ -17392,6 +17808,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTieredWithMinimumPrice {
@@ -17505,6 +17927,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionUnitWithPercentPrice {
@@ -17618,6 +18046,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionPackageWithAllocationPrice {
@@ -17731,6 +18165,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionTierWithProrationPrice {
@@ -17844,6 +18284,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionUnitWithProrationPrice {
@@ -17957,6 +18403,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionGroupedAllocationPrice {
@@ -18070,6 +18522,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionGroupedWithProratedMinimumPrice {
@@ -18183,6 +18641,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * by setting `metadata` to `null`.
        */
       metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
     }
 
     export namespace NewSubscriptionBulkWithProrationPrice {
