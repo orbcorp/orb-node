@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.25.0 (2024-09-29)
+
+Full Changelog: [v4.24.0...v4.25.0](https://github.com/orbcorp/orb-node/compare/v4.24.0...v4.25.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#352](https://github.com/orbcorp/orb-node/issues/352)) ([8657379](https://github.com/orbcorp/orb-node/commit/8657379197b6950a9ae12d82484e03deea81b3fd))
+
+
+### Chores
+
+* **internal:** codegen related update ([#350](https://github.com/orbcorp/orb-node/issues/350)) ([842d7ad](https://github.com/orbcorp/orb-node/commit/842d7ad1ca4473d229b1fe335993c52ca98b98d2))
+
 ## 4.24.0 (2024-09-26)
 
 Full Changelog: [v4.23.0...v4.24.0](https://github.com/orbcorp/orb-node/compare/v4.23.0...v4.24.0)
