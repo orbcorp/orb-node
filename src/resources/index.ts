@@ -58,6 +58,7 @@ export {
   InvoiceUpdateParams,
   InvoiceListParams,
   InvoiceFetchUpcomingParams,
+  InvoiceIssueParams,
   InvoiceMarkPaidParams,
   InvoicesPage,
   Invoices,

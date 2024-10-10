@@ -206,6 +206,13 @@ describe('resource invoices', () => {
     );
   });
 
+  test('issue: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.invoices.issue('invoice_id', { synchronous: true }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
+  });
+
   test('markPaid: only required params', async () => {
     const responsePromise = client.invoices.markPaid('invoice_id', { payment_received_date: '2023-09-22' });
     const rawResponse = await responsePromise.asResponse();
