@@ -280,6 +280,7 @@ export namespace Orb {
   export import InvoiceUpdateParams = API.InvoiceUpdateParams;
   export import InvoiceListParams = API.InvoiceListParams;
   export import InvoiceFetchUpcomingParams = API.InvoiceFetchUpcomingParams;
+  export import InvoiceIssueParams = API.InvoiceIssueParams;
   export import InvoiceMarkPaidParams = API.InvoiceMarkPaidParams;
 
   export import Items = API.Items;
