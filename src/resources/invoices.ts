@@ -103,8 +103,21 @@ export class Invoices extends APIResource {
    * sending emails, auto-collecting payment, syncing the invoice to external
    * providers, etc).
    */
-  issue(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Invoice> {
-    return this._client.post(`/invoices/${invoiceId}/issue`, options);
+  issue(
+    invoiceId: string,
+    body?: InvoiceIssueParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Invoice>;
+  issue(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Invoice>;
+  issue(
+    invoiceId: string,
+    body: InvoiceIssueParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Invoice> {
+    if (isRequestOptions(body)) {
+      return this.issue(invoiceId, {}, body);
+    }
+    return this._client.post(`/invoices/${invoiceId}/issue`, { body, ...options });
   }
 
   /**
@@ -2637,6 +2650,14 @@ export interface InvoiceFetchUpcomingParams {
   subscription_id?: string;
 }
 
+export interface InvoiceIssueParams {
+  /**
+   * If true, the invoice will be issued synchronously. If false, the invoice will be
+   * issued asynchronously.
+   */
+  synchronous?: boolean;
+}
+
 export interface InvoiceMarkPaidParams {
   /**
    * A date string to specify the date of the payment.
@@ -2662,5 +2683,6 @@ export namespace Invoices {
   export import InvoiceUpdateParams = InvoicesAPI.InvoiceUpdateParams;
   export import InvoiceListParams = InvoicesAPI.InvoiceListParams;
   export import InvoiceFetchUpcomingParams = InvoicesAPI.InvoiceFetchUpcomingParams;
+  export import InvoiceIssueParams = InvoicesAPI.InvoiceIssueParams;
   export import InvoiceMarkPaidParams = InvoicesAPI.InvoiceMarkPaidParams;
 }
