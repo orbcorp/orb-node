@@ -4,9 +4,11 @@ import { APIResource } from '../../resource';
 import * as Core from '../../core';
 import * as EventsAPI from './events';
 import * as BackfillsAPI from './backfills';
+import * as VolumeAPI from './volume';
 
 export class Events extends APIResource {
   backfills: BackfillsAPI.Backfills = new BackfillsAPI.Backfills(this._client);
+  volume: VolumeAPI.Volume = new VolumeAPI.Volume(this._client);
 
   /**
    * This endpoint is used to amend a single usage event with a given `event_id`.
@@ -577,4 +579,7 @@ export namespace Events {
   export import BackfillListResponsesPage = BackfillsAPI.BackfillListResponsesPage;
   export import BackfillCreateParams = BackfillsAPI.BackfillCreateParams;
   export import BackfillListParams = BackfillsAPI.BackfillListParams;
+  export import Volume = VolumeAPI.Volume;
+  export import EventVolumes = VolumeAPI.EventVolumes;
+  export import VolumeListParams = VolumeAPI.VolumeListParams;
 }
