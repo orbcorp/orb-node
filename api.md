@@ -170,6 +170,16 @@ Methods:
 - <code title="get /events/backfills/{backfill_id}">client.events.backfills.<a href="./src/resources/events/backfills.ts">fetch</a>(backfillId) -> BackfillFetchResponse</code>
 - <code title="post /events/backfills/{backfill_id}/revert">client.events.backfills.<a href="./src/resources/events/backfills.ts">revert</a>(backfillId) -> BackfillRevertResponse</code>
 
+## Volume
+
+Types:
+
+- <code><a href="./src/resources/events/volume.ts">EventVolumes</a></code>
+
+Methods:
+
+- <code title="get /events/volume">client.events.volume.<a href="./src/resources/events/volume.ts">list</a>({ ...params }) -> EventVolumes</code>
+
 # InvoiceLineItems
 
 Types:

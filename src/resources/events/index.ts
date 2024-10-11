@@ -21,3 +21,4 @@ export {
   EventSearchParams,
   Events,
 } from './events';
+export { EventVolumes, VolumeListParams, Volume } from './volume';
