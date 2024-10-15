@@ -34,7 +34,7 @@ describe('resource volume', () => {
         {
           cursor: 'cursor',
           limit: 1,
-          timeframe_end: '2019-12-27T18:11:19.117Z',
+          timeframe_end: '2024-10-11T06:00:00Z',
           timeframe_start: '2019-12-27T18:11:19.117Z',
         },
         { path: '/_stainless_unknown_path' },
