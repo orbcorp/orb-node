@@ -2416,21 +2416,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -2505,21 +2494,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -2614,21 +2592,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -2716,21 +2683,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -2824,21 +2780,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -2912,21 +2857,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3015,21 +2949,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3112,21 +3035,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3188,21 +3100,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3264,21 +3165,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3340,21 +3230,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3416,21 +3295,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3492,21 +3360,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3568,21 +3425,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3644,21 +3490,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3720,21 +3555,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3796,21 +3620,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3872,21 +3685,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -3948,21 +3750,10 @@ export namespace SubscriptionCreateParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -7272,21 +7063,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -7361,21 +7141,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -7470,21 +7239,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -7572,21 +7330,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -7680,21 +7427,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -7768,21 +7504,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -7871,21 +7596,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -7968,21 +7682,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -8044,21 +7747,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -8120,21 +7812,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -8196,21 +7877,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -8272,21 +7942,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -8348,21 +8007,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -8424,21 +8072,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -8500,21 +8137,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -8576,21 +8202,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -8652,21 +8267,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -8728,21 +8332,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
@@ -8804,21 +8397,10 @@ export namespace SubscriptionSchedulePlanChangeParams {
       amount_discount?: string | null;
 
       /**
-       * List of price_ids that this discount applies to. For plan/plan phase discounts,
-       * this can be a subset of prices.
-       */
-      applies_to_price_ids?: Array<string> | null;
-
-      /**
        * Only available if discount_type is `percentage`. This is a number between 0
        * and 1.
        */
       percentage_discount?: number | null;
-
-      /**
-       * Only available if discount_type is `trial`
-       */
-      trial_amount_discount?: string | null;
 
       /**
        * Only available if discount_type is `usage`. Number of usage units that this
