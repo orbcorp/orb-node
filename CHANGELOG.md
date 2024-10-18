@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.31.0 (2024-10-18)
+
+Full Changelog: [v4.30.0...v4.31.0](https://github.com/orbcorp/orb-node/compare/v4.30.0...v4.31.0)
+
+### Features
+
+* **api:** api update ([#371](https://github.com/orbcorp/orb-node/issues/371)) ([eb16560](https://github.com/orbcorp/orb-node/commit/eb1656028ad4ed8a8b05d349d91cdc12d6d4cf38))
+
 ## 4.30.0 (2024-10-16)
 
 Full Changelog: [v4.29.0...v4.30.0](https://github.com/orbcorp/orb-node/compare/v4.29.0...v4.30.0)
