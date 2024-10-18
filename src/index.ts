@@ -332,6 +332,7 @@ export namespace Orb {
   export import SubscriptionTriggerPhaseParams = API.SubscriptionTriggerPhaseParams;
   export import SubscriptionUnscheduleFixedFeeQuantityUpdatesParams = API.SubscriptionUnscheduleFixedFeeQuantityUpdatesParams;
   export import SubscriptionUpdateFixedFeeQuantityParams = API.SubscriptionUpdateFixedFeeQuantityParams;
+  export import SubscriptionUpdateTrialParams = API.SubscriptionUpdateTrialParams;
 
   export import Alerts = API.Alerts;
   export import Alert = API.Alert;
