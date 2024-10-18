@@ -51,6 +51,7 @@ describe('resource subscriptions', () => {
           net_terms: 0,
           per_credit_overage_amount: 0,
           plan_id: 'ZMwNQefe7J3ecf7W',
+          plan_version_number: 0,
           price_overrides: [
             {
               id: 'id',
@@ -102,6 +103,7 @@ describe('resource subscriptions', () => {
             },
           ],
           start_date: '2019-12-27T18:11:19.117Z',
+          trial_duration_days: 0,
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -600,6 +602,7 @@ describe('resource subscriptions', () => {
       net_terms: 0,
       per_credit_overage_amount: 0,
       plan_id: 'ZMwNQefe7J3ecf7W',
+      plan_version_number: 0,
       price_overrides: [
         {
           id: 'id',
@@ -650,6 +653,7 @@ describe('resource subscriptions', () => {
           minimum_amount: '1.23',
         },
       ],
+      trial_duration_days: 0,
     });
   });
 
@@ -759,6 +763,26 @@ describe('resource subscriptions', () => {
       quantity: 0,
       change_option: 'immediate',
       effective_date: '2022-12-21',
+    });
+  });
+
+  test('updateTrial: only required params', async () => {
+    const responsePromise = client.subscriptions.updateTrial('subscription_id', {
+      trial_end_date: '2017-07-21T17:32:28Z',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('updateTrial: required and optional params', async () => {
+    const response = await client.subscriptions.updateTrial('subscription_id', {
+      trial_end_date: '2017-07-21T17:32:28Z',
+      shift: true,
     });
   });
 });

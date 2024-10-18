@@ -88,6 +88,7 @@ export {
   SubscriptionTriggerPhaseParams,
   SubscriptionUnscheduleFixedFeeQuantityUpdatesParams,
   SubscriptionUpdateFixedFeeQuantityParams,
+  SubscriptionUpdateTrialParams,
   SubscriptionsPage,
   SubscriptionFetchScheduleResponsesPage,
 } from './subscriptions';
