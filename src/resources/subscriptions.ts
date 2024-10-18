@@ -1053,6 +1053,34 @@ export class Subscriptions extends APIResource {
       ...options,
     });
   }
+
+  /**
+   * This endpoint is used to update the trial end date for a subscription. The new
+   * trial end date must be within the time range of the current plan (i.e. the new
+   * trial end date must be on or after the subscription's start date on the current
+   * plan, and on or before the subscription end date).
+   *
+   * In order to retroactively remove a trial completely, the end date can be set to
+   * the transition date of the subscription to this plan (or, if this is the first
+   * plan for this subscription, the subscription's start date). In order to end a
+   * trial immediately, the keyword `immediate` can be provided as the trial end
+   * date.
+   *
+   * By default, Orb will shift only the trial end date (and price intervals that
+   * start or end on the previous trial end date), and leave all other future price
+   * intervals untouched. If the `shift` parameter is set to `true`, Orb will shift
+   * all subsequent price and adjustment intervals by the same amount as the trial
+   * end date shift (so, e.g., if a plan change is scheduled or an add-on price was
+   * added, that change will be pushed back by the same amount of time the trial is
+   * extended).
+   */
+  updateTrial(
+    subscriptionId: string,
+    body: SubscriptionUpdateTrialParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Subscription> {
+    return this._client.post(`/subscriptions/${subscriptionId}/update_trial`, { body, ...options });
+  }
 }
 
 export class SubscriptionsPage extends Page<Subscription> {}
@@ -2306,6 +2334,12 @@ export interface SubscriptionCreateParams {
   plan_id?: string | null;
 
   /**
+   * Specifies which version of the plan to subscribe to. If null, the default
+   * version will be used.
+   */
+  plan_version_number?: number | null;
+
+  /**
    * Optionally provide a list of overrides for prices on the plan
    */
   price_overrides?: Array<
@@ -2331,6 +2365,13 @@ export interface SubscriptionCreateParams {
   > | null;
 
   start_date?: string | null;
+
+  /**
+   * The duration of the trial period in days. If not provided, this defaults to the
+   * value specified in the plan. If `0` is provided, the trial on the plan will be
+   * skipped.
+   */
+  trial_duration_days?: number | null;
 }
 
 export namespace SubscriptionCreateParams {
@@ -6978,6 +7019,12 @@ export interface SubscriptionSchedulePlanChangeParams {
   plan_id?: string | null;
 
   /**
+   * Specifies which version of the plan to change to. If null, the default version
+   * will be used.
+   */
+  plan_version_number?: number | null;
+
+  /**
    * Optionally provide a list of overrides for prices on the plan
    */
   price_overrides?: Array<
@@ -7001,6 +7048,13 @@ export interface SubscriptionSchedulePlanChangeParams {
     | SubscriptionSchedulePlanChangeParams.OverrideUnitWithProrationPrice
     | SubscriptionSchedulePlanChangeParams.OverrideTieredWithProrationPrice
   > | null;
+
+  /**
+   * The duration of the trial period in days. If not provided, this defaults to the
+   * value specified in the plan. If `0` is provided, the trial on the plan will be
+   * skipped.
+   */
+  trial_duration_days?: number | null;
 }
 
 export namespace SubscriptionSchedulePlanChangeParams {
@@ -8449,6 +8503,20 @@ export interface SubscriptionUpdateFixedFeeQuantityParams {
   effective_date?: string | null;
 }
 
+export interface SubscriptionUpdateTrialParams {
+  /**
+   * The new date that the trial should end, or the literal string `immediate` to end
+   * the trial immediately.
+   */
+  trial_end_date: (string & {}) | 'immediate';
+
+  /**
+   * If true, shifts subsequent price and adjustment intervals (preserving their
+   * durations, but adjusting their absolute dates).
+   */
+  shift?: boolean;
+}
+
 export namespace Subscriptions {
   export import Subscription = SubscriptionsAPI.Subscription;
   export import SubscriptionUsage = SubscriptionsAPI.SubscriptionUsage;
@@ -8469,4 +8537,5 @@ export namespace Subscriptions {
   export import SubscriptionTriggerPhaseParams = SubscriptionsAPI.SubscriptionTriggerPhaseParams;
   export import SubscriptionUnscheduleFixedFeeQuantityUpdatesParams = SubscriptionsAPI.SubscriptionUnscheduleFixedFeeQuantityUpdatesParams;
   export import SubscriptionUpdateFixedFeeQuantityParams = SubscriptionsAPI.SubscriptionUpdateFixedFeeQuantityParams;
+  export import SubscriptionUpdateTrialParams = SubscriptionsAPI.SubscriptionUpdateTrialParams;
 }
