@@ -2676,13 +2676,13 @@ export interface InvoiceMarkPaidParams {
 }
 
 export namespace Invoices {
-  export import Invoice = InvoicesAPI.Invoice;
-  export import InvoiceFetchUpcomingResponse = InvoicesAPI.InvoiceFetchUpcomingResponse;
+  export type Invoice = InvoicesAPI.Invoice;
+  export type InvoiceFetchUpcomingResponse = InvoicesAPI.InvoiceFetchUpcomingResponse;
   export import InvoicesPage = InvoicesAPI.InvoicesPage;
-  export import InvoiceCreateParams = InvoicesAPI.InvoiceCreateParams;
-  export import InvoiceUpdateParams = InvoicesAPI.InvoiceUpdateParams;
-  export import InvoiceListParams = InvoicesAPI.InvoiceListParams;
-  export import InvoiceFetchUpcomingParams = InvoicesAPI.InvoiceFetchUpcomingParams;
-  export import InvoiceIssueParams = InvoicesAPI.InvoiceIssueParams;
-  export import InvoiceMarkPaidParams = InvoicesAPI.InvoiceMarkPaidParams;
+  export type InvoiceCreateParams = InvoicesAPI.InvoiceCreateParams;
+  export type InvoiceUpdateParams = InvoicesAPI.InvoiceUpdateParams;
+  export type InvoiceListParams = InvoicesAPI.InvoiceListParams;
+  export type InvoiceFetchUpcomingParams = InvoicesAPI.InvoiceFetchUpcomingParams;
+  export type InvoiceIssueParams = InvoicesAPI.InvoiceIssueParams;
+  export type InvoiceMarkPaidParams = InvoicesAPI.InvoiceMarkPaidParams;
 }

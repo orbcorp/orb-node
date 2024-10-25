@@ -371,11 +371,11 @@ export namespace AlertCreateForSubscriptionParams {
 }
 
 export namespace Alerts {
-  export import Alert = AlertsAPI.Alert;
+  export type Alert = AlertsAPI.Alert;
   export import AlertsPage = AlertsAPI.AlertsPage;
-  export import AlertUpdateParams = AlertsAPI.AlertUpdateParams;
-  export import AlertListParams = AlertsAPI.AlertListParams;
-  export import AlertCreateForCustomerParams = AlertsAPI.AlertCreateForCustomerParams;
-  export import AlertCreateForExternalCustomerParams = AlertsAPI.AlertCreateForExternalCustomerParams;
-  export import AlertCreateForSubscriptionParams = AlertsAPI.AlertCreateForSubscriptionParams;
+  export type AlertUpdateParams = AlertsAPI.AlertUpdateParams;
+  export type AlertListParams = AlertsAPI.AlertListParams;
+  export type AlertCreateForCustomerParams = AlertsAPI.AlertCreateForCustomerParams;
+  export type AlertCreateForExternalCustomerParams = AlertsAPI.AlertCreateForExternalCustomerParams;
+  export type AlertCreateForSubscriptionParams = AlertsAPI.AlertCreateForSubscriptionParams;
 }

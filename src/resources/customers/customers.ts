@@ -2219,28 +2219,28 @@ export namespace CustomerUpdateByExternalIDParams {
 }
 
 export namespace Customers {
-  export import Customer = CustomersAPI.Customer;
+  export type Customer = CustomersAPI.Customer;
   export import CustomersPage = CustomersAPI.CustomersPage;
-  export import CustomerCreateParams = CustomersAPI.CustomerCreateParams;
-  export import CustomerUpdateParams = CustomersAPI.CustomerUpdateParams;
-  export import CustomerListParams = CustomersAPI.CustomerListParams;
-  export import CustomerUpdateByExternalIDParams = CustomersAPI.CustomerUpdateByExternalIDParams;
+  export type CustomerCreateParams = CustomersAPI.CustomerCreateParams;
+  export type CustomerUpdateParams = CustomersAPI.CustomerUpdateParams;
+  export type CustomerListParams = CustomersAPI.CustomerListParams;
+  export type CustomerUpdateByExternalIDParams = CustomersAPI.CustomerUpdateByExternalIDParams;
   export import Costs = CostsAPI.Costs;
-  export import CostListResponse = CostsAPI.CostListResponse;
-  export import CostListByExternalIDResponse = CostsAPI.CostListByExternalIDResponse;
-  export import CostListParams = CostsAPI.CostListParams;
-  export import CostListByExternalIDParams = CostsAPI.CostListByExternalIDParams;
+  export type CostListResponse = CostsAPI.CostListResponse;
+  export type CostListByExternalIDResponse = CostsAPI.CostListByExternalIDResponse;
+  export type CostListParams = CostsAPI.CostListParams;
+  export type CostListByExternalIDParams = CostsAPI.CostListByExternalIDParams;
   export import Credits = CreditsAPI.Credits;
-  export import CreditListResponse = CreditsAPI.CreditListResponse;
-  export import CreditListByExternalIDResponse = CreditsAPI.CreditListByExternalIDResponse;
+  export type CreditListResponse = CreditsAPI.CreditListResponse;
+  export type CreditListByExternalIDResponse = CreditsAPI.CreditListByExternalIDResponse;
   export import CreditListResponsesPage = CreditsAPI.CreditListResponsesPage;
   export import CreditListByExternalIDResponsesPage = CreditsAPI.CreditListByExternalIDResponsesPage;
-  export import CreditListParams = CreditsAPI.CreditListParams;
-  export import CreditListByExternalIDParams = CreditsAPI.CreditListByExternalIDParams;
+  export type CreditListParams = CreditsAPI.CreditListParams;
+  export type CreditListByExternalIDParams = CreditsAPI.CreditListByExternalIDParams;
   export import BalanceTransactions = BalanceTransactionsAPI.BalanceTransactions;
-  export import BalanceTransactionCreateResponse = BalanceTransactionsAPI.BalanceTransactionCreateResponse;
-  export import BalanceTransactionListResponse = BalanceTransactionsAPI.BalanceTransactionListResponse;
+  export type BalanceTransactionCreateResponse = BalanceTransactionsAPI.BalanceTransactionCreateResponse;
+  export type BalanceTransactionListResponse = BalanceTransactionsAPI.BalanceTransactionListResponse;
   export import BalanceTransactionListResponsesPage = BalanceTransactionsAPI.BalanceTransactionListResponsesPage;
-  export import BalanceTransactionCreateParams = BalanceTransactionsAPI.BalanceTransactionCreateParams;
-  export import BalanceTransactionListParams = BalanceTransactionsAPI.BalanceTransactionListParams;
+  export type BalanceTransactionCreateParams = BalanceTransactionsAPI.BalanceTransactionCreateParams;
+  export type BalanceTransactionListParams = BalanceTransactionsAPI.BalanceTransactionListParams;
 }

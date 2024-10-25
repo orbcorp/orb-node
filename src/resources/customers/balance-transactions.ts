@@ -230,9 +230,9 @@ export interface BalanceTransactionListParams extends PageParams {
 }
 
 export namespace BalanceTransactions {
-  export import BalanceTransactionCreateResponse = BalanceTransactionsAPI.BalanceTransactionCreateResponse;
-  export import BalanceTransactionListResponse = BalanceTransactionsAPI.BalanceTransactionListResponse;
+  export type BalanceTransactionCreateResponse = BalanceTransactionsAPI.BalanceTransactionCreateResponse;
+  export type BalanceTransactionListResponse = BalanceTransactionsAPI.BalanceTransactionListResponse;
   export import BalanceTransactionListResponsesPage = BalanceTransactionsAPI.BalanceTransactionListResponsesPage;
-  export import BalanceTransactionCreateParams = BalanceTransactionsAPI.BalanceTransactionCreateParams;
-  export import BalanceTransactionListParams = BalanceTransactionsAPI.BalanceTransactionListParams;
+  export type BalanceTransactionCreateParams = BalanceTransactionsAPI.BalanceTransactionCreateParams;
+  export type BalanceTransactionListParams = BalanceTransactionsAPI.BalanceTransactionListParams;
 }

@@ -70,5 +70,5 @@ export interface ExternalPlanIDUpdateParams {
 }
 
 export namespace ExternalPlanID {
-  export import ExternalPlanIDUpdateParams = ExternalPlanIDAPI.ExternalPlanIDUpdateParams;
+  export type ExternalPlanIDUpdateParams = ExternalPlanIDAPI.ExternalPlanIDUpdateParams;
 }

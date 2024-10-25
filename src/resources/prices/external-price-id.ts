@@ -49,5 +49,5 @@ export interface ExternalPriceIDUpdateParams {
 }
 
 export namespace ExternalPriceID {
-  export import ExternalPriceIDUpdateParams = ExternalPriceIDAPI.ExternalPriceIDUpdateParams;
+  export type ExternalPriceIDUpdateParams = ExternalPriceIDAPI.ExternalPriceIDUpdateParams;
 }

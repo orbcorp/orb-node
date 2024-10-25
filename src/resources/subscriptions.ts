@@ -15678,24 +15678,26 @@ export interface SubscriptionUpdateTrialParams {
 }
 
 export namespace Subscriptions {
-  export import Subscription = SubscriptionsAPI.Subscription;
-  export import SubscriptionUsage = SubscriptionsAPI.SubscriptionUsage;
-  export import Subscriptions = SubscriptionsAPI.Subscriptions;
-  export import SubscriptionFetchCostsResponse = SubscriptionsAPI.SubscriptionFetchCostsResponse;
-  export import SubscriptionFetchScheduleResponse = SubscriptionsAPI.SubscriptionFetchScheduleResponse;
+  export type Subscription = SubscriptionsAPI.Subscription;
+  export type SubscriptionUsage = SubscriptionsAPI.SubscriptionUsage;
+  export type Subscriptions = SubscriptionsAPI.Subscriptions;
+  export type SubscriptionFetchCostsResponse = SubscriptionsAPI.SubscriptionFetchCostsResponse;
+  export type SubscriptionFetchScheduleResponse = SubscriptionsAPI.SubscriptionFetchScheduleResponse;
   export import SubscriptionsPage = SubscriptionsAPI.SubscriptionsPage;
   export import SubscriptionFetchScheduleResponsesPage = SubscriptionsAPI.SubscriptionFetchScheduleResponsesPage;
-  export import SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;
-  export import SubscriptionUpdateParams = SubscriptionsAPI.SubscriptionUpdateParams;
-  export import SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
-  export import SubscriptionCancelParams = SubscriptionsAPI.SubscriptionCancelParams;
-  export import SubscriptionFetchCostsParams = SubscriptionsAPI.SubscriptionFetchCostsParams;
-  export import SubscriptionFetchScheduleParams = SubscriptionsAPI.SubscriptionFetchScheduleParams;
-  export import SubscriptionFetchUsageParams = SubscriptionsAPI.SubscriptionFetchUsageParams;
-  export import SubscriptionPriceIntervalsParams = SubscriptionsAPI.SubscriptionPriceIntervalsParams;
-  export import SubscriptionSchedulePlanChangeParams = SubscriptionsAPI.SubscriptionSchedulePlanChangeParams;
-  export import SubscriptionTriggerPhaseParams = SubscriptionsAPI.SubscriptionTriggerPhaseParams;
-  export import SubscriptionUnscheduleFixedFeeQuantityUpdatesParams = SubscriptionsAPI.SubscriptionUnscheduleFixedFeeQuantityUpdatesParams;
-  export import SubscriptionUpdateFixedFeeQuantityParams = SubscriptionsAPI.SubscriptionUpdateFixedFeeQuantityParams;
-  export import SubscriptionUpdateTrialParams = SubscriptionsAPI.SubscriptionUpdateTrialParams;
+  export type SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;
+  export type SubscriptionUpdateParams = SubscriptionsAPI.SubscriptionUpdateParams;
+  export type SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
+  export type SubscriptionCancelParams = SubscriptionsAPI.SubscriptionCancelParams;
+  export type SubscriptionFetchCostsParams = SubscriptionsAPI.SubscriptionFetchCostsParams;
+  export type SubscriptionFetchScheduleParams = SubscriptionsAPI.SubscriptionFetchScheduleParams;
+  export type SubscriptionFetchUsageParams = SubscriptionsAPI.SubscriptionFetchUsageParams;
+  export type SubscriptionPriceIntervalsParams = SubscriptionsAPI.SubscriptionPriceIntervalsParams;
+  export type SubscriptionSchedulePlanChangeParams = SubscriptionsAPI.SubscriptionSchedulePlanChangeParams;
+  export type SubscriptionTriggerPhaseParams = SubscriptionsAPI.SubscriptionTriggerPhaseParams;
+  export type SubscriptionUnscheduleFixedFeeQuantityUpdatesParams =
+    SubscriptionsAPI.SubscriptionUnscheduleFixedFeeQuantityUpdatesParams;
+  export type SubscriptionUpdateFixedFeeQuantityParams =
+    SubscriptionsAPI.SubscriptionUpdateFixedFeeQuantityParams;
+  export type SubscriptionUpdateTrialParams = SubscriptionsAPI.SubscriptionUpdateTrialParams;
 }

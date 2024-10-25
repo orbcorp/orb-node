@@ -893,8 +893,8 @@ export interface CostListByExternalIDParams {
 }
 
 export namespace Costs {
-  export import CostListResponse = CostsAPI.CostListResponse;
-  export import CostListByExternalIDResponse = CostsAPI.CostListByExternalIDResponse;
-  export import CostListParams = CostsAPI.CostListParams;
-  export import CostListByExternalIDParams = CostsAPI.CostListByExternalIDParams;
+  export type CostListResponse = CostsAPI.CostListResponse;
+  export type CostListByExternalIDResponse = CostsAPI.CostListByExternalIDResponse;
+  export type CostListParams = CostsAPI.CostListParams;
+  export type CostListByExternalIDParams = CostsAPI.CostListByExternalIDParams;
 }
