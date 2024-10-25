@@ -117,9 +117,9 @@ export namespace ItemUpdateParams {
 export interface ItemListParams extends PageParams {}
 
 export namespace Items {
-  export import Item = ItemsAPI.Item;
+  export type Item = ItemsAPI.Item;
   export import ItemsPage = ItemsAPI.ItemsPage;
-  export import ItemCreateParams = ItemsAPI.ItemCreateParams;
-  export import ItemUpdateParams = ItemsAPI.ItemUpdateParams;
-  export import ItemListParams = ItemsAPI.ItemListParams;
+  export type ItemCreateParams = ItemsAPI.ItemCreateParams;
+  export type ItemUpdateParams = ItemsAPI.ItemUpdateParams;
+  export type ItemListParams = ItemsAPI.ItemListParams;
 }

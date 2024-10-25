@@ -85,6 +85,6 @@ export interface VolumeListParams {
 }
 
 export namespace Volume {
-  export import EventVolumes = VolumeAPI.EventVolumes;
-  export import VolumeListParams = VolumeAPI.VolumeListParams;
+  export type EventVolumes = VolumeAPI.EventVolumes;
+  export type VolumeListParams = VolumeAPI.VolumeListParams;
 }

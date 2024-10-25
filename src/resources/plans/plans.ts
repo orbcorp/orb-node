@@ -2704,11 +2704,11 @@ export interface PlanListParams extends PageParams {
 }
 
 export namespace Plans {
-  export import Plan = PlansAPI.Plan;
+  export type Plan = PlansAPI.Plan;
   export import PlansPage = PlansAPI.PlansPage;
-  export import PlanCreateParams = PlansAPI.PlanCreateParams;
-  export import PlanUpdateParams = PlansAPI.PlanUpdateParams;
-  export import PlanListParams = PlansAPI.PlanListParams;
+  export type PlanCreateParams = PlansAPI.PlanCreateParams;
+  export type PlanUpdateParams = PlansAPI.PlanUpdateParams;
+  export type PlanListParams = PlansAPI.PlanListParams;
   export import ExternalPlanID = ExternalPlanIDAPI.ExternalPlanID;
-  export import ExternalPlanIDUpdateParams = ExternalPlanIDAPI.ExternalPlanIDUpdateParams;
+  export type ExternalPlanIDUpdateParams = ExternalPlanIDAPI.ExternalPlanIDUpdateParams;
 }

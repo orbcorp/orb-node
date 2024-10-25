@@ -150,9 +150,9 @@ export interface MetricListParams extends PageParams {
 }
 
 export namespace Metrics {
-  export import BillableMetric = MetricsAPI.BillableMetric;
+  export type BillableMetric = MetricsAPI.BillableMetric;
   export import BillableMetricsPage = MetricsAPI.BillableMetricsPage;
-  export import MetricCreateParams = MetricsAPI.MetricCreateParams;
-  export import MetricUpdateParams = MetricsAPI.MetricUpdateParams;
-  export import MetricListParams = MetricsAPI.MetricListParams;
+  export type MetricCreateParams = MetricsAPI.MetricCreateParams;
+  export type MetricUpdateParams = MetricsAPI.MetricUpdateParams;
+  export type MetricListParams = MetricsAPI.MetricListParams;
 }

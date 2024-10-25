@@ -5758,14 +5758,14 @@ export interface PriceEvaluateParams {
 }
 
 export namespace Prices {
-  export import EvaluatePriceGroup = PricesAPI.EvaluatePriceGroup;
-  export import Price = PricesAPI.Price;
-  export import PriceEvaluateResponse = PricesAPI.PriceEvaluateResponse;
+  export type EvaluatePriceGroup = PricesAPI.EvaluatePriceGroup;
+  export type Price = PricesAPI.Price;
+  export type PriceEvaluateResponse = PricesAPI.PriceEvaluateResponse;
   export import PricesPage = PricesAPI.PricesPage;
-  export import PriceCreateParams = PricesAPI.PriceCreateParams;
-  export import PriceUpdateParams = PricesAPI.PriceUpdateParams;
-  export import PriceListParams = PricesAPI.PriceListParams;
-  export import PriceEvaluateParams = PricesAPI.PriceEvaluateParams;
+  export type PriceCreateParams = PricesAPI.PriceCreateParams;
+  export type PriceUpdateParams = PricesAPI.PriceUpdateParams;
+  export type PriceListParams = PricesAPI.PriceListParams;
+  export type PriceEvaluateParams = PricesAPI.PriceEvaluateParams;
   export import ExternalPriceID = ExternalPriceIDAPI.ExternalPriceID;
-  export import ExternalPriceIDUpdateParams = ExternalPriceIDAPI.ExternalPriceIDUpdateParams;
+  export type ExternalPriceIDUpdateParams = ExternalPriceIDAPI.ExternalPriceIDUpdateParams;
 }
