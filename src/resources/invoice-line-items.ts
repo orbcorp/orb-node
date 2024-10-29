@@ -497,6 +497,6 @@ export interface InvoiceLineItemCreateParams {
 }
 
 export namespace InvoiceLineItems {
-  export type InvoiceLineItemCreateResponse = InvoiceLineItemsAPI.InvoiceLineItemCreateResponse;
-  export type InvoiceLineItemCreateParams = InvoiceLineItemsAPI.InvoiceLineItemCreateParams;
+  export import InvoiceLineItemCreateResponse = InvoiceLineItemsAPI.InvoiceLineItemCreateResponse;
+  export import InvoiceLineItemCreateParams = InvoiceLineItemsAPI.InvoiceLineItemCreateParams;
 }

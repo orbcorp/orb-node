@@ -17,16 +17,7 @@ export class Items extends APIResource {
   /**
    * This endpoint can be used to update properties on the Item.
    */
-  update(itemId: string, body?: ItemUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Item>;
-  update(itemId: string, options?: Core.RequestOptions): Core.APIPromise<Item>;
-  update(
-    itemId: string,
-    body: ItemUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Item> {
-    if (isRequestOptions(body)) {
-      return this.update(itemId, {}, body);
-    }
+  update(itemId: string, body: ItemUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Item> {
     return this._client.put(`/items/${itemId}`, { body, ...options });
   }
 
@@ -117,9 +108,9 @@ export namespace ItemUpdateParams {
 export interface ItemListParams extends PageParams {}
 
 export namespace Items {
-  export type Item = ItemsAPI.Item;
+  export import Item = ItemsAPI.Item;
   export import ItemsPage = ItemsAPI.ItemsPage;
-  export type ItemCreateParams = ItemsAPI.ItemCreateParams;
-  export type ItemUpdateParams = ItemsAPI.ItemUpdateParams;
-  export type ItemListParams = ItemsAPI.ItemListParams;
+  export import ItemCreateParams = ItemsAPI.ItemCreateParams;
+  export import ItemUpdateParams = ItemsAPI.ItemUpdateParams;
+  export import ItemListParams = ItemsAPI.ItemListParams;
 }

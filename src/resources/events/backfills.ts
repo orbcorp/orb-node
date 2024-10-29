@@ -392,12 +392,12 @@ export interface BackfillCreateParams {
 export interface BackfillListParams extends PageParams {}
 
 export namespace Backfills {
-  export type BackfillCreateResponse = BackfillsAPI.BackfillCreateResponse;
-  export type BackfillListResponse = BackfillsAPI.BackfillListResponse;
-  export type BackfillCloseResponse = BackfillsAPI.BackfillCloseResponse;
-  export type BackfillFetchResponse = BackfillsAPI.BackfillFetchResponse;
-  export type BackfillRevertResponse = BackfillsAPI.BackfillRevertResponse;
+  export import BackfillCreateResponse = BackfillsAPI.BackfillCreateResponse;
+  export import BackfillListResponse = BackfillsAPI.BackfillListResponse;
+  export import BackfillCloseResponse = BackfillsAPI.BackfillCloseResponse;
+  export import BackfillFetchResponse = BackfillsAPI.BackfillFetchResponse;
+  export import BackfillRevertResponse = BackfillsAPI.BackfillRevertResponse;
   export import BackfillListResponsesPage = BackfillsAPI.BackfillListResponsesPage;
-  export type BackfillCreateParams = BackfillsAPI.BackfillCreateParams;
-  export type BackfillListParams = BackfillsAPI.BackfillListParams;
+  export import BackfillCreateParams = BackfillsAPI.BackfillCreateParams;
+  export import BackfillListParams = BackfillsAPI.BackfillListParams;
 }

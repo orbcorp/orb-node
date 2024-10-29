@@ -187,10 +187,10 @@ export interface CouponListParams extends PageParams {
 }
 
 export namespace Coupons {
-  export type Coupon = CouponsAPI.Coupon;
+  export import Coupon = CouponsAPI.Coupon;
   export import CouponsPage = CouponsAPI.CouponsPage;
-  export type CouponCreateParams = CouponsAPI.CouponCreateParams;
-  export type CouponListParams = CouponsAPI.CouponListParams;
+  export import CouponCreateParams = CouponsAPI.CouponCreateParams;
+  export import CouponListParams = CouponsAPI.CouponListParams;
   export import Subscriptions = SubscriptionsAPI.Subscriptions;
-  export type SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
+  export import SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
 }

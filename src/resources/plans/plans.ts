@@ -25,16 +25,7 @@ export class Plans extends APIResource {
    *
    * Other fields on a customer are currently immutable.
    */
-  update(planId: string, body?: PlanUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Plan>;
-  update(planId: string, options?: Core.RequestOptions): Core.APIPromise<Plan>;
-  update(
-    planId: string,
-    body: PlanUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Plan> {
-    if (isRequestOptions(body)) {
-      return this.update(planId, {}, body);
-    }
+  update(planId: string, body: PlanUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Plan> {
     return this._client.put(`/plans/${planId}`, { body, ...options });
   }
 
@@ -2704,11 +2695,11 @@ export interface PlanListParams extends PageParams {
 }
 
 export namespace Plans {
-  export type Plan = PlansAPI.Plan;
+  export import Plan = PlansAPI.Plan;
   export import PlansPage = PlansAPI.PlansPage;
-  export type PlanCreateParams = PlansAPI.PlanCreateParams;
-  export type PlanUpdateParams = PlansAPI.PlanUpdateParams;
-  export type PlanListParams = PlansAPI.PlanListParams;
+  export import PlanCreateParams = PlansAPI.PlanCreateParams;
+  export import PlanUpdateParams = PlansAPI.PlanUpdateParams;
+  export import PlanListParams = PlansAPI.PlanListParams;
   export import ExternalPlanID = ExternalPlanIDAPI.ExternalPlanID;
-  export type ExternalPlanIDUpdateParams = ExternalPlanIDAPI.ExternalPlanIDUpdateParams;
+  export import ExternalPlanIDUpdateParams = ExternalPlanIDAPI.ExternalPlanIDUpdateParams;
 }

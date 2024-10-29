@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as ExternalPriceIDAPI from './external-price-id';
 import * as PricesAPI from './prices';
@@ -14,18 +13,9 @@ export class ExternalPriceID extends APIResource {
    */
   update(
     externalPriceId: string,
-    body?: ExternalPriceIDUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<PricesAPI.Price>;
-  update(externalPriceId: string, options?: Core.RequestOptions): Core.APIPromise<PricesAPI.Price>;
-  update(
-    externalPriceId: string,
-    body: ExternalPriceIDUpdateParams | Core.RequestOptions = {},
+    body: ExternalPriceIDUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<PricesAPI.Price> {
-    if (isRequestOptions(body)) {
-      return this.update(externalPriceId, {}, body);
-    }
     return this._client.put(`/prices/external_price_id/${externalPriceId}`, { body, ...options });
   }
 
@@ -49,5 +39,5 @@ export interface ExternalPriceIDUpdateParams {
 }
 
 export namespace ExternalPriceID {
-  export type ExternalPriceIDUpdateParams = ExternalPriceIDAPI.ExternalPriceIDUpdateParams;
+  export import ExternalPriceIDUpdateParams = ExternalPriceIDAPI.ExternalPriceIDUpdateParams;
 }

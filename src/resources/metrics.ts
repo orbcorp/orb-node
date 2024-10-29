@@ -25,18 +25,9 @@ export class Metrics extends APIResource {
    */
   update(
     metricId: string,
-    body?: MetricUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<BillableMetric>;
-  update(metricId: string, options?: Core.RequestOptions): Core.APIPromise<BillableMetric>;
-  update(
-    metricId: string,
-    body: MetricUpdateParams | Core.RequestOptions = {},
+    body: MetricUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<BillableMetric> {
-    if (isRequestOptions(body)) {
-      return this.update(metricId, {}, body);
-    }
     return this._client.put(`/metrics/${metricId}`, { body, ...options });
   }
 
@@ -150,9 +141,9 @@ export interface MetricListParams extends PageParams {
 }
 
 export namespace Metrics {
-  export type BillableMetric = MetricsAPI.BillableMetric;
+  export import BillableMetric = MetricsAPI.BillableMetric;
   export import BillableMetricsPage = MetricsAPI.BillableMetricsPage;
-  export type MetricCreateParams = MetricsAPI.MetricCreateParams;
-  export type MetricUpdateParams = MetricsAPI.MetricUpdateParams;
-  export type MetricListParams = MetricsAPI.MetricListParams;
+  export import MetricCreateParams = MetricsAPI.MetricCreateParams;
+  export import MetricUpdateParams = MetricsAPI.MetricUpdateParams;
+  export import MetricListParams = MetricsAPI.MetricListParams;
 }

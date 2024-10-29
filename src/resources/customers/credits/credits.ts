@@ -133,32 +133,32 @@ export interface CreditListByExternalIDParams extends PageParams {
 }
 
 export namespace Credits {
-  export type CreditListResponse = CreditsAPI.CreditListResponse;
-  export type CreditListByExternalIDResponse = CreditsAPI.CreditListByExternalIDResponse;
+  export import CreditListResponse = CreditsAPI.CreditListResponse;
+  export import CreditListByExternalIDResponse = CreditsAPI.CreditListByExternalIDResponse;
   export import CreditListResponsesPage = CreditsAPI.CreditListResponsesPage;
   export import CreditListByExternalIDResponsesPage = CreditsAPI.CreditListByExternalIDResponsesPage;
-  export type CreditListParams = CreditsAPI.CreditListParams;
-  export type CreditListByExternalIDParams = CreditsAPI.CreditListByExternalIDParams;
+  export import CreditListParams = CreditsAPI.CreditListParams;
+  export import CreditListByExternalIDParams = CreditsAPI.CreditListByExternalIDParams;
   export import Ledger = LedgerAPI.Ledger;
-  export type LedgerListResponse = LedgerAPI.LedgerListResponse;
-  export type LedgerCreateEntryResponse = LedgerAPI.LedgerCreateEntryResponse;
-  export type LedgerCreateEntryByExternalIDResponse = LedgerAPI.LedgerCreateEntryByExternalIDResponse;
-  export type LedgerListByExternalIDResponse = LedgerAPI.LedgerListByExternalIDResponse;
+  export import LedgerListResponse = LedgerAPI.LedgerListResponse;
+  export import LedgerCreateEntryResponse = LedgerAPI.LedgerCreateEntryResponse;
+  export import LedgerCreateEntryByExternalIDResponse = LedgerAPI.LedgerCreateEntryByExternalIDResponse;
+  export import LedgerListByExternalIDResponse = LedgerAPI.LedgerListByExternalIDResponse;
   export import LedgerListResponsesPage = LedgerAPI.LedgerListResponsesPage;
   export import LedgerListByExternalIDResponsesPage = LedgerAPI.LedgerListByExternalIDResponsesPage;
-  export type LedgerListParams = LedgerAPI.LedgerListParams;
-  export type LedgerCreateEntryParams = LedgerAPI.LedgerCreateEntryParams;
-  export type LedgerCreateEntryByExternalIDParams = LedgerAPI.LedgerCreateEntryByExternalIDParams;
-  export type LedgerListByExternalIDParams = LedgerAPI.LedgerListByExternalIDParams;
+  export import LedgerListParams = LedgerAPI.LedgerListParams;
+  export import LedgerCreateEntryParams = LedgerAPI.LedgerCreateEntryParams;
+  export import LedgerCreateEntryByExternalIDParams = LedgerAPI.LedgerCreateEntryByExternalIDParams;
+  export import LedgerListByExternalIDParams = LedgerAPI.LedgerListByExternalIDParams;
   export import TopUps = TopUpsAPI.TopUps;
-  export type TopUpCreateResponse = TopUpsAPI.TopUpCreateResponse;
-  export type TopUpListResponse = TopUpsAPI.TopUpListResponse;
-  export type TopUpCreateByExternalIDResponse = TopUpsAPI.TopUpCreateByExternalIDResponse;
-  export type TopUpListByExternalIDResponse = TopUpsAPI.TopUpListByExternalIDResponse;
+  export import TopUpCreateResponse = TopUpsAPI.TopUpCreateResponse;
+  export import TopUpListResponse = TopUpsAPI.TopUpListResponse;
+  export import TopUpCreateByExternalIDResponse = TopUpsAPI.TopUpCreateByExternalIDResponse;
+  export import TopUpListByExternalIDResponse = TopUpsAPI.TopUpListByExternalIDResponse;
   export import TopUpListResponsesPage = TopUpsAPI.TopUpListResponsesPage;
   export import TopUpListByExternalIDResponsesPage = TopUpsAPI.TopUpListByExternalIDResponsesPage;
-  export type TopUpCreateParams = TopUpsAPI.TopUpCreateParams;
-  export type TopUpListParams = TopUpsAPI.TopUpListParams;
-  export type TopUpCreateByExternalIDParams = TopUpsAPI.TopUpCreateByExternalIDParams;
-  export type TopUpListByExternalIDParams = TopUpsAPI.TopUpListByExternalIDParams;
+  export import TopUpCreateParams = TopUpsAPI.TopUpCreateParams;
+  export import TopUpListParams = TopUpsAPI.TopUpListParams;
+  export import TopUpCreateByExternalIDParams = TopUpsAPI.TopUpCreateByExternalIDParams;
+  export import TopUpListByExternalIDParams = TopUpsAPI.TopUpListByExternalIDParams;
 }

@@ -42,7 +42,7 @@ export class Subscriptions extends APIResource {
 export interface SubscriptionListParams extends PageParams {}
 
 export namespace Subscriptions {
-  export type SubscriptionListParams = CouponsSubscriptionsAPI.SubscriptionListParams;
+  export import SubscriptionListParams = CouponsSubscriptionsAPI.SubscriptionListParams;
 }
 
 export { SubscriptionsPage };
