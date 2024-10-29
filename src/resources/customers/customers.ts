@@ -42,18 +42,9 @@ export class Customers extends APIResource {
    */
   update(
     customerId: string,
-    body?: CustomerUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Customer>;
-  update(customerId: string, options?: Core.RequestOptions): Core.APIPromise<Customer>;
-  update(
-    customerId: string,
-    body: CustomerUpdateParams | Core.RequestOptions = {},
+    body: CustomerUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Customer> {
-    if (isRequestOptions(body)) {
-      return this.update(customerId, {}, body);
-    }
     return this._client.put(`/customers/${customerId}`, { body, ...options });
   }
 
@@ -131,18 +122,9 @@ export class Customers extends APIResource {
    */
   updateByExternalId(
     id: string,
-    body?: CustomerUpdateByExternalIDParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Customer>;
-  updateByExternalId(id: string, options?: Core.RequestOptions): Core.APIPromise<Customer>;
-  updateByExternalId(
-    id: string,
-    body: CustomerUpdateByExternalIDParams | Core.RequestOptions = {},
+    body: CustomerUpdateByExternalIDParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Customer> {
-    if (isRequestOptions(body)) {
-      return this.updateByExternalId(id, {}, body);
-    }
     return this._client.put(`/customers/external_customer_id/${id}`, { body, ...options });
   }
 }
@@ -2219,28 +2201,28 @@ export namespace CustomerUpdateByExternalIDParams {
 }
 
 export namespace Customers {
-  export type Customer = CustomersAPI.Customer;
+  export import Customer = CustomersAPI.Customer;
   export import CustomersPage = CustomersAPI.CustomersPage;
-  export type CustomerCreateParams = CustomersAPI.CustomerCreateParams;
-  export type CustomerUpdateParams = CustomersAPI.CustomerUpdateParams;
-  export type CustomerListParams = CustomersAPI.CustomerListParams;
-  export type CustomerUpdateByExternalIDParams = CustomersAPI.CustomerUpdateByExternalIDParams;
+  export import CustomerCreateParams = CustomersAPI.CustomerCreateParams;
+  export import CustomerUpdateParams = CustomersAPI.CustomerUpdateParams;
+  export import CustomerListParams = CustomersAPI.CustomerListParams;
+  export import CustomerUpdateByExternalIDParams = CustomersAPI.CustomerUpdateByExternalIDParams;
   export import Costs = CostsAPI.Costs;
-  export type CostListResponse = CostsAPI.CostListResponse;
-  export type CostListByExternalIDResponse = CostsAPI.CostListByExternalIDResponse;
-  export type CostListParams = CostsAPI.CostListParams;
-  export type CostListByExternalIDParams = CostsAPI.CostListByExternalIDParams;
+  export import CostListResponse = CostsAPI.CostListResponse;
+  export import CostListByExternalIDResponse = CostsAPI.CostListByExternalIDResponse;
+  export import CostListParams = CostsAPI.CostListParams;
+  export import CostListByExternalIDParams = CostsAPI.CostListByExternalIDParams;
   export import Credits = CreditsAPI.Credits;
-  export type CreditListResponse = CreditsAPI.CreditListResponse;
-  export type CreditListByExternalIDResponse = CreditsAPI.CreditListByExternalIDResponse;
+  export import CreditListResponse = CreditsAPI.CreditListResponse;
+  export import CreditListByExternalIDResponse = CreditsAPI.CreditListByExternalIDResponse;
   export import CreditListResponsesPage = CreditsAPI.CreditListResponsesPage;
   export import CreditListByExternalIDResponsesPage = CreditsAPI.CreditListByExternalIDResponsesPage;
-  export type CreditListParams = CreditsAPI.CreditListParams;
-  export type CreditListByExternalIDParams = CreditsAPI.CreditListByExternalIDParams;
+  export import CreditListParams = CreditsAPI.CreditListParams;
+  export import CreditListByExternalIDParams = CreditsAPI.CreditListByExternalIDParams;
   export import BalanceTransactions = BalanceTransactionsAPI.BalanceTransactions;
-  export type BalanceTransactionCreateResponse = BalanceTransactionsAPI.BalanceTransactionCreateResponse;
-  export type BalanceTransactionListResponse = BalanceTransactionsAPI.BalanceTransactionListResponse;
+  export import BalanceTransactionCreateResponse = BalanceTransactionsAPI.BalanceTransactionCreateResponse;
+  export import BalanceTransactionListResponse = BalanceTransactionsAPI.BalanceTransactionListResponse;
   export import BalanceTransactionListResponsesPage = BalanceTransactionsAPI.BalanceTransactionListResponsesPage;
-  export type BalanceTransactionCreateParams = BalanceTransactionsAPI.BalanceTransactionCreateParams;
-  export type BalanceTransactionListParams = BalanceTransactionsAPI.BalanceTransactionListParams;
+  export import BalanceTransactionCreateParams = BalanceTransactionsAPI.BalanceTransactionCreateParams;
+  export import BalanceTransactionListParams = BalanceTransactionsAPI.BalanceTransactionListParams;
 }

@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as ExternalPlanIDAPI from './external-plan-id';
 import * as PlansAPI from './plans';
@@ -15,18 +14,9 @@ export class ExternalPlanID extends APIResource {
    */
   update(
     otherExternalPlanId: string,
-    body?: ExternalPlanIDUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<PlansAPI.Plan>;
-  update(otherExternalPlanId: string, options?: Core.RequestOptions): Core.APIPromise<PlansAPI.Plan>;
-  update(
-    otherExternalPlanId: string,
-    body: ExternalPlanIDUpdateParams | Core.RequestOptions = {},
+    body: ExternalPlanIDUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<PlansAPI.Plan> {
-    if (isRequestOptions(body)) {
-      return this.update(otherExternalPlanId, {}, body);
-    }
     return this._client.put(`/plans/external_plan_id/${otherExternalPlanId}`, { body, ...options });
   }
 
@@ -70,5 +60,5 @@ export interface ExternalPlanIDUpdateParams {
 }
 
 export namespace ExternalPlanID {
-  export type ExternalPlanIDUpdateParams = ExternalPlanIDAPI.ExternalPlanIDUpdateParams;
+  export import ExternalPlanIDUpdateParams = ExternalPlanIDAPI.ExternalPlanIDUpdateParams;
 }

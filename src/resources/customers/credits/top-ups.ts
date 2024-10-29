@@ -565,14 +565,14 @@ export namespace TopUpCreateByExternalIDParams {
 export interface TopUpListByExternalIDParams extends PageParams {}
 
 export namespace TopUps {
-  export type TopUpCreateResponse = TopUpsAPI.TopUpCreateResponse;
-  export type TopUpListResponse = TopUpsAPI.TopUpListResponse;
-  export type TopUpCreateByExternalIDResponse = TopUpsAPI.TopUpCreateByExternalIDResponse;
-  export type TopUpListByExternalIDResponse = TopUpsAPI.TopUpListByExternalIDResponse;
+  export import TopUpCreateResponse = TopUpsAPI.TopUpCreateResponse;
+  export import TopUpListResponse = TopUpsAPI.TopUpListResponse;
+  export import TopUpCreateByExternalIDResponse = TopUpsAPI.TopUpCreateByExternalIDResponse;
+  export import TopUpListByExternalIDResponse = TopUpsAPI.TopUpListByExternalIDResponse;
   export import TopUpListResponsesPage = TopUpsAPI.TopUpListResponsesPage;
   export import TopUpListByExternalIDResponsesPage = TopUpsAPI.TopUpListByExternalIDResponsesPage;
-  export type TopUpCreateParams = TopUpsAPI.TopUpCreateParams;
-  export type TopUpListParams = TopUpsAPI.TopUpListParams;
-  export type TopUpCreateByExternalIDParams = TopUpsAPI.TopUpCreateByExternalIDParams;
-  export type TopUpListByExternalIDParams = TopUpsAPI.TopUpListByExternalIDParams;
+  export import TopUpCreateParams = TopUpsAPI.TopUpCreateParams;
+  export import TopUpListParams = TopUpsAPI.TopUpListParams;
+  export import TopUpCreateByExternalIDParams = TopUpsAPI.TopUpCreateByExternalIDParams;
+  export import TopUpListByExternalIDParams = TopUpsAPI.TopUpListByExternalIDParams;
 }

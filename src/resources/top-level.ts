@@ -23,5 +23,5 @@ export interface TopLevelPingResponse {
 }
 
 export namespace TopLevel {
-  export type TopLevelPingResponse = TopLevelAPI.TopLevelPingResponse;
+  export import TopLevelPingResponse = TopLevelAPI.TopLevelPingResponse;
 }

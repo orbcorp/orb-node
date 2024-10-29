@@ -25,18 +25,9 @@ export class Invoices extends APIResource {
    */
   update(
     invoiceId: string,
-    body?: InvoiceUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Invoice>;
-  update(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Invoice>;
-  update(
-    invoiceId: string,
-    body: InvoiceUpdateParams | Core.RequestOptions = {},
+    body: InvoiceUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Invoice> {
-    if (isRequestOptions(body)) {
-      return this.update(invoiceId, {}, body);
-    }
     return this._client.put(`/invoices/${invoiceId}`, { body, ...options });
   }
 
@@ -81,17 +72,9 @@ export class Invoices extends APIResource {
    * subscription.
    */
   fetchUpcoming(
-    query?: InvoiceFetchUpcomingParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<InvoiceFetchUpcomingResponse>;
-  fetchUpcoming(options?: Core.RequestOptions): Core.APIPromise<InvoiceFetchUpcomingResponse>;
-  fetchUpcoming(
-    query: InvoiceFetchUpcomingParams | Core.RequestOptions = {},
+    query: InvoiceFetchUpcomingParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<InvoiceFetchUpcomingResponse> {
-    if (isRequestOptions(query)) {
-      return this.fetchUpcoming({}, query);
-    }
     return this._client.get('/invoices/upcoming', { query, ...options });
   }
 
@@ -2647,7 +2630,7 @@ export interface InvoiceListParams extends PageParams {
 }
 
 export interface InvoiceFetchUpcomingParams {
-  subscription_id?: string;
+  subscription_id: string;
 }
 
 export interface InvoiceIssueParams {
@@ -2676,13 +2659,13 @@ export interface InvoiceMarkPaidParams {
 }
 
 export namespace Invoices {
-  export type Invoice = InvoicesAPI.Invoice;
-  export type InvoiceFetchUpcomingResponse = InvoicesAPI.InvoiceFetchUpcomingResponse;
+  export import Invoice = InvoicesAPI.Invoice;
+  export import InvoiceFetchUpcomingResponse = InvoicesAPI.InvoiceFetchUpcomingResponse;
   export import InvoicesPage = InvoicesAPI.InvoicesPage;
-  export type InvoiceCreateParams = InvoicesAPI.InvoiceCreateParams;
-  export type InvoiceUpdateParams = InvoicesAPI.InvoiceUpdateParams;
-  export type InvoiceListParams = InvoicesAPI.InvoiceListParams;
-  export type InvoiceFetchUpcomingParams = InvoicesAPI.InvoiceFetchUpcomingParams;
-  export type InvoiceIssueParams = InvoicesAPI.InvoiceIssueParams;
-  export type InvoiceMarkPaidParams = InvoicesAPI.InvoiceMarkPaidParams;
+  export import InvoiceCreateParams = InvoicesAPI.InvoiceCreateParams;
+  export import InvoiceUpdateParams = InvoicesAPI.InvoiceUpdateParams;
+  export import InvoiceListParams = InvoicesAPI.InvoiceListParams;
+  export import InvoiceFetchUpcomingParams = InvoicesAPI.InvoiceFetchUpcomingParams;
+  export import InvoiceIssueParams = InvoicesAPI.InvoiceIssueParams;
+  export import InvoiceMarkPaidParams = InvoicesAPI.InvoiceMarkPaidParams;
 }

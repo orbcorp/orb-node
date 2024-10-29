@@ -241,7 +241,7 @@ export namespace CreditNote {
 export interface CreditNoteListParams extends PageParams {}
 
 export namespace CreditNotes {
-  export type CreditNote = CreditNotesAPI.CreditNote;
+  export import CreditNote = CreditNotesAPI.CreditNote;
   export import CreditNotesPage = CreditNotesAPI.CreditNotesPage;
-  export type CreditNoteListParams = CreditNotesAPI.CreditNoteListParams;
+  export import CreditNoteListParams = CreditNotesAPI.CreditNoteListParams;
 }

@@ -32,16 +32,7 @@ export class Prices extends APIResource {
    * pass null for the metadata value, it will clear any existing metadata for that
    * price.
    */
-  update(priceId: string, body?: PriceUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Price>;
-  update(priceId: string, options?: Core.RequestOptions): Core.APIPromise<Price>;
-  update(
-    priceId: string,
-    body: PriceUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Price> {
-    if (isRequestOptions(body)) {
-      return this.update(priceId, {}, body);
-    }
+  update(priceId: string, body: PriceUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Price> {
     return this._client.put(`/prices/${priceId}`, { body, ...options });
   }
 
@@ -5758,14 +5749,14 @@ export interface PriceEvaluateParams {
 }
 
 export namespace Prices {
-  export type EvaluatePriceGroup = PricesAPI.EvaluatePriceGroup;
-  export type Price = PricesAPI.Price;
-  export type PriceEvaluateResponse = PricesAPI.PriceEvaluateResponse;
+  export import EvaluatePriceGroup = PricesAPI.EvaluatePriceGroup;
+  export import Price = PricesAPI.Price;
+  export import PriceEvaluateResponse = PricesAPI.PriceEvaluateResponse;
   export import PricesPage = PricesAPI.PricesPage;
-  export type PriceCreateParams = PricesAPI.PriceCreateParams;
-  export type PriceUpdateParams = PricesAPI.PriceUpdateParams;
-  export type PriceListParams = PricesAPI.PriceListParams;
-  export type PriceEvaluateParams = PricesAPI.PriceEvaluateParams;
+  export import PriceCreateParams = PricesAPI.PriceCreateParams;
+  export import PriceUpdateParams = PricesAPI.PriceUpdateParams;
+  export import PriceListParams = PricesAPI.PriceListParams;
+  export import PriceEvaluateParams = PricesAPI.PriceEvaluateParams;
   export import ExternalPriceID = ExternalPriceIDAPI.ExternalPriceID;
-  export type ExternalPriceIDUpdateParams = ExternalPriceIDAPI.ExternalPriceIDUpdateParams;
+  export import ExternalPriceIDUpdateParams = ExternalPriceIDAPI.ExternalPriceIDUpdateParams;
 }

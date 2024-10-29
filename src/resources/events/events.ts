@@ -563,23 +563,23 @@ export interface EventSearchParams {
 }
 
 export namespace Events {
-  export type EventUpdateResponse = EventsAPI.EventUpdateResponse;
-  export type EventDeprecateResponse = EventsAPI.EventDeprecateResponse;
-  export type EventIngestResponse = EventsAPI.EventIngestResponse;
-  export type EventSearchResponse = EventsAPI.EventSearchResponse;
-  export type EventUpdateParams = EventsAPI.EventUpdateParams;
-  export type EventIngestParams = EventsAPI.EventIngestParams;
-  export type EventSearchParams = EventsAPI.EventSearchParams;
+  export import EventUpdateResponse = EventsAPI.EventUpdateResponse;
+  export import EventDeprecateResponse = EventsAPI.EventDeprecateResponse;
+  export import EventIngestResponse = EventsAPI.EventIngestResponse;
+  export import EventSearchResponse = EventsAPI.EventSearchResponse;
+  export import EventUpdateParams = EventsAPI.EventUpdateParams;
+  export import EventIngestParams = EventsAPI.EventIngestParams;
+  export import EventSearchParams = EventsAPI.EventSearchParams;
   export import Backfills = BackfillsAPI.Backfills;
-  export type BackfillCreateResponse = BackfillsAPI.BackfillCreateResponse;
-  export type BackfillListResponse = BackfillsAPI.BackfillListResponse;
-  export type BackfillCloseResponse = BackfillsAPI.BackfillCloseResponse;
-  export type BackfillFetchResponse = BackfillsAPI.BackfillFetchResponse;
-  export type BackfillRevertResponse = BackfillsAPI.BackfillRevertResponse;
+  export import BackfillCreateResponse = BackfillsAPI.BackfillCreateResponse;
+  export import BackfillListResponse = BackfillsAPI.BackfillListResponse;
+  export import BackfillCloseResponse = BackfillsAPI.BackfillCloseResponse;
+  export import BackfillFetchResponse = BackfillsAPI.BackfillFetchResponse;
+  export import BackfillRevertResponse = BackfillsAPI.BackfillRevertResponse;
   export import BackfillListResponsesPage = BackfillsAPI.BackfillListResponsesPage;
-  export type BackfillCreateParams = BackfillsAPI.BackfillCreateParams;
-  export type BackfillListParams = BackfillsAPI.BackfillListParams;
+  export import BackfillCreateParams = BackfillsAPI.BackfillCreateParams;
+  export import BackfillListParams = BackfillsAPI.BackfillListParams;
   export import Volume = VolumeAPI.Volume;
-  export type EventVolumes = VolumeAPI.EventVolumes;
-  export type VolumeListParams = VolumeAPI.VolumeListParams;
+  export import EventVolumes = VolumeAPI.EventVolumes;
+  export import VolumeListParams = VolumeAPI.VolumeListParams;
 }

@@ -25,7 +25,7 @@ describe('resource items', () => {
   });
 
   test('update', async () => {
-    const responsePromise = client.items.update('item_id');
+    const responsePromise = client.items.update('item_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -33,31 +33,6 @@ describe('resource items', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.items.update('item_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
-  });
-
-  test('update: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.items.update(
-        'item_id',
-        {
-          external_connections: [
-            { external_connection_name: 'stripe', external_entity_id: 'external_entity_id' },
-            { external_connection_name: 'stripe', external_entity_id: 'external_entity_id' },
-            { external_connection_name: 'stripe', external_entity_id: 'external_entity_id' },
-          ],
-          name: 'name',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list', async () => {

@@ -2,114 +2,94 @@
 
 export * from './shared';
 export {
+  Alert,
+  AlertUpdateParams,
+  AlertListParams,
+  AlertCreateForCustomerParams,
+  AlertCreateForExternalCustomerParams,
+  AlertCreateForSubscriptionParams,
   AlertsPage,
   Alerts,
-  type Alert,
-  type AlertUpdateParams,
-  type AlertListParams,
-  type AlertCreateForCustomerParams,
-  type AlertCreateForExternalCustomerParams,
-  type AlertCreateForSubscriptionParams,
 } from './alerts';
 export {
+  BillableMetric,
+  MetricCreateParams,
+  MetricUpdateParams,
+  MetricListParams,
   BillableMetricsPage,
   Metrics,
-  type BillableMetric,
-  type MetricCreateParams,
-  type MetricUpdateParams,
-  type MetricListParams,
 } from './metrics';
+export { Coupon, CouponCreateParams, CouponListParams, CouponsPage, Coupons } from './coupons/coupons';
+export { CreditNote, CreditNoteListParams, CreditNotesPage, CreditNotes } from './credit-notes';
 export {
-  CouponsPage,
-  Coupons,
-  type Coupon,
-  type CouponCreateParams,
-  type CouponListParams,
-} from './coupons/coupons';
-export { CreditNotesPage, CreditNotes, type CreditNote, type CreditNoteListParams } from './credit-notes';
-export {
+  Customer,
+  CustomerCreateParams,
+  CustomerUpdateParams,
+  CustomerListParams,
+  CustomerUpdateByExternalIDParams,
   CustomersPage,
   Customers,
-  type Customer,
-  type CustomerCreateParams,
-  type CustomerUpdateParams,
-  type CustomerListParams,
-  type CustomerUpdateByExternalIDParams,
 } from './customers/customers';
 export {
-  Events,
-  type EventUpdateResponse,
-  type EventDeprecateResponse,
-  type EventIngestResponse,
-  type EventSearchResponse,
-  type EventUpdateParams,
-  type EventIngestParams,
-  type EventSearchParams,
-} from './events/events';
-export {
-  InvoiceLineItems,
-  type InvoiceLineItemCreateResponse,
-  type InvoiceLineItemCreateParams,
-} from './invoice-line-items';
-export {
-  InvoicesPage,
-  Invoices,
-  type Invoice,
-  type InvoiceFetchUpcomingResponse,
-  type InvoiceCreateParams,
-  type InvoiceUpdateParams,
-  type InvoiceListParams,
-  type InvoiceFetchUpcomingParams,
-  type InvoiceIssueParams,
-  type InvoiceMarkPaidParams,
-} from './invoices';
-export {
-  ItemsPage,
-  Items,
-  type Item,
-  type ItemCreateParams,
-  type ItemUpdateParams,
-  type ItemListParams,
-} from './items';
-export {
-  PlansPage,
-  Plans,
-  type Plan,
-  type PlanCreateParams,
-  type PlanUpdateParams,
-  type PlanListParams,
-} from './plans/plans';
-export {
+  EvaluatePriceGroup,
+  Price,
+  PriceEvaluateResponse,
+  PriceCreateParams,
+  PriceUpdateParams,
+  PriceListParams,
+  PriceEvaluateParams,
   PricesPage,
   Prices,
-  type EvaluatePriceGroup,
-  type Price,
-  type PriceEvaluateResponse,
-  type PriceCreateParams,
-  type PriceUpdateParams,
-  type PriceListParams,
-  type PriceEvaluateParams,
 } from './prices/prices';
 export {
+  EventUpdateResponse,
+  EventDeprecateResponse,
+  EventIngestResponse,
+  EventSearchResponse,
+  EventUpdateParams,
+  EventIngestParams,
+  EventSearchParams,
+  Events,
+} from './events/events';
+export {
+  Invoice,
+  InvoiceFetchUpcomingResponse,
+  InvoiceCreateParams,
+  InvoiceUpdateParams,
+  InvoiceListParams,
+  InvoiceFetchUpcomingParams,
+  InvoiceIssueParams,
+  InvoiceMarkPaidParams,
+  InvoicesPage,
+  Invoices,
+} from './invoices';
+export {
+  InvoiceLineItemCreateResponse,
+  InvoiceLineItemCreateParams,
+  InvoiceLineItems,
+} from './invoice-line-items';
+export { Item, ItemCreateParams, ItemUpdateParams, ItemListParams, ItemsPage, Items } from './items';
+export { Plan, PlanCreateParams, PlanUpdateParams, PlanListParams, PlansPage, Plans } from './plans/plans';
+export {
+  Subscription,
+  SubscriptionUsage,
+  Subscriptions,
+  SubscriptionFetchCostsResponse,
+  SubscriptionFetchScheduleResponse,
+  SubscriptionCreateParams,
+  SubscriptionUpdateParams,
+  SubscriptionListParams,
+  SubscriptionCancelParams,
+  SubscriptionFetchCostsParams,
+  SubscriptionFetchScheduleParams,
+  SubscriptionFetchUsageParams,
+  SubscriptionPriceIntervalsParams,
+  SubscriptionSchedulePlanChangeParams,
+  SubscriptionTriggerPhaseParams,
+  SubscriptionUnscheduleFixedFeeQuantityUpdatesParams,
+  SubscriptionUpdateFixedFeeQuantityParams,
+  SubscriptionUpdateTrialParams,
   SubscriptionsPage,
   SubscriptionFetchScheduleResponsesPage,
-  type Subscriptions,
-  type Subscription,
-  type SubscriptionUsage,
-  type SubscriptionFetchCostsResponse,
-  type SubscriptionFetchScheduleResponse,
-  type SubscriptionCreateParams,
-  type SubscriptionUpdateParams,
-  type SubscriptionListParams,
-  type SubscriptionCancelParams,
-  type SubscriptionFetchCostsParams,
-  type SubscriptionFetchScheduleParams,
-  type SubscriptionFetchUsageParams,
-  type SubscriptionPriceIntervalsParams,
-  type SubscriptionSchedulePlanChangeParams,
-  type SubscriptionTriggerPhaseParams,
-  type SubscriptionUnscheduleFixedFeeQuantityUpdatesParams,
-  type SubscriptionUpdateFixedFeeQuantityParams,
-  type SubscriptionUpdateTrialParams,
 } from './subscriptions';
-export { TopLevel, type TopLevelPingResponse } from './top-level';
+export { TopLevelPingResponse, TopLevel } from './top-level';

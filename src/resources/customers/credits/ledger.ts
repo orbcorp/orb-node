@@ -2559,14 +2559,14 @@ export interface LedgerListByExternalIDParams extends PageParams {
 }
 
 export namespace Ledger {
-  export type LedgerListResponse = LedgerAPI.LedgerListResponse;
-  export type LedgerCreateEntryResponse = LedgerAPI.LedgerCreateEntryResponse;
-  export type LedgerCreateEntryByExternalIDResponse = LedgerAPI.LedgerCreateEntryByExternalIDResponse;
-  export type LedgerListByExternalIDResponse = LedgerAPI.LedgerListByExternalIDResponse;
+  export import LedgerListResponse = LedgerAPI.LedgerListResponse;
+  export import LedgerCreateEntryResponse = LedgerAPI.LedgerCreateEntryResponse;
+  export import LedgerCreateEntryByExternalIDResponse = LedgerAPI.LedgerCreateEntryByExternalIDResponse;
+  export import LedgerListByExternalIDResponse = LedgerAPI.LedgerListByExternalIDResponse;
   export import LedgerListResponsesPage = LedgerAPI.LedgerListResponsesPage;
   export import LedgerListByExternalIDResponsesPage = LedgerAPI.LedgerListByExternalIDResponsesPage;
-  export type LedgerListParams = LedgerAPI.LedgerListParams;
-  export type LedgerCreateEntryParams = LedgerAPI.LedgerCreateEntryParams;
-  export type LedgerCreateEntryByExternalIDParams = LedgerAPI.LedgerCreateEntryByExternalIDParams;
-  export type LedgerListByExternalIDParams = LedgerAPI.LedgerListByExternalIDParams;
+  export import LedgerListParams = LedgerAPI.LedgerListParams;
+  export import LedgerCreateEntryParams = LedgerAPI.LedgerCreateEntryParams;
+  export import LedgerCreateEntryByExternalIDParams = LedgerAPI.LedgerCreateEntryByExternalIDParams;
+  export import LedgerListByExternalIDParams = LedgerAPI.LedgerListByExternalIDParams;
 }
