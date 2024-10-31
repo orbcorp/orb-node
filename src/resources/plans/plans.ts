@@ -3,9 +3,9 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as PlansAPI from './plans';
 import * as Shared from '../shared';
 import * as ExternalPlanIDAPI from './external-plan-id';
+import { ExternalPlanID, ExternalPlanIDUpdateParams } from './external-plan-id';
 import * as PricesAPI from '../prices/prices';
 import { Page, type PageParams } from '../../pagination';
 
@@ -312,6 +312,7 @@ export interface PlanCreateParams {
     | PlanCreateParams.NewPlanGroupedAllocationPrice
     | PlanCreateParams.NewPlanGroupedWithProratedMinimumPrice
     | PlanCreateParams.NewPlanGroupedWithMeteredMinimumPrice
+    | PlanCreateParams.NewPlanMatrixWithDisplayNamePrice
     | PlanCreateParams.NewPlanBulkWithProrationPrice
   >;
 
@@ -2549,6 +2550,119 @@ export namespace PlanCreateParams {
     }
   }
 
+  export interface NewPlanMatrixWithDisplayNamePrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    matrix_with_display_name_config: Record<string, unknown>;
+
+    model_type: 'matrix_with_display_name';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: NewPlanMatrixWithDisplayNamePrice.BillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: NewPlanMatrixWithDisplayNamePrice.InvoicingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewPlanMatrixWithDisplayNamePrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+  }
+
   export interface NewPlanBulkWithProrationPrice {
     bulk_with_proration_config: Record<string, unknown>;
 
@@ -2694,12 +2808,17 @@ export interface PlanListParams extends PageParams {
   status?: 'active' | 'archived' | 'draft';
 }
 
-export namespace Plans {
-  export import Plan = PlansAPI.Plan;
-  export import PlansPage = PlansAPI.PlansPage;
-  export import PlanCreateParams = PlansAPI.PlanCreateParams;
-  export import PlanUpdateParams = PlansAPI.PlanUpdateParams;
-  export import PlanListParams = PlansAPI.PlanListParams;
-  export import ExternalPlanID = ExternalPlanIDAPI.ExternalPlanID;
-  export import ExternalPlanIDUpdateParams = ExternalPlanIDAPI.ExternalPlanIDUpdateParams;
+Plans.PlansPage = PlansPage;
+Plans.ExternalPlanID = ExternalPlanID;
+
+export declare namespace Plans {
+  export {
+    type Plan as Plan,
+    PlansPage as PlansPage,
+    type PlanCreateParams as PlanCreateParams,
+    type PlanUpdateParams as PlanUpdateParams,
+    type PlanListParams as PlanListParams,
+  };
+
+  export { ExternalPlanID as ExternalPlanID, type ExternalPlanIDUpdateParams as ExternalPlanIDUpdateParams };
 }

@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as BalanceTransactionsAPI from './balance-transactions';
 import { Page, type PageParams } from '../../pagination';
 
 export class BalanceTransactions extends APIResource {
@@ -229,10 +228,14 @@ export interface BalanceTransactionListParams extends PageParams {
   'operation_time[lte]'?: string | null;
 }
 
-export namespace BalanceTransactions {
-  export import BalanceTransactionCreateResponse = BalanceTransactionsAPI.BalanceTransactionCreateResponse;
-  export import BalanceTransactionListResponse = BalanceTransactionsAPI.BalanceTransactionListResponse;
-  export import BalanceTransactionListResponsesPage = BalanceTransactionsAPI.BalanceTransactionListResponsesPage;
-  export import BalanceTransactionCreateParams = BalanceTransactionsAPI.BalanceTransactionCreateParams;
-  export import BalanceTransactionListParams = BalanceTransactionsAPI.BalanceTransactionListParams;
+BalanceTransactions.BalanceTransactionListResponsesPage = BalanceTransactionListResponsesPage;
+
+export declare namespace BalanceTransactions {
+  export {
+    type BalanceTransactionCreateResponse as BalanceTransactionCreateResponse,
+    type BalanceTransactionListResponse as BalanceTransactionListResponse,
+    BalanceTransactionListResponsesPage as BalanceTransactionListResponsesPage,
+    type BalanceTransactionCreateParams as BalanceTransactionCreateParams,
+    type BalanceTransactionListParams as BalanceTransactionListParams,
+  };
 }

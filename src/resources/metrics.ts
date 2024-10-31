@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as MetricsAPI from './metrics';
 import * as ItemsAPI from './items';
 import { Page, type PageParams } from '../pagination';
 
@@ -140,10 +139,14 @@ export interface MetricListParams extends PageParams {
   'created_at[lte]'?: string | null;
 }
 
-export namespace Metrics {
-  export import BillableMetric = MetricsAPI.BillableMetric;
-  export import BillableMetricsPage = MetricsAPI.BillableMetricsPage;
-  export import MetricCreateParams = MetricsAPI.MetricCreateParams;
-  export import MetricUpdateParams = MetricsAPI.MetricUpdateParams;
-  export import MetricListParams = MetricsAPI.MetricListParams;
+Metrics.BillableMetricsPage = BillableMetricsPage;
+
+export declare namespace Metrics {
+  export {
+    type BillableMetric as BillableMetric,
+    BillableMetricsPage as BillableMetricsPage,
+    type MetricCreateParams as MetricCreateParams,
+    type MetricUpdateParams as MetricUpdateParams,
+    type MetricListParams as MetricListParams,
+  };
 }

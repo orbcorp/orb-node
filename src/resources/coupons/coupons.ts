@@ -3,9 +3,9 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as CouponsAPI from './coupons';
 import * as Shared from '../shared';
 import * as SubscriptionsAPI from './subscriptions';
+import { SubscriptionListParams, Subscriptions } from './subscriptions';
 import { Page, type PageParams } from '../../pagination';
 
 export class Coupons extends APIResource {
@@ -186,11 +186,16 @@ export interface CouponListParams extends PageParams {
   show_archived?: boolean | null;
 }
 
-export namespace Coupons {
-  export import Coupon = CouponsAPI.Coupon;
-  export import CouponsPage = CouponsAPI.CouponsPage;
-  export import CouponCreateParams = CouponsAPI.CouponCreateParams;
-  export import CouponListParams = CouponsAPI.CouponListParams;
-  export import Subscriptions = SubscriptionsAPI.Subscriptions;
-  export import SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
+Coupons.CouponsPage = CouponsPage;
+Coupons.Subscriptions = Subscriptions;
+
+export declare namespace Coupons {
+  export {
+    type Coupon as Coupon,
+    CouponsPage as CouponsPage,
+    type CouponCreateParams as CouponCreateParams,
+    type CouponListParams as CouponListParams,
+  };
+
+  export { Subscriptions as Subscriptions, type SubscriptionListParams as SubscriptionListParams };
 }

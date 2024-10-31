@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as CouponsSubscriptionsAPI from './subscriptions';
 import * as SubscriptionsAPI from '../subscriptions';
 import { SubscriptionsPage } from '../subscriptions';
 import { type PageParams } from '../../pagination';
@@ -41,8 +40,8 @@ export class Subscriptions extends APIResource {
 
 export interface SubscriptionListParams extends PageParams {}
 
-export namespace Subscriptions {
-  export import SubscriptionListParams = CouponsSubscriptionsAPI.SubscriptionListParams;
+export declare namespace Subscriptions {
+  export { type SubscriptionListParams as SubscriptionListParams };
 }
 
 export { SubscriptionsPage };
