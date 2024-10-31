@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as BackfillsAPI from './backfills';
 import { Page, type PageParams } from '../../pagination';
 
 export class Backfills extends APIResource {
@@ -391,13 +390,17 @@ export interface BackfillCreateParams {
 
 export interface BackfillListParams extends PageParams {}
 
-export namespace Backfills {
-  export import BackfillCreateResponse = BackfillsAPI.BackfillCreateResponse;
-  export import BackfillListResponse = BackfillsAPI.BackfillListResponse;
-  export import BackfillCloseResponse = BackfillsAPI.BackfillCloseResponse;
-  export import BackfillFetchResponse = BackfillsAPI.BackfillFetchResponse;
-  export import BackfillRevertResponse = BackfillsAPI.BackfillRevertResponse;
-  export import BackfillListResponsesPage = BackfillsAPI.BackfillListResponsesPage;
-  export import BackfillCreateParams = BackfillsAPI.BackfillCreateParams;
-  export import BackfillListParams = BackfillsAPI.BackfillListParams;
+Backfills.BackfillListResponsesPage = BackfillListResponsesPage;
+
+export declare namespace Backfills {
+  export {
+    type BackfillCreateResponse as BackfillCreateResponse,
+    type BackfillListResponse as BackfillListResponse,
+    type BackfillCloseResponse as BackfillCloseResponse,
+    type BackfillFetchResponse as BackfillFetchResponse,
+    type BackfillRevertResponse as BackfillRevertResponse,
+    BackfillListResponsesPage as BackfillListResponsesPage,
+    type BackfillCreateParams as BackfillCreateParams,
+    type BackfillListParams as BackfillListParams,
+  };
 }

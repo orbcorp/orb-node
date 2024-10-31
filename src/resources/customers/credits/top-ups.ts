@@ -3,7 +3,6 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
-import * as TopUpsAPI from './top-ups';
 import { Page, type PageParams } from '../../../pagination';
 
 export class TopUps extends APIResource {
@@ -564,15 +563,20 @@ export namespace TopUpCreateByExternalIDParams {
 
 export interface TopUpListByExternalIDParams extends PageParams {}
 
-export namespace TopUps {
-  export import TopUpCreateResponse = TopUpsAPI.TopUpCreateResponse;
-  export import TopUpListResponse = TopUpsAPI.TopUpListResponse;
-  export import TopUpCreateByExternalIDResponse = TopUpsAPI.TopUpCreateByExternalIDResponse;
-  export import TopUpListByExternalIDResponse = TopUpsAPI.TopUpListByExternalIDResponse;
-  export import TopUpListResponsesPage = TopUpsAPI.TopUpListResponsesPage;
-  export import TopUpListByExternalIDResponsesPage = TopUpsAPI.TopUpListByExternalIDResponsesPage;
-  export import TopUpCreateParams = TopUpsAPI.TopUpCreateParams;
-  export import TopUpListParams = TopUpsAPI.TopUpListParams;
-  export import TopUpCreateByExternalIDParams = TopUpsAPI.TopUpCreateByExternalIDParams;
-  export import TopUpListByExternalIDParams = TopUpsAPI.TopUpListByExternalIDParams;
+TopUps.TopUpListResponsesPage = TopUpListResponsesPage;
+TopUps.TopUpListByExternalIDResponsesPage = TopUpListByExternalIDResponsesPage;
+
+export declare namespace TopUps {
+  export {
+    type TopUpCreateResponse as TopUpCreateResponse,
+    type TopUpListResponse as TopUpListResponse,
+    type TopUpCreateByExternalIDResponse as TopUpCreateByExternalIDResponse,
+    type TopUpListByExternalIDResponse as TopUpListByExternalIDResponse,
+    TopUpListResponsesPage as TopUpListResponsesPage,
+    TopUpListByExternalIDResponsesPage as TopUpListByExternalIDResponsesPage,
+    type TopUpCreateParams as TopUpCreateParams,
+    type TopUpListParams as TopUpListParams,
+    type TopUpCreateByExternalIDParams as TopUpCreateByExternalIDParams,
+    type TopUpListByExternalIDParams as TopUpListByExternalIDParams,
+  };
 }

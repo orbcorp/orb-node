@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as InvoicesAPI from './invoices';
 import * as Shared from './shared';
 import * as PricesAPI from './prices/prices';
 import { Page, type PageParams } from '../pagination';
@@ -2658,14 +2657,18 @@ export interface InvoiceMarkPaidParams {
   notes?: string | null;
 }
 
-export namespace Invoices {
-  export import Invoice = InvoicesAPI.Invoice;
-  export import InvoiceFetchUpcomingResponse = InvoicesAPI.InvoiceFetchUpcomingResponse;
-  export import InvoicesPage = InvoicesAPI.InvoicesPage;
-  export import InvoiceCreateParams = InvoicesAPI.InvoiceCreateParams;
-  export import InvoiceUpdateParams = InvoicesAPI.InvoiceUpdateParams;
-  export import InvoiceListParams = InvoicesAPI.InvoiceListParams;
-  export import InvoiceFetchUpcomingParams = InvoicesAPI.InvoiceFetchUpcomingParams;
-  export import InvoiceIssueParams = InvoicesAPI.InvoiceIssueParams;
-  export import InvoiceMarkPaidParams = InvoicesAPI.InvoiceMarkPaidParams;
+Invoices.InvoicesPage = InvoicesPage;
+
+export declare namespace Invoices {
+  export {
+    type Invoice as Invoice,
+    type InvoiceFetchUpcomingResponse as InvoiceFetchUpcomingResponse,
+    InvoicesPage as InvoicesPage,
+    type InvoiceCreateParams as InvoiceCreateParams,
+    type InvoiceUpdateParams as InvoiceUpdateParams,
+    type InvoiceListParams as InvoiceListParams,
+    type InvoiceFetchUpcomingParams as InvoiceFetchUpcomingParams,
+    type InvoiceIssueParams as InvoiceIssueParams,
+    type InvoiceMarkPaidParams as InvoiceMarkPaidParams,
+  };
 }

@@ -3,10 +3,33 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as CustomersAPI from './customers';
 import * as BalanceTransactionsAPI from './balance-transactions';
+import {
+  BalanceTransactionCreateParams,
+  BalanceTransactionCreateResponse,
+  BalanceTransactionListParams,
+  BalanceTransactionListResponse,
+  BalanceTransactionListResponsesPage,
+  BalanceTransactions,
+} from './balance-transactions';
 import * as CostsAPI from './costs';
+import {
+  CostListByExternalIDParams,
+  CostListByExternalIDResponse,
+  CostListParams,
+  CostListResponse,
+  Costs,
+} from './costs';
 import * as CreditsAPI from './credits/credits';
+import {
+  CreditListByExternalIDParams,
+  CreditListByExternalIDResponse,
+  CreditListByExternalIDResponsesPage,
+  CreditListParams,
+  CreditListResponse,
+  CreditListResponsesPage,
+  Credits,
+} from './credits/credits';
 import { Page, type PageParams } from '../../pagination';
 
 export class Customers extends APIResource {
@@ -2200,29 +2223,48 @@ export namespace CustomerUpdateByExternalIDParams {
   }
 }
 
-export namespace Customers {
-  export import Customer = CustomersAPI.Customer;
-  export import CustomersPage = CustomersAPI.CustomersPage;
-  export import CustomerCreateParams = CustomersAPI.CustomerCreateParams;
-  export import CustomerUpdateParams = CustomersAPI.CustomerUpdateParams;
-  export import CustomerListParams = CustomersAPI.CustomerListParams;
-  export import CustomerUpdateByExternalIDParams = CustomersAPI.CustomerUpdateByExternalIDParams;
-  export import Costs = CostsAPI.Costs;
-  export import CostListResponse = CostsAPI.CostListResponse;
-  export import CostListByExternalIDResponse = CostsAPI.CostListByExternalIDResponse;
-  export import CostListParams = CostsAPI.CostListParams;
-  export import CostListByExternalIDParams = CostsAPI.CostListByExternalIDParams;
-  export import Credits = CreditsAPI.Credits;
-  export import CreditListResponse = CreditsAPI.CreditListResponse;
-  export import CreditListByExternalIDResponse = CreditsAPI.CreditListByExternalIDResponse;
-  export import CreditListResponsesPage = CreditsAPI.CreditListResponsesPage;
-  export import CreditListByExternalIDResponsesPage = CreditsAPI.CreditListByExternalIDResponsesPage;
-  export import CreditListParams = CreditsAPI.CreditListParams;
-  export import CreditListByExternalIDParams = CreditsAPI.CreditListByExternalIDParams;
-  export import BalanceTransactions = BalanceTransactionsAPI.BalanceTransactions;
-  export import BalanceTransactionCreateResponse = BalanceTransactionsAPI.BalanceTransactionCreateResponse;
-  export import BalanceTransactionListResponse = BalanceTransactionsAPI.BalanceTransactionListResponse;
-  export import BalanceTransactionListResponsesPage = BalanceTransactionsAPI.BalanceTransactionListResponsesPage;
-  export import BalanceTransactionCreateParams = BalanceTransactionsAPI.BalanceTransactionCreateParams;
-  export import BalanceTransactionListParams = BalanceTransactionsAPI.BalanceTransactionListParams;
+Customers.CustomersPage = CustomersPage;
+Customers.Costs = Costs;
+Customers.Credits = Credits;
+Customers.CreditListResponsesPage = CreditListResponsesPage;
+Customers.CreditListByExternalIDResponsesPage = CreditListByExternalIDResponsesPage;
+Customers.BalanceTransactions = BalanceTransactions;
+Customers.BalanceTransactionListResponsesPage = BalanceTransactionListResponsesPage;
+
+export declare namespace Customers {
+  export {
+    type Customer as Customer,
+    CustomersPage as CustomersPage,
+    type CustomerCreateParams as CustomerCreateParams,
+    type CustomerUpdateParams as CustomerUpdateParams,
+    type CustomerListParams as CustomerListParams,
+    type CustomerUpdateByExternalIDParams as CustomerUpdateByExternalIDParams,
+  };
+
+  export {
+    Costs as Costs,
+    type CostListResponse as CostListResponse,
+    type CostListByExternalIDResponse as CostListByExternalIDResponse,
+    type CostListParams as CostListParams,
+    type CostListByExternalIDParams as CostListByExternalIDParams,
+  };
+
+  export {
+    Credits as Credits,
+    type CreditListResponse as CreditListResponse,
+    type CreditListByExternalIDResponse as CreditListByExternalIDResponse,
+    CreditListResponsesPage as CreditListResponsesPage,
+    CreditListByExternalIDResponsesPage as CreditListByExternalIDResponsesPage,
+    type CreditListParams as CreditListParams,
+    type CreditListByExternalIDParams as CreditListByExternalIDParams,
+  };
+
+  export {
+    BalanceTransactions as BalanceTransactions,
+    type BalanceTransactionCreateResponse as BalanceTransactionCreateResponse,
+    type BalanceTransactionListResponse as BalanceTransactionListResponse,
+    BalanceTransactionListResponsesPage as BalanceTransactionListResponsesPage,
+    type BalanceTransactionCreateParams as BalanceTransactionCreateParams,
+    type BalanceTransactionListParams as BalanceTransactionListParams,
+  };
 }

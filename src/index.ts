@@ -1,12 +1,125 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Errors from './error';
-import * as Uploads from './uploads';
 import { type Agent } from './_shims/index';
 import * as qs from './internal/qs';
 import * as Core from './core';
+import * as Errors from './error';
 import * as Pagination from './pagination';
+import { type PageParams, PageResponse } from './pagination';
+import * as Uploads from './uploads';
 import * as API from './resources/index';
+import {
+  Alert,
+  AlertCreateForCustomerParams,
+  AlertCreateForExternalCustomerParams,
+  AlertCreateForSubscriptionParams,
+  AlertListParams,
+  AlertUpdateParams,
+  Alerts,
+  AlertsPage,
+} from './resources/alerts';
+import { CreditNote, CreditNoteListParams, CreditNotes, CreditNotesPage } from './resources/credit-notes';
+import {
+  InvoiceLineItemCreateParams,
+  InvoiceLineItemCreateResponse,
+  InvoiceLineItems,
+} from './resources/invoice-line-items';
+import {
+  Invoice,
+  InvoiceCreateParams,
+  InvoiceFetchUpcomingParams,
+  InvoiceFetchUpcomingResponse,
+  InvoiceIssueParams,
+  InvoiceListParams,
+  InvoiceMarkPaidParams,
+  InvoiceUpdateParams,
+  Invoices,
+  InvoicesPage,
+} from './resources/invoices';
+import {
+  Item,
+  ItemCreateParams,
+  ItemListParams,
+  ItemUpdateParams,
+  Items,
+  ItemsPage,
+} from './resources/items';
+import {
+  BillableMetric,
+  BillableMetricsPage,
+  MetricCreateParams,
+  MetricListParams,
+  MetricUpdateParams,
+  Metrics,
+} from './resources/metrics';
+import {
+  Subscription,
+  SubscriptionCancelParams,
+  SubscriptionCreateParams,
+  SubscriptionFetchCostsParams,
+  SubscriptionFetchCostsResponse,
+  SubscriptionFetchScheduleParams,
+  SubscriptionFetchScheduleResponse,
+  SubscriptionFetchScheduleResponsesPage,
+  SubscriptionFetchUsageParams,
+  SubscriptionListParams,
+  SubscriptionPriceIntervalsParams,
+  SubscriptionSchedulePlanChangeParams,
+  SubscriptionTriggerPhaseParams,
+  SubscriptionUnscheduleFixedFeeQuantityUpdatesParams,
+  SubscriptionUpdateFixedFeeQuantityParams,
+  SubscriptionUpdateParams,
+  SubscriptionUpdateTrialParams,
+  SubscriptionUsage,
+  Subscriptions,
+  SubscriptionsPage,
+} from './resources/subscriptions';
+import { TopLevel, TopLevelPingResponse } from './resources/top-level';
+import {
+  Coupon,
+  CouponCreateParams,
+  CouponListParams,
+  Coupons,
+  CouponsPage,
+} from './resources/coupons/coupons';
+import {
+  Customer,
+  CustomerCreateParams,
+  CustomerListParams,
+  CustomerUpdateByExternalIDParams,
+  CustomerUpdateParams,
+  Customers,
+  CustomersPage,
+} from './resources/customers/customers';
+import {
+  EventDeprecateResponse,
+  EventIngestParams,
+  EventIngestResponse,
+  EventSearchParams,
+  EventSearchResponse,
+  EventUpdateParams,
+  EventUpdateResponse,
+  Events,
+} from './resources/events/events';
+import {
+  Plan,
+  PlanCreateParams,
+  PlanListParams,
+  PlanUpdateParams,
+  Plans,
+  PlansPage,
+} from './resources/plans/plans';
+import {
+  EvaluatePriceGroup,
+  Price,
+  PriceCreateParams,
+  PriceEvaluateParams,
+  PriceEvaluateResponse,
+  PriceListParams,
+  PriceUpdateParams,
+  Prices,
+  PricesPage,
+} from './resources/prices/prices';
 
 export interface ClientOptions {
   /**
@@ -198,158 +311,202 @@ export class Orb extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export const {
-  OrbError,
-  APIError,
-  APIConnectionError,
-  APIConnectionTimeoutError,
-  APIUserAbortError,
-  URLNotFound,
-  NotFoundError,
-  ConflictError,
-  RateLimitError,
-  BadRequestError,
-  RequestTooLarge,
-  TooManyRequests,
-  ResourceNotFound,
-  ResourceConflict,
-  ResourceTooLarge,
-  AuthenticationError,
-  InternalServerError,
-  ConstraintViolation,
-  FeatureNotAvailable,
-  PermissionDeniedError,
-  RequestValidationError,
-  OrbAuthenticationError,
-  OrbInternalServerError,
-  UnprocessableEntityError,
-  DuplicateResourceCreation,
-} = Errors;
+export const OrbError = Errors.OrbError;
+export const APIError = Errors.APIError;
+export const APIConnectionError = Errors.APIConnectionError;
+export const APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
+export const APIUserAbortError = Errors.APIUserAbortError;
+export const URLNotFound = Errors.URLNotFound;
+export const NotFoundError = Errors.NotFoundError;
+export const ConflictError = Errors.ConflictError;
+export const RateLimitError = Errors.RateLimitError;
+export const BadRequestError = Errors.BadRequestError;
+export const RequestTooLarge = Errors.RequestTooLarge;
+export const TooManyRequests = Errors.TooManyRequests;
+export const ResourceNotFound = Errors.ResourceNotFound;
+export const ResourceConflict = Errors.ResourceConflict;
+export const ResourceTooLarge = Errors.ResourceTooLarge;
+export const AuthenticationError = Errors.AuthenticationError;
+export const InternalServerError = Errors.InternalServerError;
+export const ConstraintViolation = Errors.ConstraintViolation;
+export const FeatureNotAvailable = Errors.FeatureNotAvailable;
+export const PermissionDeniedError = Errors.PermissionDeniedError;
+export const RequestValidationError = Errors.RequestValidationError;
+export const OrbAuthenticationError = Errors.OrbAuthenticationError;
+export const OrbInternalServerError = Errors.OrbInternalServerError;
+export const UnprocessableEntityError = Errors.UnprocessableEntityError;
+export const DuplicateResourceCreation = Errors.DuplicateResourceCreation;
 
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
-export namespace Orb {
-  export import RequestOptions = Core.RequestOptions;
+Orb.TopLevel = TopLevel;
+Orb.Coupons = Coupons;
+Orb.CouponsPage = CouponsPage;
+Orb.CreditNotes = CreditNotes;
+Orb.CreditNotesPage = CreditNotesPage;
+Orb.Customers = Customers;
+Orb.CustomersPage = CustomersPage;
+Orb.Events = Events;
+Orb.InvoiceLineItems = InvoiceLineItems;
+Orb.Invoices = Invoices;
+Orb.InvoicesPage = InvoicesPage;
+Orb.Items = Items;
+Orb.ItemsPage = ItemsPage;
+Orb.Metrics = Metrics;
+Orb.BillableMetricsPage = BillableMetricsPage;
+Orb.Plans = Plans;
+Orb.PlansPage = PlansPage;
+Orb.Prices = Prices;
+Orb.PricesPage = PricesPage;
+Orb.SubscriptionsPage = SubscriptionsPage;
+Orb.SubscriptionFetchScheduleResponsesPage = SubscriptionFetchScheduleResponsesPage;
+Orb.Alerts = Alerts;
+Orb.AlertsPage = AlertsPage;
+
+export declare namespace Orb {
+  export type RequestOptions = Core.RequestOptions;
 
   export import Page = Pagination.Page;
-  export import PageParams = Pagination.PageParams;
-  export import PageResponse = Pagination.PageResponse;
+  export { type PageParams as PageParams, type PageResponse as PageResponse };
 
-  export import TopLevel = API.TopLevel;
-  export import TopLevelPingResponse = API.TopLevelPingResponse;
+  export { TopLevel as TopLevel, type TopLevelPingResponse as TopLevelPingResponse };
 
-  export import Coupons = API.Coupons;
-  export import Coupon = API.Coupon;
-  export import CouponsPage = API.CouponsPage;
-  export import CouponCreateParams = API.CouponCreateParams;
-  export import CouponListParams = API.CouponListParams;
+  export {
+    Coupons as Coupons,
+    type Coupon as Coupon,
+    CouponsPage as CouponsPage,
+    type CouponCreateParams as CouponCreateParams,
+    type CouponListParams as CouponListParams,
+  };
 
-  export import CreditNotes = API.CreditNotes;
-  export import CreditNote = API.CreditNote;
-  export import CreditNotesPage = API.CreditNotesPage;
-  export import CreditNoteListParams = API.CreditNoteListParams;
+  export {
+    CreditNotes as CreditNotes,
+    type CreditNote as CreditNote,
+    CreditNotesPage as CreditNotesPage,
+    type CreditNoteListParams as CreditNoteListParams,
+  };
 
-  export import Customers = API.Customers;
-  export import Customer = API.Customer;
-  export import CustomersPage = API.CustomersPage;
-  export import CustomerCreateParams = API.CustomerCreateParams;
-  export import CustomerUpdateParams = API.CustomerUpdateParams;
-  export import CustomerListParams = API.CustomerListParams;
-  export import CustomerUpdateByExternalIDParams = API.CustomerUpdateByExternalIDParams;
+  export {
+    Customers as Customers,
+    type Customer as Customer,
+    CustomersPage as CustomersPage,
+    type CustomerCreateParams as CustomerCreateParams,
+    type CustomerUpdateParams as CustomerUpdateParams,
+    type CustomerListParams as CustomerListParams,
+    type CustomerUpdateByExternalIDParams as CustomerUpdateByExternalIDParams,
+  };
 
-  export import Events = API.Events;
-  export import EventUpdateResponse = API.EventUpdateResponse;
-  export import EventDeprecateResponse = API.EventDeprecateResponse;
-  export import EventIngestResponse = API.EventIngestResponse;
-  export import EventSearchResponse = API.EventSearchResponse;
-  export import EventUpdateParams = API.EventUpdateParams;
-  export import EventIngestParams = API.EventIngestParams;
-  export import EventSearchParams = API.EventSearchParams;
+  export {
+    Events as Events,
+    type EventUpdateResponse as EventUpdateResponse,
+    type EventDeprecateResponse as EventDeprecateResponse,
+    type EventIngestResponse as EventIngestResponse,
+    type EventSearchResponse as EventSearchResponse,
+    type EventUpdateParams as EventUpdateParams,
+    type EventIngestParams as EventIngestParams,
+    type EventSearchParams as EventSearchParams,
+  };
 
-  export import InvoiceLineItems = API.InvoiceLineItems;
-  export import InvoiceLineItemCreateResponse = API.InvoiceLineItemCreateResponse;
-  export import InvoiceLineItemCreateParams = API.InvoiceLineItemCreateParams;
+  export {
+    InvoiceLineItems as InvoiceLineItems,
+    type InvoiceLineItemCreateResponse as InvoiceLineItemCreateResponse,
+    type InvoiceLineItemCreateParams as InvoiceLineItemCreateParams,
+  };
 
-  export import Invoices = API.Invoices;
-  export import Invoice = API.Invoice;
-  export import InvoiceFetchUpcomingResponse = API.InvoiceFetchUpcomingResponse;
-  export import InvoicesPage = API.InvoicesPage;
-  export import InvoiceCreateParams = API.InvoiceCreateParams;
-  export import InvoiceUpdateParams = API.InvoiceUpdateParams;
-  export import InvoiceListParams = API.InvoiceListParams;
-  export import InvoiceFetchUpcomingParams = API.InvoiceFetchUpcomingParams;
-  export import InvoiceIssueParams = API.InvoiceIssueParams;
-  export import InvoiceMarkPaidParams = API.InvoiceMarkPaidParams;
+  export {
+    Invoices as Invoices,
+    type Invoice as Invoice,
+    type InvoiceFetchUpcomingResponse as InvoiceFetchUpcomingResponse,
+    InvoicesPage as InvoicesPage,
+    type InvoiceCreateParams as InvoiceCreateParams,
+    type InvoiceUpdateParams as InvoiceUpdateParams,
+    type InvoiceListParams as InvoiceListParams,
+    type InvoiceFetchUpcomingParams as InvoiceFetchUpcomingParams,
+    type InvoiceIssueParams as InvoiceIssueParams,
+    type InvoiceMarkPaidParams as InvoiceMarkPaidParams,
+  };
 
-  export import Items = API.Items;
-  export import Item = API.Item;
-  export import ItemsPage = API.ItemsPage;
-  export import ItemCreateParams = API.ItemCreateParams;
-  export import ItemUpdateParams = API.ItemUpdateParams;
-  export import ItemListParams = API.ItemListParams;
+  export {
+    Items as Items,
+    type Item as Item,
+    ItemsPage as ItemsPage,
+    type ItemCreateParams as ItemCreateParams,
+    type ItemUpdateParams as ItemUpdateParams,
+    type ItemListParams as ItemListParams,
+  };
 
-  export import Metrics = API.Metrics;
-  export import BillableMetric = API.BillableMetric;
-  export import BillableMetricsPage = API.BillableMetricsPage;
-  export import MetricCreateParams = API.MetricCreateParams;
-  export import MetricUpdateParams = API.MetricUpdateParams;
-  export import MetricListParams = API.MetricListParams;
+  export {
+    Metrics as Metrics,
+    type BillableMetric as BillableMetric,
+    BillableMetricsPage as BillableMetricsPage,
+    type MetricCreateParams as MetricCreateParams,
+    type MetricUpdateParams as MetricUpdateParams,
+    type MetricListParams as MetricListParams,
+  };
 
-  export import Plans = API.Plans;
-  export import Plan = API.Plan;
-  export import PlansPage = API.PlansPage;
-  export import PlanCreateParams = API.PlanCreateParams;
-  export import PlanUpdateParams = API.PlanUpdateParams;
-  export import PlanListParams = API.PlanListParams;
+  export {
+    Plans as Plans,
+    type Plan as Plan,
+    PlansPage as PlansPage,
+    type PlanCreateParams as PlanCreateParams,
+    type PlanUpdateParams as PlanUpdateParams,
+    type PlanListParams as PlanListParams,
+  };
 
-  export import Prices = API.Prices;
-  export import EvaluatePriceGroup = API.EvaluatePriceGroup;
-  export import Price = API.Price;
-  export import PriceEvaluateResponse = API.PriceEvaluateResponse;
-  export import PricesPage = API.PricesPage;
-  export import PriceCreateParams = API.PriceCreateParams;
-  export import PriceUpdateParams = API.PriceUpdateParams;
-  export import PriceListParams = API.PriceListParams;
-  export import PriceEvaluateParams = API.PriceEvaluateParams;
+  export {
+    Prices as Prices,
+    type EvaluatePriceGroup as EvaluatePriceGroup,
+    type Price as Price,
+    type PriceEvaluateResponse as PriceEvaluateResponse,
+    PricesPage as PricesPage,
+    type PriceCreateParams as PriceCreateParams,
+    type PriceUpdateParams as PriceUpdateParams,
+    type PriceListParams as PriceListParams,
+    type PriceEvaluateParams as PriceEvaluateParams,
+  };
 
-  export import Subscriptions = API.Subscriptions;
-  export import Subscription = API.Subscription;
-  export import SubscriptionUsage = API.SubscriptionUsage;
-  export import SubscriptionFetchCostsResponse = API.SubscriptionFetchCostsResponse;
-  export import SubscriptionFetchScheduleResponse = API.SubscriptionFetchScheduleResponse;
-  export import SubscriptionsPage = API.SubscriptionsPage;
-  export import SubscriptionFetchScheduleResponsesPage = API.SubscriptionFetchScheduleResponsesPage;
-  export import SubscriptionCreateParams = API.SubscriptionCreateParams;
-  export import SubscriptionUpdateParams = API.SubscriptionUpdateParams;
-  export import SubscriptionListParams = API.SubscriptionListParams;
-  export import SubscriptionCancelParams = API.SubscriptionCancelParams;
-  export import SubscriptionFetchCostsParams = API.SubscriptionFetchCostsParams;
-  export import SubscriptionFetchScheduleParams = API.SubscriptionFetchScheduleParams;
-  export import SubscriptionFetchUsageParams = API.SubscriptionFetchUsageParams;
-  export import SubscriptionPriceIntervalsParams = API.SubscriptionPriceIntervalsParams;
-  export import SubscriptionSchedulePlanChangeParams = API.SubscriptionSchedulePlanChangeParams;
-  export import SubscriptionTriggerPhaseParams = API.SubscriptionTriggerPhaseParams;
-  export import SubscriptionUnscheduleFixedFeeQuantityUpdatesParams = API.SubscriptionUnscheduleFixedFeeQuantityUpdatesParams;
-  export import SubscriptionUpdateFixedFeeQuantityParams = API.SubscriptionUpdateFixedFeeQuantityParams;
-  export import SubscriptionUpdateTrialParams = API.SubscriptionUpdateTrialParams;
+  export {
+    type Subscriptions as Subscriptions,
+    type Subscription as Subscription,
+    type SubscriptionUsage as SubscriptionUsage,
+    type SubscriptionFetchCostsResponse as SubscriptionFetchCostsResponse,
+    type SubscriptionFetchScheduleResponse as SubscriptionFetchScheduleResponse,
+    SubscriptionsPage as SubscriptionsPage,
+    SubscriptionFetchScheduleResponsesPage as SubscriptionFetchScheduleResponsesPage,
+    type SubscriptionCreateParams as SubscriptionCreateParams,
+    type SubscriptionUpdateParams as SubscriptionUpdateParams,
+    type SubscriptionListParams as SubscriptionListParams,
+    type SubscriptionCancelParams as SubscriptionCancelParams,
+    type SubscriptionFetchCostsParams as SubscriptionFetchCostsParams,
+    type SubscriptionFetchScheduleParams as SubscriptionFetchScheduleParams,
+    type SubscriptionFetchUsageParams as SubscriptionFetchUsageParams,
+    type SubscriptionPriceIntervalsParams as SubscriptionPriceIntervalsParams,
+    type SubscriptionSchedulePlanChangeParams as SubscriptionSchedulePlanChangeParams,
+    type SubscriptionTriggerPhaseParams as SubscriptionTriggerPhaseParams,
+    type SubscriptionUnscheduleFixedFeeQuantityUpdatesParams as SubscriptionUnscheduleFixedFeeQuantityUpdatesParams,
+    type SubscriptionUpdateFixedFeeQuantityParams as SubscriptionUpdateFixedFeeQuantityParams,
+    type SubscriptionUpdateTrialParams as SubscriptionUpdateTrialParams,
+  };
 
-  export import Alerts = API.Alerts;
-  export import Alert = API.Alert;
-  export import AlertsPage = API.AlertsPage;
-  export import AlertUpdateParams = API.AlertUpdateParams;
-  export import AlertListParams = API.AlertListParams;
-  export import AlertCreateForCustomerParams = API.AlertCreateForCustomerParams;
-  export import AlertCreateForExternalCustomerParams = API.AlertCreateForExternalCustomerParams;
-  export import AlertCreateForSubscriptionParams = API.AlertCreateForSubscriptionParams;
+  export {
+    Alerts as Alerts,
+    type Alert as Alert,
+    AlertsPage as AlertsPage,
+    type AlertUpdateParams as AlertUpdateParams,
+    type AlertListParams as AlertListParams,
+    type AlertCreateForCustomerParams as AlertCreateForCustomerParams,
+    type AlertCreateForExternalCustomerParams as AlertCreateForExternalCustomerParams,
+    type AlertCreateForSubscriptionParams as AlertCreateForSubscriptionParams,
+  };
 
-  export import AmountDiscount = API.AmountDiscount;
-  export import BillingCycleRelativeDate = API.BillingCycleRelativeDate;
-  export import Discount = API.Discount;
-  export import InvoiceLevelDiscount = API.InvoiceLevelDiscount;
-  export import PaginationMetadata = API.PaginationMetadata;
-  export import PercentageDiscount = API.PercentageDiscount;
-  export import TrialDiscount = API.TrialDiscount;
+  export type AmountDiscount = API.AmountDiscount;
+  export type BillingCycleRelativeDate = API.BillingCycleRelativeDate;
+  export type Discount = API.Discount;
+  export type InvoiceLevelDiscount = API.InvoiceLevelDiscount;
+  export type PaginationMetadata = API.PaginationMetadata;
+  export type PercentageDiscount = API.PercentageDiscount;
+  export type TrialDiscount = API.TrialDiscount;
 }
 
 export default Orb;
