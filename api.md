@@ -47,6 +47,7 @@ Types:
 
 Methods:
 
+- <code title="post /credit_notes">client.creditNotes.<a href="./src/resources/credit-notes.ts">create</a>({ ...params }) -> CreditNote</code>
 - <code title="get /credit_notes">client.creditNotes.<a href="./src/resources/credit-notes.ts">list</a>({ ...params }) -> CreditNotesPage</code>
 - <code title="get /credit_notes/{credit_note_id}">client.creditNotes.<a href="./src/resources/credit-notes.ts">fetch</a>(creditNoteId) -> CreditNote</code>
 

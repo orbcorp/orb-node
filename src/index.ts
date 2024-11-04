@@ -18,7 +18,13 @@ import {
   Alerts,
   AlertsPage,
 } from './resources/alerts';
-import { CreditNote, CreditNoteListParams, CreditNotes, CreditNotesPage } from './resources/credit-notes';
+import {
+  CreditNote,
+  CreditNoteCreateParams,
+  CreditNoteListParams,
+  CreditNotes,
+  CreditNotesPage,
+} from './resources/credit-notes';
 import {
   InvoiceLineItemCreateParams,
   InvoiceLineItemCreateResponse,
@@ -321,31 +327,33 @@ export class Orb extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export const OrbError = Errors.OrbError;
-export const APIError = Errors.APIError;
-export const APIConnectionError = Errors.APIConnectionError;
-export const APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
-export const APIUserAbortError = Errors.APIUserAbortError;
-export const URLNotFound = Errors.URLNotFound;
-export const NotFoundError = Errors.NotFoundError;
-export const ConflictError = Errors.ConflictError;
-export const RateLimitError = Errors.RateLimitError;
-export const BadRequestError = Errors.BadRequestError;
-export const RequestTooLarge = Errors.RequestTooLarge;
-export const TooManyRequests = Errors.TooManyRequests;
-export const ResourceNotFound = Errors.ResourceNotFound;
-export const ResourceConflict = Errors.ResourceConflict;
-export const ResourceTooLarge = Errors.ResourceTooLarge;
-export const AuthenticationError = Errors.AuthenticationError;
-export const InternalServerError = Errors.InternalServerError;
-export const ConstraintViolation = Errors.ConstraintViolation;
-export const FeatureNotAvailable = Errors.FeatureNotAvailable;
-export const PermissionDeniedError = Errors.PermissionDeniedError;
-export const RequestValidationError = Errors.RequestValidationError;
-export const OrbAuthenticationError = Errors.OrbAuthenticationError;
-export const OrbInternalServerError = Errors.OrbInternalServerError;
-export const UnprocessableEntityError = Errors.UnprocessableEntityError;
-export const DuplicateResourceCreation = Errors.DuplicateResourceCreation;
+export {
+  OrbError,
+  APIError,
+  APIConnectionError,
+  APIConnectionTimeoutError,
+  APIUserAbortError,
+  URLNotFound,
+  NotFoundError,
+  ConflictError,
+  RateLimitError,
+  BadRequestError,
+  RequestTooLarge,
+  TooManyRequests,
+  ResourceNotFound,
+  ResourceConflict,
+  ResourceTooLarge,
+  AuthenticationError,
+  InternalServerError,
+  ConstraintViolation,
+  FeatureNotAvailable,
+  PermissionDeniedError,
+  RequestValidationError,
+  OrbAuthenticationError,
+  OrbInternalServerError,
+  UnprocessableEntityError,
+  DuplicateResourceCreation,
+} from './error';
 
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
@@ -394,6 +402,7 @@ export declare namespace Orb {
     CreditNotes as CreditNotes,
     type CreditNote as CreditNote,
     CreditNotesPage as CreditNotesPage,
+    type CreditNoteCreateParams as CreditNoteCreateParams,
     type CreditNoteListParams as CreditNoteListParams,
   };
 
