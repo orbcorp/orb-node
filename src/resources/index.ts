@@ -26,7 +26,13 @@ export {
   type CouponCreateParams,
   type CouponListParams,
 } from './coupons/coupons';
-export { CreditNotesPage, CreditNotes, type CreditNote, type CreditNoteListParams } from './credit-notes';
+export {
+  CreditNotesPage,
+  CreditNotes,
+  type CreditNote,
+  type CreditNoteCreateParams,
+  type CreditNoteListParams,
+} from './credit-notes';
 export {
   CustomersPage,
   Customers,
