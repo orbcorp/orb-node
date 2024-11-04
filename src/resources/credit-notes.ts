@@ -7,6 +7,14 @@ import { Page, type PageParams } from '../pagination';
 
 export class CreditNotes extends APIResource {
   /**
+   * This endpoint is used to create a single
+   * [`Credit Note`](../guides/invoicing/credit-notes).
+   */
+  create(body: CreditNoteCreateParams, options?: Core.RequestOptions): Core.APIPromise<CreditNote> {
+    return this._client.post('/credit_notes', { body, ...options });
+  }
+
+  /**
    * Get a paginated list of CreditNotes. Users can also filter by customer_id,
    * subscription_id, or external_customer_id. The credit notes will be returned in
    * reverse chronological order by `creation_time`.
@@ -237,6 +245,34 @@ export namespace CreditNote {
   }
 }
 
+export interface CreditNoteCreateParams {
+  line_items: Array<CreditNoteCreateParams.LineItem>;
+
+  /**
+   * An optional memo to attach to the credit note.
+   */
+  memo?: string | null;
+
+  /**
+   * An optional reason for the credit note.
+   */
+  reason?: 'duplicate' | 'fraudulent' | 'order_change' | 'product_unsatisfactory' | null;
+}
+
+export namespace CreditNoteCreateParams {
+  export interface LineItem {
+    /**
+     * The total amount in the invoice's currency to credit this line item.
+     */
+    amount: string;
+
+    /**
+     * The ID of the line item to credit.
+     */
+    invoice_line_item_id: string;
+  }
+}
+
 export interface CreditNoteListParams extends PageParams {}
 
 CreditNotes.CreditNotesPage = CreditNotesPage;
@@ -245,6 +281,7 @@ export declare namespace CreditNotes {
   export {
     type CreditNote as CreditNote,
     CreditNotesPage as CreditNotesPage,
+    type CreditNoteCreateParams as CreditNoteCreateParams,
     type CreditNoteListParams as CreditNoteListParams,
   };
 }
