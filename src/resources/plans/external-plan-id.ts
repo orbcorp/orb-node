@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as ExternalPlanIDAPI from './external-plan-id';
 import * as PlansAPI from './plans';
 
 export class ExternalPlanID extends APIResource {
@@ -59,6 +58,6 @@ export interface ExternalPlanIDUpdateParams {
   metadata?: Record<string, string | null> | null;
 }
 
-export namespace ExternalPlanID {
-  export import ExternalPlanIDUpdateParams = ExternalPlanIDAPI.ExternalPlanIDUpdateParams;
+export declare namespace ExternalPlanID {
+  export { type ExternalPlanIDUpdateParams as ExternalPlanIDUpdateParams };
 }

@@ -3,7 +3,6 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
-import * as LedgerAPI from './ledger';
 import { Page, type PageParams } from '../../../pagination';
 
 export class Ledger extends APIResource {
@@ -2558,15 +2557,20 @@ export interface LedgerListByExternalIDParams extends PageParams {
   minimum_amount?: string | null;
 }
 
-export namespace Ledger {
-  export import LedgerListResponse = LedgerAPI.LedgerListResponse;
-  export import LedgerCreateEntryResponse = LedgerAPI.LedgerCreateEntryResponse;
-  export import LedgerCreateEntryByExternalIDResponse = LedgerAPI.LedgerCreateEntryByExternalIDResponse;
-  export import LedgerListByExternalIDResponse = LedgerAPI.LedgerListByExternalIDResponse;
-  export import LedgerListResponsesPage = LedgerAPI.LedgerListResponsesPage;
-  export import LedgerListByExternalIDResponsesPage = LedgerAPI.LedgerListByExternalIDResponsesPage;
-  export import LedgerListParams = LedgerAPI.LedgerListParams;
-  export import LedgerCreateEntryParams = LedgerAPI.LedgerCreateEntryParams;
-  export import LedgerCreateEntryByExternalIDParams = LedgerAPI.LedgerCreateEntryByExternalIDParams;
-  export import LedgerListByExternalIDParams = LedgerAPI.LedgerListByExternalIDParams;
+Ledger.LedgerListResponsesPage = LedgerListResponsesPage;
+Ledger.LedgerListByExternalIDResponsesPage = LedgerListByExternalIDResponsesPage;
+
+export declare namespace Ledger {
+  export {
+    type LedgerListResponse as LedgerListResponse,
+    type LedgerCreateEntryResponse as LedgerCreateEntryResponse,
+    type LedgerCreateEntryByExternalIDResponse as LedgerCreateEntryByExternalIDResponse,
+    type LedgerListByExternalIDResponse as LedgerListByExternalIDResponse,
+    LedgerListResponsesPage as LedgerListResponsesPage,
+    LedgerListByExternalIDResponsesPage as LedgerListByExternalIDResponsesPage,
+    type LedgerListParams as LedgerListParams,
+    type LedgerCreateEntryParams as LedgerCreateEntryParams,
+    type LedgerCreateEntryByExternalIDParams as LedgerCreateEntryByExternalIDParams,
+    type LedgerListByExternalIDParams as LedgerListByExternalIDParams,
+  };
 }

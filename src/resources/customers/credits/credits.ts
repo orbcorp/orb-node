@@ -3,9 +3,34 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
-import * as CreditsAPI from './credits';
 import * as LedgerAPI from './ledger';
+import {
+  Ledger,
+  LedgerCreateEntryByExternalIDParams,
+  LedgerCreateEntryByExternalIDResponse,
+  LedgerCreateEntryParams,
+  LedgerCreateEntryResponse,
+  LedgerListByExternalIDParams,
+  LedgerListByExternalIDResponse,
+  LedgerListByExternalIDResponsesPage,
+  LedgerListParams,
+  LedgerListResponse,
+  LedgerListResponsesPage,
+} from './ledger';
 import * as TopUpsAPI from './top-ups';
+import {
+  TopUpCreateByExternalIDParams,
+  TopUpCreateByExternalIDResponse,
+  TopUpCreateParams,
+  TopUpCreateResponse,
+  TopUpListByExternalIDParams,
+  TopUpListByExternalIDResponse,
+  TopUpListByExternalIDResponsesPage,
+  TopUpListParams,
+  TopUpListResponse,
+  TopUpListResponsesPage,
+  TopUps,
+} from './top-ups';
 import { Page, type PageParams } from '../../../pagination';
 
 export class Credits extends APIResource {
@@ -132,33 +157,50 @@ export interface CreditListByExternalIDParams extends PageParams {
   include_all_blocks?: boolean;
 }
 
-export namespace Credits {
-  export import CreditListResponse = CreditsAPI.CreditListResponse;
-  export import CreditListByExternalIDResponse = CreditsAPI.CreditListByExternalIDResponse;
-  export import CreditListResponsesPage = CreditsAPI.CreditListResponsesPage;
-  export import CreditListByExternalIDResponsesPage = CreditsAPI.CreditListByExternalIDResponsesPage;
-  export import CreditListParams = CreditsAPI.CreditListParams;
-  export import CreditListByExternalIDParams = CreditsAPI.CreditListByExternalIDParams;
-  export import Ledger = LedgerAPI.Ledger;
-  export import LedgerListResponse = LedgerAPI.LedgerListResponse;
-  export import LedgerCreateEntryResponse = LedgerAPI.LedgerCreateEntryResponse;
-  export import LedgerCreateEntryByExternalIDResponse = LedgerAPI.LedgerCreateEntryByExternalIDResponse;
-  export import LedgerListByExternalIDResponse = LedgerAPI.LedgerListByExternalIDResponse;
-  export import LedgerListResponsesPage = LedgerAPI.LedgerListResponsesPage;
-  export import LedgerListByExternalIDResponsesPage = LedgerAPI.LedgerListByExternalIDResponsesPage;
-  export import LedgerListParams = LedgerAPI.LedgerListParams;
-  export import LedgerCreateEntryParams = LedgerAPI.LedgerCreateEntryParams;
-  export import LedgerCreateEntryByExternalIDParams = LedgerAPI.LedgerCreateEntryByExternalIDParams;
-  export import LedgerListByExternalIDParams = LedgerAPI.LedgerListByExternalIDParams;
-  export import TopUps = TopUpsAPI.TopUps;
-  export import TopUpCreateResponse = TopUpsAPI.TopUpCreateResponse;
-  export import TopUpListResponse = TopUpsAPI.TopUpListResponse;
-  export import TopUpCreateByExternalIDResponse = TopUpsAPI.TopUpCreateByExternalIDResponse;
-  export import TopUpListByExternalIDResponse = TopUpsAPI.TopUpListByExternalIDResponse;
-  export import TopUpListResponsesPage = TopUpsAPI.TopUpListResponsesPage;
-  export import TopUpListByExternalIDResponsesPage = TopUpsAPI.TopUpListByExternalIDResponsesPage;
-  export import TopUpCreateParams = TopUpsAPI.TopUpCreateParams;
-  export import TopUpListParams = TopUpsAPI.TopUpListParams;
-  export import TopUpCreateByExternalIDParams = TopUpsAPI.TopUpCreateByExternalIDParams;
-  export import TopUpListByExternalIDParams = TopUpsAPI.TopUpListByExternalIDParams;
+Credits.CreditListResponsesPage = CreditListResponsesPage;
+Credits.CreditListByExternalIDResponsesPage = CreditListByExternalIDResponsesPage;
+Credits.Ledger = Ledger;
+Credits.LedgerListResponsesPage = LedgerListResponsesPage;
+Credits.LedgerListByExternalIDResponsesPage = LedgerListByExternalIDResponsesPage;
+Credits.TopUps = TopUps;
+Credits.TopUpListResponsesPage = TopUpListResponsesPage;
+Credits.TopUpListByExternalIDResponsesPage = TopUpListByExternalIDResponsesPage;
+
+export declare namespace Credits {
+  export {
+    type CreditListResponse as CreditListResponse,
+    type CreditListByExternalIDResponse as CreditListByExternalIDResponse,
+    CreditListResponsesPage as CreditListResponsesPage,
+    CreditListByExternalIDResponsesPage as CreditListByExternalIDResponsesPage,
+    type CreditListParams as CreditListParams,
+    type CreditListByExternalIDParams as CreditListByExternalIDParams,
+  };
+
+  export {
+    Ledger as Ledger,
+    type LedgerListResponse as LedgerListResponse,
+    type LedgerCreateEntryResponse as LedgerCreateEntryResponse,
+    type LedgerCreateEntryByExternalIDResponse as LedgerCreateEntryByExternalIDResponse,
+    type LedgerListByExternalIDResponse as LedgerListByExternalIDResponse,
+    LedgerListResponsesPage as LedgerListResponsesPage,
+    LedgerListByExternalIDResponsesPage as LedgerListByExternalIDResponsesPage,
+    type LedgerListParams as LedgerListParams,
+    type LedgerCreateEntryParams as LedgerCreateEntryParams,
+    type LedgerCreateEntryByExternalIDParams as LedgerCreateEntryByExternalIDParams,
+    type LedgerListByExternalIDParams as LedgerListByExternalIDParams,
+  };
+
+  export {
+    TopUps as TopUps,
+    type TopUpCreateResponse as TopUpCreateResponse,
+    type TopUpListResponse as TopUpListResponse,
+    type TopUpCreateByExternalIDResponse as TopUpCreateByExternalIDResponse,
+    type TopUpListByExternalIDResponse as TopUpListByExternalIDResponse,
+    TopUpListResponsesPage as TopUpListResponsesPage,
+    TopUpListByExternalIDResponsesPage as TopUpListByExternalIDResponsesPage,
+    type TopUpCreateParams as TopUpCreateParams,
+    type TopUpListParams as TopUpListParams,
+    type TopUpCreateByExternalIDParams as TopUpCreateByExternalIDParams,
+    type TopUpListByExternalIDParams as TopUpListByExternalIDParams,
+  };
 }

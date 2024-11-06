@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as VolumeAPI from './volume';
 
 export class Volume extends APIResource {
   /**
@@ -75,7 +74,6 @@ export interface VolumeListParams {
   timeframe_end?: string;
 }
 
-export namespace Volume {
-  export import EventVolumes = VolumeAPI.EventVolumes;
-  export import VolumeListParams = VolumeAPI.VolumeListParams;
+export declare namespace Volume {
+  export { type EventVolumes as EventVolumes, type VolumeListParams as VolumeListParams };
 }

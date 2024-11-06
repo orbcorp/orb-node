@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as AlertsAPI from './alerts';
 import { Page, type PageParams } from '../pagination';
 
 export class Alerts extends APIResource {
@@ -370,12 +369,16 @@ export namespace AlertCreateForSubscriptionParams {
   }
 }
 
-export namespace Alerts {
-  export import Alert = AlertsAPI.Alert;
-  export import AlertsPage = AlertsAPI.AlertsPage;
-  export import AlertUpdateParams = AlertsAPI.AlertUpdateParams;
-  export import AlertListParams = AlertsAPI.AlertListParams;
-  export import AlertCreateForCustomerParams = AlertsAPI.AlertCreateForCustomerParams;
-  export import AlertCreateForExternalCustomerParams = AlertsAPI.AlertCreateForExternalCustomerParams;
-  export import AlertCreateForSubscriptionParams = AlertsAPI.AlertCreateForSubscriptionParams;
+Alerts.AlertsPage = AlertsPage;
+
+export declare namespace Alerts {
+  export {
+    type Alert as Alert,
+    AlertsPage as AlertsPage,
+    type AlertUpdateParams as AlertUpdateParams,
+    type AlertListParams as AlertListParams,
+    type AlertCreateForCustomerParams as AlertCreateForCustomerParams,
+    type AlertCreateForExternalCustomerParams as AlertCreateForExternalCustomerParams,
+    type AlertCreateForSubscriptionParams as AlertCreateForSubscriptionParams,
+  };
 }
