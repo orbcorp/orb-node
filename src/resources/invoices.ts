@@ -25,18 +25,9 @@ export class Invoices extends APIResource {
    */
   update(
     invoiceId: string,
-    body?: InvoiceUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Invoice>;
-  update(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Invoice>;
-  update(
-    invoiceId: string,
-    body: InvoiceUpdateParams | Core.RequestOptions = {},
+    body: InvoiceUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Invoice> {
-    if (isRequestOptions(body)) {
-      return this.update(invoiceId, {}, body);
-    }
     return this._client.put(`/invoices/${invoiceId}`, { body, ...options });
   }
 
@@ -81,17 +72,9 @@ export class Invoices extends APIResource {
    * subscription.
    */
   fetchUpcoming(
-    query?: InvoiceFetchUpcomingParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<InvoiceFetchUpcomingResponse>;
-  fetchUpcoming(options?: Core.RequestOptions): Core.APIPromise<InvoiceFetchUpcomingResponse>;
-  fetchUpcoming(
-    query: InvoiceFetchUpcomingParams | Core.RequestOptions = {},
+    query: InvoiceFetchUpcomingParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<InvoiceFetchUpcomingResponse> {
-    if (isRequestOptions(query)) {
-      return this.fetchUpcoming({}, query);
-    }
     return this._client.get('/invoices/upcoming', { query, ...options });
   }
 
@@ -2647,7 +2630,7 @@ export interface InvoiceListParams extends PageParams {
 }
 
 export interface InvoiceFetchUpcomingParams {
-  subscription_id?: string;
+  subscription_id: string;
 }
 
 export interface InvoiceIssueParams {

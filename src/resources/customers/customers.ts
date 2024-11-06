@@ -42,18 +42,9 @@ export class Customers extends APIResource {
    */
   update(
     customerId: string,
-    body?: CustomerUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Customer>;
-  update(customerId: string, options?: Core.RequestOptions): Core.APIPromise<Customer>;
-  update(
-    customerId: string,
-    body: CustomerUpdateParams | Core.RequestOptions = {},
+    body: CustomerUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Customer> {
-    if (isRequestOptions(body)) {
-      return this.update(customerId, {}, body);
-    }
     return this._client.put(`/customers/${customerId}`, { body, ...options });
   }
 
@@ -131,18 +122,9 @@ export class Customers extends APIResource {
    */
   updateByExternalId(
     id: string,
-    body?: CustomerUpdateByExternalIDParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Customer>;
-  updateByExternalId(id: string, options?: Core.RequestOptions): Core.APIPromise<Customer>;
-  updateByExternalId(
-    id: string,
-    body: CustomerUpdateByExternalIDParams | Core.RequestOptions = {},
+    body: CustomerUpdateByExternalIDParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Customer> {
-    if (isRequestOptions(body)) {
-      return this.updateByExternalId(id, {}, body);
-    }
     return this._client.put(`/customers/external_customer_id/${id}`, { body, ...options });
   }
 }

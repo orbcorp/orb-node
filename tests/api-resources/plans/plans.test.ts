@@ -64,7 +64,7 @@ describe('resource plans', () => {
   });
 
   test('update', async () => {
-    const responsePromise = client.plans.update('plan_id');
+    const responsePromise = client.plans.update('plan_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -72,24 +72,6 @@ describe('resource plans', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.plans.update('plan_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
-  });
-
-  test('update: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.plans.update(
-        'plan_id',
-        { external_plan_id: 'external_plan_id', metadata: { foo: 'string' } },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list', async () => {

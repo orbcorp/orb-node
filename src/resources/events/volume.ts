@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as VolumeAPI from './volume';
 
@@ -21,15 +20,7 @@ export class Volume extends APIResource {
    * timestamp is passed in for either start or end time, the response includes the
    * hours the timestamp falls in.
    */
-  list(query?: VolumeListParams, options?: Core.RequestOptions): Core.APIPromise<EventVolumes>;
-  list(options?: Core.RequestOptions): Core.APIPromise<EventVolumes>;
-  list(
-    query: VolumeListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<EventVolumes> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
+  list(query: VolumeListParams, options?: Core.RequestOptions): Core.APIPromise<EventVolumes> {
     return this._client.get('/events/volume', { query, ...options });
   }
 }
@@ -57,6 +48,14 @@ export namespace EventVolumes {
 
 export interface VolumeListParams {
   /**
+   * The start of the timeframe, inclusive, in which to return event volume. All
+   * datetime values are converted to UTC time. If the specified time isn't
+   * hour-aligned, the response includes the event volume count for the hour the time
+   * falls in.
+   */
+  timeframe_start: string;
+
+  /**
    * Cursor for pagination. This can be populated by the `next_cursor` value returned
    * from the initial request.
    */
@@ -74,14 +73,6 @@ export interface VolumeListParams {
    * volumecount for the hour the time falls in.
    */
   timeframe_end?: string;
-
-  /**
-   * The start of the timeframe, inclusive, in which to return event volume. All
-   * datetime values are converted to UTC time. If the specified time isn't
-   * hour-aligned, the response includes the event volume count for the hour the time
-   * falls in.
-   */
-  timeframe_start?: string;
 }
 
 export namespace Volume {

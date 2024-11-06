@@ -266,15 +266,7 @@ export class Subscriptions extends APIResource {
    * subscription. E.g. pass in `10.00` to issue an invoice when usage amounts hit
    * $10.00 for a subscription that invoices in USD.
    */
-  create(body?: SubscriptionCreateParams, options?: Core.RequestOptions): Core.APIPromise<Subscription>;
-  create(options?: Core.RequestOptions): Core.APIPromise<Subscription>;
-  create(
-    body: SubscriptionCreateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Subscription> {
-    if (isRequestOptions(body)) {
-      return this.create({}, body);
-    }
+  create(body: SubscriptionCreateParams, options?: Core.RequestOptions): Core.APIPromise<Subscription> {
     return this._client.post('/subscriptions', { body, ...options });
   }
 
@@ -285,18 +277,9 @@ export class Subscriptions extends APIResource {
    */
   update(
     subscriptionId: string,
-    body?: SubscriptionUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Subscription>;
-  update(subscriptionId: string, options?: Core.RequestOptions): Core.APIPromise<Subscription>;
-  update(
-    subscriptionId: string,
-    body: SubscriptionUpdateParams | Core.RequestOptions = {},
+    body: SubscriptionUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Subscription> {
-    if (isRequestOptions(body)) {
-      return this.update(subscriptionId, {}, body);
-    }
     return this._client.put(`/subscriptions/${subscriptionId}`, { body, ...options });
   }
 
@@ -756,18 +739,9 @@ export class Subscriptions extends APIResource {
    */
   priceIntervals(
     subscriptionId: string,
-    body?: SubscriptionPriceIntervalsParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Subscription>;
-  priceIntervals(subscriptionId: string, options?: Core.RequestOptions): Core.APIPromise<Subscription>;
-  priceIntervals(
-    subscriptionId: string,
-    body: SubscriptionPriceIntervalsParams | Core.RequestOptions = {},
+    body: SubscriptionPriceIntervalsParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Subscription> {
-    if (isRequestOptions(body)) {
-      return this.priceIntervals(subscriptionId, {}, body);
-    }
     return this._client.post(`/subscriptions/${subscriptionId}/price_intervals`, { body, ...options });
   }
 
@@ -966,18 +940,9 @@ export class Subscriptions extends APIResource {
    */
   triggerPhase(
     subscriptionId: string,
-    body?: SubscriptionTriggerPhaseParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Subscription>;
-  triggerPhase(subscriptionId: string, options?: Core.RequestOptions): Core.APIPromise<Subscription>;
-  triggerPhase(
-    subscriptionId: string,
-    body: SubscriptionTriggerPhaseParams | Core.RequestOptions = {},
+    body: SubscriptionTriggerPhaseParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Subscription> {
-    if (isRequestOptions(body)) {
-      return this.triggerPhase(subscriptionId, {}, body);
-    }
     return this._client.post(`/subscriptions/${subscriptionId}/trigger_phase`, { body, ...options });
   }
 

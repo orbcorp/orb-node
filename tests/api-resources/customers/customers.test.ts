@@ -68,7 +68,7 @@ describe('resource customers', () => {
   });
 
   test('update', async () => {
-    const responsePromise = client.customers.update('customer_id');
+    const responsePromise = client.customers.update('customer_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -76,66 +76,6 @@ describe('resource customers', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.customers.update('customer_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Orb.NotFoundError);
-  });
-
-  test('update: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.customers.update(
-        'customer_id',
-        {
-          accounting_sync_configuration: {
-            accounting_providers: [
-              { external_provider_id: 'external_provider_id', provider_type: 'provider_type' },
-              { external_provider_id: 'external_provider_id', provider_type: 'provider_type' },
-              { external_provider_id: 'external_provider_id', provider_type: 'provider_type' },
-            ],
-            excluded: true,
-          },
-          additional_emails: ['string'],
-          auto_collection: true,
-          billing_address: {
-            city: 'city',
-            country: 'country',
-            line1: 'line1',
-            line2: 'line2',
-            postal_code: 'postal_code',
-            state: 'state',
-          },
-          currency: 'currency',
-          email: 'dev@stainlessapi.com',
-          email_delivery: true,
-          external_customer_id: 'external_customer_id',
-          metadata: { foo: 'string' },
-          name: 'name',
-          payment_provider: 'quickbooks',
-          payment_provider_id: 'payment_provider_id',
-          reporting_configuration: { exempt: true },
-          shipping_address: {
-            city: 'city',
-            country: 'country',
-            line1: 'line1',
-            line2: 'line2',
-            postal_code: 'postal_code',
-            state: 'state',
-          },
-          tax_configuration: {
-            tax_exempt: true,
-            tax_provider: 'avalara',
-            tax_exemption_code: 'tax_exemption_code',
-          },
-          tax_id: { country: 'AD', type: 'ad_nrt', value: 'value' },
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list', async () => {
@@ -228,7 +168,7 @@ describe('resource customers', () => {
   });
 
   test('updateByExternalId', async () => {
-    const responsePromise = client.customers.updateByExternalId('external_customer_id');
+    const responsePromise = client.customers.updateByExternalId('external_customer_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -236,65 +176,5 @@ describe('resource customers', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('updateByExternalId: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.customers.updateByExternalId('external_customer_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Orb.NotFoundError);
-  });
-
-  test('updateByExternalId: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.customers.updateByExternalId(
-        'external_customer_id',
-        {
-          accounting_sync_configuration: {
-            accounting_providers: [
-              { external_provider_id: 'external_provider_id', provider_type: 'provider_type' },
-              { external_provider_id: 'external_provider_id', provider_type: 'provider_type' },
-              { external_provider_id: 'external_provider_id', provider_type: 'provider_type' },
-            ],
-            excluded: true,
-          },
-          additional_emails: ['string'],
-          auto_collection: true,
-          billing_address: {
-            city: 'city',
-            country: 'country',
-            line1: 'line1',
-            line2: 'line2',
-            postal_code: 'postal_code',
-            state: 'state',
-          },
-          currency: 'currency',
-          email: 'dev@stainlessapi.com',
-          email_delivery: true,
-          external_customer_id: 'external_customer_id',
-          metadata: { foo: 'string' },
-          name: 'name',
-          payment_provider: 'quickbooks',
-          payment_provider_id: 'payment_provider_id',
-          reporting_configuration: { exempt: true },
-          shipping_address: {
-            city: 'city',
-            country: 'country',
-            line1: 'line1',
-            line2: 'line2',
-            postal_code: 'postal_code',
-            state: 'state',
-          },
-          tax_configuration: {
-            tax_exempt: true,
-            tax_provider: 'avalara',
-            tax_exemption_code: 'tax_exemption_code',
-          },
-          tax_id: { country: 'AD', type: 'ad_nrt', value: 'value' },
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Orb.NotFoundError);
   });
 });

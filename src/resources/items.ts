@@ -17,16 +17,7 @@ export class Items extends APIResource {
   /**
    * This endpoint can be used to update properties on the Item.
    */
-  update(itemId: string, body?: ItemUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Item>;
-  update(itemId: string, options?: Core.RequestOptions): Core.APIPromise<Item>;
-  update(
-    itemId: string,
-    body: ItemUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Item> {
-    if (isRequestOptions(body)) {
-      return this.update(itemId, {}, body);
-    }
+  update(itemId: string, body: ItemUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Item> {
     return this._client.put(`/items/${itemId}`, { body, ...options });
   }
 
