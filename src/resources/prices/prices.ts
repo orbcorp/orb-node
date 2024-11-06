@@ -32,16 +32,7 @@ export class Prices extends APIResource {
    * pass null for the metadata value, it will clear any existing metadata for that
    * price.
    */
-  update(priceId: string, body?: PriceUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Price>;
-  update(priceId: string, options?: Core.RequestOptions): Core.APIPromise<Price>;
-  update(
-    priceId: string,
-    body: PriceUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Price> {
-    if (isRequestOptions(body)) {
-      return this.update(priceId, {}, body);
-    }
+  update(priceId: string, body: PriceUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Price> {
     return this._client.put(`/prices/${priceId}`, { body, ...options });
   }
 

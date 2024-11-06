@@ -66,7 +66,7 @@ describe('resource invoices', () => {
   });
 
   test('update', async () => {
-    const responsePromise = client.invoices.update('invoice_id');
+    const responsePromise = client.invoices.update('invoice_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -74,24 +74,6 @@ describe('resource invoices', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.invoices.update('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
-  });
-
-  test('update: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.invoices.update(
-        'invoice_id',
-        { metadata: { foo: 'string' } },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('list', async () => {
@@ -160,8 +142,8 @@ describe('resource invoices', () => {
     );
   });
 
-  test('fetchUpcoming', async () => {
-    const responsePromise = client.invoices.fetchUpcoming();
+  test('fetchUpcoming: only required params', async () => {
+    const responsePromise = client.invoices.fetchUpcoming({ subscription_id: 'subscription_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -171,21 +153,8 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('fetchUpcoming: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.invoices.fetchUpcoming({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
-  });
-
-  test('fetchUpcoming: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.invoices.fetchUpcoming(
-        { subscription_id: 'subscription_id' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Orb.NotFoundError);
+  test('fetchUpcoming: required and optional params', async () => {
+    const response = await client.invoices.fetchUpcoming({ subscription_id: 'subscription_id' });
   });
 
   test('issue', async () => {

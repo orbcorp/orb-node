@@ -10,7 +10,7 @@ const client = new Orb({
 
 describe('resource externalPriceId', () => {
   test('update', async () => {
-    const responsePromise = client.prices.externalPriceId.update('external_price_id');
+    const responsePromise = client.prices.externalPriceId.update('external_price_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -18,24 +18,6 @@ describe('resource externalPriceId', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.prices.externalPriceId.update('external_price_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Orb.NotFoundError);
-  });
-
-  test('update: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.prices.externalPriceId.update(
-        'external_price_id',
-        { metadata: { foo: 'string' } },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Orb.NotFoundError);
   });
 
   test('fetch', async () => {

@@ -9,8 +9,8 @@ const client = new Orb({
 });
 
 describe('resource volume', () => {
-  test('list', async () => {
-    const responsePromise = client.events.volume.list();
+  test('list: only required params', async () => {
+    const responsePromise = client.events.volume.list({ timeframe_start: '2019-12-27T18:11:19.117Z' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,25 +20,12 @@ describe('resource volume', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.events.volume.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
-  });
-
-  test('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.events.volume.list(
-        {
-          cursor: 'cursor',
-          limit: 1,
-          timeframe_end: '2024-10-11T06:00:00Z',
-          timeframe_start: '2019-12-27T18:11:19.117Z',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Orb.NotFoundError);
+  test('list: required and optional params', async () => {
+    const response = await client.events.volume.list({
+      timeframe_start: '2019-12-27T18:11:19.117Z',
+      cursor: 'cursor',
+      limit: 1,
+      timeframe_end: '2024-10-11T06:00:00Z',
+    });
   });
 });

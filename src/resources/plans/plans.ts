@@ -25,16 +25,7 @@ export class Plans extends APIResource {
    *
    * Other fields on a customer are currently immutable.
    */
-  update(planId: string, body?: PlanUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Plan>;
-  update(planId: string, options?: Core.RequestOptions): Core.APIPromise<Plan>;
-  update(
-    planId: string,
-    body: PlanUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Plan> {
-    if (isRequestOptions(body)) {
-      return this.update(planId, {}, body);
-    }
+  update(planId: string, body: PlanUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Plan> {
     return this._client.put(`/plans/${planId}`, { body, ...options });
   }
 
