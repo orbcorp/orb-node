@@ -2,9 +2,20 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as EventsAPI from './events';
 import * as BackfillsAPI from './backfills';
+import {
+  BackfillCloseResponse,
+  BackfillCreateParams,
+  BackfillCreateResponse,
+  BackfillFetchResponse,
+  BackfillListParams,
+  BackfillListResponse,
+  BackfillListResponsesPage,
+  BackfillRevertResponse,
+  Backfills,
+} from './backfills';
 import * as VolumeAPI from './volume';
+import { EventVolumes, Volume, VolumeListParams } from './volume';
 
 export class Events extends APIResource {
   backfills: BackfillsAPI.Backfills = new BackfillsAPI.Backfills(this._client);
@@ -562,24 +573,32 @@ export interface EventSearchParams {
   timeframe_start?: string | null;
 }
 
-export namespace Events {
-  export import EventUpdateResponse = EventsAPI.EventUpdateResponse;
-  export import EventDeprecateResponse = EventsAPI.EventDeprecateResponse;
-  export import EventIngestResponse = EventsAPI.EventIngestResponse;
-  export import EventSearchResponse = EventsAPI.EventSearchResponse;
-  export import EventUpdateParams = EventsAPI.EventUpdateParams;
-  export import EventIngestParams = EventsAPI.EventIngestParams;
-  export import EventSearchParams = EventsAPI.EventSearchParams;
-  export import Backfills = BackfillsAPI.Backfills;
-  export import BackfillCreateResponse = BackfillsAPI.BackfillCreateResponse;
-  export import BackfillListResponse = BackfillsAPI.BackfillListResponse;
-  export import BackfillCloseResponse = BackfillsAPI.BackfillCloseResponse;
-  export import BackfillFetchResponse = BackfillsAPI.BackfillFetchResponse;
-  export import BackfillRevertResponse = BackfillsAPI.BackfillRevertResponse;
-  export import BackfillListResponsesPage = BackfillsAPI.BackfillListResponsesPage;
-  export import BackfillCreateParams = BackfillsAPI.BackfillCreateParams;
-  export import BackfillListParams = BackfillsAPI.BackfillListParams;
-  export import Volume = VolumeAPI.Volume;
-  export import EventVolumes = VolumeAPI.EventVolumes;
-  export import VolumeListParams = VolumeAPI.VolumeListParams;
+Events.Backfills = Backfills;
+Events.BackfillListResponsesPage = BackfillListResponsesPage;
+Events.Volume = Volume;
+
+export declare namespace Events {
+  export {
+    type EventUpdateResponse as EventUpdateResponse,
+    type EventDeprecateResponse as EventDeprecateResponse,
+    type EventIngestResponse as EventIngestResponse,
+    type EventSearchResponse as EventSearchResponse,
+    type EventUpdateParams as EventUpdateParams,
+    type EventIngestParams as EventIngestParams,
+    type EventSearchParams as EventSearchParams,
+  };
+
+  export {
+    Backfills as Backfills,
+    type BackfillCreateResponse as BackfillCreateResponse,
+    type BackfillListResponse as BackfillListResponse,
+    type BackfillCloseResponse as BackfillCloseResponse,
+    type BackfillFetchResponse as BackfillFetchResponse,
+    type BackfillRevertResponse as BackfillRevertResponse,
+    BackfillListResponsesPage as BackfillListResponsesPage,
+    type BackfillCreateParams as BackfillCreateParams,
+    type BackfillListParams as BackfillListParams,
+  };
+
+  export { Volume as Volume, type EventVolumes as EventVolumes, type VolumeListParams as VolumeListParams };
 }

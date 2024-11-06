@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as ItemsAPI from './items';
 import { Page, type PageParams } from '../pagination';
 
 export class Items extends APIResource {
@@ -107,10 +106,14 @@ export namespace ItemUpdateParams {
 
 export interface ItemListParams extends PageParams {}
 
-export namespace Items {
-  export import Item = ItemsAPI.Item;
-  export import ItemsPage = ItemsAPI.ItemsPage;
-  export import ItemCreateParams = ItemsAPI.ItemCreateParams;
-  export import ItemUpdateParams = ItemsAPI.ItemUpdateParams;
-  export import ItemListParams = ItemsAPI.ItemListParams;
+Items.ItemsPage = ItemsPage;
+
+export declare namespace Items {
+  export {
+    type Item as Item,
+    ItemsPage as ItemsPage,
+    type ItemCreateParams as ItemCreateParams,
+    type ItemUpdateParams as ItemUpdateParams,
+    type ItemListParams as ItemListParams,
+  };
 }

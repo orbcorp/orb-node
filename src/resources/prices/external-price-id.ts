@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as ExternalPriceIDAPI from './external-price-id';
 import * as PricesAPI from './prices';
 
 export class ExternalPriceID extends APIResource {
@@ -38,6 +37,6 @@ export interface ExternalPriceIDUpdateParams {
   metadata?: Record<string, string | null> | null;
 }
 
-export namespace ExternalPriceID {
-  export import ExternalPriceIDUpdateParams = ExternalPriceIDAPI.ExternalPriceIDUpdateParams;
+export declare namespace ExternalPriceID {
+  export { type ExternalPriceIDUpdateParams as ExternalPriceIDUpdateParams };
 }

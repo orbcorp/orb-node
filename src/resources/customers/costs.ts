@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as CostsAPI from './costs';
 import * as PricesAPI from '../prices/prices';
 
 export class Costs extends APIResource {
@@ -892,9 +891,11 @@ export interface CostListByExternalIDParams {
   view_mode?: 'periodic' | 'cumulative' | null;
 }
 
-export namespace Costs {
-  export import CostListResponse = CostsAPI.CostListResponse;
-  export import CostListByExternalIDResponse = CostsAPI.CostListByExternalIDResponse;
-  export import CostListParams = CostsAPI.CostListParams;
-  export import CostListByExternalIDParams = CostsAPI.CostListByExternalIDParams;
+export declare namespace Costs {
+  export {
+    type CostListResponse as CostListResponse,
+    type CostListByExternalIDResponse as CostListByExternalIDResponse,
+    type CostListParams as CostListParams,
+    type CostListByExternalIDParams as CostListByExternalIDParams,
+  };
 }

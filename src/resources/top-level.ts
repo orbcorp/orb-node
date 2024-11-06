@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as TopLevelAPI from './top-level';
 
 export class TopLevel extends APIResource {
   /**
@@ -22,6 +21,6 @@ export interface TopLevelPingResponse {
   response: string;
 }
 
-export namespace TopLevel {
-  export import TopLevelPingResponse = TopLevelAPI.TopLevelPingResponse;
+export declare namespace TopLevel {
+  export { type TopLevelPingResponse as TopLevelPingResponse };
 }

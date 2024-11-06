@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as InvoiceLineItemsAPI from './invoice-line-items';
 import * as Shared from './shared';
 import * as PricesAPI from './prices/prices';
 
@@ -496,7 +495,9 @@ export interface InvoiceLineItemCreateParams {
   start_date: string;
 }
 
-export namespace InvoiceLineItems {
-  export import InvoiceLineItemCreateResponse = InvoiceLineItemsAPI.InvoiceLineItemCreateResponse;
-  export import InvoiceLineItemCreateParams = InvoiceLineItemsAPI.InvoiceLineItemCreateParams;
+export declare namespace InvoiceLineItems {
+  export {
+    type InvoiceLineItemCreateResponse as InvoiceLineItemCreateResponse,
+    type InvoiceLineItemCreateParams as InvoiceLineItemCreateParams,
+  };
 }

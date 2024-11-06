@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as CreditNotesAPI from './credit-notes';
 import { Page, type PageParams } from '../pagination';
 
 export class CreditNotes extends APIResource {
@@ -240,8 +239,12 @@ export namespace CreditNote {
 
 export interface CreditNoteListParams extends PageParams {}
 
-export namespace CreditNotes {
-  export import CreditNote = CreditNotesAPI.CreditNote;
-  export import CreditNotesPage = CreditNotesAPI.CreditNotesPage;
-  export import CreditNoteListParams = CreditNotesAPI.CreditNoteListParams;
+CreditNotes.CreditNotesPage = CreditNotesPage;
+
+export declare namespace CreditNotes {
+  export {
+    type CreditNote as CreditNote,
+    CreditNotesPage as CreditNotesPage,
+    type CreditNoteListParams as CreditNoteListParams,
+  };
 }
