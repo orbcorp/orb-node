@@ -328,37 +328,6 @@ export class Orb extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export {
-  OrbError,
-  APIError,
-  APIConnectionError,
-  APIConnectionTimeoutError,
-  APIUserAbortError,
-  URLNotFound,
-  NotFoundError,
-  ConflictError,
-  RateLimitError,
-  BadRequestError,
-  RequestTooLarge,
-  TooManyRequests,
-  ResourceNotFound,
-  ResourceConflict,
-  ResourceTooLarge,
-  AuthenticationError,
-  InternalServerError,
-  ConstraintViolation,
-  FeatureNotAvailable,
-  PermissionDeniedError,
-  RequestValidationError,
-  OrbAuthenticationError,
-  OrbInternalServerError,
-  UnprocessableEntityError,
-  DuplicateResourceCreation,
-} from './error';
-
-export import toFile = Uploads.toFile;
-export import fileFromPath = Uploads.fileFromPath;
-
 Orb.TopLevel = TopLevel;
 Orb.Coupons = Coupons;
 Orb.CouponsPage = CouponsPage;
@@ -382,7 +351,6 @@ Orb.SubscriptionsPage = SubscriptionsPage;
 Orb.SubscriptionFetchScheduleResponsesPage = SubscriptionFetchScheduleResponsesPage;
 Orb.Alerts = Alerts;
 Orb.AlertsPage = AlertsPage;
-
 export declare namespace Orb {
   export type RequestOptions = Core.RequestOptions;
 
@@ -538,5 +506,34 @@ export declare namespace Orb {
   export type PercentageDiscount = API.PercentageDiscount;
   export type TrialDiscount = API.TrialDiscount;
 }
+
+export { toFile, fileFromPath } from './uploads';
+export {
+  OrbError,
+  APIError,
+  APIConnectionError,
+  APIConnectionTimeoutError,
+  APIUserAbortError,
+  URLNotFound,
+  NotFoundError,
+  ConflictError,
+  RateLimitError,
+  BadRequestError,
+  RequestTooLarge,
+  TooManyRequests,
+  ResourceNotFound,
+  ResourceConflict,
+  ResourceTooLarge,
+  AuthenticationError,
+  InternalServerError,
+  ConstraintViolation,
+  FeatureNotAvailable,
+  PermissionDeniedError,
+  RequestValidationError,
+  OrbAuthenticationError,
+  OrbInternalServerError,
+  UnprocessableEntityError,
+  DuplicateResourceCreation,
+} from './error';
 
 export default Orb;
