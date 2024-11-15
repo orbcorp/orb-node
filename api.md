@@ -207,6 +207,7 @@ Methods:
 - <code title="get /invoices/upcoming">client.invoices.<a href="./src/resources/invoices.ts">fetchUpcoming</a>({ ...params }) -> InvoiceFetchUpcomingResponse</code>
 - <code title="post /invoices/{invoice_id}/issue">client.invoices.<a href="./src/resources/invoices.ts">issue</a>(invoiceId, { ...params }) -> Invoice</code>
 - <code title="post /invoices/{invoice_id}/mark_paid">client.invoices.<a href="./src/resources/invoices.ts">markPaid</a>(invoiceId, { ...params }) -> Invoice</code>
+- <code title="post /invoices/{invoice_id}/pay">client.invoices.<a href="./src/resources/invoices.ts">pay</a>(invoiceId) -> Invoice</code>
 - <code title="post /invoices/{invoice_id}/void">client.invoices.<a href="./src/resources/invoices.ts">void</a>(invoiceId) -> Invoice</code>
 
 # Items

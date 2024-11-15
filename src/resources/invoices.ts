@@ -115,6 +115,14 @@ export class Invoices extends APIResource {
   }
 
   /**
+   * This endpoint collects payment for an invoice using the customer's default
+   * payment method. This action can only be taken on invoices with status "issued".
+   */
+  pay(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Invoice> {
+    return this._client.post(`/invoices/${invoiceId}/pay`, options);
+  }
+
+  /**
    * This endpoint allows an invoice's status to be set the `void` status. This can
    * only be done to invoices that are in the `issued` status.
    *
@@ -367,6 +375,11 @@ export interface Invoice {
    * was paid.
    */
   paid_at: string | null;
+
+  /**
+   * A list of payment attempts associated with the invoice
+   */
+  payment_attempts: Array<Invoice.PaymentAttempt>;
 
   /**
    * If payment was attempted on this invoice but failed, this will be the time of
@@ -1292,6 +1305,38 @@ export namespace Invoice {
     minimum_amount: string;
   }
 
+  export interface PaymentAttempt {
+    /**
+     * The ID of the payment attempt.
+     */
+    id: string;
+
+    /**
+     * The amount of the payment attempt.
+     */
+    amount: string;
+
+    /**
+     * The time at which the payment attempt was created.
+     */
+    created_at: string;
+
+    /**
+     * The payment provider that attempted to collect the payment.
+     */
+    payment_provider: 'stripe' | null;
+
+    /**
+     * The ID of the payment attempt in the payment provider.
+     */
+    payment_provider_id: string | null;
+
+    /**
+     * Whether the payment attempt succeeded.
+     */
+    succeeded: boolean;
+  }
+
   export interface ShippingAddress {
     city: string | null;
 
@@ -1536,6 +1581,11 @@ export interface InvoiceFetchUpcomingResponse {
    * was paid.
    */
   paid_at: string | null;
+
+  /**
+   * A list of payment attempts associated with the invoice
+   */
+  payment_attempts: Array<InvoiceFetchUpcomingResponse.PaymentAttempt>;
 
   /**
    * If payment was attempted on this invoice but failed, this will be the time of
@@ -2464,6 +2514,38 @@ export namespace InvoiceFetchUpcomingResponse {
      * Minimum amount applied
      */
     minimum_amount: string;
+  }
+
+  export interface PaymentAttempt {
+    /**
+     * The ID of the payment attempt.
+     */
+    id: string;
+
+    /**
+     * The amount of the payment attempt.
+     */
+    amount: string;
+
+    /**
+     * The time at which the payment attempt was created.
+     */
+    created_at: string;
+
+    /**
+     * The payment provider that attempted to collect the payment.
+     */
+    payment_provider: 'stripe' | null;
+
+    /**
+     * The ID of the payment attempt in the payment provider.
+     */
+    payment_provider_id: string | null;
+
+    /**
+     * Whether the payment attempt succeeded.
+     */
+    succeeded: boolean;
   }
 
   export interface ShippingAddress {
