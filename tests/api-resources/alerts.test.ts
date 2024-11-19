@@ -28,9 +28,7 @@ describe('resource alerts', () => {
   });
 
   test('update: only required params', async () => {
-    const responsePromise = client.alerts.update('alert_configuration_id', {
-      thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
-    });
+    const responsePromise = client.alerts.update('alert_configuration_id', { thresholds: [{ value: 0 }] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -41,9 +39,7 @@ describe('resource alerts', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await client.alerts.update('alert_configuration_id', {
-      thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
-    });
+    const response = await client.alerts.update('alert_configuration_id', { thresholds: [{ value: 0 }] });
   });
 
   // plan_version=0 breaks Prism
@@ -103,7 +99,7 @@ describe('resource alerts', () => {
     const response = await client.alerts.createForCustomer('customer_id', {
       currency: 'currency',
       type: 'usage_exceeded',
-      thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
+      thresholds: [{ value: 0 }],
     });
   });
 
@@ -125,13 +121,13 @@ describe('resource alerts', () => {
     const response = await client.alerts.createForExternalCustomer('external_customer_id', {
       currency: 'currency',
       type: 'usage_exceeded',
-      thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
+      thresholds: [{ value: 0 }],
     });
   });
 
   test('createForSubscription: only required params', async () => {
     const responsePromise = client.alerts.createForSubscription('subscription_id', {
-      thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
+      thresholds: [{ value: 0 }],
       type: 'usage_exceeded',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -145,7 +141,7 @@ describe('resource alerts', () => {
 
   test('createForSubscription: required and optional params', async () => {
     const response = await client.alerts.createForSubscription('subscription_id', {
-      thresholds: [{ value: 0 }, { value: 0 }, { value: 0 }],
+      thresholds: [{ value: 0 }],
       type: 'usage_exceeded',
       metric_id: 'metric_id',
     });
