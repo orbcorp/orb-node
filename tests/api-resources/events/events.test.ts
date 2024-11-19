@@ -61,18 +61,6 @@ describe('resource events', () => {
           properties: {},
           timestamp: '2020-12-09T16:09:53Z',
         },
-        {
-          event_name: 'event_name',
-          idempotency_key: 'idempotency_key',
-          properties: {},
-          timestamp: '2020-12-09T16:09:53Z',
-        },
-        {
-          event_name: 'event_name',
-          idempotency_key: 'idempotency_key',
-          properties: {},
-          timestamp: '2020-12-09T16:09:53Z',
-        },
       ],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -87,22 +75,6 @@ describe('resource events', () => {
   test('ingest: required and optional params', async () => {
     const response = await client.events.ingest({
       events: [
-        {
-          event_name: 'event_name',
-          idempotency_key: 'idempotency_key',
-          properties: {},
-          timestamp: '2020-12-09T16:09:53Z',
-          customer_id: 'customer_id',
-          external_customer_id: 'external_customer_id',
-        },
-        {
-          event_name: 'event_name',
-          idempotency_key: 'idempotency_key',
-          properties: {},
-          timestamp: '2020-12-09T16:09:53Z',
-          customer_id: 'customer_id',
-          external_customer_id: 'external_customer_id',
-        },
         {
           event_name: 'event_name',
           idempotency_key: 'idempotency_key',
