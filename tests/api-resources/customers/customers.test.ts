@@ -27,12 +27,10 @@ describe('resource customers', () => {
       accounting_sync_configuration: {
         accounting_providers: [
           { external_provider_id: 'external_provider_id', provider_type: 'provider_type' },
-          { external_provider_id: 'external_provider_id', provider_type: 'provider_type' },
-          { external_provider_id: 'external_provider_id', provider_type: 'provider_type' },
         ],
         excluded: true,
       },
-      additional_emails: ['string', 'string', 'string'],
+      additional_emails: ['string'],
       auto_collection: true,
       billing_address: {
         city: 'city',
