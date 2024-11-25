@@ -9889,6 +9889,14 @@ export interface SubscriptionCreateParams {
   external_plan_id?: string | null;
 
   /**
+   * An additional filter to apply to usage queries. This filter must be expressed as
+   * a boolean
+   * [computed property](../guides/extensibility/advanced-metrics#computed-properties).
+   * If null, usage queries will not include any additional filter.
+   */
+  filter?: string | null;
+
+  /**
    * The phase of the plan to start with
    */
   initial_phase_order?: number | null;
@@ -18388,6 +18396,14 @@ export interface SubscriptionSchedulePlanChangeParams {
    * to. Note that either this property or `plan_id` must be specified.
    */
   external_plan_id?: string | null;
+
+  /**
+   * An additional filter to apply to usage queries. This filter must be expressed as
+   * a boolean
+   * [computed property](../guides/extensibility/advanced-metrics#computed-properties).
+   * If null, usage queries will not include any additional filter.
+   */
+  filter?: string | null;
 
   /**
    * The phase of the plan to start with
