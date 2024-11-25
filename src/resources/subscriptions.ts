@@ -18360,6 +18360,8 @@ export interface SubscriptionSchedulePlanChangeParams {
    */
   billing_cycle_alignment?: 'unchanged' | 'plan_change_date' | 'start_of_month' | null;
 
+  billing_cycle_anchor_configuration?: SubscriptionSchedulePlanChangeParams.BillingCycleAnchorConfiguration | null;
+
   /**
    * The date that the plan change should take effect. This parameter can only be
    * passed if the `change_option` is `requested_date`.
@@ -20944,6 +20946,29 @@ export namespace SubscriptionSchedulePlanChangeParams {
         duration_unit: 'day' | 'month';
       }
     }
+  }
+
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
   }
 
   export interface RemoveAdjustment {
