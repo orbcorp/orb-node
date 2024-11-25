@@ -300,6 +300,7 @@ describe('resource subscriptions', () => {
       align_billing_with_plan_change_date: true,
       auto_collection: true,
       billing_cycle_alignment: 'unchanged',
+      billing_cycle_anchor_configuration: { day: 1, month: 1, year: 0 },
       change_date: '2017-07-21T17:32:28Z',
       coupon_redemption_code: 'coupon_redemption_code',
       credits_overage_rate: 0,
