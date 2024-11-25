@@ -306,6 +306,7 @@ describe('resource subscriptions', () => {
       credits_overage_rate: 0,
       default_invoice_memo: 'default_invoice_memo',
       external_plan_id: 'ZMwNQefe7J3ecf7W',
+      filter: "my_property > 100 AND my_other_property = 'bar'",
       initial_phase_order: 2,
       invoicing_threshold: '10.00',
       net_terms: 0,
