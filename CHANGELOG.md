@@ -1,5 +1,23 @@
 # Changelog
 
+## 4.37.0 (2024-11-25)
+
+Full Changelog: [v4.36.0...v4.37.0](https://github.com/orbcorp/orb-node/compare/v4.36.0...v4.37.0)
+
+### Features
+
+* **api:** api update ([#400](https://github.com/orbcorp/orb-node/issues/400)) ([51f7af8](https://github.com/orbcorp/orb-node/commit/51f7af8d42168b2b6a48cc2cba2023c036bed26d))
+
+
+### Chores
+
+* rebuild project due to codegen change ([#397](https://github.com/orbcorp/orb-node/issues/397)) ([1dbe63e](https://github.com/orbcorp/orb-node/commit/1dbe63e53509b3ad4b3a24cc2095d255259dec4c))
+
+
+### Documentation
+
+* remove suggestion to use `npm` call out ([#399](https://github.com/orbcorp/orb-node/issues/399)) ([d329ab8](https://github.com/orbcorp/orb-node/commit/d329ab81a84693cb7e8890bf9726e04f531c9328))
+
 ## 4.36.0 (2024-11-15)
 
 Full Changelog: [v4.35.0...v4.36.0](https://github.com/orbcorp/orb-node/compare/v4.35.0...v4.36.0)
