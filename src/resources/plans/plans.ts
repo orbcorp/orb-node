@@ -83,6 +83,18 @@ export class PlansPage extends Page<Plan> {}
 export interface Plan {
   id: string;
 
+  /**
+   * Adjustments for this plan. If the plan has phases, this includes adjustments
+   * across all phases of the plan.
+   */
+  adjustments: Array<
+    | Plan.AmountDiscountAdjustment
+    | Plan.PercentageDiscountAdjustment
+    | Plan.UsageDiscountAdjustment
+    | Plan.MinimumAdjustment
+    | Plan.MaximumAdjustment
+  >;
+
   base_plan: Plan.BasePlan | null;
 
   /**
@@ -167,6 +179,176 @@ export interface Plan {
 }
 
 export namespace Plan {
+  export interface AmountDiscountAdjustment {
+    id: string;
+
+    adjustment_type: 'amount_discount';
+
+    /**
+     * The amount by which to discount the prices this adjustment applies to in a given
+     * billing period.
+     */
+    amount_discount: string;
+
+    /**
+     * The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The plan phase in which this adjustment is active.
+     */
+    plan_phase_order: number | null;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+  }
+
+  export interface PercentageDiscountAdjustment {
+    id: string;
+
+    adjustment_type: 'percentage_discount';
+
+    /**
+     * The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The percentage (as a value between 0 and 1) by which to discount the price
+     * intervals this adjustment applies to in a given billing period.
+     */
+    percentage_discount: number;
+
+    /**
+     * The plan phase in which this adjustment is active.
+     */
+    plan_phase_order: number | null;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+  }
+
+  export interface UsageDiscountAdjustment {
+    id: string;
+
+    adjustment_type: 'usage_discount';
+
+    /**
+     * The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The plan phase in which this adjustment is active.
+     */
+    plan_phase_order: number | null;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+
+    /**
+     * The number of usage units by which to discount the price this adjustment applies
+     * to in a given billing period.
+     */
+    usage_discount: number;
+  }
+
+  export interface MinimumAdjustment {
+    id: string;
+
+    adjustment_type: 'minimum';
+
+    /**
+     * The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The item ID that revenue from this minimum will be attributed to.
+     */
+    item_id: string;
+
+    /**
+     * The minimum amount to charge in a given billing period for the prices this
+     * adjustment applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The plan phase in which this adjustment is active.
+     */
+    plan_phase_order: number | null;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+  }
+
+  export interface MaximumAdjustment {
+    id: string;
+
+    adjustment_type: 'maximum';
+
+    /**
+     * The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The maximum amount to charge in a given billing period for the prices this
+     * adjustment applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The plan phase in which this adjustment is active.
+     */
+    plan_phase_order: number | null;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+  }
+
   export interface BasePlan {
     id: string | null;
 
