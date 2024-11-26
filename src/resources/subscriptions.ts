@@ -1249,6 +1249,8 @@ export namespace Subscription {
 
   export namespace AdjustmentInterval {
     export interface AmountDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'amount_discount';
 
       /**
@@ -1263,12 +1265,25 @@ export namespace Subscription {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface PercentageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'percentage_discount';
 
       /**
@@ -1277,10 +1292,21 @@ export namespace Subscription {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The percentage (as a value between 0 and 1) by which to discount the price
        * intervals this adjustment applies to in a given billing period.
        */
       percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -1289,12 +1315,25 @@ export namespace Subscription {
     }
 
     export interface UsageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'usage_discount';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -1309,12 +1348,20 @@ export namespace Subscription {
     }
 
     export interface MinimumAdjustment {
+      id: string;
+
       adjustment_type: 'minimum';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
 
       /**
        * The item ID that revenue from this minimum will be attributed to.
@@ -1328,12 +1375,19 @@ export namespace Subscription {
       minimum_amount: string;
 
       /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface MaximumAdjustment {
+      id: string;
+
       adjustment_type: 'maximum';
 
       /**
@@ -1342,10 +1396,21 @@ export namespace Subscription {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The maximum amount to charge in a given billing period for the prices this
        * adjustment applies to.
        */
       maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -2092,6 +2157,8 @@ export namespace SubscriptionCreateResponse {
 
   export namespace AdjustmentInterval {
     export interface AmountDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'amount_discount';
 
       /**
@@ -2106,12 +2173,25 @@ export namespace SubscriptionCreateResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface PercentageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'percentage_discount';
 
       /**
@@ -2120,10 +2200,21 @@ export namespace SubscriptionCreateResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The percentage (as a value between 0 and 1) by which to discount the price
        * intervals this adjustment applies to in a given billing period.
        */
       percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -2132,12 +2223,25 @@ export namespace SubscriptionCreateResponse {
     }
 
     export interface UsageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'usage_discount';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -2152,12 +2256,20 @@ export namespace SubscriptionCreateResponse {
     }
 
     export interface MinimumAdjustment {
+      id: string;
+
       adjustment_type: 'minimum';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
 
       /**
        * The item ID that revenue from this minimum will be attributed to.
@@ -2171,12 +2283,19 @@ export namespace SubscriptionCreateResponse {
       minimum_amount: string;
 
       /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface MaximumAdjustment {
+      id: string;
+
       adjustment_type: 'maximum';
 
       /**
@@ -2185,10 +2304,21 @@ export namespace SubscriptionCreateResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The maximum amount to charge in a given billing period for the prices this
        * adjustment applies to.
        */
       maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -2853,6 +2983,8 @@ export namespace SubscriptionCancelResponse {
 
   export namespace AdjustmentInterval {
     export interface AmountDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'amount_discount';
 
       /**
@@ -2867,12 +2999,25 @@ export namespace SubscriptionCancelResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface PercentageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'percentage_discount';
 
       /**
@@ -2881,10 +3026,21 @@ export namespace SubscriptionCancelResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The percentage (as a value between 0 and 1) by which to discount the price
        * intervals this adjustment applies to in a given billing period.
        */
       percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -2893,12 +3049,25 @@ export namespace SubscriptionCancelResponse {
     }
 
     export interface UsageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'usage_discount';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -2913,12 +3082,20 @@ export namespace SubscriptionCancelResponse {
     }
 
     export interface MinimumAdjustment {
+      id: string;
+
       adjustment_type: 'minimum';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
 
       /**
        * The item ID that revenue from this minimum will be attributed to.
@@ -2932,12 +3109,19 @@ export namespace SubscriptionCancelResponse {
       minimum_amount: string;
 
       /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface MaximumAdjustment {
+      id: string;
+
       adjustment_type: 'maximum';
 
       /**
@@ -2946,10 +3130,21 @@ export namespace SubscriptionCancelResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The maximum amount to charge in a given billing period for the prices this
        * adjustment applies to.
        */
       maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -3917,6 +4112,8 @@ export namespace SubscriptionPriceIntervalsResponse {
 
   export namespace AdjustmentInterval {
     export interface AmountDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'amount_discount';
 
       /**
@@ -3931,12 +4128,25 @@ export namespace SubscriptionPriceIntervalsResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface PercentageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'percentage_discount';
 
       /**
@@ -3945,10 +4155,21 @@ export namespace SubscriptionPriceIntervalsResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The percentage (as a value between 0 and 1) by which to discount the price
        * intervals this adjustment applies to in a given billing period.
        */
       percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -3957,12 +4178,25 @@ export namespace SubscriptionPriceIntervalsResponse {
     }
 
     export interface UsageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'usage_discount';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -3977,12 +4211,20 @@ export namespace SubscriptionPriceIntervalsResponse {
     }
 
     export interface MinimumAdjustment {
+      id: string;
+
       adjustment_type: 'minimum';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
 
       /**
        * The item ID that revenue from this minimum will be attributed to.
@@ -3996,12 +4238,19 @@ export namespace SubscriptionPriceIntervalsResponse {
       minimum_amount: string;
 
       /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface MaximumAdjustment {
+      id: string;
+
       adjustment_type: 'maximum';
 
       /**
@@ -4010,10 +4259,21 @@ export namespace SubscriptionPriceIntervalsResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The maximum amount to charge in a given billing period for the prices this
        * adjustment applies to.
        */
       maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -4678,6 +4938,8 @@ export namespace SubscriptionSchedulePlanChangeResponse {
 
   export namespace AdjustmentInterval {
     export interface AmountDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'amount_discount';
 
       /**
@@ -4692,12 +4954,25 @@ export namespace SubscriptionSchedulePlanChangeResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface PercentageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'percentage_discount';
 
       /**
@@ -4706,10 +4981,21 @@ export namespace SubscriptionSchedulePlanChangeResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The percentage (as a value between 0 and 1) by which to discount the price
        * intervals this adjustment applies to in a given billing period.
        */
       percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -4718,12 +5004,25 @@ export namespace SubscriptionSchedulePlanChangeResponse {
     }
 
     export interface UsageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'usage_discount';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -4738,12 +5037,20 @@ export namespace SubscriptionSchedulePlanChangeResponse {
     }
 
     export interface MinimumAdjustment {
+      id: string;
+
       adjustment_type: 'minimum';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
 
       /**
        * The item ID that revenue from this minimum will be attributed to.
@@ -4757,12 +5064,19 @@ export namespace SubscriptionSchedulePlanChangeResponse {
       minimum_amount: string;
 
       /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface MaximumAdjustment {
+      id: string;
+
       adjustment_type: 'maximum';
 
       /**
@@ -4771,10 +5085,21 @@ export namespace SubscriptionSchedulePlanChangeResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The maximum amount to charge in a given billing period for the prices this
        * adjustment applies to.
        */
       maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -5439,6 +5764,8 @@ export namespace SubscriptionTriggerPhaseResponse {
 
   export namespace AdjustmentInterval {
     export interface AmountDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'amount_discount';
 
       /**
@@ -5453,12 +5780,25 @@ export namespace SubscriptionTriggerPhaseResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface PercentageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'percentage_discount';
 
       /**
@@ -5467,10 +5807,21 @@ export namespace SubscriptionTriggerPhaseResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The percentage (as a value between 0 and 1) by which to discount the price
        * intervals this adjustment applies to in a given billing period.
        */
       percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -5479,12 +5830,25 @@ export namespace SubscriptionTriggerPhaseResponse {
     }
 
     export interface UsageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'usage_discount';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -5499,12 +5863,20 @@ export namespace SubscriptionTriggerPhaseResponse {
     }
 
     export interface MinimumAdjustment {
+      id: string;
+
       adjustment_type: 'minimum';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
 
       /**
        * The item ID that revenue from this minimum will be attributed to.
@@ -5518,12 +5890,19 @@ export namespace SubscriptionTriggerPhaseResponse {
       minimum_amount: string;
 
       /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface MaximumAdjustment {
+      id: string;
+
       adjustment_type: 'maximum';
 
       /**
@@ -5532,10 +5911,21 @@ export namespace SubscriptionTriggerPhaseResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The maximum amount to charge in a given billing period for the prices this
        * adjustment applies to.
        */
       maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -6200,6 +6590,8 @@ export namespace SubscriptionUnscheduleCancellationResponse {
 
   export namespace AdjustmentInterval {
     export interface AmountDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'amount_discount';
 
       /**
@@ -6214,12 +6606,25 @@ export namespace SubscriptionUnscheduleCancellationResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface PercentageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'percentage_discount';
 
       /**
@@ -6228,10 +6633,21 @@ export namespace SubscriptionUnscheduleCancellationResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The percentage (as a value between 0 and 1) by which to discount the price
        * intervals this adjustment applies to in a given billing period.
        */
       percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -6240,12 +6656,25 @@ export namespace SubscriptionUnscheduleCancellationResponse {
     }
 
     export interface UsageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'usage_discount';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -6260,12 +6689,20 @@ export namespace SubscriptionUnscheduleCancellationResponse {
     }
 
     export interface MinimumAdjustment {
+      id: string;
+
       adjustment_type: 'minimum';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
 
       /**
        * The item ID that revenue from this minimum will be attributed to.
@@ -6279,12 +6716,19 @@ export namespace SubscriptionUnscheduleCancellationResponse {
       minimum_amount: string;
 
       /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface MaximumAdjustment {
+      id: string;
+
       adjustment_type: 'maximum';
 
       /**
@@ -6293,10 +6737,21 @@ export namespace SubscriptionUnscheduleCancellationResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The maximum amount to charge in a given billing period for the prices this
        * adjustment applies to.
        */
       maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -6961,6 +7416,8 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
 
   export namespace AdjustmentInterval {
     export interface AmountDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'amount_discount';
 
       /**
@@ -6975,12 +7432,25 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface PercentageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'percentage_discount';
 
       /**
@@ -6989,10 +7459,21 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The percentage (as a value between 0 and 1) by which to discount the price
        * intervals this adjustment applies to in a given billing period.
        */
       percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -7001,12 +7482,25 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
     }
 
     export interface UsageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'usage_discount';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -7021,12 +7515,20 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
     }
 
     export interface MinimumAdjustment {
+      id: string;
+
       adjustment_type: 'minimum';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
 
       /**
        * The item ID that revenue from this minimum will be attributed to.
@@ -7040,12 +7542,19 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
       minimum_amount: string;
 
       /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface MaximumAdjustment {
+      id: string;
+
       adjustment_type: 'maximum';
 
       /**
@@ -7054,10 +7563,21 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The maximum amount to charge in a given billing period for the prices this
        * adjustment applies to.
        */
       maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -7722,6 +8242,8 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
 
   export namespace AdjustmentInterval {
     export interface AmountDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'amount_discount';
 
       /**
@@ -7736,12 +8258,25 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface PercentageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'percentage_discount';
 
       /**
@@ -7750,10 +8285,21 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The percentage (as a value between 0 and 1) by which to discount the price
        * intervals this adjustment applies to in a given billing period.
        */
       percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -7762,12 +8308,25 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
     }
 
     export interface UsageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'usage_discount';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -7782,12 +8341,20 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
     }
 
     export interface MinimumAdjustment {
+      id: string;
+
       adjustment_type: 'minimum';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
 
       /**
        * The item ID that revenue from this minimum will be attributed to.
@@ -7801,12 +8368,19 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
       minimum_amount: string;
 
       /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface MaximumAdjustment {
+      id: string;
+
       adjustment_type: 'maximum';
 
       /**
@@ -7815,10 +8389,21 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The maximum amount to charge in a given billing period for the prices this
        * adjustment applies to.
        */
       maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -8483,6 +9068,8 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
 
   export namespace AdjustmentInterval {
     export interface AmountDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'amount_discount';
 
       /**
@@ -8497,12 +9084,25 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface PercentageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'percentage_discount';
 
       /**
@@ -8511,10 +9111,21 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The percentage (as a value between 0 and 1) by which to discount the price
        * intervals this adjustment applies to in a given billing period.
        */
       percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -8523,12 +9134,25 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
     }
 
     export interface UsageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'usage_discount';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -8543,12 +9167,20 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
     }
 
     export interface MinimumAdjustment {
+      id: string;
+
       adjustment_type: 'minimum';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
 
       /**
        * The item ID that revenue from this minimum will be attributed to.
@@ -8562,12 +9194,19 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
       minimum_amount: string;
 
       /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface MaximumAdjustment {
+      id: string;
+
       adjustment_type: 'maximum';
 
       /**
@@ -8576,10 +9215,21 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The maximum amount to charge in a given billing period for the prices this
        * adjustment applies to.
        */
       maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -9244,6 +9894,8 @@ export namespace SubscriptionUpdateTrialResponse {
 
   export namespace AdjustmentInterval {
     export interface AmountDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'amount_discount';
 
       /**
@@ -9258,12 +9910,25 @@ export namespace SubscriptionUpdateTrialResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface PercentageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'percentage_discount';
 
       /**
@@ -9272,10 +9937,21 @@ export namespace SubscriptionUpdateTrialResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The percentage (as a value between 0 and 1) by which to discount the price
        * intervals this adjustment applies to in a given billing period.
        */
       percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -9284,12 +9960,25 @@ export namespace SubscriptionUpdateTrialResponse {
     }
 
     export interface UsageDiscountAdjustment {
+      id: string;
+
       adjustment_type: 'usage_discount';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -9304,12 +9993,20 @@ export namespace SubscriptionUpdateTrialResponse {
     }
 
     export interface MinimumAdjustment {
+      id: string;
+
       adjustment_type: 'minimum';
 
       /**
        * The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
 
       /**
        * The item ID that revenue from this minimum will be attributed to.
@@ -9323,12 +10020,19 @@ export namespace SubscriptionUpdateTrialResponse {
       minimum_amount: string;
 
       /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
        * The reason for the adjustment.
        */
       reason: string | null;
     }
 
     export interface MaximumAdjustment {
+      id: string;
+
       adjustment_type: 'maximum';
 
       /**
@@ -9337,10 +10041,21 @@ export namespace SubscriptionUpdateTrialResponse {
       applies_to_price_ids: Array<string>;
 
       /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
        * The maximum amount to charge in a given billing period for the prices this
        * adjustment applies to.
        */
       maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
 
       /**
        * The reason for the adjustment.
@@ -9983,6 +10698,7 @@ export namespace SubscriptionCreateParams {
      */
     adjustment:
       | AddAdjustment.NewPercentageDiscount
+      | AddAdjustment.NewUsageDiscount
       | AddAdjustment.NewAmountDiscount
       | AddAdjustment.NewMinimum
       | AddAdjustment.NewMaximum;
@@ -10017,6 +10733,29 @@ export namespace SubscriptionCreateParams {
       applies_to_price_ids: Array<string>;
 
       percentage_discount: number;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
+    }
+
+    export interface NewUsageDiscount {
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      usage_discount: number;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewAmountDiscount {
@@ -10028,6 +10767,12 @@ export namespace SubscriptionCreateParams {
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewMinimum {
@@ -10044,6 +10789,12 @@ export namespace SubscriptionCreateParams {
       item_id: string;
 
       minimum_amount: string;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewMaximum {
@@ -10055,12 +10806,19 @@ export namespace SubscriptionCreateParams {
       applies_to_price_ids: Array<string>;
 
       maximum_amount: string;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
   }
 
   export interface AddPrice {
     /**
-     * The subscription's discounts for this price.
+     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * discounts for this price.
      */
     discounts?: Array<AddPrice.Discount> | null;
 
@@ -10077,12 +10835,14 @@ export namespace SubscriptionCreateParams {
     external_price_id?: string | null;
 
     /**
-     * The subscription's maximum amount for this price.
+     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * maximum amount for this price.
      */
     maximum_amount?: string | null;
 
     /**
-     * The subscription's minimum amount for this price.
+     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * minimum amount for this price.
      */
     minimum_amount?: string | null;
 
@@ -12512,6 +13272,7 @@ export namespace SubscriptionCreateParams {
      */
     adjustment:
       | ReplaceAdjustment.NewPercentageDiscount
+      | ReplaceAdjustment.NewUsageDiscount
       | ReplaceAdjustment.NewAmountDiscount
       | ReplaceAdjustment.NewMinimum
       | ReplaceAdjustment.NewMaximum;
@@ -12532,6 +13293,29 @@ export namespace SubscriptionCreateParams {
       applies_to_price_ids: Array<string>;
 
       percentage_discount: number;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
+    }
+
+    export interface NewUsageDiscount {
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      usage_discount: number;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewAmountDiscount {
@@ -12543,6 +13327,12 @@ export namespace SubscriptionCreateParams {
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewMinimum {
@@ -12559,6 +13349,12 @@ export namespace SubscriptionCreateParams {
       item_id: string;
 
       minimum_amount: string;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewMaximum {
@@ -12570,6 +13366,12 @@ export namespace SubscriptionCreateParams {
       applies_to_price_ids: Array<string>;
 
       maximum_amount: string;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
   }
 
@@ -12580,7 +13382,8 @@ export namespace SubscriptionCreateParams {
     replaces_price_id: string;
 
     /**
-     * The subscription's discounts for the replacement price.
+     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * discounts for the replacement price.
      */
     discounts?: Array<ReplacePrice.Discount> | null;
 
@@ -12595,12 +13398,14 @@ export namespace SubscriptionCreateParams {
     fixed_price_quantity?: number | null;
 
     /**
-     * The subscription's maximum amount for the replacement price.
+     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * maximum amount for the replacement price.
      */
     maximum_amount?: string | null;
 
     /**
-     * The subscription's minimum amount for the replacement price.
+     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * minimum amount for the replacement price.
      */
     minimum_amount?: string | null;
 
@@ -18198,6 +19003,7 @@ export namespace SubscriptionPriceIntervalsParams {
      */
     adjustment:
       | AddAdjustment.NewPercentageDiscount
+      | AddAdjustment.NewUsageDiscount
       | AddAdjustment.NewAmountDiscount
       | AddAdjustment.NewMinimum
       | AddAdjustment.NewMaximum;
@@ -18225,6 +19031,29 @@ export namespace SubscriptionPriceIntervalsParams {
       applies_to_price_ids: Array<string>;
 
       percentage_discount: number;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
+    }
+
+    export interface NewUsageDiscount {
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      usage_discount: number;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewAmountDiscount {
@@ -18236,6 +19065,12 @@ export namespace SubscriptionPriceIntervalsParams {
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewMinimum {
@@ -18252,6 +19087,12 @@ export namespace SubscriptionPriceIntervalsParams {
       item_id: string;
 
       minimum_amount: string;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewMaximum {
@@ -18263,6 +19104,12 @@ export namespace SubscriptionPriceIntervalsParams {
       applies_to_price_ids: Array<string>;
 
       maximum_amount: string;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
   }
 
@@ -18483,6 +19330,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
      */
     adjustment:
       | AddAdjustment.NewPercentageDiscount
+      | AddAdjustment.NewUsageDiscount
       | AddAdjustment.NewAmountDiscount
       | AddAdjustment.NewMinimum
       | AddAdjustment.NewMaximum;
@@ -18517,6 +19365,29 @@ export namespace SubscriptionSchedulePlanChangeParams {
       applies_to_price_ids: Array<string>;
 
       percentage_discount: number;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
+    }
+
+    export interface NewUsageDiscount {
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      usage_discount: number;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewAmountDiscount {
@@ -18528,6 +19399,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewMinimum {
@@ -18544,6 +19421,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
       item_id: string;
 
       minimum_amount: string;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewMaximum {
@@ -18555,12 +19438,19 @@ export namespace SubscriptionSchedulePlanChangeParams {
       applies_to_price_ids: Array<string>;
 
       maximum_amount: string;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
   }
 
   export interface AddPrice {
     /**
-     * The subscription's discounts for this price.
+     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * discounts for this price.
      */
     discounts?: Array<AddPrice.Discount> | null;
 
@@ -18577,12 +19467,14 @@ export namespace SubscriptionSchedulePlanChangeParams {
     external_price_id?: string | null;
 
     /**
-     * The subscription's maximum amount for this price.
+     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * maximum amount for this price.
      */
     maximum_amount?: string | null;
 
     /**
-     * The subscription's minimum amount for this price.
+     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * minimum amount for this price.
      */
     minimum_amount?: string | null;
 
@@ -21012,6 +21904,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
      */
     adjustment:
       | ReplaceAdjustment.NewPercentageDiscount
+      | ReplaceAdjustment.NewUsageDiscount
       | ReplaceAdjustment.NewAmountDiscount
       | ReplaceAdjustment.NewMinimum
       | ReplaceAdjustment.NewMaximum;
@@ -21032,6 +21925,29 @@ export namespace SubscriptionSchedulePlanChangeParams {
       applies_to_price_ids: Array<string>;
 
       percentage_discount: number;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
+    }
+
+    export interface NewUsageDiscount {
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      usage_discount: number;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewAmountDiscount {
@@ -21043,6 +21959,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewMinimum {
@@ -21059,6 +21981,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
       item_id: string;
 
       minimum_amount: string;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
 
     export interface NewMaximum {
@@ -21070,6 +21998,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
       applies_to_price_ids: Array<string>;
 
       maximum_amount: string;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
     }
   }
 
@@ -21080,7 +22014,8 @@ export namespace SubscriptionSchedulePlanChangeParams {
     replaces_price_id: string;
 
     /**
-     * The subscription's discounts for the replacement price.
+     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * discounts for the replacement price.
      */
     discounts?: Array<ReplacePrice.Discount> | null;
 
@@ -21095,12 +22030,14 @@ export namespace SubscriptionSchedulePlanChangeParams {
     fixed_price_quantity?: number | null;
 
     /**
-     * The subscription's maximum amount for the replacement price.
+     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * maximum amount for the replacement price.
      */
     maximum_amount?: string | null;
 
     /**
-     * The subscription's minimum amount for the replacement price.
+     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * minimum amount for the replacement price.
      */
     minimum_amount?: string | null;
 
