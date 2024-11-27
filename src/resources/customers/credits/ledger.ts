@@ -616,7 +616,7 @@ export namespace LedgerListResponse {
      */
     metadata: Record<string, string>;
 
-    new_block_expiry_date: string;
+    new_block_expiry_date: string | null;
 
     starting_balance: number;
   }
@@ -999,7 +999,7 @@ export namespace LedgerCreateEntryResponse {
      */
     metadata: Record<string, string>;
 
-    new_block_expiry_date: string;
+    new_block_expiry_date: string | null;
 
     starting_balance: number;
   }
@@ -1382,7 +1382,7 @@ export namespace LedgerCreateEntryByExternalIDResponse {
      */
     metadata: Record<string, string>;
 
-    new_block_expiry_date: string;
+    new_block_expiry_date: string | null;
 
     starting_balance: number;
   }
@@ -1765,7 +1765,7 @@ export namespace LedgerListByExternalIDResponse {
      */
     metadata: Record<string, string>;
 
-    new_block_expiry_date: string;
+    new_block_expiry_date: string | null;
 
     starting_balance: number;
   }
