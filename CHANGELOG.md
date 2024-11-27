@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.39.0 (2024-11-27)
+
+Full Changelog: [v4.38.0...v4.39.0](https://github.com/orbcorp/orb-node/compare/v4.38.0...v4.39.0)
+
+### Features
+
+* **api:** api update ([#409](https://github.com/orbcorp/orb-node/issues/409)) ([30a2ecf](https://github.com/orbcorp/orb-node/commit/30a2ecf999de152100afb1ddb463dfcd394ce6c7))
+* **internal:** make git install file structure match npm ([#407](https://github.com/orbcorp/orb-node/issues/407)) ([caa97dd](https://github.com/orbcorp/orb-node/commit/caa97ddffd2b85f3a6c95963c9c20c5587edd18c))
+
 ## 4.38.0 (2024-11-26)
 
 Full Changelog: [v4.37.0...v4.38.0](https://github.com/orbcorp/orb-node/compare/v4.37.0...v4.38.0)
