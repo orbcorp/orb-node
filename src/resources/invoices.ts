@@ -2687,6 +2687,12 @@ export interface InvoiceListParams extends PageParams {
 
   due_date?: string | null;
 
+  /**
+   * Filters invoices by their due dates within a specific time range in the past.
+   * Specify the range as a number followed by 'd' (days) or 'm' (months). For
+   * example, '7d' filters invoices due in the last 7 days, and '2m' filters those
+   * due in the last 2 months.
+   */
   due_date_window?: string | null;
 
   'due_date[gt]'?: string | null;
