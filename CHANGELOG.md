@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.40.1 (2024-12-09)
+
+Full Changelog: [v4.40.0...v4.40.1](https://github.com/orbcorp/orb-node/compare/v4.40.0...v4.40.1)
+
+### Chores
+
+* **internal:** remove unnecessary getRequestClient function ([#414](https://github.com/orbcorp/orb-node/issues/414)) ([a0ddd82](https://github.com/orbcorp/orb-node/commit/a0ddd828b55422d13b12abcb7e401c24aee90311))
+
 ## 4.40.0 (2024-12-03)
 
 Full Changelog: [v4.39.0...v4.40.0](https://github.com/orbcorp/orb-node/compare/v4.39.0...v4.40.0)
