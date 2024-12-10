@@ -4,17 +4,19 @@ import { castToError, Headers } from './core';
 
 export class OrbError extends Error {}
 
-export class APIError extends OrbError {
-  readonly status: number | undefined;
-  readonly headers: Headers | undefined;
-  readonly error: Object | undefined;
+export class APIError<
+  TStatus extends number | undefined = number | undefined,
+  THeaders extends Headers | undefined = Headers | undefined,
+  TError extends Object | undefined = Object | undefined,
+> extends OrbError {
+  /** HTTP status for the response that caused the error */
+  readonly status: TStatus;
+  /** HTTP headers for the response that caused the error */
+  readonly headers: THeaders;
+  /** JSON body of the response that caused the error */
+  readonly error: TError;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: TStatus, error: TError, message: string | undefined, headers: THeaders) {
     super(`${APIError.makeMessage(status, error, message)}`);
     this.status = status;
     this.headers = headers;
@@ -48,7 +50,7 @@ export class APIError extends OrbError {
     message: string | undefined,
     headers: Headers | undefined,
   ): APIError {
-    if (!status) {
+    if (!status || !headers) {
       return new APIConnectionError({ message, cause: castToError(errorResponse) });
     }
 
@@ -56,51 +58,84 @@ export class APIError extends OrbError {
 
     const type = error?.['type'];
 
-    if (type === 'https://docs.withorb.com/reference/error-responses#400-constraint-violation') {
+    if (
+      type === 'https://docs.withorb.com/reference/error-responses#400-constraint-violation' &&
+      status === 400
+    ) {
       return new ConstraintViolation(status, error, message, headers);
     }
 
-    if (type === 'https://docs.withorb.com/reference/error-responses#400-duplicate-resource-creation') {
+    if (
+      type === 'https://docs.withorb.com/reference/error-responses#400-duplicate-resource-creation' &&
+      status === 400
+    ) {
       return new DuplicateResourceCreation(status, error, message, headers);
     }
 
-    if (type === 'https://docs.withorb.com/reference/error-responses#404-feature-not-available') {
+    if (
+      type === 'https://docs.withorb.com/reference/error-responses#404-feature-not-available' &&
+      status === 400
+    ) {
       return new FeatureNotAvailable(status, error, message, headers);
     }
 
-    if (type === 'https://docs.withorb.com/reference/error-responses#400-request-validation-errors') {
+    if (
+      type === 'https://docs.withorb.com/reference/error-responses#400-request-validation-errors' &&
+      status === 400
+    ) {
       return new RequestValidationError(status, error, message, headers);
     }
 
-    if (type === 'https://docs.withorb.com/reference/error-responses#401-authentication-error') {
+    if (
+      type === 'https://docs.withorb.com/reference/error-responses#401-authentication-error' &&
+      status === 401
+    ) {
       return new OrbAuthenticationError(status, error, message, headers);
     }
 
-    if (type === 'https://docs.withorb.com/reference/error-responses#404-resource-not-found') {
+    if (
+      type === 'https://docs.withorb.com/reference/error-responses#404-resource-not-found' &&
+      status === 404
+    ) {
       return new ResourceNotFound(status, error, message, headers);
     }
 
-    if (type === 'https://docs.withorb.com/reference/error-responses#404-url-not-found') {
+    if (type === 'https://docs.withorb.com/reference/error-responses#404-url-not-found' && status === 404) {
       return new URLNotFound(status, error, message, headers);
     }
 
-    if (type === 'https://docs.withorb.com/reference/error-responses#409-resource-conflict') {
+    if (
+      type === 'https://docs.withorb.com/reference/error-responses#409-resource-conflict' &&
+      status === 409
+    ) {
       return new ResourceConflict(status, error, message, headers);
     }
 
-    if (type === 'https://docs.withorb.com/reference/error-responses#413-request-too-large') {
+    if (
+      type === 'https://docs.withorb.com/reference/error-responses#413-request-too-large' &&
+      status === 413
+    ) {
       return new RequestTooLarge(status, error, message, headers);
     }
 
-    if (type === 'https://docs.withorb.com/reference/error-responses#413-resource-too-large') {
+    if (
+      type === 'https://docs.withorb.com/reference/error-responses#413-resource-too-large' &&
+      status === 413
+    ) {
       return new ResourceTooLarge(status, error, message, headers);
     }
 
-    if (type === 'https://docs.withorb.com/reference/error-responses#429-too-many-requests') {
+    if (
+      type === 'https://docs.withorb.com/reference/error-responses#429-too-many-requests' &&
+      status === 429
+    ) {
       return new TooManyRequests(status, error, message, headers);
     }
 
-    if (type === 'https://docs.withorb.com/reference/error-responses#500-internal-server-error') {
+    if (
+      type === 'https://docs.withorb.com/reference/error-responses#500-internal-server-error' &&
+      status === 500
+    ) {
       return new OrbInternalServerError(status, error, message, headers);
     }
 
@@ -140,17 +175,13 @@ export class APIError extends OrbError {
   }
 }
 
-export class APIUserAbortError extends APIError {
-  override readonly status: undefined = undefined;
-
+export class APIUserAbortError extends APIError<undefined, undefined, undefined> {
   constructor({ message }: { message?: string } = {}) {
     super(undefined, undefined, message || 'Request was aborted.', undefined);
   }
 }
 
-export class APIConnectionError extends APIError {
-  override readonly status: undefined = undefined;
-
+export class APIConnectionError extends APIError<undefined, undefined, undefined> {
   constructor({ message, cause }: { message?: string | undefined; cause?: Error | undefined }) {
     super(undefined, undefined, message || 'Connection error.', undefined);
     // in some environments the 'cause' property is already declared
@@ -165,35 +196,21 @@ export class APIConnectionTimeoutError extends APIConnectionError {
   }
 }
 
-export class BadRequestError extends APIError {
-  override readonly status: 400 = 400;
-}
+export class BadRequestError extends APIError<400, Headers> {}
 
-export class AuthenticationError extends APIError {
-  override readonly status: 401 = 401;
-}
+export class AuthenticationError extends APIError<401, Headers> {}
 
-export class PermissionDeniedError extends APIError {
-  override readonly status: 403 = 403;
-}
+export class PermissionDeniedError extends APIError<403, Headers> {}
 
-export class NotFoundError extends APIError {
-  override readonly status: 404 = 404;
-}
+export class NotFoundError extends APIError<404, Headers> {}
 
-export class ConflictError extends APIError {
-  override readonly status: 409 = 409;
-}
+export class ConflictError extends APIError<409, Headers> {}
 
-export class UnprocessableEntityError extends APIError {
-  override readonly status: 422 = 422;
-}
+export class UnprocessableEntityError extends APIError<422, Headers> {}
 
-export class RateLimitError extends APIError {
-  override readonly status: 429 = 429;
-}
+export class RateLimitError extends APIError<429, Headers> {}
 
-export class InternalServerError extends APIError {}
+export class InternalServerError extends APIError<number, Headers> {}
 
 export class ConstraintViolation extends BadRequestError {
   override status: 400;
@@ -204,12 +221,7 @@ export class ConstraintViolation extends BadRequestError {
 
   title?: string | null;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: 400, error: Object, message: string | undefined, headers: Headers) {
     const data = error as Record<string, any>;
     super(status, error, message, headers);
 
@@ -229,12 +241,7 @@ export class DuplicateResourceCreation extends BadRequestError {
 
   title?: string | null;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: 400, error: Object, message: string | undefined, headers: Headers) {
     const data = error as Record<string, any>;
     super(status, error, message, headers);
 
@@ -254,12 +261,7 @@ export class FeatureNotAvailable extends BadRequestError {
 
   title?: string | null;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: 400, error: Object, message: string | undefined, headers: Headers) {
     const data = error as Record<string, any>;
     super(status, error, message, headers);
 
@@ -281,12 +283,7 @@ export class RequestValidationError extends BadRequestError {
 
   title?: string | null;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: 400, error: Object, message: string | undefined, headers: Headers) {
     const data = error as Record<string, any>;
     super(status, error, message, headers);
 
@@ -307,12 +304,7 @@ export class OrbAuthenticationError extends AuthenticationError {
 
   title?: string | null;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: 401, error: Object, message: string | undefined, headers: Headers) {
     const data = error as Record<string, any>;
     super(status, error, message, headers);
 
@@ -332,12 +324,7 @@ export class ResourceNotFound extends NotFoundError {
 
   detail?: string | null;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: 404, error: Object, message: string | undefined, headers: Headers) {
     const data = error as Record<string, any>;
     super(status, error, message, headers);
 
@@ -357,12 +344,7 @@ export class URLNotFound extends NotFoundError {
 
   title?: string | null;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: 404, error: Object, message: string | undefined, headers: Headers) {
     const data = error as Record<string, any>;
     super(status, error, message, headers);
 
@@ -382,12 +364,7 @@ export class ResourceConflict extends ConflictError {
 
   title?: string | null;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: 409, error: Object, message: string | undefined, headers: Headers) {
     const data = error as Record<string, any>;
     super(status, error, message, headers);
 
@@ -407,12 +384,7 @@ export class RequestTooLarge extends APIError {
 
   title?: string | null;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: 413, error: Object, message: string | undefined, headers: Headers) {
     const data = error as Record<string, any>;
     super(status, error, message, headers);
 
@@ -432,12 +404,7 @@ export class ResourceTooLarge extends APIError {
 
   title?: string | null;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: 413, error: Object, message: string | undefined, headers: Headers) {
     const data = error as Record<string, any>;
     super(status, error, message, headers);
 
@@ -457,12 +424,7 @@ export class TooManyRequests extends RateLimitError {
 
   title?: string | null;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: 429, error: Object, message: string | undefined, headers: Headers) {
     const data = error as Record<string, any>;
     super(status, error, message, headers);
 
@@ -482,12 +444,7 @@ export class OrbInternalServerError extends InternalServerError {
 
   title?: string | null;
 
-  constructor(
-    status: number | undefined,
-    error: Object | undefined,
-    message: string | undefined,
-    headers: Headers | undefined,
-  ) {
+  constructor(status: 500, error: Object, message: string | undefined, headers: Headers) {
     const data = error as Record<string, any>;
     super(status, error, message, headers);
 
