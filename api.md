@@ -332,5 +332,5 @@ Methods:
 - <code title="post /alerts/customer_id/{customer_id}">client.alerts.<a href="./src/resources/alerts.ts">createForCustomer</a>(customerId, { ...params }) -> Alert</code>
 - <code title="post /alerts/external_customer_id/{external_customer_id}">client.alerts.<a href="./src/resources/alerts.ts">createForExternalCustomer</a>(externalCustomerId, { ...params }) -> Alert</code>
 - <code title="post /alerts/subscription_id/{subscription_id}">client.alerts.<a href="./src/resources/alerts.ts">createForSubscription</a>(subscriptionId, { ...params }) -> Alert</code>
-- <code title="post /alerts/{alert_configuration_id}/disable">client.alerts.<a href="./src/resources/alerts.ts">disable</a>(alertConfigurationId) -> Alert</code>
-- <code title="post /alerts/{alert_configuration_id}/enable">client.alerts.<a href="./src/resources/alerts.ts">enable</a>(alertConfigurationId) -> Alert</code>
+- <code title="post /alerts/{alert_configuration_id}/disable">client.alerts.<a href="./src/resources/alerts.ts">disable</a>(alertConfigurationId, { ...params }) -> Alert</code>
+- <code title="post /alerts/{alert_configuration_id}/enable">client.alerts.<a href="./src/resources/alerts.ts">enable</a>(alertConfigurationId, { ...params }) -> Alert</code>
