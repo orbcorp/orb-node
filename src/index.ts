@@ -13,6 +13,8 @@ import {
   AlertCreateForCustomerParams,
   AlertCreateForExternalCustomerParams,
   AlertCreateForSubscriptionParams,
+  AlertDisableParams,
+  AlertEnableParams,
   AlertListParams,
   AlertUpdateParams,
   Alerts,
@@ -495,6 +497,8 @@ export declare namespace Orb {
     type AlertCreateForCustomerParams as AlertCreateForCustomerParams,
     type AlertCreateForExternalCustomerParams as AlertCreateForExternalCustomerParams,
     type AlertCreateForSubscriptionParams as AlertCreateForSubscriptionParams,
+    type AlertDisableParams as AlertDisableParams,
+    type AlertEnableParams as AlertEnableParams,
   };
 
   export type AmountDiscount = API.AmountDiscount;

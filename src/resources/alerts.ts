@@ -109,17 +109,55 @@ export class Alerts extends APIResource {
   }
 
   /**
-   * This endpoint can be used to disable an alert.
+   * This endpoint allows you to disable an alert. To disable a plan-level alert for
+   * a specific subscription, you must include the `subscription_id`. The
+   * `subscription_id` is not required for customer or subscription level alerts.
    */
-  disable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert> {
-    return this._client.post(`/alerts/${alertConfigurationId}/disable`, options);
+  disable(
+    alertConfigurationId: string,
+    params?: AlertDisableParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Alert>;
+  disable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert>;
+  disable(
+    alertConfigurationId: string,
+    params: AlertDisableParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Alert> {
+    if (isRequestOptions(params)) {
+      return this.disable(alertConfigurationId, {}, params);
+    }
+    const { subscription_id } = params;
+    return this._client.post(`/alerts/${alertConfigurationId}/disable`, {
+      query: { subscription_id },
+      ...options,
+    });
   }
 
   /**
-   * This endpoint can be used to enable an alert.
+   * This endpoint allows you to enable an alert. To enable a plan-level alert for a
+   * specific subscription, you must include the `subscription_id`. The
+   * `subscription_id` is not required for customer or subscription level alerts.
    */
-  enable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert> {
-    return this._client.post(`/alerts/${alertConfigurationId}/enable`, options);
+  enable(
+    alertConfigurationId: string,
+    params?: AlertEnableParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Alert>;
+  enable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert>;
+  enable(
+    alertConfigurationId: string,
+    params: AlertEnableParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Alert> {
+    if (isRequestOptions(params)) {
+      return this.enable(alertConfigurationId, {}, params);
+    }
+    const { subscription_id } = params;
+    return this._client.post(`/alerts/${alertConfigurationId}/enable`, {
+      query: { subscription_id },
+      ...options,
+    });
   }
 }
 
@@ -369,6 +407,20 @@ export namespace AlertCreateForSubscriptionParams {
   }
 }
 
+export interface AlertDisableParams {
+  /**
+   * Used to update the status of a plan alert scoped to this subscription_id
+   */
+  subscription_id?: string | null;
+}
+
+export interface AlertEnableParams {
+  /**
+   * Used to update the status of a plan alert scoped to this subscription_id
+   */
+  subscription_id?: string | null;
+}
+
 Alerts.AlertsPage = AlertsPage;
 
 export declare namespace Alerts {
@@ -380,5 +432,7 @@ export declare namespace Alerts {
     type AlertCreateForCustomerParams as AlertCreateForCustomerParams,
     type AlertCreateForExternalCustomerParams as AlertCreateForExternalCustomerParams,
     type AlertCreateForSubscriptionParams as AlertCreateForSubscriptionParams,
+    type AlertDisableParams as AlertDisableParams,
+    type AlertEnableParams as AlertEnableParams,
   };
 }

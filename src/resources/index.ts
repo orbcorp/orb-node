@@ -10,6 +10,8 @@ export {
   type AlertCreateForCustomerParams,
   type AlertCreateForExternalCustomerParams,
   type AlertCreateForSubscriptionParams,
+  type AlertDisableParams,
+  type AlertEnableParams,
 } from './alerts';
 export {
   BillableMetricsPage,
