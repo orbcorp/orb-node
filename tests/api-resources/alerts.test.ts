@@ -165,6 +165,17 @@ describe('resource alerts', () => {
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
+  test('disable: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.alerts.disable(
+        'alert_configuration_id',
+        { subscription_id: 'subscription_id' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Orb.NotFoundError);
+  });
+
   test('enable', async () => {
     const responsePromise = client.alerts.enable('alert_configuration_id');
     const rawResponse = await responsePromise.asResponse();
@@ -180,6 +191,17 @@ describe('resource alerts', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.alerts.enable('alert_configuration_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
+  });
+
+  test('enable: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.alerts.enable(
+        'alert_configuration_id',
+        { subscription_id: 'subscription_id' },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 });
