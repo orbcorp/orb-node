@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.41.0 (2024-12-12)
+
+Full Changelog: [v4.40.0...v4.41.0](https://github.com/orbcorp/orb-node/compare/v4.40.0...v4.41.0)
+
+### Features
+
+* **api:** api update ([#419](https://github.com/orbcorp/orb-node/issues/419)) ([1f3a57f](https://github.com/orbcorp/orb-node/commit/1f3a57f6a7c8de054c495ede973e9746fe1554bf))
+
+
+### Chores
+
+* **internal:** bump cross-spawn to v7.0.6 ([#416](https://github.com/orbcorp/orb-node/issues/416)) ([3424ec9](https://github.com/orbcorp/orb-node/commit/3424ec91cd4912493bc01d2924f51ebc002f64b9))
+* **internal:** remove unnecessary getRequestClient function ([#414](https://github.com/orbcorp/orb-node/issues/414)) ([a0ddd82](https://github.com/orbcorp/orb-node/commit/a0ddd828b55422d13b12abcb7e401c24aee90311))
+* **internal:** update isAbsoluteURL ([#418](https://github.com/orbcorp/orb-node/issues/418)) ([6249150](https://github.com/orbcorp/orb-node/commit/6249150672207a4691bb5a627daf3f635c52aa7e))
+* **types:** nicer error class types + jsdocs ([#417](https://github.com/orbcorp/orb-node/issues/417)) ([e564fdf](https://github.com/orbcorp/orb-node/commit/e564fdf4283c5cecfacaf050771bf2be826710cb))
+
 ## 4.40.0 (2024-12-03)
 
 Full Changelog: [v4.39.0...v4.40.0](https://github.com/orbcorp/orb-node/compare/v4.39.0...v4.40.0)
