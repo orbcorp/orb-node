@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.42.1 (2024-12-20)
+
+Full Changelog: [v4.42.0...v4.42.1](https://github.com/orbcorp/orb-node/compare/v4.42.0...v4.42.1)
+
+### Bug Fixes
+
+* **client:** normalize method ([#425](https://github.com/orbcorp/orb-node/issues/425)) ([92d4a1f](https://github.com/orbcorp/orb-node/commit/92d4a1ffcc50eff03215afa1d5f0f00d6127f2c4))
+
 ## 4.42.0 (2024-12-17)
 
 Full Changelog: [v4.41.0...v4.42.0](https://github.com/orbcorp/orb-node/compare/v4.41.0...v4.42.0)
