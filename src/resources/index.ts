@@ -45,6 +45,13 @@ export {
   type CustomerUpdateByExternalIDParams,
 } from './customers/customers';
 export {
+  DimensionalPriceGroupsPage,
+  type DimensionalPriceGroups,
+  type DimensionalPriceGroup,
+  type DimensionalPriceGroupCreateParams,
+  type DimensionalPriceGroupListParams,
+} from './dimensional-price-groups/dimensional-price-groups';
+export {
   Events,
   type EventUpdateResponse,
   type EventDeprecateResponse,
