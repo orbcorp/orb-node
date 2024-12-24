@@ -334,3 +334,22 @@ Methods:
 - <code title="post /alerts/subscription_id/{subscription_id}">client.alerts.<a href="./src/resources/alerts.ts">createForSubscription</a>(subscriptionId, { ...params }) -> Alert</code>
 - <code title="post /alerts/{alert_configuration_id}/disable">client.alerts.<a href="./src/resources/alerts.ts">disable</a>(alertConfigurationId, { ...params }) -> Alert</code>
 - <code title="post /alerts/{alert_configuration_id}/enable">client.alerts.<a href="./src/resources/alerts.ts">enable</a>(alertConfigurationId, { ...params }) -> Alert</code>
+
+# DimensionalPriceGroups
+
+Types:
+
+- <code><a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">DimensionalPriceGroup</a></code>
+- <code><a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">DimensionalPriceGroups</a></code>
+
+Methods:
+
+- <code title="post /dimensional_price_groups">client.dimensionalPriceGroups.<a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">create</a>({ ...params }) -> DimensionalPriceGroup</code>
+- <code title="get /dimensional_price_groups/{dimensional_price_group_id}">client.dimensionalPriceGroups.<a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">retrieve</a>(dimensionalPriceGroupId) -> DimensionalPriceGroup</code>
+- <code title="get /dimensional_price_groups">client.dimensionalPriceGroups.<a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">list</a>({ ...params }) -> DimensionalPriceGroupsPage</code>
+
+## ExternalDimensionalPriceGroupID
+
+Methods:
+
+- <code title="get /dimensional_price_groups/external_dimensional_price_group_id/{external_dimensional_price_group_id}">client.dimensionalPriceGroups.externalDimensionalPriceGroupId.<a href="./src/resources/dimensional-price-groups/external-dimensional-price-group-id.ts">retrieve</a>(externalDimensionalPriceGroupId) -> DimensionalPriceGroup</code>
