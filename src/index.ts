@@ -110,6 +110,13 @@ import {
   CustomersPage,
 } from './resources/customers/customers';
 import {
+  DimensionalPriceGroup,
+  DimensionalPriceGroupCreateParams,
+  DimensionalPriceGroupListParams,
+  DimensionalPriceGroups,
+  DimensionalPriceGroupsPage,
+} from './resources/dimensional-price-groups/dimensional-price-groups';
+import {
   EventDeprecateResponse,
   EventIngestParams,
   EventIngestResponse,
@@ -277,6 +284,7 @@ export class Orb extends Core.APIClient {
   subscriptions: API.Subscriptions = new API.Subscriptions(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
   alerts: API.Alerts = new API.Alerts(this);
+  dimensionalPriceGroups: API.DimensionalPriceGroups = new API.DimensionalPriceGroups(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -353,6 +361,7 @@ Orb.SubscriptionsPage = SubscriptionsPage;
 Orb.SubscriptionFetchScheduleResponsesPage = SubscriptionFetchScheduleResponsesPage;
 Orb.Alerts = Alerts;
 Orb.AlertsPage = AlertsPage;
+Orb.DimensionalPriceGroupsPage = DimensionalPriceGroupsPage;
 export declare namespace Orb {
   export type RequestOptions = Core.RequestOptions;
 
@@ -500,6 +509,14 @@ export declare namespace Orb {
     type AlertCreateForSubscriptionParams as AlertCreateForSubscriptionParams,
     type AlertDisableParams as AlertDisableParams,
     type AlertEnableParams as AlertEnableParams,
+  };
+
+  export {
+    type DimensionalPriceGroups as DimensionalPriceGroups,
+    type DimensionalPriceGroup as DimensionalPriceGroup,
+    DimensionalPriceGroupsPage as DimensionalPriceGroupsPage,
+    type DimensionalPriceGroupCreateParams as DimensionalPriceGroupCreateParams,
+    type DimensionalPriceGroupListParams as DimensionalPriceGroupListParams,
   };
 
   export type AmountDiscount = API.AmountDiscount;
