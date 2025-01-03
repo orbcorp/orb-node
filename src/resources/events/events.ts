@@ -92,8 +92,8 @@ export class Events extends APIResource {
    *   call to a payment gateway failed and the user should not be billed)
    *
    * If you want to only change specific properties of an event, but keep the event
-   * as part of the billing calculation, use the [Amend single event](amend-event)
-   * endpoint instead.
+   * as part of the billing calculation, use the [Amend event](amend-event) endpoint
+   * instead.
    *
    * This API is always audit-safe. The process will still retain the deprecated
    * event, though it will be ignored for billing calculations. For auditing and data
