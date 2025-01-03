@@ -170,11 +170,6 @@ export class AlertsPage extends Page<Alert> {}
  *
  * Alerts created through the API can be scoped to either customers or
  * subscriptions.
- *
- * | Scope        | Monitors                       | Vaild Alert Types                                                                   |
- * | ------------ | ------------------------------ | ----------------------------------------------------------------------------------- |
- * | Customer     | A customer's credit balance    | `credit_balance_depleted`, `credit_balance_recovered`, and `credit_balance_dropped` |
- * | Subscription | A subscription's usage or cost | `usage_exceeded` and `cost_exceeded`                                                |
  */
 export interface Alert {
   /**
@@ -195,7 +190,7 @@ export interface Alert {
   /**
    * The customer the alert applies to.
    */
-  customer: Record<string, string | null> | null;
+  customer: Alert.Customer | null;
 
   /**
    * Whether the alert is enabled or disabled.
@@ -205,17 +200,17 @@ export interface Alert {
   /**
    * The metric the alert applies to.
    */
-  metric: Record<string, string | null> | null;
+  metric: Alert.Metric | null;
 
   /**
    * The plan the alert applies to.
    */
-  plan: Record<string, string | null> | null;
+  plan: Alert.Plan | null;
 
   /**
    * The subscription the alert applies to.
    */
-  subscription: Record<string, string | null> | null;
+  subscription: Alert.Subscription | null;
 
   /**
    * The thresholds that define the conditions under which the alert will be
@@ -235,6 +230,47 @@ export interface Alert {
 }
 
 export namespace Alert {
+  /**
+   * The customer the alert applies to.
+   */
+  export interface Customer {
+    id: string;
+
+    external_customer_id: string | null;
+  }
+
+  /**
+   * The metric the alert applies to.
+   */
+  export interface Metric {
+    id: string;
+  }
+
+  /**
+   * The plan the alert applies to.
+   */
+  export interface Plan {
+    id: string | null;
+
+    /**
+     * An optional user-defined ID for this plan resource, used throughout the system
+     * as an alias for this Plan. Use this field to identify a plan by an existing
+     * identifier in your system.
+     */
+    external_plan_id: string | null;
+
+    name: string | null;
+
+    plan_version: string;
+  }
+
+  /**
+   * The subscription the alert applies to.
+   */
+  export interface Subscription {
+    id: string;
+  }
+
   /**
    * Thresholds are used to define the conditions under which an alert will be
    * triggered.
