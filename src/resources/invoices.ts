@@ -296,10 +296,9 @@ export interface Invoice {
   discounts: Array<Shared.InvoiceLevelDiscount>;
 
   /**
-   * When the invoice payment is due. The due date is null if the invoice is not yet
-   * finalized.
+   * When the invoice payment is due.
    */
-  due_date: string | null;
+  due_date: string;
 
   /**
    * If the invoice has a status of `draft`, this will be the time that the invoice
@@ -1508,10 +1507,9 @@ export interface InvoiceFetchUpcomingResponse {
   discounts: Array<Shared.InvoiceLevelDiscount>;
 
   /**
-   * When the invoice payment is due. The due date is null if the invoice is not yet
-   * finalized.
+   * When the invoice payment is due.
    */
-  due_date: string | null;
+  due_date: string;
 
   /**
    * If the invoice has a status of `draft`, this will be the time that the invoice
