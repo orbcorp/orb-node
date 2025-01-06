@@ -291,7 +291,7 @@ export interface Invoice {
    * list is provided, the first discount in the list will be returned. If the list
    * is empty, `None` will be returned.
    */
-  discount: unknown | null;
+  discount: unknown;
 
   discounts: Array<Shared.InvoiceLevelDiscount>;
 
@@ -1502,7 +1502,7 @@ export interface InvoiceFetchUpcomingResponse {
    * list is provided, the first discount in the list will be returned. If the list
    * is empty, `None` will be returned.
    */
-  discount: unknown | null;
+  discount: unknown;
 
   discounts: Array<Shared.InvoiceLevelDiscount>;
 
