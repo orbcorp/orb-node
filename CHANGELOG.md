@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.47.1 (2025-01-06)
+
+Full Changelog: [v4.47.0...v4.47.1](https://github.com/orbcorp/orb-node/compare/v4.47.0...v4.47.1)
+
+### Bug Fixes
+
+* **internal:** fix linting errors ([2cdaa64](https://github.com/orbcorp/orb-node/commit/2cdaa64403d0d85aa30fc9bfd9b227a794c9deb5))
+* **internal:** skip broken test ([3fb4ea0](https://github.com/orbcorp/orb-node/commit/3fb4ea01263236ce4c3561d9fee37a469c3601e0))
+
 ## 4.47.0 (2025-01-06)
 
 Full Changelog: [v4.46.0...v4.47.0](https://github.com/orbcorp/orb-node/compare/v4.46.0...v4.47.0)
