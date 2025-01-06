@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.46.0 (2025-01-06)
+
+Full Changelog: [v4.45.0...v4.46.0](https://github.com/orbcorp/orb-node/compare/v4.45.0...v4.46.0)
+
+### Features
+
+* **api:** api update ([#441](https://github.com/orbcorp/orb-node/issues/441)) ([db71707](https://github.com/orbcorp/orb-node/commit/db7170743caf5f6e240d49ea06f91294056fb366))
+
+
+### Chores
+
+* **client:** simplify `unknown | null` to just `unknown` ([#439](https://github.com/orbcorp/orb-node/issues/439)) ([4bbebba](https://github.com/orbcorp/orb-node/commit/4bbebba1ac7b7e9b5322e8cb91479d60629938a8))
+
 ## 4.45.0 (2025-01-03)
 
 Full Changelog: [v4.44.0...v4.45.0](https://github.com/orbcorp/orb-node/compare/v4.44.0...v4.45.0)
