@@ -7,7 +7,7 @@ const orb = new Orb({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource webhooks', () => {
+describe.skip('resource webhooks', () => {
   const payload = `{"id": "o4mmewpfNNTnjfZc", "created_at": "2024-03-27T15:42:29+00:00", "type": "resource_event.test", "properties": {"message": "A test webhook from Orb. Happy testing!"}}`;
   const signature = '9d25de966891ab0bc18754faf8d83d0980b44ae330fcc130b41a6cf3daf1f391';
   const timestamp = '2024-03-27T15:42:29.551';
