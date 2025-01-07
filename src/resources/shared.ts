@@ -19,26 +19,24 @@ export interface AmountDiscount {
 
 export type BillingCycleRelativeDate = 'start_of_term' | 'end_of_term';
 
-export type Discount = PercentageDiscount | TrialDiscount | Discount.UsageDiscount | AmountDiscount;
+export type Discount = PercentageDiscount | TrialDiscount | UsageDiscount | AmountDiscount;
 
-export namespace Discount {
-  export interface UsageDiscount {
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
+export interface UsageDiscount {
+  /**
+   * List of price_ids that this discount applies to. For plan/plan phase discounts,
+   * this can be a subset of prices.
+   */
+  applies_to_price_ids: Array<string>;
 
-    discount_type: 'usage';
+  discount_type: 'usage';
 
-    /**
-     * Only available if discount_type is `usage`. Number of usage units that this
-     * discount is for
-     */
-    usage_discount: number;
+  /**
+   * Only available if discount_type is `usage`. Number of usage units that this
+   * discount is for
+   */
+  usage_discount: number;
 
-    reason?: string | null;
-  }
+  reason?: string | null;
 }
 
 export type InvoiceLevelDiscount = PercentageDiscount | AmountDiscount | TrialDiscount;
