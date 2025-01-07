@@ -3250,7 +3250,7 @@ export type PriceCreateParams =
   | PriceCreateParams.NewFloatingBulkWithProrationPrice
   | PriceCreateParams.NewFloatingGroupedTieredPackagePrice;
 
-export namespace PriceCreateParams {
+export declare namespace PriceCreateParams {
   export interface NewFloatingUnitPrice {
     /**
      * The cadence to bill for this price on.
