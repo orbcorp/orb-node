@@ -2035,7 +2035,7 @@ export type LedgerCreateEntryParams =
   | LedgerCreateEntryParams.AddVoidCreditLedgerEntryRequestParams
   | LedgerCreateEntryParams.AddAmendmentCreditLedgerEntryRequestParams;
 
-export namespace LedgerCreateEntryParams {
+export declare namespace LedgerCreateEntryParams {
   export interface AddIncrementCreditLedgerEntryRequestParams {
     /**
      * The number of credits to effect. Note that this is required for increment,
@@ -2286,7 +2286,7 @@ export type LedgerCreateEntryByExternalIDParams =
   | LedgerCreateEntryByExternalIDParams.AddVoidCreditLedgerEntryRequestParams
   | LedgerCreateEntryByExternalIDParams.AddAmendmentCreditLedgerEntryRequestParams;
 
-export namespace LedgerCreateEntryByExternalIDParams {
+export declare namespace LedgerCreateEntryByExternalIDParams {
   export interface AddIncrementCreditLedgerEntryRequestParams {
     /**
      * The number of credits to effect. Note that this is required for increment,
