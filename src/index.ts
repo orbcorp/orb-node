@@ -526,6 +526,7 @@ export declare namespace Orb {
   export type PaginationMetadata = API.PaginationMetadata;
   export type PercentageDiscount = API.PercentageDiscount;
   export type TrialDiscount = API.TrialDiscount;
+  export type UsageDiscount = API.UsageDiscount;
 }
 
 export { toFile, fileFromPath } from './uploads';
