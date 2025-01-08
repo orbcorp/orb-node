@@ -19,9 +19,9 @@ export class Webhooks extends APIResource {
     payload: string,
     headers: HeadersLike,
     secret: string | undefined | null = this._client.webhookSecret,
-  ): Object {
+  ): WebhookEvent {
     this.verifySignature(payload, headers, secret);
-    return JSON.parse(payload);
+    return JSON.parse(payload) as WebhookEvent;
   }
 
   private parseSecret(secret: string | null | undefined): Uint8Array {
