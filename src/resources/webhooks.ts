@@ -290,7 +290,7 @@ interface InvoiceEditedEvent extends InvoiceEvent {
       subtotal?: string;
       total?: string;
       discounts?: Array<Discount>;
-      minimum?: any;
+      minimum?: Invoice.Minimum;
       line_items?: Array<Invoice['line_items'][0]>;
     };
   };
