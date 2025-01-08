@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.47.3 (2025-01-08)
+
+Full Changelog: [v4.47.2...v4.47.3](https://github.com/orbcorp/orb-node/compare/v4.47.2...v4.47.3)
+
+### Bug Fixes
+
+* **types:** expose UsageDiscount ([5ca5f44](https://github.com/orbcorp/orb-node/commit/5ca5f4499b90728f01884c75959710947f6e0425))
+
+
+### Chores
+
+* **internal:** codegen related update ([#454](https://github.com/orbcorp/orb-node/issues/454)) ([ca137af](https://github.com/orbcorp/orb-node/commit/ca137af6973b6620ef7c875184ccd80d42083f86))
+
 ## 4.47.2 (2025-01-07)
 
 Full Changelog: [v4.47.1...v4.47.2](https://github.com/orbcorp/orb-node/compare/v4.47.1...v4.47.2)
