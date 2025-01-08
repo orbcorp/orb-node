@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.47.3 (2025-01-08)
+
+Full Changelog: [v4.47.2...v4.47.3](https://github.com/orbcorp/orb-node/compare/v4.47.2...v4.47.3)
+
+### Chores
+
+* **internal:** codegen related update ([#454](https://github.com/orbcorp/orb-node/issues/454)) ([f7d62c7](https://github.com/orbcorp/orb-node/commit/f7d62c78f1b835c9574a43c49e6a1c84cca24db5))
+
 ## 4.47.2 (2025-01-07)
 
 Full Changelog: [v4.47.1...v4.47.2](https://github.com/orbcorp/orb-node/compare/v4.47.1...v4.47.2)
