@@ -9,6 +9,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">PaginationMetadata</a></code>
 - <code><a href="./src/resources/shared.ts">PercentageDiscount</a></code>
 - <code><a href="./src/resources/shared.ts">TrialDiscount</a></code>
+- <code><a href="./src/resources/shared.ts">UsageDiscount</a></code>
 
 # TopLevel
 
