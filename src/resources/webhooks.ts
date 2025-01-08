@@ -291,7 +291,7 @@ interface InvoiceEditedEvent extends InvoiceEvent {
       total?: string;
       discounts?: Array<Discount>;
       minimum?: Invoice.Minimum;
-      line_items?: Array<Invoice['line_items'][0]>;
+      line_items?: Array<Invoice.LineItem>;
     };
   };
 }
