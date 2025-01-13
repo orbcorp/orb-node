@@ -2,7 +2,7 @@
 
 export {
   DimensionalPriceGroupsPage,
-  type DimensionalPriceGroups,
+  DimensionalPriceGroups,
   type DimensionalPriceGroup,
   type DimensionalPriceGroupCreateParams,
   type DimensionalPriceGroupListParams,
