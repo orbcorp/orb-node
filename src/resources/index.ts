@@ -46,7 +46,7 @@ export {
 } from './customers/customers';
 export {
   DimensionalPriceGroupsPage,
-  type DimensionalPriceGroups,
+  DimensionalPriceGroups,
   type DimensionalPriceGroup,
   type DimensionalPriceGroupCreateParams,
   type DimensionalPriceGroupListParams,
@@ -108,7 +108,7 @@ export {
 export {
   SubscriptionsPage,
   SubscriptionFetchScheduleResponsesPage,
-  type Subscriptions,
+  Subscriptions,
   type Subscription,
   type SubscriptionUsage,
   type SubscriptionCreateResponse,
