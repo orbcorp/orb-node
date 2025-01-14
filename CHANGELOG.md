@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.47.4 (2025-01-14)
+
+Full Changelog: [v4.47.3...v4.47.4](https://github.com/orbcorp/orb-node/compare/v4.47.3...v4.47.4)
+
+### Bug Fixes
+
+* **client:** reexport resource as value ([#459](https://github.com/orbcorp/orb-node/issues/459)) ([a05d90e](https://github.com/orbcorp/orb-node/commit/a05d90e3a7350c8031687d566c9cdb18587435bf))
+
 ## 4.47.3 (2025-01-08)
 
 Full Changelog: [v4.47.2...v4.47.3](https://github.com/orbcorp/orb-node/compare/v4.47.2...v4.47.3)
