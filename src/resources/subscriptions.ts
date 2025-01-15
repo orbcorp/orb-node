@@ -19219,7 +19219,8 @@ export interface SubscriptionSchedulePlanChangeParams {
 
   /**
    * The date that the plan change should take effect. This parameter can only be
-   * passed if the `change_option` is `requested_date`.
+   * passed if the `change_option` is `requested_date`. If a date with no time is
+   * passed, the plan change will happen at midnight in the customer's timezone.
    */
   change_date?: string | null;
 
