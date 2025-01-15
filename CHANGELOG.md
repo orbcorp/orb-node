@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.48.0 (2025-01-15)
+
+Full Changelog: [v4.47.4...v4.48.0](https://github.com/orbcorp/orb-node/compare/v4.47.4...v4.48.0)
+
+### Features
+
+* **api:** api update ([#465](https://github.com/orbcorp/orb-node/issues/465)) ([7a96401](https://github.com/orbcorp/orb-node/commit/7a96401ecffe4cc426c64d0aa120f43bf5450f9f))
+
+
+### Chores
+
+* **types:** add `| undefined` to client options properties ([#463](https://github.com/orbcorp/orb-node/issues/463)) ([1f1718c](https://github.com/orbcorp/orb-node/commit/1f1718ccdace3d420e0469465088ede93a6aa0ae))
+
 ## 4.47.4 (2025-01-14)
 
 Full Changelog: [v4.47.3...v4.47.4](https://github.com/orbcorp/orb-node/compare/v4.47.3...v4.47.4)
