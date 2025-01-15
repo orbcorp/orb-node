@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.47.5 (2025-01-15)
+
+Full Changelog: [v4.47.4...v4.47.5](https://github.com/orbcorp/orb-node/compare/v4.47.4...v4.47.5)
+
+### Chores
+
+* **types:** add `| undefined` to client options properties ([#463](https://github.com/orbcorp/orb-node/issues/463)) ([1f1718c](https://github.com/orbcorp/orb-node/commit/1f1718ccdace3d420e0469465088ede93a6aa0ae))
+
 ## 4.47.4 (2025-01-14)
 
 Full Changelog: [v4.47.3...v4.47.4](https://github.com/orbcorp/orb-node/compare/v4.47.3...v4.47.4)
