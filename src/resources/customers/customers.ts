@@ -40,17 +40,17 @@ export class Customers extends APIResource {
 
   /**
    * This operation is used to create an Orb customer, who is party to the core
-   * billing relationship. See [Customer](../guides/concepts#customer) for an
-   * overview of the customer resource.
+   * billing relationship. See [Customer](/core-concepts##customer) for an overview
+   * of the customer resource.
    *
    * This endpoint is critical in the following Orb functionality:
    *
    * - Automated charges can be configured by setting `payment_provider` and
    *   `payment_provider_id` to automatically issue invoices
-   * - [Customer ID Aliases](../guides/events-and-metrics/customer-aliases) can be
-   *   configured by setting `external_customer_id`
-   * - [Timezone localization](../guides/product-catalog/timezones.md) can be
-   *   configured on a per-customer basis by setting the `timezone` parameter
+   * - [Customer ID Aliases](/events-and-metrics/customer-aliases) can be configured
+   *   by setting `external_customer_id`
+   * - [Timezone localization](/essentials/timezones) can be configured on a
+   *   per-customer basis by setting the `timezone` parameter
    */
   create(body: CustomerCreateParams, options?: Core.RequestOptions): Core.APIPromise<Customer> {
     return this._client.post('/customers', { body, ...options });
@@ -75,10 +75,9 @@ export class Customers extends APIResource {
    * This endpoint returns a list of all customers for an account. The list of
    * customers is ordered starting from the most recently created customer. This
    * endpoint follows Orb's
-   * [standardized pagination format](../reference/pagination).
+   * [standardized pagination format](/api-reference/pagination).
    *
-   * See [Customer](../guides/concepts#customer) for an overview of the customer
-   * model.
+   * See [Customer](/core-concepts##customer) for an overview of the customer model.
    */
   list(query?: CustomerListParams, options?: Core.RequestOptions): Core.PagePromise<CustomersPage, Customer>;
   list(options?: Core.RequestOptions): Core.PagePromise<CustomersPage, Customer>;
@@ -119,8 +118,8 @@ export class Customers extends APIResource {
    * `Customer` is in the process of being deleted, only the properties `id` and
    * `deleted: true` will be returned.
    *
-   * See the [Customer resource](../guides/core-concepts.mdx#customer) for a full
-   * discussion of the Customer model.
+   * See the [Customer resource](/core-concepts#customer) for a full discussion of
+   * the Customer model.
    */
   fetch(customerId: string, options?: Core.RequestOptions): Core.APIPromise<Customer> {
     return this._client.get(`/customers/${customerId}`, options);
@@ -128,7 +127,7 @@ export class Customers extends APIResource {
 
   /**
    * This endpoint is used to fetch customer details given an `external_customer_id`
-   * (see [Customer ID Aliases](../guides/events-and-metrics/customer-aliases)).
+   * (see [Customer ID Aliases](/events-and-metrics/customer-aliases)).
    *
    * Note that the resource and semantics of this endpoint exactly mirror
    * [Get Customer](fetch-customer).
@@ -139,8 +138,8 @@ export class Customers extends APIResource {
 
   /**
    * This endpoint is used to update customer details given an `external_customer_id`
-   * (see [Customer ID Aliases](../guides/events-and-metrics/customer-aliases)). Note
-   * that the resource and semantics of this endpoint exactly mirror
+   * (see [Customer ID Aliases](/events-and-metrics/customer-aliases)). Note that the
+   * resource and semantics of this endpoint exactly mirror
    * [Update Customer](update-customer).
    */
   updateByExternalId(
@@ -162,7 +161,7 @@ export class CustomersPage extends Page<Customer> {}
  * it's often desirable to have these match existing identifiers in your system. To
  * avoid having to denormalize Orb ID information, you can pass in an
  * `external_customer_id` with your own identifier. See
- * [Customer ID Aliases](../guides/events-and-metrics/customer-aliases) for further
+ * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further
  * information about how these aliases work in Orb.
  *
  * In addition to having an identifier in your system, a customer may exist in a
@@ -171,9 +170,8 @@ export class CustomersPage extends Page<Customer> {}
  *
  * A customer also has a timezone (from the standard
  * [IANA timezone database](https://www.iana.org/time-zones)), which defaults to
- * your account's timezone. See
- * [Timezone localization](../guides/product-catalog/timezones.md) for information
- * on what this timezone parameter influences within Orb.
+ * your account's timezone. See [Timezone localization](/essentials/timezones) for
+ * information on what this timezone parameter influences within Orb.
  */
 export interface Customer {
   id: string;
