@@ -9,11 +9,11 @@ export class Ledger extends APIResource {
   /**
    * The credits ledger provides _auditing_ functionality over Orb's credits system
    * with a list of actions that have taken place to modify a customer's credit
-   * balance. This [paginated endpoint](../reference/pagination) lists these entries,
-   * starting from the most recent ledger entry.
+   * balance. This [paginated endpoint](/api-reference/pagination) lists these
+   * entries, starting from the most recent ledger entry.
    *
    * More details on using Orb's real-time credit feature are
-   * [here](../guides/product-catalog/prepurchase.md).
+   * [here](/product-catalog/prepurchase).
    *
    * There are four major types of modifications to credit balance, detailed below.
    *
@@ -358,11 +358,11 @@ export class Ledger extends APIResource {
   /**
    * The credits ledger provides _auditing_ functionality over Orb's credits system
    * with a list of actions that have taken place to modify a customer's credit
-   * balance. This [paginated endpoint](../reference/pagination) lists these entries,
-   * starting from the most recent ledger entry.
+   * balance. This [paginated endpoint](/api-reference/pagination) lists these
+   * entries, starting from the most recent ledger entry.
    *
    * More details on using Orb's real-time credit feature are
-   * [here](../guides/product-catalog/prepurchase.md).
+   * [here](/product-catalog/prepurchase).
    *
    * There are four major types of modifications to credit balance, detailed below.
    *
@@ -468,8 +468,8 @@ export class LedgerListResponsesPage extends Page<LedgerListResponse> {}
 export class LedgerListByExternalIDResponsesPage extends Page<LedgerListByExternalIDResponse> {}
 
 /**
- * The [Credit Ledger Entry resource](/guides/product-catalog/prepurchase) models
- * prepaid credits within Orb.
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid
+ * credits within Orb.
  */
 export type LedgerListResponse =
   | LedgerListResponse.IncrementLedgerEntry
@@ -851,8 +851,8 @@ export namespace LedgerListResponse {
 }
 
 /**
- * The [Credit Ledger Entry resource](/guides/product-catalog/prepurchase) models
- * prepaid credits within Orb.
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid
+ * credits within Orb.
  */
 export type LedgerCreateEntryResponse =
   | LedgerCreateEntryResponse.IncrementLedgerEntry
@@ -1234,8 +1234,8 @@ export namespace LedgerCreateEntryResponse {
 }
 
 /**
- * The [Credit Ledger Entry resource](/guides/product-catalog/prepurchase) models
- * prepaid credits within Orb.
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid
+ * credits within Orb.
  */
 export type LedgerCreateEntryByExternalIDResponse =
   | LedgerCreateEntryByExternalIDResponse.IncrementLedgerEntry
@@ -1617,8 +1617,8 @@ export namespace LedgerCreateEntryByExternalIDResponse {
 }
 
 /**
- * The [Credit Ledger Entry resource](/guides/product-catalog/prepurchase) models
- * prepaid credits within Orb.
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid
+ * credits within Orb.
  */
 export type LedgerListByExternalIDResponse =
   | LedgerListByExternalIDResponse.IncrementLedgerEntry

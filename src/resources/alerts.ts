@@ -35,7 +35,7 @@ export class Alerts extends APIResource {
    *
    * The list of alerts is ordered starting from the most recently created alert.
    * This endpoint follows Orb's
-   * [standardized pagination format](../reference/pagination).
+   * [standardized pagination format](/api-reference/pagination).
    */
   list(query?: AlertListParams, options?: Core.RequestOptions): Core.PagePromise<AlertsPage, Alert>;
   list(options?: Core.RequestOptions): Core.PagePromise<AlertsPage, Alert>;
@@ -54,8 +54,7 @@ export class Alerts extends APIResource {
    * are three types of alerts that can be scoped to customers:
    * `credit_balance_depleted`, `credit_balance_dropped`, and
    * `credit_balance_recovered`. Customers can have a maximum of one of each type of
-   * alert per
-   * [credit balance currency](https://docs.withorb.com/guides/product-catalog/prepurchase).
+   * alert per [credit balance currency](/product-catalog/prepurchase).
    * `credit_balance_dropped` alerts require a list of thresholds to be provided
    * while `credit_balance_depleted` and `credit_balance_recovered` alerts do not
    * require thresholds.
@@ -73,8 +72,7 @@ export class Alerts extends APIResource {
    * are three types of alerts that can be scoped to customers:
    * `credit_balance_depleted`, `credit_balance_dropped`, and
    * `credit_balance_recovered`. Customers can have a maximum of one of each type of
-   * alert per
-   * [credit balance currency](https://docs.withorb.com/guides/product-catalog/prepurchase).
+   * alert per [credit balance currency](/product-catalog/prepurchase).
    * `credit_balance_dropped` alerts require a list of thresholds to be provided
    * while `credit_balance_depleted` and `credit_balance_recovered` alerts do not
    * require thresholds.
@@ -164,9 +162,8 @@ export class Alerts extends APIResource {
 export class AlertsPage extends Page<Alert> {}
 
 /**
- * [Alerts within Orb](https://docs.withorb.com/guides/product-catalog/configuring-alerts)
- * monitor spending, usage, or credit balance and trigger webhooks when a threshold
- * is exceeded.
+ * [Alerts within Orb](/product-catalog/configuring-alerts) monitor spending,
+ * usage, or credit balance and trigger webhooks when a threshold is exceeded.
  *
  * Alerts created through the API can be scoped to either customers or
  * subscriptions.

@@ -10,9 +10,9 @@ import { type PageParams } from '../../pagination';
 export class Subscriptions extends APIResource {
   /**
    * This endpoint returns a list of all subscriptions that have redeemed a given
-   * coupon as a [paginated](../reference/pagination) list, ordered starting from the
-   * most recently created subscription. For a full discussion of the subscription
-   * resource, see [Subscription](../guides/concepts#subscription).
+   * coupon as a [paginated](/api-reference/pagination) list, ordered starting from
+   * the most recently created subscription. For a full discussion of the
+   * subscription resource, see [Subscription](/core-concepts#subscription).
    */
   list(
     couponId: string,
