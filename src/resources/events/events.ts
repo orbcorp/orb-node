@@ -299,8 +299,8 @@ export class Events extends APIResource {
    *
    * If `debug=true` is not specified, the response will only contain
    * `validation_failed`. Orb will still honor the idempotency guarantees set
-   * [here](../guides/events-and-metrics/event-ingestion#event-volume-and-concurrency)
-   * in all cases.
+   * [here](/events-and-metrics/event-ingestion#event-volume-and-concurrency) in all
+   * cases.
    *
    * We strongly recommend that you only use debug mode as part of testing your
    * initial Orb integration. Once you're ready to switch to production, disable
@@ -333,7 +333,7 @@ export class Events extends APIResource {
 
   /**
    * This endpoint returns a filtered set of events for an account in a
-   * [paginated list format](../reference/pagination).
+   * [paginated list format](/api-reference/pagination).
    *
    * Note that this is a `POST` endpoint rather than a `GET` endpoint because it
    * employs a JSON body for search criteria rather than query parameters, allowing
@@ -412,10 +412,9 @@ export interface EventSearchResponse {
 
 export namespace EventSearchResponse {
   /**
-   * The [Event](../guides/core-concepts.mdx#event) resource represents a usage event
-   * that has been created for a customer. Events are the core of Orb's usage-based
-   * billing model, and are used to calculate the usage charges for a given billing
-   * period.
+   * The [Event](/core-concepts#event) resource represents a usage event that has
+   * been created for a customer. Events are the core of Orb's usage-based billing
+   * model, and are used to calculate the usage charges for a given billing period.
    */
   export interface Data {
     /**

@@ -8,7 +8,7 @@ import { Page, type PageParams } from '../pagination';
 export class CreditNotes extends APIResource {
   /**
    * This endpoint is used to create a single
-   * [`Credit Note`](../guides/invoicing/credit-notes).
+   * [`Credit Note`](/invoicing/credit-notes).
    */
   create(body: CreditNoteCreateParams, options?: Core.RequestOptions): Core.APIPromise<CreditNote> {
     return this._client.post('/credit_notes', { body, ...options });
@@ -35,8 +35,8 @@ export class CreditNotes extends APIResource {
   }
 
   /**
-   * This endpoint is used to fetch a single
-   * [`Credit Note`](../guides/invoicing/credit-notes) given an identifier.
+   * This endpoint is used to fetch a single [`Credit Note`](/invoicing/credit-notes)
+   * given an identifier.
    */
   fetch(creditNoteId: string, options?: Core.RequestOptions): Core.APIPromise<CreditNote> {
     return this._client.get(`/credit_notes/${creditNoteId}`, options);
@@ -46,8 +46,8 @@ export class CreditNotes extends APIResource {
 export class CreditNotesPage extends Page<CreditNote> {}
 
 /**
- * The [Credit Note](/guides/invoicing/credit-notes) resource represents a credit
- * that has been applied to a particular invoice.
+ * The [Credit Note](/invoicing/credit-notes) resource represents a credit that has
+ * been applied to a particular invoice.
  */
 export interface CreditNote {
   /**
