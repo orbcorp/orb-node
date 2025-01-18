@@ -12,16 +12,16 @@ export class Prices extends APIResource {
   externalPriceId: ExternalPriceIDAPI.ExternalPriceID = new ExternalPriceIDAPI.ExternalPriceID(this._client);
 
   /**
-   * This endpoint is used to create a [price](../reference/price). A price created
-   * using this endpoint is always an add-on, meaning that it’s not associated with a
-   * specific plan and can instead be individually added to subscriptions, including
-   * subscriptions on different plans.
+   * This endpoint is used to create a [price](/product-catalog/price-configuration).
+   * A price created using this endpoint is always an add-on, meaning that it’s not
+   * associated with a specific plan and can instead be individually added to
+   * subscriptions, including subscriptions on different plans.
    *
    * An `external_price_id` can be optionally specified as an alias to allow
    * ergonomic interaction with prices in the Orb API.
    *
-   * See the [Price resource](../reference/price) for the specification of different
-   * price model configurations possible in this endpoint.
+   * See the [Price resource](/product-catalog/price-configuration) for the
+   * specification of different price model configurations possible in this endpoint.
    */
   create(body: PriceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Price> {
     return this._client.post('/prices', { body, ...options });
@@ -38,7 +38,7 @@ export class Prices extends APIResource {
 
   /**
    * This endpoint is used to list all add-on prices created using the
-   * [price creation endpoint](../reference/create-price).
+   * [price creation endpoint](/api-reference/price/create-price).
    */
   list(query?: PriceListParams, options?: Core.RequestOptions): Core.PagePromise<PricesPage, Price>;
   list(options?: Core.RequestOptions): Core.PagePromise<PricesPage, Price>;
@@ -55,7 +55,7 @@ export class Prices extends APIResource {
   /**
    * This endpoint is used to evaluate the output of a price for a given customer and
    * time range. It enables filtering and grouping the output using
-   * [computed properties](../guides/extensibility/advanced-metrics#computed-properties),
+   * [computed properties](/extensibility/advanced-metrics#computed-properties),
    * supporting the following workflows:
    *
    * 1. Showing detailed usage and costs to the end customer.
@@ -119,229 +119,8 @@ export interface EvaluatePriceGroup {
  * is serialized differently in a given Price object. The model_type field
  * determines the key for the configuration object that is present.
  *
- * ## Unit pricing
- *
- * With unit pricing, each unit costs a fixed amount.
- *
- * ```json
- * {
- *     ...
- *     "model_type": "unit",
- *     "unit_config": {
- *         "unit_amount": "0.50"
- *     }
- *     ...
- * }
- * ```
- *
- * ## Tiered pricing
- *
- * In tiered pricing, the cost of a given unit depends on the tier range that it
- * falls into, where each tier range is defined by an upper and lower bound. For
- * example, the first ten units may cost $0.50 each and all units thereafter may
- * cost $0.10 each.
- *
- * ```json
- * {
- *     ...
- *     "model_type": "tiered",
- *     "tiered_config": {
- *         "tiers": [
- *             {
- *                 "first_unit": 1,
- *                 "last_unit": 10,
- *                 "unit_amount": "0.50"
- *             },
- *             {
- *                 "first_unit": 11,
- *                 "last_unit": null,
- *                 "unit_amount": "0.10"
- *             }
- *         ]
- *     }
- *     ...
- * ```
- *
- * ## Bulk pricing
- *
- * Bulk pricing applies when the number of units determine the cost of all units.
- * For example, if you've bought less than 10 units, they may each be $0.50 for a
- * total of $5.00. Once you've bought more than 10 units, all units may now be
- * priced at $0.40 (i.e. 101 units total would be $40.40).
- *
- * ```json
- * {
- *     ...
- *     "model_type": "bulk",
- *     "bulk_config": {
- *         "tiers": [
- *             {
- *                 "maximum_units": 10,
- *                 "unit_amount": "0.50"
- *             },
- *             {
- *                 "maximum_units": 1000,
- *                 "unit_amount": "0.40"
- *             }
- *         ]
- *     }
- *     ...
- * }
- * ```
- *
- * ## Package pricing
- *
- * Package pricing defines the size or granularity of a unit for billing purposes.
- * For example, if the package size is set to 5, then 4 units will be billed as 5
- * and 6 units will be billed at 10.
- *
- * ```json
- * {
- *     ...
- *     "model_type": "package",
- *     "package_config": {
- *         "package_amount": "0.80",
- *         "package_size": 10
- *     }
- *     ...
- * }
- * ```
- *
- * ## BPS pricing
- *
- * BPS pricing specifies a per-event (e.g. per-payment) rate in one hundredth of a
- * percent (the number of basis points to charge), as well as a cap per event to
- * assess. For example, this would allow you to assess a fee of 0.25% on every
- * payment you process, with a maximum charge of $25 per payment.
- *
- * ```json
- * {
- *     ...
- *     "model_type": "bps",
- *     "bps_config": {
- *        "bps": 125,
- *        "per_unit_maximum": "11.00"
- *     }
- *     ...
- *  }
- * ```
- *
- * ## Bulk BPS pricing
- *
- * Bulk BPS pricing specifies BPS parameters in a tiered manner, dependent on the
- * total quantity across all events. Similar to bulk pricing, the BPS parameters of
- * a given event depends on the tier range that the billing period falls into. Each
- * tier range is defined by an upper bound. For example, after $1.5M of payment
- * volume is reached, each individual payment may have a lower cap or a smaller
- * take-rate.
- *
- * ```json
- *     ...
- *     "model_type": "bulk_bps",
- *     "bulk_bps_config": {
- *         "tiers": [
- *            {
- *                 "maximum_amount": "1000000.00",
- *                 "bps": 125,
- *                 "per_unit_maximum": "19.00"
- *            },
- *           {
- *                 "maximum_amount": null,
- *                 "bps": 115,
- *                 "per_unit_maximum": "4.00"
- *             }
- *         ]
- *     }
- *     ...
- * }
- * ```
- *
- * ## Tiered BPS pricing
- *
- * Tiered BPS pricing specifies BPS parameters in a graduated manner, where an
- * event's applicable parameter is a function of its marginal addition to the
- * period total. Similar to tiered pricing, the BPS parameters of a given event
- * depends on the tier range that it falls into, where each tier range is defined
- * by an upper and lower bound. For example, the first few payments may have a 0.8
- * BPS take-rate and all payments after a specific volume may incur a take-rate of
- * 0.5 BPS each.
- *
- * ```json
- *     ...
- *     "model_type": "tiered_bps",
- *     "tiered_bps_config": {
- *         "tiers": [
- *            {
- *                 "minimum_amount": "0",
- *                 "maximum_amount": "1000000.00",
- *                 "bps": 125,
- *                 "per_unit_maximum": "19.00"
- *            },
- *           {
- *                 "minimum_amount": "1000000.00",
- *                 "maximum_amount": null,
- *                 "bps": 115,
- *                 "per_unit_maximum": "4.00"
- *             }
- *         ]
- *     }
- *     ...
- * }
- * ```
- *
- * ## Matrix pricing
- *
- * Matrix pricing defines a set of unit prices in a one or two-dimensional matrix.
- * `dimensions` defines the two event property values evaluated in this pricing
- * model. In a one-dimensional matrix, the second value is `null`. Every
- * configuration has a list of `matrix_values` which give the unit prices for
- * specified property values. In a one-dimensional matrix, the matrix values will
- * have `dimension_values` where the second value of the pair is null. If an event
- * does not match any of the dimension values in the matrix, it will resort to the
- * `default_unit_amount`.
- *
- * ```json
- * {
- *     "model_type": "matrix"
- *     "matrix_config": {
- *         "default_unit_amount": "3.00",
- *         "dimensions": [
- *             "cluster_name",
- *             "region"
- *         ],
- *         "matrix_values": [
- *             {
- *                 "dimension_values": [
- *                     "alpha",
- *                     "west"
- *                 ],
- *                 "unit_amount": "2.00"
- *             },
- *             ...
- *         ]
- *     }
- * }
- * ```
- *
- * ## Fixed fees
- *
- * Fixed fees are prices that are applied independent of usage quantities, and
- * follow unit pricing. They also have an additional parameter
- * `fixed_price_quantity`. If the Price represents a fixed cost, this represents
- * the quantity of units applied.
- *
- * ```json
- * {
- *     ...
- *     "id": "price_id",
- *     "model_type": "unit",
- *     "unit_config": {
- *        "unit_amount": "2.00"
- *     },
- *     "fixed_price_quantity": 3.0
- *     ...
- * }
- * ```
+ * For more on the types of prices, see
+ * [the core concepts documentation](/core-concepts#plan-and-price)
  */
 export type Price =
   | Price.UnitPrice
@@ -367,8 +146,7 @@ export type Price =
   | Price.GroupedWithMeteredMinimumPrice
   | Price.MatrixWithDisplayNamePrice
   | Price.BulkWithProrationPrice
-  | Price.GroupedTieredPackagePrice
-  | Price.MaxGroupTieredPrice;
+  | Price.GroupedTieredPackagePrice;
 
 export namespace Price {
   export interface UnitPrice {
@@ -3219,116 +2997,6 @@ export namespace Price {
       minimum_amount: string;
     }
   }
-
-  export interface MaxGroupTieredPrice {
-    id: string;
-
-    billable_metric: MaxGroupTieredPrice.BillableMetric | null;
-
-    billing_cycle_configuration: MaxGroupTieredPrice.BillingCycleConfiguration;
-
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
-
-    conversion_rate: number | null;
-
-    created_at: string;
-
-    credit_allocation: MaxGroupTieredPrice.CreditAllocation | null;
-
-    currency: string;
-
-    discount: Shared.Discount | null;
-
-    external_price_id: string | null;
-
-    fixed_price_quantity: number | null;
-
-    invoicing_cycle_configuration: MaxGroupTieredPrice.InvoicingCycleConfiguration | null;
-
-    item: MaxGroupTieredPrice.Item;
-
-    max_group_tiered_config: Record<string, unknown>;
-
-    maximum: MaxGroupTieredPrice.Maximum | null;
-
-    maximum_amount: string | null;
-
-    /**
-     * User specified key-value pairs for the resource. If not present, this defaults
-     * to an empty dictionary. Individual keys can be removed by setting the value to
-     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
-     * `null`.
-     */
-    metadata: Record<string, string>;
-
-    minimum: MaxGroupTieredPrice.Minimum | null;
-
-    minimum_amount: string | null;
-
-    model_type: 'max_group_tiered';
-
-    name: string;
-
-    plan_phase_order: number | null;
-
-    price_type: 'usage_price' | 'fixed_price';
-  }
-
-  export namespace MaxGroupTieredPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-  }
 }
 
 export interface PriceEvaluateResponse {
@@ -3348,7 +3016,6 @@ export type PriceCreateParams =
   | PriceCreateParams.NewFloatingThresholdTotalAmountPrice
   | PriceCreateParams.NewFloatingTieredPackagePrice
   | PriceCreateParams.NewFloatingGroupedTieredPrice
-  | PriceCreateParams.NewFloatingMaxGroupTieredPrice
   | PriceCreateParams.NewFloatingTieredWithMinimumPrice
   | PriceCreateParams.NewFloatingPackageWithAllocationPrice
   | PriceCreateParams.NewFloatingTieredPackageWithMinimumPrice
@@ -4916,118 +4583,6 @@ export declare namespace PriceCreateParams {
     }
   }
 
-  export interface NewFloatingMaxGroupTieredPrice {
-    /**
-     * The cadence to bill for this price on.
-     */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-    /**
-     * An ISO 4217 currency string for which this price is billed in.
-     */
-    currency: string;
-
-    /**
-     * The id of the item the plan will be associated with.
-     */
-    item_id: string;
-
-    max_group_tiered_config: Record<string, unknown>;
-
-    model_type: 'max_group_tiered';
-
-    /**
-     * The name of the price.
-     */
-    name: string;
-
-    /**
-     * The id of the billable metric for the price. Only needed if the price is
-     * usage-based.
-     */
-    billable_metric_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, the price will be billed in-advance if
-     * this is true, and in-arrears if this is false.
-     */
-    billed_in_advance?: boolean | null;
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    billing_cycle_configuration?: PriceCreateParams.NewFloatingMaxGroupTieredPrice.BillingCycleConfiguration | null;
-
-    /**
-     * The per unit conversion rate of the price currency to the invoicing currency.
-     */
-    conversion_rate?: number | null;
-
-    /**
-     * An alias for the price.
-     */
-    external_price_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, this represents the quantity of units
-     * applied.
-     */
-    fixed_price_quantity?: number | null;
-
-    /**
-     * The property used to group this price on an invoice
-     */
-    invoice_grouping_key?: string | null;
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingMaxGroupTieredPrice.InvoicingCycleConfiguration | null;
-
-    /**
-     * User-specified key/value pairs for the resource. Individual keys can be removed
-     * by setting the value to `null`, and the entire metadata mapping can be cleared
-     * by setting `metadata` to `null`.
-     */
-    metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingMaxGroupTieredPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-  }
-
   export interface NewFloatingTieredWithMinimumPrice {
     /**
      * The cadence to bill for this price on.
@@ -6407,15 +5962,15 @@ export interface PriceEvaluateParams {
 
   /**
    * A boolean
-   * [computed property](../guides/extensibility/advanced-metrics#computed-properties)
-   * used to filter the underlying billable metric
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the underlying billable metric
    */
   filter?: string | null;
 
   /**
    * Properties (or
-   * [computed properties](../guides/extensibility/advanced-metrics#computed-properties))
-   * used to group the underlying billable metric
+   * [computed properties](/extensibility/advanced-metrics#computed-properties)) used
+   * to group the underlying billable metric
    */
   grouping_keys?: Array<string>;
 }

@@ -7,7 +7,7 @@ import { Page, type PageParams } from '../pagination';
 
 export class Items extends APIResource {
   /**
-   * This endpoint is used to create an [Item](../guides/concepts#item).
+   * This endpoint is used to create an [Item](/core-concepts#item).
    */
   create(body: ItemCreateParams, options?: Core.RequestOptions): Core.APIPromise<Item> {
     return this._client.post('/items', { body, ...options });
