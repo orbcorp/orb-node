@@ -8158,7 +8158,7 @@ export namespace SubscriptionCreateParams {
 
   export interface AddPrice {
     /**
-     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's
      * discounts for this price.
      */
     discounts?: Array<AddPrice.Discount> | null;
@@ -8176,14 +8176,14 @@ export namespace SubscriptionCreateParams {
     external_price_id?: string | null;
 
     /**
-     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
-     * maximum amount for this price.
+     * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's maximum
+     * amount for this price.
      */
     maximum_amount?: string | null;
 
     /**
-     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
-     * minimum amount for this price.
+     * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's minimum
+     * amount for this price.
      */
     minimum_amount?: string | null;
 
@@ -10723,7 +10723,7 @@ export namespace SubscriptionCreateParams {
     replaces_price_id: string;
 
     /**
-     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's
      * discounts for the replacement price.
      */
     discounts?: Array<ReplacePrice.Discount> | null;
@@ -10739,14 +10739,14 @@ export namespace SubscriptionCreateParams {
     fixed_price_quantity?: number | null;
 
     /**
-     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
-     * maximum amount for the replacement price.
+     * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's maximum
+     * amount for the replacement price.
      */
     maximum_amount?: string | null;
 
     /**
-     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
-     * minimum amount for the replacement price.
+     * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's minimum
+     * amount for the replacement price.
      */
     minimum_amount?: string | null;
 
@@ -16790,7 +16790,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
 
   export interface AddPrice {
     /**
-     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's
      * discounts for this price.
      */
     discounts?: Array<AddPrice.Discount> | null;
@@ -16808,14 +16808,14 @@ export namespace SubscriptionSchedulePlanChangeParams {
     external_price_id?: string | null;
 
     /**
-     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
-     * maximum amount for this price.
+     * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's maximum
+     * amount for this price.
      */
     maximum_amount?: string | null;
 
     /**
-     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
-     * minimum amount for this price.
+     * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's minimum
+     * amount for this price.
      */
     minimum_amount?: string | null;
 
@@ -19355,7 +19355,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
     replaces_price_id: string;
 
     /**
-     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
+     * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's
      * discounts for the replacement price.
      */
     discounts?: Array<ReplacePrice.Discount> | null;
@@ -19371,14 +19371,14 @@ export namespace SubscriptionSchedulePlanChangeParams {
     fixed_price_quantity?: number | null;
 
     /**
-     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
-     * maximum amount for the replacement price.
+     * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's maximum
+     * amount for the replacement price.
      */
     maximum_amount?: string | null;
 
     /**
-     * @deprecated: [DEPRECATED] Use add_adjustments instead. The subscription's
-     * minimum amount for the replacement price.
+     * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's minimum
+     * amount for the replacement price.
      */
     minimum_amount?: string | null;
 
