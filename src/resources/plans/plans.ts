@@ -106,7 +106,7 @@ export interface Plan {
   created_at: string;
 
   /**
-   * @deprecated: An ISO 4217 currency string or custom pricing unit (`credits`) for
+   * @deprecated An ISO 4217 currency string or custom pricing unit (`credits`) for
    * this plan's prices.
    */
   currency: string;
