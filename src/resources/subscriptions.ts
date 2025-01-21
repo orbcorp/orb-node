@@ -13351,6 +13351,7 @@ export namespace SubscriptionPriceIntervalsParams {
       | Add.NewFloatingThresholdTotalAmountPrice
       | Add.NewFloatingTieredPackagePrice
       | Add.NewFloatingGroupedTieredPrice
+      | Add.NewFloatingMaxGroupTieredPrice
       | Add.NewFloatingTieredWithMinimumPrice
       | Add.NewFloatingPackageWithAllocationPrice
       | Add.NewFloatingTieredPackageWithMinimumPrice
@@ -14993,6 +14994,118 @@ export namespace SubscriptionPriceIntervalsParams {
       }
     }
 
+    export interface NewFloatingMaxGroupTieredPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the plan will be associated with.
+       */
+      item_id: string;
+
+      max_group_tiered_config: Record<string, unknown>;
+
+      model_type: 'max_group_tiered';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingMaxGroupTieredPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingMaxGroupTieredPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingMaxGroupTieredPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
     export interface NewFloatingTieredWithMinimumPrice {
       /**
        * The cadence to bill for this price on.
@@ -16560,7 +16673,8 @@ export interface SubscriptionSchedulePlanChangeParams {
 
   /**
    * The date that the plan change should take effect. This parameter can only be
-   * passed if the `change_option` is `requested_date`.
+   * passed if the `change_option` is `requested_date`. If a date with no time is
+   * passed, the plan change will happen at midnight in the customer's timezone.
    */
   change_date?: string | null;
 
