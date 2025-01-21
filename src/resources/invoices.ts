@@ -287,7 +287,7 @@ export interface Invoice {
   customer_tax_id: Invoice.CustomerTaxID | null;
 
   /**
-   * @deprecated: This field is deprecated in favor of `discounts`. If a `discounts`
+   * @deprecated This field is deprecated in favor of `discounts`. If a `discounts`
    * list is provided, the first discount in the list will be returned. If the list
    * is empty, `None` will be returned.
    */
@@ -1277,7 +1277,7 @@ export interface InvoiceFetchUpcomingResponse {
   customer_tax_id: InvoiceFetchUpcomingResponse.CustomerTaxID | null;
 
   /**
-   * @deprecated: This field is deprecated in favor of `discounts`. If a `discounts`
+   * @deprecated This field is deprecated in favor of `discounts`. If a `discounts`
    * list is provided, the first discount in the list will be returned. If the list
    * is empty, `None` will be returned.
    */
