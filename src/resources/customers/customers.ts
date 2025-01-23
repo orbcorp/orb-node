@@ -139,6 +139,42 @@ export class Customers extends APIResource {
   }
 
   /**
+   * Sync Orb's payment methods for the customer with their gateway.
+   *
+   * This method can be called before taking an action that may cause the customer to
+   * be charged, ensuring that the most up-to-date payment method is charged.
+   *
+   * **Note**: This functionality is currently only available for Stripe.
+   */
+  syncPaymentMethodsFromGateway(
+    externalCustomerId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void> {
+    return this._client.post(
+      `/customers/external_customer_id/${externalCustomerId}/sync_payment_methods_from_gateway`,
+      { ...options, headers: { Accept: '*/*', ...options?.headers } },
+    );
+  }
+
+  /**
+   * Sync Orb's payment methods for the customer with their gateway.
+   *
+   * This method can be called before taking an action that may cause the customer to
+   * be charged, ensuring that the most up-to-date payment method is charged.
+   *
+   * **Note**: This functionality is currently only available for Stripe.
+   */
+  syncPaymentMethodsFromGatewayByExternalCustomerId(
+    customerId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void> {
+    return this._client.post(`/customers/${customerId}/sync_payment_methods_from_gateway`, {
+      ...options,
+      headers: { Accept: '*/*', ...options?.headers },
+    });
+  }
+
+  /**
    * This endpoint is used to update customer details given an `external_customer_id`
    * (see [Customer ID Aliases](/events-and-metrics/customer-aliases)). Note that the
    * resource and semantics of this endpoint exactly mirror
