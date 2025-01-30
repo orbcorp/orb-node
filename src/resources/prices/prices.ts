@@ -147,7 +147,7 @@ export type Price =
   | Price.MatrixWithDisplayNamePrice
   | Price.BulkWithProrationPrice
   | Price.GroupedTieredPackagePrice
-  | Price.MaxGroupTieredPrice;
+  | Price.MaxGroupTieredPackagePrice;
 
 export namespace Price {
   export interface UnitPrice {
@@ -2999,12 +2999,12 @@ export namespace Price {
     }
   }
 
-  export interface MaxGroupTieredPrice {
+  export interface MaxGroupTieredPackagePrice {
     id: string;
 
-    billable_metric: MaxGroupTieredPrice.BillableMetric | null;
+    billable_metric: MaxGroupTieredPackagePrice.BillableMetric | null;
 
-    billing_cycle_configuration: MaxGroupTieredPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: MaxGroupTieredPackagePrice.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -3012,7 +3012,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: MaxGroupTieredPrice.CreditAllocation | null;
+    credit_allocation: MaxGroupTieredPackagePrice.CreditAllocation | null;
 
     currency: string;
 
@@ -3022,13 +3022,13 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: MaxGroupTieredPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: MaxGroupTieredPackagePrice.InvoicingCycleConfiguration | null;
 
-    item: MaxGroupTieredPrice.Item;
+    item: MaxGroupTieredPackagePrice.Item;
 
-    max_group_tiered_config: Record<string, unknown>;
+    max_group_tiered_package_config: Record<string, unknown>;
 
-    maximum: MaxGroupTieredPrice.Maximum | null;
+    maximum: MaxGroupTieredPackagePrice.Maximum | null;
 
     maximum_amount: string | null;
 
@@ -3040,11 +3040,11 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: MaxGroupTieredPrice.Minimum | null;
+    minimum: MaxGroupTieredPackagePrice.Minimum | null;
 
     minimum_amount: string | null;
 
-    model_type: 'max_group_tiered';
+    model_type: 'max_group_tiered_package';
 
     name: string;
 
@@ -3053,7 +3053,7 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
   }
 
-  export namespace MaxGroupTieredPrice {
+  export namespace MaxGroupTieredPackagePrice {
     export interface BillableMetric {
       id: string;
     }
@@ -3127,7 +3127,7 @@ export type PriceCreateParams =
   | PriceCreateParams.NewFloatingThresholdTotalAmountPrice
   | PriceCreateParams.NewFloatingTieredPackagePrice
   | PriceCreateParams.NewFloatingGroupedTieredPrice
-  | PriceCreateParams.NewFloatingMaxGroupTieredPrice
+  | PriceCreateParams.NewFloatingMaxGroupTieredPackagePrice
   | PriceCreateParams.NewFloatingTieredWithMinimumPrice
   | PriceCreateParams.NewFloatingPackageWithAllocationPrice
   | PriceCreateParams.NewFloatingTieredPackageWithMinimumPrice
@@ -4695,7 +4695,7 @@ export declare namespace PriceCreateParams {
     }
   }
 
-  export interface NewFloatingMaxGroupTieredPrice {
+  export interface NewFloatingMaxGroupTieredPackagePrice {
     /**
      * The cadence to bill for this price on.
      */
@@ -4711,9 +4711,9 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
-    max_group_tiered_config: Record<string, unknown>;
+    max_group_tiered_package_config: Record<string, unknown>;
 
-    model_type: 'max_group_tiered';
+    model_type: 'max_group_tiered_package';
 
     /**
      * The name of the price.
@@ -4736,7 +4736,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: PriceCreateParams.NewFloatingMaxGroupTieredPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: PriceCreateParams.NewFloatingMaxGroupTieredPackagePrice.BillingCycleConfiguration | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -4763,7 +4763,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingMaxGroupTieredPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: PriceCreateParams.NewFloatingMaxGroupTieredPackagePrice.InvoicingCycleConfiguration | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4773,7 +4773,7 @@ export declare namespace PriceCreateParams {
     metadata?: Record<string, string | null> | null;
   }
 
-  export namespace NewFloatingMaxGroupTieredPrice {
+  export namespace NewFloatingMaxGroupTieredPackagePrice {
     /**
      * For custom cadence: specifies the duration of the billing period in days or
      * months.

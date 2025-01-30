@@ -13351,7 +13351,7 @@ export namespace SubscriptionPriceIntervalsParams {
       | Add.NewFloatingThresholdTotalAmountPrice
       | Add.NewFloatingTieredPackagePrice
       | Add.NewFloatingGroupedTieredPrice
-      | Add.NewFloatingMaxGroupTieredPrice
+      | Add.NewFloatingMaxGroupTieredPackagePrice
       | Add.NewFloatingTieredWithMinimumPrice
       | Add.NewFloatingPackageWithAllocationPrice
       | Add.NewFloatingTieredPackageWithMinimumPrice
@@ -14994,7 +14994,7 @@ export namespace SubscriptionPriceIntervalsParams {
       }
     }
 
-    export interface NewFloatingMaxGroupTieredPrice {
+    export interface NewFloatingMaxGroupTieredPackagePrice {
       /**
        * The cadence to bill for this price on.
        */
@@ -15010,9 +15010,9 @@ export namespace SubscriptionPriceIntervalsParams {
        */
       item_id: string;
 
-      max_group_tiered_config: Record<string, unknown>;
+      max_group_tiered_package_config: Record<string, unknown>;
 
-      model_type: 'max_group_tiered';
+      model_type: 'max_group_tiered_package';
 
       /**
        * The name of the price.
@@ -15035,7 +15035,7 @@ export namespace SubscriptionPriceIntervalsParams {
        * For custom cadence: specifies the duration of the billing period in days or
        * months.
        */
-      billing_cycle_configuration?: NewFloatingMaxGroupTieredPrice.BillingCycleConfiguration | null;
+      billing_cycle_configuration?: NewFloatingMaxGroupTieredPackagePrice.BillingCycleConfiguration | null;
 
       /**
        * The per unit conversion rate of the price currency to the invoicing currency.
@@ -15062,7 +15062,7 @@ export namespace SubscriptionPriceIntervalsParams {
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
-      invoicing_cycle_configuration?: NewFloatingMaxGroupTieredPrice.InvoicingCycleConfiguration | null;
+      invoicing_cycle_configuration?: NewFloatingMaxGroupTieredPackagePrice.InvoicingCycleConfiguration | null;
 
       /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -15072,7 +15072,7 @@ export namespace SubscriptionPriceIntervalsParams {
       metadata?: Record<string, string | null> | null;
     }
 
-    export namespace NewFloatingMaxGroupTieredPrice {
+    export namespace NewFloatingMaxGroupTieredPackagePrice {
       /**
        * For custom cadence: specifies the duration of the billing period in days or
        * months.
