@@ -497,7 +497,7 @@ export interface PlanCreateParams {
     | PlanCreateParams.NewPlanMatrixWithDisplayNamePrice
     | PlanCreateParams.NewPlanBulkWithProrationPrice
     | PlanCreateParams.NewPlanGroupedTieredPackagePrice
-    | PlanCreateParams.NewPlanMaxGroupTieredPrice
+    | PlanCreateParams.NewPlanMaxGroupTieredPackagePrice
   >;
 
   /**
@@ -3073,7 +3073,7 @@ export namespace PlanCreateParams {
     }
   }
 
-  export interface NewPlanMaxGroupTieredPrice {
+  export interface NewPlanMaxGroupTieredPackagePrice {
     /**
      * The cadence to bill for this price on.
      */
@@ -3084,9 +3084,9 @@ export namespace PlanCreateParams {
      */
     item_id: string;
 
-    max_group_tiered_config: Record<string, unknown>;
+    max_group_tiered_package_config: Record<string, unknown>;
 
-    model_type: 'max_group_tiered';
+    model_type: 'max_group_tiered_package';
 
     /**
      * The name of the price.
@@ -3109,7 +3109,7 @@ export namespace PlanCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewPlanMaxGroupTieredPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: NewPlanMaxGroupTieredPackagePrice.BillingCycleConfiguration | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -3142,7 +3142,7 @@ export namespace PlanCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewPlanMaxGroupTieredPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: NewPlanMaxGroupTieredPackagePrice.InvoicingCycleConfiguration | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3152,7 +3152,7 @@ export namespace PlanCreateParams {
     metadata?: Record<string, string | null> | null;
   }
 
-  export namespace NewPlanMaxGroupTieredPrice {
+  export namespace NewPlanMaxGroupTieredPackagePrice {
     /**
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
