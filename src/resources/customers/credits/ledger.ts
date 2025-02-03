@@ -2075,7 +2075,7 @@ export declare namespace LedgerCreateEntryParams {
      * per_unit_cost_basis, as the calculation of the invoice total is done on that
      * basis.
      */
-    invoice_settings?: LedgerCreateEntryParams.AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
+    invoice_settings?: AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -2326,7 +2326,7 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
      * per_unit_cost_basis, as the calculation of the invoice total is done on that
      * basis.
      */
-    invoice_settings?: LedgerCreateEntryByExternalIDParams.AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
+    invoice_settings?: AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
