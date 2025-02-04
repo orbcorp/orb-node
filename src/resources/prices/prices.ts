@@ -147,7 +147,9 @@ export type Price =
   | Price.MatrixWithDisplayNamePrice
   | Price.BulkWithProrationPrice
   | Price.GroupedTieredPackagePrice
-  | Price.MaxGroupTieredPackagePrice;
+  | Price.MaxGroupTieredPackagePrice
+  | Price.ScalableMatrixWithUnitPricingPrice
+  | Price.ScalableMatrixWithTieredPricingPrice;
 
 export namespace Price {
   export interface UnitPrice {
@@ -202,6 +204,8 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     unit_config: UnitPrice.UnitConfig;
+
+    dimensional_price_configuration?: UnitPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace UnitPrice {
@@ -265,6 +269,12 @@ export namespace Price {
        */
       unit_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface PackagePrice {
@@ -319,6 +329,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: PackagePrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace PackagePrice {
@@ -388,6 +400,12 @@ export namespace Price {
        */
       package_size: number;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface MatrixPrice {
@@ -442,6 +460,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: MatrixPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace MatrixPrice {
@@ -531,6 +551,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface TieredPrice {
@@ -585,6 +611,8 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     tiered_config: TieredPrice.TieredConfig;
+
+    dimensional_price_configuration?: TieredPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace TieredPrice {
@@ -667,6 +695,12 @@ export namespace Price {
         last_unit?: number | null;
       }
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface TieredBpsPrice {
@@ -721,6 +755,8 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     tiered_bps_config: TieredBpsPrice.TieredBpsConfig;
+
+    dimensional_price_configuration?: TieredBpsPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace TieredBpsPrice {
@@ -809,6 +845,12 @@ export namespace Price {
         per_unit_maximum?: string | null;
       }
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface BpsPrice {
@@ -863,6 +905,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: BpsPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace BpsPrice {
@@ -931,6 +975,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface BulkBpsPrice {
@@ -985,6 +1035,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: BulkBpsPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace BulkBpsPrice {
@@ -1068,6 +1120,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface BulkPrice {
@@ -1122,6 +1180,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: BulkPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace BulkPrice {
@@ -1199,6 +1259,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface ThresholdTotalAmountPrice {
@@ -1253,6 +1319,8 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     threshold_total_amount_config: Record<string, unknown>;
+
+    dimensional_price_configuration?: ThresholdTotalAmountPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace ThresholdTotalAmountPrice {
@@ -1309,6 +1377,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface TieredPackagePrice {
@@ -1363,6 +1437,8 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     tiered_package_config: Record<string, unknown>;
+
+    dimensional_price_configuration?: TieredPackagePrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace TieredPackagePrice {
@@ -1419,6 +1495,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface GroupedTieredPrice {
@@ -1473,6 +1555,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: GroupedTieredPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace GroupedTieredPrice {
@@ -1529,6 +1613,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface TieredWithMinimumPrice {
@@ -1583,6 +1673,8 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     tiered_with_minimum_config: Record<string, unknown>;
+
+    dimensional_price_configuration?: TieredWithMinimumPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace TieredWithMinimumPrice {
@@ -1639,6 +1731,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface TieredPackageWithMinimumPrice {
@@ -1693,6 +1791,8 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     tiered_package_with_minimum_config: Record<string, unknown>;
+
+    dimensional_price_configuration?: TieredPackageWithMinimumPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace TieredPackageWithMinimumPrice {
@@ -1749,6 +1849,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface PackageWithAllocationPrice {
@@ -1803,6 +1909,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: PackageWithAllocationPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace PackageWithAllocationPrice {
@@ -1859,6 +1967,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface UnitWithPercentPrice {
@@ -1913,6 +2027,8 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     unit_with_percent_config: Record<string, unknown>;
+
+    dimensional_price_configuration?: UnitWithPercentPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace UnitWithPercentPrice {
@@ -1969,6 +2085,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface MatrixWithAllocationPrice {
@@ -2023,6 +2145,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: MatrixWithAllocationPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace MatrixWithAllocationPrice {
@@ -2117,6 +2241,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface TieredWithProrationPrice {
@@ -2171,6 +2301,8 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     tiered_with_proration_config: Record<string, unknown>;
+
+    dimensional_price_configuration?: TieredWithProrationPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace TieredWithProrationPrice {
@@ -2227,6 +2359,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface UnitWithProrationPrice {
@@ -2281,6 +2419,8 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     unit_with_proration_config: Record<string, unknown>;
+
+    dimensional_price_configuration?: UnitWithProrationPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace UnitWithProrationPrice {
@@ -2337,6 +2477,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface GroupedAllocationPrice {
@@ -2391,6 +2537,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: GroupedAllocationPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace GroupedAllocationPrice {
@@ -2447,6 +2595,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface GroupedWithProratedMinimumPrice {
@@ -2501,6 +2655,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: GroupedWithProratedMinimumPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace GroupedWithProratedMinimumPrice {
@@ -2557,6 +2713,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface GroupedWithMeteredMinimumPrice {
@@ -2611,6 +2773,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: GroupedWithMeteredMinimumPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace GroupedWithMeteredMinimumPrice {
@@ -2667,6 +2831,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface MatrixWithDisplayNamePrice {
@@ -2721,6 +2891,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: MatrixWithDisplayNamePrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace MatrixWithDisplayNamePrice {
@@ -2777,6 +2949,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface BulkWithProrationPrice {
@@ -2831,6 +3009,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: BulkWithProrationPrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace BulkWithProrationPrice {
@@ -2887,6 +3067,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface GroupedTieredPackagePrice {
@@ -2941,6 +3127,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: GroupedTieredPackagePrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace GroupedTieredPackagePrice {
@@ -2997,6 +3185,12 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 
   export interface MaxGroupTieredPackagePrice {
@@ -3051,6 +3245,8 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    dimensional_price_configuration?: MaxGroupTieredPackagePrice.DimensionalPriceConfiguration | null;
   }
 
   export namespace MaxGroupTieredPackagePrice {
@@ -3107,6 +3303,248 @@ export namespace Price {
        */
       minimum_amount: string;
     }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
+  }
+
+  export interface ScalableMatrixWithUnitPricingPrice {
+    id: string;
+
+    billable_metric: ScalableMatrixWithUnitPricingPrice.BillableMetric | null;
+
+    billing_cycle_configuration: ScalableMatrixWithUnitPricingPrice.BillingCycleConfiguration;
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    conversion_rate: number | null;
+
+    created_at: string;
+
+    credit_allocation: ScalableMatrixWithUnitPricingPrice.CreditAllocation | null;
+
+    currency: string;
+
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: ScalableMatrixWithUnitPricingPrice.InvoicingCycleConfiguration | null;
+
+    item: ScalableMatrixWithUnitPricingPrice.Item;
+
+    maximum: ScalableMatrixWithUnitPricingPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    minimum: ScalableMatrixWithUnitPricingPrice.Minimum | null;
+
+    minimum_amount: string | null;
+
+    model_type: 'scalable_matrix_with_unit_pricing';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price';
+
+    scalable_matrix_with_unit_pricing_config: Record<string, unknown>;
+
+    dimensional_price_configuration?: ScalableMatrixWithUnitPricingPrice.DimensionalPriceConfiguration | null;
+  }
+
+  export namespace ScalableMatrixWithUnitPricingPrice {
+    export interface BillableMetric {
+      id: string;
+    }
+
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
+    }
+
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
+    export interface Item {
+      id: string;
+
+      name: string;
+    }
+
+    export interface Maximum {
+      /**
+       * List of price_ids that this maximum amount applies to. For plan/plan phase
+       * maximums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Maximum amount applied
+       */
+      maximum_amount: string;
+    }
+
+    export interface Minimum {
+      /**
+       * List of price_ids that this minimum amount applies to. For plan/plan phase
+       * minimums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Minimum amount applied
+       */
+      minimum_amount: string;
+    }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
+  }
+
+  export interface ScalableMatrixWithTieredPricingPrice {
+    id: string;
+
+    billable_metric: ScalableMatrixWithTieredPricingPrice.BillableMetric | null;
+
+    billing_cycle_configuration: ScalableMatrixWithTieredPricingPrice.BillingCycleConfiguration;
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    conversion_rate: number | null;
+
+    created_at: string;
+
+    credit_allocation: ScalableMatrixWithTieredPricingPrice.CreditAllocation | null;
+
+    currency: string;
+
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: ScalableMatrixWithTieredPricingPrice.InvoicingCycleConfiguration | null;
+
+    item: ScalableMatrixWithTieredPricingPrice.Item;
+
+    maximum: ScalableMatrixWithTieredPricingPrice.Maximum | null;
+
+    maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    minimum: ScalableMatrixWithTieredPricingPrice.Minimum | null;
+
+    minimum_amount: string | null;
+
+    model_type: 'scalable_matrix_with_tiered_pricing';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price';
+
+    scalable_matrix_with_tiered_pricing_config: Record<string, unknown>;
+
+    dimensional_price_configuration?: ScalableMatrixWithTieredPricingPrice.DimensionalPriceConfiguration | null;
+  }
+
+  export namespace ScalableMatrixWithTieredPricingPrice {
+    export interface BillableMetric {
+      id: string;
+    }
+
+    export interface BillingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
+    export interface CreditAllocation {
+      allows_rollover: boolean;
+
+      currency: string;
+    }
+
+    export interface InvoicingCycleConfiguration {
+      duration: number;
+
+      duration_unit: 'day' | 'month';
+    }
+
+    export interface Item {
+      id: string;
+
+      name: string;
+    }
+
+    export interface Maximum {
+      /**
+       * List of price_ids that this maximum amount applies to. For plan/plan phase
+       * maximums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Maximum amount applied
+       */
+      maximum_amount: string;
+    }
+
+    export interface Minimum {
+      /**
+       * List of price_ids that this minimum amount applies to. For plan/plan phase
+       * minimums, this can be a subset of prices.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * Minimum amount applied
+       */
+      minimum_amount: string;
+    }
+
+    export interface DimensionalPriceConfiguration {
+      dimension_values: Array<string>;
+
+      dimensional_price_group_id: string;
+    }
   }
 }
 
@@ -3139,7 +3577,9 @@ export type PriceCreateParams =
   | PriceCreateParams.NewFloatingGroupedWithMeteredMinimumPrice
   | PriceCreateParams.NewFloatingMatrixWithDisplayNamePrice
   | PriceCreateParams.NewFloatingBulkWithProrationPrice
-  | PriceCreateParams.NewFloatingGroupedTieredPackagePrice;
+  | PriceCreateParams.NewFloatingGroupedTieredPackagePrice
+  | PriceCreateParams.NewFloatingScalableMatrixWithUnitPricingPrice
+  | PriceCreateParams.NewFloatingScalableMatrixWithTieredPricingPrice;
 
 export declare namespace PriceCreateParams {
   export interface NewFloatingUnitPrice {
@@ -6118,6 +6558,230 @@ export declare namespace PriceCreateParams {
   }
 
   export namespace NewFloatingGroupedTieredPackagePrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+  }
+
+  export interface NewFloatingScalableMatrixWithUnitPricingPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'scalable_matrix_with_unit_pricing';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    scalable_matrix_with_unit_pricing_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: NewFloatingScalableMatrixWithUnitPricingPrice.BillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: NewFloatingScalableMatrixWithUnitPricingPrice.InvoicingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingScalableMatrixWithUnitPricingPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+  }
+
+  export interface NewFloatingScalableMatrixWithTieredPricingPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the plan will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'scalable_matrix_with_tiered_pricing';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    scalable_matrix_with_tiered_pricing_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: NewFloatingScalableMatrixWithTieredPricingPrice.BillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: NewFloatingScalableMatrixWithTieredPricingPrice.InvoicingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewFloatingScalableMatrixWithTieredPricingPrice {
     /**
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
