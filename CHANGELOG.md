@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.54.0 (2025-02-04)
+
+Full Changelog: [v4.53.0...v4.54.0](https://github.com/orbcorp/orb-node/compare/v4.53.0...v4.54.0)
+
+### Features
+
+* **api:** api update ([#497](https://github.com/orbcorp/orb-node/issues/497)) ([9e9495b](https://github.com/orbcorp/orb-node/commit/9e9495bdf7a15da462953cfbf01a21388f258f60))
+
+
+### Chores
+
+* fix references to nested types ([#495](https://github.com/orbcorp/orb-node/issues/495)) ([c084727](https://github.com/orbcorp/orb-node/commit/c0847275be95bddf7408ab85d89474b632991c83))
+
 ## 4.53.0 (2025-01-30)
 
 Full Changelog: [v4.52.0...v4.53.0](https://github.com/orbcorp/orb-node/compare/v4.52.0...v4.53.0)
