@@ -25,9 +25,31 @@ export interface InvoiceLineItemCreateResponse {
   id: string;
 
   /**
+   * The line amount after any adjustments, before overage conversion, credits and
+   * partial invoicing.
+   */
+  adjusted_subtotal: string;
+
+  /**
+   * All adjustments applied to the line item.
+   */
+  adjustments: Array<
+    | InvoiceLineItemCreateResponse.AmountDiscountAdjustment
+    | InvoiceLineItemCreateResponse.PercentageDiscountAdjustment
+    | InvoiceLineItemCreateResponse.UsageDiscountAdjustment
+    | InvoiceLineItemCreateResponse.MinimumAdjustment
+    | InvoiceLineItemCreateResponse.MaximumAdjustment
+  >;
+
+  /**
    * The final amount after any discounts or minimums.
    */
   amount: string;
+
+  /**
+   * The number of credits used
+   */
+  credits_applied: string;
 
   discount: Shared.Discount | null;
 
@@ -43,18 +65,35 @@ export interface InvoiceLineItemCreateResponse {
    */
   grouping: string | null;
 
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`.
+   */
   maximum: InvoiceLineItemCreateResponse.Maximum | null;
 
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`.
+   */
   maximum_amount: string | null;
 
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`.
+   */
   minimum: InvoiceLineItemCreateResponse.Minimum | null;
 
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`.
+   */
   minimum_amount: string | null;
 
   /**
    * The name of the price associated with this line item.
    */
   name: string;
+
+  /**
+   * Any amount applied from a partial invoice
+   */
+  partially_invoiced_amount: string;
 
   /**
    * The Price resource represents a price that can be billed on a subscription,
@@ -100,6 +139,179 @@ export interface InvoiceLineItemCreateResponse {
 }
 
 export namespace InvoiceLineItemCreateResponse {
+  export interface AmountDiscountAdjustment {
+    id: string;
+
+    adjustment_type: 'amount_discount';
+
+    /**
+     * The amount by which to discount the prices this adjustment applies to in a given
+     * billing period.
+     */
+    amount_discount: string;
+
+    /**
+     * The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The plan phase in which this adjustment is active.
+     */
+    plan_phase_order: number | null;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+  }
+
+  export interface PercentageDiscountAdjustment {
+    id: string;
+
+    adjustment_type: 'percentage_discount';
+
+    /**
+     * The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The percentage (as a value between 0 and 1) by which to discount the price
+     * intervals this adjustment applies to in a given billing period.
+     */
+    percentage_discount: number;
+
+    /**
+     * The plan phase in which this adjustment is active.
+     */
+    plan_phase_order: number | null;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+  }
+
+  export interface UsageDiscountAdjustment {
+    id: string;
+
+    adjustment_type: 'usage_discount';
+
+    /**
+     * The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The plan phase in which this adjustment is active.
+     */
+    plan_phase_order: number | null;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+
+    /**
+     * The number of usage units by which to discount the price this adjustment applies
+     * to in a given billing period.
+     */
+    usage_discount: number;
+  }
+
+  export interface MinimumAdjustment {
+    id: string;
+
+    adjustment_type: 'minimum';
+
+    /**
+     * The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The item ID that revenue from this minimum will be attributed to.
+     */
+    item_id: string;
+
+    /**
+     * The minimum amount to charge in a given billing period for the prices this
+     * adjustment applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The plan phase in which this adjustment is active.
+     */
+    plan_phase_order: number | null;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+  }
+
+  export interface MaximumAdjustment {
+    id: string;
+
+    adjustment_type: 'maximum';
+
+    /**
+     * The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The maximum amount to charge in a given billing period for the prices this
+     * adjustment applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The plan phase in which this adjustment is active.
+     */
+    plan_phase_order: number | null;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+  }
+
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`.
+   */
   export interface Maximum {
     /**
      * List of price_ids that this maximum amount applies to. For plan/plan phase
@@ -113,6 +325,9 @@ export namespace InvoiceLineItemCreateResponse {
     maximum_amount: string;
   }
 
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`.
+   */
   export interface Minimum {
     /**
      * List of price_ids that this minimum amount applies to. For plan/plan phase
