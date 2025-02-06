@@ -145,6 +145,7 @@ import {
   Prices,
   PricesPage,
 } from './resources/prices/prices';
+import { WebhookEvent } from './resources/webhooks';
 
 export interface ClientOptions {
   /**
@@ -518,6 +519,8 @@ export declare namespace Orb {
     type DimensionalPriceGroupCreateParams as DimensionalPriceGroupCreateParams,
     type DimensionalPriceGroupListParams as DimensionalPriceGroupListParams,
   };
+
+  export { type WebhookEvent as WebhookEvent };
 
   export type AmountDiscount = API.AmountDiscount;
   export type BillingCycleRelativeDate = API.BillingCycleRelativeDate;
