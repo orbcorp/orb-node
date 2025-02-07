@@ -25,29 +25,30 @@ export interface InvoiceLineItemCreateResponse {
   id: string;
 
   /**
-   * The line amount after any adjustments, before overage conversion, credits and
+   * The line amount after any adjustments and before overage conversion, credits and
    * partial invoicing.
    */
   adjusted_subtotal: string;
 
   /**
-   * All adjustments applied to the line item.
+   * All adjustments (ie. maximums, minimums, discounts) applied to the line item.
    */
   adjustments: Array<
-    | InvoiceLineItemCreateResponse.AmountDiscountAdjustment
-    | InvoiceLineItemCreateResponse.PercentageDiscountAdjustment
-    | InvoiceLineItemCreateResponse.UsageDiscountAdjustment
-    | InvoiceLineItemCreateResponse.MinimumAdjustment
-    | InvoiceLineItemCreateResponse.MaximumAdjustment
+    | InvoiceLineItemCreateResponse.MonetaryUsageDiscountAdjustment
+    | InvoiceLineItemCreateResponse.MonetaryAmountDiscountAdjustment
+    | InvoiceLineItemCreateResponse.MonetaryPercentageDiscountAdjustment
+    | InvoiceLineItemCreateResponse.MonetaryMinimumAdjustment
+    | InvoiceLineItemCreateResponse.MonetaryMaximumAdjustment
   >;
 
   /**
-   * The final amount after any discounts or minimums.
+   * The final amount for a line item after all adjustments and pre paid credits have
+   * been applied.
    */
   amount: string;
 
   /**
-   * The number of credits used
+   * The number of prepaid credits applied.
    */
   credits_applied: string;
 
@@ -109,6 +110,9 @@ export interface InvoiceLineItemCreateResponse {
    */
   price: PricesAPI.Price | null;
 
+  /**
+   * Either the fixed fee quantity or the usage during the service period.
+   */
   quantity: number;
 
   /**
@@ -127,7 +131,7 @@ export interface InvoiceLineItemCreateResponse {
   >;
 
   /**
-   * The line amount before any line item-specific discounts or minimums.
+   * The line amount before before any adjustments.
    */
   subtotal: string;
 
@@ -139,10 +143,48 @@ export interface InvoiceLineItemCreateResponse {
 }
 
 export namespace InvoiceLineItemCreateResponse {
-  export interface AmountDiscountAdjustment {
+  export interface MonetaryUsageDiscountAdjustment {
+    id: string;
+
+    adjustment_type: 'usage_discount';
+
+    /**
+     * The value applied by an adjustment.
+     */
+    amount: string;
+
+    /**
+     * The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+
+    /**
+     * The number of usage units by which to discount the price this adjustment applies
+     * to in a given billing period.
+     */
+    usage_discount: number;
+  }
+
+  export interface MonetaryAmountDiscountAdjustment {
     id: string;
 
     adjustment_type: 'amount_discount';
+
+    /**
+     * The value applied by an adjustment.
+     */
+    amount: string;
 
     /**
      * The amount by which to discount the prices this adjustment applies to in a given
@@ -162,20 +204,20 @@ export namespace InvoiceLineItemCreateResponse {
     is_invoice_level: boolean;
 
     /**
-     * The plan phase in which this adjustment is active.
-     */
-    plan_phase_order: number | null;
-
-    /**
      * The reason for the adjustment.
      */
     reason: string | null;
   }
 
-  export interface PercentageDiscountAdjustment {
+  export interface MonetaryPercentageDiscountAdjustment {
     id: string;
 
     adjustment_type: 'percentage_discount';
+
+    /**
+     * The value applied by an adjustment.
+     */
+    amount: string;
 
     /**
      * The price IDs that this adjustment applies to.
@@ -195,53 +237,20 @@ export namespace InvoiceLineItemCreateResponse {
     percentage_discount: number;
 
     /**
-     * The plan phase in which this adjustment is active.
-     */
-    plan_phase_order: number | null;
-
-    /**
      * The reason for the adjustment.
      */
     reason: string | null;
   }
 
-  export interface UsageDiscountAdjustment {
-    id: string;
-
-    adjustment_type: 'usage_discount';
-
-    /**
-     * The price IDs that this adjustment applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * True for adjustments that apply to an entire invocice, false for adjustments
-     * that apply to only one price.
-     */
-    is_invoice_level: boolean;
-
-    /**
-     * The plan phase in which this adjustment is active.
-     */
-    plan_phase_order: number | null;
-
-    /**
-     * The reason for the adjustment.
-     */
-    reason: string | null;
-
-    /**
-     * The number of usage units by which to discount the price this adjustment applies
-     * to in a given billing period.
-     */
-    usage_discount: number;
-  }
-
-  export interface MinimumAdjustment {
+  export interface MonetaryMinimumAdjustment {
     id: string;
 
     adjustment_type: 'minimum';
+
+    /**
+     * The value applied by an adjustment.
+     */
+    amount: string;
 
     /**
      * The price IDs that this adjustment applies to.
@@ -266,20 +275,20 @@ export namespace InvoiceLineItemCreateResponse {
     minimum_amount: string;
 
     /**
-     * The plan phase in which this adjustment is active.
-     */
-    plan_phase_order: number | null;
-
-    /**
      * The reason for the adjustment.
      */
     reason: string | null;
   }
 
-  export interface MaximumAdjustment {
+  export interface MonetaryMaximumAdjustment {
     id: string;
 
     adjustment_type: 'maximum';
+
+    /**
+     * The value applied by an adjustment.
+     */
+    amount: string;
 
     /**
      * The price IDs that this adjustment applies to.
@@ -297,11 +306,6 @@ export namespace InvoiceLineItemCreateResponse {
      * adjustment applies to.
      */
     maximum_amount: string;
-
-    /**
-     * The plan phase in which this adjustment is active.
-     */
-    plan_phase_order: number | null;
 
     /**
      * The reason for the adjustment.
