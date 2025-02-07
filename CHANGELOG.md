@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.55.0 (2025-02-07)
+
+Full Changelog: [v4.54.0...v4.55.0](https://github.com/orbcorp/orb-node/compare/v4.54.0...v4.55.0)
+
+### Features
+
+* **api:** api update ([#501](https://github.com/orbcorp/orb-node/issues/501)) ([c47b1f8](https://github.com/orbcorp/orb-node/commit/c47b1f827e39e97eb98ac0970d49d501f31ef969))
+* **client:** send `X-Stainless-Timeout` header ([#499](https://github.com/orbcorp/orb-node/issues/499)) ([bdbbbcb](https://github.com/orbcorp/orb-node/commit/bdbbbcb430640cccc4d648e672e72e2506f64373))
+
 ## 4.54.0 (2025-02-04)
 
 Full Changelog: [v4.53.0...v4.54.0](https://github.com/orbcorp/orb-node/compare/v4.53.0...v4.54.0)
