@@ -133,6 +133,13 @@ export interface BackfillCreateResponse {
   events_ingested: number;
 
   /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
    * The time at which this backfill was reverted.
    */
   reverted_at: string | null;
@@ -179,6 +186,13 @@ export interface BackfillListResponse {
    * The number of events ingested in this backfill.
    */
   events_ingested: number;
+
+  /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
 
   /**
    * The time at which this backfill was reverted.
@@ -229,6 +243,13 @@ export interface BackfillCloseResponse {
   events_ingested: number;
 
   /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
    * The time at which this backfill was reverted.
    */
   reverted_at: string | null;
@@ -277,6 +298,13 @@ export interface BackfillFetchResponse {
   events_ingested: number;
 
   /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
    * The time at which this backfill was reverted.
    */
   reverted_at: string | null;
@@ -323,6 +351,13 @@ export interface BackfillRevertResponse {
    * The number of events ingested in this backfill.
    */
   events_ingested: number;
+
+  /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
 
   /**
    * The time at which this backfill was reverted.
