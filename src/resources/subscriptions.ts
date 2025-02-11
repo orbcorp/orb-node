@@ -8157,6 +8157,11 @@ export namespace SubscriptionCreateParams {
 
   export interface AddPrice {
     /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    allocation_price?: AddPrice.AllocationPrice | null;
+
+    /**
      * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's
      * discounts for this price.
      */
@@ -8229,6 +8234,33 @@ export namespace SubscriptionCreateParams {
   }
 
   export namespace AddPrice {
+    /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    export interface AllocationPrice {
+      /**
+       * An amount of the currency to allocate to the customer at the specified cadence.
+       */
+      amount: string;
+
+      /**
+       * The cadence at which to allocate the amount to the customer.
+       */
+      cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+      /**
+       * An ISO 4217 currency string or a custom pricing unit identifier in which to bill
+       * this price.
+       */
+      currency: string;
+
+      /**
+       * Whether the allocated amount should expire at the end of the cadence or roll
+       * over to the next period.
+       */
+      expires_at_end_of_cadence: boolean;
+    }
+
     export interface Discount {
       discount_type: 'percentage' | 'usage' | 'amount';
 
@@ -10722,6 +10754,11 @@ export namespace SubscriptionCreateParams {
     replaces_price_id: string;
 
     /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    allocation_price?: ReplacePrice.AllocationPrice | null;
+
+    /**
      * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's
      * discounts for the replacement price.
      */
@@ -10780,6 +10817,33 @@ export namespace SubscriptionCreateParams {
   }
 
   export namespace ReplacePrice {
+    /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    export interface AllocationPrice {
+      /**
+       * An amount of the currency to allocate to the customer at the specified cadence.
+       */
+      amount: string;
+
+      /**
+       * The cadence at which to allocate the amount to the customer.
+       */
+      cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+      /**
+       * An ISO 4217 currency string or a custom pricing unit identifier in which to bill
+       * this price.
+       */
+      currency: string;
+
+      /**
+       * Whether the allocated amount should expire at the end of the cadence or roll
+       * over to the next period.
+       */
+      expires_at_end_of_cadence: boolean;
+    }
+
     export interface Discount {
       discount_type: 'percentage' | 'usage' | 'amount';
 
@@ -17128,6 +17192,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
 
   export interface AddPrice {
     /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    allocation_price?: AddPrice.AllocationPrice | null;
+
+    /**
      * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's
      * discounts for this price.
      */
@@ -17200,6 +17269,33 @@ export namespace SubscriptionSchedulePlanChangeParams {
   }
 
   export namespace AddPrice {
+    /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    export interface AllocationPrice {
+      /**
+       * An amount of the currency to allocate to the customer at the specified cadence.
+       */
+      amount: string;
+
+      /**
+       * The cadence at which to allocate the amount to the customer.
+       */
+      cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+      /**
+       * An ISO 4217 currency string or a custom pricing unit identifier in which to bill
+       * this price.
+       */
+      currency: string;
+
+      /**
+       * Whether the allocated amount should expire at the end of the cadence or roll
+       * over to the next period.
+       */
+      expires_at_end_of_cadence: boolean;
+    }
+
     export interface Discount {
       discount_type: 'percentage' | 'usage' | 'amount';
 
@@ -19693,6 +19789,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
     replaces_price_id: string;
 
     /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    allocation_price?: ReplacePrice.AllocationPrice | null;
+
+    /**
      * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's
      * discounts for the replacement price.
      */
@@ -19751,6 +19852,33 @@ export namespace SubscriptionSchedulePlanChangeParams {
   }
 
   export namespace ReplacePrice {
+    /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    export interface AllocationPrice {
+      /**
+       * An amount of the currency to allocate to the customer at the specified cadence.
+       */
+      amount: string;
+
+      /**
+       * The cadence at which to allocate the amount to the customer.
+       */
+      cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+      /**
+       * An ISO 4217 currency string or a custom pricing unit identifier in which to bill
+       * this price.
+       */
+      currency: string;
+
+      /**
+       * Whether the allocated amount should expire at the end of the cadence or roll
+       * over to the next period.
+       */
+      expires_at_end_of_cadence: boolean;
+    }
+
     export interface Discount {
       discount_type: 'percentage' | 'usage' | 'amount';
 
