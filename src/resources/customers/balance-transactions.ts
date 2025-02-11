@@ -89,7 +89,8 @@ export interface BalanceTransactionCreateResponse {
     | 'return_from_voiding'
     | 'credit_note_applied'
     | 'credit_note_voided'
-    | 'overpayment_refund';
+    | 'overpayment_refund'
+    | 'external_payment';
 
   /**
    * The value of the amount changed in the transaction.
@@ -155,7 +156,8 @@ export interface BalanceTransactionListResponse {
     | 'return_from_voiding'
     | 'credit_note_applied'
     | 'credit_note_voided'
-    | 'overpayment_refund';
+    | 'overpayment_refund'
+    | 'external_payment';
 
   /**
    * The value of the amount changed in the transaction.
