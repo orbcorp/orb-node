@@ -263,6 +263,12 @@ describe('resource subscriptions', () => {
       ],
       add_prices: [
         {
+          allocation_price: {
+            amount: '10.00',
+            cadence: 'one_time',
+            currency: 'USD',
+            expires_at_end_of_cadence: true,
+          },
           discounts: [
             {
               discount_type: 'percentage',
@@ -331,6 +337,12 @@ describe('resource subscriptions', () => {
       replace_prices: [
         {
           replaces_price_id: 'replaces_price_id',
+          allocation_price: {
+            amount: '10.00',
+            cadence: 'one_time',
+            currency: 'USD',
+            expires_at_end_of_cadence: true,
+          },
           discounts: [
             {
               discount_type: 'percentage',
