@@ -85,6 +85,7 @@ describe('resource subscriptions', () => {
   test('cancel: required and optional params', async () => {
     const response = await client.subscriptions.cancel('subscription_id', {
       cancel_option: 'end_of_subscription_term',
+      allow_invoice_credit_or_void: true,
       cancellation_date: '2019-12-27T18:11:19.117Z',
     });
   });
@@ -466,6 +467,7 @@ describe('resource subscriptions', () => {
     const response = await client.subscriptions.updateFixedFeeQuantity('subscription_id', {
       price_id: 'price_id',
       quantity: 0,
+      allow_invoice_credit_or_void: true,
       change_option: 'immediate',
       effective_date: '2022-12-21',
     });
