@@ -13236,6 +13236,13 @@ export interface SubscriptionCancelParams {
   cancel_option: 'end_of_subscription_term' | 'immediate' | 'requested_date';
 
   /**
+   * If false, this request will fail if it would void an issued invoice or create a
+   * credit note. Consider using this as a safety mechanism if you do not expect
+   * existing invoices to be changed.
+   */
+  allow_invoice_credit_or_void?: boolean | null;
+
+  /**
    * The date that the cancellation should take effect. This parameter can only be
    * passed if the `cancel_option` is `requested_date`.
    */
@@ -13332,6 +13339,13 @@ export interface SubscriptionPriceIntervalsParams {
    * A list of adjustments to add to the subscription.
    */
   add_adjustments?: Array<SubscriptionPriceIntervalsParams.AddAdjustment>;
+
+  /**
+   * If false, this request will fail if it would void an issued invoice or create a
+   * credit note. Consider using this as a safety mechanism if you do not expect
+   * existing invoices to be changed.
+   */
+  allow_invoice_credit_or_void?: boolean | null;
 
   /**
    * A list of price intervals to edit on the subscription.
@@ -22326,6 +22340,13 @@ export namespace SubscriptionSchedulePlanChangeParams {
 
 export interface SubscriptionTriggerPhaseParams {
   /**
+   * If false, this request will fail if it would void an issued invoice or create a
+   * credit note. Consider using this as a safety mechanism if you do not expect
+   * existing invoices to be changed.
+   */
+  allow_invoice_credit_or_void?: boolean | null;
+
+  /**
    * The date on which the phase change should take effect. If not provided, defaults
    * to today in the customer's timezone.
    */
@@ -22346,6 +22367,13 @@ export interface SubscriptionUpdateFixedFeeQuantityParams {
   price_id: string;
 
   quantity: number;
+
+  /**
+   * If false, this request will fail if it would void an issued invoice or create a
+   * credit note. Consider using this as a safety mechanism if you do not expect
+   * existing invoices to be changed.
+   */
+  allow_invoice_credit_or_void?: boolean | null;
 
   /**
    * Determines when the change takes effect. Note that if `effective_date` is
