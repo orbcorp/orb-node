@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.57.0 (2025-02-15)
+
+Full Changelog: [v4.56.0...v4.57.0](https://github.com/orbcorp/orb-node/compare/v4.56.0...v4.57.0)
+
+### Features
+
+* **api:** api update ([#506](https://github.com/orbcorp/orb-node/issues/506)) ([a8ca5ec](https://github.com/orbcorp/orb-node/commit/a8ca5ec2ac40fc2394b66040c747e53079518ddb))
+* **api:** api update ([#508](https://github.com/orbcorp/orb-node/issues/508)) ([e491b0e](https://github.com/orbcorp/orb-node/commit/e491b0ef6a2ac3138847b5dcdda888f5f90a9218))
+
+
+### Bug Fixes
+
+* **client:** fix export map for index exports ([#509](https://github.com/orbcorp/orb-node/issues/509)) ([c994913](https://github.com/orbcorp/orb-node/commit/c9949137fca48db8aed4d430cff6dd934a99a220))
+
 ## 4.56.0 (2025-02-11)
 
 Full Changelog: [v4.55.0...v4.56.0](https://github.com/orbcorp/orb-node/compare/v4.55.0...v4.56.0)
