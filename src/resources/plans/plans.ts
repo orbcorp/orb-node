@@ -539,7 +539,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -659,7 +659,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -785,7 +785,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -931,7 +931,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -1070,7 +1070,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -1217,7 +1217,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -1342,7 +1342,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -1482,7 +1482,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -1614,7 +1614,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -1727,7 +1727,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -1840,7 +1840,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -1953,7 +1953,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -2066,7 +2066,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -2179,7 +2179,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -2292,7 +2292,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -2407,7 +2407,7 @@ export namespace PlanCreateParams {
     grouped_allocation_config: Record<string, unknown>;
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -2520,7 +2520,7 @@ export namespace PlanCreateParams {
     grouped_with_prorated_minimum_config: Record<string, unknown>;
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -2633,7 +2633,7 @@ export namespace PlanCreateParams {
     grouped_with_metered_minimum_config: Record<string, unknown>;
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -2744,7 +2744,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -2859,7 +2859,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -2972,7 +2972,7 @@ export namespace PlanCreateParams {
     grouped_tiered_package_config: Record<string, unknown>;
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -3083,7 +3083,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -3196,7 +3196,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -3309,7 +3309,7 @@ export namespace PlanCreateParams {
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 
@@ -3424,7 +3424,7 @@ export namespace PlanCreateParams {
     cumulative_grouped_bulk_config: Record<string, unknown>;
 
     /**
-     * The id of the item the plan will be associated with.
+     * The id of the item the price will be associated with.
      */
     item_id: string;
 

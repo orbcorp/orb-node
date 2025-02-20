@@ -141,6 +141,11 @@ export namespace CreditNote {
     amount: string;
 
     /**
+     * The id of the item associated with this line item.
+     */
+    item_id: string;
+
+    /**
      * The name of the corresponding invoice line item.
      */
     name: string;

@@ -814,9 +814,9 @@ export class Subscriptions extends APIResource {
    * `plan_phase_order` key to indicate which phase the price should be added to.
    *
    * An object in the list can specify an optional `start_date` and optional
-   * `end_date`. This is equivalent to creating a price interval with the
-   * [add/edit price intervals endpoint](/api-reference/price-interval/add-or-edit-price-intervals).
-   * If unspecified, the start or end date of the phase or subscription will be used.
+   * `end_date`. If `start_date` is unspecified, the start of the phase / plan change
+   * time will be used. If `end_date` is unspecified, it will finish at the end of
+   * the phase / have no end time.
    *
    * An object in the list can specify an optional `minimum_amount`,
    * `maximum_amount`, or `discounts`. This will create adjustments which apply only
@@ -875,8 +875,9 @@ export class Subscriptions extends APIResource {
    * to.
    *
    * An object in the list can specify an optional `start_date` and optional
-   * `end_date`. If unspecified, the start or end date of the phase or subscription
-   * will be used.
+   * `end_date`. If `start_date` is unspecified, the start of the phase / plan change
+   * time will be used. If `end_date` is unspecified, it will finish at the end of
+   * the phase / have no end time.
    *
    * ### Removing adjustments
    *
@@ -8285,7 +8286,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -8411,7 +8412,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -8543,7 +8544,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -8695,7 +8696,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -8840,7 +8841,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -8993,7 +8994,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -9124,7 +9125,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -9270,7 +9271,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -9408,7 +9409,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -9527,7 +9528,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -9646,7 +9647,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -9765,7 +9766,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -9884,7 +9885,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -10003,7 +10004,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -10122,7 +10123,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -10243,7 +10244,7 @@ export namespace SubscriptionCreateParams {
       grouped_allocation_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -10362,7 +10363,7 @@ export namespace SubscriptionCreateParams {
       grouped_with_prorated_minimum_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -10481,7 +10482,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -10868,7 +10869,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -10994,7 +10995,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -11126,7 +11127,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -11278,7 +11279,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -11423,7 +11424,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -11576,7 +11577,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -11707,7 +11708,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -11853,7 +11854,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -11991,7 +11992,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -12110,7 +12111,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -12229,7 +12230,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -12348,7 +12349,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -12467,7 +12468,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -12586,7 +12587,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -12705,7 +12706,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -12826,7 +12827,7 @@ export namespace SubscriptionCreateParams {
       grouped_allocation_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -12945,7 +12946,7 @@ export namespace SubscriptionCreateParams {
       grouped_with_prorated_minimum_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -13064,7 +13065,7 @@ export namespace SubscriptionCreateParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -13529,7 +13530,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -13648,7 +13649,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -13773,7 +13774,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -13918,7 +13919,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -14068,7 +14069,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -14206,7 +14207,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -14352,7 +14353,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -14476,7 +14477,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -14615,7 +14616,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -14746,7 +14747,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -14858,7 +14859,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -14972,7 +14973,7 @@ export namespace SubscriptionPriceIntervalsParams {
       grouped_tiered_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -15082,7 +15083,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -15194,7 +15195,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -15306,7 +15307,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -15418,7 +15419,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -15530,7 +15531,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -15642,7 +15643,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -15754,7 +15755,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -15868,7 +15869,7 @@ export namespace SubscriptionPriceIntervalsParams {
       grouped_allocation_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -15980,7 +15981,7 @@ export namespace SubscriptionPriceIntervalsParams {
       grouped_with_prorated_minimum_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -16092,7 +16093,7 @@ export namespace SubscriptionPriceIntervalsParams {
       grouped_with_metered_minimum_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -16202,7 +16203,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -16316,7 +16317,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -16428,7 +16429,7 @@ export namespace SubscriptionPriceIntervalsParams {
       grouped_tiered_package_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -16538,7 +16539,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -16650,7 +16651,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -16764,7 +16765,7 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -17447,7 +17448,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -17573,7 +17574,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -17705,7 +17706,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -17857,7 +17858,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -18002,7 +18003,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -18155,7 +18156,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -18286,7 +18287,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -18432,7 +18433,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -18570,7 +18571,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -18689,7 +18690,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -18808,7 +18809,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -18927,7 +18928,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -19046,7 +19047,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -19165,7 +19166,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -19284,7 +19285,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -19405,7 +19406,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       grouped_allocation_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -19524,7 +19525,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       grouped_with_prorated_minimum_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -19643,7 +19644,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -20030,7 +20031,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -20156,7 +20157,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -20288,7 +20289,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -20440,7 +20441,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -20585,7 +20586,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -20738,7 +20739,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -20869,7 +20870,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -21015,7 +21016,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -21153,7 +21154,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -21272,7 +21273,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -21391,7 +21392,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -21510,7 +21511,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -21629,7 +21630,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -21748,7 +21749,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -21867,7 +21868,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -21988,7 +21989,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       grouped_allocation_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -22107,7 +22108,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       grouped_with_prorated_minimum_config: Record<string, unknown>;
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
@@ -22226,7 +22227,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
       /**
-       * The id of the item the plan will be associated with.
+       * The id of the item the price will be associated with.
        */
       item_id: string;
 
