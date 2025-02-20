@@ -207,6 +207,8 @@ export class Events extends APIResource {
    *   flexible query engine to determine usage.
    * - Logging a region or cluster with each event can help you provide customers
    *   more granular visibility into their usage.
+   * - If you are using matrix pricing and matching a matrix price key with a
+   *   property, you should ensure the value for that property is sent as a string.
    *
    * We encourage logging this metadata with an eye towards future use cases to
    * ensure full coverage for historical data. The datatype of the value in the
