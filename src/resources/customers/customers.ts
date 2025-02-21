@@ -248,6 +248,11 @@ export interface Customer {
   external_customer_id: string | null;
 
   /**
+   * The hierarchical relationships for this customer.
+   */
+  hierarchy: Customer.Hierarchy;
+
+  /**
    * User specified key-value pairs for the resource. If not present, this defaults
    * to an empty dictionary. Individual keys can be removed by setting the value to
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
@@ -411,6 +416,29 @@ export namespace Customer {
     postal_code: string | null;
 
     state: string | null;
+  }
+
+  /**
+   * The hierarchical relationships for this customer.
+   */
+  export interface Hierarchy {
+    children: Array<Hierarchy.Child>;
+
+    parent: Hierarchy.Parent | null;
+  }
+
+  export namespace Hierarchy {
+    export interface Child {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+
+    export interface Parent {
+      id: string;
+
+      external_customer_id: string | null;
+    }
   }
 
   export interface ShippingAddress {
@@ -756,6 +784,11 @@ export interface CustomerCreateParams {
   external_customer_id?: string | null;
 
   /**
+   * The hierarchical relationships for this customer.
+   */
+  hierarchy?: CustomerCreateParams.Hierarchy | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -928,6 +961,23 @@ export namespace CustomerCreateParams {
     postal_code?: string | null;
 
     state?: string | null;
+  }
+
+  /**
+   * The hierarchical relationships for this customer.
+   */
+  export interface Hierarchy {
+    /**
+     * A list of child customer IDs to add to the hierarchy. The desired child
+     * customers must not already be part of another hierarchy.
+     */
+    child_customer_ids?: Array<string>;
+
+    /**
+     * The ID of the parent customer in the hierarchy. The desired parent customer must
+     * not be a child of another customer.
+     */
+    parent_customer_id?: string | null;
   }
 
   export interface ReportingConfiguration {
@@ -1265,6 +1315,11 @@ export interface CustomerUpdateParams {
   external_customer_id?: string | null;
 
   /**
+   * The hierarchical relationships for this customer.
+   */
+  hierarchy?: CustomerUpdateParams.Hierarchy | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -1439,6 +1494,23 @@ export namespace CustomerUpdateParams {
     postal_code?: string | null;
 
     state?: string | null;
+  }
+
+  /**
+   * The hierarchical relationships for this customer.
+   */
+  export interface Hierarchy {
+    /**
+     * A list of child customer IDs to add to the hierarchy. The desired child
+     * customers must not already be part of another hierarchy.
+     */
+    child_customer_ids?: Array<string>;
+
+    /**
+     * The ID of the parent customer in the hierarchy. The desired parent customer must
+     * not be a child of another customer.
+     */
+    parent_customer_id?: string | null;
   }
 
   export interface ReportingConfiguration {
@@ -1786,6 +1858,11 @@ export interface CustomerUpdateByExternalIDParams {
   external_customer_id?: string | null;
 
   /**
+   * The hierarchical relationships for this customer.
+   */
+  hierarchy?: CustomerUpdateByExternalIDParams.Hierarchy | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -1960,6 +2037,23 @@ export namespace CustomerUpdateByExternalIDParams {
     postal_code?: string | null;
 
     state?: string | null;
+  }
+
+  /**
+   * The hierarchical relationships for this customer.
+   */
+  export interface Hierarchy {
+    /**
+     * A list of child customer IDs to add to the hierarchy. The desired child
+     * customers must not already be part of another hierarchy.
+     */
+    child_customer_ids?: Array<string>;
+
+    /**
+     * The ID of the parent customer in the hierarchy. The desired parent customer must
+     * not be a child of another customer.
+     */
+    parent_customer_id?: string | null;
   }
 
   export interface ReportingConfiguration {

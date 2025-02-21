@@ -43,6 +43,7 @@ describe('resource customers', () => {
       currency: 'currency',
       email_delivery: true,
       external_customer_id: 'external_customer_id',
+      hierarchy: { child_customer_ids: ['string'], parent_customer_id: 'parent_customer_id' },
       metadata: { foo: 'string' },
       payment_provider: 'quickbooks',
       payment_provider_id: 'payment_provider_id',
