@@ -446,6 +446,12 @@ export interface TopUpCreateParams {
   threshold: string;
 
   /**
+   * The date from which the top-up is active. If unspecified, the top-up is active
+   * immediately.
+   */
+  active_from?: string | null;
+
+  /**
    * The number of days or months after which the top-up expires. If unspecified, it
    * does not expire.
    */
@@ -517,6 +523,12 @@ export interface TopUpCreateByExternalIDParams {
    * threshold, the top-up will be triggered.
    */
   threshold: string;
+
+  /**
+   * The date from which the top-up is active. If unspecified, the top-up is active
+   * immediately.
+   */
+  active_from?: string | null;
 
   /**
    * The number of days or months after which the top-up expires. If unspecified, it
