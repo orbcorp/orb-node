@@ -38,6 +38,7 @@ describe('resource topUps', () => {
       },
       per_unit_cost_basis: 'per_unit_cost_basis',
       threshold: 'threshold',
+      active_from: '2019-12-27T18:11:19.117Z',
       expires_after: 0,
       expires_after_unit: 'day',
     });
@@ -121,6 +122,7 @@ describe('resource topUps', () => {
       },
       per_unit_cost_basis: 'per_unit_cost_basis',
       threshold: 'threshold',
+      active_from: '2019-12-27T18:11:19.117Z',
       expires_after: 0,
       expires_after_unit: 'day',
     });
