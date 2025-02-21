@@ -378,6 +378,7 @@ describe('resource subscriptions', () => {
         },
       ],
       trial_duration_days: 999999,
+      usage_customer_ids: ['string'],
     });
   });
 
