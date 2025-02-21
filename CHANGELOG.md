@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.60.0 (2025-02-21)
+
+Full Changelog: [v4.59.0...v4.60.0](https://github.com/orbcorp/orb-node/compare/v4.59.0...v4.60.0)
+
+### Features
+
+* **api:** api update ([#520](https://github.com/orbcorp/orb-node/issues/520)) ([d81afab](https://github.com/orbcorp/orb-node/commit/d81afab7f3a24d0ab0e1d5a3add3947531a6e288))
+
+
+### Chores
+
+* **internal:** fix devcontainers setup ([#518](https://github.com/orbcorp/orb-node/issues/518)) ([c75a3a4](https://github.com/orbcorp/orb-node/commit/c75a3a41ff74f1fe0df9924c881984f5475b9067))
+
 ## 4.59.0 (2025-02-20)
 
 Full Changelog: [v4.58.0...v4.59.0](https://github.com/orbcorp/orb-node/compare/v4.58.0...v4.59.0)
