@@ -22399,7 +22399,7 @@ export interface SubscriptionUpdateFixedFeeQuantityParams {
   /**
    * Determines when the change takes effect. Note that if `effective_date` is
    * specified, this defaults to `effective_date`. Otherwise, this defaults to
-   * `immediate` unless it's explicitly set to `upcoming_invoice.
+   * `immediate` unless it's explicitly set to `upcoming_invoice`.
    */
   change_option?: 'immediate' | 'upcoming_invoice' | 'effective_date';
 
