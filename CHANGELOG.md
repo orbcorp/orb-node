@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.63.0 (2025-02-27)
+
+Full Changelog: [v4.62.0...v4.63.0](https://github.com/orbcorp/orb-node/compare/v4.62.0...v4.63.0)
+
+### Features
+
+* **api:** api update ([#528](https://github.com/orbcorp/orb-node/issues/528)) ([7ae6783](https://github.com/orbcorp/orb-node/commit/7ae678312ced9035bc41c45f3957c57bb4a9c966))
+
 ## 4.62.0 (2025-02-25)
 
 Full Changelog: [v4.61.0...v4.62.0](https://github.com/orbcorp/orb-node/compare/v4.61.0...v4.62.0)
