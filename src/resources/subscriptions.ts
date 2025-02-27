@@ -1635,6 +1635,11 @@ export namespace Subscription {
     end_date: string | null;
 
     /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
      * The fixed fee quantity transitions for this price interval. This is only
      * relevant for fixed fees.
      */
@@ -1659,6 +1664,12 @@ export namespace Subscription {
      * for this price.
      */
     start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
   }
 
   export namespace PriceInterval {
@@ -2321,6 +2332,11 @@ export namespace SubscriptionCreateResponse {
     end_date: string | null;
 
     /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
      * The fixed fee quantity transitions for this price interval. This is only
      * relevant for fixed fees.
      */
@@ -2345,6 +2361,12 @@ export namespace SubscriptionCreateResponse {
      * for this price.
      */
     start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
   }
 
   export namespace PriceInterval {
@@ -2925,6 +2947,11 @@ export namespace SubscriptionCancelResponse {
     end_date: string | null;
 
     /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
      * The fixed fee quantity transitions for this price interval. This is only
      * relevant for fixed fees.
      */
@@ -2949,6 +2976,12 @@ export namespace SubscriptionCancelResponse {
      * for this price.
      */
     start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
   }
 
   export namespace PriceInterval {
@@ -3607,6 +3640,11 @@ export namespace SubscriptionPriceIntervalsResponse {
     end_date: string | null;
 
     /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
      * The fixed fee quantity transitions for this price interval. This is only
      * relevant for fixed fees.
      */
@@ -3631,6 +3669,12 @@ export namespace SubscriptionPriceIntervalsResponse {
      * for this price.
      */
     start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
   }
 
   export namespace PriceInterval {
@@ -4211,6 +4255,11 @@ export namespace SubscriptionSchedulePlanChangeResponse {
     end_date: string | null;
 
     /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
      * The fixed fee quantity transitions for this price interval. This is only
      * relevant for fixed fees.
      */
@@ -4235,6 +4284,12 @@ export namespace SubscriptionSchedulePlanChangeResponse {
      * for this price.
      */
     start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
   }
 
   export namespace PriceInterval {
@@ -4815,6 +4870,11 @@ export namespace SubscriptionTriggerPhaseResponse {
     end_date: string | null;
 
     /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
      * The fixed fee quantity transitions for this price interval. This is only
      * relevant for fixed fees.
      */
@@ -4839,6 +4899,12 @@ export namespace SubscriptionTriggerPhaseResponse {
      * for this price.
      */
     start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
   }
 
   export namespace PriceInterval {
@@ -5419,6 +5485,11 @@ export namespace SubscriptionUnscheduleCancellationResponse {
     end_date: string | null;
 
     /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
      * The fixed fee quantity transitions for this price interval. This is only
      * relevant for fixed fees.
      */
@@ -5443,6 +5514,12 @@ export namespace SubscriptionUnscheduleCancellationResponse {
      * for this price.
      */
     start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
   }
 
   export namespace PriceInterval {
@@ -6023,6 +6100,11 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
     end_date: string | null;
 
     /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
      * The fixed fee quantity transitions for this price interval. This is only
      * relevant for fixed fees.
      */
@@ -6047,6 +6129,12 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
      * for this price.
      */
     start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
   }
 
   export namespace PriceInterval {
@@ -6627,6 +6715,11 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
     end_date: string | null;
 
     /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
      * The fixed fee quantity transitions for this price interval. This is only
      * relevant for fixed fees.
      */
@@ -6651,6 +6744,12 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
      * for this price.
      */
     start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
   }
 
   export namespace PriceInterval {
@@ -7231,6 +7330,11 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
     end_date: string | null;
 
     /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
      * The fixed fee quantity transitions for this price interval. This is only
      * relevant for fixed fees.
      */
@@ -7255,6 +7359,12 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
      * for this price.
      */
     start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
   }
 
   export namespace PriceInterval {
@@ -7835,6 +7945,11 @@ export namespace SubscriptionUpdateTrialResponse {
     end_date: string | null;
 
     /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
      * The fixed fee quantity transitions for this price interval. This is only
      * relevant for fixed fees.
      */
@@ -7859,6 +7974,12 @@ export namespace SubscriptionUpdateTrialResponse {
      * for this price.
      */
     start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
   }
 
   export namespace PriceInterval {
@@ -13403,6 +13524,14 @@ export namespace SubscriptionPriceIntervalsParams {
     external_price_id?: string | null;
 
     /**
+     * An additional filter to apply to usage queries. This filter must be expressed as
+     * a boolean
+     * [computed property](/extensibility/advanced-metrics#computed-properties). If
+     * null, usage queries will not include any additional filter.
+     */
+    filter?: string | null;
+
+    /**
      * A list of fixed fee quantity transitions to initialize on the price interval.
      */
     fixed_fee_quantity_transitions?: Array<Add.FixedFeeQuantityTransition> | null;
@@ -13457,6 +13586,16 @@ export namespace SubscriptionPriceIntervalsParams {
      * The id of the price to add to the subscription.
      */
     price_id?: string | null;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this subscription. By default, a subscription only considers usage events
+     * associated with its attached customer's customer_id. When usage_customer_ids is
+     * provided, the subscription includes usage events from the specified customers
+     * only. Provided usage_customer_ids must be either the customer for this
+     * subscription itself, or any of that customer's children.
+     */
+    usage_customer_ids?: Array<string> | null;
   }
 
   export namespace Add {
@@ -17010,6 +17149,14 @@ export namespace SubscriptionPriceIntervalsParams {
     end_date?: (string & {}) | Shared.BillingCycleRelativeDate | null;
 
     /**
+     * An additional filter to apply to usage queries. This filter must be expressed as
+     * a boolean
+     * [computed property](/extensibility/advanced-metrics#computed-properties). If
+     * null, usage queries will not include any additional filter.
+     */
+    filter?: string | null;
+
+    /**
      * A list of fixed fee quantity transitions to use for this price interval. Note
      * that this list will overwrite all existing fixed fee quantity transitions on the
      * price interval.
@@ -17021,6 +17168,16 @@ export namespace SubscriptionPriceIntervalsParams {
      * will not be updated.
      */
     start_date?: (string & {}) | Shared.BillingCycleRelativeDate;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this subscription. By default, a subscription only considers usage events
+     * associated with its attached customer's customer_id. When usage_customer_ids is
+     * provided, the subscription includes usage events from the specified customers
+     * only. Provided usage_customer_ids must be either the customer for this
+     * subscription itself, or any of that customer's children.
+     */
+    usage_customer_ids?: Array<string> | null;
   }
 
   export namespace Edit {
