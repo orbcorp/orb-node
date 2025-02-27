@@ -50,7 +50,8 @@ export class TopUps extends APIResource {
   }
 
   /**
-   * Delete top-up
+   * This deactivates the top-up and voids any invoices associated with pending
+   * credit blocks purchased through the top-up.
    */
   delete(customerId: string, topUpId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.delete(`/customers/${customerId}/credits/top_ups/${topUpId}`, {
@@ -80,7 +81,8 @@ export class TopUps extends APIResource {
   }
 
   /**
-   * Delete top-up by external ID
+   * This deactivates the top-up and voids any invoices associated with pending
+   * credit blocks purchased through the top-up.
    */
   deleteByExternalId(
     externalCustomerId: string,
