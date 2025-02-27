@@ -10,7 +10,7 @@ const client = new Orb({
 
 describe('resource customers', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.customers.create({ email: 'dev@stainlessapi.com', name: 'x' });
+    const responsePromise = client.customers.create({ email: 'dev@stainless.com', name: 'x' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource customers', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.customers.create({
-      email: 'dev@stainlessapi.com',
+      email: 'dev@stainless.com',
       name: 'x',
       accounting_sync_configuration: {
         accounting_providers: [
