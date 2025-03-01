@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.64.0 (2025-03-01)
+
+Full Changelog: [v4.63.0...v4.64.0](https://github.com/orbcorp/orb-node/compare/v4.63.0...v4.64.0)
+
+### Features
+
+* **api:** api update ([#533](https://github.com/orbcorp/orb-node/issues/533)) ([959df50](https://github.com/orbcorp/orb-node/commit/959df50e4232f4095acbdfec70250d8403c4c5ab))
+
+
+### Documentation
+
+* update URLs from stainlessapi.com to stainless.com ([#531](https://github.com/orbcorp/orb-node/issues/531)) ([cd91aa6](https://github.com/orbcorp/orb-node/commit/cd91aa6659dc4786ad1dd57ce41a0d7341084acf))
+
 ## 4.63.0 (2025-02-27)
 
 Full Changelog: [v4.62.0...v4.63.0](https://github.com/orbcorp/orb-node/compare/v4.62.0...v4.63.0)
