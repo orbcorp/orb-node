@@ -60,6 +60,11 @@ export interface InvoiceLineItemCreateResponse {
   end_date: string;
 
   /**
+   * An additional filter that was used to calculate the usage for this line item.
+   */
+  filter: string | null;
+
+  /**
    * [DEPRECATED] For configured prices that are split by a grouping key, this will
    * be populated with the key and a value. The `amount` and `subtotal` will be the
    * values for this particular grouping.
@@ -140,6 +145,11 @@ export interface InvoiceLineItemCreateResponse {
    * integration is configured.
    */
   tax_amounts: Array<InvoiceLineItemCreateResponse.TaxAmount>;
+
+  /**
+   * A list of customer ids that were used to calculate the usage for this line item.
+   */
+  usage_customer_ids: Array<string> | null;
 }
 
 export namespace InvoiceLineItemCreateResponse {
