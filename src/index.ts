@@ -535,6 +535,7 @@ export declare namespace Orb {
   export type ReplaceSubscriptionPriceParams = API.ReplaceSubscriptionPriceParams;
   export type TrialDiscount = API.TrialDiscount;
   export type UpdatePriceRequestParams = API.UpdatePriceRequestParams;
+  export type UsageDiscount = API.UsageDiscount;
 }
 
 export { toFile, fileFromPath } from './uploads';
