@@ -4,10 +4,9 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as Shared from '../shared';
-import { DimensionalPriceGroupModelsPage } from '../shared';
 import * as ExternalDimensionalPriceGroupIDAPI from './external-dimensional-price-group-id';
 import { ExternalDimensionalPriceGroupID } from './external-dimensional-price-group-id';
-import { type PageParams } from '../../pagination';
+import { Page, type PageParams } from '../../pagination';
 
 export class DimensionalPriceGroups extends APIResource {
   externalDimensionalPriceGroupId: ExternalDimensionalPriceGroupIDAPI.ExternalDimensionalPriceGroupID =
@@ -26,7 +25,7 @@ export class DimensionalPriceGroups extends APIResource {
   create(
     body: DimensionalPriceGroupCreateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.DimensionalPriceGroupModel> {
+  ): Core.APIPromise<DimensionalPriceGroup> {
     return this._client.post('/dimensional_price_groups', { body, ...options });
   }
 
@@ -36,7 +35,7 @@ export class DimensionalPriceGroups extends APIResource {
   retrieve(
     dimensionalPriceGroupId: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.DimensionalPriceGroupModel> {
+  ): Core.APIPromise<DimensionalPriceGroup> {
     return this._client.get(`/dimensional_price_groups/${dimensionalPriceGroupId}`, options);
   }
 
@@ -46,23 +45,23 @@ export class DimensionalPriceGroups extends APIResource {
   list(
     query?: DimensionalPriceGroupListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<DimensionalPriceGroupModelsPage, Shared.DimensionalPriceGroupModel>;
-  list(
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<DimensionalPriceGroupModelsPage, Shared.DimensionalPriceGroupModel>;
+  ): Core.PagePromise<DimensionalPriceGroupsPage, DimensionalPriceGroup>;
+  list(options?: Core.RequestOptions): Core.PagePromise<DimensionalPriceGroupsPage, DimensionalPriceGroup>;
   list(
     query: DimensionalPriceGroupListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<DimensionalPriceGroupModelsPage, Shared.DimensionalPriceGroupModel> {
+  ): Core.PagePromise<DimensionalPriceGroupsPage, DimensionalPriceGroup> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/dimensional_price_groups', DimensionalPriceGroupModelsPage, {
+    return this._client.getAPIList('/dimensional_price_groups', DimensionalPriceGroupsPage, {
       query,
       ...options,
     });
   }
 }
+
+export class DimensionalPriceGroupsPage extends Page<DimensionalPriceGroup> {}
 
 /**
  * A dimensional price group is used to partition the result of a billable metric
@@ -104,7 +103,7 @@ export interface DimensionalPriceGroup {
 }
 
 export interface DimensionalPriceGroups {
-  data: Array<Shared.DimensionalPriceGroupModel>;
+  data: Array<DimensionalPriceGroup>;
 
   pagination_metadata: Shared.PaginationMetadata;
 }
@@ -131,17 +130,17 @@ export interface DimensionalPriceGroupCreateParams {
 
 export interface DimensionalPriceGroupListParams extends PageParams {}
 
+DimensionalPriceGroups.DimensionalPriceGroupsPage = DimensionalPriceGroupsPage;
 DimensionalPriceGroups.ExternalDimensionalPriceGroupID = ExternalDimensionalPriceGroupID;
 
 export declare namespace DimensionalPriceGroups {
   export {
     type DimensionalPriceGroup as DimensionalPriceGroup,
     type DimensionalPriceGroups as DimensionalPriceGroups,
+    DimensionalPriceGroupsPage as DimensionalPriceGroupsPage,
     type DimensionalPriceGroupCreateParams as DimensionalPriceGroupCreateParams,
     type DimensionalPriceGroupListParams as DimensionalPriceGroupListParams,
   };
 
   export { ExternalDimensionalPriceGroupID as ExternalDimensionalPriceGroupID };
 }
-
-export { DimensionalPriceGroupModelsPage };

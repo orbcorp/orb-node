@@ -3,9 +3,8 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as Shared from './shared';
-import { BillableMetricModelsPage } from './shared';
-import { type PageParams } from '../pagination';
+import * as ItemsAPI from './items';
+import { Page, type PageParams } from '../pagination';
 
 export class Metrics extends APIResource {
   /**
@@ -13,10 +12,7 @@ export class Metrics extends APIResource {
    * string. See [SQL support](/extensibility/advanced-metrics#sql-support) for a
    * description of constructing SQL queries with examples.
    */
-  create(
-    body: MetricCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.BillableMetricModel> {
+  create(body: MetricCreateParams, options?: Core.RequestOptions): Core.APIPromise<BillableMetric> {
     return this._client.post('/metrics', { body, ...options });
   }
 
@@ -29,7 +25,7 @@ export class Metrics extends APIResource {
     metricId: string,
     body: MetricUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.BillableMetricModel> {
+  ): Core.APIPromise<BillableMetric> {
     return this._client.put(`/metrics/${metricId}`, { body, ...options });
   }
 
@@ -41,26 +37,28 @@ export class Metrics extends APIResource {
   list(
     query?: MetricListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BillableMetricModelsPage, Shared.BillableMetricModel>;
-  list(options?: Core.RequestOptions): Core.PagePromise<BillableMetricModelsPage, Shared.BillableMetricModel>;
+  ): Core.PagePromise<BillableMetricsPage, BillableMetric>;
+  list(options?: Core.RequestOptions): Core.PagePromise<BillableMetricsPage, BillableMetric>;
   list(
     query: MetricListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BillableMetricModelsPage, Shared.BillableMetricModel> {
+  ): Core.PagePromise<BillableMetricsPage, BillableMetric> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/metrics', BillableMetricModelsPage, { query, ...options });
+    return this._client.getAPIList('/metrics', BillableMetricsPage, { query, ...options });
   }
 
   /**
    * This endpoint is used to list [metrics](/core-concepts#metric). It returns
    * information about the metrics including its name, description, and item.
    */
-  fetch(metricId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.BillableMetricModel> {
+  fetch(metricId: string, options?: Core.RequestOptions): Core.APIPromise<BillableMetric> {
     return this._client.get(`/metrics/${metricId}`, options);
   }
 }
+
+export class BillableMetricsPage extends Page<BillableMetric> {}
 
 /**
  * The Metric resource represents a calculation of a quantity based on events.
@@ -77,7 +75,7 @@ export interface BillableMetric {
    * with all line items, billable metrics, and prices and are used for defining
    * external sync behavior for invoices and tax calculation purposes.
    */
-  item: Shared.ItemModel;
+  item: ItemsAPI.Item;
 
   /**
    * User specified key-value pairs for the resource. If not present, this defaults
@@ -140,13 +138,14 @@ export interface MetricListParams extends PageParams {
   'created_at[lte]'?: string | null;
 }
 
+Metrics.BillableMetricsPage = BillableMetricsPage;
+
 export declare namespace Metrics {
   export {
     type BillableMetric as BillableMetric,
+    BillableMetricsPage as BillableMetricsPage,
     type MetricCreateParams as MetricCreateParams,
     type MetricUpdateParams as MetricUpdateParams,
     type MetricListParams as MetricListParams,
   };
 }
-
-export { BillableMetricModelsPage };

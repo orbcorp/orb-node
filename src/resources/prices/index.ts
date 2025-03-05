@@ -2,6 +2,7 @@
 
 export { ExternalPriceID, type ExternalPriceIDUpdateParams } from './external-price-id';
 export {
+  PricesPage,
   Prices,
   type EvaluatePriceGroup,
   type Price,
