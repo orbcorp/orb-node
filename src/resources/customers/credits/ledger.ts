@@ -3,9 +3,7 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
-import * as Shared from '../../shared';
-import { CreditLedgerEntryModelsPage } from '../../shared';
-import { type PageParams } from '../../../pagination';
+import { Page, type PageParams } from '../../../pagination';
 
 export class Ledger extends APIResource {
   /**
@@ -95,20 +93,20 @@ export class Ledger extends APIResource {
     customerId: string,
     query?: LedgerListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CreditLedgerEntryModelsPage, Shared.CreditLedgerEntryModel>;
+  ): Core.PagePromise<LedgerListResponsesPage, LedgerListResponse>;
   list(
     customerId: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CreditLedgerEntryModelsPage, Shared.CreditLedgerEntryModel>;
+  ): Core.PagePromise<LedgerListResponsesPage, LedgerListResponse>;
   list(
     customerId: string,
     query: LedgerListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CreditLedgerEntryModelsPage, Shared.CreditLedgerEntryModel> {
+  ): Core.PagePromise<LedgerListResponsesPage, LedgerListResponse> {
     if (isRequestOptions(query)) {
       return this.list(customerId, {}, query);
     }
-    return this._client.getAPIList(`/customers/${customerId}/credits/ledger`, CreditLedgerEntryModelsPage, {
+    return this._client.getAPIList(`/customers/${customerId}/credits/ledger`, LedgerListResponsesPage, {
       query,
       ...options,
     });
@@ -230,7 +228,7 @@ export class Ledger extends APIResource {
     customerId: string,
     body: LedgerCreateEntryParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.CreditLedgerEntryModel> {
+  ): Core.APIPromise<LedgerCreateEntryResponse> {
     return this._client.post(`/customers/${customerId}/credits/ledger_entry`, { body, ...options });
   }
 
@@ -350,7 +348,7 @@ export class Ledger extends APIResource {
     externalCustomerId: string,
     body: LedgerCreateEntryByExternalIDParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.CreditLedgerEntryModel> {
+  ): Core.APIPromise<LedgerCreateEntryByExternalIDResponse> {
     return this._client.post(`/customers/external_customer_id/${externalCustomerId}/credits/ledger_entry`, {
       body,
       ...options,
@@ -444,24 +442,1560 @@ export class Ledger extends APIResource {
     externalCustomerId: string,
     query?: LedgerListByExternalIDParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CreditLedgerEntryModelsPage, Shared.CreditLedgerEntryModel>;
+  ): Core.PagePromise<LedgerListByExternalIDResponsesPage, LedgerListByExternalIDResponse>;
   listByExternalId(
     externalCustomerId: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CreditLedgerEntryModelsPage, Shared.CreditLedgerEntryModel>;
+  ): Core.PagePromise<LedgerListByExternalIDResponsesPage, LedgerListByExternalIDResponse>;
   listByExternalId(
     externalCustomerId: string,
     query: LedgerListByExternalIDParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CreditLedgerEntryModelsPage, Shared.CreditLedgerEntryModel> {
+  ): Core.PagePromise<LedgerListByExternalIDResponsesPage, LedgerListByExternalIDResponse> {
     if (isRequestOptions(query)) {
       return this.listByExternalId(externalCustomerId, {}, query);
     }
     return this._client.getAPIList(
       `/customers/external_customer_id/${externalCustomerId}/credits/ledger`,
-      CreditLedgerEntryModelsPage,
+      LedgerListByExternalIDResponsesPage,
       { query, ...options },
     );
+  }
+}
+
+export class LedgerListResponsesPage extends Page<LedgerListResponse> {}
+
+export class LedgerListByExternalIDResponsesPage extends Page<LedgerListByExternalIDResponse> {}
+
+/**
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid
+ * credits within Orb.
+ */
+export type LedgerListResponse =
+  | LedgerListResponse.IncrementLedgerEntry
+  | LedgerListResponse.DecrementLedgerEntry
+  | LedgerListResponse.ExpirationChangeLedgerEntry
+  | LedgerListResponse.CreditBlockExpiryLedgerEntry
+  | LedgerListResponse.VoidLedgerEntry
+  | LedgerListResponse.VoidInitiatedLedgerEntry
+  | LedgerListResponse.AmendmentLedgerEntry;
+
+export namespace LedgerListResponse {
+  export interface IncrementLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: IncrementLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: IncrementLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'increment';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+  }
+
+  export namespace IncrementLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface DecrementLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: DecrementLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: DecrementLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'decrement';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+
+    event_id?: string | null;
+
+    invoice_id?: string | null;
+
+    price_id?: string | null;
+  }
+
+  export namespace DecrementLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface ExpirationChangeLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: ExpirationChangeLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: ExpirationChangeLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'expiration_change';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    new_block_expiry_date: string | null;
+
+    starting_balance: number;
+  }
+
+  export namespace ExpirationChangeLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface CreditBlockExpiryLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: CreditBlockExpiryLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: CreditBlockExpiryLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'credit_block_expiry';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+  }
+
+  export namespace CreditBlockExpiryLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface VoidLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: VoidLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: VoidLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'void';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+
+    void_amount: number;
+
+    void_reason: string | null;
+  }
+
+  export namespace VoidLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface VoidInitiatedLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: VoidInitiatedLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: VoidInitiatedLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'void_initiated';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    new_block_expiry_date: string;
+
+    starting_balance: number;
+
+    void_amount: number;
+
+    void_reason: string | null;
+  }
+
+  export namespace VoidInitiatedLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface AmendmentLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: AmendmentLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: AmendmentLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'amendment';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+  }
+
+  export namespace AmendmentLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+}
+
+/**
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid
+ * credits within Orb.
+ */
+export type LedgerCreateEntryResponse =
+  | LedgerCreateEntryResponse.IncrementLedgerEntry
+  | LedgerCreateEntryResponse.DecrementLedgerEntry
+  | LedgerCreateEntryResponse.ExpirationChangeLedgerEntry
+  | LedgerCreateEntryResponse.CreditBlockExpiryLedgerEntry
+  | LedgerCreateEntryResponse.VoidLedgerEntry
+  | LedgerCreateEntryResponse.VoidInitiatedLedgerEntry
+  | LedgerCreateEntryResponse.AmendmentLedgerEntry;
+
+export namespace LedgerCreateEntryResponse {
+  export interface IncrementLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: IncrementLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: IncrementLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'increment';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+  }
+
+  export namespace IncrementLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface DecrementLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: DecrementLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: DecrementLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'decrement';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+
+    event_id?: string | null;
+
+    invoice_id?: string | null;
+
+    price_id?: string | null;
+  }
+
+  export namespace DecrementLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface ExpirationChangeLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: ExpirationChangeLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: ExpirationChangeLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'expiration_change';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    new_block_expiry_date: string | null;
+
+    starting_balance: number;
+  }
+
+  export namespace ExpirationChangeLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface CreditBlockExpiryLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: CreditBlockExpiryLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: CreditBlockExpiryLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'credit_block_expiry';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+  }
+
+  export namespace CreditBlockExpiryLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface VoidLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: VoidLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: VoidLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'void';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+
+    void_amount: number;
+
+    void_reason: string | null;
+  }
+
+  export namespace VoidLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface VoidInitiatedLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: VoidInitiatedLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: VoidInitiatedLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'void_initiated';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    new_block_expiry_date: string;
+
+    starting_balance: number;
+
+    void_amount: number;
+
+    void_reason: string | null;
+  }
+
+  export namespace VoidInitiatedLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface AmendmentLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: AmendmentLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: AmendmentLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'amendment';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+  }
+
+  export namespace AmendmentLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+}
+
+/**
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid
+ * credits within Orb.
+ */
+export type LedgerCreateEntryByExternalIDResponse =
+  | LedgerCreateEntryByExternalIDResponse.IncrementLedgerEntry
+  | LedgerCreateEntryByExternalIDResponse.DecrementLedgerEntry
+  | LedgerCreateEntryByExternalIDResponse.ExpirationChangeLedgerEntry
+  | LedgerCreateEntryByExternalIDResponse.CreditBlockExpiryLedgerEntry
+  | LedgerCreateEntryByExternalIDResponse.VoidLedgerEntry
+  | LedgerCreateEntryByExternalIDResponse.VoidInitiatedLedgerEntry
+  | LedgerCreateEntryByExternalIDResponse.AmendmentLedgerEntry;
+
+export namespace LedgerCreateEntryByExternalIDResponse {
+  export interface IncrementLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: IncrementLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: IncrementLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'increment';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+  }
+
+  export namespace IncrementLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface DecrementLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: DecrementLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: DecrementLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'decrement';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+
+    event_id?: string | null;
+
+    invoice_id?: string | null;
+
+    price_id?: string | null;
+  }
+
+  export namespace DecrementLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface ExpirationChangeLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: ExpirationChangeLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: ExpirationChangeLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'expiration_change';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    new_block_expiry_date: string | null;
+
+    starting_balance: number;
+  }
+
+  export namespace ExpirationChangeLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface CreditBlockExpiryLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: CreditBlockExpiryLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: CreditBlockExpiryLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'credit_block_expiry';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+  }
+
+  export namespace CreditBlockExpiryLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface VoidLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: VoidLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: VoidLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'void';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+
+    void_amount: number;
+
+    void_reason: string | null;
+  }
+
+  export namespace VoidLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface VoidInitiatedLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: VoidInitiatedLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: VoidInitiatedLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'void_initiated';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    new_block_expiry_date: string;
+
+    starting_balance: number;
+
+    void_amount: number;
+
+    void_reason: string | null;
+  }
+
+  export namespace VoidInitiatedLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface AmendmentLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: AmendmentLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: AmendmentLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'amendment';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+  }
+
+  export namespace AmendmentLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+}
+
+/**
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid
+ * credits within Orb.
+ */
+export type LedgerListByExternalIDResponse =
+  | LedgerListByExternalIDResponse.IncrementLedgerEntry
+  | LedgerListByExternalIDResponse.DecrementLedgerEntry
+  | LedgerListByExternalIDResponse.ExpirationChangeLedgerEntry
+  | LedgerListByExternalIDResponse.CreditBlockExpiryLedgerEntry
+  | LedgerListByExternalIDResponse.VoidLedgerEntry
+  | LedgerListByExternalIDResponse.VoidInitiatedLedgerEntry
+  | LedgerListByExternalIDResponse.AmendmentLedgerEntry;
+
+export namespace LedgerListByExternalIDResponse {
+  export interface IncrementLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: IncrementLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: IncrementLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'increment';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+  }
+
+  export namespace IncrementLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface DecrementLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: DecrementLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: DecrementLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'decrement';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+
+    event_id?: string | null;
+
+    invoice_id?: string | null;
+
+    price_id?: string | null;
+  }
+
+  export namespace DecrementLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface ExpirationChangeLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: ExpirationChangeLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: ExpirationChangeLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'expiration_change';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    new_block_expiry_date: string | null;
+
+    starting_balance: number;
+  }
+
+  export namespace ExpirationChangeLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface CreditBlockExpiryLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: CreditBlockExpiryLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: CreditBlockExpiryLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'credit_block_expiry';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+  }
+
+  export namespace CreditBlockExpiryLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface VoidLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: VoidLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: VoidLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'void';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+
+    void_amount: number;
+
+    void_reason: string | null;
+  }
+
+  export namespace VoidLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface VoidInitiatedLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: VoidInitiatedLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: VoidInitiatedLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'void_initiated';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    new_block_expiry_date: string;
+
+    starting_balance: number;
+
+    void_amount: number;
+
+    void_reason: string | null;
+  }
+
+  export namespace VoidInitiatedLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+  }
+
+  export interface AmendmentLedgerEntry {
+    id: string;
+
+    amount: number;
+
+    created_at: string;
+
+    credit_block: AmendmentLedgerEntry.CreditBlock;
+
+    currency: string;
+
+    customer: AmendmentLedgerEntry.Customer;
+
+    description: string | null;
+
+    ending_balance: number;
+
+    entry_status: 'committed' | 'pending';
+
+    entry_type: 'amendment';
+
+    ledger_sequence_number: number;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: Record<string, string>;
+
+    starting_balance: number;
+  }
+
+  export namespace AmendmentLedgerEntry {
+    export interface CreditBlock {
+      id: string;
+
+      expiry_date: string | null;
+
+      per_unit_cost_basis: string | null;
+    }
+
+    export interface Customer {
+      id: string;
+
+      external_customer_id: string | null;
+    }
   }
 }
 
@@ -1025,13 +2559,20 @@ export interface LedgerListByExternalIDParams extends PageParams {
   minimum_amount?: string | null;
 }
 
+Ledger.LedgerListResponsesPage = LedgerListResponsesPage;
+Ledger.LedgerListByExternalIDResponsesPage = LedgerListByExternalIDResponsesPage;
+
 export declare namespace Ledger {
   export {
+    type LedgerListResponse as LedgerListResponse,
+    type LedgerCreateEntryResponse as LedgerCreateEntryResponse,
+    type LedgerCreateEntryByExternalIDResponse as LedgerCreateEntryByExternalIDResponse,
+    type LedgerListByExternalIDResponse as LedgerListByExternalIDResponse,
+    LedgerListResponsesPage as LedgerListResponsesPage,
+    LedgerListByExternalIDResponsesPage as LedgerListByExternalIDResponsesPage,
     type LedgerListParams as LedgerListParams,
     type LedgerCreateEntryParams as LedgerCreateEntryParams,
     type LedgerCreateEntryByExternalIDParams as LedgerCreateEntryByExternalIDParams,
     type LedgerListByExternalIDParams as LedgerListByExternalIDParams,
   };
 }
-
-export { CreditLedgerEntryModelsPage };

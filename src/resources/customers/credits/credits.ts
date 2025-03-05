@@ -3,25 +3,35 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
-import * as Shared from '../../shared';
-import { CustomerCreditBalancesModelDataPage } from '../../shared';
 import * as LedgerAPI from './ledger';
 import {
   Ledger,
   LedgerCreateEntryByExternalIDParams,
+  LedgerCreateEntryByExternalIDResponse,
   LedgerCreateEntryParams,
+  LedgerCreateEntryResponse,
   LedgerListByExternalIDParams,
+  LedgerListByExternalIDResponse,
+  LedgerListByExternalIDResponsesPage,
   LedgerListParams,
+  LedgerListResponse,
+  LedgerListResponsesPage,
 } from './ledger';
 import * as TopUpsAPI from './top-ups';
 import {
   TopUpCreateByExternalIDParams,
+  TopUpCreateByExternalIDResponse,
   TopUpCreateParams,
+  TopUpCreateResponse,
   TopUpListByExternalIDParams,
+  TopUpListByExternalIDResponse,
+  TopUpListByExternalIDResponsesPage,
   TopUpListParams,
+  TopUpListResponse,
+  TopUpListResponsesPage,
   TopUps,
 } from './top-ups';
-import { type PageParams } from '../../../pagination';
+import { Page, type PageParams } from '../../../pagination';
 
 export class Credits extends APIResource {
   ledger: LedgerAPI.Ledger = new LedgerAPI.Ledger(this._client);
@@ -40,20 +50,20 @@ export class Credits extends APIResource {
     customerId: string,
     query?: CreditListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CustomerCreditBalancesModelDataPage, Shared.CustomerCreditBalancesModel.Data>;
+  ): Core.PagePromise<CreditListResponsesPage, CreditListResponse>;
   list(
     customerId: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CustomerCreditBalancesModelDataPage, Shared.CustomerCreditBalancesModel.Data>;
+  ): Core.PagePromise<CreditListResponsesPage, CreditListResponse>;
   list(
     customerId: string,
     query: CreditListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CustomerCreditBalancesModelDataPage, Shared.CustomerCreditBalancesModel.Data> {
+  ): Core.PagePromise<CreditListResponsesPage, CreditListResponse> {
     if (isRequestOptions(query)) {
       return this.list(customerId, {}, query);
     }
-    return this._client.getAPIList(`/customers/${customerId}/credits`, CustomerCreditBalancesModelDataPage, {
+    return this._client.getAPIList(`/customers/${customerId}/credits`, CreditListResponsesPage, {
       query,
       ...options,
     });
@@ -72,25 +82,61 @@ export class Credits extends APIResource {
     externalCustomerId: string,
     query?: CreditListByExternalIDParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CustomerCreditBalancesModelDataPage, Shared.CustomerCreditBalancesModel.Data>;
+  ): Core.PagePromise<CreditListByExternalIDResponsesPage, CreditListByExternalIDResponse>;
   listByExternalId(
     externalCustomerId: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CustomerCreditBalancesModelDataPage, Shared.CustomerCreditBalancesModel.Data>;
+  ): Core.PagePromise<CreditListByExternalIDResponsesPage, CreditListByExternalIDResponse>;
   listByExternalId(
     externalCustomerId: string,
     query: CreditListByExternalIDParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CustomerCreditBalancesModelDataPage, Shared.CustomerCreditBalancesModel.Data> {
+  ): Core.PagePromise<CreditListByExternalIDResponsesPage, CreditListByExternalIDResponse> {
     if (isRequestOptions(query)) {
       return this.listByExternalId(externalCustomerId, {}, query);
     }
     return this._client.getAPIList(
       `/customers/external_customer_id/${externalCustomerId}/credits`,
-      CustomerCreditBalancesModelDataPage,
+      CreditListByExternalIDResponsesPage,
       { query, ...options },
     );
   }
+}
+
+export class CreditListResponsesPage extends Page<CreditListResponse> {}
+
+export class CreditListByExternalIDResponsesPage extends Page<CreditListByExternalIDResponse> {}
+
+export interface CreditListResponse {
+  id: string;
+
+  balance: number;
+
+  effective_date: string | null;
+
+  expiry_date: string | null;
+
+  maximum_initial_balance: number | null;
+
+  per_unit_cost_basis: string | null;
+
+  status: 'active' | 'pending_payment';
+}
+
+export interface CreditListByExternalIDResponse {
+  id: string;
+
+  balance: number;
+
+  effective_date: string | null;
+
+  expiry_date: string | null;
+
+  maximum_initial_balance: number | null;
+
+  per_unit_cost_basis: string | null;
+
+  status: 'active' | 'pending_payment';
 }
 
 export interface CreditListParams extends PageParams {
@@ -119,17 +165,33 @@ export interface CreditListByExternalIDParams extends PageParams {
   include_all_blocks?: boolean;
 }
 
+Credits.CreditListResponsesPage = CreditListResponsesPage;
+Credits.CreditListByExternalIDResponsesPage = CreditListByExternalIDResponsesPage;
 Credits.Ledger = Ledger;
+Credits.LedgerListResponsesPage = LedgerListResponsesPage;
+Credits.LedgerListByExternalIDResponsesPage = LedgerListByExternalIDResponsesPage;
 Credits.TopUps = TopUps;
+Credits.TopUpListResponsesPage = TopUpListResponsesPage;
+Credits.TopUpListByExternalIDResponsesPage = TopUpListByExternalIDResponsesPage;
 
 export declare namespace Credits {
   export {
+    type CreditListResponse as CreditListResponse,
+    type CreditListByExternalIDResponse as CreditListByExternalIDResponse,
+    CreditListResponsesPage as CreditListResponsesPage,
+    CreditListByExternalIDResponsesPage as CreditListByExternalIDResponsesPage,
     type CreditListParams as CreditListParams,
     type CreditListByExternalIDParams as CreditListByExternalIDParams,
   };
 
   export {
     Ledger as Ledger,
+    type LedgerListResponse as LedgerListResponse,
+    type LedgerCreateEntryResponse as LedgerCreateEntryResponse,
+    type LedgerCreateEntryByExternalIDResponse as LedgerCreateEntryByExternalIDResponse,
+    type LedgerListByExternalIDResponse as LedgerListByExternalIDResponse,
+    LedgerListResponsesPage as LedgerListResponsesPage,
+    LedgerListByExternalIDResponsesPage as LedgerListByExternalIDResponsesPage,
     type LedgerListParams as LedgerListParams,
     type LedgerCreateEntryParams as LedgerCreateEntryParams,
     type LedgerCreateEntryByExternalIDParams as LedgerCreateEntryByExternalIDParams,
@@ -138,11 +200,15 @@ export declare namespace Credits {
 
   export {
     TopUps as TopUps,
+    type TopUpCreateResponse as TopUpCreateResponse,
+    type TopUpListResponse as TopUpListResponse,
+    type TopUpCreateByExternalIDResponse as TopUpCreateByExternalIDResponse,
+    type TopUpListByExternalIDResponse as TopUpListByExternalIDResponse,
+    TopUpListResponsesPage as TopUpListResponsesPage,
+    TopUpListByExternalIDResponsesPage as TopUpListByExternalIDResponsesPage,
     type TopUpCreateParams as TopUpCreateParams,
     type TopUpListParams as TopUpListParams,
     type TopUpCreateByExternalIDParams as TopUpCreateByExternalIDParams,
     type TopUpListByExternalIDParams as TopUpListByExternalIDParams,
   };
 }
-
-export { CustomerCreditBalancesModelDataPage };

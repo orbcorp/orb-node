@@ -3,9 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as Shared from '../shared';
-import { CustomerBalanceTransactionModelsPage } from '../shared';
-import { type PageParams } from '../../pagination';
+import { Page, type PageParams } from '../../pagination';
 
 export class BalanceTransactions extends APIResource {
   /**
@@ -16,7 +14,7 @@ export class BalanceTransactions extends APIResource {
     customerId: string,
     body: BalanceTransactionCreateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.CustomerBalanceTransactionModel> {
+  ): Core.APIPromise<BalanceTransactionCreateResponse> {
     return this._client.post(`/customers/${customerId}/balance_transactions`, { body, ...options });
   }
 
@@ -54,24 +52,160 @@ export class BalanceTransactions extends APIResource {
     customerId: string,
     query?: BalanceTransactionListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CustomerBalanceTransactionModelsPage, Shared.CustomerBalanceTransactionModel>;
+  ): Core.PagePromise<BalanceTransactionListResponsesPage, BalanceTransactionListResponse>;
   list(
     customerId: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CustomerBalanceTransactionModelsPage, Shared.CustomerBalanceTransactionModel>;
+  ): Core.PagePromise<BalanceTransactionListResponsesPage, BalanceTransactionListResponse>;
   list(
     customerId: string,
     query: BalanceTransactionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CustomerBalanceTransactionModelsPage, Shared.CustomerBalanceTransactionModel> {
+  ): Core.PagePromise<BalanceTransactionListResponsesPage, BalanceTransactionListResponse> {
     if (isRequestOptions(query)) {
       return this.list(customerId, {}, query);
     }
     return this._client.getAPIList(
       `/customers/${customerId}/balance_transactions`,
-      CustomerBalanceTransactionModelsPage,
+      BalanceTransactionListResponsesPage,
       { query, ...options },
     );
+  }
+}
+
+export class BalanceTransactionListResponsesPage extends Page<BalanceTransactionListResponse> {}
+
+export interface BalanceTransactionCreateResponse {
+  /**
+   * A unique id for this transaction.
+   */
+  id: string;
+
+  action:
+    | 'applied_to_invoice'
+    | 'manual_adjustment'
+    | 'prorated_refund'
+    | 'revert_prorated_refund'
+    | 'return_from_voiding'
+    | 'credit_note_applied'
+    | 'credit_note_voided'
+    | 'overpayment_refund'
+    | 'external_payment';
+
+  /**
+   * The value of the amount changed in the transaction.
+   */
+  amount: string;
+
+  /**
+   * The creation time of this transaction.
+   */
+  created_at: string;
+
+  credit_note: BalanceTransactionCreateResponse.CreditNote | null;
+
+  /**
+   * An optional description provided for manual customer balance adjustments.
+   */
+  description: string | null;
+
+  /**
+   * The new value of the customer's balance prior to the transaction, in the
+   * customer's currency.
+   */
+  ending_balance: string;
+
+  invoice: BalanceTransactionCreateResponse.Invoice | null;
+
+  /**
+   * The original value of the customer's balance prior to the transaction, in the
+   * customer's currency.
+   */
+  starting_balance: string;
+
+  type: 'increment' | 'decrement';
+}
+
+export namespace BalanceTransactionCreateResponse {
+  export interface CreditNote {
+    /**
+     * The id of the Credit note
+     */
+    id: string;
+  }
+
+  export interface Invoice {
+    /**
+     * The Invoice id
+     */
+    id: string;
+  }
+}
+
+export interface BalanceTransactionListResponse {
+  /**
+   * A unique id for this transaction.
+   */
+  id: string;
+
+  action:
+    | 'applied_to_invoice'
+    | 'manual_adjustment'
+    | 'prorated_refund'
+    | 'revert_prorated_refund'
+    | 'return_from_voiding'
+    | 'credit_note_applied'
+    | 'credit_note_voided'
+    | 'overpayment_refund'
+    | 'external_payment';
+
+  /**
+   * The value of the amount changed in the transaction.
+   */
+  amount: string;
+
+  /**
+   * The creation time of this transaction.
+   */
+  created_at: string;
+
+  credit_note: BalanceTransactionListResponse.CreditNote | null;
+
+  /**
+   * An optional description provided for manual customer balance adjustments.
+   */
+  description: string | null;
+
+  /**
+   * The new value of the customer's balance prior to the transaction, in the
+   * customer's currency.
+   */
+  ending_balance: string;
+
+  invoice: BalanceTransactionListResponse.Invoice | null;
+
+  /**
+   * The original value of the customer's balance prior to the transaction, in the
+   * customer's currency.
+   */
+  starting_balance: string;
+
+  type: 'increment' | 'decrement';
+}
+
+export namespace BalanceTransactionListResponse {
+  export interface CreditNote {
+    /**
+     * The id of the Credit note
+     */
+    id: string;
+  }
+
+  export interface Invoice {
+    /**
+     * The Invoice id
+     */
+    id: string;
   }
 }
 
@@ -96,11 +230,14 @@ export interface BalanceTransactionListParams extends PageParams {
   'operation_time[lte]'?: string | null;
 }
 
+BalanceTransactions.BalanceTransactionListResponsesPage = BalanceTransactionListResponsesPage;
+
 export declare namespace BalanceTransactions {
   export {
+    type BalanceTransactionCreateResponse as BalanceTransactionCreateResponse,
+    type BalanceTransactionListResponse as BalanceTransactionListResponse,
+    BalanceTransactionListResponsesPage as BalanceTransactionListResponsesPage,
     type BalanceTransactionCreateParams as BalanceTransactionCreateParams,
     type BalanceTransactionListParams as BalanceTransactionListParams,
   };
 }
-
-export { CustomerBalanceTransactionModelsPage };

@@ -4,10 +4,9 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as Shared from '../shared';
-import { CouponModelsPage } from '../shared';
 import * as SubscriptionsAPI from './subscriptions';
 import { SubscriptionListParams, Subscriptions } from './subscriptions';
-import { type PageParams } from '../../pagination';
+import { Page, type PageParams } from '../../pagination';
 
 export class Coupons extends APIResource {
   subscriptions: SubscriptionsAPI.Subscriptions = new SubscriptionsAPI.Subscriptions(this._client);
@@ -16,7 +15,7 @@ export class Coupons extends APIResource {
    * This endpoint allows the creation of coupons, which can then be redeemed at
    * subscription creation or plan change.
    */
-  create(body: CouponCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.CouponModel> {
+  create(body: CouponCreateParams, options?: Core.RequestOptions): Core.APIPromise<Coupon> {
     return this._client.post('/coupons', { body, ...options });
   }
 
@@ -28,19 +27,16 @@ export class Coupons extends APIResource {
    * the next page of results if they exist. More information about pagination can be
    * found in the Pagination-metadata schema.
    */
-  list(
-    query?: CouponListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<CouponModelsPage, Shared.CouponModel>;
-  list(options?: Core.RequestOptions): Core.PagePromise<CouponModelsPage, Shared.CouponModel>;
+  list(query?: CouponListParams, options?: Core.RequestOptions): Core.PagePromise<CouponsPage, Coupon>;
+  list(options?: Core.RequestOptions): Core.PagePromise<CouponsPage, Coupon>;
   list(
     query: CouponListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CouponModelsPage, Shared.CouponModel> {
+  ): Core.PagePromise<CouponsPage, Coupon> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/coupons', CouponModelsPage, { query, ...options });
+    return this._client.getAPIList('/coupons', CouponsPage, { query, ...options });
   }
 
   /**
@@ -48,7 +44,7 @@ export class Coupons extends APIResource {
    * redeemed, and will be hidden from lists of active coupons. Additionally, once a
    * coupon is archived, its redemption code can be reused for a different coupon.
    */
-  archive(couponId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.CouponModel> {
+  archive(couponId: string, options?: Core.RequestOptions): Core.APIPromise<Coupon> {
     return this._client.post(`/coupons/${couponId}/archive`, options);
   }
 
@@ -57,10 +53,12 @@ export class Coupons extends APIResource {
    * code, use the [List coupons](list-coupons) endpoint with the redemption_code
    * parameter.
    */
-  fetch(couponId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.CouponModel> {
+  fetch(couponId: string, options?: Core.RequestOptions): Core.APIPromise<Coupon> {
     return this._client.get(`/coupons/${couponId}`, options);
   }
 }
+
+export class CouponsPage extends Page<Coupon> {}
 
 /**
  * A coupon represents a reusable discount configuration that can be applied either
@@ -154,16 +152,16 @@ export interface CouponListParams extends PageParams {
   show_archived?: boolean | null;
 }
 
+Coupons.CouponsPage = CouponsPage;
 Coupons.Subscriptions = Subscriptions;
 
 export declare namespace Coupons {
   export {
     type Coupon as Coupon,
+    CouponsPage as CouponsPage,
     type CouponCreateParams as CouponCreateParams,
     type CouponListParams as CouponListParams,
   };
 
   export { Subscriptions as Subscriptions, type SubscriptionListParams as SubscriptionListParams };
 }
-
-export { CouponModelsPage };
