@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as DimensionalPriceGroupsAPI from './dimensional-price-groups';
+import * as Shared from '../shared';
 
 export class ExternalDimensionalPriceGroupID extends APIResource {
   /**
@@ -11,7 +11,7 @@ export class ExternalDimensionalPriceGroupID extends APIResource {
   retrieve(
     externalDimensionalPriceGroupId: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<DimensionalPriceGroupsAPI.DimensionalPriceGroup> {
+  ): Core.APIPromise<Shared.DimensionalPriceGroupModel> {
     return this._client.get(
       `/dimensional_price_groups/external_dimensional_price_group_id/${externalDimensionalPriceGroupId}`,
       options,

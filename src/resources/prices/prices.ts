@@ -4,9 +4,10 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as Shared from '../shared';
+import { PriceModelsPage } from '../shared';
 import * as ExternalPriceIDAPI from './external-price-id';
 import { ExternalPriceID, ExternalPriceIDUpdateParams } from './external-price-id';
-import { Page, type PageParams } from '../../pagination';
+import { type PageParams } from '../../pagination';
 
 export class Prices extends APIResource {
   externalPriceId: ExternalPriceIDAPI.ExternalPriceID = new ExternalPriceIDAPI.ExternalPriceID(this._client);
@@ -23,7 +24,7 @@ export class Prices extends APIResource {
    * See the [Price resource](/product-catalog/price-configuration) for the
    * specification of different price model configurations possible in this endpoint.
    */
-  create(body: PriceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Price> {
+  create(body: PriceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.PriceModel> {
     return this._client.post('/prices', { body, ...options });
   }
 
@@ -32,7 +33,11 @@ export class Prices extends APIResource {
    * pass null for the metadata value, it will clear any existing metadata for that
    * price.
    */
-  update(priceId: string, body: PriceUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Price> {
+  update(
+    priceId: string,
+    body: PriceUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.PriceModel> {
     return this._client.put(`/prices/${priceId}`, { body, ...options });
   }
 
@@ -40,16 +45,19 @@ export class Prices extends APIResource {
    * This endpoint is used to list all add-on prices created using the
    * [price creation endpoint](/api-reference/price/create-price).
    */
-  list(query?: PriceListParams, options?: Core.RequestOptions): Core.PagePromise<PricesPage, Price>;
-  list(options?: Core.RequestOptions): Core.PagePromise<PricesPage, Price>;
+  list(
+    query?: PriceListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<PriceModelsPage, Shared.PriceModel>;
+  list(options?: Core.RequestOptions): Core.PagePromise<PriceModelsPage, Shared.PriceModel>;
   list(
     query: PriceListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<PricesPage, Price> {
+  ): Core.PagePromise<PriceModelsPage, Shared.PriceModel> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/prices', PricesPage, { query, ...options });
+    return this._client.getAPIList('/prices', PriceModelsPage, { query, ...options });
   }
 
   /**
@@ -86,12 +94,10 @@ export class Prices extends APIResource {
   /**
    * This endpoint returns a price given an identifier.
    */
-  fetch(priceId: string, options?: Core.RequestOptions): Core.APIPromise<Price> {
+  fetch(priceId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.PriceModel> {
     return this._client.get(`/prices/${priceId}`, options);
   }
 }
-
-export class PricesPage extends Page<Price> {}
 
 export interface EvaluatePriceGroup {
   /**
@@ -156,9 +162,9 @@ export namespace Price {
   export interface UnitPrice {
     id: string;
 
-    billable_metric: UnitPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: UnitPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -166,7 +172,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: UnitPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -176,11 +182,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: UnitPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: UnitPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: UnitPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -192,7 +198,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: UnitPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -204,86 +210,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    unit_config: UnitPrice.UnitConfig;
+    unit_config: Shared.UnitConfigModel;
 
-    dimensional_price_configuration?: UnitPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace UnitPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface UnitConfig {
-      /**
-       * Rate per unit of usage
-       */
-      unit_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface PackagePrice {
     id: string;
 
-    billable_metric: PackagePrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: PackagePrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -291,7 +228,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: PackagePrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -301,11 +238,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: PackagePrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: PackagePrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: PackagePrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -317,7 +254,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: PackagePrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -325,96 +262,21 @@ export namespace Price {
 
     name: string;
 
-    package_config: PackagePrice.PackageConfig;
+    package_config: Shared.PackageConfigModel;
 
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: PackagePrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace PackagePrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface PackageConfig {
-      /**
-       * A currency amount to rate usage by
-       */
-      package_amount: string;
-
-      /**
-       * An integer amount to represent package size. For example, 1000 here would divide
-       * usage by 1000 before multiplying by package_amount in rating
-       */
-      package_size: number;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface MatrixPrice {
     id: string;
 
-    billable_metric: MatrixPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: MatrixPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -422,7 +284,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: MatrixPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -432,13 +294,13 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: MatrixPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: MatrixPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    matrix_config: MatrixPrice.MatrixConfig;
+    matrix_config: Shared.MatrixConfigModel;
 
-    maximum: MatrixPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -450,7 +312,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: MatrixPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -462,110 +324,15 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: MatrixPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace MatrixPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface MatrixConfig {
-      /**
-       * Default per unit rate for any usage not bucketed into a specified matrix_value
-       */
-      default_unit_amount: string;
-
-      /**
-       * One or two event property values to evaluate matrix groups by
-       */
-      dimensions: Array<string | null>;
-
-      /**
-       * Matrix values for specified matrix grouping keys
-       */
-      matrix_values: Array<MatrixConfig.MatrixValue>;
-    }
-
-    export namespace MatrixConfig {
-      export interface MatrixValue {
-        /**
-         * One or two matrix keys to filter usage to this Matrix value by. For example,
-         * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
-         * instance tier.
-         */
-        dimension_values: Array<string | null>;
-
-        /**
-         * Unit price for the specified dimension_values
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface TieredPrice {
     id: string;
 
-    billable_metric: TieredPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: TieredPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -573,7 +340,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: TieredPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -583,11 +350,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: TieredPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: TieredPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: TieredPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -599,7 +366,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: TieredPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -611,105 +378,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    tiered_config: TieredPrice.TieredConfig;
+    tiered_config: Shared.TieredConfigModel;
 
-    dimensional_price_configuration?: TieredPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace TieredPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Inclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit
-         */
-        unit_amount: string;
-
-        /**
-         * Exclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface TieredBpsPrice {
     id: string;
 
-    billable_metric: TieredBpsPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: TieredBpsPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -717,7 +396,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: TieredBpsPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -727,11 +406,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: TieredBpsPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: TieredBpsPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: TieredBpsPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -743,7 +422,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: TieredBpsPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -755,113 +434,19 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    tiered_bps_config: TieredBpsPrice.TieredBpsConfig;
+    tiered_bps_config: Shared.TieredBpsConfigModel;
 
-    dimensional_price_configuration?: TieredBpsPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace TieredBpsPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface TieredBpsConfig {
-      /**
-       * Tiers for a Graduated BPS pricing model, where usage is bucketed into specified
-       * tiers
-       */
-      tiers: Array<TieredBpsConfig.Tier>;
-    }
-
-    export namespace TieredBpsConfig {
-      export interface Tier {
-        /**
-         * Per-event basis point rate
-         */
-        bps: number;
-
-        /**
-         * Inclusive tier starting value
-         */
-        minimum_amount: string;
-
-        /**
-         * Exclusive tier ending value
-         */
-        maximum_amount?: string | null;
-
-        /**
-         * Per unit maximum to charge
-         */
-        per_unit_maximum?: string | null;
-      }
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface BpsPrice {
     id: string;
 
-    billable_metric: BpsPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: BpsPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
-    bps_config: BpsPrice.BpsConfig;
+    bps_config: Shared.BpsConfigModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -869,7 +454,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: BpsPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -879,11 +464,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: BpsPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: BpsPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: BpsPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -895,7 +480,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: BpsPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -907,91 +492,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: BpsPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace BpsPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface BpsConfig {
-      /**
-       * Basis point take rate per event
-       */
-      bps: number;
-
-      /**
-       * Optional currency amount maximum to cap spend per event
-       */
-      per_unit_maximum?: string | null;
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface BulkBpsPrice {
     id: string;
 
-    billable_metric: BulkBpsPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: BulkBpsPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
-    bulk_bps_config: BulkBpsPrice.BulkBpsConfig;
+    bulk_bps_config: Shared.BulkBpsConfigModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -999,7 +510,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: BulkBpsPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -1009,11 +520,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: BulkBpsPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: BulkBpsPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: BulkBpsPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -1025,7 +536,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: BulkBpsPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -1037,106 +548,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: BulkBpsPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace BulkBpsPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface BulkBpsConfig {
-      /**
-       * Tiers for a bulk BPS pricing model where all usage is aggregated to a single
-       * tier based on total volume
-       */
-      tiers: Array<BulkBpsConfig.Tier>;
-    }
-
-    export namespace BulkBpsConfig {
-      export interface Tier {
-        /**
-         * Basis points to rate on
-         */
-        bps: number;
-
-        /**
-         * Upper bound for tier
-         */
-        maximum_amount?: string | null;
-
-        /**
-         * The maximum amount to charge for any one event
-         */
-        per_unit_maximum?: string | null;
-      }
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface BulkPrice {
     id: string;
 
-    billable_metric: BulkPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: BulkPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
-    bulk_config: BulkPrice.BulkConfig;
+    bulk_config: Shared.BulkConfigModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1144,7 +566,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: BulkPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -1154,11 +576,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: BulkPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: BulkPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: BulkPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -1170,7 +592,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: BulkPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -1182,98 +604,15 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: BulkPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace BulkPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface BulkConfig {
-      /**
-       * Bulk tiers for rating based on total usage volume
-       */
-      tiers: Array<BulkConfig.Tier>;
-    }
-
-    export namespace BulkConfig {
-      export interface Tier {
-        /**
-         * Amount per unit
-         */
-        unit_amount: string;
-
-        /**
-         * Upper bound for this tier
-         */
-        maximum_units?: number | null;
-      }
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface ThresholdTotalAmountPrice {
     id: string;
 
-    billable_metric: ThresholdTotalAmountPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: ThresholdTotalAmountPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1281,7 +620,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: ThresholdTotalAmountPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -1291,11 +630,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: ThresholdTotalAmountPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: ThresholdTotalAmountPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: ThresholdTotalAmountPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -1307,7 +646,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: ThresholdTotalAmountPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -1319,79 +658,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    threshold_total_amount_config: Record<string, unknown>;
+    threshold_total_amount_config: Shared.CustomRatingFunctionConfigModel;
 
-    dimensional_price_configuration?: ThresholdTotalAmountPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace ThresholdTotalAmountPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface TieredPackagePrice {
     id: string;
 
-    billable_metric: TieredPackagePrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: TieredPackagePrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1399,7 +676,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: TieredPackagePrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -1409,11 +686,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: TieredPackagePrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: TieredPackagePrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: TieredPackagePrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -1425,7 +702,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: TieredPackagePrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -1437,79 +714,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    tiered_package_config: Record<string, unknown>;
+    tiered_package_config: Shared.CustomRatingFunctionConfigModel;
 
-    dimensional_price_configuration?: TieredPackagePrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace TieredPackagePrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface GroupedTieredPrice {
     id: string;
 
-    billable_metric: GroupedTieredPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: GroupedTieredPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1517,7 +732,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: GroupedTieredPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -1527,13 +742,13 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    grouped_tiered_config: Record<string, unknown>;
+    grouped_tiered_config: Shared.CustomRatingFunctionConfigModel;
 
-    invoicing_cycle_configuration: GroupedTieredPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: GroupedTieredPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: GroupedTieredPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -1545,7 +760,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: GroupedTieredPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -1557,77 +772,15 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: GroupedTieredPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace GroupedTieredPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface TieredWithMinimumPrice {
     id: string;
 
-    billable_metric: TieredWithMinimumPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: TieredWithMinimumPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1635,7 +788,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: TieredWithMinimumPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -1645,11 +798,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: TieredWithMinimumPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: TieredWithMinimumPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: TieredWithMinimumPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -1661,7 +814,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: TieredWithMinimumPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -1673,79 +826,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    tiered_with_minimum_config: Record<string, unknown>;
+    tiered_with_minimum_config: Shared.CustomRatingFunctionConfigModel;
 
-    dimensional_price_configuration?: TieredWithMinimumPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace TieredWithMinimumPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface TieredPackageWithMinimumPrice {
     id: string;
 
-    billable_metric: TieredPackageWithMinimumPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: TieredPackageWithMinimumPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1753,7 +844,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: TieredPackageWithMinimumPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -1763,11 +854,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: TieredPackageWithMinimumPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: TieredPackageWithMinimumPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: TieredPackageWithMinimumPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -1779,7 +870,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: TieredPackageWithMinimumPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -1791,79 +882,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    tiered_package_with_minimum_config: Record<string, unknown>;
+    tiered_package_with_minimum_config: Shared.CustomRatingFunctionConfigModel;
 
-    dimensional_price_configuration?: TieredPackageWithMinimumPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace TieredPackageWithMinimumPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface PackageWithAllocationPrice {
     id: string;
 
-    billable_metric: PackageWithAllocationPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: PackageWithAllocationPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1871,7 +900,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: PackageWithAllocationPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -1881,11 +910,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: PackageWithAllocationPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: PackageWithAllocationPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: PackageWithAllocationPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -1897,7 +926,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: PackageWithAllocationPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -1905,83 +934,21 @@ export namespace Price {
 
     name: string;
 
-    package_with_allocation_config: Record<string, unknown>;
+    package_with_allocation_config: Shared.CustomRatingFunctionConfigModel;
 
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: PackageWithAllocationPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace PackageWithAllocationPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface UnitWithPercentPrice {
     id: string;
 
-    billable_metric: UnitWithPercentPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: UnitWithPercentPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -1989,7 +956,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: UnitWithPercentPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -1999,11 +966,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: UnitWithPercentPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: UnitWithPercentPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: UnitWithPercentPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -2015,7 +982,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: UnitWithPercentPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -2027,79 +994,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    unit_with_percent_config: Record<string, unknown>;
+    unit_with_percent_config: Shared.CustomRatingFunctionConfigModel;
 
-    dimensional_price_configuration?: UnitWithPercentPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace UnitWithPercentPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface MatrixWithAllocationPrice {
     id: string;
 
-    billable_metric: MatrixWithAllocationPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: MatrixWithAllocationPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2107,7 +1012,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: MatrixWithAllocationPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -2117,13 +1022,13 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: MatrixWithAllocationPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: MatrixWithAllocationPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    matrix_with_allocation_config: MatrixWithAllocationPrice.MatrixWithAllocationConfig;
+    matrix_with_allocation_config: Shared.MatrixWithAllocationConfigModel;
 
-    maximum: MatrixWithAllocationPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -2135,7 +1040,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: MatrixWithAllocationPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -2147,115 +1052,15 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: MatrixWithAllocationPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace MatrixWithAllocationPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface MatrixWithAllocationConfig {
-      /**
-       * Allocation to be used to calculate the price
-       */
-      allocation: number;
-
-      /**
-       * Default per unit rate for any usage not bucketed into a specified matrix_value
-       */
-      default_unit_amount: string;
-
-      /**
-       * One or two event property values to evaluate matrix groups by
-       */
-      dimensions: Array<string | null>;
-
-      /**
-       * Matrix values for specified matrix grouping keys
-       */
-      matrix_values: Array<MatrixWithAllocationConfig.MatrixValue>;
-    }
-
-    export namespace MatrixWithAllocationConfig {
-      export interface MatrixValue {
-        /**
-         * One or two matrix keys to filter usage to this Matrix value by. For example,
-         * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
-         * instance tier.
-         */
-        dimension_values: Array<string | null>;
-
-        /**
-         * Unit price for the specified dimension_values
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface TieredWithProrationPrice {
     id: string;
 
-    billable_metric: TieredWithProrationPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: TieredWithProrationPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2263,7 +1068,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: TieredWithProrationPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -2273,11 +1078,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: TieredWithProrationPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: TieredWithProrationPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: TieredWithProrationPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -2289,7 +1094,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: TieredWithProrationPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -2301,79 +1106,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    tiered_with_proration_config: Record<string, unknown>;
+    tiered_with_proration_config: Shared.CustomRatingFunctionConfigModel;
 
-    dimensional_price_configuration?: TieredWithProrationPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace TieredWithProrationPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface UnitWithProrationPrice {
     id: string;
 
-    billable_metric: UnitWithProrationPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: UnitWithProrationPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2381,7 +1124,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: UnitWithProrationPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -2391,11 +1134,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: UnitWithProrationPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: UnitWithProrationPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: UnitWithProrationPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -2407,7 +1150,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: UnitWithProrationPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -2419,79 +1162,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    unit_with_proration_config: Record<string, unknown>;
+    unit_with_proration_config: Shared.CustomRatingFunctionConfigModel;
 
-    dimensional_price_configuration?: UnitWithProrationPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace UnitWithProrationPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface GroupedAllocationPrice {
     id: string;
 
-    billable_metric: GroupedAllocationPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: GroupedAllocationPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2499,7 +1180,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: GroupedAllocationPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -2509,13 +1190,13 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    grouped_allocation_config: Record<string, unknown>;
+    grouped_allocation_config: Shared.CustomRatingFunctionConfigModel;
 
-    invoicing_cycle_configuration: GroupedAllocationPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: GroupedAllocationPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: GroupedAllocationPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -2527,7 +1208,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: GroupedAllocationPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -2539,77 +1220,15 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: GroupedAllocationPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace GroupedAllocationPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface GroupedWithProratedMinimumPrice {
     id: string;
 
-    billable_metric: GroupedWithProratedMinimumPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: GroupedWithProratedMinimumPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2617,7 +1236,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: GroupedWithProratedMinimumPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -2627,13 +1246,13 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    grouped_with_prorated_minimum_config: Record<string, unknown>;
+    grouped_with_prorated_minimum_config: Shared.CustomRatingFunctionConfigModel;
 
-    invoicing_cycle_configuration: GroupedWithProratedMinimumPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: GroupedWithProratedMinimumPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: GroupedWithProratedMinimumPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -2645,7 +1264,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: GroupedWithProratedMinimumPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -2657,77 +1276,15 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: GroupedWithProratedMinimumPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace GroupedWithProratedMinimumPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface GroupedWithMeteredMinimumPrice {
     id: string;
 
-    billable_metric: GroupedWithMeteredMinimumPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: GroupedWithMeteredMinimumPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2735,7 +1292,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: GroupedWithMeteredMinimumPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -2745,13 +1302,13 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    grouped_with_metered_minimum_config: Record<string, unknown>;
+    grouped_with_metered_minimum_config: Shared.CustomRatingFunctionConfigModel;
 
-    invoicing_cycle_configuration: GroupedWithMeteredMinimumPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: GroupedWithMeteredMinimumPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: GroupedWithMeteredMinimumPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -2763,7 +1320,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: GroupedWithMeteredMinimumPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -2775,77 +1332,15 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: GroupedWithMeteredMinimumPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace GroupedWithMeteredMinimumPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface MatrixWithDisplayNamePrice {
     id: string;
 
-    billable_metric: MatrixWithDisplayNamePrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: MatrixWithDisplayNamePrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2853,7 +1348,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: MatrixWithDisplayNamePrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -2863,13 +1358,13 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: MatrixWithDisplayNamePrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: MatrixWithDisplayNamePrice.Item;
+    item: Shared.ItemSlimModel;
 
-    matrix_with_display_name_config: Record<string, unknown>;
+    matrix_with_display_name_config: Shared.CustomRatingFunctionConfigModel;
 
-    maximum: MatrixWithDisplayNamePrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -2881,7 +1376,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: MatrixWithDisplayNamePrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -2893,79 +1388,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: MatrixWithDisplayNamePrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace MatrixWithDisplayNamePrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface BulkWithProrationPrice {
     id: string;
 
-    billable_metric: BulkWithProrationPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: BulkWithProrationPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
-    bulk_with_proration_config: Record<string, unknown>;
+    bulk_with_proration_config: Shared.CustomRatingFunctionConfigModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -2973,7 +1406,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: BulkWithProrationPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -2983,11 +1416,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: BulkWithProrationPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: BulkWithProrationPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: BulkWithProrationPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -2999,7 +1432,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: BulkWithProrationPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -3011,77 +1444,15 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: BulkWithProrationPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace BulkWithProrationPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface GroupedTieredPackagePrice {
     id: string;
 
-    billable_metric: GroupedTieredPackagePrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: GroupedTieredPackagePrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -3089,7 +1460,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: GroupedTieredPackagePrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -3099,13 +1470,13 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    grouped_tiered_package_config: Record<string, unknown>;
+    grouped_tiered_package_config: Shared.CustomRatingFunctionConfigModel;
 
-    invoicing_cycle_configuration: GroupedTieredPackagePrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: GroupedTieredPackagePrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: GroupedTieredPackagePrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -3117,7 +1488,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: GroupedTieredPackagePrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -3129,77 +1500,15 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: GroupedTieredPackagePrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace GroupedTieredPackagePrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface MaxGroupTieredPackagePrice {
     id: string;
 
-    billable_metric: MaxGroupTieredPackagePrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: MaxGroupTieredPackagePrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -3207,7 +1516,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: MaxGroupTieredPackagePrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -3217,13 +1526,13 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: MaxGroupTieredPackagePrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: MaxGroupTieredPackagePrice.Item;
+    item: Shared.ItemSlimModel;
 
-    max_group_tiered_package_config: Record<string, unknown>;
+    max_group_tiered_package_config: Shared.CustomRatingFunctionConfigModel;
 
-    maximum: MaxGroupTieredPackagePrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -3235,7 +1544,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: MaxGroupTieredPackagePrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -3247,77 +1556,15 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: MaxGroupTieredPackagePrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace MaxGroupTieredPackagePrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface ScalableMatrixWithUnitPricingPrice {
     id: string;
 
-    billable_metric: ScalableMatrixWithUnitPricingPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: ScalableMatrixWithUnitPricingPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -3325,7 +1572,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: ScalableMatrixWithUnitPricingPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -3335,11 +1582,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: ScalableMatrixWithUnitPricingPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: ScalableMatrixWithUnitPricingPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: ScalableMatrixWithUnitPricingPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -3351,7 +1598,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: ScalableMatrixWithUnitPricingPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -3363,79 +1610,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    scalable_matrix_with_unit_pricing_config: Record<string, unknown>;
+    scalable_matrix_with_unit_pricing_config: Shared.CustomRatingFunctionConfigModel;
 
-    dimensional_price_configuration?: ScalableMatrixWithUnitPricingPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace ScalableMatrixWithUnitPricingPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface ScalableMatrixWithTieredPricingPrice {
     id: string;
 
-    billable_metric: ScalableMatrixWithTieredPricingPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: ScalableMatrixWithTieredPricingPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -3443,7 +1628,7 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: ScalableMatrixWithTieredPricingPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
     currency: string;
 
@@ -3453,11 +1638,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: ScalableMatrixWithTieredPricingPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: ScalableMatrixWithTieredPricingPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: ScalableMatrixWithTieredPricingPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -3469,7 +1654,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: ScalableMatrixWithTieredPricingPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -3481,79 +1666,17 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    scalable_matrix_with_tiered_pricing_config: Record<string, unknown>;
+    scalable_matrix_with_tiered_pricing_config: Shared.CustomRatingFunctionConfigModel;
 
-    dimensional_price_configuration?: ScalableMatrixWithTieredPricingPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace ScalableMatrixWithTieredPricingPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 
   export interface CumulativeGroupedBulkPrice {
     id: string;
 
-    billable_metric: CumulativeGroupedBulkPrice.BillableMetric | null;
+    billable_metric: Shared.BillableMetricTinyModel | null;
 
-    billing_cycle_configuration: CumulativeGroupedBulkPrice.BillingCycleConfiguration;
+    billing_cycle_configuration: Shared.BillingCycleConfigurationModel;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -3561,9 +1684,9 @@ export namespace Price {
 
     created_at: string;
 
-    credit_allocation: CumulativeGroupedBulkPrice.CreditAllocation | null;
+    credit_allocation: Shared.AllocationModel | null;
 
-    cumulative_grouped_bulk_config: Record<string, unknown>;
+    cumulative_grouped_bulk_config: Shared.CustomRatingFunctionConfigModel;
 
     currency: string;
 
@@ -3573,11 +1696,11 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    invoicing_cycle_configuration: CumulativeGroupedBulkPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration: Shared.BillingCycleConfigurationModel | null;
 
-    item: CumulativeGroupedBulkPrice.Item;
+    item: Shared.ItemSlimModel;
 
-    maximum: CumulativeGroupedBulkPrice.Maximum | null;
+    maximum: Shared.MaximumModel | null;
 
     maximum_amount: string | null;
 
@@ -3589,7 +1712,7 @@ export namespace Price {
      */
     metadata: Record<string, string>;
 
-    minimum: CumulativeGroupedBulkPrice.Minimum | null;
+    minimum: Shared.MinimumModel | null;
 
     minimum_amount: string | null;
 
@@ -3601,69 +1724,7 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    dimensional_price_configuration?: CumulativeGroupedBulkPrice.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace CumulativeGroupedBulkPrice {
-    export interface BillableMetric {
-      id: string;
-    }
-
-    export interface BillingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface CreditAllocation {
-      allows_rollover: boolean;
-
-      currency: string;
-    }
-
-    export interface InvoicingCycleConfiguration {
-      duration: number;
-
-      duration_unit: 'day' | 'month';
-    }
-
-    export interface Item {
-      id: string;
-
-      name: string;
-    }
-
-    export interface Maximum {
-      /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Maximum amount applied
-       */
-      maximum_amount: string;
-    }
-
-    export interface Minimum {
-      /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
-       * Minimum amount applied
-       */
-      minimum_amount: string;
-    }
-
-    export interface DimensionalPriceConfiguration {
-      dimension_values: Array<string>;
-
-      dimensional_price_group_id: string;
-    }
+    dimensional_price_configuration?: Shared.DimensionalPriceConfigurationModel | null;
   }
 }
 
@@ -3725,7 +1786,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    unit_config: NewFloatingUnitPrice.UnitConfig;
+    unit_config: Shared.UnitConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -3743,7 +1804,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingUnitPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -3770,7 +1831,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingUnitPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3778,47 +1839,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingUnitPrice {
-    export interface UnitConfig {
-      /**
-       * Rate per unit of usage
-       */
-      unit_amount: string;
-    }
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingPackagePrice {
@@ -3844,7 +1864,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    package_config: NewFloatingPackagePrice.PackageConfig;
+    package_config: Shared.PackageConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -3862,7 +1882,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingPackagePrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -3889,7 +1909,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingPackagePrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3897,53 +1917,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingPackagePrice {
-    export interface PackageConfig {
-      /**
-       * A currency amount to rate usage by
-       */
-      package_amount: string;
-
-      /**
-       * An integer amount to represent package size. For example, 1000 here would divide
-       * usage by 1000 before multiplying by package_amount in rating
-       */
-      package_size: number;
-    }
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingMatrixPrice {
@@ -3962,7 +1935,7 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
-    matrix_config: NewFloatingMatrixPrice.MatrixConfig;
+    matrix_config: Shared.MatrixConfigModel;
 
     model_type: 'matrix';
 
@@ -3987,7 +1960,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingMatrixPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -4014,7 +1987,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingMatrixPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4022,73 +1995,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingMatrixPrice {
-    export interface MatrixConfig {
-      /**
-       * Default per unit rate for any usage not bucketed into a specified matrix_value
-       */
-      default_unit_amount: string;
-
-      /**
-       * One or two event property values to evaluate matrix groups by
-       */
-      dimensions: Array<string | null>;
-
-      /**
-       * Matrix values for specified matrix grouping keys
-       */
-      matrix_values: Array<MatrixConfig.MatrixValue>;
-    }
-
-    export namespace MatrixConfig {
-      export interface MatrixValue {
-        /**
-         * One or two matrix keys to filter usage to this Matrix value by. For example,
-         * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
-         * instance tier.
-         */
-        dimension_values: Array<string | null>;
-
-        /**
-         * Unit price for the specified dimension_values
-         */
-        unit_amount: string;
-      }
-    }
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingMatrixWithAllocationPrice {
@@ -4107,7 +2013,7 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
-    matrix_with_allocation_config: NewFloatingMatrixWithAllocationPrice.MatrixWithAllocationConfig;
+    matrix_with_allocation_config: Shared.MatrixWithAllocationConfigModel;
 
     model_type: 'matrix_with_allocation';
 
@@ -4132,7 +2038,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingMatrixWithAllocationPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -4159,7 +2065,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingMatrixWithAllocationPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4167,78 +2073,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingMatrixWithAllocationPrice {
-    export interface MatrixWithAllocationConfig {
-      /**
-       * Allocation to be used to calculate the price
-       */
-      allocation: number;
-
-      /**
-       * Default per unit rate for any usage not bucketed into a specified matrix_value
-       */
-      default_unit_amount: string;
-
-      /**
-       * One or two event property values to evaluate matrix groups by
-       */
-      dimensions: Array<string | null>;
-
-      /**
-       * Matrix values for specified matrix grouping keys
-       */
-      matrix_values: Array<MatrixWithAllocationConfig.MatrixValue>;
-    }
-
-    export namespace MatrixWithAllocationConfig {
-      export interface MatrixValue {
-        /**
-         * One or two matrix keys to filter usage to this Matrix value by. For example,
-         * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
-         * instance tier.
-         */
-        dimension_values: Array<string | null>;
-
-        /**
-         * Unit price for the specified dimension_values
-         */
-        unit_amount: string;
-      }
-    }
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingTieredPrice {
@@ -4264,7 +2098,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_config: NewFloatingTieredPrice.TieredConfig;
+    tiered_config: Shared.TieredConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -4282,7 +2116,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingTieredPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -4309,7 +2143,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingTieredPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4317,66 +2151,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingTieredPrice {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Inclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit
-         */
-        unit_amount: string;
-
-        /**
-         * Exclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingTieredBpsPrice {
@@ -4402,7 +2176,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_bps_config: NewFloatingTieredBpsPrice.TieredBpsConfig;
+    tiered_bps_config: Shared.TieredBpsConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -4420,7 +2194,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingTieredBpsPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -4447,7 +2221,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingTieredBpsPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4457,74 +2231,8 @@ export declare namespace PriceCreateParams {
     metadata?: Record<string, string | null> | null;
   }
 
-  export namespace NewFloatingTieredBpsPrice {
-    export interface TieredBpsConfig {
-      /**
-       * Tiers for a Graduated BPS pricing model, where usage is bucketed into specified
-       * tiers
-       */
-      tiers: Array<TieredBpsConfig.Tier>;
-    }
-
-    export namespace TieredBpsConfig {
-      export interface Tier {
-        /**
-         * Per-event basis point rate
-         */
-        bps: number;
-
-        /**
-         * Inclusive tier starting value
-         */
-        minimum_amount: string;
-
-        /**
-         * Exclusive tier ending value
-         */
-        maximum_amount?: string | null;
-
-        /**
-         * Per unit maximum to charge
-         */
-        per_unit_maximum?: string | null;
-      }
-    }
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-  }
-
   export interface NewFloatingBpsPrice {
-    bps_config: NewFloatingBpsPrice.BpsConfig;
+    bps_config: Shared.BpsConfigModel;
 
     /**
      * The cadence to bill for this price on.
@@ -4564,7 +2272,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingBpsPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -4591,7 +2299,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingBpsPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4601,54 +2309,8 @@ export declare namespace PriceCreateParams {
     metadata?: Record<string, string | null> | null;
   }
 
-  export namespace NewFloatingBpsPrice {
-    export interface BpsConfig {
-      /**
-       * Basis point take rate per event
-       */
-      bps: number;
-
-      /**
-       * Optional currency amount maximum to cap spend per event
-       */
-      per_unit_maximum?: string | null;
-    }
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-  }
-
   export interface NewFloatingBulkBpsPrice {
-    bulk_bps_config: NewFloatingBulkBpsPrice.BulkBpsConfig;
+    bulk_bps_config: Shared.BulkBpsConfigModel;
 
     /**
      * The cadence to bill for this price on.
@@ -4688,7 +2350,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingBulkBpsPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -4715,7 +2377,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingBulkBpsPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4725,69 +2387,8 @@ export declare namespace PriceCreateParams {
     metadata?: Record<string, string | null> | null;
   }
 
-  export namespace NewFloatingBulkBpsPrice {
-    export interface BulkBpsConfig {
-      /**
-       * Tiers for a bulk BPS pricing model where all usage is aggregated to a single
-       * tier based on total volume
-       */
-      tiers: Array<BulkBpsConfig.Tier>;
-    }
-
-    export namespace BulkBpsConfig {
-      export interface Tier {
-        /**
-         * Basis points to rate on
-         */
-        bps: number;
-
-        /**
-         * Upper bound for tier
-         */
-        maximum_amount?: string | null;
-
-        /**
-         * The maximum amount to charge for any one event
-         */
-        per_unit_maximum?: string | null;
-      }
-    }
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-  }
-
   export interface NewFloatingBulkPrice {
-    bulk_config: NewFloatingBulkPrice.BulkConfig;
+    bulk_config: Shared.BulkConfigModel;
 
     /**
      * The cadence to bill for this price on.
@@ -4827,7 +2428,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingBulkPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -4854,7 +2455,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingBulkPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4862,61 +2463,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingBulkPrice {
-    export interface BulkConfig {
-      /**
-       * Bulk tiers for rating based on total usage volume
-       */
-      tiers: Array<BulkConfig.Tier>;
-    }
-
-    export namespace BulkConfig {
-      export interface Tier {
-        /**
-         * Amount per unit
-         */
-        unit_amount: string;
-
-        /**
-         * Upper bound for this tier
-         */
-        maximum_units?: number | null;
-      }
-    }
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingThresholdTotalAmountPrice {
@@ -4942,7 +2488,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    threshold_total_amount_config: Record<string, unknown>;
+    threshold_total_amount_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -4960,7 +2506,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingThresholdTotalAmountPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -4987,7 +2533,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingThresholdTotalAmountPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4995,40 +2541,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingThresholdTotalAmountPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingTieredPackagePrice {
@@ -5054,7 +2566,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_package_config: Record<string, unknown>;
+    tiered_package_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -5072,7 +2584,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingTieredPackagePrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -5099,7 +2611,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingTieredPackagePrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -5107,40 +2619,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingTieredPackagePrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingGroupedTieredPrice {
@@ -5154,7 +2632,7 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_tiered_config: Record<string, unknown>;
+    grouped_tiered_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the item the price will be associated with.
@@ -5184,7 +2662,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingGroupedTieredPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -5211,7 +2689,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingGroupedTieredPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -5219,40 +2697,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingGroupedTieredPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingMaxGroupTieredPackagePrice {
@@ -5271,7 +2715,7 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
-    max_group_tiered_package_config: Record<string, unknown>;
+    max_group_tiered_package_config: Shared.CustomRatingFunctionConfigModel;
 
     model_type: 'max_group_tiered_package';
 
@@ -5296,7 +2740,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingMaxGroupTieredPackagePrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -5323,7 +2767,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingMaxGroupTieredPackagePrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -5331,40 +2775,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingMaxGroupTieredPackagePrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingTieredWithMinimumPrice {
@@ -5390,7 +2800,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_with_minimum_config: Record<string, unknown>;
+    tiered_with_minimum_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -5408,7 +2818,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingTieredWithMinimumPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -5435,7 +2845,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingTieredWithMinimumPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -5443,40 +2853,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingTieredWithMinimumPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingPackageWithAllocationPrice {
@@ -5502,7 +2878,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    package_with_allocation_config: Record<string, unknown>;
+    package_with_allocation_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -5520,7 +2896,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingPackageWithAllocationPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -5547,7 +2923,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingPackageWithAllocationPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -5555,40 +2931,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingPackageWithAllocationPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingTieredPackageWithMinimumPrice {
@@ -5614,7 +2956,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_package_with_minimum_config: Record<string, unknown>;
+    tiered_package_with_minimum_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -5632,7 +2974,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingTieredPackageWithMinimumPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -5659,7 +3001,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingTieredPackageWithMinimumPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -5667,40 +3009,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingTieredPackageWithMinimumPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingUnitWithPercentPrice {
@@ -5726,7 +3034,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    unit_with_percent_config: Record<string, unknown>;
+    unit_with_percent_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -5744,7 +3052,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingUnitWithPercentPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -5771,7 +3079,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingUnitWithPercentPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -5779,40 +3087,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingUnitWithPercentPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingTieredWithProrationPrice {
@@ -5838,7 +3112,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_with_proration_config: Record<string, unknown>;
+    tiered_with_proration_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -5856,7 +3130,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingTieredWithProrationPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -5883,7 +3157,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingTieredWithProrationPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -5891,40 +3165,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingTieredWithProrationPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingUnitWithProrationPrice {
@@ -5950,7 +3190,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    unit_with_proration_config: Record<string, unknown>;
+    unit_with_proration_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -5968,7 +3208,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingUnitWithProrationPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -5995,7 +3235,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingUnitWithProrationPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6003,40 +3243,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingUnitWithProrationPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingGroupedAllocationPrice {
@@ -6050,7 +3256,7 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_allocation_config: Record<string, unknown>;
+    grouped_allocation_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the item the price will be associated with.
@@ -6080,7 +3286,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingGroupedAllocationPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -6107,7 +3313,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingGroupedAllocationPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6115,40 +3321,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingGroupedAllocationPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingGroupedWithProratedMinimumPrice {
@@ -6162,7 +3334,7 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_with_prorated_minimum_config: Record<string, unknown>;
+    grouped_with_prorated_minimum_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the item the price will be associated with.
@@ -6192,7 +3364,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingGroupedWithProratedMinimumPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -6219,7 +3391,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingGroupedWithProratedMinimumPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6227,40 +3399,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingGroupedWithProratedMinimumPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingGroupedWithMeteredMinimumPrice {
@@ -6274,7 +3412,7 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_with_metered_minimum_config: Record<string, unknown>;
+    grouped_with_metered_minimum_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the item the price will be associated with.
@@ -6304,7 +3442,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingGroupedWithMeteredMinimumPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -6331,7 +3469,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingGroupedWithMeteredMinimumPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6339,40 +3477,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingGroupedWithMeteredMinimumPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingMatrixWithDisplayNamePrice {
@@ -6391,7 +3495,7 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
-    matrix_with_display_name_config: Record<string, unknown>;
+    matrix_with_display_name_config: Shared.CustomRatingFunctionConfigModel;
 
     model_type: 'matrix_with_display_name';
 
@@ -6416,7 +3520,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingMatrixWithDisplayNamePrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -6443,7 +3547,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingMatrixWithDisplayNamePrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6453,42 +3557,8 @@ export declare namespace PriceCreateParams {
     metadata?: Record<string, string | null> | null;
   }
 
-  export namespace NewFloatingMatrixWithDisplayNamePrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-  }
-
   export interface NewFloatingBulkWithProrationPrice {
-    bulk_with_proration_config: Record<string, unknown>;
+    bulk_with_proration_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The cadence to bill for this price on.
@@ -6528,7 +3598,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingBulkWithProrationPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -6555,7 +3625,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingBulkWithProrationPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6563,40 +3633,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingBulkWithProrationPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingGroupedTieredPackagePrice {
@@ -6610,7 +3646,7 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_tiered_package_config: Record<string, unknown>;
+    grouped_tiered_package_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the item the price will be associated with.
@@ -6640,7 +3676,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingGroupedTieredPackagePrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -6667,7 +3703,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingGroupedTieredPackagePrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6675,40 +3711,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingGroupedTieredPackagePrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingScalableMatrixWithUnitPricingPrice {
@@ -6734,7 +3736,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    scalable_matrix_with_unit_pricing_config: Record<string, unknown>;
+    scalable_matrix_with_unit_pricing_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -6752,7 +3754,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingScalableMatrixWithUnitPricingPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -6779,7 +3781,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingScalableMatrixWithUnitPricingPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6787,40 +3789,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingScalableMatrixWithUnitPricingPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 
   export interface NewFloatingScalableMatrixWithTieredPricingPrice {
@@ -6846,7 +3814,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    scalable_matrix_with_tiered_pricing_config: Record<string, unknown>;
+    scalable_matrix_with_tiered_pricing_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -6864,7 +3832,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingScalableMatrixWithTieredPricingPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -6891,7 +3859,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingScalableMatrixWithTieredPricingPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6901,47 +3869,13 @@ export declare namespace PriceCreateParams {
     metadata?: Record<string, string | null> | null;
   }
 
-  export namespace NewFloatingScalableMatrixWithTieredPricingPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-  }
-
   export interface NewFloatingCumulativeGroupedBulkPrice {
     /**
      * The cadence to bill for this price on.
      */
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-    cumulative_grouped_bulk_config: Record<string, unknown>;
+    cumulative_grouped_bulk_config: Shared.CustomRatingFunctionConfigModel;
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -6976,7 +3910,7 @@ export declare namespace PriceCreateParams {
      * For custom cadence: specifies the duration of the billing period in days or
      * months.
      */
-    billing_cycle_configuration?: NewFloatingCumulativeGroupedBulkPrice.BillingCycleConfiguration | null;
+    billing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * The per unit conversion rate of the price currency to the invoicing currency.
@@ -7003,7 +3937,7 @@ export declare namespace PriceCreateParams {
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
-    invoicing_cycle_configuration?: NewFloatingCumulativeGroupedBulkPrice.InvoicingCycleConfiguration | null;
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfigurationModel | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -7011,40 +3945,6 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: Record<string, string | null> | null;
-  }
-
-  export namespace NewFloatingCumulativeGroupedBulkPrice {
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    export interface BillingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    export interface InvoicingCycleConfiguration {
-      /**
-       * The duration of the billing period.
-       */
-      duration: number;
-
-      /**
-       * The unit of billing period duration.
-       */
-      duration_unit: 'day' | 'month';
-    }
   }
 }
 
@@ -7095,7 +3995,6 @@ export interface PriceEvaluateParams {
   grouping_keys?: Array<string>;
 }
 
-Prices.PricesPage = PricesPage;
 Prices.ExternalPriceID = ExternalPriceID;
 
 export declare namespace Prices {
@@ -7103,7 +4002,6 @@ export declare namespace Prices {
     type EvaluatePriceGroup as EvaluatePriceGroup,
     type Price as Price,
     type PriceEvaluateResponse as PriceEvaluateResponse,
-    PricesPage as PricesPage,
     type PriceCreateParams as PriceCreateParams,
     type PriceUpdateParams as PriceUpdateParams,
     type PriceListParams as PriceListParams,
@@ -7115,3 +4013,5 @@ export declare namespace Prices {
     type ExternalPriceIDUpdateParams as ExternalPriceIDUpdateParams,
   };
 }
+
+export { PriceModelsPage };
