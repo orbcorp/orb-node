@@ -3787,27 +3787,7 @@ export namespace CreateCustomerAlertRequest {
   }
 }
 
-export type Discount = PercentageDiscount | TrialDiscount | Discount.UsageDiscount | AmountDiscount;
-
-export namespace Discount {
-  export interface UsageDiscount {
-    /**
-     * List of price_ids that this discount applies to. For plan/plan phase discounts,
-     * this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    discount_type: 'usage';
-
-    /**
-     * Only available if discount_type is `usage`. Number of usage units that this
-     * discount is for
-     */
-    usage_discount: number;
-
-    reason?: string | null;
-  }
-}
+export type Discount = PercentageDiscount | TrialDiscount | UsageDiscount | AmountDiscount;
 
 export type InvoiceLevelDiscount = PercentageDiscount | AmountDiscount | TrialDiscount;
 
@@ -7264,4 +7244,22 @@ export interface UpdatePriceRequestParams {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+}
+
+export interface UsageDiscount {
+  /**
+   * List of price_ids that this discount applies to. For plan/plan phase discounts,
+   * this can be a subset of prices.
+   */
+  applies_to_price_ids: Array<string>;
+
+  discount_type: 'usage';
+
+  /**
+   * Only available if discount_type is `usage`. Number of usage units that this
+   * discount is for
+   */
+  usage_discount: number;
+
+  reason?: string | null;
 }
