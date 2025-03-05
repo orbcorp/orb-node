@@ -3,7 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as PricesAPI from '../prices/prices';
+import * as Shared from '../shared';
 
 export class Costs extends APIResource {
   /**
@@ -129,13 +129,13 @@ export class Costs extends APIResource {
     customerId: string,
     query?: CostListParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<CostListResponse>;
-  list(customerId: string, options?: Core.RequestOptions): Core.APIPromise<CostListResponse>;
+  ): Core.APIPromise<Shared.CustomerCostsModel>;
+  list(customerId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.CustomerCostsModel>;
   list(
     customerId: string,
     query: CostListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<CostListResponse> {
+  ): Core.APIPromise<Shared.CustomerCostsModel> {
     if (isRequestOptions(query)) {
       return this.list(customerId, {}, query);
     }
@@ -265,16 +265,16 @@ export class Costs extends APIResource {
     externalCustomerId: string,
     query?: CostListByExternalIDParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<CostListByExternalIDResponse>;
+  ): Core.APIPromise<Shared.CustomerCostsModel>;
   listByExternalId(
     externalCustomerId: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<CostListByExternalIDResponse>;
+  ): Core.APIPromise<Shared.CustomerCostsModel>;
   listByExternalId(
     externalCustomerId: string,
     query: CostListByExternalIDParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<CostListByExternalIDResponse> {
+  ): Core.APIPromise<Shared.CustomerCostsModel> {
     if (isRequestOptions(query)) {
       return this.listByExternalId(externalCustomerId, {}, query);
     }
@@ -282,112 +282,6 @@ export class Costs extends APIResource {
       query,
       ...options,
     });
-  }
-}
-
-export interface CostListResponse {
-  data: Array<CostListResponse.Data>;
-}
-
-export namespace CostListResponse {
-  export interface Data {
-    per_price_costs: Array<Data.PerPriceCost>;
-
-    /**
-     * Total costs for the timeframe, excluding any minimums and discounts.
-     */
-    subtotal: string;
-
-    timeframe_end: string;
-
-    timeframe_start: string;
-
-    /**
-     * Total costs for the timeframe, including any minimums and discounts.
-     */
-    total: string;
-  }
-
-  export namespace Data {
-    export interface PerPriceCost {
-      /**
-       * The price object
-       */
-      price: PricesAPI.Price;
-
-      /**
-       * The price the cost is associated with
-       */
-      price_id: string;
-
-      /**
-       * Price's contributions for the timeframe, excluding any minimums and discounts.
-       */
-      subtotal: string;
-
-      /**
-       * Price's contributions for the timeframe, including minimums and discounts.
-       */
-      total: string;
-
-      /**
-       * The price's quantity for the timeframe
-       */
-      quantity?: number | null;
-    }
-  }
-}
-
-export interface CostListByExternalIDResponse {
-  data: Array<CostListByExternalIDResponse.Data>;
-}
-
-export namespace CostListByExternalIDResponse {
-  export interface Data {
-    per_price_costs: Array<Data.PerPriceCost>;
-
-    /**
-     * Total costs for the timeframe, excluding any minimums and discounts.
-     */
-    subtotal: string;
-
-    timeframe_end: string;
-
-    timeframe_start: string;
-
-    /**
-     * Total costs for the timeframe, including any minimums and discounts.
-     */
-    total: string;
-  }
-
-  export namespace Data {
-    export interface PerPriceCost {
-      /**
-       * The price object
-       */
-      price: PricesAPI.Price;
-
-      /**
-       * The price the cost is associated with
-       */
-      price_id: string;
-
-      /**
-       * Price's contributions for the timeframe, excluding any minimums and discounts.
-       */
-      subtotal: string;
-
-      /**
-       * Price's contributions for the timeframe, including minimums and discounts.
-       */
-      total: string;
-
-      /**
-       * The price's quantity for the timeframe
-       */
-      quantity?: number | null;
-    }
   }
 }
 
@@ -443,8 +337,6 @@ export interface CostListByExternalIDParams {
 
 export declare namespace Costs {
   export {
-    type CostListResponse as CostListResponse,
-    type CostListByExternalIDResponse as CostListByExternalIDResponse,
     type CostListParams as CostListParams,
     type CostListByExternalIDParams as CostListByExternalIDParams,
   };

@@ -2,7 +2,6 @@
 
 export * from './shared';
 export {
-  AlertsPage,
   Alerts,
   type Alert,
   type AlertUpdateParams,
@@ -13,30 +12,14 @@ export {
   type AlertDisableParams,
   type AlertEnableParams,
 } from './alerts';
+export { Coupons, type Coupon, type CouponCreateParams, type CouponListParams } from './coupons/coupons';
 export {
-  BillableMetricsPage,
-  Metrics,
-  type BillableMetric,
-  type MetricCreateParams,
-  type MetricUpdateParams,
-  type MetricListParams,
-} from './metrics';
-export {
-  CouponsPage,
-  Coupons,
-  type Coupon,
-  type CouponCreateParams,
-  type CouponListParams,
-} from './coupons/coupons';
-export {
-  CreditNotesPage,
   CreditNotes,
   type CreditNote,
   type CreditNoteCreateParams,
   type CreditNoteListParams,
 } from './credit-notes';
 export {
-  CustomersPage,
   Customers,
   type Customer,
   type CustomerCreateParams,
@@ -45,7 +28,6 @@ export {
   type CustomerUpdateByExternalIDParams,
 } from './customers/customers';
 export {
-  DimensionalPriceGroupsPage,
   DimensionalPriceGroups,
   type DimensionalPriceGroup,
   type DimensionalPriceGroupCreateParams,
@@ -61,13 +43,8 @@ export {
   type EventIngestParams,
   type EventSearchParams,
 } from './events/events';
+export { InvoiceLineItems, type InvoiceLineItemCreateParams } from './invoice-line-items';
 export {
-  InvoiceLineItems,
-  type InvoiceLineItemCreateResponse,
-  type InvoiceLineItemCreateParams,
-} from './invoice-line-items';
-export {
-  InvoicesPage,
   Invoices,
   type Invoice,
   type InvoiceFetchUpcomingResponse,
@@ -78,16 +55,15 @@ export {
   type InvoiceIssueParams,
   type InvoiceMarkPaidParams,
 } from './invoices';
+export { Items, type Item, type ItemCreateParams, type ItemUpdateParams, type ItemListParams } from './items';
 export {
-  ItemsPage,
-  Items,
-  type Item,
-  type ItemCreateParams,
-  type ItemUpdateParams,
-  type ItemListParams,
-} from './items';
+  Metrics,
+  type BillableMetric,
+  type MetricCreateParams,
+  type MetricUpdateParams,
+  type MetricListParams,
+} from './metrics';
 export {
-  PlansPage,
   Plans,
   type Plan,
   type PlanCreateParams,
@@ -95,7 +71,6 @@ export {
   type PlanListParams,
 } from './plans/plans';
 export {
-  PricesPage,
   Prices,
   type EvaluatePriceGroup,
   type Price,
@@ -106,23 +81,12 @@ export {
   type PriceEvaluateParams,
 } from './prices/prices';
 export {
-  SubscriptionsPage,
   SubscriptionFetchScheduleResponsesPage,
   Subscriptions,
   type Subscription,
   type SubscriptionUsage,
-  type SubscriptionCreateResponse,
-  type SubscriptionCancelResponse,
   type SubscriptionFetchCostsResponse,
   type SubscriptionFetchScheduleResponse,
-  type SubscriptionPriceIntervalsResponse,
-  type SubscriptionSchedulePlanChangeResponse,
-  type SubscriptionTriggerPhaseResponse,
-  type SubscriptionUnscheduleCancellationResponse,
-  type SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse,
-  type SubscriptionUnschedulePendingPlanChangesResponse,
-  type SubscriptionUpdateFixedFeeQuantityResponse,
-  type SubscriptionUpdateTrialResponse,
   type SubscriptionCreateParams,
   type SubscriptionUpdateParams,
   type SubscriptionListParams,

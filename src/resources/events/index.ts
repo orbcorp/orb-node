@@ -1,16 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export {
-  BackfillListResponsesPage,
-  Backfills,
-  type BackfillCreateResponse,
-  type BackfillListResponse,
-  type BackfillCloseResponse,
-  type BackfillFetchResponse,
-  type BackfillRevertResponse,
-  type BackfillCreateParams,
-  type BackfillListParams,
-} from './backfills';
+export { Backfills, type BackfillCreateParams, type BackfillListParams } from './backfills';
 export {
   Events,
   type EventUpdateResponse,

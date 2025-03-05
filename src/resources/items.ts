@@ -3,20 +3,26 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import { Page, type PageParams } from '../pagination';
+import * as Shared from './shared';
+import { ItemModelsPage } from './shared';
+import { type PageParams } from '../pagination';
 
 export class Items extends APIResource {
   /**
    * This endpoint is used to create an [Item](/core-concepts#item).
    */
-  create(body: ItemCreateParams, options?: Core.RequestOptions): Core.APIPromise<Item> {
+  create(body: ItemCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.ItemModel> {
     return this._client.post('/items', { body, ...options });
   }
 
   /**
    * This endpoint can be used to update properties on the Item.
    */
-  update(itemId: string, body: ItemUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Item> {
+  update(
+    itemId: string,
+    body: ItemUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.ItemModel> {
     return this._client.put(`/items/${itemId}`, { body, ...options });
   }
 
@@ -24,27 +30,28 @@ export class Items extends APIResource {
    * This endpoint returns a list of all Items, ordered in descending order by
    * creation time.
    */
-  list(query?: ItemListParams, options?: Core.RequestOptions): Core.PagePromise<ItemsPage, Item>;
-  list(options?: Core.RequestOptions): Core.PagePromise<ItemsPage, Item>;
+  list(
+    query?: ItemListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ItemModelsPage, Shared.ItemModel>;
+  list(options?: Core.RequestOptions): Core.PagePromise<ItemModelsPage, Shared.ItemModel>;
   list(
     query: ItemListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<ItemsPage, Item> {
+  ): Core.PagePromise<ItemModelsPage, Shared.ItemModel> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/items', ItemsPage, { query, ...options });
+    return this._client.getAPIList('/items', ItemModelsPage, { query, ...options });
   }
 
   /**
    * This endpoint returns an item identified by its item_id.
    */
-  fetch(itemId: string, options?: Core.RequestOptions): Core.APIPromise<Item> {
+  fetch(itemId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ItemModel> {
     return this._client.get(`/items/${itemId}`, options);
   }
 }
-
-export class ItemsPage extends Page<Item> {}
 
 /**
  * The Item resource represents a sellable product or good. Items are associated
@@ -56,24 +63,9 @@ export interface Item {
 
   created_at: string;
 
-  external_connections: Array<Item.ExternalConnection>;
+  external_connections: Array<Shared.ItemExternalConnectionModel>;
 
   name: string;
-}
-
-export namespace Item {
-  export interface ExternalConnection {
-    external_connection_name:
-      | 'stripe'
-      | 'quickbooks'
-      | 'bill.com'
-      | 'netsuite'
-      | 'taxjar'
-      | 'avalara'
-      | 'anrok';
-
-    external_entity_id: string;
-  }
 }
 
 export interface ItemCreateParams {
@@ -84,36 +76,20 @@ export interface ItemCreateParams {
 }
 
 export interface ItemUpdateParams {
-  external_connections?: Array<ItemUpdateParams.ExternalConnection> | null;
+  external_connections?: Array<Shared.ItemExternalConnectionModel> | null;
 
   name?: string | null;
 }
 
-export namespace ItemUpdateParams {
-  export interface ExternalConnection {
-    external_connection_name:
-      | 'stripe'
-      | 'quickbooks'
-      | 'bill.com'
-      | 'netsuite'
-      | 'taxjar'
-      | 'avalara'
-      | 'anrok';
-
-    external_entity_id: string;
-  }
-}
-
 export interface ItemListParams extends PageParams {}
-
-Items.ItemsPage = ItemsPage;
 
 export declare namespace Items {
   export {
     type Item as Item,
-    ItemsPage as ItemsPage,
     type ItemCreateParams as ItemCreateParams,
     type ItemUpdateParams as ItemUpdateParams,
     type ItemListParams as ItemListParams,
   };
 }
+
+export { ItemModelsPage };
