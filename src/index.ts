@@ -519,23 +519,13 @@ export declare namespace Orb {
     type DimensionalPriceGroupListParams as DimensionalPriceGroupListParams,
   };
 
-  export type AddCreditLedgerEntryRequest = API.AddCreditLedgerEntryRequest;
-  export type AddCreditTopUpRequest = API.AddCreditTopUpRequest;
-  export type AddSubscriptionAdjustmentParams = API.AddSubscriptionAdjustmentParams;
-  export type AddSubscriptionPriceParams = API.AddSubscriptionPriceParams;
   export type AmountDiscount = API.AmountDiscount;
   export type BillingCycleRelativeDate = API.BillingCycleRelativeDate;
-  export type CreateCustomerAlertRequest = API.CreateCustomerAlertRequest;
   export type Discount = API.Discount;
   export type InvoiceLevelDiscount = API.InvoiceLevelDiscount;
   export type PaginationMetadata = API.PaginationMetadata;
   export type PercentageDiscount = API.PercentageDiscount;
-  export type RemoveSubscriptionAdjustmentParams = API.RemoveSubscriptionAdjustmentParams;
-  export type RemoveSubscriptionPriceParams = API.RemoveSubscriptionPriceParams;
-  export type ReplaceSubscriptionAdjustmentParams = API.ReplaceSubscriptionAdjustmentParams;
-  export type ReplaceSubscriptionPriceParams = API.ReplaceSubscriptionPriceParams;
   export type TrialDiscount = API.TrialDiscount;
-  export type UpdatePriceRequestParams = API.UpdatePriceRequestParams;
   export type UsageDiscount = API.UsageDiscount;
 }
 
