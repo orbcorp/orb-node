@@ -3,19 +3,14 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as Shared from './shared';
-import { CreditNoteModelsPage } from './shared';
-import { type PageParams } from '../pagination';
+import { Page, type PageParams } from '../pagination';
 
 export class CreditNotes extends APIResource {
   /**
    * This endpoint is used to create a single
    * [`Credit Note`](/invoicing/credit-notes).
    */
-  create(
-    body: CreditNoteCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.CreditNoteModel> {
+  create(body: CreditNoteCreateParams, options?: Core.RequestOptions): Core.APIPromise<CreditNote> {
     return this._client.post('/credit_notes', { body, ...options });
   }
 
@@ -27,26 +22,28 @@ export class CreditNotes extends APIResource {
   list(
     query?: CreditNoteListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CreditNoteModelsPage, Shared.CreditNoteModel>;
-  list(options?: Core.RequestOptions): Core.PagePromise<CreditNoteModelsPage, Shared.CreditNoteModel>;
+  ): Core.PagePromise<CreditNotesPage, CreditNote>;
+  list(options?: Core.RequestOptions): Core.PagePromise<CreditNotesPage, CreditNote>;
   list(
     query: CreditNoteListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CreditNoteModelsPage, Shared.CreditNoteModel> {
+  ): Core.PagePromise<CreditNotesPage, CreditNote> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/credit_notes', CreditNoteModelsPage, { query, ...options });
+    return this._client.getAPIList('/credit_notes', CreditNotesPage, { query, ...options });
   }
 
   /**
    * This endpoint is used to fetch a single [`Credit Note`](/invoicing/credit-notes)
    * given an identifier.
    */
-  fetch(creditNoteId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.CreditNoteModel> {
+  fetch(creditNoteId: string, options?: Core.RequestOptions): Core.APIPromise<CreditNote> {
     return this._client.get(`/credit_notes/${creditNoteId}`, options);
   }
 }
+
+export class CreditNotesPage extends Page<CreditNote> {}
 
 /**
  * The [Credit Note](/invoicing/credit-notes) resource represents a credit that has
@@ -73,7 +70,7 @@ export interface CreditNote {
    */
   credit_note_pdf: string | null;
 
-  customer: Shared.CustomerMinifiedModel;
+  customer: CreditNote.Customer;
 
   /**
    * The id of the invoice resource that this credit note is applied to.
@@ -88,7 +85,7 @@ export interface CreditNote {
   /**
    * The maximum amount applied on the original invoice
    */
-  maximum_amount_adjustment: Shared.CreditNoteDiscountModel | null;
+  maximum_amount_adjustment: CreditNote.MaximumAmountAdjustment | null;
 
   /**
    * An optional memo supplied on the credit note.
@@ -122,10 +119,16 @@ export interface CreditNote {
   /**
    * Any discounts applied on the original invoice.
    */
-  discounts?: Array<Shared.CreditNoteDiscountModel>;
+  discounts?: Array<CreditNote.Discount>;
 }
 
 export namespace CreditNote {
+  export interface Customer {
+    id: string;
+
+    external_customer_id: string | null;
+  }
+
   export interface LineItem {
     /**
      * The Orb id of this resource.
@@ -160,7 +163,7 @@ export namespace CreditNote {
     /**
      * Any tax amounts applied onto the line item.
      */
-    tax_amounts: Array<Shared.TaxAmountModel>;
+    tax_amounts: Array<LineItem.TaxAmount>;
 
     /**
      * Any line item discounts from the invoice's line item.
@@ -169,6 +172,23 @@ export namespace CreditNote {
   }
 
   export namespace LineItem {
+    export interface TaxAmount {
+      /**
+       * The amount of additional tax incurred by this tax rate.
+       */
+      amount: string;
+
+      /**
+       * The human-readable description of the applied tax rate.
+       */
+      tax_rate_description: string;
+
+      /**
+       * The tax rate percentage, out of 100.
+       */
+      tax_rate_percentage: string | null;
+    }
+
     export interface Discount {
       id: string;
 
@@ -183,6 +203,49 @@ export namespace CreditNote {
       amount_discount?: string | null;
 
       reason?: string | null;
+    }
+  }
+
+  /**
+   * The maximum amount applied on the original invoice
+   */
+  export interface MaximumAmountAdjustment {
+    amount_applied: string;
+
+    discount_type: 'percentage';
+
+    percentage_discount: number;
+
+    applies_to_prices?: Array<MaximumAmountAdjustment.AppliesToPrice> | null;
+
+    reason?: string | null;
+  }
+
+  export namespace MaximumAmountAdjustment {
+    export interface AppliesToPrice {
+      id: string;
+
+      name: string;
+    }
+  }
+
+  export interface Discount {
+    amount_applied: string;
+
+    discount_type: 'percentage';
+
+    percentage_discount: number;
+
+    applies_to_prices?: Array<Discount.AppliesToPrice> | null;
+
+    reason?: string | null;
+  }
+
+  export namespace Discount {
+    export interface AppliesToPrice {
+      id: string;
+
+      name: string;
     }
   }
 }
@@ -217,12 +280,13 @@ export namespace CreditNoteCreateParams {
 
 export interface CreditNoteListParams extends PageParams {}
 
+CreditNotes.CreditNotesPage = CreditNotesPage;
+
 export declare namespace CreditNotes {
   export {
     type CreditNote as CreditNote,
+    CreditNotesPage as CreditNotesPage,
     type CreditNoteCreateParams as CreditNoteCreateParams,
     type CreditNoteListParams as CreditNoteListParams,
   };
 }
-
-export { CreditNoteModelsPage };
