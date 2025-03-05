@@ -3,17 +3,7 @@
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
 import * as BackfillsAPI from './backfills';
-import {
-  BackfillCloseResponse,
-  BackfillCreateParams,
-  BackfillCreateResponse,
-  BackfillFetchResponse,
-  BackfillListParams,
-  BackfillListResponse,
-  BackfillListResponsesPage,
-  BackfillRevertResponse,
-  Backfills,
-} from './backfills';
+import { BackfillCreateParams, BackfillListParams, Backfills } from './backfills';
 import * as VolumeAPI from './volume';
 import { EventVolumes, Volume, VolumeListParams } from './volume';
 
@@ -575,7 +565,6 @@ export interface EventSearchParams {
 }
 
 Events.Backfills = Backfills;
-Events.BackfillListResponsesPage = BackfillListResponsesPage;
 Events.Volume = Volume;
 
 export declare namespace Events {
@@ -591,12 +580,6 @@ export declare namespace Events {
 
   export {
     Backfills as Backfills,
-    type BackfillCreateResponse as BackfillCreateResponse,
-    type BackfillListResponse as BackfillListResponse,
-    type BackfillCloseResponse as BackfillCloseResponse,
-    type BackfillFetchResponse as BackfillFetchResponse,
-    type BackfillRevertResponse as BackfillRevertResponse,
-    BackfillListResponsesPage as BackfillListResponsesPage,
     type BackfillCreateParams as BackfillCreateParams,
     type BackfillListParams as BackfillListParams,
   };

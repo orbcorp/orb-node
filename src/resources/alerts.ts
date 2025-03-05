@@ -3,13 +3,15 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import { Page, type PageParams } from '../pagination';
+import * as Shared from './shared';
+import { AlertModelsPage } from './shared';
+import { type PageParams } from '../pagination';
 
 export class Alerts extends APIResource {
   /**
    * This endpoint retrieves an alert by its ID.
    */
-  retrieve(alertId: string, options?: Core.RequestOptions): Core.APIPromise<Alert> {
+  retrieve(alertId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.AlertModel> {
     return this._client.get(`/alerts/${alertId}`, options);
   }
 
@@ -20,7 +22,7 @@ export class Alerts extends APIResource {
     alertConfigurationId: string,
     body: AlertUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert> {
+  ): Core.APIPromise<Shared.AlertModel> {
     return this._client.put(`/alerts/${alertConfigurationId}`, { body, ...options });
   }
 
@@ -37,16 +39,19 @@ export class Alerts extends APIResource {
    * This endpoint follows Orb's
    * [standardized pagination format](/api-reference/pagination).
    */
-  list(query?: AlertListParams, options?: Core.RequestOptions): Core.PagePromise<AlertsPage, Alert>;
-  list(options?: Core.RequestOptions): Core.PagePromise<AlertsPage, Alert>;
+  list(
+    query?: AlertListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<AlertModelsPage, Shared.AlertModel>;
+  list(options?: Core.RequestOptions): Core.PagePromise<AlertModelsPage, Shared.AlertModel>;
   list(
     query: AlertListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<AlertsPage, Alert> {
+  ): Core.PagePromise<AlertModelsPage, Shared.AlertModel> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/alerts', AlertsPage, { query, ...options });
+    return this._client.getAPIList('/alerts', AlertModelsPage, { query, ...options });
   }
 
   /**
@@ -63,7 +68,7 @@ export class Alerts extends APIResource {
     customerId: string,
     body: AlertCreateForCustomerParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert> {
+  ): Core.APIPromise<Shared.AlertModel> {
     return this._client.post(`/alerts/customer_id/${customerId}`, { body, ...options });
   }
 
@@ -81,7 +86,7 @@ export class Alerts extends APIResource {
     externalCustomerId: string,
     body: AlertCreateForExternalCustomerParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert> {
+  ): Core.APIPromise<Shared.AlertModel> {
     return this._client.post(`/alerts/external_customer_id/${externalCustomerId}`, { body, ...options });
   }
 
@@ -102,7 +107,7 @@ export class Alerts extends APIResource {
     subscriptionId: string,
     body: AlertCreateForSubscriptionParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert> {
+  ): Core.APIPromise<Shared.AlertModel> {
     return this._client.post(`/alerts/subscription_id/${subscriptionId}`, { body, ...options });
   }
 
@@ -115,13 +120,13 @@ export class Alerts extends APIResource {
     alertConfigurationId: string,
     params?: AlertDisableParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert>;
-  disable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert>;
+  ): Core.APIPromise<Shared.AlertModel>;
+  disable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.AlertModel>;
   disable(
     alertConfigurationId: string,
     params: AlertDisableParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert> {
+  ): Core.APIPromise<Shared.AlertModel> {
     if (isRequestOptions(params)) {
       return this.disable(alertConfigurationId, {}, params);
     }
@@ -141,13 +146,13 @@ export class Alerts extends APIResource {
     alertConfigurationId: string,
     params?: AlertEnableParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert>;
-  enable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert>;
+  ): Core.APIPromise<Shared.AlertModel>;
+  enable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.AlertModel>;
   enable(
     alertConfigurationId: string,
     params: AlertEnableParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Alert> {
+  ): Core.APIPromise<Shared.AlertModel> {
     if (isRequestOptions(params)) {
       return this.enable(alertConfigurationId, {}, params);
     }
@@ -158,8 +163,6 @@ export class Alerts extends APIResource {
     });
   }
 }
-
-export class AlertsPage extends Page<Alert> {}
 
 /**
  * [Alerts within Orb](/product-catalog/configuring-alerts) monitor spending,
@@ -187,7 +190,7 @@ export interface Alert {
   /**
    * The customer the alert applies to.
    */
-  customer: Alert.Customer | null;
+  customer: Shared.CustomerMinifiedModel | null;
 
   /**
    * Whether the alert is enabled or disabled.
@@ -207,13 +210,13 @@ export interface Alert {
   /**
    * The subscription the alert applies to.
    */
-  subscription: Alert.Subscription | null;
+  subscription: Shared.SubscriptionMinifiedModel | null;
 
   /**
    * The thresholds that define the conditions under which the alert will be
    * triggered.
    */
-  thresholds: Array<Alert.Threshold> | null;
+  thresholds: Array<Shared.ThresholdModel> | null;
 
   /**
    * The type of alert. This must be a valid alert type.
@@ -227,15 +230,6 @@ export interface Alert {
 }
 
 export namespace Alert {
-  /**
-   * The customer the alert applies to.
-   */
-  export interface Customer {
-    id: string;
-
-    external_customer_id: string | null;
-  }
-
   /**
    * The metric the alert applies to.
    */
@@ -260,48 +254,13 @@ export namespace Alert {
 
     plan_version: string;
   }
-
-  /**
-   * The subscription the alert applies to.
-   */
-  export interface Subscription {
-    id: string;
-  }
-
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
 }
 
 export interface AlertUpdateParams {
   /**
    * The thresholds that define the values at which the alert will be triggered.
    */
-  thresholds: Array<AlertUpdateParams.Threshold>;
-}
-
-export namespace AlertUpdateParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
+  thresholds: Array<Shared.ThresholdModel>;
 }
 
 export interface AlertListParams extends PageParams {
@@ -348,22 +307,7 @@ export interface AlertCreateForCustomerParams {
   /**
    * The thresholds that define the values at which the alert will be triggered.
    */
-  thresholds?: Array<AlertCreateForCustomerParams.Threshold> | null;
-}
-
-export namespace AlertCreateForCustomerParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
+  thresholds?: Array<Shared.ThresholdModel> | null;
 }
 
 export interface AlertCreateForExternalCustomerParams {
@@ -385,29 +329,14 @@ export interface AlertCreateForExternalCustomerParams {
   /**
    * The thresholds that define the values at which the alert will be triggered.
    */
-  thresholds?: Array<AlertCreateForExternalCustomerParams.Threshold> | null;
-}
-
-export namespace AlertCreateForExternalCustomerParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
+  thresholds?: Array<Shared.ThresholdModel> | null;
 }
 
 export interface AlertCreateForSubscriptionParams {
   /**
    * The thresholds that define the values at which the alert will be triggered.
    */
-  thresholds: Array<AlertCreateForSubscriptionParams.Threshold>;
+  thresholds: Array<Shared.ThresholdModel>;
 
   /**
    * The type of alert to create. This must be a valid alert type.
@@ -425,21 +354,6 @@ export interface AlertCreateForSubscriptionParams {
   metric_id?: string | null;
 }
 
-export namespace AlertCreateForSubscriptionParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
-}
-
 export interface AlertDisableParams {
   /**
    * Used to update the status of a plan alert scoped to this subscription_id
@@ -454,12 +368,9 @@ export interface AlertEnableParams {
   subscription_id?: string | null;
 }
 
-Alerts.AlertsPage = AlertsPage;
-
 export declare namespace Alerts {
   export {
     type Alert as Alert,
-    AlertsPage as AlertsPage,
     type AlertUpdateParams as AlertUpdateParams,
     type AlertListParams as AlertListParams,
     type AlertCreateForCustomerParams as AlertCreateForCustomerParams,
@@ -469,3 +380,5 @@ export declare namespace Alerts {
     type AlertEnableParams as AlertEnableParams,
   };
 }
+
+export { AlertModelsPage };
