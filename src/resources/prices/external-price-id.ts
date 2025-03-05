@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as PricesAPI from './prices';
+import * as Shared from '../shared';
 
 export class ExternalPriceID extends APIResource {
   /**
@@ -14,7 +14,7 @@ export class ExternalPriceID extends APIResource {
     externalPriceId: string,
     body: ExternalPriceIDUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PricesAPI.Price> {
+  ): Core.APIPromise<Shared.PriceModel> {
     return this._client.put(`/prices/external_price_id/${externalPriceId}`, { body, ...options });
   }
 
@@ -23,7 +23,7 @@ export class ExternalPriceID extends APIResource {
    * [price creation API](/api-reference/price/create-price) for more information
    * about external price aliases.
    */
-  fetch(externalPriceId: string, options?: Core.RequestOptions): Core.APIPromise<PricesAPI.Price> {
+  fetch(externalPriceId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.PriceModel> {
     return this._client.get(`/prices/external_price_id/${externalPriceId}`, options);
   }
 }

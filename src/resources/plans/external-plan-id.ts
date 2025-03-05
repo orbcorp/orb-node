@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as PlansAPI from './plans';
+import * as Shared from '../shared';
 
 export class ExternalPlanID extends APIResource {
   /**
@@ -15,7 +15,7 @@ export class ExternalPlanID extends APIResource {
     otherExternalPlanId: string,
     body: ExternalPlanIDUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PlansAPI.Plan> {
+  ): Core.APIPromise<Shared.PlanModel> {
     return this._client.put(`/plans/external_plan_id/${otherExternalPlanId}`, { body, ...options });
   }
 
@@ -37,7 +37,7 @@ export class ExternalPlanID extends APIResource {
    * that is present. A detailed explanation of price types can be found in the
    * [Price schema](/core-concepts#plan-and-price). "
    */
-  fetch(externalPlanId: string, options?: Core.RequestOptions): Core.APIPromise<PlansAPI.Plan> {
+  fetch(externalPlanId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.PlanModel> {
     return this._client.get(`/plans/external_plan_id/${externalPlanId}`, options);
   }
 }

@@ -18,20 +18,14 @@ import {
   AlertListParams,
   AlertUpdateParams,
   Alerts,
-  AlertsPage,
 } from './resources/alerts';
 import {
   CreditNote,
   CreditNoteCreateParams,
   CreditNoteListParams,
   CreditNotes,
-  CreditNotesPage,
 } from './resources/credit-notes';
-import {
-  InvoiceLineItemCreateParams,
-  InvoiceLineItemCreateResponse,
-  InvoiceLineItems,
-} from './resources/invoice-line-items';
+import { InvoiceLineItemCreateParams, InvoiceLineItems } from './resources/invoice-line-items';
 import {
   Invoice,
   InvoiceCreateParams,
@@ -42,19 +36,10 @@ import {
   InvoiceMarkPaidParams,
   InvoiceUpdateParams,
   Invoices,
-  InvoicesPage,
 } from './resources/invoices';
-import {
-  Item,
-  ItemCreateParams,
-  ItemListParams,
-  ItemUpdateParams,
-  Items,
-  ItemsPage,
-} from './resources/items';
+import { Item, ItemCreateParams, ItemListParams, ItemUpdateParams, Items } from './resources/items';
 import {
   BillableMetric,
-  BillableMetricsPage,
   MetricCreateParams,
   MetricListParams,
   MetricUpdateParams,
@@ -63,9 +48,7 @@ import {
 import {
   Subscription,
   SubscriptionCancelParams,
-  SubscriptionCancelResponse,
   SubscriptionCreateParams,
-  SubscriptionCreateResponse,
   SubscriptionFetchCostsParams,
   SubscriptionFetchCostsResponse,
   SubscriptionFetchScheduleParams,
@@ -74,32 +57,17 @@ import {
   SubscriptionFetchUsageParams,
   SubscriptionListParams,
   SubscriptionPriceIntervalsParams,
-  SubscriptionPriceIntervalsResponse,
   SubscriptionSchedulePlanChangeParams,
-  SubscriptionSchedulePlanChangeResponse,
   SubscriptionTriggerPhaseParams,
-  SubscriptionTriggerPhaseResponse,
-  SubscriptionUnscheduleCancellationResponse,
   SubscriptionUnscheduleFixedFeeQuantityUpdatesParams,
-  SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse,
-  SubscriptionUnschedulePendingPlanChangesResponse,
   SubscriptionUpdateFixedFeeQuantityParams,
-  SubscriptionUpdateFixedFeeQuantityResponse,
   SubscriptionUpdateParams,
   SubscriptionUpdateTrialParams,
-  SubscriptionUpdateTrialResponse,
   SubscriptionUsage,
   Subscriptions,
-  SubscriptionsPage,
 } from './resources/subscriptions';
 import { TopLevel, TopLevelPingResponse } from './resources/top-level';
-import {
-  Coupon,
-  CouponCreateParams,
-  CouponListParams,
-  Coupons,
-  CouponsPage,
-} from './resources/coupons/coupons';
+import { Coupon, CouponCreateParams, CouponListParams, Coupons } from './resources/coupons/coupons';
 import {
   Customer,
   CustomerCreateParams,
@@ -107,14 +75,12 @@ import {
   CustomerUpdateByExternalIDParams,
   CustomerUpdateParams,
   Customers,
-  CustomersPage,
 } from './resources/customers/customers';
 import {
   DimensionalPriceGroup,
   DimensionalPriceGroupCreateParams,
   DimensionalPriceGroupListParams,
   DimensionalPriceGroups,
-  DimensionalPriceGroupsPage,
 } from './resources/dimensional-price-groups/dimensional-price-groups';
 import {
   EventDeprecateResponse,
@@ -126,14 +92,7 @@ import {
   EventUpdateResponse,
   Events,
 } from './resources/events/events';
-import {
-  Plan,
-  PlanCreateParams,
-  PlanListParams,
-  PlanUpdateParams,
-  Plans,
-  PlansPage,
-} from './resources/plans/plans';
+import { Plan, PlanCreateParams, PlanListParams, PlanUpdateParams, Plans } from './resources/plans/plans';
 import {
   EvaluatePriceGroup,
   Price,
@@ -143,7 +102,6 @@ import {
   PriceListParams,
   PriceUpdateParams,
   Prices,
-  PricesPage,
 } from './resources/prices/prices';
 
 export interface ClientOptions {
@@ -340,28 +298,17 @@ export class Orb extends Core.APIClient {
 
 Orb.TopLevel = TopLevel;
 Orb.Coupons = Coupons;
-Orb.CouponsPage = CouponsPage;
 Orb.CreditNotes = CreditNotes;
-Orb.CreditNotesPage = CreditNotesPage;
 Orb.Customers = Customers;
-Orb.CustomersPage = CustomersPage;
 Orb.Events = Events;
 Orb.InvoiceLineItems = InvoiceLineItems;
 Orb.Invoices = Invoices;
-Orb.InvoicesPage = InvoicesPage;
 Orb.Items = Items;
-Orb.ItemsPage = ItemsPage;
 Orb.Metrics = Metrics;
-Orb.BillableMetricsPage = BillableMetricsPage;
 Orb.Plans = Plans;
-Orb.PlansPage = PlansPage;
 Orb.Prices = Prices;
-Orb.PricesPage = PricesPage;
-Orb.SubscriptionsPage = SubscriptionsPage;
 Orb.SubscriptionFetchScheduleResponsesPage = SubscriptionFetchScheduleResponsesPage;
 Orb.Alerts = Alerts;
-Orb.AlertsPage = AlertsPage;
-Orb.DimensionalPriceGroupsPage = DimensionalPriceGroupsPage;
 export declare namespace Orb {
   export type RequestOptions = Core.RequestOptions;
 
@@ -373,7 +320,6 @@ export declare namespace Orb {
   export {
     Coupons as Coupons,
     type Coupon as Coupon,
-    CouponsPage as CouponsPage,
     type CouponCreateParams as CouponCreateParams,
     type CouponListParams as CouponListParams,
   };
@@ -381,7 +327,6 @@ export declare namespace Orb {
   export {
     CreditNotes as CreditNotes,
     type CreditNote as CreditNote,
-    CreditNotesPage as CreditNotesPage,
     type CreditNoteCreateParams as CreditNoteCreateParams,
     type CreditNoteListParams as CreditNoteListParams,
   };
@@ -389,7 +334,6 @@ export declare namespace Orb {
   export {
     Customers as Customers,
     type Customer as Customer,
-    CustomersPage as CustomersPage,
     type CustomerCreateParams as CustomerCreateParams,
     type CustomerUpdateParams as CustomerUpdateParams,
     type CustomerListParams as CustomerListParams,
@@ -409,7 +353,6 @@ export declare namespace Orb {
 
   export {
     InvoiceLineItems as InvoiceLineItems,
-    type InvoiceLineItemCreateResponse as InvoiceLineItemCreateResponse,
     type InvoiceLineItemCreateParams as InvoiceLineItemCreateParams,
   };
 
@@ -417,7 +360,6 @@ export declare namespace Orb {
     Invoices as Invoices,
     type Invoice as Invoice,
     type InvoiceFetchUpcomingResponse as InvoiceFetchUpcomingResponse,
-    InvoicesPage as InvoicesPage,
     type InvoiceCreateParams as InvoiceCreateParams,
     type InvoiceUpdateParams as InvoiceUpdateParams,
     type InvoiceListParams as InvoiceListParams,
@@ -429,7 +371,6 @@ export declare namespace Orb {
   export {
     Items as Items,
     type Item as Item,
-    ItemsPage as ItemsPage,
     type ItemCreateParams as ItemCreateParams,
     type ItemUpdateParams as ItemUpdateParams,
     type ItemListParams as ItemListParams,
@@ -438,7 +379,6 @@ export declare namespace Orb {
   export {
     Metrics as Metrics,
     type BillableMetric as BillableMetric,
-    BillableMetricsPage as BillableMetricsPage,
     type MetricCreateParams as MetricCreateParams,
     type MetricUpdateParams as MetricUpdateParams,
     type MetricListParams as MetricListParams,
@@ -447,7 +387,6 @@ export declare namespace Orb {
   export {
     Plans as Plans,
     type Plan as Plan,
-    PlansPage as PlansPage,
     type PlanCreateParams as PlanCreateParams,
     type PlanUpdateParams as PlanUpdateParams,
     type PlanListParams as PlanListParams,
@@ -458,7 +397,6 @@ export declare namespace Orb {
     type EvaluatePriceGroup as EvaluatePriceGroup,
     type Price as Price,
     type PriceEvaluateResponse as PriceEvaluateResponse,
-    PricesPage as PricesPage,
     type PriceCreateParams as PriceCreateParams,
     type PriceUpdateParams as PriceUpdateParams,
     type PriceListParams as PriceListParams,
@@ -469,19 +407,8 @@ export declare namespace Orb {
     type Subscriptions as Subscriptions,
     type Subscription as Subscription,
     type SubscriptionUsage as SubscriptionUsage,
-    type SubscriptionCreateResponse as SubscriptionCreateResponse,
-    type SubscriptionCancelResponse as SubscriptionCancelResponse,
     type SubscriptionFetchCostsResponse as SubscriptionFetchCostsResponse,
     type SubscriptionFetchScheduleResponse as SubscriptionFetchScheduleResponse,
-    type SubscriptionPriceIntervalsResponse as SubscriptionPriceIntervalsResponse,
-    type SubscriptionSchedulePlanChangeResponse as SubscriptionSchedulePlanChangeResponse,
-    type SubscriptionTriggerPhaseResponse as SubscriptionTriggerPhaseResponse,
-    type SubscriptionUnscheduleCancellationResponse as SubscriptionUnscheduleCancellationResponse,
-    type SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse as SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse,
-    type SubscriptionUnschedulePendingPlanChangesResponse as SubscriptionUnschedulePendingPlanChangesResponse,
-    type SubscriptionUpdateFixedFeeQuantityResponse as SubscriptionUpdateFixedFeeQuantityResponse,
-    type SubscriptionUpdateTrialResponse as SubscriptionUpdateTrialResponse,
-    SubscriptionsPage as SubscriptionsPage,
     SubscriptionFetchScheduleResponsesPage as SubscriptionFetchScheduleResponsesPage,
     type SubscriptionCreateParams as SubscriptionCreateParams,
     type SubscriptionUpdateParams as SubscriptionUpdateParams,
@@ -501,7 +428,6 @@ export declare namespace Orb {
   export {
     Alerts as Alerts,
     type Alert as Alert,
-    AlertsPage as AlertsPage,
     type AlertUpdateParams as AlertUpdateParams,
     type AlertListParams as AlertListParams,
     type AlertCreateForCustomerParams as AlertCreateForCustomerParams,
@@ -514,18 +440,116 @@ export declare namespace Orb {
   export {
     type DimensionalPriceGroups as DimensionalPriceGroups,
     type DimensionalPriceGroup as DimensionalPriceGroup,
-    DimensionalPriceGroupsPage as DimensionalPriceGroupsPage,
     type DimensionalPriceGroupCreateParams as DimensionalPriceGroupCreateParams,
     type DimensionalPriceGroupListParams as DimensionalPriceGroupListParams,
   };
 
+  export type AddCreditLedgerEntryRequest = API.AddCreditLedgerEntryRequest;
+  export type AddCreditTopUpRequest = API.AddCreditTopUpRequest;
+  export type AddSubscriptionAdjustmentParams = API.AddSubscriptionAdjustmentParams;
+  export type AddSubscriptionPriceParams = API.AddSubscriptionPriceParams;
+  export type AddressInputModel = API.AddressInputModel;
+  export type AddressModel = API.AddressModel;
+  export type AdjustmentIntervalModel = API.AdjustmentIntervalModel;
+  export type AdjustmentModel = API.AdjustmentModel;
+  export type AffectedBlockModel = API.AffectedBlockModel;
+  export type AggregatedCostModel = API.AggregatedCostModel;
+  export type AlertModel = API.AlertModel;
+  export type AllocationModel = API.AllocationModel;
   export type AmountDiscount = API.AmountDiscount;
+  export type AmountDiscountIntervalModel = API.AmountDiscountIntervalModel;
+  export type AmountDiscountModel = API.AmountDiscountModel;
+  export type AutoCollectionModel = API.AutoCollectionModel;
+  export type BackfillModel = API.BackfillModel;
+  export type BillableMetricModel = API.BillableMetricModel;
+  export type BillableMetricSimpleModel = API.BillableMetricSimpleModel;
+  export type BillableMetricTinyModel = API.BillableMetricTinyModel;
+  export type BillingCycleAnchorConfigurationModel = API.BillingCycleAnchorConfigurationModel;
+  export type BillingCycleConfigurationModel = API.BillingCycleConfigurationModel;
   export type BillingCycleRelativeDate = API.BillingCycleRelativeDate;
+  export type BpsConfigModel = API.BpsConfigModel;
+  export type BulkBpsConfigModel = API.BulkBpsConfigModel;
+  export type BulkConfigModel = API.BulkConfigModel;
+  export type CouponModel = API.CouponModel;
+  export type CouponRedemptionModel = API.CouponRedemptionModel;
+  export type CreateCustomerAlertRequest = API.CreateCustomerAlertRequest;
+  export type CreditLedgerEntriesModel = API.CreditLedgerEntriesModel;
+  export type CreditLedgerEntryModel = API.CreditLedgerEntryModel;
+  export type CreditNoteDiscountModel = API.CreditNoteDiscountModel;
+  export type CreditNoteModel = API.CreditNoteModel;
+  export type CreditNoteSummaryModel = API.CreditNoteSummaryModel;
+  export type CustomRatingFunctionConfigModel = API.CustomRatingFunctionConfigModel;
+  export type CustomerBalanceTransactionModel = API.CustomerBalanceTransactionModel;
+  export type CustomerCostsModel = API.CustomerCostsModel;
+  export type CustomerCreditBalancesModel = API.CustomerCreditBalancesModel;
+  export type CustomerHierarchyConfigModel = API.CustomerHierarchyConfigModel;
+  export type CustomerMinifiedModel = API.CustomerMinifiedModel;
+  export type CustomerModel = API.CustomerModel;
+  export type CustomerTaxIDModel = API.CustomerTaxIDModel;
+  export type DimensionalPriceConfigurationModel = API.DimensionalPriceConfigurationModel;
+  export type DimensionalPriceGroupModel = API.DimensionalPriceGroupModel;
   export type Discount = API.Discount;
+  export type DiscountModel = API.DiscountModel;
+  export type DiscountOverrideModel = API.DiscountOverrideModel;
+  export type EditCustomerModel = API.EditCustomerModel;
+  export type EditPlanModel = API.EditPlanModel;
+  export type FixedFeeQuantityScheduleEntryModel = API.FixedFeeQuantityScheduleEntryModel;
   export type InvoiceLevelDiscount = API.InvoiceLevelDiscount;
+  export type InvoiceLevelDiscountModel = API.InvoiceLevelDiscountModel;
+  export type InvoiceLineItemModel = API.InvoiceLineItemModel;
+  export type InvoiceModel = API.InvoiceModel;
+  export type ItemExternalConnectionModel = API.ItemExternalConnectionModel;
+  export type ItemModel = API.ItemModel;
+  export type ItemSlimModel = API.ItemSlimModel;
+  export type MatrixConfigModel = API.MatrixConfigModel;
+  export type MatrixValueModel = API.MatrixValueModel;
+  export type MatrixWithAllocationConfigModel = API.MatrixWithAllocationConfigModel;
+  export type MaximumIntervalModel = API.MaximumIntervalModel;
+  export type MaximumModel = API.MaximumModel;
+  export type MinimumIntervalModel = API.MinimumIntervalModel;
+  export type MinimumModel = API.MinimumModel;
+  export type MutatedSubscriptionModel = API.MutatedSubscriptionModel;
+  export type NewAccountingSyncConfigurationModel = API.NewAccountingSyncConfigurationModel;
+  export type NewAdjustmentModel = API.NewAdjustmentModel;
+  export type NewAllocationPriceModel = API.NewAllocationPriceModel;
+  export type NewBillingCycleConfigurationModel = API.NewBillingCycleConfigurationModel;
+  export type NewFloatingPriceModel = API.NewFloatingPriceModel;
+  export type NewReportingConfigurationModel = API.NewReportingConfigurationModel;
+  export type NewSubscriptionPriceModel = API.NewSubscriptionPriceModel;
+  export type NewTaxConfigurationModel = API.NewTaxConfigurationModel;
+  export type PackageConfigModel = API.PackageConfigModel;
   export type PaginationMetadata = API.PaginationMetadata;
+  export type PaginationMetadataModel = API.PaginationMetadataModel;
+  export type PaymentAttemptModel = API.PaymentAttemptModel;
   export type PercentageDiscount = API.PercentageDiscount;
+  export type PercentageDiscountIntervalModel = API.PercentageDiscountIntervalModel;
+  export type PercentageDiscountModel = API.PercentageDiscountModel;
+  export type PlanMinifiedModel = API.PlanMinifiedModel;
+  export type PlanModel = API.PlanModel;
+  export type PriceIntervalFixedFeeQuantityTransitionModel = API.PriceIntervalFixedFeeQuantityTransitionModel;
+  export type PriceIntervalModel = API.PriceIntervalModel;
+  export type PriceModel = API.PriceModel;
+  export type RemoveSubscriptionAdjustmentParams = API.RemoveSubscriptionAdjustmentParams;
+  export type RemoveSubscriptionPriceParams = API.RemoveSubscriptionPriceParams;
+  export type ReplaceSubscriptionAdjustmentParams = API.ReplaceSubscriptionAdjustmentParams;
+  export type ReplaceSubscriptionPriceParams = API.ReplaceSubscriptionPriceParams;
+  export type SubLineItemGroupingModel = API.SubLineItemGroupingModel;
+  export type SubscriptionMinifiedModel = API.SubscriptionMinifiedModel;
+  export type SubscriptionModel = API.SubscriptionModel;
+  export type SubscriptionTrialInfoModel = API.SubscriptionTrialInfoModel;
+  export type SubscriptionsModel = API.SubscriptionsModel;
+  export type TaxAmountModel = API.TaxAmountModel;
+  export type ThresholdModel = API.ThresholdModel;
+  export type TieredBpsConfigModel = API.TieredBpsConfigModel;
+  export type TieredConfigModel = API.TieredConfigModel;
+  export type TopUpModel = API.TopUpModel;
+  export type TopUpsModel = API.TopUpsModel;
   export type TrialDiscount = API.TrialDiscount;
+  export type TrialDiscountModel = API.TrialDiscountModel;
+  export type UnitConfigModel = API.UnitConfigModel;
+  export type UpdatePriceRequestParams = API.UpdatePriceRequestParams;
+  export type UsageDiscountIntervalModel = API.UsageDiscountIntervalModel;
+  export type UsageModel = API.UsageModel;
   export type UsageDiscount = API.UsageDiscount;
 }
 

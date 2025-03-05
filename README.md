@@ -25,12 +25,12 @@ const client = new Orb({
 });
 
 async function main() {
-  const customer = await client.customers.create({
+  const customerModel = await client.customers.create({
     email: 'example-customer@withorb.com',
     name: 'My Customer',
   });
 
-  console.log(customer.id);
+  console.log(customerModel.id);
 }
 
 main();
@@ -50,7 +50,7 @@ const client = new Orb({
 
 async function main() {
   const params: Orb.CustomerCreateParams = { email: 'example-customer@withorb.com', name: 'My Customer' };
-  const customer: Orb.Customer = await client.customers.create(params);
+  const customerModel: Orb.CustomerModel = await client.customers.create(params);
 }
 
 main();
@@ -67,7 +67,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const customer = await client.customers
+  const customerModel = await client.customers
     .create({ email: 'example-customer@withorb.com', name: 'My Customer' })
     .catch(async (err) => {
       if (err instanceof Orb.APIError) {
@@ -147,8 +147,8 @@ You can use the `for await … of` syntax to iterate through items across all pa
 async function fetchAllCoupons(params) {
   const allCoupons = [];
   // Automatically fetches more pages as needed.
-  for await (const coupon of client.coupons.list()) {
-    allCoupons.push(coupon);
+  for await (const couponModel of client.coupons.list()) {
+    allCoupons.push(couponModel);
   }
   return allCoupons;
 }
@@ -158,8 +158,8 @@ Alternatively, you can request a single page at a time:
 
 ```ts
 let page = await client.coupons.list();
-for (const coupon of page.data) {
-  console.log(coupon);
+for (const couponModel of page.data) {
+  console.log(couponModel);
 }
 
 // Convenience methods are provided for manually paginating:
@@ -216,11 +216,11 @@ const response = await client.customers
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: customer, response: raw } = await client.customers
+const { data: customerModel, response: raw } = await client.customers
   .create({ email: 'example-customer@withorb.com', name: 'My Customer' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(customer.id);
+console.log(customerModel.id);
 ```
 
 ### Making custom/undocumented requests
