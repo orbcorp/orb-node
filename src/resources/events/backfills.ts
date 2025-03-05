@@ -3,9 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as Shared from '../shared';
-import { BackfillModelsPage } from '../shared';
-import { type PageParams } from '../../pagination';
+import { Page, type PageParams } from '../../pagination';
 
 export class Backfills extends APIResource {
   /**
@@ -47,7 +45,7 @@ export class Backfills extends APIResource {
    * expressiveness of computed properties allows you to deprecate existing events
    * based on both a period of time and specific property values.
    */
-  create(body: BackfillCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.BackfillModel> {
+  create(body: BackfillCreateParams, options?: Core.RequestOptions): Core.APIPromise<BackfillCreateResponse> {
     return this._client.post('/events/backfills', { body, ...options });
   }
 
@@ -63,16 +61,16 @@ export class Backfills extends APIResource {
   list(
     query?: BackfillListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BackfillModelsPage, Shared.BackfillModel>;
-  list(options?: Core.RequestOptions): Core.PagePromise<BackfillModelsPage, Shared.BackfillModel>;
+  ): Core.PagePromise<BackfillListResponsesPage, BackfillListResponse>;
+  list(options?: Core.RequestOptions): Core.PagePromise<BackfillListResponsesPage, BackfillListResponse>;
   list(
     query: BackfillListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BackfillModelsPage, Shared.BackfillModel> {
+  ): Core.PagePromise<BackfillListResponsesPage, BackfillListResponse> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/events/backfills', BackfillModelsPage, { query, ...options });
+    return this._client.getAPIList('/events/backfills', BackfillListResponsesPage, { query, ...options });
   }
 
   /**
@@ -81,14 +79,14 @@ export class Backfills extends APIResource {
    * and usage graphs. Once all of the updates are complete, the backfill's status
    * will transition to `reflected`.
    */
-  close(backfillId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.BackfillModel> {
+  close(backfillId: string, options?: Core.RequestOptions): Core.APIPromise<BackfillCloseResponse> {
     return this._client.post(`/events/backfills/${backfillId}/close`, options);
   }
 
   /**
    * This endpoint is used to fetch a backfill given an identifier.
    */
-  fetch(backfillId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.BackfillModel> {
+  fetch(backfillId: string, options?: Core.RequestOptions): Core.APIPromise<BackfillFetchResponse> {
     return this._client.get(`/events/backfills/${backfillId}`, options);
   }
 
@@ -101,9 +99,286 @@ export class Backfills extends APIResource {
    * If a backfill is reverted before its closed, no usage will be updated as a
    * result of the backfill and it will immediately transition to `reverted`.
    */
-  revert(backfillId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.BackfillModel> {
+  revert(backfillId: string, options?: Core.RequestOptions): Core.APIPromise<BackfillRevertResponse> {
     return this._client.post(`/events/backfills/${backfillId}/revert`, options);
   }
+}
+
+export class BackfillListResponsesPage extends Page<BackfillListResponse> {}
+
+/**
+ * A backfill represents an update to historical usage data, adding or replacing
+ * events in a timeframe.
+ */
+export interface BackfillCreateResponse {
+  id: string;
+
+  /**
+   * If in the future, the time at which the backfill will automatically close. If in
+   * the past, the time at which the backfill was closed.
+   */
+  close_time: string | null;
+
+  created_at: string;
+
+  /**
+   * The Orb-generated ID of the customer to which this backfill is scoped. If
+   * `null`, this backfill is scoped to all customers.
+   */
+  customer_id: string | null;
+
+  /**
+   * The number of events ingested in this backfill.
+   */
+  events_ingested: number;
+
+  /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
+   * The time at which this backfill was reverted.
+   */
+  reverted_at: string | null;
+
+  /**
+   * The status of the backfill.
+   */
+  status: 'pending' | 'reflected' | 'pending_revert' | 'reverted';
+
+  timeframe_end: string;
+
+  timeframe_start: string;
+
+  /**
+   * A boolean
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the set of events to deprecate
+   */
+  deprecation_filter?: string | null;
+}
+
+/**
+ * A backfill represents an update to historical usage data, adding or replacing
+ * events in a timeframe.
+ */
+export interface BackfillListResponse {
+  id: string;
+
+  /**
+   * If in the future, the time at which the backfill will automatically close. If in
+   * the past, the time at which the backfill was closed.
+   */
+  close_time: string | null;
+
+  created_at: string;
+
+  /**
+   * The Orb-generated ID of the customer to which this backfill is scoped. If
+   * `null`, this backfill is scoped to all customers.
+   */
+  customer_id: string | null;
+
+  /**
+   * The number of events ingested in this backfill.
+   */
+  events_ingested: number;
+
+  /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
+   * The time at which this backfill was reverted.
+   */
+  reverted_at: string | null;
+
+  /**
+   * The status of the backfill.
+   */
+  status: 'pending' | 'reflected' | 'pending_revert' | 'reverted';
+
+  timeframe_end: string;
+
+  timeframe_start: string;
+
+  /**
+   * A boolean
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the set of events to deprecate
+   */
+  deprecation_filter?: string | null;
+}
+
+/**
+ * A backfill represents an update to historical usage data, adding or replacing
+ * events in a timeframe.
+ */
+export interface BackfillCloseResponse {
+  id: string;
+
+  /**
+   * If in the future, the time at which the backfill will automatically close. If in
+   * the past, the time at which the backfill was closed.
+   */
+  close_time: string | null;
+
+  created_at: string;
+
+  /**
+   * The Orb-generated ID of the customer to which this backfill is scoped. If
+   * `null`, this backfill is scoped to all customers.
+   */
+  customer_id: string | null;
+
+  /**
+   * The number of events ingested in this backfill.
+   */
+  events_ingested: number;
+
+  /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
+   * The time at which this backfill was reverted.
+   */
+  reverted_at: string | null;
+
+  /**
+   * The status of the backfill.
+   */
+  status: 'pending' | 'reflected' | 'pending_revert' | 'reverted';
+
+  timeframe_end: string;
+
+  timeframe_start: string;
+
+  /**
+   * A boolean
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the set of events to deprecate
+   */
+  deprecation_filter?: string | null;
+}
+
+/**
+ * A backfill represents an update to historical usage data, adding or replacing
+ * events in a timeframe.
+ */
+export interface BackfillFetchResponse {
+  id: string;
+
+  /**
+   * If in the future, the time at which the backfill will automatically close. If in
+   * the past, the time at which the backfill was closed.
+   */
+  close_time: string | null;
+
+  created_at: string;
+
+  /**
+   * The Orb-generated ID of the customer to which this backfill is scoped. If
+   * `null`, this backfill is scoped to all customers.
+   */
+  customer_id: string | null;
+
+  /**
+   * The number of events ingested in this backfill.
+   */
+  events_ingested: number;
+
+  /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
+   * The time at which this backfill was reverted.
+   */
+  reverted_at: string | null;
+
+  /**
+   * The status of the backfill.
+   */
+  status: 'pending' | 'reflected' | 'pending_revert' | 'reverted';
+
+  timeframe_end: string;
+
+  timeframe_start: string;
+
+  /**
+   * A boolean
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the set of events to deprecate
+   */
+  deprecation_filter?: string | null;
+}
+
+/**
+ * A backfill represents an update to historical usage data, adding or replacing
+ * events in a timeframe.
+ */
+export interface BackfillRevertResponse {
+  id: string;
+
+  /**
+   * If in the future, the time at which the backfill will automatically close. If in
+   * the past, the time at which the backfill was closed.
+   */
+  close_time: string | null;
+
+  created_at: string;
+
+  /**
+   * The Orb-generated ID of the customer to which this backfill is scoped. If
+   * `null`, this backfill is scoped to all customers.
+   */
+  customer_id: string | null;
+
+  /**
+   * The number of events ingested in this backfill.
+   */
+  events_ingested: number;
+
+  /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
+   * The time at which this backfill was reverted.
+   */
+  reverted_at: string | null;
+
+  /**
+   * The status of the backfill.
+   */
+  status: 'pending' | 'reflected' | 'pending_revert' | 'reverted';
+
+  timeframe_end: string;
+
+  timeframe_start: string;
+
+  /**
+   * A boolean
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the set of events to deprecate
+   */
+  deprecation_filter?: string | null;
 }
 
 export interface BackfillCreateParams {
@@ -152,8 +427,17 @@ export interface BackfillCreateParams {
 
 export interface BackfillListParams extends PageParams {}
 
-export declare namespace Backfills {
-  export { type BackfillCreateParams as BackfillCreateParams, type BackfillListParams as BackfillListParams };
-}
+Backfills.BackfillListResponsesPage = BackfillListResponsesPage;
 
-export { BackfillModelsPage };
+export declare namespace Backfills {
+  export {
+    type BackfillCreateResponse as BackfillCreateResponse,
+    type BackfillListResponse as BackfillListResponse,
+    type BackfillCloseResponse as BackfillCloseResponse,
+    type BackfillFetchResponse as BackfillFetchResponse,
+    type BackfillRevertResponse as BackfillRevertResponse,
+    BackfillListResponsesPage as BackfillListResponsesPage,
+    type BackfillCreateParams as BackfillCreateParams,
+    type BackfillListParams as BackfillListParams,
+  };
+}

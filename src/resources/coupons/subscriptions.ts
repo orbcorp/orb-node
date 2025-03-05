@@ -3,8 +3,8 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as Shared from '../shared';
-import { SubscriptionModelsPage } from '../shared';
+import * as SubscriptionsAPI from '../subscriptions';
+import { SubscriptionsPage } from '../subscriptions';
 import { type PageParams } from '../../pagination';
 
 export class Subscriptions extends APIResource {
@@ -18,20 +18,20 @@ export class Subscriptions extends APIResource {
     couponId: string,
     query?: SubscriptionListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<SubscriptionModelsPage, Shared.SubscriptionModel>;
+  ): Core.PagePromise<SubscriptionsPage, SubscriptionsAPI.Subscription>;
   list(
     couponId: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<SubscriptionModelsPage, Shared.SubscriptionModel>;
+  ): Core.PagePromise<SubscriptionsPage, SubscriptionsAPI.Subscription>;
   list(
     couponId: string,
     query: SubscriptionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<SubscriptionModelsPage, Shared.SubscriptionModel> {
+  ): Core.PagePromise<SubscriptionsPage, SubscriptionsAPI.Subscription> {
     if (isRequestOptions(query)) {
       return this.list(couponId, {}, query);
     }
-    return this._client.getAPIList(`/coupons/${couponId}/subscriptions`, SubscriptionModelsPage, {
+    return this._client.getAPIList(`/coupons/${couponId}/subscriptions`, SubscriptionsPage, {
       query,
       ...options,
     });
@@ -44,4 +44,4 @@ export declare namespace Subscriptions {
   export { type SubscriptionListParams as SubscriptionListParams };
 }
 
-export { SubscriptionModelsPage };
+export { SubscriptionsPage };

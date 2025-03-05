@@ -4,7 +4,9 @@ import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
 import * as Shared from './shared';
-import { SubscriptionModelsPage } from './shared';
+import * as CustomersAPI from './customers/customers';
+import * as PlansAPI from './plans/plans';
+import * as PricesAPI from './prices/prices';
 import { Page, type PageParams } from '../pagination';
 
 export class Subscriptions extends APIResource {
@@ -269,7 +271,7 @@ export class Subscriptions extends APIResource {
   create(
     body: SubscriptionCreateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.MutatedSubscriptionModel> {
+  ): Core.APIPromise<SubscriptionCreateResponse> {
     return this._client.post('/subscriptions', { body, ...options });
   }
 
@@ -282,7 +284,7 @@ export class Subscriptions extends APIResource {
     subscriptionId: string,
     body: SubscriptionUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.SubscriptionModel> {
+  ): Core.APIPromise<Subscription> {
     return this._client.put(`/subscriptions/${subscriptionId}`, { body, ...options });
   }
 
@@ -300,16 +302,16 @@ export class Subscriptions extends APIResource {
   list(
     query?: SubscriptionListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<SubscriptionModelsPage, Shared.SubscriptionModel>;
-  list(options?: Core.RequestOptions): Core.PagePromise<SubscriptionModelsPage, Shared.SubscriptionModel>;
+  ): Core.PagePromise<SubscriptionsPage, Subscription>;
+  list(options?: Core.RequestOptions): Core.PagePromise<SubscriptionsPage, Subscription>;
   list(
     query: SubscriptionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<SubscriptionModelsPage, Shared.SubscriptionModel> {
+  ): Core.PagePromise<SubscriptionsPage, Subscription> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/subscriptions', SubscriptionModelsPage, { query, ...options });
+    return this._client.getAPIList('/subscriptions', SubscriptionsPage, { query, ...options });
   }
 
   /**
@@ -379,7 +381,7 @@ export class Subscriptions extends APIResource {
     subscriptionId: string,
     body: SubscriptionCancelParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.MutatedSubscriptionModel> {
+  ): Core.APIPromise<SubscriptionCancelResponse> {
     return this._client.post(`/subscriptions/${subscriptionId}/cancel`, { body, ...options });
   }
 
@@ -387,7 +389,7 @@ export class Subscriptions extends APIResource {
    * This endpoint is used to fetch a [Subscription](/core-concepts##subscription)
    * given an identifier.
    */
-  fetch(subscriptionId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.SubscriptionModel> {
+  fetch(subscriptionId: string, options?: Core.RequestOptions): Core.APIPromise<Subscription> {
     return this._client.get(`/subscriptions/${subscriptionId}`, options);
   }
 
@@ -744,7 +746,7 @@ export class Subscriptions extends APIResource {
     subscriptionId: string,
     body: SubscriptionPriceIntervalsParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.MutatedSubscriptionModel> {
+  ): Core.APIPromise<SubscriptionPriceIntervalsResponse> {
     return this._client.post(`/subscriptions/${subscriptionId}/price_intervals`, { body, ...options });
   }
 
@@ -937,7 +939,7 @@ export class Subscriptions extends APIResource {
     subscriptionId: string,
     body: SubscriptionSchedulePlanChangeParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.MutatedSubscriptionModel> {
+  ): Core.APIPromise<SubscriptionSchedulePlanChangeResponse> {
     return this._client.post(`/subscriptions/${subscriptionId}/schedule_plan_change`, { body, ...options });
   }
 
@@ -949,7 +951,7 @@ export class Subscriptions extends APIResource {
     subscriptionId: string,
     body: SubscriptionTriggerPhaseParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.MutatedSubscriptionModel> {
+  ): Core.APIPromise<SubscriptionTriggerPhaseResponse> {
     return this._client.post(`/subscriptions/${subscriptionId}/trigger_phase`, { body, ...options });
   }
 
@@ -964,7 +966,7 @@ export class Subscriptions extends APIResource {
   unscheduleCancellation(
     subscriptionId: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.MutatedSubscriptionModel> {
+  ): Core.APIPromise<SubscriptionUnscheduleCancellationResponse> {
     return this._client.post(`/subscriptions/${subscriptionId}/unschedule_cancellation`, options);
   }
 
@@ -979,7 +981,7 @@ export class Subscriptions extends APIResource {
     subscriptionId: string,
     body: SubscriptionUnscheduleFixedFeeQuantityUpdatesParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.MutatedSubscriptionModel> {
+  ): Core.APIPromise<SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse> {
     return this._client.post(`/subscriptions/${subscriptionId}/unschedule_fixed_fee_quantity_updates`, {
       body,
       ...options,
@@ -993,7 +995,7 @@ export class Subscriptions extends APIResource {
   unschedulePendingPlanChanges(
     subscriptionId: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.MutatedSubscriptionModel> {
+  ): Core.APIPromise<SubscriptionUnschedulePendingPlanChangesResponse> {
     return this._client.post(`/subscriptions/${subscriptionId}/unschedule_pending_plan_changes`, options);
   }
 
@@ -1017,7 +1019,7 @@ export class Subscriptions extends APIResource {
     subscriptionId: string,
     body: SubscriptionUpdateFixedFeeQuantityParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.MutatedSubscriptionModel> {
+  ): Core.APIPromise<SubscriptionUpdateFixedFeeQuantityResponse> {
     return this._client.post(`/subscriptions/${subscriptionId}/update_fixed_fee_quantity`, {
       body,
       ...options,
@@ -1048,10 +1050,12 @@ export class Subscriptions extends APIResource {
     subscriptionId: string,
     body: SubscriptionUpdateTrialParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.MutatedSubscriptionModel> {
+  ): Core.APIPromise<SubscriptionUpdateTrialResponse> {
     return this._client.post(`/subscriptions/${subscriptionId}/update_trial`, { body, ...options });
   }
 }
+
+export class SubscriptionsPage extends Page<Subscription> {}
 
 export class SubscriptionFetchScheduleResponsesPage extends Page<SubscriptionFetchScheduleResponse> {}
 
@@ -1088,7 +1092,7 @@ export interface Subscription {
   /**
    * The adjustment intervals for this subscription.
    */
-  adjustment_intervals: Array<Shared.AdjustmentIntervalModel>;
+  adjustment_intervals: Array<Subscription.AdjustmentInterval>;
 
   /**
    * Determines whether issued invoices for this subscription will automatically be
@@ -1097,7 +1101,7 @@ export interface Subscription {
    */
   auto_collection: boolean | null;
 
-  billing_cycle_anchor_configuration: Shared.BillingCycleAnchorConfigurationModel;
+  billing_cycle_anchor_configuration: Subscription.BillingCycleAnchorConfiguration;
 
   /**
    * The day of the month on which the billing cycle is anchored. If the maximum
@@ -1143,7 +1147,7 @@ export interface Subscription {
    * your account's timezone. See [Timezone localization](/essentials/timezones) for
    * information on what this timezone parameter influences within Orb.
    */
-  customer: Shared.CustomerModel;
+  customer: CustomersAPI.Customer;
 
   /**
    * Determines the default memo on this subscriptions' invoices. Note that if this
@@ -1155,9 +1159,9 @@ export interface Subscription {
    * The discount intervals for this subscription.
    */
   discount_intervals: Array<
-    | Shared.AmountDiscountIntervalModel
-    | Shared.PercentageDiscountIntervalModel
-    | Shared.UsageDiscountIntervalModel
+    | Subscription.AmountDiscountInterval
+    | Subscription.PercentageDiscountInterval
+    | Subscription.UsageDiscountInterval
   >;
 
   /**
@@ -1165,14 +1169,14 @@ export interface Subscription {
    */
   end_date: string | null;
 
-  fixed_fee_quantity_schedule: Array<Shared.FixedFeeQuantityScheduleEntryModel>;
+  fixed_fee_quantity_schedule: Array<Subscription.FixedFeeQuantitySchedule>;
 
   invoicing_threshold: string | null;
 
   /**
    * The maximum intervals for this subscription.
    */
-  maximum_intervals: Array<Shared.MaximumIntervalModel>;
+  maximum_intervals: Array<Subscription.MaximumInterval>;
 
   /**
    * User specified key-value pairs for the resource. If not present, this defaults
@@ -1185,7 +1189,7 @@ export interface Subscription {
   /**
    * The minimum intervals for this subscription.
    */
-  minimum_intervals: Array<Shared.MinimumIntervalModel>;
+  minimum_intervals: Array<Subscription.MinimumInterval>;
 
   /**
    * Determines the difference between the invoice issue date for subscription
@@ -1201,14 +1205,14 @@ export interface Subscription {
    * subscription. You can see more about how to configure prices in the
    * [Price resource](/reference/price).
    */
-  plan: Shared.PlanModel;
+  plan: PlansAPI.Plan;
 
   /**
    * The price intervals for this subscription.
    */
-  price_intervals: Array<Shared.PriceIntervalModel>;
+  price_intervals: Array<Subscription.PriceInterval>;
 
-  redeemed_coupon: Shared.CouponRedemptionModel | null;
+  redeemed_coupon: Subscription.RedeemedCoupon | null;
 
   /**
    * The date Orb starts billing for this subscription.
@@ -1217,7 +1221,478 @@ export interface Subscription {
 
   status: 'active' | 'ended' | 'upcoming';
 
-  trial_info: Shared.SubscriptionTrialInfoModel;
+  trial_info: Subscription.TrialInfo;
+}
+
+export namespace Subscription {
+  export interface AdjustmentInterval {
+    id: string;
+
+    adjustment:
+      | AdjustmentInterval.PlanPhaseUsageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseAmountDiscountAdjustment
+      | AdjustmentInterval.PlanPhasePercentageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseMinimumAdjustment
+      | AdjustmentInterval.PlanPhaseMaximumAdjustment;
+
+    /**
+     * The price interval IDs that this adjustment applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the adjustment interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the adjustment interval.
+     */
+    start_date: string;
+  }
+
+  export namespace AdjustmentInterval {
+    export interface PlanPhaseUsageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The number of usage units by which to discount the price this adjustment applies
+       * to in a given billing period.
+       */
+      usage_discount: number;
+    }
+
+    export interface PlanPhaseAmountDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'amount_discount';
+
+      /**
+       * The amount by which to discount the prices this adjustment applies to in a given
+       * billing period.
+       */
+      amount_discount: string;
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhasePercentageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The percentage (as a value between 0 and 1) by which to discount the price
+       * intervals this adjustment applies to in a given billing period.
+       */
+      percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMinimumAdjustment {
+      id: string;
+
+      adjustment_type: 'minimum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      /**
+       * The minimum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      minimum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMaximumAdjustment {
+      id: string;
+
+      adjustment_type: 'maximum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The maximum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+  }
+
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
+
+  export interface AmountDiscountInterval {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface PercentageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * Only available if discount_type is `percentage`.This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface UsageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'usage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+
+    /**
+     * Only available if discount_type is `usage`. Number of usage units that this
+     * discount is for
+     */
+    usage_discount: number;
+  }
+
+  export interface FixedFeeQuantitySchedule {
+    end_date: string | null;
+
+    price_id: string;
+
+    quantity: number;
+
+    start_date: string;
+  }
+
+  export interface MaximumInterval {
+    /**
+     * The price ids that this maximum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this maximum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the maximum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The maximum amount to charge in a given billing period for the price intervals
+     * this transform applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The start date of the maximum interval.
+     */
+    start_date: string;
+  }
+
+  export interface MinimumInterval {
+    /**
+     * The price ids that this minimum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this minimum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the minimum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The minimum amount to charge in a given billing period for the price intervals
+     * this minimum applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The start date of the minimum interval.
+     */
+    start_date: string;
+  }
+
+  /**
+   * The Price Interval resource represents a period of time for which a price will
+   * bill on a subscription. A subscription’s price intervals define its billing
+   * behavior.
+   */
+  export interface PriceInterval {
+    id: string;
+
+    /**
+     * The day of the month that Orb bills for this price
+     */
+    billing_cycle_day: number;
+
+    /**
+     * The end of the current billing period. This is an exclusive timestamp, such that
+     * the instant returned is exactly the end of the billing period. Set to null if
+     * this price interval is not currently active.
+     */
+    current_billing_period_end_date: string | null;
+
+    /**
+     * The start date of the current billing period. This is an inclusive timestamp;
+     * the instant returned is exactly the beginning of the billing period. Set to null
+     * if this price interval is not currently active.
+     */
+    current_billing_period_start_date: string | null;
+
+    /**
+     * The end date of the price interval. This is the date that Orb stops billing for
+     * this price.
+     */
+    end_date: string | null;
+
+    /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
+     * The fixed fee quantity transitions for this price interval. This is only
+     * relevant for fixed fees.
+     */
+    fixed_fee_quantity_transitions: Array<PriceInterval.FixedFeeQuantityTransition> | null;
+
+    /**
+     * The Price resource represents a price that can be billed on a subscription,
+     * resulting in a charge on an invoice in the form of an invoice line item. Prices
+     * take a quantity and determine an amount to bill.
+     *
+     * Orb supports a few different pricing models out of the box. Each of these models
+     * is serialized differently in a given Price object. The model_type field
+     * determines the key for the configuration object that is present.
+     *
+     * For more on the types of prices, see
+     * [the core concepts documentation](/core-concepts#plan-and-price)
+     */
+    price: PricesAPI.Price;
+
+    /**
+     * The start date of the price interval. This is the date that Orb starts billing
+     * for this price.
+     */
+    start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
+  }
+
+  export namespace PriceInterval {
+    export interface FixedFeeQuantityTransition {
+      effective_date: string;
+
+      price_id: string;
+
+      quantity: number;
+    }
+  }
+
+  export interface RedeemedCoupon {
+    coupon_id: string;
+
+    end_date: string | null;
+
+    start_date: string;
+  }
+
+  export interface TrialInfo {
+    end_date: string | null;
+  }
 }
 
 export type SubscriptionUsage =
@@ -1231,11 +1706,27 @@ export namespace SubscriptionUsage {
 
   export namespace UngroupedSubscriptionUsage {
     export interface Data {
-      billable_metric: Shared.BillableMetricSimpleModel;
+      billable_metric: Data.BillableMetric;
 
-      usage: Array<Shared.UsageModel>;
+      usage: Array<Data.Usage>;
 
       view_mode: 'periodic' | 'cumulative';
+    }
+
+    export namespace Data {
+      export interface BillableMetric {
+        id: string;
+
+        name: string;
+      }
+
+      export interface Usage {
+        quantity: number;
+
+        timeframe_end: string;
+
+        timeframe_start: string;
+      }
     }
   }
 
@@ -1247,33 +1738,1326 @@ export namespace SubscriptionUsage {
 
   export namespace GroupedSubscriptionUsage {
     export interface Data {
-      billable_metric: Shared.BillableMetricSimpleModel;
+      billable_metric: Data.BillableMetric;
 
       metric_group: Data.MetricGroup;
 
-      usage: Array<Shared.UsageModel>;
+      usage: Array<Data.Usage>;
 
       view_mode: 'periodic' | 'cumulative';
     }
 
     export namespace Data {
+      export interface BillableMetric {
+        id: string;
+
+        name: string;
+      }
+
       export interface MetricGroup {
         property_key: string;
 
         property_value: string;
+      }
+
+      export interface Usage {
+        quantity: number;
+
+        timeframe_end: string;
+
+        timeframe_start: string;
       }
     }
   }
 }
 
 export interface Subscriptions {
-  data: Array<Shared.SubscriptionModel>;
+  data: Array<Subscription>;
 
   pagination_metadata: Shared.PaginationMetadata;
 }
 
+export interface SubscriptionCreateResponse {
+  id: string;
+
+  /**
+   * The current plan phase that is active, only if the subscription's plan has
+   * phases.
+   */
+  active_plan_phase_order: number | null;
+
+  /**
+   * The adjustment intervals for this subscription.
+   */
+  adjustment_intervals: Array<SubscriptionCreateResponse.AdjustmentInterval>;
+
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. This property defaults to
+   * the plan's behavior. If null, defaults to the customer's setting.
+   */
+  auto_collection: boolean | null;
+
+  billing_cycle_anchor_configuration: SubscriptionCreateResponse.BillingCycleAnchorConfiguration;
+
+  /**
+   * The day of the month on which the billing cycle is anchored. If the maximum
+   * number of days in a month is greater than this value, the last day of the month
+   * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+   * period begins on the 30th.
+   */
+  billing_cycle_day: number;
+
+  created_at: string;
+
+  /**
+   * The end of the current billing period. This is an exclusive timestamp, such that
+   * the instant returned is not part of the billing period. Set to null for
+   * subscriptions that are not currently active.
+   */
+  current_billing_period_end_date: string | null;
+
+  /**
+   * The start date of the current billing period. This is an inclusive timestamp;
+   * the instant returned is exactly the beginning of the billing period. Set to null
+   * if the subscription is not currently active.
+   */
+  current_billing_period_start_date: string | null;
+
+  /**
+   * A customer is a buyer of your products, and the other party to the billing
+   * relationship.
+   *
+   * In Orb, customers are assigned system generated identifiers automatically, but
+   * it's often desirable to have these match existing identifiers in your system. To
+   * avoid having to denormalize Orb ID information, you can pass in an
+   * `external_customer_id` with your own identifier. See
+   * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further
+   * information about how these aliases work in Orb.
+   *
+   * In addition to having an identifier in your system, a customer may exist in a
+   * payment provider solution like Stripe. Use the `payment_provider_id` and the
+   * `payment_provider` enum field to express this mapping.
+   *
+   * A customer also has a timezone (from the standard
+   * [IANA timezone database](https://www.iana.org/time-zones)), which defaults to
+   * your account's timezone. See [Timezone localization](/essentials/timezones) for
+   * information on what this timezone parameter influences within Orb.
+   */
+  customer: CustomersAPI.Customer;
+
+  /**
+   * Determines the default memo on this subscriptions' invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo: string | null;
+
+  /**
+   * The discount intervals for this subscription.
+   */
+  discount_intervals: Array<
+    | SubscriptionCreateResponse.AmountDiscountInterval
+    | SubscriptionCreateResponse.PercentageDiscountInterval
+    | SubscriptionCreateResponse.UsageDiscountInterval
+  >;
+
+  /**
+   * The date Orb stops billing for this subscription.
+   */
+  end_date: string | null;
+
+  fixed_fee_quantity_schedule: Array<SubscriptionCreateResponse.FixedFeeQuantitySchedule>;
+
+  invoicing_threshold: string | null;
+
+  /**
+   * The maximum intervals for this subscription.
+   */
+  maximum_intervals: Array<SubscriptionCreateResponse.MaximumInterval>;
+
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: Record<string, string>;
+
+  /**
+   * The minimum intervals for this subscription.
+   */
+  minimum_intervals: Array<SubscriptionCreateResponse.MinimumInterval>;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of `0` here represents that the
+   * invoice is due on issue, whereas a value of `30` represents that the customer
+   * has a month to pay the invoice.
+   */
+  net_terms: number;
+
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
+   * subscribed to by a customer. Plans define the billing behavior of the
+   * subscription. You can see more about how to configure prices in the
+   * [Price resource](/reference/price).
+   */
+  plan: PlansAPI.Plan;
+
+  /**
+   * The price intervals for this subscription.
+   */
+  price_intervals: Array<SubscriptionCreateResponse.PriceInterval>;
+
+  redeemed_coupon: SubscriptionCreateResponse.RedeemedCoupon | null;
+
+  /**
+   * The date Orb starts billing for this subscription.
+   */
+  start_date: string;
+
+  status: 'active' | 'ended' | 'upcoming';
+
+  trial_info: SubscriptionCreateResponse.TrialInfo;
+}
+
+export namespace SubscriptionCreateResponse {
+  export interface AdjustmentInterval {
+    id: string;
+
+    adjustment:
+      | AdjustmentInterval.PlanPhaseUsageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseAmountDiscountAdjustment
+      | AdjustmentInterval.PlanPhasePercentageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseMinimumAdjustment
+      | AdjustmentInterval.PlanPhaseMaximumAdjustment;
+
+    /**
+     * The price interval IDs that this adjustment applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the adjustment interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the adjustment interval.
+     */
+    start_date: string;
+  }
+
+  export namespace AdjustmentInterval {
+    export interface PlanPhaseUsageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The number of usage units by which to discount the price this adjustment applies
+       * to in a given billing period.
+       */
+      usage_discount: number;
+    }
+
+    export interface PlanPhaseAmountDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'amount_discount';
+
+      /**
+       * The amount by which to discount the prices this adjustment applies to in a given
+       * billing period.
+       */
+      amount_discount: string;
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhasePercentageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The percentage (as a value between 0 and 1) by which to discount the price
+       * intervals this adjustment applies to in a given billing period.
+       */
+      percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMinimumAdjustment {
+      id: string;
+
+      adjustment_type: 'minimum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      /**
+       * The minimum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      minimum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMaximumAdjustment {
+      id: string;
+
+      adjustment_type: 'maximum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The maximum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+  }
+
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
+
+  export interface AmountDiscountInterval {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface PercentageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * Only available if discount_type is `percentage`.This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface UsageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'usage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+
+    /**
+     * Only available if discount_type is `usage`. Number of usage units that this
+     * discount is for
+     */
+    usage_discount: number;
+  }
+
+  export interface FixedFeeQuantitySchedule {
+    end_date: string | null;
+
+    price_id: string;
+
+    quantity: number;
+
+    start_date: string;
+  }
+
+  export interface MaximumInterval {
+    /**
+     * The price ids that this maximum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this maximum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the maximum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The maximum amount to charge in a given billing period for the price intervals
+     * this transform applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The start date of the maximum interval.
+     */
+    start_date: string;
+  }
+
+  export interface MinimumInterval {
+    /**
+     * The price ids that this minimum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this minimum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the minimum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The minimum amount to charge in a given billing period for the price intervals
+     * this minimum applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The start date of the minimum interval.
+     */
+    start_date: string;
+  }
+
+  /**
+   * The Price Interval resource represents a period of time for which a price will
+   * bill on a subscription. A subscription’s price intervals define its billing
+   * behavior.
+   */
+  export interface PriceInterval {
+    id: string;
+
+    /**
+     * The day of the month that Orb bills for this price
+     */
+    billing_cycle_day: number;
+
+    /**
+     * The end of the current billing period. This is an exclusive timestamp, such that
+     * the instant returned is exactly the end of the billing period. Set to null if
+     * this price interval is not currently active.
+     */
+    current_billing_period_end_date: string | null;
+
+    /**
+     * The start date of the current billing period. This is an inclusive timestamp;
+     * the instant returned is exactly the beginning of the billing period. Set to null
+     * if this price interval is not currently active.
+     */
+    current_billing_period_start_date: string | null;
+
+    /**
+     * The end date of the price interval. This is the date that Orb stops billing for
+     * this price.
+     */
+    end_date: string | null;
+
+    /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
+     * The fixed fee quantity transitions for this price interval. This is only
+     * relevant for fixed fees.
+     */
+    fixed_fee_quantity_transitions: Array<PriceInterval.FixedFeeQuantityTransition> | null;
+
+    /**
+     * The Price resource represents a price that can be billed on a subscription,
+     * resulting in a charge on an invoice in the form of an invoice line item. Prices
+     * take a quantity and determine an amount to bill.
+     *
+     * Orb supports a few different pricing models out of the box. Each of these models
+     * is serialized differently in a given Price object. The model_type field
+     * determines the key for the configuration object that is present.
+     *
+     * For more on the types of prices, see
+     * [the core concepts documentation](/core-concepts#plan-and-price)
+     */
+    price: PricesAPI.Price;
+
+    /**
+     * The start date of the price interval. This is the date that Orb starts billing
+     * for this price.
+     */
+    start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
+  }
+
+  export namespace PriceInterval {
+    export interface FixedFeeQuantityTransition {
+      effective_date: string;
+
+      price_id: string;
+
+      quantity: number;
+    }
+  }
+
+  export interface RedeemedCoupon {
+    coupon_id: string;
+
+    end_date: string | null;
+
+    start_date: string;
+  }
+
+  export interface TrialInfo {
+    end_date: string | null;
+  }
+}
+
+export interface SubscriptionCancelResponse {
+  id: string;
+
+  /**
+   * The current plan phase that is active, only if the subscription's plan has
+   * phases.
+   */
+  active_plan_phase_order: number | null;
+
+  /**
+   * The adjustment intervals for this subscription.
+   */
+  adjustment_intervals: Array<SubscriptionCancelResponse.AdjustmentInterval>;
+
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. This property defaults to
+   * the plan's behavior. If null, defaults to the customer's setting.
+   */
+  auto_collection: boolean | null;
+
+  billing_cycle_anchor_configuration: SubscriptionCancelResponse.BillingCycleAnchorConfiguration;
+
+  /**
+   * The day of the month on which the billing cycle is anchored. If the maximum
+   * number of days in a month is greater than this value, the last day of the month
+   * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+   * period begins on the 30th.
+   */
+  billing_cycle_day: number;
+
+  created_at: string;
+
+  /**
+   * The end of the current billing period. This is an exclusive timestamp, such that
+   * the instant returned is not part of the billing period. Set to null for
+   * subscriptions that are not currently active.
+   */
+  current_billing_period_end_date: string | null;
+
+  /**
+   * The start date of the current billing period. This is an inclusive timestamp;
+   * the instant returned is exactly the beginning of the billing period. Set to null
+   * if the subscription is not currently active.
+   */
+  current_billing_period_start_date: string | null;
+
+  /**
+   * A customer is a buyer of your products, and the other party to the billing
+   * relationship.
+   *
+   * In Orb, customers are assigned system generated identifiers automatically, but
+   * it's often desirable to have these match existing identifiers in your system. To
+   * avoid having to denormalize Orb ID information, you can pass in an
+   * `external_customer_id` with your own identifier. See
+   * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further
+   * information about how these aliases work in Orb.
+   *
+   * In addition to having an identifier in your system, a customer may exist in a
+   * payment provider solution like Stripe. Use the `payment_provider_id` and the
+   * `payment_provider` enum field to express this mapping.
+   *
+   * A customer also has a timezone (from the standard
+   * [IANA timezone database](https://www.iana.org/time-zones)), which defaults to
+   * your account's timezone. See [Timezone localization](/essentials/timezones) for
+   * information on what this timezone parameter influences within Orb.
+   */
+  customer: CustomersAPI.Customer;
+
+  /**
+   * Determines the default memo on this subscriptions' invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo: string | null;
+
+  /**
+   * The discount intervals for this subscription.
+   */
+  discount_intervals: Array<
+    | SubscriptionCancelResponse.AmountDiscountInterval
+    | SubscriptionCancelResponse.PercentageDiscountInterval
+    | SubscriptionCancelResponse.UsageDiscountInterval
+  >;
+
+  /**
+   * The date Orb stops billing for this subscription.
+   */
+  end_date: string | null;
+
+  fixed_fee_quantity_schedule: Array<SubscriptionCancelResponse.FixedFeeQuantitySchedule>;
+
+  invoicing_threshold: string | null;
+
+  /**
+   * The maximum intervals for this subscription.
+   */
+  maximum_intervals: Array<SubscriptionCancelResponse.MaximumInterval>;
+
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: Record<string, string>;
+
+  /**
+   * The minimum intervals for this subscription.
+   */
+  minimum_intervals: Array<SubscriptionCancelResponse.MinimumInterval>;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of `0` here represents that the
+   * invoice is due on issue, whereas a value of `30` represents that the customer
+   * has a month to pay the invoice.
+   */
+  net_terms: number;
+
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
+   * subscribed to by a customer. Plans define the billing behavior of the
+   * subscription. You can see more about how to configure prices in the
+   * [Price resource](/reference/price).
+   */
+  plan: PlansAPI.Plan;
+
+  /**
+   * The price intervals for this subscription.
+   */
+  price_intervals: Array<SubscriptionCancelResponse.PriceInterval>;
+
+  redeemed_coupon: SubscriptionCancelResponse.RedeemedCoupon | null;
+
+  /**
+   * The date Orb starts billing for this subscription.
+   */
+  start_date: string;
+
+  status: 'active' | 'ended' | 'upcoming';
+
+  trial_info: SubscriptionCancelResponse.TrialInfo;
+}
+
+export namespace SubscriptionCancelResponse {
+  export interface AdjustmentInterval {
+    id: string;
+
+    adjustment:
+      | AdjustmentInterval.PlanPhaseUsageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseAmountDiscountAdjustment
+      | AdjustmentInterval.PlanPhasePercentageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseMinimumAdjustment
+      | AdjustmentInterval.PlanPhaseMaximumAdjustment;
+
+    /**
+     * The price interval IDs that this adjustment applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the adjustment interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the adjustment interval.
+     */
+    start_date: string;
+  }
+
+  export namespace AdjustmentInterval {
+    export interface PlanPhaseUsageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The number of usage units by which to discount the price this adjustment applies
+       * to in a given billing period.
+       */
+      usage_discount: number;
+    }
+
+    export interface PlanPhaseAmountDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'amount_discount';
+
+      /**
+       * The amount by which to discount the prices this adjustment applies to in a given
+       * billing period.
+       */
+      amount_discount: string;
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhasePercentageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The percentage (as a value between 0 and 1) by which to discount the price
+       * intervals this adjustment applies to in a given billing period.
+       */
+      percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMinimumAdjustment {
+      id: string;
+
+      adjustment_type: 'minimum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      /**
+       * The minimum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      minimum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMaximumAdjustment {
+      id: string;
+
+      adjustment_type: 'maximum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The maximum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+  }
+
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
+
+  export interface AmountDiscountInterval {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface PercentageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * Only available if discount_type is `percentage`.This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface UsageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'usage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+
+    /**
+     * Only available if discount_type is `usage`. Number of usage units that this
+     * discount is for
+     */
+    usage_discount: number;
+  }
+
+  export interface FixedFeeQuantitySchedule {
+    end_date: string | null;
+
+    price_id: string;
+
+    quantity: number;
+
+    start_date: string;
+  }
+
+  export interface MaximumInterval {
+    /**
+     * The price ids that this maximum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this maximum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the maximum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The maximum amount to charge in a given billing period for the price intervals
+     * this transform applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The start date of the maximum interval.
+     */
+    start_date: string;
+  }
+
+  export interface MinimumInterval {
+    /**
+     * The price ids that this minimum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this minimum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the minimum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The minimum amount to charge in a given billing period for the price intervals
+     * this minimum applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The start date of the minimum interval.
+     */
+    start_date: string;
+  }
+
+  /**
+   * The Price Interval resource represents a period of time for which a price will
+   * bill on a subscription. A subscription’s price intervals define its billing
+   * behavior.
+   */
+  export interface PriceInterval {
+    id: string;
+
+    /**
+     * The day of the month that Orb bills for this price
+     */
+    billing_cycle_day: number;
+
+    /**
+     * The end of the current billing period. This is an exclusive timestamp, such that
+     * the instant returned is exactly the end of the billing period. Set to null if
+     * this price interval is not currently active.
+     */
+    current_billing_period_end_date: string | null;
+
+    /**
+     * The start date of the current billing period. This is an inclusive timestamp;
+     * the instant returned is exactly the beginning of the billing period. Set to null
+     * if this price interval is not currently active.
+     */
+    current_billing_period_start_date: string | null;
+
+    /**
+     * The end date of the price interval. This is the date that Orb stops billing for
+     * this price.
+     */
+    end_date: string | null;
+
+    /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
+     * The fixed fee quantity transitions for this price interval. This is only
+     * relevant for fixed fees.
+     */
+    fixed_fee_quantity_transitions: Array<PriceInterval.FixedFeeQuantityTransition> | null;
+
+    /**
+     * The Price resource represents a price that can be billed on a subscription,
+     * resulting in a charge on an invoice in the form of an invoice line item. Prices
+     * take a quantity and determine an amount to bill.
+     *
+     * Orb supports a few different pricing models out of the box. Each of these models
+     * is serialized differently in a given Price object. The model_type field
+     * determines the key for the configuration object that is present.
+     *
+     * For more on the types of prices, see
+     * [the core concepts documentation](/core-concepts#plan-and-price)
+     */
+    price: PricesAPI.Price;
+
+    /**
+     * The start date of the price interval. This is the date that Orb starts billing
+     * for this price.
+     */
+    start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
+  }
+
+  export namespace PriceInterval {
+    export interface FixedFeeQuantityTransition {
+      effective_date: string;
+
+      price_id: string;
+
+      quantity: number;
+    }
+  }
+
+  export interface RedeemedCoupon {
+    coupon_id: string;
+
+    end_date: string | null;
+
+    start_date: string;
+  }
+
+  export interface TrialInfo {
+    end_date: string | null;
+  }
+}
+
 export interface SubscriptionFetchCostsResponse {
-  data: Array<Shared.AggregatedCostModel>;
+  data: Array<SubscriptionFetchCostsResponse.Data>;
+}
+
+export namespace SubscriptionFetchCostsResponse {
+  export interface Data {
+    per_price_costs: Array<Data.PerPriceCost>;
+
+    /**
+     * Total costs for the timeframe, excluding any minimums and discounts.
+     */
+    subtotal: string;
+
+    timeframe_end: string;
+
+    timeframe_start: string;
+
+    /**
+     * Total costs for the timeframe, including any minimums and discounts.
+     */
+    total: string;
+  }
+
+  export namespace Data {
+    export interface PerPriceCost {
+      /**
+       * The price object
+       */
+      price: PricesAPI.Price;
+
+      /**
+       * The price the cost is associated with
+       */
+      price_id: string;
+
+      /**
+       * Price's contributions for the timeframe, excluding any minimums and discounts.
+       */
+      subtotal: string;
+
+      /**
+       * Price's contributions for the timeframe, including minimums and discounts.
+       */
+      total: string;
+
+      /**
+       * The price's quantity for the timeframe
+       */
+      quantity?: number | null;
+    }
+  }
 }
 
 export interface SubscriptionFetchScheduleResponse {
@@ -1281,9 +3065,4944 @@ export interface SubscriptionFetchScheduleResponse {
 
   end_date: string | null;
 
-  plan: Shared.PlanMinifiedModel;
+  plan: SubscriptionFetchScheduleResponse.Plan;
 
   start_date: string;
+}
+
+export namespace SubscriptionFetchScheduleResponse {
+  export interface Plan {
+    id: string | null;
+
+    /**
+     * An optional user-defined ID for this plan resource, used throughout the system
+     * as an alias for this Plan. Use this field to identify a plan by an existing
+     * identifier in your system.
+     */
+    external_plan_id: string | null;
+
+    name: string | null;
+  }
+}
+
+export interface SubscriptionPriceIntervalsResponse {
+  id: string;
+
+  /**
+   * The current plan phase that is active, only if the subscription's plan has
+   * phases.
+   */
+  active_plan_phase_order: number | null;
+
+  /**
+   * The adjustment intervals for this subscription.
+   */
+  adjustment_intervals: Array<SubscriptionPriceIntervalsResponse.AdjustmentInterval>;
+
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. This property defaults to
+   * the plan's behavior. If null, defaults to the customer's setting.
+   */
+  auto_collection: boolean | null;
+
+  billing_cycle_anchor_configuration: SubscriptionPriceIntervalsResponse.BillingCycleAnchorConfiguration;
+
+  /**
+   * The day of the month on which the billing cycle is anchored. If the maximum
+   * number of days in a month is greater than this value, the last day of the month
+   * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+   * period begins on the 30th.
+   */
+  billing_cycle_day: number;
+
+  created_at: string;
+
+  /**
+   * The end of the current billing period. This is an exclusive timestamp, such that
+   * the instant returned is not part of the billing period. Set to null for
+   * subscriptions that are not currently active.
+   */
+  current_billing_period_end_date: string | null;
+
+  /**
+   * The start date of the current billing period. This is an inclusive timestamp;
+   * the instant returned is exactly the beginning of the billing period. Set to null
+   * if the subscription is not currently active.
+   */
+  current_billing_period_start_date: string | null;
+
+  /**
+   * A customer is a buyer of your products, and the other party to the billing
+   * relationship.
+   *
+   * In Orb, customers are assigned system generated identifiers automatically, but
+   * it's often desirable to have these match existing identifiers in your system. To
+   * avoid having to denormalize Orb ID information, you can pass in an
+   * `external_customer_id` with your own identifier. See
+   * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further
+   * information about how these aliases work in Orb.
+   *
+   * In addition to having an identifier in your system, a customer may exist in a
+   * payment provider solution like Stripe. Use the `payment_provider_id` and the
+   * `payment_provider` enum field to express this mapping.
+   *
+   * A customer also has a timezone (from the standard
+   * [IANA timezone database](https://www.iana.org/time-zones)), which defaults to
+   * your account's timezone. See [Timezone localization](/essentials/timezones) for
+   * information on what this timezone parameter influences within Orb.
+   */
+  customer: CustomersAPI.Customer;
+
+  /**
+   * Determines the default memo on this subscriptions' invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo: string | null;
+
+  /**
+   * The discount intervals for this subscription.
+   */
+  discount_intervals: Array<
+    | SubscriptionPriceIntervalsResponse.AmountDiscountInterval
+    | SubscriptionPriceIntervalsResponse.PercentageDiscountInterval
+    | SubscriptionPriceIntervalsResponse.UsageDiscountInterval
+  >;
+
+  /**
+   * The date Orb stops billing for this subscription.
+   */
+  end_date: string | null;
+
+  fixed_fee_quantity_schedule: Array<SubscriptionPriceIntervalsResponse.FixedFeeQuantitySchedule>;
+
+  invoicing_threshold: string | null;
+
+  /**
+   * The maximum intervals for this subscription.
+   */
+  maximum_intervals: Array<SubscriptionPriceIntervalsResponse.MaximumInterval>;
+
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: Record<string, string>;
+
+  /**
+   * The minimum intervals for this subscription.
+   */
+  minimum_intervals: Array<SubscriptionPriceIntervalsResponse.MinimumInterval>;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of `0` here represents that the
+   * invoice is due on issue, whereas a value of `30` represents that the customer
+   * has a month to pay the invoice.
+   */
+  net_terms: number;
+
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
+   * subscribed to by a customer. Plans define the billing behavior of the
+   * subscription. You can see more about how to configure prices in the
+   * [Price resource](/reference/price).
+   */
+  plan: PlansAPI.Plan;
+
+  /**
+   * The price intervals for this subscription.
+   */
+  price_intervals: Array<SubscriptionPriceIntervalsResponse.PriceInterval>;
+
+  redeemed_coupon: SubscriptionPriceIntervalsResponse.RedeemedCoupon | null;
+
+  /**
+   * The date Orb starts billing for this subscription.
+   */
+  start_date: string;
+
+  status: 'active' | 'ended' | 'upcoming';
+
+  trial_info: SubscriptionPriceIntervalsResponse.TrialInfo;
+}
+
+export namespace SubscriptionPriceIntervalsResponse {
+  export interface AdjustmentInterval {
+    id: string;
+
+    adjustment:
+      | AdjustmentInterval.PlanPhaseUsageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseAmountDiscountAdjustment
+      | AdjustmentInterval.PlanPhasePercentageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseMinimumAdjustment
+      | AdjustmentInterval.PlanPhaseMaximumAdjustment;
+
+    /**
+     * The price interval IDs that this adjustment applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the adjustment interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the adjustment interval.
+     */
+    start_date: string;
+  }
+
+  export namespace AdjustmentInterval {
+    export interface PlanPhaseUsageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The number of usage units by which to discount the price this adjustment applies
+       * to in a given billing period.
+       */
+      usage_discount: number;
+    }
+
+    export interface PlanPhaseAmountDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'amount_discount';
+
+      /**
+       * The amount by which to discount the prices this adjustment applies to in a given
+       * billing period.
+       */
+      amount_discount: string;
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhasePercentageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The percentage (as a value between 0 and 1) by which to discount the price
+       * intervals this adjustment applies to in a given billing period.
+       */
+      percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMinimumAdjustment {
+      id: string;
+
+      adjustment_type: 'minimum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      /**
+       * The minimum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      minimum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMaximumAdjustment {
+      id: string;
+
+      adjustment_type: 'maximum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The maximum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+  }
+
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
+
+  export interface AmountDiscountInterval {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface PercentageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * Only available if discount_type is `percentage`.This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface UsageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'usage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+
+    /**
+     * Only available if discount_type is `usage`. Number of usage units that this
+     * discount is for
+     */
+    usage_discount: number;
+  }
+
+  export interface FixedFeeQuantitySchedule {
+    end_date: string | null;
+
+    price_id: string;
+
+    quantity: number;
+
+    start_date: string;
+  }
+
+  export interface MaximumInterval {
+    /**
+     * The price ids that this maximum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this maximum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the maximum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The maximum amount to charge in a given billing period for the price intervals
+     * this transform applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The start date of the maximum interval.
+     */
+    start_date: string;
+  }
+
+  export interface MinimumInterval {
+    /**
+     * The price ids that this minimum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this minimum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the minimum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The minimum amount to charge in a given billing period for the price intervals
+     * this minimum applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The start date of the minimum interval.
+     */
+    start_date: string;
+  }
+
+  /**
+   * The Price Interval resource represents a period of time for which a price will
+   * bill on a subscription. A subscription’s price intervals define its billing
+   * behavior.
+   */
+  export interface PriceInterval {
+    id: string;
+
+    /**
+     * The day of the month that Orb bills for this price
+     */
+    billing_cycle_day: number;
+
+    /**
+     * The end of the current billing period. This is an exclusive timestamp, such that
+     * the instant returned is exactly the end of the billing period. Set to null if
+     * this price interval is not currently active.
+     */
+    current_billing_period_end_date: string | null;
+
+    /**
+     * The start date of the current billing period. This is an inclusive timestamp;
+     * the instant returned is exactly the beginning of the billing period. Set to null
+     * if this price interval is not currently active.
+     */
+    current_billing_period_start_date: string | null;
+
+    /**
+     * The end date of the price interval. This is the date that Orb stops billing for
+     * this price.
+     */
+    end_date: string | null;
+
+    /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
+     * The fixed fee quantity transitions for this price interval. This is only
+     * relevant for fixed fees.
+     */
+    fixed_fee_quantity_transitions: Array<PriceInterval.FixedFeeQuantityTransition> | null;
+
+    /**
+     * The Price resource represents a price that can be billed on a subscription,
+     * resulting in a charge on an invoice in the form of an invoice line item. Prices
+     * take a quantity and determine an amount to bill.
+     *
+     * Orb supports a few different pricing models out of the box. Each of these models
+     * is serialized differently in a given Price object. The model_type field
+     * determines the key for the configuration object that is present.
+     *
+     * For more on the types of prices, see
+     * [the core concepts documentation](/core-concepts#plan-and-price)
+     */
+    price: PricesAPI.Price;
+
+    /**
+     * The start date of the price interval. This is the date that Orb starts billing
+     * for this price.
+     */
+    start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
+  }
+
+  export namespace PriceInterval {
+    export interface FixedFeeQuantityTransition {
+      effective_date: string;
+
+      price_id: string;
+
+      quantity: number;
+    }
+  }
+
+  export interface RedeemedCoupon {
+    coupon_id: string;
+
+    end_date: string | null;
+
+    start_date: string;
+  }
+
+  export interface TrialInfo {
+    end_date: string | null;
+  }
+}
+
+export interface SubscriptionSchedulePlanChangeResponse {
+  id: string;
+
+  /**
+   * The current plan phase that is active, only if the subscription's plan has
+   * phases.
+   */
+  active_plan_phase_order: number | null;
+
+  /**
+   * The adjustment intervals for this subscription.
+   */
+  adjustment_intervals: Array<SubscriptionSchedulePlanChangeResponse.AdjustmentInterval>;
+
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. This property defaults to
+   * the plan's behavior. If null, defaults to the customer's setting.
+   */
+  auto_collection: boolean | null;
+
+  billing_cycle_anchor_configuration: SubscriptionSchedulePlanChangeResponse.BillingCycleAnchorConfiguration;
+
+  /**
+   * The day of the month on which the billing cycle is anchored. If the maximum
+   * number of days in a month is greater than this value, the last day of the month
+   * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+   * period begins on the 30th.
+   */
+  billing_cycle_day: number;
+
+  created_at: string;
+
+  /**
+   * The end of the current billing period. This is an exclusive timestamp, such that
+   * the instant returned is not part of the billing period. Set to null for
+   * subscriptions that are not currently active.
+   */
+  current_billing_period_end_date: string | null;
+
+  /**
+   * The start date of the current billing period. This is an inclusive timestamp;
+   * the instant returned is exactly the beginning of the billing period. Set to null
+   * if the subscription is not currently active.
+   */
+  current_billing_period_start_date: string | null;
+
+  /**
+   * A customer is a buyer of your products, and the other party to the billing
+   * relationship.
+   *
+   * In Orb, customers are assigned system generated identifiers automatically, but
+   * it's often desirable to have these match existing identifiers in your system. To
+   * avoid having to denormalize Orb ID information, you can pass in an
+   * `external_customer_id` with your own identifier. See
+   * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further
+   * information about how these aliases work in Orb.
+   *
+   * In addition to having an identifier in your system, a customer may exist in a
+   * payment provider solution like Stripe. Use the `payment_provider_id` and the
+   * `payment_provider` enum field to express this mapping.
+   *
+   * A customer also has a timezone (from the standard
+   * [IANA timezone database](https://www.iana.org/time-zones)), which defaults to
+   * your account's timezone. See [Timezone localization](/essentials/timezones) for
+   * information on what this timezone parameter influences within Orb.
+   */
+  customer: CustomersAPI.Customer;
+
+  /**
+   * Determines the default memo on this subscriptions' invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo: string | null;
+
+  /**
+   * The discount intervals for this subscription.
+   */
+  discount_intervals: Array<
+    | SubscriptionSchedulePlanChangeResponse.AmountDiscountInterval
+    | SubscriptionSchedulePlanChangeResponse.PercentageDiscountInterval
+    | SubscriptionSchedulePlanChangeResponse.UsageDiscountInterval
+  >;
+
+  /**
+   * The date Orb stops billing for this subscription.
+   */
+  end_date: string | null;
+
+  fixed_fee_quantity_schedule: Array<SubscriptionSchedulePlanChangeResponse.FixedFeeQuantitySchedule>;
+
+  invoicing_threshold: string | null;
+
+  /**
+   * The maximum intervals for this subscription.
+   */
+  maximum_intervals: Array<SubscriptionSchedulePlanChangeResponse.MaximumInterval>;
+
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: Record<string, string>;
+
+  /**
+   * The minimum intervals for this subscription.
+   */
+  minimum_intervals: Array<SubscriptionSchedulePlanChangeResponse.MinimumInterval>;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of `0` here represents that the
+   * invoice is due on issue, whereas a value of `30` represents that the customer
+   * has a month to pay the invoice.
+   */
+  net_terms: number;
+
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
+   * subscribed to by a customer. Plans define the billing behavior of the
+   * subscription. You can see more about how to configure prices in the
+   * [Price resource](/reference/price).
+   */
+  plan: PlansAPI.Plan;
+
+  /**
+   * The price intervals for this subscription.
+   */
+  price_intervals: Array<SubscriptionSchedulePlanChangeResponse.PriceInterval>;
+
+  redeemed_coupon: SubscriptionSchedulePlanChangeResponse.RedeemedCoupon | null;
+
+  /**
+   * The date Orb starts billing for this subscription.
+   */
+  start_date: string;
+
+  status: 'active' | 'ended' | 'upcoming';
+
+  trial_info: SubscriptionSchedulePlanChangeResponse.TrialInfo;
+}
+
+export namespace SubscriptionSchedulePlanChangeResponse {
+  export interface AdjustmentInterval {
+    id: string;
+
+    adjustment:
+      | AdjustmentInterval.PlanPhaseUsageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseAmountDiscountAdjustment
+      | AdjustmentInterval.PlanPhasePercentageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseMinimumAdjustment
+      | AdjustmentInterval.PlanPhaseMaximumAdjustment;
+
+    /**
+     * The price interval IDs that this adjustment applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the adjustment interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the adjustment interval.
+     */
+    start_date: string;
+  }
+
+  export namespace AdjustmentInterval {
+    export interface PlanPhaseUsageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The number of usage units by which to discount the price this adjustment applies
+       * to in a given billing period.
+       */
+      usage_discount: number;
+    }
+
+    export interface PlanPhaseAmountDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'amount_discount';
+
+      /**
+       * The amount by which to discount the prices this adjustment applies to in a given
+       * billing period.
+       */
+      amount_discount: string;
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhasePercentageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The percentage (as a value between 0 and 1) by which to discount the price
+       * intervals this adjustment applies to in a given billing period.
+       */
+      percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMinimumAdjustment {
+      id: string;
+
+      adjustment_type: 'minimum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      /**
+       * The minimum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      minimum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMaximumAdjustment {
+      id: string;
+
+      adjustment_type: 'maximum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The maximum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+  }
+
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
+
+  export interface AmountDiscountInterval {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface PercentageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * Only available if discount_type is `percentage`.This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface UsageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'usage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+
+    /**
+     * Only available if discount_type is `usage`. Number of usage units that this
+     * discount is for
+     */
+    usage_discount: number;
+  }
+
+  export interface FixedFeeQuantitySchedule {
+    end_date: string | null;
+
+    price_id: string;
+
+    quantity: number;
+
+    start_date: string;
+  }
+
+  export interface MaximumInterval {
+    /**
+     * The price ids that this maximum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this maximum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the maximum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The maximum amount to charge in a given billing period for the price intervals
+     * this transform applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The start date of the maximum interval.
+     */
+    start_date: string;
+  }
+
+  export interface MinimumInterval {
+    /**
+     * The price ids that this minimum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this minimum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the minimum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The minimum amount to charge in a given billing period for the price intervals
+     * this minimum applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The start date of the minimum interval.
+     */
+    start_date: string;
+  }
+
+  /**
+   * The Price Interval resource represents a period of time for which a price will
+   * bill on a subscription. A subscription’s price intervals define its billing
+   * behavior.
+   */
+  export interface PriceInterval {
+    id: string;
+
+    /**
+     * The day of the month that Orb bills for this price
+     */
+    billing_cycle_day: number;
+
+    /**
+     * The end of the current billing period. This is an exclusive timestamp, such that
+     * the instant returned is exactly the end of the billing period. Set to null if
+     * this price interval is not currently active.
+     */
+    current_billing_period_end_date: string | null;
+
+    /**
+     * The start date of the current billing period. This is an inclusive timestamp;
+     * the instant returned is exactly the beginning of the billing period. Set to null
+     * if this price interval is not currently active.
+     */
+    current_billing_period_start_date: string | null;
+
+    /**
+     * The end date of the price interval. This is the date that Orb stops billing for
+     * this price.
+     */
+    end_date: string | null;
+
+    /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
+     * The fixed fee quantity transitions for this price interval. This is only
+     * relevant for fixed fees.
+     */
+    fixed_fee_quantity_transitions: Array<PriceInterval.FixedFeeQuantityTransition> | null;
+
+    /**
+     * The Price resource represents a price that can be billed on a subscription,
+     * resulting in a charge on an invoice in the form of an invoice line item. Prices
+     * take a quantity and determine an amount to bill.
+     *
+     * Orb supports a few different pricing models out of the box. Each of these models
+     * is serialized differently in a given Price object. The model_type field
+     * determines the key for the configuration object that is present.
+     *
+     * For more on the types of prices, see
+     * [the core concepts documentation](/core-concepts#plan-and-price)
+     */
+    price: PricesAPI.Price;
+
+    /**
+     * The start date of the price interval. This is the date that Orb starts billing
+     * for this price.
+     */
+    start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
+  }
+
+  export namespace PriceInterval {
+    export interface FixedFeeQuantityTransition {
+      effective_date: string;
+
+      price_id: string;
+
+      quantity: number;
+    }
+  }
+
+  export interface RedeemedCoupon {
+    coupon_id: string;
+
+    end_date: string | null;
+
+    start_date: string;
+  }
+
+  export interface TrialInfo {
+    end_date: string | null;
+  }
+}
+
+export interface SubscriptionTriggerPhaseResponse {
+  id: string;
+
+  /**
+   * The current plan phase that is active, only if the subscription's plan has
+   * phases.
+   */
+  active_plan_phase_order: number | null;
+
+  /**
+   * The adjustment intervals for this subscription.
+   */
+  adjustment_intervals: Array<SubscriptionTriggerPhaseResponse.AdjustmentInterval>;
+
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. This property defaults to
+   * the plan's behavior. If null, defaults to the customer's setting.
+   */
+  auto_collection: boolean | null;
+
+  billing_cycle_anchor_configuration: SubscriptionTriggerPhaseResponse.BillingCycleAnchorConfiguration;
+
+  /**
+   * The day of the month on which the billing cycle is anchored. If the maximum
+   * number of days in a month is greater than this value, the last day of the month
+   * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+   * period begins on the 30th.
+   */
+  billing_cycle_day: number;
+
+  created_at: string;
+
+  /**
+   * The end of the current billing period. This is an exclusive timestamp, such that
+   * the instant returned is not part of the billing period. Set to null for
+   * subscriptions that are not currently active.
+   */
+  current_billing_period_end_date: string | null;
+
+  /**
+   * The start date of the current billing period. This is an inclusive timestamp;
+   * the instant returned is exactly the beginning of the billing period. Set to null
+   * if the subscription is not currently active.
+   */
+  current_billing_period_start_date: string | null;
+
+  /**
+   * A customer is a buyer of your products, and the other party to the billing
+   * relationship.
+   *
+   * In Orb, customers are assigned system generated identifiers automatically, but
+   * it's often desirable to have these match existing identifiers in your system. To
+   * avoid having to denormalize Orb ID information, you can pass in an
+   * `external_customer_id` with your own identifier. See
+   * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further
+   * information about how these aliases work in Orb.
+   *
+   * In addition to having an identifier in your system, a customer may exist in a
+   * payment provider solution like Stripe. Use the `payment_provider_id` and the
+   * `payment_provider` enum field to express this mapping.
+   *
+   * A customer also has a timezone (from the standard
+   * [IANA timezone database](https://www.iana.org/time-zones)), which defaults to
+   * your account's timezone. See [Timezone localization](/essentials/timezones) for
+   * information on what this timezone parameter influences within Orb.
+   */
+  customer: CustomersAPI.Customer;
+
+  /**
+   * Determines the default memo on this subscriptions' invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo: string | null;
+
+  /**
+   * The discount intervals for this subscription.
+   */
+  discount_intervals: Array<
+    | SubscriptionTriggerPhaseResponse.AmountDiscountInterval
+    | SubscriptionTriggerPhaseResponse.PercentageDiscountInterval
+    | SubscriptionTriggerPhaseResponse.UsageDiscountInterval
+  >;
+
+  /**
+   * The date Orb stops billing for this subscription.
+   */
+  end_date: string | null;
+
+  fixed_fee_quantity_schedule: Array<SubscriptionTriggerPhaseResponse.FixedFeeQuantitySchedule>;
+
+  invoicing_threshold: string | null;
+
+  /**
+   * The maximum intervals for this subscription.
+   */
+  maximum_intervals: Array<SubscriptionTriggerPhaseResponse.MaximumInterval>;
+
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: Record<string, string>;
+
+  /**
+   * The minimum intervals for this subscription.
+   */
+  minimum_intervals: Array<SubscriptionTriggerPhaseResponse.MinimumInterval>;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of `0` here represents that the
+   * invoice is due on issue, whereas a value of `30` represents that the customer
+   * has a month to pay the invoice.
+   */
+  net_terms: number;
+
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
+   * subscribed to by a customer. Plans define the billing behavior of the
+   * subscription. You can see more about how to configure prices in the
+   * [Price resource](/reference/price).
+   */
+  plan: PlansAPI.Plan;
+
+  /**
+   * The price intervals for this subscription.
+   */
+  price_intervals: Array<SubscriptionTriggerPhaseResponse.PriceInterval>;
+
+  redeemed_coupon: SubscriptionTriggerPhaseResponse.RedeemedCoupon | null;
+
+  /**
+   * The date Orb starts billing for this subscription.
+   */
+  start_date: string;
+
+  status: 'active' | 'ended' | 'upcoming';
+
+  trial_info: SubscriptionTriggerPhaseResponse.TrialInfo;
+}
+
+export namespace SubscriptionTriggerPhaseResponse {
+  export interface AdjustmentInterval {
+    id: string;
+
+    adjustment:
+      | AdjustmentInterval.PlanPhaseUsageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseAmountDiscountAdjustment
+      | AdjustmentInterval.PlanPhasePercentageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseMinimumAdjustment
+      | AdjustmentInterval.PlanPhaseMaximumAdjustment;
+
+    /**
+     * The price interval IDs that this adjustment applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the adjustment interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the adjustment interval.
+     */
+    start_date: string;
+  }
+
+  export namespace AdjustmentInterval {
+    export interface PlanPhaseUsageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The number of usage units by which to discount the price this adjustment applies
+       * to in a given billing period.
+       */
+      usage_discount: number;
+    }
+
+    export interface PlanPhaseAmountDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'amount_discount';
+
+      /**
+       * The amount by which to discount the prices this adjustment applies to in a given
+       * billing period.
+       */
+      amount_discount: string;
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhasePercentageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The percentage (as a value between 0 and 1) by which to discount the price
+       * intervals this adjustment applies to in a given billing period.
+       */
+      percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMinimumAdjustment {
+      id: string;
+
+      adjustment_type: 'minimum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      /**
+       * The minimum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      minimum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMaximumAdjustment {
+      id: string;
+
+      adjustment_type: 'maximum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The maximum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+  }
+
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
+
+  export interface AmountDiscountInterval {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface PercentageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * Only available if discount_type is `percentage`.This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface UsageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'usage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+
+    /**
+     * Only available if discount_type is `usage`. Number of usage units that this
+     * discount is for
+     */
+    usage_discount: number;
+  }
+
+  export interface FixedFeeQuantitySchedule {
+    end_date: string | null;
+
+    price_id: string;
+
+    quantity: number;
+
+    start_date: string;
+  }
+
+  export interface MaximumInterval {
+    /**
+     * The price ids that this maximum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this maximum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the maximum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The maximum amount to charge in a given billing period for the price intervals
+     * this transform applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The start date of the maximum interval.
+     */
+    start_date: string;
+  }
+
+  export interface MinimumInterval {
+    /**
+     * The price ids that this minimum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this minimum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the minimum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The minimum amount to charge in a given billing period for the price intervals
+     * this minimum applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The start date of the minimum interval.
+     */
+    start_date: string;
+  }
+
+  /**
+   * The Price Interval resource represents a period of time for which a price will
+   * bill on a subscription. A subscription’s price intervals define its billing
+   * behavior.
+   */
+  export interface PriceInterval {
+    id: string;
+
+    /**
+     * The day of the month that Orb bills for this price
+     */
+    billing_cycle_day: number;
+
+    /**
+     * The end of the current billing period. This is an exclusive timestamp, such that
+     * the instant returned is exactly the end of the billing period. Set to null if
+     * this price interval is not currently active.
+     */
+    current_billing_period_end_date: string | null;
+
+    /**
+     * The start date of the current billing period. This is an inclusive timestamp;
+     * the instant returned is exactly the beginning of the billing period. Set to null
+     * if this price interval is not currently active.
+     */
+    current_billing_period_start_date: string | null;
+
+    /**
+     * The end date of the price interval. This is the date that Orb stops billing for
+     * this price.
+     */
+    end_date: string | null;
+
+    /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
+     * The fixed fee quantity transitions for this price interval. This is only
+     * relevant for fixed fees.
+     */
+    fixed_fee_quantity_transitions: Array<PriceInterval.FixedFeeQuantityTransition> | null;
+
+    /**
+     * The Price resource represents a price that can be billed on a subscription,
+     * resulting in a charge on an invoice in the form of an invoice line item. Prices
+     * take a quantity and determine an amount to bill.
+     *
+     * Orb supports a few different pricing models out of the box. Each of these models
+     * is serialized differently in a given Price object. The model_type field
+     * determines the key for the configuration object that is present.
+     *
+     * For more on the types of prices, see
+     * [the core concepts documentation](/core-concepts#plan-and-price)
+     */
+    price: PricesAPI.Price;
+
+    /**
+     * The start date of the price interval. This is the date that Orb starts billing
+     * for this price.
+     */
+    start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
+  }
+
+  export namespace PriceInterval {
+    export interface FixedFeeQuantityTransition {
+      effective_date: string;
+
+      price_id: string;
+
+      quantity: number;
+    }
+  }
+
+  export interface RedeemedCoupon {
+    coupon_id: string;
+
+    end_date: string | null;
+
+    start_date: string;
+  }
+
+  export interface TrialInfo {
+    end_date: string | null;
+  }
+}
+
+export interface SubscriptionUnscheduleCancellationResponse {
+  id: string;
+
+  /**
+   * The current plan phase that is active, only if the subscription's plan has
+   * phases.
+   */
+  active_plan_phase_order: number | null;
+
+  /**
+   * The adjustment intervals for this subscription.
+   */
+  adjustment_intervals: Array<SubscriptionUnscheduleCancellationResponse.AdjustmentInterval>;
+
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. This property defaults to
+   * the plan's behavior. If null, defaults to the customer's setting.
+   */
+  auto_collection: boolean | null;
+
+  billing_cycle_anchor_configuration: SubscriptionUnscheduleCancellationResponse.BillingCycleAnchorConfiguration;
+
+  /**
+   * The day of the month on which the billing cycle is anchored. If the maximum
+   * number of days in a month is greater than this value, the last day of the month
+   * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+   * period begins on the 30th.
+   */
+  billing_cycle_day: number;
+
+  created_at: string;
+
+  /**
+   * The end of the current billing period. This is an exclusive timestamp, such that
+   * the instant returned is not part of the billing period. Set to null for
+   * subscriptions that are not currently active.
+   */
+  current_billing_period_end_date: string | null;
+
+  /**
+   * The start date of the current billing period. This is an inclusive timestamp;
+   * the instant returned is exactly the beginning of the billing period. Set to null
+   * if the subscription is not currently active.
+   */
+  current_billing_period_start_date: string | null;
+
+  /**
+   * A customer is a buyer of your products, and the other party to the billing
+   * relationship.
+   *
+   * In Orb, customers are assigned system generated identifiers automatically, but
+   * it's often desirable to have these match existing identifiers in your system. To
+   * avoid having to denormalize Orb ID information, you can pass in an
+   * `external_customer_id` with your own identifier. See
+   * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further
+   * information about how these aliases work in Orb.
+   *
+   * In addition to having an identifier in your system, a customer may exist in a
+   * payment provider solution like Stripe. Use the `payment_provider_id` and the
+   * `payment_provider` enum field to express this mapping.
+   *
+   * A customer also has a timezone (from the standard
+   * [IANA timezone database](https://www.iana.org/time-zones)), which defaults to
+   * your account's timezone. See [Timezone localization](/essentials/timezones) for
+   * information on what this timezone parameter influences within Orb.
+   */
+  customer: CustomersAPI.Customer;
+
+  /**
+   * Determines the default memo on this subscriptions' invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo: string | null;
+
+  /**
+   * The discount intervals for this subscription.
+   */
+  discount_intervals: Array<
+    | SubscriptionUnscheduleCancellationResponse.AmountDiscountInterval
+    | SubscriptionUnscheduleCancellationResponse.PercentageDiscountInterval
+    | SubscriptionUnscheduleCancellationResponse.UsageDiscountInterval
+  >;
+
+  /**
+   * The date Orb stops billing for this subscription.
+   */
+  end_date: string | null;
+
+  fixed_fee_quantity_schedule: Array<SubscriptionUnscheduleCancellationResponse.FixedFeeQuantitySchedule>;
+
+  invoicing_threshold: string | null;
+
+  /**
+   * The maximum intervals for this subscription.
+   */
+  maximum_intervals: Array<SubscriptionUnscheduleCancellationResponse.MaximumInterval>;
+
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: Record<string, string>;
+
+  /**
+   * The minimum intervals for this subscription.
+   */
+  minimum_intervals: Array<SubscriptionUnscheduleCancellationResponse.MinimumInterval>;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of `0` here represents that the
+   * invoice is due on issue, whereas a value of `30` represents that the customer
+   * has a month to pay the invoice.
+   */
+  net_terms: number;
+
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
+   * subscribed to by a customer. Plans define the billing behavior of the
+   * subscription. You can see more about how to configure prices in the
+   * [Price resource](/reference/price).
+   */
+  plan: PlansAPI.Plan;
+
+  /**
+   * The price intervals for this subscription.
+   */
+  price_intervals: Array<SubscriptionUnscheduleCancellationResponse.PriceInterval>;
+
+  redeemed_coupon: SubscriptionUnscheduleCancellationResponse.RedeemedCoupon | null;
+
+  /**
+   * The date Orb starts billing for this subscription.
+   */
+  start_date: string;
+
+  status: 'active' | 'ended' | 'upcoming';
+
+  trial_info: SubscriptionUnscheduleCancellationResponse.TrialInfo;
+}
+
+export namespace SubscriptionUnscheduleCancellationResponse {
+  export interface AdjustmentInterval {
+    id: string;
+
+    adjustment:
+      | AdjustmentInterval.PlanPhaseUsageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseAmountDiscountAdjustment
+      | AdjustmentInterval.PlanPhasePercentageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseMinimumAdjustment
+      | AdjustmentInterval.PlanPhaseMaximumAdjustment;
+
+    /**
+     * The price interval IDs that this adjustment applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the adjustment interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the adjustment interval.
+     */
+    start_date: string;
+  }
+
+  export namespace AdjustmentInterval {
+    export interface PlanPhaseUsageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The number of usage units by which to discount the price this adjustment applies
+       * to in a given billing period.
+       */
+      usage_discount: number;
+    }
+
+    export interface PlanPhaseAmountDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'amount_discount';
+
+      /**
+       * The amount by which to discount the prices this adjustment applies to in a given
+       * billing period.
+       */
+      amount_discount: string;
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhasePercentageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The percentage (as a value between 0 and 1) by which to discount the price
+       * intervals this adjustment applies to in a given billing period.
+       */
+      percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMinimumAdjustment {
+      id: string;
+
+      adjustment_type: 'minimum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      /**
+       * The minimum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      minimum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMaximumAdjustment {
+      id: string;
+
+      adjustment_type: 'maximum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The maximum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+  }
+
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
+
+  export interface AmountDiscountInterval {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface PercentageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * Only available if discount_type is `percentage`.This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface UsageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'usage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+
+    /**
+     * Only available if discount_type is `usage`. Number of usage units that this
+     * discount is for
+     */
+    usage_discount: number;
+  }
+
+  export interface FixedFeeQuantitySchedule {
+    end_date: string | null;
+
+    price_id: string;
+
+    quantity: number;
+
+    start_date: string;
+  }
+
+  export interface MaximumInterval {
+    /**
+     * The price ids that this maximum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this maximum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the maximum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The maximum amount to charge in a given billing period for the price intervals
+     * this transform applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The start date of the maximum interval.
+     */
+    start_date: string;
+  }
+
+  export interface MinimumInterval {
+    /**
+     * The price ids that this minimum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this minimum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the minimum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The minimum amount to charge in a given billing period for the price intervals
+     * this minimum applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The start date of the minimum interval.
+     */
+    start_date: string;
+  }
+
+  /**
+   * The Price Interval resource represents a period of time for which a price will
+   * bill on a subscription. A subscription’s price intervals define its billing
+   * behavior.
+   */
+  export interface PriceInterval {
+    id: string;
+
+    /**
+     * The day of the month that Orb bills for this price
+     */
+    billing_cycle_day: number;
+
+    /**
+     * The end of the current billing period. This is an exclusive timestamp, such that
+     * the instant returned is exactly the end of the billing period. Set to null if
+     * this price interval is not currently active.
+     */
+    current_billing_period_end_date: string | null;
+
+    /**
+     * The start date of the current billing period. This is an inclusive timestamp;
+     * the instant returned is exactly the beginning of the billing period. Set to null
+     * if this price interval is not currently active.
+     */
+    current_billing_period_start_date: string | null;
+
+    /**
+     * The end date of the price interval. This is the date that Orb stops billing for
+     * this price.
+     */
+    end_date: string | null;
+
+    /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
+     * The fixed fee quantity transitions for this price interval. This is only
+     * relevant for fixed fees.
+     */
+    fixed_fee_quantity_transitions: Array<PriceInterval.FixedFeeQuantityTransition> | null;
+
+    /**
+     * The Price resource represents a price that can be billed on a subscription,
+     * resulting in a charge on an invoice in the form of an invoice line item. Prices
+     * take a quantity and determine an amount to bill.
+     *
+     * Orb supports a few different pricing models out of the box. Each of these models
+     * is serialized differently in a given Price object. The model_type field
+     * determines the key for the configuration object that is present.
+     *
+     * For more on the types of prices, see
+     * [the core concepts documentation](/core-concepts#plan-and-price)
+     */
+    price: PricesAPI.Price;
+
+    /**
+     * The start date of the price interval. This is the date that Orb starts billing
+     * for this price.
+     */
+    start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
+  }
+
+  export namespace PriceInterval {
+    export interface FixedFeeQuantityTransition {
+      effective_date: string;
+
+      price_id: string;
+
+      quantity: number;
+    }
+  }
+
+  export interface RedeemedCoupon {
+    coupon_id: string;
+
+    end_date: string | null;
+
+    start_date: string;
+  }
+
+  export interface TrialInfo {
+    end_date: string | null;
+  }
+}
+
+export interface SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
+  id: string;
+
+  /**
+   * The current plan phase that is active, only if the subscription's plan has
+   * phases.
+   */
+  active_plan_phase_order: number | null;
+
+  /**
+   * The adjustment intervals for this subscription.
+   */
+  adjustment_intervals: Array<SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.AdjustmentInterval>;
+
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. This property defaults to
+   * the plan's behavior. If null, defaults to the customer's setting.
+   */
+  auto_collection: boolean | null;
+
+  billing_cycle_anchor_configuration: SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.BillingCycleAnchorConfiguration;
+
+  /**
+   * The day of the month on which the billing cycle is anchored. If the maximum
+   * number of days in a month is greater than this value, the last day of the month
+   * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+   * period begins on the 30th.
+   */
+  billing_cycle_day: number;
+
+  created_at: string;
+
+  /**
+   * The end of the current billing period. This is an exclusive timestamp, such that
+   * the instant returned is not part of the billing period. Set to null for
+   * subscriptions that are not currently active.
+   */
+  current_billing_period_end_date: string | null;
+
+  /**
+   * The start date of the current billing period. This is an inclusive timestamp;
+   * the instant returned is exactly the beginning of the billing period. Set to null
+   * if the subscription is not currently active.
+   */
+  current_billing_period_start_date: string | null;
+
+  /**
+   * A customer is a buyer of your products, and the other party to the billing
+   * relationship.
+   *
+   * In Orb, customers are assigned system generated identifiers automatically, but
+   * it's often desirable to have these match existing identifiers in your system. To
+   * avoid having to denormalize Orb ID information, you can pass in an
+   * `external_customer_id` with your own identifier. See
+   * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further
+   * information about how these aliases work in Orb.
+   *
+   * In addition to having an identifier in your system, a customer may exist in a
+   * payment provider solution like Stripe. Use the `payment_provider_id` and the
+   * `payment_provider` enum field to express this mapping.
+   *
+   * A customer also has a timezone (from the standard
+   * [IANA timezone database](https://www.iana.org/time-zones)), which defaults to
+   * your account's timezone. See [Timezone localization](/essentials/timezones) for
+   * information on what this timezone parameter influences within Orb.
+   */
+  customer: CustomersAPI.Customer;
+
+  /**
+   * Determines the default memo on this subscriptions' invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo: string | null;
+
+  /**
+   * The discount intervals for this subscription.
+   */
+  discount_intervals: Array<
+    | SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.AmountDiscountInterval
+    | SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.PercentageDiscountInterval
+    | SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.UsageDiscountInterval
+  >;
+
+  /**
+   * The date Orb stops billing for this subscription.
+   */
+  end_date: string | null;
+
+  fixed_fee_quantity_schedule: Array<SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.FixedFeeQuantitySchedule>;
+
+  invoicing_threshold: string | null;
+
+  /**
+   * The maximum intervals for this subscription.
+   */
+  maximum_intervals: Array<SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.MaximumInterval>;
+
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: Record<string, string>;
+
+  /**
+   * The minimum intervals for this subscription.
+   */
+  minimum_intervals: Array<SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.MinimumInterval>;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of `0` here represents that the
+   * invoice is due on issue, whereas a value of `30` represents that the customer
+   * has a month to pay the invoice.
+   */
+  net_terms: number;
+
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
+   * subscribed to by a customer. Plans define the billing behavior of the
+   * subscription. You can see more about how to configure prices in the
+   * [Price resource](/reference/price).
+   */
+  plan: PlansAPI.Plan;
+
+  /**
+   * The price intervals for this subscription.
+   */
+  price_intervals: Array<SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.PriceInterval>;
+
+  redeemed_coupon: SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.RedeemedCoupon | null;
+
+  /**
+   * The date Orb starts billing for this subscription.
+   */
+  start_date: string;
+
+  status: 'active' | 'ended' | 'upcoming';
+
+  trial_info: SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.TrialInfo;
+}
+
+export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
+  export interface AdjustmentInterval {
+    id: string;
+
+    adjustment:
+      | AdjustmentInterval.PlanPhaseUsageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseAmountDiscountAdjustment
+      | AdjustmentInterval.PlanPhasePercentageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseMinimumAdjustment
+      | AdjustmentInterval.PlanPhaseMaximumAdjustment;
+
+    /**
+     * The price interval IDs that this adjustment applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the adjustment interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the adjustment interval.
+     */
+    start_date: string;
+  }
+
+  export namespace AdjustmentInterval {
+    export interface PlanPhaseUsageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The number of usage units by which to discount the price this adjustment applies
+       * to in a given billing period.
+       */
+      usage_discount: number;
+    }
+
+    export interface PlanPhaseAmountDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'amount_discount';
+
+      /**
+       * The amount by which to discount the prices this adjustment applies to in a given
+       * billing period.
+       */
+      amount_discount: string;
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhasePercentageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The percentage (as a value between 0 and 1) by which to discount the price
+       * intervals this adjustment applies to in a given billing period.
+       */
+      percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMinimumAdjustment {
+      id: string;
+
+      adjustment_type: 'minimum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      /**
+       * The minimum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      minimum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMaximumAdjustment {
+      id: string;
+
+      adjustment_type: 'maximum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The maximum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+  }
+
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
+
+  export interface AmountDiscountInterval {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface PercentageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * Only available if discount_type is `percentage`.This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface UsageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'usage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+
+    /**
+     * Only available if discount_type is `usage`. Number of usage units that this
+     * discount is for
+     */
+    usage_discount: number;
+  }
+
+  export interface FixedFeeQuantitySchedule {
+    end_date: string | null;
+
+    price_id: string;
+
+    quantity: number;
+
+    start_date: string;
+  }
+
+  export interface MaximumInterval {
+    /**
+     * The price ids that this maximum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this maximum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the maximum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The maximum amount to charge in a given billing period for the price intervals
+     * this transform applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The start date of the maximum interval.
+     */
+    start_date: string;
+  }
+
+  export interface MinimumInterval {
+    /**
+     * The price ids that this minimum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this minimum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the minimum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The minimum amount to charge in a given billing period for the price intervals
+     * this minimum applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The start date of the minimum interval.
+     */
+    start_date: string;
+  }
+
+  /**
+   * The Price Interval resource represents a period of time for which a price will
+   * bill on a subscription. A subscription’s price intervals define its billing
+   * behavior.
+   */
+  export interface PriceInterval {
+    id: string;
+
+    /**
+     * The day of the month that Orb bills for this price
+     */
+    billing_cycle_day: number;
+
+    /**
+     * The end of the current billing period. This is an exclusive timestamp, such that
+     * the instant returned is exactly the end of the billing period. Set to null if
+     * this price interval is not currently active.
+     */
+    current_billing_period_end_date: string | null;
+
+    /**
+     * The start date of the current billing period. This is an inclusive timestamp;
+     * the instant returned is exactly the beginning of the billing period. Set to null
+     * if this price interval is not currently active.
+     */
+    current_billing_period_start_date: string | null;
+
+    /**
+     * The end date of the price interval. This is the date that Orb stops billing for
+     * this price.
+     */
+    end_date: string | null;
+
+    /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
+     * The fixed fee quantity transitions for this price interval. This is only
+     * relevant for fixed fees.
+     */
+    fixed_fee_quantity_transitions: Array<PriceInterval.FixedFeeQuantityTransition> | null;
+
+    /**
+     * The Price resource represents a price that can be billed on a subscription,
+     * resulting in a charge on an invoice in the form of an invoice line item. Prices
+     * take a quantity and determine an amount to bill.
+     *
+     * Orb supports a few different pricing models out of the box. Each of these models
+     * is serialized differently in a given Price object. The model_type field
+     * determines the key for the configuration object that is present.
+     *
+     * For more on the types of prices, see
+     * [the core concepts documentation](/core-concepts#plan-and-price)
+     */
+    price: PricesAPI.Price;
+
+    /**
+     * The start date of the price interval. This is the date that Orb starts billing
+     * for this price.
+     */
+    start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
+  }
+
+  export namespace PriceInterval {
+    export interface FixedFeeQuantityTransition {
+      effective_date: string;
+
+      price_id: string;
+
+      quantity: number;
+    }
+  }
+
+  export interface RedeemedCoupon {
+    coupon_id: string;
+
+    end_date: string | null;
+
+    start_date: string;
+  }
+
+  export interface TrialInfo {
+    end_date: string | null;
+  }
+}
+
+export interface SubscriptionUnschedulePendingPlanChangesResponse {
+  id: string;
+
+  /**
+   * The current plan phase that is active, only if the subscription's plan has
+   * phases.
+   */
+  active_plan_phase_order: number | null;
+
+  /**
+   * The adjustment intervals for this subscription.
+   */
+  adjustment_intervals: Array<SubscriptionUnschedulePendingPlanChangesResponse.AdjustmentInterval>;
+
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. This property defaults to
+   * the plan's behavior. If null, defaults to the customer's setting.
+   */
+  auto_collection: boolean | null;
+
+  billing_cycle_anchor_configuration: SubscriptionUnschedulePendingPlanChangesResponse.BillingCycleAnchorConfiguration;
+
+  /**
+   * The day of the month on which the billing cycle is anchored. If the maximum
+   * number of days in a month is greater than this value, the last day of the month
+   * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+   * period begins on the 30th.
+   */
+  billing_cycle_day: number;
+
+  created_at: string;
+
+  /**
+   * The end of the current billing period. This is an exclusive timestamp, such that
+   * the instant returned is not part of the billing period. Set to null for
+   * subscriptions that are not currently active.
+   */
+  current_billing_period_end_date: string | null;
+
+  /**
+   * The start date of the current billing period. This is an inclusive timestamp;
+   * the instant returned is exactly the beginning of the billing period. Set to null
+   * if the subscription is not currently active.
+   */
+  current_billing_period_start_date: string | null;
+
+  /**
+   * A customer is a buyer of your products, and the other party to the billing
+   * relationship.
+   *
+   * In Orb, customers are assigned system generated identifiers automatically, but
+   * it's often desirable to have these match existing identifiers in your system. To
+   * avoid having to denormalize Orb ID information, you can pass in an
+   * `external_customer_id` with your own identifier. See
+   * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further
+   * information about how these aliases work in Orb.
+   *
+   * In addition to having an identifier in your system, a customer may exist in a
+   * payment provider solution like Stripe. Use the `payment_provider_id` and the
+   * `payment_provider` enum field to express this mapping.
+   *
+   * A customer also has a timezone (from the standard
+   * [IANA timezone database](https://www.iana.org/time-zones)), which defaults to
+   * your account's timezone. See [Timezone localization](/essentials/timezones) for
+   * information on what this timezone parameter influences within Orb.
+   */
+  customer: CustomersAPI.Customer;
+
+  /**
+   * Determines the default memo on this subscriptions' invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo: string | null;
+
+  /**
+   * The discount intervals for this subscription.
+   */
+  discount_intervals: Array<
+    | SubscriptionUnschedulePendingPlanChangesResponse.AmountDiscountInterval
+    | SubscriptionUnschedulePendingPlanChangesResponse.PercentageDiscountInterval
+    | SubscriptionUnschedulePendingPlanChangesResponse.UsageDiscountInterval
+  >;
+
+  /**
+   * The date Orb stops billing for this subscription.
+   */
+  end_date: string | null;
+
+  fixed_fee_quantity_schedule: Array<SubscriptionUnschedulePendingPlanChangesResponse.FixedFeeQuantitySchedule>;
+
+  invoicing_threshold: string | null;
+
+  /**
+   * The maximum intervals for this subscription.
+   */
+  maximum_intervals: Array<SubscriptionUnschedulePendingPlanChangesResponse.MaximumInterval>;
+
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: Record<string, string>;
+
+  /**
+   * The minimum intervals for this subscription.
+   */
+  minimum_intervals: Array<SubscriptionUnschedulePendingPlanChangesResponse.MinimumInterval>;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of `0` here represents that the
+   * invoice is due on issue, whereas a value of `30` represents that the customer
+   * has a month to pay the invoice.
+   */
+  net_terms: number;
+
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
+   * subscribed to by a customer. Plans define the billing behavior of the
+   * subscription. You can see more about how to configure prices in the
+   * [Price resource](/reference/price).
+   */
+  plan: PlansAPI.Plan;
+
+  /**
+   * The price intervals for this subscription.
+   */
+  price_intervals: Array<SubscriptionUnschedulePendingPlanChangesResponse.PriceInterval>;
+
+  redeemed_coupon: SubscriptionUnschedulePendingPlanChangesResponse.RedeemedCoupon | null;
+
+  /**
+   * The date Orb starts billing for this subscription.
+   */
+  start_date: string;
+
+  status: 'active' | 'ended' | 'upcoming';
+
+  trial_info: SubscriptionUnschedulePendingPlanChangesResponse.TrialInfo;
+}
+
+export namespace SubscriptionUnschedulePendingPlanChangesResponse {
+  export interface AdjustmentInterval {
+    id: string;
+
+    adjustment:
+      | AdjustmentInterval.PlanPhaseUsageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseAmountDiscountAdjustment
+      | AdjustmentInterval.PlanPhasePercentageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseMinimumAdjustment
+      | AdjustmentInterval.PlanPhaseMaximumAdjustment;
+
+    /**
+     * The price interval IDs that this adjustment applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the adjustment interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the adjustment interval.
+     */
+    start_date: string;
+  }
+
+  export namespace AdjustmentInterval {
+    export interface PlanPhaseUsageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The number of usage units by which to discount the price this adjustment applies
+       * to in a given billing period.
+       */
+      usage_discount: number;
+    }
+
+    export interface PlanPhaseAmountDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'amount_discount';
+
+      /**
+       * The amount by which to discount the prices this adjustment applies to in a given
+       * billing period.
+       */
+      amount_discount: string;
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhasePercentageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The percentage (as a value between 0 and 1) by which to discount the price
+       * intervals this adjustment applies to in a given billing period.
+       */
+      percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMinimumAdjustment {
+      id: string;
+
+      adjustment_type: 'minimum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      /**
+       * The minimum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      minimum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMaximumAdjustment {
+      id: string;
+
+      adjustment_type: 'maximum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The maximum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+  }
+
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
+
+  export interface AmountDiscountInterval {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface PercentageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * Only available if discount_type is `percentage`.This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface UsageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'usage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+
+    /**
+     * Only available if discount_type is `usage`. Number of usage units that this
+     * discount is for
+     */
+    usage_discount: number;
+  }
+
+  export interface FixedFeeQuantitySchedule {
+    end_date: string | null;
+
+    price_id: string;
+
+    quantity: number;
+
+    start_date: string;
+  }
+
+  export interface MaximumInterval {
+    /**
+     * The price ids that this maximum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this maximum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the maximum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The maximum amount to charge in a given billing period for the price intervals
+     * this transform applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The start date of the maximum interval.
+     */
+    start_date: string;
+  }
+
+  export interface MinimumInterval {
+    /**
+     * The price ids that this minimum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this minimum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the minimum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The minimum amount to charge in a given billing period for the price intervals
+     * this minimum applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The start date of the minimum interval.
+     */
+    start_date: string;
+  }
+
+  /**
+   * The Price Interval resource represents a period of time for which a price will
+   * bill on a subscription. A subscription’s price intervals define its billing
+   * behavior.
+   */
+  export interface PriceInterval {
+    id: string;
+
+    /**
+     * The day of the month that Orb bills for this price
+     */
+    billing_cycle_day: number;
+
+    /**
+     * The end of the current billing period. This is an exclusive timestamp, such that
+     * the instant returned is exactly the end of the billing period. Set to null if
+     * this price interval is not currently active.
+     */
+    current_billing_period_end_date: string | null;
+
+    /**
+     * The start date of the current billing period. This is an inclusive timestamp;
+     * the instant returned is exactly the beginning of the billing period. Set to null
+     * if this price interval is not currently active.
+     */
+    current_billing_period_start_date: string | null;
+
+    /**
+     * The end date of the price interval. This is the date that Orb stops billing for
+     * this price.
+     */
+    end_date: string | null;
+
+    /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
+     * The fixed fee quantity transitions for this price interval. This is only
+     * relevant for fixed fees.
+     */
+    fixed_fee_quantity_transitions: Array<PriceInterval.FixedFeeQuantityTransition> | null;
+
+    /**
+     * The Price resource represents a price that can be billed on a subscription,
+     * resulting in a charge on an invoice in the form of an invoice line item. Prices
+     * take a quantity and determine an amount to bill.
+     *
+     * Orb supports a few different pricing models out of the box. Each of these models
+     * is serialized differently in a given Price object. The model_type field
+     * determines the key for the configuration object that is present.
+     *
+     * For more on the types of prices, see
+     * [the core concepts documentation](/core-concepts#plan-and-price)
+     */
+    price: PricesAPI.Price;
+
+    /**
+     * The start date of the price interval. This is the date that Orb starts billing
+     * for this price.
+     */
+    start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
+  }
+
+  export namespace PriceInterval {
+    export interface FixedFeeQuantityTransition {
+      effective_date: string;
+
+      price_id: string;
+
+      quantity: number;
+    }
+  }
+
+  export interface RedeemedCoupon {
+    coupon_id: string;
+
+    end_date: string | null;
+
+    start_date: string;
+  }
+
+  export interface TrialInfo {
+    end_date: string | null;
+  }
+}
+
+export interface SubscriptionUpdateFixedFeeQuantityResponse {
+  id: string;
+
+  /**
+   * The current plan phase that is active, only if the subscription's plan has
+   * phases.
+   */
+  active_plan_phase_order: number | null;
+
+  /**
+   * The adjustment intervals for this subscription.
+   */
+  adjustment_intervals: Array<SubscriptionUpdateFixedFeeQuantityResponse.AdjustmentInterval>;
+
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. This property defaults to
+   * the plan's behavior. If null, defaults to the customer's setting.
+   */
+  auto_collection: boolean | null;
+
+  billing_cycle_anchor_configuration: SubscriptionUpdateFixedFeeQuantityResponse.BillingCycleAnchorConfiguration;
+
+  /**
+   * The day of the month on which the billing cycle is anchored. If the maximum
+   * number of days in a month is greater than this value, the last day of the month
+   * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+   * period begins on the 30th.
+   */
+  billing_cycle_day: number;
+
+  created_at: string;
+
+  /**
+   * The end of the current billing period. This is an exclusive timestamp, such that
+   * the instant returned is not part of the billing period. Set to null for
+   * subscriptions that are not currently active.
+   */
+  current_billing_period_end_date: string | null;
+
+  /**
+   * The start date of the current billing period. This is an inclusive timestamp;
+   * the instant returned is exactly the beginning of the billing period. Set to null
+   * if the subscription is not currently active.
+   */
+  current_billing_period_start_date: string | null;
+
+  /**
+   * A customer is a buyer of your products, and the other party to the billing
+   * relationship.
+   *
+   * In Orb, customers are assigned system generated identifiers automatically, but
+   * it's often desirable to have these match existing identifiers in your system. To
+   * avoid having to denormalize Orb ID information, you can pass in an
+   * `external_customer_id` with your own identifier. See
+   * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further
+   * information about how these aliases work in Orb.
+   *
+   * In addition to having an identifier in your system, a customer may exist in a
+   * payment provider solution like Stripe. Use the `payment_provider_id` and the
+   * `payment_provider` enum field to express this mapping.
+   *
+   * A customer also has a timezone (from the standard
+   * [IANA timezone database](https://www.iana.org/time-zones)), which defaults to
+   * your account's timezone. See [Timezone localization](/essentials/timezones) for
+   * information on what this timezone parameter influences within Orb.
+   */
+  customer: CustomersAPI.Customer;
+
+  /**
+   * Determines the default memo on this subscriptions' invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo: string | null;
+
+  /**
+   * The discount intervals for this subscription.
+   */
+  discount_intervals: Array<
+    | SubscriptionUpdateFixedFeeQuantityResponse.AmountDiscountInterval
+    | SubscriptionUpdateFixedFeeQuantityResponse.PercentageDiscountInterval
+    | SubscriptionUpdateFixedFeeQuantityResponse.UsageDiscountInterval
+  >;
+
+  /**
+   * The date Orb stops billing for this subscription.
+   */
+  end_date: string | null;
+
+  fixed_fee_quantity_schedule: Array<SubscriptionUpdateFixedFeeQuantityResponse.FixedFeeQuantitySchedule>;
+
+  invoicing_threshold: string | null;
+
+  /**
+   * The maximum intervals for this subscription.
+   */
+  maximum_intervals: Array<SubscriptionUpdateFixedFeeQuantityResponse.MaximumInterval>;
+
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: Record<string, string>;
+
+  /**
+   * The minimum intervals for this subscription.
+   */
+  minimum_intervals: Array<SubscriptionUpdateFixedFeeQuantityResponse.MinimumInterval>;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of `0` here represents that the
+   * invoice is due on issue, whereas a value of `30` represents that the customer
+   * has a month to pay the invoice.
+   */
+  net_terms: number;
+
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
+   * subscribed to by a customer. Plans define the billing behavior of the
+   * subscription. You can see more about how to configure prices in the
+   * [Price resource](/reference/price).
+   */
+  plan: PlansAPI.Plan;
+
+  /**
+   * The price intervals for this subscription.
+   */
+  price_intervals: Array<SubscriptionUpdateFixedFeeQuantityResponse.PriceInterval>;
+
+  redeemed_coupon: SubscriptionUpdateFixedFeeQuantityResponse.RedeemedCoupon | null;
+
+  /**
+   * The date Orb starts billing for this subscription.
+   */
+  start_date: string;
+
+  status: 'active' | 'ended' | 'upcoming';
+
+  trial_info: SubscriptionUpdateFixedFeeQuantityResponse.TrialInfo;
+}
+
+export namespace SubscriptionUpdateFixedFeeQuantityResponse {
+  export interface AdjustmentInterval {
+    id: string;
+
+    adjustment:
+      | AdjustmentInterval.PlanPhaseUsageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseAmountDiscountAdjustment
+      | AdjustmentInterval.PlanPhasePercentageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseMinimumAdjustment
+      | AdjustmentInterval.PlanPhaseMaximumAdjustment;
+
+    /**
+     * The price interval IDs that this adjustment applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the adjustment interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the adjustment interval.
+     */
+    start_date: string;
+  }
+
+  export namespace AdjustmentInterval {
+    export interface PlanPhaseUsageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The number of usage units by which to discount the price this adjustment applies
+       * to in a given billing period.
+       */
+      usage_discount: number;
+    }
+
+    export interface PlanPhaseAmountDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'amount_discount';
+
+      /**
+       * The amount by which to discount the prices this adjustment applies to in a given
+       * billing period.
+       */
+      amount_discount: string;
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhasePercentageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The percentage (as a value between 0 and 1) by which to discount the price
+       * intervals this adjustment applies to in a given billing period.
+       */
+      percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMinimumAdjustment {
+      id: string;
+
+      adjustment_type: 'minimum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      /**
+       * The minimum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      minimum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMaximumAdjustment {
+      id: string;
+
+      adjustment_type: 'maximum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The maximum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+  }
+
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
+
+  export interface AmountDiscountInterval {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface PercentageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * Only available if discount_type is `percentage`.This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface UsageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'usage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+
+    /**
+     * Only available if discount_type is `usage`. Number of usage units that this
+     * discount is for
+     */
+    usage_discount: number;
+  }
+
+  export interface FixedFeeQuantitySchedule {
+    end_date: string | null;
+
+    price_id: string;
+
+    quantity: number;
+
+    start_date: string;
+  }
+
+  export interface MaximumInterval {
+    /**
+     * The price ids that this maximum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this maximum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the maximum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The maximum amount to charge in a given billing period for the price intervals
+     * this transform applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The start date of the maximum interval.
+     */
+    start_date: string;
+  }
+
+  export interface MinimumInterval {
+    /**
+     * The price ids that this minimum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this minimum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the minimum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The minimum amount to charge in a given billing period for the price intervals
+     * this minimum applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The start date of the minimum interval.
+     */
+    start_date: string;
+  }
+
+  /**
+   * The Price Interval resource represents a period of time for which a price will
+   * bill on a subscription. A subscription’s price intervals define its billing
+   * behavior.
+   */
+  export interface PriceInterval {
+    id: string;
+
+    /**
+     * The day of the month that Orb bills for this price
+     */
+    billing_cycle_day: number;
+
+    /**
+     * The end of the current billing period. This is an exclusive timestamp, such that
+     * the instant returned is exactly the end of the billing period. Set to null if
+     * this price interval is not currently active.
+     */
+    current_billing_period_end_date: string | null;
+
+    /**
+     * The start date of the current billing period. This is an inclusive timestamp;
+     * the instant returned is exactly the beginning of the billing period. Set to null
+     * if this price interval is not currently active.
+     */
+    current_billing_period_start_date: string | null;
+
+    /**
+     * The end date of the price interval. This is the date that Orb stops billing for
+     * this price.
+     */
+    end_date: string | null;
+
+    /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
+     * The fixed fee quantity transitions for this price interval. This is only
+     * relevant for fixed fees.
+     */
+    fixed_fee_quantity_transitions: Array<PriceInterval.FixedFeeQuantityTransition> | null;
+
+    /**
+     * The Price resource represents a price that can be billed on a subscription,
+     * resulting in a charge on an invoice in the form of an invoice line item. Prices
+     * take a quantity and determine an amount to bill.
+     *
+     * Orb supports a few different pricing models out of the box. Each of these models
+     * is serialized differently in a given Price object. The model_type field
+     * determines the key for the configuration object that is present.
+     *
+     * For more on the types of prices, see
+     * [the core concepts documentation](/core-concepts#plan-and-price)
+     */
+    price: PricesAPI.Price;
+
+    /**
+     * The start date of the price interval. This is the date that Orb starts billing
+     * for this price.
+     */
+    start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
+  }
+
+  export namespace PriceInterval {
+    export interface FixedFeeQuantityTransition {
+      effective_date: string;
+
+      price_id: string;
+
+      quantity: number;
+    }
+  }
+
+  export interface RedeemedCoupon {
+    coupon_id: string;
+
+    end_date: string | null;
+
+    start_date: string;
+  }
+
+  export interface TrialInfo {
+    end_date: string | null;
+  }
+}
+
+export interface SubscriptionUpdateTrialResponse {
+  id: string;
+
+  /**
+   * The current plan phase that is active, only if the subscription's plan has
+   * phases.
+   */
+  active_plan_phase_order: number | null;
+
+  /**
+   * The adjustment intervals for this subscription.
+   */
+  adjustment_intervals: Array<SubscriptionUpdateTrialResponse.AdjustmentInterval>;
+
+  /**
+   * Determines whether issued invoices for this subscription will automatically be
+   * charged with the saved payment method on the due date. This property defaults to
+   * the plan's behavior. If null, defaults to the customer's setting.
+   */
+  auto_collection: boolean | null;
+
+  billing_cycle_anchor_configuration: SubscriptionUpdateTrialResponse.BillingCycleAnchorConfiguration;
+
+  /**
+   * The day of the month on which the billing cycle is anchored. If the maximum
+   * number of days in a month is greater than this value, the last day of the month
+   * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+   * period begins on the 30th.
+   */
+  billing_cycle_day: number;
+
+  created_at: string;
+
+  /**
+   * The end of the current billing period. This is an exclusive timestamp, such that
+   * the instant returned is not part of the billing period. Set to null for
+   * subscriptions that are not currently active.
+   */
+  current_billing_period_end_date: string | null;
+
+  /**
+   * The start date of the current billing period. This is an inclusive timestamp;
+   * the instant returned is exactly the beginning of the billing period. Set to null
+   * if the subscription is not currently active.
+   */
+  current_billing_period_start_date: string | null;
+
+  /**
+   * A customer is a buyer of your products, and the other party to the billing
+   * relationship.
+   *
+   * In Orb, customers are assigned system generated identifiers automatically, but
+   * it's often desirable to have these match existing identifiers in your system. To
+   * avoid having to denormalize Orb ID information, you can pass in an
+   * `external_customer_id` with your own identifier. See
+   * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further
+   * information about how these aliases work in Orb.
+   *
+   * In addition to having an identifier in your system, a customer may exist in a
+   * payment provider solution like Stripe. Use the `payment_provider_id` and the
+   * `payment_provider` enum field to express this mapping.
+   *
+   * A customer also has a timezone (from the standard
+   * [IANA timezone database](https://www.iana.org/time-zones)), which defaults to
+   * your account's timezone. See [Timezone localization](/essentials/timezones) for
+   * information on what this timezone parameter influences within Orb.
+   */
+  customer: CustomersAPI.Customer;
+
+  /**
+   * Determines the default memo on this subscriptions' invoices. Note that if this
+   * is not provided, it is determined by the plan configuration.
+   */
+  default_invoice_memo: string | null;
+
+  /**
+   * The discount intervals for this subscription.
+   */
+  discount_intervals: Array<
+    | SubscriptionUpdateTrialResponse.AmountDiscountInterval
+    | SubscriptionUpdateTrialResponse.PercentageDiscountInterval
+    | SubscriptionUpdateTrialResponse.UsageDiscountInterval
+  >;
+
+  /**
+   * The date Orb stops billing for this subscription.
+   */
+  end_date: string | null;
+
+  fixed_fee_quantity_schedule: Array<SubscriptionUpdateTrialResponse.FixedFeeQuantitySchedule>;
+
+  invoicing_threshold: string | null;
+
+  /**
+   * The maximum intervals for this subscription.
+   */
+  maximum_intervals: Array<SubscriptionUpdateTrialResponse.MaximumInterval>;
+
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: Record<string, string>;
+
+  /**
+   * The minimum intervals for this subscription.
+   */
+  minimum_intervals: Array<SubscriptionUpdateTrialResponse.MinimumInterval>;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of `0` here represents that the
+   * invoice is due on issue, whereas a value of `30` represents that the customer
+   * has a month to pay the invoice.
+   */
+  net_terms: number;
+
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
+   * subscribed to by a customer. Plans define the billing behavior of the
+   * subscription. You can see more about how to configure prices in the
+   * [Price resource](/reference/price).
+   */
+  plan: PlansAPI.Plan;
+
+  /**
+   * The price intervals for this subscription.
+   */
+  price_intervals: Array<SubscriptionUpdateTrialResponse.PriceInterval>;
+
+  redeemed_coupon: SubscriptionUpdateTrialResponse.RedeemedCoupon | null;
+
+  /**
+   * The date Orb starts billing for this subscription.
+   */
+  start_date: string;
+
+  status: 'active' | 'ended' | 'upcoming';
+
+  trial_info: SubscriptionUpdateTrialResponse.TrialInfo;
+}
+
+export namespace SubscriptionUpdateTrialResponse {
+  export interface AdjustmentInterval {
+    id: string;
+
+    adjustment:
+      | AdjustmentInterval.PlanPhaseUsageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseAmountDiscountAdjustment
+      | AdjustmentInterval.PlanPhasePercentageDiscountAdjustment
+      | AdjustmentInterval.PlanPhaseMinimumAdjustment
+      | AdjustmentInterval.PlanPhaseMaximumAdjustment;
+
+    /**
+     * The price interval IDs that this adjustment applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the adjustment interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the adjustment interval.
+     */
+    start_date: string;
+  }
+
+  export namespace AdjustmentInterval {
+    export interface PlanPhaseUsageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The number of usage units by which to discount the price this adjustment applies
+       * to in a given billing period.
+       */
+      usage_discount: number;
+    }
+
+    export interface PlanPhaseAmountDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'amount_discount';
+
+      /**
+       * The amount by which to discount the prices this adjustment applies to in a given
+       * billing period.
+       */
+      amount_discount: string;
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhasePercentageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The percentage (as a value between 0 and 1) by which to discount the price
+       * intervals this adjustment applies to in a given billing period.
+       */
+      percentage_discount: number;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMinimumAdjustment {
+      id: string;
+
+      adjustment_type: 'minimum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      /**
+       * The minimum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      minimum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+
+    export interface PlanPhaseMaximumAdjustment {
+      id: string;
+
+      adjustment_type: 'maximum';
+
+      /**
+       * The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * True for adjustments that apply to an entire invocice, false for adjustments
+       * that apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The maximum amount to charge in a given billing period for the prices this
+       * adjustment applies to.
+       */
+      maximum_amount: string;
+
+      /**
+       * The plan phase in which this adjustment is active.
+       */
+      plan_phase_order: number | null;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+    }
+  }
+
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
+
+  export interface AmountDiscountInterval {
+    /**
+     * Only available if discount_type is `amount`.
+     */
+    amount_discount: string;
+
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'amount';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface PercentageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'percentage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * Only available if discount_type is `percentage`.This is a number between 0
+     * and 1.
+     */
+    percentage_discount: number;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+  }
+
+  export interface UsageDiscountInterval {
+    /**
+     * The price ids that this discount interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'usage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+
+    /**
+     * Only available if discount_type is `usage`. Number of usage units that this
+     * discount is for
+     */
+    usage_discount: number;
+  }
+
+  export interface FixedFeeQuantitySchedule {
+    end_date: string | null;
+
+    price_id: string;
+
+    quantity: number;
+
+    start_date: string;
+  }
+
+  export interface MaximumInterval {
+    /**
+     * The price ids that this maximum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this maximum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the maximum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The maximum amount to charge in a given billing period for the price intervals
+     * this transform applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The start date of the maximum interval.
+     */
+    start_date: string;
+  }
+
+  export interface MinimumInterval {
+    /**
+     * The price ids that this minimum interval applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The price interval ids that this minimum interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    /**
+     * The end date of the minimum interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The minimum amount to charge in a given billing period for the price intervals
+     * this minimum applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The start date of the minimum interval.
+     */
+    start_date: string;
+  }
+
+  /**
+   * The Price Interval resource represents a period of time for which a price will
+   * bill on a subscription. A subscription’s price intervals define its billing
+   * behavior.
+   */
+  export interface PriceInterval {
+    id: string;
+
+    /**
+     * The day of the month that Orb bills for this price
+     */
+    billing_cycle_day: number;
+
+    /**
+     * The end of the current billing period. This is an exclusive timestamp, such that
+     * the instant returned is exactly the end of the billing period. Set to null if
+     * this price interval is not currently active.
+     */
+    current_billing_period_end_date: string | null;
+
+    /**
+     * The start date of the current billing period. This is an inclusive timestamp;
+     * the instant returned is exactly the beginning of the billing period. Set to null
+     * if this price interval is not currently active.
+     */
+    current_billing_period_start_date: string | null;
+
+    /**
+     * The end date of the price interval. This is the date that Orb stops billing for
+     * this price.
+     */
+    end_date: string | null;
+
+    /**
+     * An additional filter to apply to usage queries.
+     */
+    filter: string | null;
+
+    /**
+     * The fixed fee quantity transitions for this price interval. This is only
+     * relevant for fixed fees.
+     */
+    fixed_fee_quantity_transitions: Array<PriceInterval.FixedFeeQuantityTransition> | null;
+
+    /**
+     * The Price resource represents a price that can be billed on a subscription,
+     * resulting in a charge on an invoice in the form of an invoice line item. Prices
+     * take a quantity and determine an amount to bill.
+     *
+     * Orb supports a few different pricing models out of the box. Each of these models
+     * is serialized differently in a given Price object. The model_type field
+     * determines the key for the configuration object that is present.
+     *
+     * For more on the types of prices, see
+     * [the core concepts documentation](/core-concepts#plan-and-price)
+     */
+    price: PricesAPI.Price;
+
+    /**
+     * The start date of the price interval. This is the date that Orb starts billing
+     * for this price.
+     */
+    start_date: string;
+
+    /**
+     * A list of customer IDs whose usage events will be aggregated and billed under
+     * this price interval.
+     */
+    usage_customer_ids: Array<string> | null;
+  }
+
+  export namespace PriceInterval {
+    export interface FixedFeeQuantityTransition {
+      effective_date: string;
+
+      price_id: string;
+
+      quantity: number;
+    }
+  }
+
+  export interface RedeemedCoupon {
+    coupon_id: string;
+
+    end_date: string | null;
+
+    start_date: string;
+  }
+
+  export interface TrialInfo {
+    end_date: string | null;
+  }
 }
 
 export interface SubscriptionCreateParams {
@@ -1310,7 +8029,7 @@ export interface SubscriptionCreateParams {
 
   aws_region?: string | null;
 
-  billing_cycle_anchor_configuration?: Shared.BillingCycleAnchorConfigurationModel | null;
+  billing_cycle_anchor_configuration?: SubscriptionCreateParams.BillingCycleAnchorConfiguration | null;
 
   /**
    * Redemption code to be used for this subscription. If the coupon cannot be found
@@ -1439,6 +8158,31 @@ export interface SubscriptionCreateParams {
    * subscription itself, or any of that customer's children.
    */
   usage_customer_ids?: Array<string> | null;
+}
+
+export namespace SubscriptionCreateParams {
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
 }
 
 export interface SubscriptionUpdateParams {
@@ -1634,7 +8378,7 @@ export namespace SubscriptionPriceIntervalsParams {
     /**
      * The definition of a new allocation price to create and add to the subscription.
      */
-    allocation_price?: Shared.NewAllocationPriceModel | null;
+    allocation_price?: Add.AllocationPrice | null;
 
     /**
      * A list of discounts to initialize on the price interval.
@@ -1667,7 +8411,7 @@ export namespace SubscriptionPriceIntervalsParams {
     /**
      * A list of fixed fee quantity transitions to initialize on the price interval.
      */
-    fixed_fee_quantity_transitions?: Array<Shared.PriceIntervalFixedFeeQuantityTransitionModel> | null;
+    fixed_fee_quantity_transitions?: Array<Add.FixedFeeQuantityTransition> | null;
 
     /**
      * The maximum amount that will be billed for this price interval for a given
@@ -1684,7 +8428,36 @@ export namespace SubscriptionPriceIntervalsParams {
     /**
      * The definition of a new price to create and add to the subscription.
      */
-    price?: Shared.NewFloatingPriceModel | null;
+    price?:
+      | Add.NewFloatingUnitPrice
+      | Add.NewFloatingPackagePrice
+      | Add.NewFloatingMatrixPrice
+      | Add.NewFloatingMatrixWithAllocationPrice
+      | Add.NewFloatingTieredPrice
+      | Add.NewFloatingTieredBpsPrice
+      | Add.NewFloatingBpsPrice
+      | Add.NewFloatingBulkBpsPrice
+      | Add.NewFloatingBulkPrice
+      | Add.NewFloatingThresholdTotalAmountPrice
+      | Add.NewFloatingTieredPackagePrice
+      | Add.NewFloatingGroupedTieredPrice
+      | Add.NewFloatingMaxGroupTieredPackagePrice
+      | Add.NewFloatingTieredWithMinimumPrice
+      | Add.NewFloatingPackageWithAllocationPrice
+      | Add.NewFloatingTieredPackageWithMinimumPrice
+      | Add.NewFloatingUnitWithPercentPrice
+      | Add.NewFloatingTieredWithProrationPrice
+      | Add.NewFloatingUnitWithProrationPrice
+      | Add.NewFloatingGroupedAllocationPrice
+      | Add.NewFloatingGroupedWithProratedMinimumPrice
+      | Add.NewFloatingGroupedWithMeteredMinimumPrice
+      | Add.NewFloatingMatrixWithDisplayNamePrice
+      | Add.NewFloatingBulkWithProrationPrice
+      | Add.NewFloatingGroupedTieredPackagePrice
+      | Add.NewFloatingScalableMatrixWithUnitPricingPrice
+      | Add.NewFloatingScalableMatrixWithTieredPricingPrice
+      | Add.NewFloatingCumulativeGroupedBulkPrice
+      | null;
 
     /**
      * The id of the price to add to the subscription.
@@ -1703,6 +8476,33 @@ export namespace SubscriptionPriceIntervalsParams {
   }
 
   export namespace Add {
+    /**
+     * The definition of a new allocation price to create and add to the subscription.
+     */
+    export interface AllocationPrice {
+      /**
+       * An amount of the currency to allocate to the customer at the specified cadence.
+       */
+      amount: string;
+
+      /**
+       * The cadence at which to allocate the amount to the customer.
+       */
+      cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+      /**
+       * An ISO 4217 currency string or a custom pricing unit identifier in which to bill
+       * this price.
+       */
+      currency: string;
+
+      /**
+       * Whether the allocated amount should expire at the end of the cadence or roll
+       * over to the next period.
+       */
+      expires_at_end_of_cadence: boolean;
+    }
+
     export interface AmountDiscountCreationParams {
       /**
        * Only available if discount_type is `amount`.
@@ -1731,13 +8531,3375 @@ export namespace SubscriptionPriceIntervalsParams {
        */
       usage_discount: number;
     }
+
+    export interface FixedFeeQuantityTransition {
+      /**
+       * The date that the fixed fee quantity transition should take effect.
+       */
+      effective_date: string;
+
+      /**
+       * The quantity of the fixed fee quantity transition.
+       */
+      quantity: number;
+    }
+
+    export interface NewFloatingUnitPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'unit';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      unit_config: NewFloatingUnitPrice.UnitConfig;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingUnitPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingUnitPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingUnitPrice {
+      export interface UnitConfig {
+        /**
+         * Rate per unit of usage
+         */
+        unit_amount: string;
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingPackagePrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'package';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      package_config: NewFloatingPackagePrice.PackageConfig;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingPackagePrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingPackagePrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingPackagePrice {
+      export interface PackageConfig {
+        /**
+         * A currency amount to rate usage by
+         */
+        package_amount: string;
+
+        /**
+         * An integer amount to represent package size. For example, 1000 here would divide
+         * usage by 1000 before multiplying by package_amount in rating
+         */
+        package_size: number;
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingMatrixPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      matrix_config: NewFloatingMatrixPrice.MatrixConfig;
+
+      model_type: 'matrix';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingMatrixPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingMatrixPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingMatrixPrice {
+      export interface MatrixConfig {
+        /**
+         * Default per unit rate for any usage not bucketed into a specified matrix_value
+         */
+        default_unit_amount: string;
+
+        /**
+         * One or two event property values to evaluate matrix groups by
+         */
+        dimensions: Array<string | null>;
+
+        /**
+         * Matrix values for specified matrix grouping keys
+         */
+        matrix_values: Array<MatrixConfig.MatrixValue>;
+      }
+
+      export namespace MatrixConfig {
+        export interface MatrixValue {
+          /**
+           * One or two matrix keys to filter usage to this Matrix value by. For example,
+           * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
+           * instance tier.
+           */
+          dimension_values: Array<string | null>;
+
+          /**
+           * Unit price for the specified dimension_values
+           */
+          unit_amount: string;
+        }
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingMatrixWithAllocationPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      matrix_with_allocation_config: NewFloatingMatrixWithAllocationPrice.MatrixWithAllocationConfig;
+
+      model_type: 'matrix_with_allocation';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingMatrixWithAllocationPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingMatrixWithAllocationPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingMatrixWithAllocationPrice {
+      export interface MatrixWithAllocationConfig {
+        /**
+         * Allocation to be used to calculate the price
+         */
+        allocation: number;
+
+        /**
+         * Default per unit rate for any usage not bucketed into a specified matrix_value
+         */
+        default_unit_amount: string;
+
+        /**
+         * One or two event property values to evaluate matrix groups by
+         */
+        dimensions: Array<string | null>;
+
+        /**
+         * Matrix values for specified matrix grouping keys
+         */
+        matrix_values: Array<MatrixWithAllocationConfig.MatrixValue>;
+      }
+
+      export namespace MatrixWithAllocationConfig {
+        export interface MatrixValue {
+          /**
+           * One or two matrix keys to filter usage to this Matrix value by. For example,
+           * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
+           * instance tier.
+           */
+          dimension_values: Array<string | null>;
+
+          /**
+           * Unit price for the specified dimension_values
+           */
+          unit_amount: string;
+        }
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingTieredPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'tiered';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      tiered_config: NewFloatingTieredPrice.TieredConfig;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingTieredPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingTieredPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingTieredPrice {
+      export interface TieredConfig {
+        /**
+         * Tiers for rating based on total usage quantities into the specified tier
+         */
+        tiers: Array<TieredConfig.Tier>;
+      }
+
+      export namespace TieredConfig {
+        export interface Tier {
+          /**
+           * Inclusive tier starting value
+           */
+          first_unit: number;
+
+          /**
+           * Amount per unit
+           */
+          unit_amount: string;
+
+          /**
+           * Exclusive tier ending value. If null, this is treated as the last tier
+           */
+          last_unit?: number | null;
+        }
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingTieredBpsPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'tiered_bps';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      tiered_bps_config: NewFloatingTieredBpsPrice.TieredBpsConfig;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingTieredBpsPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingTieredBpsPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingTieredBpsPrice {
+      export interface TieredBpsConfig {
+        /**
+         * Tiers for a Graduated BPS pricing model, where usage is bucketed into specified
+         * tiers
+         */
+        tiers: Array<TieredBpsConfig.Tier>;
+      }
+
+      export namespace TieredBpsConfig {
+        export interface Tier {
+          /**
+           * Per-event basis point rate
+           */
+          bps: number;
+
+          /**
+           * Inclusive tier starting value
+           */
+          minimum_amount: string;
+
+          /**
+           * Exclusive tier ending value
+           */
+          maximum_amount?: string | null;
+
+          /**
+           * Per unit maximum to charge
+           */
+          per_unit_maximum?: string | null;
+        }
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingBpsPrice {
+      bps_config: NewFloatingBpsPrice.BpsConfig;
+
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'bps';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingBpsPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingBpsPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingBpsPrice {
+      export interface BpsConfig {
+        /**
+         * Basis point take rate per event
+         */
+        bps: number;
+
+        /**
+         * Optional currency amount maximum to cap spend per event
+         */
+        per_unit_maximum?: string | null;
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingBulkBpsPrice {
+      bulk_bps_config: NewFloatingBulkBpsPrice.BulkBpsConfig;
+
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'bulk_bps';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingBulkBpsPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingBulkBpsPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingBulkBpsPrice {
+      export interface BulkBpsConfig {
+        /**
+         * Tiers for a bulk BPS pricing model where all usage is aggregated to a single
+         * tier based on total volume
+         */
+        tiers: Array<BulkBpsConfig.Tier>;
+      }
+
+      export namespace BulkBpsConfig {
+        export interface Tier {
+          /**
+           * Basis points to rate on
+           */
+          bps: number;
+
+          /**
+           * Upper bound for tier
+           */
+          maximum_amount?: string | null;
+
+          /**
+           * The maximum amount to charge for any one event
+           */
+          per_unit_maximum?: string | null;
+        }
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingBulkPrice {
+      bulk_config: NewFloatingBulkPrice.BulkConfig;
+
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'bulk';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingBulkPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingBulkPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingBulkPrice {
+      export interface BulkConfig {
+        /**
+         * Bulk tiers for rating based on total usage volume
+         */
+        tiers: Array<BulkConfig.Tier>;
+      }
+
+      export namespace BulkConfig {
+        export interface Tier {
+          /**
+           * Amount per unit
+           */
+          unit_amount: string;
+
+          /**
+           * Upper bound for this tier
+           */
+          maximum_units?: number | null;
+        }
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingThresholdTotalAmountPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'threshold_total_amount';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      threshold_total_amount_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingThresholdTotalAmountPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingThresholdTotalAmountPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingThresholdTotalAmountPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingTieredPackagePrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'tiered_package';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      tiered_package_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingTieredPackagePrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingTieredPackagePrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingTieredPackagePrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingGroupedTieredPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      grouped_tiered_config: Record<string, unknown>;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'grouped_tiered';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingGroupedTieredPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingGroupedTieredPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingGroupedTieredPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingMaxGroupTieredPackagePrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      max_group_tiered_package_config: Record<string, unknown>;
+
+      model_type: 'max_group_tiered_package';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingMaxGroupTieredPackagePrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingMaxGroupTieredPackagePrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingMaxGroupTieredPackagePrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingTieredWithMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'tiered_with_minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      tiered_with_minimum_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingTieredWithMinimumPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingTieredWithMinimumPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingTieredWithMinimumPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingPackageWithAllocationPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'package_with_allocation';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      package_with_allocation_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingPackageWithAllocationPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingPackageWithAllocationPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingPackageWithAllocationPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingTieredPackageWithMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'tiered_package_with_minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      tiered_package_with_minimum_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingTieredPackageWithMinimumPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingTieredPackageWithMinimumPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingTieredPackageWithMinimumPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingUnitWithPercentPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'unit_with_percent';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      unit_with_percent_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingUnitWithPercentPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingUnitWithPercentPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingUnitWithPercentPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingTieredWithProrationPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'tiered_with_proration';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      tiered_with_proration_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingTieredWithProrationPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingTieredWithProrationPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingTieredWithProrationPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingUnitWithProrationPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'unit_with_proration';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      unit_with_proration_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingUnitWithProrationPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingUnitWithProrationPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingUnitWithProrationPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingGroupedAllocationPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      grouped_allocation_config: Record<string, unknown>;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'grouped_allocation';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingGroupedAllocationPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingGroupedAllocationPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingGroupedAllocationPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingGroupedWithProratedMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      grouped_with_prorated_minimum_config: Record<string, unknown>;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'grouped_with_prorated_minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingGroupedWithProratedMinimumPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingGroupedWithProratedMinimumPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingGroupedWithProratedMinimumPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingGroupedWithMeteredMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      grouped_with_metered_minimum_config: Record<string, unknown>;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'grouped_with_metered_minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingGroupedWithMeteredMinimumPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingGroupedWithMeteredMinimumPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingGroupedWithMeteredMinimumPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingMatrixWithDisplayNamePrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      matrix_with_display_name_config: Record<string, unknown>;
+
+      model_type: 'matrix_with_display_name';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingMatrixWithDisplayNamePrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingMatrixWithDisplayNamePrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingMatrixWithDisplayNamePrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingBulkWithProrationPrice {
+      bulk_with_proration_config: Record<string, unknown>;
+
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'bulk_with_proration';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingBulkWithProrationPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingBulkWithProrationPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingBulkWithProrationPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingGroupedTieredPackagePrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      grouped_tiered_package_config: Record<string, unknown>;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'grouped_tiered_package';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingGroupedTieredPackagePrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingGroupedTieredPackagePrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingGroupedTieredPackagePrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingScalableMatrixWithUnitPricingPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'scalable_matrix_with_unit_pricing';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      scalable_matrix_with_unit_pricing_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingScalableMatrixWithUnitPricingPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingScalableMatrixWithUnitPricingPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingScalableMatrixWithUnitPricingPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingScalableMatrixWithTieredPricingPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'scalable_matrix_with_tiered_pricing';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      scalable_matrix_with_tiered_pricing_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingScalableMatrixWithTieredPricingPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingScalableMatrixWithTieredPricingPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingScalableMatrixWithTieredPricingPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewFloatingCumulativeGroupedBulkPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      cumulative_grouped_bulk_config: Record<string, unknown>;
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'cumulative_grouped_bulk';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewFloatingCumulativeGroupedBulkPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewFloatingCumulativeGroupedBulkPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+    }
+
+    export namespace NewFloatingCumulativeGroupedBulkPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
   }
 
   export interface AddAdjustment {
     /**
      * The definition of a new adjustment to create and add to the subscription.
      */
-    adjustment: Shared.NewAdjustmentModel;
+    adjustment:
+      | AddAdjustment.NewPercentageDiscount
+      | AddAdjustment.NewUsageDiscount
+      | AddAdjustment.NewAmountDiscount
+      | AddAdjustment.NewMinimum
+      | AddAdjustment.NewMaximum;
 
     /**
      * The start date of the adjustment interval. This is the date that the adjustment
@@ -1750,6 +11912,98 @@ export namespace SubscriptionPriceIntervalsParams {
      * will stop affecting prices on the subscription.
      */
     end_date?: (string & {}) | Shared.BillingCycleRelativeDate | null;
+  }
+
+  export namespace AddAdjustment {
+    export interface NewPercentageDiscount {
+      adjustment_type: 'percentage_discount';
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      percentage_discount: number;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
+    }
+
+    export interface NewUsageDiscount {
+      adjustment_type: 'usage_discount';
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      usage_discount: number;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
+    }
+
+    export interface NewAmountDiscount {
+      adjustment_type: 'amount_discount';
+
+      amount_discount: string;
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
+    }
+
+    export interface NewMinimum {
+      adjustment_type: 'minimum';
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * The item ID that revenue from this minimum will be attributed to.
+       */
+      item_id: string;
+
+      minimum_amount: string;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
+    }
+
+    export interface NewMaximum {
+      adjustment_type: 'maximum';
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids: Array<string>;
+
+      maximum_amount: string;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
+    }
   }
 
   export interface Edit {
@@ -1784,7 +12038,7 @@ export namespace SubscriptionPriceIntervalsParams {
      * that this list will overwrite all existing fixed fee quantity transitions on the
      * price interval.
      */
-    fixed_fee_quantity_transitions?: Array<Shared.PriceIntervalFixedFeeQuantityTransitionModel> | null;
+    fixed_fee_quantity_transitions?: Array<Edit.FixedFeeQuantityTransition> | null;
 
     /**
      * The updated start date of this price interval. If not specified, the start date
@@ -1801,6 +12055,20 @@ export namespace SubscriptionPriceIntervalsParams {
      * subscription itself, or any of that customer's children.
      */
     usage_customer_ids?: Array<string> | null;
+  }
+
+  export namespace Edit {
+    export interface FixedFeeQuantityTransition {
+      /**
+       * The date that the fixed fee quantity transition should take effect.
+       */
+      effective_date: string;
+
+      /**
+       * The quantity of the fixed fee quantity transition.
+       */
+      quantity: number;
+    }
   }
 
   export interface EditAdjustment {
@@ -1858,7 +12126,7 @@ export interface SubscriptionSchedulePlanChangeParams {
    */
   billing_cycle_alignment?: 'unchanged' | 'plan_change_date' | 'start_of_month' | null;
 
-  billing_cycle_anchor_configuration?: Shared.BillingCycleAnchorConfigurationModel | null;
+  billing_cycle_anchor_configuration?: SubscriptionSchedulePlanChangeParams.BillingCycleAnchorConfiguration | null;
 
   /**
    * The date that the plan change should take effect. This parameter can only be
@@ -1977,6 +12245,31 @@ export interface SubscriptionSchedulePlanChangeParams {
   usage_customer_ids?: Array<string> | null;
 }
 
+export namespace SubscriptionSchedulePlanChangeParams {
+  export interface BillingCycleAnchorConfiguration {
+    /**
+     * The day of the month on which the billing cycle is anchored. If the maximum
+     * number of days in a month is greater than this value, the last day of the month
+     * is the billing cycle day (e.g. billing_cycle_day=31 for April means the billing
+     * period begins on the 30th.
+     */
+    day: number;
+
+    /**
+     * The month on which the billing cycle is anchored (e.g. a quarterly price
+     * anchored in February would have cycles starting February, May, August, and
+     * November).
+     */
+    month?: number | null;
+
+    /**
+     * The year on which the billing cycle is anchored (e.g. a 2 year billing cycle
+     * anchored on 2021 would have cycles starting on 2021, 2023, 2025, etc.).
+     */
+    year?: number | null;
+  }
+}
+
 export interface SubscriptionTriggerPhaseParams {
   /**
    * If false, this request will fail if it would void an issued invoice or create a
@@ -2043,6 +12336,7 @@ export interface SubscriptionUpdateTrialParams {
   shift?: boolean;
 }
 
+Subscriptions.SubscriptionsPage = SubscriptionsPage;
 Subscriptions.SubscriptionFetchScheduleResponsesPage = SubscriptionFetchScheduleResponsesPage;
 
 export declare namespace Subscriptions {
@@ -2050,8 +12344,19 @@ export declare namespace Subscriptions {
     type Subscription as Subscription,
     type SubscriptionUsage as SubscriptionUsage,
     type Subscriptions as Subscriptions,
+    type SubscriptionCreateResponse as SubscriptionCreateResponse,
+    type SubscriptionCancelResponse as SubscriptionCancelResponse,
     type SubscriptionFetchCostsResponse as SubscriptionFetchCostsResponse,
     type SubscriptionFetchScheduleResponse as SubscriptionFetchScheduleResponse,
+    type SubscriptionPriceIntervalsResponse as SubscriptionPriceIntervalsResponse,
+    type SubscriptionSchedulePlanChangeResponse as SubscriptionSchedulePlanChangeResponse,
+    type SubscriptionTriggerPhaseResponse as SubscriptionTriggerPhaseResponse,
+    type SubscriptionUnscheduleCancellationResponse as SubscriptionUnscheduleCancellationResponse,
+    type SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse as SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse,
+    type SubscriptionUnschedulePendingPlanChangesResponse as SubscriptionUnschedulePendingPlanChangesResponse,
+    type SubscriptionUpdateFixedFeeQuantityResponse as SubscriptionUpdateFixedFeeQuantityResponse,
+    type SubscriptionUpdateTrialResponse as SubscriptionUpdateTrialResponse,
+    SubscriptionsPage as SubscriptionsPage,
     SubscriptionFetchScheduleResponsesPage as SubscriptionFetchScheduleResponsesPage,
     type SubscriptionCreateParams as SubscriptionCreateParams,
     type SubscriptionUpdateParams as SubscriptionUpdateParams,
@@ -2068,5 +12373,3 @@ export declare namespace Subscriptions {
     type SubscriptionUpdateTrialParams as SubscriptionUpdateTrialParams,
   };
 }
-
-export { SubscriptionModelsPage };
