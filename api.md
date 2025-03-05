@@ -2,23 +2,13 @@
 
 Types:
 
-- <code><a href="./src/resources/shared.ts">AddCreditLedgerEntryRequest</a></code>
-- <code><a href="./src/resources/shared.ts">AddCreditTopUpRequest</a></code>
-- <code><a href="./src/resources/shared.ts">AddSubscriptionAdjustmentParams</a></code>
-- <code><a href="./src/resources/shared.ts">AddSubscriptionPriceParams</a></code>
 - <code><a href="./src/resources/shared.ts">AmountDiscount</a></code>
 - <code><a href="./src/resources/shared.ts">BillingCycleRelativeDate</a></code>
-- <code><a href="./src/resources/shared.ts">CreateCustomerAlertRequest</a></code>
 - <code><a href="./src/resources/shared.ts">Discount</a></code>
 - <code><a href="./src/resources/shared.ts">InvoiceLevelDiscount</a></code>
 - <code><a href="./src/resources/shared.ts">PaginationMetadata</a></code>
 - <code><a href="./src/resources/shared.ts">PercentageDiscount</a></code>
-- <code><a href="./src/resources/shared.ts">RemoveSubscriptionAdjustmentParams</a></code>
-- <code><a href="./src/resources/shared.ts">RemoveSubscriptionPriceParams</a></code>
-- <code><a href="./src/resources/shared.ts">ReplaceSubscriptionAdjustmentParams</a></code>
-- <code><a href="./src/resources/shared.ts">ReplaceSubscriptionPriceParams</a></code>
 - <code><a href="./src/resources/shared.ts">TrialDiscount</a></code>
-- <code><a href="./src/resources/shared.ts">UpdatePriceRequestParams</a></code>
 - <code><a href="./src/resources/shared.ts">UsageDiscount</a></code>
 
 # TopLevel
