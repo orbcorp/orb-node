@@ -1090,7 +1090,8 @@ export interface Subscription {
   active_plan_phase_order: number | null;
 
   /**
-   * The adjustment intervals for this subscription.
+   * The adjustment intervals for this subscription sorted by the start_date of the
+   * adjustment interval.
    */
   adjustment_intervals: Array<Subscription.AdjustmentInterval>;
 
@@ -1156,7 +1157,7 @@ export interface Subscription {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription.
+   * The discount intervals for this subscription sorted by the start_date.
    */
   discount_intervals: Array<
     | Subscription.AmountDiscountInterval
@@ -1174,7 +1175,7 @@ export interface Subscription {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription.
+   * The maximum intervals for this subscription sorted by the start_date.
    */
   maximum_intervals: Array<Subscription.MaximumInterval>;
 
@@ -1187,7 +1188,7 @@ export interface Subscription {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription.
+   * The minimum intervals for this subscription sorted by the start_date.
    */
   minimum_intervals: Array<Subscription.MinimumInterval>;
 
@@ -1787,7 +1788,8 @@ export interface SubscriptionCreateResponse {
   active_plan_phase_order: number | null;
 
   /**
-   * The adjustment intervals for this subscription.
+   * The adjustment intervals for this subscription sorted by the start_date of the
+   * adjustment interval.
    */
   adjustment_intervals: Array<SubscriptionCreateResponse.AdjustmentInterval>;
 
@@ -1853,7 +1855,7 @@ export interface SubscriptionCreateResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription.
+   * The discount intervals for this subscription sorted by the start_date.
    */
   discount_intervals: Array<
     | SubscriptionCreateResponse.AmountDiscountInterval
@@ -1871,7 +1873,7 @@ export interface SubscriptionCreateResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription.
+   * The maximum intervals for this subscription sorted by the start_date.
    */
   maximum_intervals: Array<SubscriptionCreateResponse.MaximumInterval>;
 
@@ -1884,7 +1886,7 @@ export interface SubscriptionCreateResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription.
+   * The minimum intervals for this subscription sorted by the start_date.
    */
   minimum_intervals: Array<SubscriptionCreateResponse.MinimumInterval>;
 
@@ -2402,7 +2404,8 @@ export interface SubscriptionCancelResponse {
   active_plan_phase_order: number | null;
 
   /**
-   * The adjustment intervals for this subscription.
+   * The adjustment intervals for this subscription sorted by the start_date of the
+   * adjustment interval.
    */
   adjustment_intervals: Array<SubscriptionCancelResponse.AdjustmentInterval>;
 
@@ -2468,7 +2471,7 @@ export interface SubscriptionCancelResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription.
+   * The discount intervals for this subscription sorted by the start_date.
    */
   discount_intervals: Array<
     | SubscriptionCancelResponse.AmountDiscountInterval
@@ -2486,7 +2489,7 @@ export interface SubscriptionCancelResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription.
+   * The maximum intervals for this subscription sorted by the start_date.
    */
   maximum_intervals: Array<SubscriptionCancelResponse.MaximumInterval>;
 
@@ -2499,7 +2502,7 @@ export interface SubscriptionCancelResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription.
+   * The minimum intervals for this subscription sorted by the start_date.
    */
   minimum_intervals: Array<SubscriptionCancelResponse.MinimumInterval>;
 
@@ -3095,7 +3098,8 @@ export interface SubscriptionPriceIntervalsResponse {
   active_plan_phase_order: number | null;
 
   /**
-   * The adjustment intervals for this subscription.
+   * The adjustment intervals for this subscription sorted by the start_date of the
+   * adjustment interval.
    */
   adjustment_intervals: Array<SubscriptionPriceIntervalsResponse.AdjustmentInterval>;
 
@@ -3161,7 +3165,7 @@ export interface SubscriptionPriceIntervalsResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription.
+   * The discount intervals for this subscription sorted by the start_date.
    */
   discount_intervals: Array<
     | SubscriptionPriceIntervalsResponse.AmountDiscountInterval
@@ -3179,7 +3183,7 @@ export interface SubscriptionPriceIntervalsResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription.
+   * The maximum intervals for this subscription sorted by the start_date.
    */
   maximum_intervals: Array<SubscriptionPriceIntervalsResponse.MaximumInterval>;
 
@@ -3192,7 +3196,7 @@ export interface SubscriptionPriceIntervalsResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription.
+   * The minimum intervals for this subscription sorted by the start_date.
    */
   minimum_intervals: Array<SubscriptionPriceIntervalsResponse.MinimumInterval>;
 
@@ -3710,7 +3714,8 @@ export interface SubscriptionSchedulePlanChangeResponse {
   active_plan_phase_order: number | null;
 
   /**
-   * The adjustment intervals for this subscription.
+   * The adjustment intervals for this subscription sorted by the start_date of the
+   * adjustment interval.
    */
   adjustment_intervals: Array<SubscriptionSchedulePlanChangeResponse.AdjustmentInterval>;
 
@@ -3776,7 +3781,7 @@ export interface SubscriptionSchedulePlanChangeResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription.
+   * The discount intervals for this subscription sorted by the start_date.
    */
   discount_intervals: Array<
     | SubscriptionSchedulePlanChangeResponse.AmountDiscountInterval
@@ -3794,7 +3799,7 @@ export interface SubscriptionSchedulePlanChangeResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription.
+   * The maximum intervals for this subscription sorted by the start_date.
    */
   maximum_intervals: Array<SubscriptionSchedulePlanChangeResponse.MaximumInterval>;
 
@@ -3807,7 +3812,7 @@ export interface SubscriptionSchedulePlanChangeResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription.
+   * The minimum intervals for this subscription sorted by the start_date.
    */
   minimum_intervals: Array<SubscriptionSchedulePlanChangeResponse.MinimumInterval>;
 
@@ -4325,7 +4330,8 @@ export interface SubscriptionTriggerPhaseResponse {
   active_plan_phase_order: number | null;
 
   /**
-   * The adjustment intervals for this subscription.
+   * The adjustment intervals for this subscription sorted by the start_date of the
+   * adjustment interval.
    */
   adjustment_intervals: Array<SubscriptionTriggerPhaseResponse.AdjustmentInterval>;
 
@@ -4391,7 +4397,7 @@ export interface SubscriptionTriggerPhaseResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription.
+   * The discount intervals for this subscription sorted by the start_date.
    */
   discount_intervals: Array<
     | SubscriptionTriggerPhaseResponse.AmountDiscountInterval
@@ -4409,7 +4415,7 @@ export interface SubscriptionTriggerPhaseResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription.
+   * The maximum intervals for this subscription sorted by the start_date.
    */
   maximum_intervals: Array<SubscriptionTriggerPhaseResponse.MaximumInterval>;
 
@@ -4422,7 +4428,7 @@ export interface SubscriptionTriggerPhaseResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription.
+   * The minimum intervals for this subscription sorted by the start_date.
    */
   minimum_intervals: Array<SubscriptionTriggerPhaseResponse.MinimumInterval>;
 
@@ -4940,7 +4946,8 @@ export interface SubscriptionUnscheduleCancellationResponse {
   active_plan_phase_order: number | null;
 
   /**
-   * The adjustment intervals for this subscription.
+   * The adjustment intervals for this subscription sorted by the start_date of the
+   * adjustment interval.
    */
   adjustment_intervals: Array<SubscriptionUnscheduleCancellationResponse.AdjustmentInterval>;
 
@@ -5006,7 +5013,7 @@ export interface SubscriptionUnscheduleCancellationResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription.
+   * The discount intervals for this subscription sorted by the start_date.
    */
   discount_intervals: Array<
     | SubscriptionUnscheduleCancellationResponse.AmountDiscountInterval
@@ -5024,7 +5031,7 @@ export interface SubscriptionUnscheduleCancellationResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription.
+   * The maximum intervals for this subscription sorted by the start_date.
    */
   maximum_intervals: Array<SubscriptionUnscheduleCancellationResponse.MaximumInterval>;
 
@@ -5037,7 +5044,7 @@ export interface SubscriptionUnscheduleCancellationResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription.
+   * The minimum intervals for this subscription sorted by the start_date.
    */
   minimum_intervals: Array<SubscriptionUnscheduleCancellationResponse.MinimumInterval>;
 
@@ -5555,7 +5562,8 @@ export interface SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
   active_plan_phase_order: number | null;
 
   /**
-   * The adjustment intervals for this subscription.
+   * The adjustment intervals for this subscription sorted by the start_date of the
+   * adjustment interval.
    */
   adjustment_intervals: Array<SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.AdjustmentInterval>;
 
@@ -5621,7 +5629,7 @@ export interface SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription.
+   * The discount intervals for this subscription sorted by the start_date.
    */
   discount_intervals: Array<
     | SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.AmountDiscountInterval
@@ -5639,7 +5647,7 @@ export interface SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription.
+   * The maximum intervals for this subscription sorted by the start_date.
    */
   maximum_intervals: Array<SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.MaximumInterval>;
 
@@ -5652,7 +5660,7 @@ export interface SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription.
+   * The minimum intervals for this subscription sorted by the start_date.
    */
   minimum_intervals: Array<SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.MinimumInterval>;
 
@@ -6170,7 +6178,8 @@ export interface SubscriptionUnschedulePendingPlanChangesResponse {
   active_plan_phase_order: number | null;
 
   /**
-   * The adjustment intervals for this subscription.
+   * The adjustment intervals for this subscription sorted by the start_date of the
+   * adjustment interval.
    */
   adjustment_intervals: Array<SubscriptionUnschedulePendingPlanChangesResponse.AdjustmentInterval>;
 
@@ -6236,7 +6245,7 @@ export interface SubscriptionUnschedulePendingPlanChangesResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription.
+   * The discount intervals for this subscription sorted by the start_date.
    */
   discount_intervals: Array<
     | SubscriptionUnschedulePendingPlanChangesResponse.AmountDiscountInterval
@@ -6254,7 +6263,7 @@ export interface SubscriptionUnschedulePendingPlanChangesResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription.
+   * The maximum intervals for this subscription sorted by the start_date.
    */
   maximum_intervals: Array<SubscriptionUnschedulePendingPlanChangesResponse.MaximumInterval>;
 
@@ -6267,7 +6276,7 @@ export interface SubscriptionUnschedulePendingPlanChangesResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription.
+   * The minimum intervals for this subscription sorted by the start_date.
    */
   minimum_intervals: Array<SubscriptionUnschedulePendingPlanChangesResponse.MinimumInterval>;
 
@@ -6785,7 +6794,8 @@ export interface SubscriptionUpdateFixedFeeQuantityResponse {
   active_plan_phase_order: number | null;
 
   /**
-   * The adjustment intervals for this subscription.
+   * The adjustment intervals for this subscription sorted by the start_date of the
+   * adjustment interval.
    */
   adjustment_intervals: Array<SubscriptionUpdateFixedFeeQuantityResponse.AdjustmentInterval>;
 
@@ -6851,7 +6861,7 @@ export interface SubscriptionUpdateFixedFeeQuantityResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription.
+   * The discount intervals for this subscription sorted by the start_date.
    */
   discount_intervals: Array<
     | SubscriptionUpdateFixedFeeQuantityResponse.AmountDiscountInterval
@@ -6869,7 +6879,7 @@ export interface SubscriptionUpdateFixedFeeQuantityResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription.
+   * The maximum intervals for this subscription sorted by the start_date.
    */
   maximum_intervals: Array<SubscriptionUpdateFixedFeeQuantityResponse.MaximumInterval>;
 
@@ -6882,7 +6892,7 @@ export interface SubscriptionUpdateFixedFeeQuantityResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription.
+   * The minimum intervals for this subscription sorted by the start_date.
    */
   minimum_intervals: Array<SubscriptionUpdateFixedFeeQuantityResponse.MinimumInterval>;
 
@@ -7400,7 +7410,8 @@ export interface SubscriptionUpdateTrialResponse {
   active_plan_phase_order: number | null;
 
   /**
-   * The adjustment intervals for this subscription.
+   * The adjustment intervals for this subscription sorted by the start_date of the
+   * adjustment interval.
    */
   adjustment_intervals: Array<SubscriptionUpdateTrialResponse.AdjustmentInterval>;
 
@@ -7466,7 +7477,7 @@ export interface SubscriptionUpdateTrialResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription.
+   * The discount intervals for this subscription sorted by the start_date.
    */
   discount_intervals: Array<
     | SubscriptionUpdateTrialResponse.AmountDiscountInterval
@@ -7484,7 +7495,7 @@ export interface SubscriptionUpdateTrialResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription.
+   * The maximum intervals for this subscription sorted by the start_date.
    */
   maximum_intervals: Array<SubscriptionUpdateTrialResponse.MaximumInterval>;
 
@@ -7497,7 +7508,7 @@ export interface SubscriptionUpdateTrialResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription.
+   * The minimum intervals for this subscription sorted by the start_date.
    */
   minimum_intervals: Array<SubscriptionUpdateTrialResponse.MinimumInterval>;
 
