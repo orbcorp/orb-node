@@ -84,7 +84,7 @@ describe('resource alerts', () => {
   test('createForCustomer: only required params', async () => {
     const responsePromise = client.alerts.createForCustomer('customer_id', {
       currency: 'currency',
-      type: 'usage_exceeded',
+      type: 'credit_balance_depleted',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -98,7 +98,7 @@ describe('resource alerts', () => {
   test('createForCustomer: required and optional params', async () => {
     const response = await client.alerts.createForCustomer('customer_id', {
       currency: 'currency',
-      type: 'usage_exceeded',
+      type: 'credit_balance_depleted',
       thresholds: [{ value: 0 }],
     });
   });
@@ -106,7 +106,7 @@ describe('resource alerts', () => {
   test('createForExternalCustomer: only required params', async () => {
     const responsePromise = client.alerts.createForExternalCustomer('external_customer_id', {
       currency: 'currency',
-      type: 'usage_exceeded',
+      type: 'credit_balance_depleted',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -120,7 +120,7 @@ describe('resource alerts', () => {
   test('createForExternalCustomer: required and optional params', async () => {
     const response = await client.alerts.createForExternalCustomer('external_customer_id', {
       currency: 'currency',
-      type: 'usage_exceeded',
+      type: 'credit_balance_depleted',
       thresholds: [{ value: 0 }],
     });
   });
