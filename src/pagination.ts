@@ -63,7 +63,7 @@ export class Page<Item> extends AbstractPage<Item> implements PageResponse<Item>
 
     return {
       params: {
-        cursor: cursor,
+        cursor,
       },
     };
   }
