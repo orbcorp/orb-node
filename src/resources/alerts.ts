@@ -219,11 +219,11 @@ export interface Alert {
    * The type of alert. This must be a valid alert type.
    */
   type:
-    | 'usage_exceeded'
-    | 'cost_exceeded'
     | 'credit_balance_depleted'
     | 'credit_balance_dropped'
-    | 'credit_balance_recovered';
+    | 'credit_balance_recovered'
+    | 'usage_exceeded'
+    | 'cost_exceeded';
 }
 
 export namespace Alert {
@@ -338,12 +338,7 @@ export interface AlertCreateForCustomerParams {
   /**
    * The type of alert to create. This must be a valid alert type.
    */
-  type:
-    | 'usage_exceeded'
-    | 'cost_exceeded'
-    | 'credit_balance_depleted'
-    | 'credit_balance_dropped'
-    | 'credit_balance_recovered';
+  type: 'credit_balance_depleted' | 'credit_balance_dropped' | 'credit_balance_recovered';
 
   /**
    * The thresholds that define the values at which the alert will be triggered.
@@ -375,12 +370,7 @@ export interface AlertCreateForExternalCustomerParams {
   /**
    * The type of alert to create. This must be a valid alert type.
    */
-  type:
-    | 'usage_exceeded'
-    | 'cost_exceeded'
-    | 'credit_balance_depleted'
-    | 'credit_balance_dropped'
-    | 'credit_balance_recovered';
+  type: 'credit_balance_depleted' | 'credit_balance_dropped' | 'credit_balance_recovered';
 
   /**
    * The thresholds that define the values at which the alert will be triggered.
@@ -412,12 +402,7 @@ export interface AlertCreateForSubscriptionParams {
   /**
    * The type of alert to create. This must be a valid alert type.
    */
-  type:
-    | 'usage_exceeded'
-    | 'cost_exceeded'
-    | 'credit_balance_depleted'
-    | 'credit_balance_dropped'
-    | 'credit_balance_recovered';
+  type: 'usage_exceeded' | 'cost_exceeded';
 
   /**
    * The metric to track usage for.
