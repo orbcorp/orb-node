@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.68.0 (2025-03-10)
+
+Full Changelog: [v4.67.0...v4.68.0](https://github.com/orbcorp/orb-node/compare/v4.67.0...v4.68.0)
+
+### Features
+
+* add SKIP_BREW env var to ./scripts/bootstrap ([#552](https://github.com/orbcorp/orb-node/issues/552)) ([c093bbd](https://github.com/orbcorp/orb-node/commit/c093bbd7554a0016797def8f2dd4f3f8bb1dc961))
+* **api:** api update ([#553](https://github.com/orbcorp/orb-node/issues/553)) ([fc56426](https://github.com/orbcorp/orb-node/commit/fc564266196bc1dc5806ba600114056b5d85103b))
+
+
+### Chores
+
+* **internal:** codegen related update ([#550](https://github.com/orbcorp/orb-node/issues/550)) ([1fe40c9](https://github.com/orbcorp/orb-node/commit/1fe40c9f487c96219b2712b44ebcb96e41d5f718))
+* **internal:** codegen related update ([#554](https://github.com/orbcorp/orb-node/issues/554)) ([3a2ad3c](https://github.com/orbcorp/orb-node/commit/3a2ad3cf2b86597ce08167e416d0a61547943b7b))
+
 ## 4.67.0 (2025-03-07)
 
 Full Changelog: [v4.66.0...v4.67.0](https://github.com/orbcorp/orb-node/compare/v4.66.0...v4.67.0)
