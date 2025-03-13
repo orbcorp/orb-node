@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.69.1 (2025-03-13)
+
+Full Changelog: [v4.69.0...v4.69.1](https://github.com/orbcorp/orb-node/compare/v4.69.0...v4.69.1)
+
+### Bug Fixes
+
+* **exports:** ensure resource imports don't require /index ([#562](https://github.com/orbcorp/orb-node/issues/562)) ([6d5b098](https://github.com/orbcorp/orb-node/commit/6d5b0988a3b89ec21561e3fc208a9b2481399592))
+
+
+### Chores
+
+* **api:** correctly support ExternalCustomerID array filter on Subscriptions.List ([#561](https://github.com/orbcorp/orb-node/issues/561)) ([d0b1aa6](https://github.com/orbcorp/orb-node/commit/d0b1aa62f09003ca1a2f66a0dae5208077fb57c9))
+* **internal:** remove extra empty newlines ([#559](https://github.com/orbcorp/orb-node/issues/559)) ([f177a13](https://github.com/orbcorp/orb-node/commit/f177a13635912d93c9c03b34752fbff9b713b991))
+
 ## 4.69.0 (2025-03-11)
 
 Full Changelog: [v4.68.0...v4.69.0](https://github.com/orbcorp/orb-node/compare/v4.68.0...v4.69.0)
