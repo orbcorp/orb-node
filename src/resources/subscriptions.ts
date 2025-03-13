@@ -15047,7 +15047,7 @@ export interface SubscriptionListParams extends PageParams {
 
   customer_id?: Array<string> | null;
 
-  external_customer_id?: string | null;
+  external_customer_id?: Array<string> | null;
 
   status?: 'active' | 'ended' | 'upcoming' | null;
 }
