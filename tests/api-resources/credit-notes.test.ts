@@ -51,7 +51,17 @@ describe('resource creditNotes', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.creditNotes.list({ cursor: 'cursor', limit: 1 }, { path: '/_stainless_unknown_path' }),
+      client.creditNotes.list(
+        {
+          'created_at[gt]': '2019-12-27T18:11:19.117Z',
+          'created_at[gte]': '2019-12-27T18:11:19.117Z',
+          'created_at[lt]': '2019-12-27T18:11:19.117Z',
+          'created_at[lte]': '2019-12-27T18:11:19.117Z',
+          cursor: 'cursor',
+          limit: 1,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
