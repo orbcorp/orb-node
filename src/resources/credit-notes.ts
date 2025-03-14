@@ -278,7 +278,15 @@ export namespace CreditNoteCreateParams {
   }
 }
 
-export interface CreditNoteListParams extends PageParams {}
+export interface CreditNoteListParams extends PageParams {
+  'created_at[gt]'?: string | null;
+
+  'created_at[gte]'?: string | null;
+
+  'created_at[lt]'?: string | null;
+
+  'created_at[lte]'?: string | null;
+}
 
 CreditNotes.CreditNotesPage = CreditNotesPage;
 
