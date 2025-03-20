@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.71.0 (2025-03-20)
+
+Full Changelog: [v4.70.0...v4.71.0](https://github.com/orbcorp/orb-node/compare/v4.70.0...v4.71.0)
+
+### Features
+
+* **api:** api update ([#570](https://github.com/orbcorp/orb-node/issues/570)) ([f25a699](https://github.com/orbcorp/orb-node/commit/f25a699c95a6f4322d819f82be3cace18e4fd913))
+
+
+### Chores
+
+* **exports:** cleaner resource index imports ([#567](https://github.com/orbcorp/orb-node/issues/567)) ([1249541](https://github.com/orbcorp/orb-node/commit/12495411c10b12fb432ed5ea2db13cf9fcc43c82))
+* **exports:** stop using path fallbacks ([#569](https://github.com/orbcorp/orb-node/issues/569)) ([5c55f33](https://github.com/orbcorp/orb-node/commit/5c55f33931a4814bc5bf623ccc6d892627479168))
+
 ## 4.70.0 (2025-03-14)
 
 Full Changelog: [v4.69.1...v4.70.0](https://github.com/orbcorp/orb-node/compare/v4.69.1...v4.70.0)
