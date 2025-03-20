@@ -377,7 +377,7 @@ describe('resource subscriptions', () => {
           price_id: 'h74gfhdjvn7ujokd',
         },
       ],
-      trial_duration_days: 999999,
+      trial_duration_days: 0,
       usage_customer_ids: ['string'],
     });
   });
