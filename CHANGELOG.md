@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.71.1 (2025-03-21)
+
+Full Changelog: [v4.71.0...v4.71.1](https://github.com/orbcorp/orb-node/compare/v4.71.0...v4.71.1)
+
+### Bug Fixes
+
+* avoid type error in certain environments ([#572](https://github.com/orbcorp/orb-node/issues/572)) ([2c1e4a5](https://github.com/orbcorp/orb-node/commit/2c1e4a599bb46c37bd235217fc40b9653a65adc6))
+
 ## 4.71.0 (2025-03-20)
 
 Full Changelog: [v4.70.0...v4.71.0](https://github.com/orbcorp/orb-node/compare/v4.70.0...v4.71.0)
