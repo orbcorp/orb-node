@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.71.2 (2025-03-27)
+
+Full Changelog: [v4.71.1...v4.71.2](https://github.com/orbcorp/orb-node/compare/v4.71.1...v4.71.2)
+
+### Bug Fixes
+
+* **internal:** work around https://github.com/vercel/next.js/issues/76881 ([#575](https://github.com/orbcorp/orb-node/issues/575)) ([da607f1](https://github.com/orbcorp/orb-node/commit/da607f1208eb798f0802d5fd7dc5aa79feae0910))
+
 ## 4.71.1 (2025-03-21)
 
 Full Changelog: [v4.71.0...v4.71.1](https://github.com/orbcorp/orb-node/compare/v4.71.0...v4.71.1)
