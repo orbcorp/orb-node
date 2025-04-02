@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.71.3 (2025-04-02)
+
+Full Changelog: [v4.71.2...v4.71.3](https://github.com/orbcorp/orb-node/compare/v4.71.2...v4.71.3)
+
+### Bug Fixes
+
+* **client:** send `X-Stainless-Timeout` in seconds ([#578](https://github.com/orbcorp/orb-node/issues/578)) ([4106989](https://github.com/orbcorp/orb-node/commit/4106989c3af4a07be0d2d6c36ad339dbe9f6d3f8))
+
 ## 4.71.2 (2025-03-27)
 
 Full Changelog: [v4.71.1...v4.71.2](https://github.com/orbcorp/orb-node/compare/v4.71.1...v4.71.2)
