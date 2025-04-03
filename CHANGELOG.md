@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.71.4 (2025-04-03)
+
+Full Changelog: [v4.71.3...v4.71.4](https://github.com/orbcorp/orb-node/compare/v4.71.3...v4.71.4)
+
+### Bug Fixes
+
+* **api:** improve type resolution when importing as a package ([#583](https://github.com/orbcorp/orb-node/issues/583)) ([e11cdbb](https://github.com/orbcorp/orb-node/commit/e11cdbb60c8d24f7d9116afd2eab0f8d2de0123c))
+
+
+### Chores
+
+* **internal:** add aliases for Record and Array ([#581](https://github.com/orbcorp/orb-node/issues/581)) ([b89bd0a](https://github.com/orbcorp/orb-node/commit/b89bd0aede140b1be66449198117bf3cabc86773))
+
 ## 4.71.3 (2025-04-02)
 
 Full Changelog: [v4.71.2...v4.71.3](https://github.com/orbcorp/orb-node/compare/v4.71.2...v4.71.3)
