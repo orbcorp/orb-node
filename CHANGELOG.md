@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.71.5 (2025-04-04)
+
+Full Changelog: [v4.71.4...v4.71.5](https://github.com/orbcorp/orb-node/compare/v4.71.4...v4.71.5)
+
+### Bug Fixes
+
+* **mcp:** remove unused tools.ts ([#585](https://github.com/orbcorp/orb-node/issues/585)) ([23327d7](https://github.com/orbcorp/orb-node/commit/23327d73cdb2f465221f4d2068baa03e05a68f68))
+
 ## 4.71.4 (2025-04-03)
 
 Full Changelog: [v4.71.3...v4.71.4](https://github.com/orbcorp/orb-node/compare/v4.71.3...v4.71.4)
