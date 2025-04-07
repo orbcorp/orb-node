@@ -61,6 +61,13 @@ import {
   Metrics,
 } from './resources/metrics';
 import {
+  SubscriptionChangeApplyParams,
+  SubscriptionChangeApplyResponse,
+  SubscriptionChangeCancelResponse,
+  SubscriptionChangeRetrieveResponse,
+  SubscriptionChanges,
+} from './resources/subscription-changes';
+import {
   Subscription,
   SubscriptionCancelParams,
   SubscriptionCancelResponse,
@@ -284,6 +291,7 @@ export class Orb extends Core.APIClient {
   subscriptions: API.Subscriptions = new API.Subscriptions(this);
   alerts: API.Alerts = new API.Alerts(this);
   dimensionalPriceGroups: API.DimensionalPriceGroups = new API.DimensionalPriceGroups(this);
+  subscriptionChanges: API.SubscriptionChanges = new API.SubscriptionChanges(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -361,6 +369,7 @@ Orb.SubscriptionFetchScheduleResponsesPage = SubscriptionFetchScheduleResponsesP
 Orb.Alerts = Alerts;
 Orb.AlertsPage = AlertsPage;
 Orb.DimensionalPriceGroupsPage = DimensionalPriceGroupsPage;
+Orb.SubscriptionChanges = SubscriptionChanges;
 export declare namespace Orb {
   export type RequestOptions = Core.RequestOptions;
 
@@ -516,6 +525,14 @@ export declare namespace Orb {
     DimensionalPriceGroupsPage as DimensionalPriceGroupsPage,
     type DimensionalPriceGroupCreateParams as DimensionalPriceGroupCreateParams,
     type DimensionalPriceGroupListParams as DimensionalPriceGroupListParams,
+  };
+
+  export {
+    SubscriptionChanges as SubscriptionChanges,
+    type SubscriptionChangeRetrieveResponse as SubscriptionChangeRetrieveResponse,
+    type SubscriptionChangeApplyResponse as SubscriptionChangeApplyResponse,
+    type SubscriptionChangeCancelResponse as SubscriptionChangeCancelResponse,
+    type SubscriptionChangeApplyParams as SubscriptionChangeApplyParams,
   };
 
   export type AmountDiscount = API.AmountDiscount;

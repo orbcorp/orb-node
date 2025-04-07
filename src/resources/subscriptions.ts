@@ -3,6 +3,8 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
+import * as CreditNotesAPI from './credit-notes';
+import * as InvoicesAPI from './invoices';
 import * as Shared from './shared';
 import * as CustomersAPI from './customers/customers';
 import * as PlansAPI from './plans/plans';
@@ -1201,6 +1203,11 @@ export interface Subscription {
   net_terms: number;
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  pending_subscription_change: Subscription.PendingSubscriptionChange | null;
+
+  /**
    * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
    * subscribed to by a customer. Plans define the billing behavior of the
    * subscription. You can see more about how to configure prices in the
@@ -1603,6 +1610,13 @@ export namespace Subscription {
   }
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  export interface PendingSubscriptionChange {
+    id: string;
+  }
+
+  /**
    * The Price Interval resource represents a period of time for which a price will
    * bill on a subscription. A subscription’s price intervals define its billing
    * behavior.
@@ -1899,6 +1913,11 @@ export interface SubscriptionCreateResponse {
   net_terms: number;
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  pending_subscription_change: SubscriptionCreateResponse.PendingSubscriptionChange | null;
+
+  /**
    * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
    * subscribed to by a customer. Plans define the billing behavior of the
    * subscription. You can see more about how to configure prices in the
@@ -1921,6 +1940,13 @@ export interface SubscriptionCreateResponse {
   status: 'active' | 'ended' | 'upcoming';
 
   trial_info: SubscriptionCreateResponse.TrialInfo;
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  changed_resources?: SubscriptionCreateResponse.ChangedResources | null;
 }
 
 export namespace SubscriptionCreateResponse {
@@ -2301,6 +2327,13 @@ export namespace SubscriptionCreateResponse {
   }
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  export interface PendingSubscriptionChange {
+    id: string;
+  }
+
+  /**
    * The Price Interval resource represents a period of time for which a price will
    * bill on a subscription. A subscription’s price intervals define its billing
    * behavior.
@@ -2391,6 +2424,33 @@ export namespace SubscriptionCreateResponse {
 
   export interface TrialInfo {
     end_date: string | null;
+  }
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  export interface ChangedResources {
+    /**
+     * The credit notes that were created as part of this operation.
+     */
+    created_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were created as part of this operation.
+     */
+    created_invoices: Array<InvoicesAPI.Invoice>;
+
+    /**
+     * The credit notes that were voided as part of this operation.
+     */
+    voided_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were voided as part of this operation.
+     */
+    voided_invoices: Array<InvoicesAPI.Invoice>;
   }
 }
 
@@ -2515,6 +2575,11 @@ export interface SubscriptionCancelResponse {
   net_terms: number;
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  pending_subscription_change: SubscriptionCancelResponse.PendingSubscriptionChange | null;
+
+  /**
    * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
    * subscribed to by a customer. Plans define the billing behavior of the
    * subscription. You can see more about how to configure prices in the
@@ -2537,6 +2602,13 @@ export interface SubscriptionCancelResponse {
   status: 'active' | 'ended' | 'upcoming';
 
   trial_info: SubscriptionCancelResponse.TrialInfo;
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  changed_resources?: SubscriptionCancelResponse.ChangedResources | null;
 }
 
 export namespace SubscriptionCancelResponse {
@@ -2917,6 +2989,13 @@ export namespace SubscriptionCancelResponse {
   }
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  export interface PendingSubscriptionChange {
+    id: string;
+  }
+
+  /**
    * The Price Interval resource represents a period of time for which a price will
    * bill on a subscription. A subscription’s price intervals define its billing
    * behavior.
@@ -3007,6 +3086,33 @@ export namespace SubscriptionCancelResponse {
 
   export interface TrialInfo {
     end_date: string | null;
+  }
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  export interface ChangedResources {
+    /**
+     * The credit notes that were created as part of this operation.
+     */
+    created_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were created as part of this operation.
+     */
+    created_invoices: Array<InvoicesAPI.Invoice>;
+
+    /**
+     * The credit notes that were voided as part of this operation.
+     */
+    voided_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were voided as part of this operation.
+     */
+    voided_invoices: Array<InvoicesAPI.Invoice>;
   }
 }
 
@@ -3209,6 +3315,11 @@ export interface SubscriptionPriceIntervalsResponse {
   net_terms: number;
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  pending_subscription_change: SubscriptionPriceIntervalsResponse.PendingSubscriptionChange | null;
+
+  /**
    * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
    * subscribed to by a customer. Plans define the billing behavior of the
    * subscription. You can see more about how to configure prices in the
@@ -3231,6 +3342,13 @@ export interface SubscriptionPriceIntervalsResponse {
   status: 'active' | 'ended' | 'upcoming';
 
   trial_info: SubscriptionPriceIntervalsResponse.TrialInfo;
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  changed_resources?: SubscriptionPriceIntervalsResponse.ChangedResources | null;
 }
 
 export namespace SubscriptionPriceIntervalsResponse {
@@ -3611,6 +3729,13 @@ export namespace SubscriptionPriceIntervalsResponse {
   }
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  export interface PendingSubscriptionChange {
+    id: string;
+  }
+
+  /**
    * The Price Interval resource represents a period of time for which a price will
    * bill on a subscription. A subscription’s price intervals define its billing
    * behavior.
@@ -3701,6 +3826,33 @@ export namespace SubscriptionPriceIntervalsResponse {
 
   export interface TrialInfo {
     end_date: string | null;
+  }
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  export interface ChangedResources {
+    /**
+     * The credit notes that were created as part of this operation.
+     */
+    created_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were created as part of this operation.
+     */
+    created_invoices: Array<InvoicesAPI.Invoice>;
+
+    /**
+     * The credit notes that were voided as part of this operation.
+     */
+    voided_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were voided as part of this operation.
+     */
+    voided_invoices: Array<InvoicesAPI.Invoice>;
   }
 }
 
@@ -3825,6 +3977,11 @@ export interface SubscriptionSchedulePlanChangeResponse {
   net_terms: number;
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  pending_subscription_change: SubscriptionSchedulePlanChangeResponse.PendingSubscriptionChange | null;
+
+  /**
    * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
    * subscribed to by a customer. Plans define the billing behavior of the
    * subscription. You can see more about how to configure prices in the
@@ -3847,6 +4004,13 @@ export interface SubscriptionSchedulePlanChangeResponse {
   status: 'active' | 'ended' | 'upcoming';
 
   trial_info: SubscriptionSchedulePlanChangeResponse.TrialInfo;
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  changed_resources?: SubscriptionSchedulePlanChangeResponse.ChangedResources | null;
 }
 
 export namespace SubscriptionSchedulePlanChangeResponse {
@@ -4227,6 +4391,13 @@ export namespace SubscriptionSchedulePlanChangeResponse {
   }
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  export interface PendingSubscriptionChange {
+    id: string;
+  }
+
+  /**
    * The Price Interval resource represents a period of time for which a price will
    * bill on a subscription. A subscription’s price intervals define its billing
    * behavior.
@@ -4317,6 +4488,33 @@ export namespace SubscriptionSchedulePlanChangeResponse {
 
   export interface TrialInfo {
     end_date: string | null;
+  }
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  export interface ChangedResources {
+    /**
+     * The credit notes that were created as part of this operation.
+     */
+    created_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were created as part of this operation.
+     */
+    created_invoices: Array<InvoicesAPI.Invoice>;
+
+    /**
+     * The credit notes that were voided as part of this operation.
+     */
+    voided_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were voided as part of this operation.
+     */
+    voided_invoices: Array<InvoicesAPI.Invoice>;
   }
 }
 
@@ -4441,6 +4639,11 @@ export interface SubscriptionTriggerPhaseResponse {
   net_terms: number;
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  pending_subscription_change: SubscriptionTriggerPhaseResponse.PendingSubscriptionChange | null;
+
+  /**
    * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
    * subscribed to by a customer. Plans define the billing behavior of the
    * subscription. You can see more about how to configure prices in the
@@ -4463,6 +4666,13 @@ export interface SubscriptionTriggerPhaseResponse {
   status: 'active' | 'ended' | 'upcoming';
 
   trial_info: SubscriptionTriggerPhaseResponse.TrialInfo;
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  changed_resources?: SubscriptionTriggerPhaseResponse.ChangedResources | null;
 }
 
 export namespace SubscriptionTriggerPhaseResponse {
@@ -4843,6 +5053,13 @@ export namespace SubscriptionTriggerPhaseResponse {
   }
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  export interface PendingSubscriptionChange {
+    id: string;
+  }
+
+  /**
    * The Price Interval resource represents a period of time for which a price will
    * bill on a subscription. A subscription’s price intervals define its billing
    * behavior.
@@ -4933,6 +5150,33 @@ export namespace SubscriptionTriggerPhaseResponse {
 
   export interface TrialInfo {
     end_date: string | null;
+  }
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  export interface ChangedResources {
+    /**
+     * The credit notes that were created as part of this operation.
+     */
+    created_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were created as part of this operation.
+     */
+    created_invoices: Array<InvoicesAPI.Invoice>;
+
+    /**
+     * The credit notes that were voided as part of this operation.
+     */
+    voided_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were voided as part of this operation.
+     */
+    voided_invoices: Array<InvoicesAPI.Invoice>;
   }
 }
 
@@ -5057,6 +5301,11 @@ export interface SubscriptionUnscheduleCancellationResponse {
   net_terms: number;
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  pending_subscription_change: SubscriptionUnscheduleCancellationResponse.PendingSubscriptionChange | null;
+
+  /**
    * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
    * subscribed to by a customer. Plans define the billing behavior of the
    * subscription. You can see more about how to configure prices in the
@@ -5079,6 +5328,13 @@ export interface SubscriptionUnscheduleCancellationResponse {
   status: 'active' | 'ended' | 'upcoming';
 
   trial_info: SubscriptionUnscheduleCancellationResponse.TrialInfo;
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  changed_resources?: SubscriptionUnscheduleCancellationResponse.ChangedResources | null;
 }
 
 export namespace SubscriptionUnscheduleCancellationResponse {
@@ -5459,6 +5715,13 @@ export namespace SubscriptionUnscheduleCancellationResponse {
   }
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  export interface PendingSubscriptionChange {
+    id: string;
+  }
+
+  /**
    * The Price Interval resource represents a period of time for which a price will
    * bill on a subscription. A subscription’s price intervals define its billing
    * behavior.
@@ -5549,6 +5812,33 @@ export namespace SubscriptionUnscheduleCancellationResponse {
 
   export interface TrialInfo {
     end_date: string | null;
+  }
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  export interface ChangedResources {
+    /**
+     * The credit notes that were created as part of this operation.
+     */
+    created_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were created as part of this operation.
+     */
+    created_invoices: Array<InvoicesAPI.Invoice>;
+
+    /**
+     * The credit notes that were voided as part of this operation.
+     */
+    voided_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were voided as part of this operation.
+     */
+    voided_invoices: Array<InvoicesAPI.Invoice>;
   }
 }
 
@@ -5673,6 +5963,11 @@ export interface SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
   net_terms: number;
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  pending_subscription_change: SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.PendingSubscriptionChange | null;
+
+  /**
    * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
    * subscribed to by a customer. Plans define the billing behavior of the
    * subscription. You can see more about how to configure prices in the
@@ -5695,6 +5990,13 @@ export interface SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
   status: 'active' | 'ended' | 'upcoming';
 
   trial_info: SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.TrialInfo;
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  changed_resources?: SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.ChangedResources | null;
 }
 
 export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
@@ -6075,6 +6377,13 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
   }
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  export interface PendingSubscriptionChange {
+    id: string;
+  }
+
+  /**
    * The Price Interval resource represents a period of time for which a price will
    * bill on a subscription. A subscription’s price intervals define its billing
    * behavior.
@@ -6165,6 +6474,33 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
 
   export interface TrialInfo {
     end_date: string | null;
+  }
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  export interface ChangedResources {
+    /**
+     * The credit notes that were created as part of this operation.
+     */
+    created_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were created as part of this operation.
+     */
+    created_invoices: Array<InvoicesAPI.Invoice>;
+
+    /**
+     * The credit notes that were voided as part of this operation.
+     */
+    voided_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were voided as part of this operation.
+     */
+    voided_invoices: Array<InvoicesAPI.Invoice>;
   }
 }
 
@@ -6289,6 +6625,11 @@ export interface SubscriptionUnschedulePendingPlanChangesResponse {
   net_terms: number;
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  pending_subscription_change: SubscriptionUnschedulePendingPlanChangesResponse.PendingSubscriptionChange | null;
+
+  /**
    * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
    * subscribed to by a customer. Plans define the billing behavior of the
    * subscription. You can see more about how to configure prices in the
@@ -6311,6 +6652,13 @@ export interface SubscriptionUnschedulePendingPlanChangesResponse {
   status: 'active' | 'ended' | 'upcoming';
 
   trial_info: SubscriptionUnschedulePendingPlanChangesResponse.TrialInfo;
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  changed_resources?: SubscriptionUnschedulePendingPlanChangesResponse.ChangedResources | null;
 }
 
 export namespace SubscriptionUnschedulePendingPlanChangesResponse {
@@ -6691,6 +7039,13 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
   }
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  export interface PendingSubscriptionChange {
+    id: string;
+  }
+
+  /**
    * The Price Interval resource represents a period of time for which a price will
    * bill on a subscription. A subscription’s price intervals define its billing
    * behavior.
@@ -6781,6 +7136,33 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
 
   export interface TrialInfo {
     end_date: string | null;
+  }
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  export interface ChangedResources {
+    /**
+     * The credit notes that were created as part of this operation.
+     */
+    created_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were created as part of this operation.
+     */
+    created_invoices: Array<InvoicesAPI.Invoice>;
+
+    /**
+     * The credit notes that were voided as part of this operation.
+     */
+    voided_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were voided as part of this operation.
+     */
+    voided_invoices: Array<InvoicesAPI.Invoice>;
   }
 }
 
@@ -6905,6 +7287,11 @@ export interface SubscriptionUpdateFixedFeeQuantityResponse {
   net_terms: number;
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  pending_subscription_change: SubscriptionUpdateFixedFeeQuantityResponse.PendingSubscriptionChange | null;
+
+  /**
    * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
    * subscribed to by a customer. Plans define the billing behavior of the
    * subscription. You can see more about how to configure prices in the
@@ -6927,6 +7314,13 @@ export interface SubscriptionUpdateFixedFeeQuantityResponse {
   status: 'active' | 'ended' | 'upcoming';
 
   trial_info: SubscriptionUpdateFixedFeeQuantityResponse.TrialInfo;
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  changed_resources?: SubscriptionUpdateFixedFeeQuantityResponse.ChangedResources | null;
 }
 
 export namespace SubscriptionUpdateFixedFeeQuantityResponse {
@@ -7307,6 +7701,13 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
   }
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  export interface PendingSubscriptionChange {
+    id: string;
+  }
+
+  /**
    * The Price Interval resource represents a period of time for which a price will
    * bill on a subscription. A subscription’s price intervals define its billing
    * behavior.
@@ -7397,6 +7798,33 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
 
   export interface TrialInfo {
     end_date: string | null;
+  }
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  export interface ChangedResources {
+    /**
+     * The credit notes that were created as part of this operation.
+     */
+    created_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were created as part of this operation.
+     */
+    created_invoices: Array<InvoicesAPI.Invoice>;
+
+    /**
+     * The credit notes that were voided as part of this operation.
+     */
+    voided_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were voided as part of this operation.
+     */
+    voided_invoices: Array<InvoicesAPI.Invoice>;
   }
 }
 
@@ -7521,6 +7949,11 @@ export interface SubscriptionUpdateTrialResponse {
   net_terms: number;
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  pending_subscription_change: SubscriptionUpdateTrialResponse.PendingSubscriptionChange | null;
+
+  /**
    * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be
    * subscribed to by a customer. Plans define the billing behavior of the
    * subscription. You can see more about how to configure prices in the
@@ -7543,6 +7976,13 @@ export interface SubscriptionUpdateTrialResponse {
   status: 'active' | 'ended' | 'upcoming';
 
   trial_info: SubscriptionUpdateTrialResponse.TrialInfo;
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  changed_resources?: SubscriptionUpdateTrialResponse.ChangedResources | null;
 }
 
 export namespace SubscriptionUpdateTrialResponse {
@@ -7923,6 +8363,13 @@ export namespace SubscriptionUpdateTrialResponse {
   }
 
   /**
+   * A pending subscription change if one exists on this subscription.
+   */
+  export interface PendingSubscriptionChange {
+    id: string;
+  }
+
+  /**
    * The Price Interval resource represents a period of time for which a price will
    * bill on a subscription. A subscription’s price intervals define its billing
    * behavior.
@@ -8013,6 +8460,33 @@ export namespace SubscriptionUpdateTrialResponse {
 
   export interface TrialInfo {
     end_date: string | null;
+  }
+
+  /**
+   * The resources that were changed as part of this operation. Only present when
+   * fetched through the subscription changes API or if the
+   * `include_changed_resources` parameter was passed in the request.
+   */
+  export interface ChangedResources {
+    /**
+     * The credit notes that were created as part of this operation.
+     */
+    created_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were created as part of this operation.
+     */
+    created_invoices: Array<InvoicesAPI.Invoice>;
+
+    /**
+     * The credit notes that were voided as part of this operation.
+     */
+    voided_credit_notes: Array<CreditNotesAPI.CreditNote>;
+
+    /**
+     * The invoices that were voided as part of this operation.
+     */
+    voided_invoices: Array<InvoicesAPI.Invoice>;
   }
 }
 
@@ -8934,7 +9408,7 @@ export namespace SubscriptionCreateParams {
       export namespace TieredConfig {
         export interface Tier {
           /**
-           * Inclusive tier starting value
+           * Exclusive tier starting value
            */
           first_unit: number;
 
@@ -8944,7 +9418,7 @@ export namespace SubscriptionCreateParams {
           unit_amount: string;
 
           /**
-           * Exclusive tier ending value. If null, this is treated as the last tier
+           * Inclusive tier ending value. If null, this is treated as the last tier
            */
           last_unit?: number | null;
         }
@@ -9085,12 +9559,12 @@ export namespace SubscriptionCreateParams {
           bps: number;
 
           /**
-           * Inclusive tier starting value
+           * Exclusive tier starting value
            */
           minimum_amount: string;
 
           /**
-           * Exclusive tier ending value
+           * Inclusive tier ending value
            */
           maximum_amount?: string | null;
 
@@ -12357,7 +12831,7 @@ export namespace SubscriptionCreateParams {
       export namespace TieredConfig {
         export interface Tier {
           /**
-           * Inclusive tier starting value
+           * Exclusive tier starting value
            */
           first_unit: number;
 
@@ -12367,7 +12841,7 @@ export namespace SubscriptionCreateParams {
           unit_amount: string;
 
           /**
-           * Exclusive tier ending value. If null, this is treated as the last tier
+           * Inclusive tier ending value. If null, this is treated as the last tier
            */
           last_unit?: number | null;
         }
@@ -12508,12 +12982,12 @@ export namespace SubscriptionCreateParams {
           bps: number;
 
           /**
-           * Inclusive tier starting value
+           * Exclusive tier starting value
            */
           minimum_amount: string;
 
           /**
-           * Exclusive tier ending value
+           * Inclusive tier ending value
            */
           maximum_amount?: string | null;
 
@@ -15986,7 +16460,7 @@ export namespace SubscriptionPriceIntervalsParams {
       export namespace TieredConfig {
         export interface Tier {
           /**
-           * Inclusive tier starting value
+           * Exclusive tier starting value
            */
           first_unit: number;
 
@@ -15996,7 +16470,7 @@ export namespace SubscriptionPriceIntervalsParams {
           unit_amount: string;
 
           /**
-           * Exclusive tier ending value. If null, this is treated as the last tier
+           * Inclusive tier ending value. If null, this is treated as the last tier
            */
           last_unit?: number | null;
         }
@@ -16130,12 +16604,12 @@ export namespace SubscriptionPriceIntervalsParams {
           bps: number;
 
           /**
-           * Inclusive tier starting value
+           * Exclusive tier starting value
            */
           minimum_amount: string;
 
           /**
-           * Exclusive tier ending value
+           * Inclusive tier ending value
            */
           maximum_amount?: string | null;
 
@@ -19826,7 +20300,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       export namespace TieredConfig {
         export interface Tier {
           /**
-           * Inclusive tier starting value
+           * Exclusive tier starting value
            */
           first_unit: number;
 
@@ -19836,7 +20310,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
           unit_amount: string;
 
           /**
-           * Exclusive tier ending value. If null, this is treated as the last tier
+           * Inclusive tier ending value. If null, this is treated as the last tier
            */
           last_unit?: number | null;
         }
@@ -19977,12 +20451,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
           bps: number;
 
           /**
-           * Inclusive tier starting value
+           * Exclusive tier starting value
            */
           minimum_amount: string;
 
           /**
-           * Exclusive tier ending value
+           * Inclusive tier ending value
            */
           maximum_amount?: string | null;
 
@@ -23249,7 +23723,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       export namespace TieredConfig {
         export interface Tier {
           /**
-           * Inclusive tier starting value
+           * Exclusive tier starting value
            */
           first_unit: number;
 
@@ -23259,7 +23733,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
           unit_amount: string;
 
           /**
-           * Exclusive tier ending value. If null, this is treated as the last tier
+           * Inclusive tier ending value. If null, this is treated as the last tier
            */
           last_unit?: number | null;
         }
@@ -23400,12 +23874,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
           bps: number;
 
           /**
-           * Inclusive tier starting value
+           * Exclusive tier starting value
            */
           minimum_amount: string;
 
           /**
-           * Exclusive tier ending value
+           * Inclusive tier ending value
            */
           maximum_amount?: string | null;
 

@@ -681,7 +681,7 @@ export namespace Price {
     export namespace TieredConfig {
       export interface Tier {
         /**
-         * Inclusive tier starting value
+         * Exclusive tier starting value
          */
         first_unit: number;
 
@@ -691,7 +691,7 @@ export namespace Price {
         unit_amount: string;
 
         /**
-         * Exclusive tier ending value. If null, this is treated as the last tier
+         * Inclusive tier ending value. If null, this is treated as the last tier
          */
         last_unit?: number | null;
       }
@@ -831,12 +831,12 @@ export namespace Price {
         bps: number;
 
         /**
-         * Inclusive tier starting value
+         * Exclusive tier starting value
          */
         minimum_amount: string;
 
         /**
-         * Exclusive tier ending value
+         * Inclusive tier ending value
          */
         maximum_amount?: string | null;
 
@@ -4330,7 +4330,7 @@ export declare namespace PriceCreateParams {
     export namespace TieredConfig {
       export interface Tier {
         /**
-         * Inclusive tier starting value
+         * Exclusive tier starting value
          */
         first_unit: number;
 
@@ -4340,7 +4340,7 @@ export declare namespace PriceCreateParams {
         unit_amount: string;
 
         /**
-         * Exclusive tier ending value. If null, this is treated as the last tier
+         * Inclusive tier ending value. If null, this is treated as the last tier
          */
         last_unit?: number | null;
       }
@@ -4474,12 +4474,12 @@ export declare namespace PriceCreateParams {
         bps: number;
 
         /**
-         * Inclusive tier starting value
+         * Exclusive tier starting value
          */
         minimum_amount: string;
 
         /**
-         * Exclusive tier ending value
+         * Inclusive tier ending value
          */
         maximum_amount?: string | null;
 
