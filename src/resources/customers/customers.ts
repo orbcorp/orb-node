@@ -146,14 +146,11 @@ export class Customers extends APIResource {
    *
    * **Note**: This functionality is currently only available for Stripe.
    */
-  syncPaymentMethodsFromGateway(
-    externalCustomerId: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    return this._client.post(
-      `/customers/external_customer_id/${externalCustomerId}/sync_payment_methods_from_gateway`,
-      { ...options, headers: { Accept: '*/*', ...options?.headers } },
-    );
+  syncPaymentMethodsFromGateway(customerId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
+    return this._client.post(`/customers/${customerId}/sync_payment_methods_from_gateway`, {
+      ...options,
+      headers: { Accept: '*/*', ...options?.headers },
+    });
   }
 
   /**
@@ -165,13 +162,13 @@ export class Customers extends APIResource {
    * **Note**: This functionality is currently only available for Stripe.
    */
   syncPaymentMethodsFromGatewayByExternalCustomerId(
-    customerId: string,
+    externalCustomerId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<void> {
-    return this._client.post(`/customers/${customerId}/sync_payment_methods_from_gateway`, {
-      ...options,
-      headers: { Accept: '*/*', ...options?.headers },
-    });
+    return this._client.post(
+      `/customers/external_customer_id/${externalCustomerId}/sync_payment_methods_from_gateway`,
+      { ...options, headers: { Accept: '*/*', ...options?.headers } },
+    );
   }
 
   /**
