@@ -67,8 +67,8 @@ Methods:
 - <code title="delete /customers/{customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">delete</a>(customerId) -> void</code>
 - <code title="get /customers/{customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">fetch</a>(customerId) -> Customer</code>
 - <code title="get /customers/external_customer_id/{external_customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">fetchByExternalId</a>(externalCustomerId) -> Customer</code>
-- <code title="post /customers/external_customer_id/{external_customer_id}/sync_payment_methods_from_gateway">client.customers.<a href="./src/resources/customers/customers.ts">syncPaymentMethodsFromGateway</a>(externalCustomerId) -> void</code>
-- <code title="post /customers/{customer_id}/sync_payment_methods_from_gateway">client.customers.<a href="./src/resources/customers/customers.ts">syncPaymentMethodsFromGatewayByExternalCustomerId</a>(customerId) -> void</code>
+- <code title="post /customers/{customer_id}/sync_payment_methods_from_gateway">client.customers.<a href="./src/resources/customers/customers.ts">syncPaymentMethodsFromGateway</a>(customerId) -> void</code>
+- <code title="post /customers/external_customer_id/{external_customer_id}/sync_payment_methods_from_gateway">client.customers.<a href="./src/resources/customers/customers.ts">syncPaymentMethodsFromGatewayByExternalCustomerId</a>(externalCustomerId) -> void</code>
 - <code title="put /customers/external_customer_id/{external_customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">updateByExternalId</a>(id, { ...params }) -> Customer</code>
 
 ## Costs
