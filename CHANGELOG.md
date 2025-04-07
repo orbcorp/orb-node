@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.71.6 (2025-04-07)
+
+Full Changelog: [v4.71.5...v4.71.6](https://github.com/orbcorp/orb-node/compare/v4.71.5...v4.71.6)
+
+### Bug Fixes
+
+* **api:** naming for sync_payment_methods methods ([#589](https://github.com/orbcorp/orb-node/issues/589)) ([f55a908](https://github.com/orbcorp/orb-node/commit/f55a908e9eedf1b0bfcb1ca4ab53397100cc4d0b))
+
 ## 4.71.5 (2025-04-04)
 
 Full Changelog: [v4.71.4...v4.71.5](https://github.com/orbcorp/orb-node/compare/v4.71.4...v4.71.5)
