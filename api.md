@@ -357,3 +357,17 @@ Methods:
 Methods:
 
 - <code title="get /dimensional_price_groups/external_dimensional_price_group_id/{external_dimensional_price_group_id}">client.dimensionalPriceGroups.externalDimensionalPriceGroupId.<a href="./src/resources/dimensional-price-groups/external-dimensional-price-group-id.ts">retrieve</a>(externalDimensionalPriceGroupId) -> DimensionalPriceGroup</code>
+
+# SubscriptionChanges
+
+Types:
+
+- <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeRetrieveResponse</a></code>
+- <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeApplyResponse</a></code>
+- <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeCancelResponse</a></code>
+
+Methods:
+
+- <code title="get /subscription_changes/{subscription_change_id}">client.subscriptionChanges.<a href="./src/resources/subscription-changes.ts">retrieve</a>(subscriptionChangeId) -> SubscriptionChangeRetrieveResponse</code>
+- <code title="post /subscription_changes/{subscription_change_id}/apply">client.subscriptionChanges.<a href="./src/resources/subscription-changes.ts">apply</a>(subscriptionChangeId, { ...params }) -> SubscriptionChangeApplyResponse</code>
+- <code title="post /subscription_changes/{subscription_change_id}/cancel">client.subscriptionChanges.<a href="./src/resources/subscription-changes.ts">cancel</a>(subscriptionChangeId) -> SubscriptionChangeCancelResponse</code>

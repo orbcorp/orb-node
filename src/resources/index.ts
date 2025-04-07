@@ -106,6 +106,13 @@ export {
   type PriceEvaluateParams,
 } from './prices/prices';
 export {
+  SubscriptionChanges,
+  type SubscriptionChangeRetrieveResponse,
+  type SubscriptionChangeApplyResponse,
+  type SubscriptionChangeCancelResponse,
+  type SubscriptionChangeApplyParams,
+} from './subscription-changes';
+export {
   SubscriptionsPage,
   SubscriptionFetchScheduleResponsesPage,
   Subscriptions,
