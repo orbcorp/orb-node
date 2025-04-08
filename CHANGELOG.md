@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.72.1 (2025-04-08)
+
+Full Changelog: [v4.72.0...v4.72.1](https://github.com/orbcorp/orb-node/compare/v4.72.0...v4.72.1)
+
+### Chores
+
+* **tests:** improve enum examples ([#595](https://github.com/orbcorp/orb-node/issues/595)) ([7071352](https://github.com/orbcorp/orb-node/commit/70713526292fcdd0bb0d8476dfd32600c436cf3f))
+
 ## 4.72.0 (2025-04-07)
 
 Full Changelog: [v4.71.6...v4.72.0](https://github.com/orbcorp/orb-node/compare/v4.71.6...v4.72.0)
