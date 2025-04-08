@@ -266,7 +266,7 @@ describe('resource subscriptions', () => {
         {
           allocation_price: {
             amount: '10.00',
-            cadence: 'one_time',
+            cadence: 'monthly',
             currency: 'USD',
             expires_at_end_of_cadence: true,
           },
@@ -340,7 +340,7 @@ describe('resource subscriptions', () => {
           replaces_price_id: 'replaces_price_id',
           allocation_price: {
             amount: '10.00',
-            cadence: 'one_time',
+            cadence: 'monthly',
             currency: 'USD',
             expires_at_end_of_cadence: true,
           },
