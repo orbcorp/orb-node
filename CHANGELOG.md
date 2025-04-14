@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.72.2 (2025-04-14)
+
+Full Changelog: [v4.72.1...v4.72.2](https://github.com/orbcorp/orb-node/compare/v4.72.1...v4.72.2)
+
+### Bug Fixes
+
+* **client:** correctly reuse idempotency key ([a5b7cfe](https://github.com/orbcorp/orb-node/commit/a5b7cfe1d047eaedc243767e5b0b420e795fff88))
+
+
+### Chores
+
+* **internal:** reduce CI branch coverage ([f7db5ee](https://github.com/orbcorp/orb-node/commit/f7db5ee3dfea91cf4dd9aa1be7cea5e7f6ed7e6f))
+* **internal:** upload builds and expand CI branch coverage ([#597](https://github.com/orbcorp/orb-node/issues/597)) ([5d4c819](https://github.com/orbcorp/orb-node/commit/5d4c819853e4cc0c67016f5e3d1b8e2076165d2b))
+
 ## 4.72.1 (2025-04-08)
 
 Full Changelog: [v4.72.0...v4.72.1](https://github.com/orbcorp/orb-node/compare/v4.72.0...v4.72.1)
