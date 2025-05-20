@@ -8512,6 +8512,9 @@ export interface SubscriptionCreateParams {
    */
   auto_collection?: boolean | null;
 
+  /**
+   * @deprecated
+   */
   aws_region?: string | null;
 
   billing_cycle_anchor_configuration?: SubscriptionCreateParams.BillingCycleAnchorConfiguration | null;
@@ -8523,6 +8526,9 @@ export interface SubscriptionCreateParams {
    */
   coupon_redemption_code?: string | null;
 
+  /**
+   * @deprecated
+   */
   credits_overage_rate?: number | null;
 
   customer_id?: string | null;
@@ -8537,8 +8543,14 @@ export interface SubscriptionCreateParams {
 
   external_customer_id?: string | null;
 
+  /**
+   * @deprecated
+   */
   external_marketplace?: 'google' | 'aws' | 'azure' | null;
 
+  /**
+   * @deprecated
+   */
   external_marketplace_reporting_id?: string | null;
 
   /**
@@ -8581,6 +8593,9 @@ export interface SubscriptionCreateParams {
    */
   net_terms?: number | null;
 
+  /**
+   * @deprecated
+   */
   per_credit_overage_amount?: number | null;
 
   /**
@@ -8596,7 +8611,7 @@ export interface SubscriptionCreateParams {
   plan_version_number?: number | null;
 
   /**
-   * Optionally provide a list of overrides for prices on the plan
+   * @deprecated Optionally provide a list of overrides for prices on the plan
    */
   price_overrides?: Array<unknown> | null;
 
@@ -19434,6 +19449,9 @@ export interface SubscriptionSchedulePlanChangeParams {
    */
   coupon_redemption_code?: string | null;
 
+  /**
+   * @deprecated
+   */
   credits_overage_rate?: number | null;
 
   /**
@@ -19475,6 +19493,9 @@ export interface SubscriptionSchedulePlanChangeParams {
    */
   net_terms?: number | null;
 
+  /**
+   * @deprecated
+   */
   per_credit_overage_amount?: number | null;
 
   /**
@@ -19490,7 +19511,7 @@ export interface SubscriptionSchedulePlanChangeParams {
   plan_version_number?: number | null;
 
   /**
-   * Optionally provide a list of overrides for prices on the plan
+   * @deprecated Optionally provide a list of overrides for prices on the plan
    */
   price_overrides?: Array<unknown> | null;
 

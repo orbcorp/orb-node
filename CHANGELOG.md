@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.72.3 (2025-05-18)
+
+Full Changelog: [v4.72.2...v4.72.3](https://github.com/orbcorp/orb-node/compare/v4.72.2...v4.72.3)
+
+### Chores
+
+* **ci:** add timeout thresholds for CI jobs ([d1594b1](https://github.com/orbcorp/orb-node/commit/d1594b17ce73d32d7ab97757f95e90215cfcaf49))
+* **ci:** bump node version for release workflows ([ad6f2f0](https://github.com/orbcorp/orb-node/commit/ad6f2f02cf07dae7072d334cf04ae76ad7c6b328))
+* **ci:** only use depot for staging repos ([d68a9eb](https://github.com/orbcorp/orb-node/commit/d68a9ebf7ee4fd127e53366e76a0a00b58dcb4a0))
+* **ci:** run on more branches and use depot runners ([df2cfe9](https://github.com/orbcorp/orb-node/commit/df2cfe9018c9f8853a8cbae14adbd73556e6a398))
+* **docs:** add missing deprecation warnings ([2534cf4](https://github.com/orbcorp/orb-node/commit/2534cf4095d716964953ac60fd4cce1f9798ebdc))
+
+
+### Documentation
+
+* **readme:** fix typo ([4b9eb38](https://github.com/orbcorp/orb-node/commit/4b9eb38fb7f4457d53336e4774d62852a363fc65))
+
 ## 4.72.2 (2025-04-14)
 
 Full Changelog: [v4.72.1...v4.72.2](https://github.com/orbcorp/orb-node/compare/v4.72.1...v4.72.2)
