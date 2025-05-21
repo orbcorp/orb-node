@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.72.4 (2025-05-21)
+
+Full Changelog: [v4.72.3...v4.72.4](https://github.com/orbcorp/orb-node/compare/v4.72.3...v4.72.4)
+
+### Chores
+
+* **docs:** grammar improvements ([7734e2c](https://github.com/orbcorp/orb-node/commit/7734e2c2d52411326b3ae2eb1fbed42d63ba4c08))
+
 ## 4.72.3 (2025-05-18)
 
 Full Changelog: [v4.72.2...v4.72.3](https://github.com/orbcorp/orb-node/compare/v4.72.2...v4.72.3)
