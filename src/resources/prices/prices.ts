@@ -283,6 +283,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -477,6 +487,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -677,6 +697,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -897,6 +927,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -1110,6 +1150,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -1341,6 +1391,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -1555,6 +1615,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -1763,6 +1833,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -1950,6 +2030,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -2137,6 +2227,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -2324,6 +2424,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -2511,6 +2621,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -2698,6 +2818,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -2885,6 +3015,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -3072,6 +3212,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -3259,6 +3409,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -3484,6 +3644,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -3671,6 +3841,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -3858,6 +4038,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -4045,6 +4235,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -4232,6 +4432,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -4419,6 +4629,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -4606,6 +4826,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -4793,6 +5023,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -4980,6 +5220,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -5167,6 +5417,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -5354,6 +5614,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
@@ -5541,6 +5811,16 @@ export namespace Price {
       allows_rollover: boolean;
 
       currency: string;
+
+      custom_expiration: CreditAllocation.CustomExpiration | null;
+    }
+
+    export namespace CreditAllocation {
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface InvoicingCycleConfiguration {
