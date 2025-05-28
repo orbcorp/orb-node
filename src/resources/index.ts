@@ -93,6 +93,7 @@ export {
   type PlanCreateParams,
   type PlanUpdateParams,
   type PlanListParams,
+  type PlanSetDefaultVersionParams,
 } from './plans/plans';
 export {
   PricesPage,

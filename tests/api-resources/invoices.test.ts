@@ -53,9 +53,9 @@ describe('resource invoices', () => {
       net_terms: 0,
       customer_id: '4khy3nwzktxv7',
       discount: {
-        applies_to_price_ids: ['h74gfhdjvn7ujokd', '7hfgtgjnbvc3ujkl'],
         discount_type: 'percentage',
         percentage_discount: 0.15,
+        applies_to_price_ids: ['h74gfhdjvn7ujokd', '7hfgtgjnbvc3ujkl'],
         reason: 'reason',
       },
       external_customer_id: 'external-customer-id',

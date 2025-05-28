@@ -48,9 +48,14 @@ describe('resource plans', () => {
           billing_cycle_configuration: { duration: 0, duration_unit: 'day' },
           conversion_rate: 0,
           currency: 'currency',
+          dimensional_price_configuration: {
+            dimension_values: ['string'],
+            dimensional_price_group_id: 'dimensional_price_group_id',
+            external_dimensional_price_group_id: 'external_dimensional_price_group_id',
+          },
           external_price_id: 'external_price_id',
           fixed_price_quantity: 0,
-          invoice_grouping_key: 'invoice_grouping_key',
+          invoice_grouping_key: 'x',
           invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
           metadata: { foo: 'string' },
         },
@@ -124,5 +129,20 @@ describe('resource plans', () => {
     await expect(client.plans.fetch('plan_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Orb.NotFoundError,
     );
+  });
+
+  test('setDefaultVersion: only required params', async () => {
+    const responsePromise = client.plans.setDefaultVersion('plan_id', { version: 0 });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('setDefaultVersion: required and optional params', async () => {
+    const response = await client.plans.setDefaultVersion('plan_id', { version: 0 });
   });
 });

@@ -1159,7 +1159,8 @@ export interface Subscription {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription sorted by the start_date.
+   * @deprecated The discount intervals for this subscription sorted by the
+   * start_date.
    */
   discount_intervals: Array<
     | Subscription.AmountDiscountInterval
@@ -1177,7 +1178,8 @@ export interface Subscription {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription sorted by the start_date.
+   * @deprecated The maximum intervals for this subscription sorted by the
+   * start_date.
    */
   maximum_intervals: Array<Subscription.MaximumInterval>;
 
@@ -1190,9 +1192,15 @@ export interface Subscription {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription sorted by the start_date.
+   * @deprecated The minimum intervals for this subscription sorted by the
+   * start_date.
    */
   minimum_intervals: Array<Subscription.MinimumInterval>;
+
+  /**
+   * The name of the subscription.
+   */
+  name: string;
 
   /**
    * Determines the difference between the invoice issue date for subscription
@@ -1213,7 +1221,7 @@ export interface Subscription {
    * subscription. You can see more about how to configure prices in the
    * [Price resource](/reference/price).
    */
-  plan: PlansAPI.Plan;
+  plan: PlansAPI.Plan | null;
 
   /**
    * The price intervals for this subscription.
@@ -1266,9 +1274,14 @@ export namespace Subscription {
       adjustment_type: 'usage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1293,6 +1306,25 @@ export namespace Subscription {
       usage_discount: number;
     }
 
+    export namespace PlanPhaseUsageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseAmountDiscountAdjustment {
       id: string;
 
@@ -1305,9 +1337,14 @@ export namespace Subscription {
       amount_discount: string;
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1326,15 +1363,39 @@ export namespace Subscription {
       reason: string | null;
     }
 
+    export namespace PlanPhaseAmountDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhasePercentageDiscountAdjustment {
       id: string;
 
       adjustment_type: 'percentage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1359,15 +1420,39 @@ export namespace Subscription {
       reason: string | null;
     }
 
+    export namespace PlanPhasePercentageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMinimumAdjustment {
       id: string;
 
       adjustment_type: 'minimum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1397,15 +1482,39 @@ export namespace Subscription {
       reason: string | null;
     }
 
+    export namespace PlanPhaseMinimumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMaximumAdjustment {
       id: string;
 
       adjustment_type: 'maximum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1428,6 +1537,25 @@ export namespace Subscription {
        * The reason for the adjustment.
        */
       reason: string | null;
+    }
+
+    export namespace PlanPhaseMaximumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -1461,11 +1589,6 @@ export namespace Subscription {
     amount_discount: string;
 
     /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this discount interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -1478,17 +1601,36 @@ export namespace Subscription {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<AmountDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
   }
 
-  export interface PercentageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace AmountDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface PercentageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -1502,6 +1644,11 @@ export namespace Subscription {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<PercentageDiscountInterval.Filter>;
+
+    /**
      * Only available if discount_type is `percentage`.This is a number between 0
      * and 1.
      */
@@ -1513,12 +1660,26 @@ export namespace Subscription {
     start_date: string;
   }
 
-  export interface UsageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace PercentageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface UsageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -1532,6 +1693,11 @@ export namespace Subscription {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<UsageDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
@@ -1541,6 +1707,25 @@ export namespace Subscription {
      * discount is for
      */
     usage_discount: number;
+  }
+
+  export namespace UsageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface FixedFeeQuantitySchedule {
@@ -1555,11 +1740,6 @@ export namespace Subscription {
 
   export interface MaximumInterval {
     /**
-     * The price ids that this maximum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this maximum interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -1568,6 +1748,11 @@ export namespace Subscription {
      * The end date of the maximum interval.
      */
     end_date: string | null;
+
+    /**
+     * The filters that determine which prices this maximum interval applies to.
+     */
+    filters: Array<MaximumInterval.Filter>;
 
     /**
      * The maximum amount to charge in a given billing period for the price intervals
@@ -1581,12 +1766,26 @@ export namespace Subscription {
     start_date: string;
   }
 
-  export interface MinimumInterval {
-    /**
-     * The price ids that this minimum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace MaximumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MinimumInterval {
     /**
      * The price interval ids that this minimum interval applies to.
      */
@@ -1598,6 +1797,11 @@ export namespace Subscription {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this minimum interval applies to.
+     */
+    filters: Array<MinimumInterval.Filter>;
+
+    /**
      * The minimum amount to charge in a given billing period for the price intervals
      * this minimum applies to.
      */
@@ -1607,6 +1811,25 @@ export namespace Subscription {
      * The start date of the minimum interval.
      */
     start_date: string;
+  }
+
+  export namespace MinimumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   /**
@@ -1869,7 +2092,8 @@ export interface SubscriptionCreateResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription sorted by the start_date.
+   * @deprecated The discount intervals for this subscription sorted by the
+   * start_date.
    */
   discount_intervals: Array<
     | SubscriptionCreateResponse.AmountDiscountInterval
@@ -1887,7 +2111,8 @@ export interface SubscriptionCreateResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription sorted by the start_date.
+   * @deprecated The maximum intervals for this subscription sorted by the
+   * start_date.
    */
   maximum_intervals: Array<SubscriptionCreateResponse.MaximumInterval>;
 
@@ -1900,9 +2125,15 @@ export interface SubscriptionCreateResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription sorted by the start_date.
+   * @deprecated The minimum intervals for this subscription sorted by the
+   * start_date.
    */
   minimum_intervals: Array<SubscriptionCreateResponse.MinimumInterval>;
+
+  /**
+   * The name of the subscription.
+   */
+  name: string;
 
   /**
    * Determines the difference between the invoice issue date for subscription
@@ -1923,7 +2154,7 @@ export interface SubscriptionCreateResponse {
    * subscription. You can see more about how to configure prices in the
    * [Price resource](/reference/price).
    */
-  plan: PlansAPI.Plan;
+  plan: PlansAPI.Plan | null;
 
   /**
    * The price intervals for this subscription.
@@ -1983,9 +2214,14 @@ export namespace SubscriptionCreateResponse {
       adjustment_type: 'usage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -2010,6 +2246,25 @@ export namespace SubscriptionCreateResponse {
       usage_discount: number;
     }
 
+    export namespace PlanPhaseUsageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseAmountDiscountAdjustment {
       id: string;
 
@@ -2022,9 +2277,14 @@ export namespace SubscriptionCreateResponse {
       amount_discount: string;
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -2043,15 +2303,39 @@ export namespace SubscriptionCreateResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseAmountDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhasePercentageDiscountAdjustment {
       id: string;
 
       adjustment_type: 'percentage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -2076,15 +2360,39 @@ export namespace SubscriptionCreateResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhasePercentageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMinimumAdjustment {
       id: string;
 
       adjustment_type: 'minimum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -2114,15 +2422,39 @@ export namespace SubscriptionCreateResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseMinimumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMaximumAdjustment {
       id: string;
 
       adjustment_type: 'maximum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -2145,6 +2477,25 @@ export namespace SubscriptionCreateResponse {
        * The reason for the adjustment.
        */
       reason: string | null;
+    }
+
+    export namespace PlanPhaseMaximumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -2178,11 +2529,6 @@ export namespace SubscriptionCreateResponse {
     amount_discount: string;
 
     /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this discount interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -2195,17 +2541,36 @@ export namespace SubscriptionCreateResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<AmountDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
   }
 
-  export interface PercentageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace AmountDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface PercentageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -2219,6 +2584,11 @@ export namespace SubscriptionCreateResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<PercentageDiscountInterval.Filter>;
+
+    /**
      * Only available if discount_type is `percentage`.This is a number between 0
      * and 1.
      */
@@ -2230,12 +2600,26 @@ export namespace SubscriptionCreateResponse {
     start_date: string;
   }
 
-  export interface UsageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace PercentageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface UsageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -2249,6 +2633,11 @@ export namespace SubscriptionCreateResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<UsageDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
@@ -2258,6 +2647,25 @@ export namespace SubscriptionCreateResponse {
      * discount is for
      */
     usage_discount: number;
+  }
+
+  export namespace UsageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface FixedFeeQuantitySchedule {
@@ -2272,11 +2680,6 @@ export namespace SubscriptionCreateResponse {
 
   export interface MaximumInterval {
     /**
-     * The price ids that this maximum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this maximum interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -2285,6 +2688,11 @@ export namespace SubscriptionCreateResponse {
      * The end date of the maximum interval.
      */
     end_date: string | null;
+
+    /**
+     * The filters that determine which prices this maximum interval applies to.
+     */
+    filters: Array<MaximumInterval.Filter>;
 
     /**
      * The maximum amount to charge in a given billing period for the price intervals
@@ -2298,12 +2706,26 @@ export namespace SubscriptionCreateResponse {
     start_date: string;
   }
 
-  export interface MinimumInterval {
-    /**
-     * The price ids that this minimum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace MaximumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MinimumInterval {
     /**
      * The price interval ids that this minimum interval applies to.
      */
@@ -2315,6 +2737,11 @@ export namespace SubscriptionCreateResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this minimum interval applies to.
+     */
+    filters: Array<MinimumInterval.Filter>;
+
+    /**
      * The minimum amount to charge in a given billing period for the price intervals
      * this minimum applies to.
      */
@@ -2324,6 +2751,25 @@ export namespace SubscriptionCreateResponse {
      * The start date of the minimum interval.
      */
     start_date: string;
+  }
+
+  export namespace MinimumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   /**
@@ -2531,7 +2977,8 @@ export interface SubscriptionCancelResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription sorted by the start_date.
+   * @deprecated The discount intervals for this subscription sorted by the
+   * start_date.
    */
   discount_intervals: Array<
     | SubscriptionCancelResponse.AmountDiscountInterval
@@ -2549,7 +2996,8 @@ export interface SubscriptionCancelResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription sorted by the start_date.
+   * @deprecated The maximum intervals for this subscription sorted by the
+   * start_date.
    */
   maximum_intervals: Array<SubscriptionCancelResponse.MaximumInterval>;
 
@@ -2562,9 +3010,15 @@ export interface SubscriptionCancelResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription sorted by the start_date.
+   * @deprecated The minimum intervals for this subscription sorted by the
+   * start_date.
    */
   minimum_intervals: Array<SubscriptionCancelResponse.MinimumInterval>;
+
+  /**
+   * The name of the subscription.
+   */
+  name: string;
 
   /**
    * Determines the difference between the invoice issue date for subscription
@@ -2585,7 +3039,7 @@ export interface SubscriptionCancelResponse {
    * subscription. You can see more about how to configure prices in the
    * [Price resource](/reference/price).
    */
-  plan: PlansAPI.Plan;
+  plan: PlansAPI.Plan | null;
 
   /**
    * The price intervals for this subscription.
@@ -2645,9 +3099,14 @@ export namespace SubscriptionCancelResponse {
       adjustment_type: 'usage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -2672,6 +3131,25 @@ export namespace SubscriptionCancelResponse {
       usage_discount: number;
     }
 
+    export namespace PlanPhaseUsageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseAmountDiscountAdjustment {
       id: string;
 
@@ -2684,9 +3162,14 @@ export namespace SubscriptionCancelResponse {
       amount_discount: string;
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -2705,15 +3188,39 @@ export namespace SubscriptionCancelResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseAmountDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhasePercentageDiscountAdjustment {
       id: string;
 
       adjustment_type: 'percentage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -2738,15 +3245,39 @@ export namespace SubscriptionCancelResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhasePercentageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMinimumAdjustment {
       id: string;
 
       adjustment_type: 'minimum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -2776,15 +3307,39 @@ export namespace SubscriptionCancelResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseMinimumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMaximumAdjustment {
       id: string;
 
       adjustment_type: 'maximum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -2807,6 +3362,25 @@ export namespace SubscriptionCancelResponse {
        * The reason for the adjustment.
        */
       reason: string | null;
+    }
+
+    export namespace PlanPhaseMaximumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -2840,11 +3414,6 @@ export namespace SubscriptionCancelResponse {
     amount_discount: string;
 
     /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this discount interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -2857,17 +3426,36 @@ export namespace SubscriptionCancelResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<AmountDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
   }
 
-  export interface PercentageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace AmountDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface PercentageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -2881,6 +3469,11 @@ export namespace SubscriptionCancelResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<PercentageDiscountInterval.Filter>;
+
+    /**
      * Only available if discount_type is `percentage`.This is a number between 0
      * and 1.
      */
@@ -2892,12 +3485,26 @@ export namespace SubscriptionCancelResponse {
     start_date: string;
   }
 
-  export interface UsageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace PercentageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface UsageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -2911,6 +3518,11 @@ export namespace SubscriptionCancelResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<UsageDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
@@ -2920,6 +3532,25 @@ export namespace SubscriptionCancelResponse {
      * discount is for
      */
     usage_discount: number;
+  }
+
+  export namespace UsageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface FixedFeeQuantitySchedule {
@@ -2934,11 +3565,6 @@ export namespace SubscriptionCancelResponse {
 
   export interface MaximumInterval {
     /**
-     * The price ids that this maximum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this maximum interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -2947,6 +3573,11 @@ export namespace SubscriptionCancelResponse {
      * The end date of the maximum interval.
      */
     end_date: string | null;
+
+    /**
+     * The filters that determine which prices this maximum interval applies to.
+     */
+    filters: Array<MaximumInterval.Filter>;
 
     /**
      * The maximum amount to charge in a given billing period for the price intervals
@@ -2960,12 +3591,26 @@ export namespace SubscriptionCancelResponse {
     start_date: string;
   }
 
-  export interface MinimumInterval {
-    /**
-     * The price ids that this minimum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace MaximumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MinimumInterval {
     /**
      * The price interval ids that this minimum interval applies to.
      */
@@ -2977,6 +3622,11 @@ export namespace SubscriptionCancelResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this minimum interval applies to.
+     */
+    filters: Array<MinimumInterval.Filter>;
+
+    /**
      * The minimum amount to charge in a given billing period for the price intervals
      * this minimum applies to.
      */
@@ -2986,6 +3636,25 @@ export namespace SubscriptionCancelResponse {
      * The start date of the minimum interval.
      */
     start_date: string;
+  }
+
+  export namespace MinimumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   /**
@@ -3174,7 +3843,7 @@ export interface SubscriptionFetchScheduleResponse {
 
   end_date: string | null;
 
-  plan: SubscriptionFetchScheduleResponse.Plan;
+  plan: SubscriptionFetchScheduleResponse.Plan | null;
 
   start_date: string;
 }
@@ -3271,7 +3940,8 @@ export interface SubscriptionPriceIntervalsResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription sorted by the start_date.
+   * @deprecated The discount intervals for this subscription sorted by the
+   * start_date.
    */
   discount_intervals: Array<
     | SubscriptionPriceIntervalsResponse.AmountDiscountInterval
@@ -3289,7 +3959,8 @@ export interface SubscriptionPriceIntervalsResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription sorted by the start_date.
+   * @deprecated The maximum intervals for this subscription sorted by the
+   * start_date.
    */
   maximum_intervals: Array<SubscriptionPriceIntervalsResponse.MaximumInterval>;
 
@@ -3302,9 +3973,15 @@ export interface SubscriptionPriceIntervalsResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription sorted by the start_date.
+   * @deprecated The minimum intervals for this subscription sorted by the
+   * start_date.
    */
   minimum_intervals: Array<SubscriptionPriceIntervalsResponse.MinimumInterval>;
+
+  /**
+   * The name of the subscription.
+   */
+  name: string;
 
   /**
    * Determines the difference between the invoice issue date for subscription
@@ -3325,7 +4002,7 @@ export interface SubscriptionPriceIntervalsResponse {
    * subscription. You can see more about how to configure prices in the
    * [Price resource](/reference/price).
    */
-  plan: PlansAPI.Plan;
+  plan: PlansAPI.Plan | null;
 
   /**
    * The price intervals for this subscription.
@@ -3385,9 +4062,14 @@ export namespace SubscriptionPriceIntervalsResponse {
       adjustment_type: 'usage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -3412,6 +4094,25 @@ export namespace SubscriptionPriceIntervalsResponse {
       usage_discount: number;
     }
 
+    export namespace PlanPhaseUsageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseAmountDiscountAdjustment {
       id: string;
 
@@ -3424,9 +4125,14 @@ export namespace SubscriptionPriceIntervalsResponse {
       amount_discount: string;
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -3445,15 +4151,39 @@ export namespace SubscriptionPriceIntervalsResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseAmountDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhasePercentageDiscountAdjustment {
       id: string;
 
       adjustment_type: 'percentage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -3478,15 +4208,39 @@ export namespace SubscriptionPriceIntervalsResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhasePercentageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMinimumAdjustment {
       id: string;
 
       adjustment_type: 'minimum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -3516,15 +4270,39 @@ export namespace SubscriptionPriceIntervalsResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseMinimumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMaximumAdjustment {
       id: string;
 
       adjustment_type: 'maximum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -3547,6 +4325,25 @@ export namespace SubscriptionPriceIntervalsResponse {
        * The reason for the adjustment.
        */
       reason: string | null;
+    }
+
+    export namespace PlanPhaseMaximumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -3580,11 +4377,6 @@ export namespace SubscriptionPriceIntervalsResponse {
     amount_discount: string;
 
     /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this discount interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -3597,17 +4389,36 @@ export namespace SubscriptionPriceIntervalsResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<AmountDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
   }
 
-  export interface PercentageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace AmountDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface PercentageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -3621,6 +4432,11 @@ export namespace SubscriptionPriceIntervalsResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<PercentageDiscountInterval.Filter>;
+
+    /**
      * Only available if discount_type is `percentage`.This is a number between 0
      * and 1.
      */
@@ -3632,12 +4448,26 @@ export namespace SubscriptionPriceIntervalsResponse {
     start_date: string;
   }
 
-  export interface UsageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace PercentageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface UsageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -3651,6 +4481,11 @@ export namespace SubscriptionPriceIntervalsResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<UsageDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
@@ -3660,6 +4495,25 @@ export namespace SubscriptionPriceIntervalsResponse {
      * discount is for
      */
     usage_discount: number;
+  }
+
+  export namespace UsageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface FixedFeeQuantitySchedule {
@@ -3674,11 +4528,6 @@ export namespace SubscriptionPriceIntervalsResponse {
 
   export interface MaximumInterval {
     /**
-     * The price ids that this maximum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this maximum interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -3687,6 +4536,11 @@ export namespace SubscriptionPriceIntervalsResponse {
      * The end date of the maximum interval.
      */
     end_date: string | null;
+
+    /**
+     * The filters that determine which prices this maximum interval applies to.
+     */
+    filters: Array<MaximumInterval.Filter>;
 
     /**
      * The maximum amount to charge in a given billing period for the price intervals
@@ -3700,12 +4554,26 @@ export namespace SubscriptionPriceIntervalsResponse {
     start_date: string;
   }
 
-  export interface MinimumInterval {
-    /**
-     * The price ids that this minimum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace MaximumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MinimumInterval {
     /**
      * The price interval ids that this minimum interval applies to.
      */
@@ -3717,6 +4585,11 @@ export namespace SubscriptionPriceIntervalsResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this minimum interval applies to.
+     */
+    filters: Array<MinimumInterval.Filter>;
+
+    /**
      * The minimum amount to charge in a given billing period for the price intervals
      * this minimum applies to.
      */
@@ -3726,6 +4599,25 @@ export namespace SubscriptionPriceIntervalsResponse {
      * The start date of the minimum interval.
      */
     start_date: string;
+  }
+
+  export namespace MinimumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   /**
@@ -3933,7 +4825,8 @@ export interface SubscriptionSchedulePlanChangeResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription sorted by the start_date.
+   * @deprecated The discount intervals for this subscription sorted by the
+   * start_date.
    */
   discount_intervals: Array<
     | SubscriptionSchedulePlanChangeResponse.AmountDiscountInterval
@@ -3951,7 +4844,8 @@ export interface SubscriptionSchedulePlanChangeResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription sorted by the start_date.
+   * @deprecated The maximum intervals for this subscription sorted by the
+   * start_date.
    */
   maximum_intervals: Array<SubscriptionSchedulePlanChangeResponse.MaximumInterval>;
 
@@ -3964,9 +4858,15 @@ export interface SubscriptionSchedulePlanChangeResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription sorted by the start_date.
+   * @deprecated The minimum intervals for this subscription sorted by the
+   * start_date.
    */
   minimum_intervals: Array<SubscriptionSchedulePlanChangeResponse.MinimumInterval>;
+
+  /**
+   * The name of the subscription.
+   */
+  name: string;
 
   /**
    * Determines the difference between the invoice issue date for subscription
@@ -3987,7 +4887,7 @@ export interface SubscriptionSchedulePlanChangeResponse {
    * subscription. You can see more about how to configure prices in the
    * [Price resource](/reference/price).
    */
-  plan: PlansAPI.Plan;
+  plan: PlansAPI.Plan | null;
 
   /**
    * The price intervals for this subscription.
@@ -4047,9 +4947,14 @@ export namespace SubscriptionSchedulePlanChangeResponse {
       adjustment_type: 'usage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -4074,6 +4979,25 @@ export namespace SubscriptionSchedulePlanChangeResponse {
       usage_discount: number;
     }
 
+    export namespace PlanPhaseUsageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseAmountDiscountAdjustment {
       id: string;
 
@@ -4086,9 +5010,14 @@ export namespace SubscriptionSchedulePlanChangeResponse {
       amount_discount: string;
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -4107,15 +5036,39 @@ export namespace SubscriptionSchedulePlanChangeResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseAmountDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhasePercentageDiscountAdjustment {
       id: string;
 
       adjustment_type: 'percentage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -4140,15 +5093,39 @@ export namespace SubscriptionSchedulePlanChangeResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhasePercentageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMinimumAdjustment {
       id: string;
 
       adjustment_type: 'minimum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -4178,15 +5155,39 @@ export namespace SubscriptionSchedulePlanChangeResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseMinimumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMaximumAdjustment {
       id: string;
 
       adjustment_type: 'maximum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -4209,6 +5210,25 @@ export namespace SubscriptionSchedulePlanChangeResponse {
        * The reason for the adjustment.
        */
       reason: string | null;
+    }
+
+    export namespace PlanPhaseMaximumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -4242,11 +5262,6 @@ export namespace SubscriptionSchedulePlanChangeResponse {
     amount_discount: string;
 
     /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this discount interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -4259,17 +5274,36 @@ export namespace SubscriptionSchedulePlanChangeResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<AmountDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
   }
 
-  export interface PercentageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace AmountDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface PercentageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -4283,6 +5317,11 @@ export namespace SubscriptionSchedulePlanChangeResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<PercentageDiscountInterval.Filter>;
+
+    /**
      * Only available if discount_type is `percentage`.This is a number between 0
      * and 1.
      */
@@ -4294,12 +5333,26 @@ export namespace SubscriptionSchedulePlanChangeResponse {
     start_date: string;
   }
 
-  export interface UsageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace PercentageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface UsageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -4313,6 +5366,11 @@ export namespace SubscriptionSchedulePlanChangeResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<UsageDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
@@ -4322,6 +5380,25 @@ export namespace SubscriptionSchedulePlanChangeResponse {
      * discount is for
      */
     usage_discount: number;
+  }
+
+  export namespace UsageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface FixedFeeQuantitySchedule {
@@ -4336,11 +5413,6 @@ export namespace SubscriptionSchedulePlanChangeResponse {
 
   export interface MaximumInterval {
     /**
-     * The price ids that this maximum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this maximum interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -4349,6 +5421,11 @@ export namespace SubscriptionSchedulePlanChangeResponse {
      * The end date of the maximum interval.
      */
     end_date: string | null;
+
+    /**
+     * The filters that determine which prices this maximum interval applies to.
+     */
+    filters: Array<MaximumInterval.Filter>;
 
     /**
      * The maximum amount to charge in a given billing period for the price intervals
@@ -4362,12 +5439,26 @@ export namespace SubscriptionSchedulePlanChangeResponse {
     start_date: string;
   }
 
-  export interface MinimumInterval {
-    /**
-     * The price ids that this minimum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace MaximumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MinimumInterval {
     /**
      * The price interval ids that this minimum interval applies to.
      */
@@ -4379,6 +5470,11 @@ export namespace SubscriptionSchedulePlanChangeResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this minimum interval applies to.
+     */
+    filters: Array<MinimumInterval.Filter>;
+
+    /**
      * The minimum amount to charge in a given billing period for the price intervals
      * this minimum applies to.
      */
@@ -4388,6 +5484,25 @@ export namespace SubscriptionSchedulePlanChangeResponse {
      * The start date of the minimum interval.
      */
     start_date: string;
+  }
+
+  export namespace MinimumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   /**
@@ -4595,7 +5710,8 @@ export interface SubscriptionTriggerPhaseResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription sorted by the start_date.
+   * @deprecated The discount intervals for this subscription sorted by the
+   * start_date.
    */
   discount_intervals: Array<
     | SubscriptionTriggerPhaseResponse.AmountDiscountInterval
@@ -4613,7 +5729,8 @@ export interface SubscriptionTriggerPhaseResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription sorted by the start_date.
+   * @deprecated The maximum intervals for this subscription sorted by the
+   * start_date.
    */
   maximum_intervals: Array<SubscriptionTriggerPhaseResponse.MaximumInterval>;
 
@@ -4626,9 +5743,15 @@ export interface SubscriptionTriggerPhaseResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription sorted by the start_date.
+   * @deprecated The minimum intervals for this subscription sorted by the
+   * start_date.
    */
   minimum_intervals: Array<SubscriptionTriggerPhaseResponse.MinimumInterval>;
+
+  /**
+   * The name of the subscription.
+   */
+  name: string;
 
   /**
    * Determines the difference between the invoice issue date for subscription
@@ -4649,7 +5772,7 @@ export interface SubscriptionTriggerPhaseResponse {
    * subscription. You can see more about how to configure prices in the
    * [Price resource](/reference/price).
    */
-  plan: PlansAPI.Plan;
+  plan: PlansAPI.Plan | null;
 
   /**
    * The price intervals for this subscription.
@@ -4709,9 +5832,14 @@ export namespace SubscriptionTriggerPhaseResponse {
       adjustment_type: 'usage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -4736,6 +5864,25 @@ export namespace SubscriptionTriggerPhaseResponse {
       usage_discount: number;
     }
 
+    export namespace PlanPhaseUsageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseAmountDiscountAdjustment {
       id: string;
 
@@ -4748,9 +5895,14 @@ export namespace SubscriptionTriggerPhaseResponse {
       amount_discount: string;
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -4769,15 +5921,39 @@ export namespace SubscriptionTriggerPhaseResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseAmountDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhasePercentageDiscountAdjustment {
       id: string;
 
       adjustment_type: 'percentage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -4802,15 +5978,39 @@ export namespace SubscriptionTriggerPhaseResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhasePercentageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMinimumAdjustment {
       id: string;
 
       adjustment_type: 'minimum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -4840,15 +6040,39 @@ export namespace SubscriptionTriggerPhaseResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseMinimumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMaximumAdjustment {
       id: string;
 
       adjustment_type: 'maximum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -4871,6 +6095,25 @@ export namespace SubscriptionTriggerPhaseResponse {
        * The reason for the adjustment.
        */
       reason: string | null;
+    }
+
+    export namespace PlanPhaseMaximumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -4904,11 +6147,6 @@ export namespace SubscriptionTriggerPhaseResponse {
     amount_discount: string;
 
     /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this discount interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -4921,17 +6159,36 @@ export namespace SubscriptionTriggerPhaseResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<AmountDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
   }
 
-  export interface PercentageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace AmountDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface PercentageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -4945,6 +6202,11 @@ export namespace SubscriptionTriggerPhaseResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<PercentageDiscountInterval.Filter>;
+
+    /**
      * Only available if discount_type is `percentage`.This is a number between 0
      * and 1.
      */
@@ -4956,12 +6218,26 @@ export namespace SubscriptionTriggerPhaseResponse {
     start_date: string;
   }
 
-  export interface UsageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace PercentageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface UsageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -4975,6 +6251,11 @@ export namespace SubscriptionTriggerPhaseResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<UsageDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
@@ -4984,6 +6265,25 @@ export namespace SubscriptionTriggerPhaseResponse {
      * discount is for
      */
     usage_discount: number;
+  }
+
+  export namespace UsageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface FixedFeeQuantitySchedule {
@@ -4998,11 +6298,6 @@ export namespace SubscriptionTriggerPhaseResponse {
 
   export interface MaximumInterval {
     /**
-     * The price ids that this maximum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this maximum interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -5011,6 +6306,11 @@ export namespace SubscriptionTriggerPhaseResponse {
      * The end date of the maximum interval.
      */
     end_date: string | null;
+
+    /**
+     * The filters that determine which prices this maximum interval applies to.
+     */
+    filters: Array<MaximumInterval.Filter>;
 
     /**
      * The maximum amount to charge in a given billing period for the price intervals
@@ -5024,12 +6324,26 @@ export namespace SubscriptionTriggerPhaseResponse {
     start_date: string;
   }
 
-  export interface MinimumInterval {
-    /**
-     * The price ids that this minimum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace MaximumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MinimumInterval {
     /**
      * The price interval ids that this minimum interval applies to.
      */
@@ -5041,6 +6355,11 @@ export namespace SubscriptionTriggerPhaseResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this minimum interval applies to.
+     */
+    filters: Array<MinimumInterval.Filter>;
+
+    /**
      * The minimum amount to charge in a given billing period for the price intervals
      * this minimum applies to.
      */
@@ -5050,6 +6369,25 @@ export namespace SubscriptionTriggerPhaseResponse {
      * The start date of the minimum interval.
      */
     start_date: string;
+  }
+
+  export namespace MinimumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   /**
@@ -5257,7 +6595,8 @@ export interface SubscriptionUnscheduleCancellationResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription sorted by the start_date.
+   * @deprecated The discount intervals for this subscription sorted by the
+   * start_date.
    */
   discount_intervals: Array<
     | SubscriptionUnscheduleCancellationResponse.AmountDiscountInterval
@@ -5275,7 +6614,8 @@ export interface SubscriptionUnscheduleCancellationResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription sorted by the start_date.
+   * @deprecated The maximum intervals for this subscription sorted by the
+   * start_date.
    */
   maximum_intervals: Array<SubscriptionUnscheduleCancellationResponse.MaximumInterval>;
 
@@ -5288,9 +6628,15 @@ export interface SubscriptionUnscheduleCancellationResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription sorted by the start_date.
+   * @deprecated The minimum intervals for this subscription sorted by the
+   * start_date.
    */
   minimum_intervals: Array<SubscriptionUnscheduleCancellationResponse.MinimumInterval>;
+
+  /**
+   * The name of the subscription.
+   */
+  name: string;
 
   /**
    * Determines the difference between the invoice issue date for subscription
@@ -5311,7 +6657,7 @@ export interface SubscriptionUnscheduleCancellationResponse {
    * subscription. You can see more about how to configure prices in the
    * [Price resource](/reference/price).
    */
-  plan: PlansAPI.Plan;
+  plan: PlansAPI.Plan | null;
 
   /**
    * The price intervals for this subscription.
@@ -5371,9 +6717,14 @@ export namespace SubscriptionUnscheduleCancellationResponse {
       adjustment_type: 'usage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -5398,6 +6749,25 @@ export namespace SubscriptionUnscheduleCancellationResponse {
       usage_discount: number;
     }
 
+    export namespace PlanPhaseUsageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseAmountDiscountAdjustment {
       id: string;
 
@@ -5410,9 +6780,14 @@ export namespace SubscriptionUnscheduleCancellationResponse {
       amount_discount: string;
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -5431,15 +6806,39 @@ export namespace SubscriptionUnscheduleCancellationResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseAmountDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhasePercentageDiscountAdjustment {
       id: string;
 
       adjustment_type: 'percentage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -5464,15 +6863,39 @@ export namespace SubscriptionUnscheduleCancellationResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhasePercentageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMinimumAdjustment {
       id: string;
 
       adjustment_type: 'minimum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -5502,15 +6925,39 @@ export namespace SubscriptionUnscheduleCancellationResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseMinimumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMaximumAdjustment {
       id: string;
 
       adjustment_type: 'maximum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -5533,6 +6980,25 @@ export namespace SubscriptionUnscheduleCancellationResponse {
        * The reason for the adjustment.
        */
       reason: string | null;
+    }
+
+    export namespace PlanPhaseMaximumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -5566,11 +7032,6 @@ export namespace SubscriptionUnscheduleCancellationResponse {
     amount_discount: string;
 
     /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this discount interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -5583,17 +7044,36 @@ export namespace SubscriptionUnscheduleCancellationResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<AmountDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
   }
 
-  export interface PercentageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace AmountDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface PercentageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -5607,6 +7087,11 @@ export namespace SubscriptionUnscheduleCancellationResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<PercentageDiscountInterval.Filter>;
+
+    /**
      * Only available if discount_type is `percentage`.This is a number between 0
      * and 1.
      */
@@ -5618,12 +7103,26 @@ export namespace SubscriptionUnscheduleCancellationResponse {
     start_date: string;
   }
 
-  export interface UsageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace PercentageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface UsageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -5637,6 +7136,11 @@ export namespace SubscriptionUnscheduleCancellationResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<UsageDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
@@ -5646,6 +7150,25 @@ export namespace SubscriptionUnscheduleCancellationResponse {
      * discount is for
      */
     usage_discount: number;
+  }
+
+  export namespace UsageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface FixedFeeQuantitySchedule {
@@ -5660,11 +7183,6 @@ export namespace SubscriptionUnscheduleCancellationResponse {
 
   export interface MaximumInterval {
     /**
-     * The price ids that this maximum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this maximum interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -5673,6 +7191,11 @@ export namespace SubscriptionUnscheduleCancellationResponse {
      * The end date of the maximum interval.
      */
     end_date: string | null;
+
+    /**
+     * The filters that determine which prices this maximum interval applies to.
+     */
+    filters: Array<MaximumInterval.Filter>;
 
     /**
      * The maximum amount to charge in a given billing period for the price intervals
@@ -5686,12 +7209,26 @@ export namespace SubscriptionUnscheduleCancellationResponse {
     start_date: string;
   }
 
-  export interface MinimumInterval {
-    /**
-     * The price ids that this minimum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace MaximumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MinimumInterval {
     /**
      * The price interval ids that this minimum interval applies to.
      */
@@ -5703,6 +7240,11 @@ export namespace SubscriptionUnscheduleCancellationResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this minimum interval applies to.
+     */
+    filters: Array<MinimumInterval.Filter>;
+
+    /**
      * The minimum amount to charge in a given billing period for the price intervals
      * this minimum applies to.
      */
@@ -5712,6 +7254,25 @@ export namespace SubscriptionUnscheduleCancellationResponse {
      * The start date of the minimum interval.
      */
     start_date: string;
+  }
+
+  export namespace MinimumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   /**
@@ -5919,7 +7480,8 @@ export interface SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription sorted by the start_date.
+   * @deprecated The discount intervals for this subscription sorted by the
+   * start_date.
    */
   discount_intervals: Array<
     | SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.AmountDiscountInterval
@@ -5937,7 +7499,8 @@ export interface SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription sorted by the start_date.
+   * @deprecated The maximum intervals for this subscription sorted by the
+   * start_date.
    */
   maximum_intervals: Array<SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.MaximumInterval>;
 
@@ -5950,9 +7513,15 @@ export interface SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription sorted by the start_date.
+   * @deprecated The minimum intervals for this subscription sorted by the
+   * start_date.
    */
   minimum_intervals: Array<SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse.MinimumInterval>;
+
+  /**
+   * The name of the subscription.
+   */
+  name: string;
 
   /**
    * Determines the difference between the invoice issue date for subscription
@@ -5973,7 +7542,7 @@ export interface SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
    * subscription. You can see more about how to configure prices in the
    * [Price resource](/reference/price).
    */
-  plan: PlansAPI.Plan;
+  plan: PlansAPI.Plan | null;
 
   /**
    * The price intervals for this subscription.
@@ -6033,9 +7602,14 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
       adjustment_type: 'usage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -6060,6 +7634,25 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
       usage_discount: number;
     }
 
+    export namespace PlanPhaseUsageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseAmountDiscountAdjustment {
       id: string;
 
@@ -6072,9 +7665,14 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
       amount_discount: string;
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -6093,15 +7691,39 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseAmountDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhasePercentageDiscountAdjustment {
       id: string;
 
       adjustment_type: 'percentage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -6126,15 +7748,39 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhasePercentageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMinimumAdjustment {
       id: string;
 
       adjustment_type: 'minimum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -6164,15 +7810,39 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseMinimumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMaximumAdjustment {
       id: string;
 
       adjustment_type: 'maximum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -6195,6 +7865,25 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
        * The reason for the adjustment.
        */
       reason: string | null;
+    }
+
+    export namespace PlanPhaseMaximumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -6228,11 +7917,6 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
     amount_discount: string;
 
     /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this discount interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -6245,17 +7929,36 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<AmountDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
   }
 
-  export interface PercentageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace AmountDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface PercentageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -6269,6 +7972,11 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<PercentageDiscountInterval.Filter>;
+
+    /**
      * Only available if discount_type is `percentage`.This is a number between 0
      * and 1.
      */
@@ -6280,12 +7988,26 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
     start_date: string;
   }
 
-  export interface UsageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace PercentageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface UsageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -6299,6 +8021,11 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<UsageDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
@@ -6308,6 +8035,25 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
      * discount is for
      */
     usage_discount: number;
+  }
+
+  export namespace UsageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface FixedFeeQuantitySchedule {
@@ -6322,11 +8068,6 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
 
   export interface MaximumInterval {
     /**
-     * The price ids that this maximum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this maximum interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -6335,6 +8076,11 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
      * The end date of the maximum interval.
      */
     end_date: string | null;
+
+    /**
+     * The filters that determine which prices this maximum interval applies to.
+     */
+    filters: Array<MaximumInterval.Filter>;
 
     /**
      * The maximum amount to charge in a given billing period for the price intervals
@@ -6348,12 +8094,26 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
     start_date: string;
   }
 
-  export interface MinimumInterval {
-    /**
-     * The price ids that this minimum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace MaximumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MinimumInterval {
     /**
      * The price interval ids that this minimum interval applies to.
      */
@@ -6365,6 +8125,11 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this minimum interval applies to.
+     */
+    filters: Array<MinimumInterval.Filter>;
+
+    /**
      * The minimum amount to charge in a given billing period for the price intervals
      * this minimum applies to.
      */
@@ -6374,6 +8139,25 @@ export namespace SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse {
      * The start date of the minimum interval.
      */
     start_date: string;
+  }
+
+  export namespace MinimumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   /**
@@ -6581,7 +8365,8 @@ export interface SubscriptionUnschedulePendingPlanChangesResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription sorted by the start_date.
+   * @deprecated The discount intervals for this subscription sorted by the
+   * start_date.
    */
   discount_intervals: Array<
     | SubscriptionUnschedulePendingPlanChangesResponse.AmountDiscountInterval
@@ -6599,7 +8384,8 @@ export interface SubscriptionUnschedulePendingPlanChangesResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription sorted by the start_date.
+   * @deprecated The maximum intervals for this subscription sorted by the
+   * start_date.
    */
   maximum_intervals: Array<SubscriptionUnschedulePendingPlanChangesResponse.MaximumInterval>;
 
@@ -6612,9 +8398,15 @@ export interface SubscriptionUnschedulePendingPlanChangesResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription sorted by the start_date.
+   * @deprecated The minimum intervals for this subscription sorted by the
+   * start_date.
    */
   minimum_intervals: Array<SubscriptionUnschedulePendingPlanChangesResponse.MinimumInterval>;
+
+  /**
+   * The name of the subscription.
+   */
+  name: string;
 
   /**
    * Determines the difference between the invoice issue date for subscription
@@ -6635,7 +8427,7 @@ export interface SubscriptionUnschedulePendingPlanChangesResponse {
    * subscription. You can see more about how to configure prices in the
    * [Price resource](/reference/price).
    */
-  plan: PlansAPI.Plan;
+  plan: PlansAPI.Plan | null;
 
   /**
    * The price intervals for this subscription.
@@ -6695,9 +8487,14 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
       adjustment_type: 'usage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -6722,6 +8519,25 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
       usage_discount: number;
     }
 
+    export namespace PlanPhaseUsageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseAmountDiscountAdjustment {
       id: string;
 
@@ -6734,9 +8550,14 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
       amount_discount: string;
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -6755,15 +8576,39 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseAmountDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhasePercentageDiscountAdjustment {
       id: string;
 
       adjustment_type: 'percentage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -6788,15 +8633,39 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhasePercentageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMinimumAdjustment {
       id: string;
 
       adjustment_type: 'minimum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -6826,15 +8695,39 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseMinimumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMaximumAdjustment {
       id: string;
 
       adjustment_type: 'maximum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -6857,6 +8750,25 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
        * The reason for the adjustment.
        */
       reason: string | null;
+    }
+
+    export namespace PlanPhaseMaximumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -6890,11 +8802,6 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
     amount_discount: string;
 
     /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this discount interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -6907,17 +8814,36 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<AmountDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
   }
 
-  export interface PercentageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace AmountDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface PercentageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -6931,6 +8857,11 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<PercentageDiscountInterval.Filter>;
+
+    /**
      * Only available if discount_type is `percentage`.This is a number between 0
      * and 1.
      */
@@ -6942,12 +8873,26 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
     start_date: string;
   }
 
-  export interface UsageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace PercentageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface UsageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -6961,6 +8906,11 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<UsageDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
@@ -6970,6 +8920,25 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
      * discount is for
      */
     usage_discount: number;
+  }
+
+  export namespace UsageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface FixedFeeQuantitySchedule {
@@ -6984,11 +8953,6 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
 
   export interface MaximumInterval {
     /**
-     * The price ids that this maximum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this maximum interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -6997,6 +8961,11 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
      * The end date of the maximum interval.
      */
     end_date: string | null;
+
+    /**
+     * The filters that determine which prices this maximum interval applies to.
+     */
+    filters: Array<MaximumInterval.Filter>;
 
     /**
      * The maximum amount to charge in a given billing period for the price intervals
@@ -7010,12 +8979,26 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
     start_date: string;
   }
 
-  export interface MinimumInterval {
-    /**
-     * The price ids that this minimum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace MaximumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MinimumInterval {
     /**
      * The price interval ids that this minimum interval applies to.
      */
@@ -7027,6 +9010,11 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this minimum interval applies to.
+     */
+    filters: Array<MinimumInterval.Filter>;
+
+    /**
      * The minimum amount to charge in a given billing period for the price intervals
      * this minimum applies to.
      */
@@ -7036,6 +9024,25 @@ export namespace SubscriptionUnschedulePendingPlanChangesResponse {
      * The start date of the minimum interval.
      */
     start_date: string;
+  }
+
+  export namespace MinimumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   /**
@@ -7243,7 +9250,8 @@ export interface SubscriptionUpdateFixedFeeQuantityResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription sorted by the start_date.
+   * @deprecated The discount intervals for this subscription sorted by the
+   * start_date.
    */
   discount_intervals: Array<
     | SubscriptionUpdateFixedFeeQuantityResponse.AmountDiscountInterval
@@ -7261,7 +9269,8 @@ export interface SubscriptionUpdateFixedFeeQuantityResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription sorted by the start_date.
+   * @deprecated The maximum intervals for this subscription sorted by the
+   * start_date.
    */
   maximum_intervals: Array<SubscriptionUpdateFixedFeeQuantityResponse.MaximumInterval>;
 
@@ -7274,9 +9283,15 @@ export interface SubscriptionUpdateFixedFeeQuantityResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription sorted by the start_date.
+   * @deprecated The minimum intervals for this subscription sorted by the
+   * start_date.
    */
   minimum_intervals: Array<SubscriptionUpdateFixedFeeQuantityResponse.MinimumInterval>;
+
+  /**
+   * The name of the subscription.
+   */
+  name: string;
 
   /**
    * Determines the difference between the invoice issue date for subscription
@@ -7297,7 +9312,7 @@ export interface SubscriptionUpdateFixedFeeQuantityResponse {
    * subscription. You can see more about how to configure prices in the
    * [Price resource](/reference/price).
    */
-  plan: PlansAPI.Plan;
+  plan: PlansAPI.Plan | null;
 
   /**
    * The price intervals for this subscription.
@@ -7357,9 +9372,14 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
       adjustment_type: 'usage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -7384,6 +9404,25 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
       usage_discount: number;
     }
 
+    export namespace PlanPhaseUsageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseAmountDiscountAdjustment {
       id: string;
 
@@ -7396,9 +9435,14 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
       amount_discount: string;
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -7417,15 +9461,39 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseAmountDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhasePercentageDiscountAdjustment {
       id: string;
 
       adjustment_type: 'percentage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -7450,15 +9518,39 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhasePercentageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMinimumAdjustment {
       id: string;
 
       adjustment_type: 'minimum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -7488,15 +9580,39 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseMinimumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMaximumAdjustment {
       id: string;
 
       adjustment_type: 'maximum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -7519,6 +9635,25 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
        * The reason for the adjustment.
        */
       reason: string | null;
+    }
+
+    export namespace PlanPhaseMaximumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -7552,11 +9687,6 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
     amount_discount: string;
 
     /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this discount interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -7569,17 +9699,36 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<AmountDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
   }
 
-  export interface PercentageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace AmountDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface PercentageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -7593,6 +9742,11 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<PercentageDiscountInterval.Filter>;
+
+    /**
      * Only available if discount_type is `percentage`.This is a number between 0
      * and 1.
      */
@@ -7604,12 +9758,26 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
     start_date: string;
   }
 
-  export interface UsageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace PercentageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface UsageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -7623,6 +9791,11 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<UsageDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
@@ -7632,6 +9805,25 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
      * discount is for
      */
     usage_discount: number;
+  }
+
+  export namespace UsageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface FixedFeeQuantitySchedule {
@@ -7646,11 +9838,6 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
 
   export interface MaximumInterval {
     /**
-     * The price ids that this maximum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this maximum interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -7659,6 +9846,11 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
      * The end date of the maximum interval.
      */
     end_date: string | null;
+
+    /**
+     * The filters that determine which prices this maximum interval applies to.
+     */
+    filters: Array<MaximumInterval.Filter>;
 
     /**
      * The maximum amount to charge in a given billing period for the price intervals
@@ -7672,12 +9864,26 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
     start_date: string;
   }
 
-  export interface MinimumInterval {
-    /**
-     * The price ids that this minimum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace MaximumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MinimumInterval {
     /**
      * The price interval ids that this minimum interval applies to.
      */
@@ -7689,6 +9895,11 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this minimum interval applies to.
+     */
+    filters: Array<MinimumInterval.Filter>;
+
+    /**
      * The minimum amount to charge in a given billing period for the price intervals
      * this minimum applies to.
      */
@@ -7698,6 +9909,25 @@ export namespace SubscriptionUpdateFixedFeeQuantityResponse {
      * The start date of the minimum interval.
      */
     start_date: string;
+  }
+
+  export namespace MinimumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   /**
@@ -7905,7 +10135,8 @@ export interface SubscriptionUpdateTrialResponse {
   default_invoice_memo: string | null;
 
   /**
-   * The discount intervals for this subscription sorted by the start_date.
+   * @deprecated The discount intervals for this subscription sorted by the
+   * start_date.
    */
   discount_intervals: Array<
     | SubscriptionUpdateTrialResponse.AmountDiscountInterval
@@ -7923,7 +10154,8 @@ export interface SubscriptionUpdateTrialResponse {
   invoicing_threshold: string | null;
 
   /**
-   * The maximum intervals for this subscription sorted by the start_date.
+   * @deprecated The maximum intervals for this subscription sorted by the
+   * start_date.
    */
   maximum_intervals: Array<SubscriptionUpdateTrialResponse.MaximumInterval>;
 
@@ -7936,9 +10168,15 @@ export interface SubscriptionUpdateTrialResponse {
   metadata: Record<string, string>;
 
   /**
-   * The minimum intervals for this subscription sorted by the start_date.
+   * @deprecated The minimum intervals for this subscription sorted by the
+   * start_date.
    */
   minimum_intervals: Array<SubscriptionUpdateTrialResponse.MinimumInterval>;
+
+  /**
+   * The name of the subscription.
+   */
+  name: string;
 
   /**
    * Determines the difference between the invoice issue date for subscription
@@ -7959,7 +10197,7 @@ export interface SubscriptionUpdateTrialResponse {
    * subscription. You can see more about how to configure prices in the
    * [Price resource](/reference/price).
    */
-  plan: PlansAPI.Plan;
+  plan: PlansAPI.Plan | null;
 
   /**
    * The price intervals for this subscription.
@@ -8019,9 +10257,14 @@ export namespace SubscriptionUpdateTrialResponse {
       adjustment_type: 'usage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -8046,6 +10289,25 @@ export namespace SubscriptionUpdateTrialResponse {
       usage_discount: number;
     }
 
+    export namespace PlanPhaseUsageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseAmountDiscountAdjustment {
       id: string;
 
@@ -8058,9 +10320,14 @@ export namespace SubscriptionUpdateTrialResponse {
       amount_discount: string;
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -8079,15 +10346,39 @@ export namespace SubscriptionUpdateTrialResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseAmountDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhasePercentageDiscountAdjustment {
       id: string;
 
       adjustment_type: 'percentage_discount';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -8112,15 +10403,39 @@ export namespace SubscriptionUpdateTrialResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhasePercentageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMinimumAdjustment {
       id: string;
 
       adjustment_type: 'minimum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -8150,15 +10465,39 @@ export namespace SubscriptionUpdateTrialResponse {
       reason: string | null;
     }
 
+    export namespace PlanPhaseMinimumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface PlanPhaseMaximumAdjustment {
       id: string;
 
       adjustment_type: 'maximum';
 
       /**
-       * The price IDs that this adjustment applies to.
+       * @deprecated The price IDs that this adjustment applies to.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
       /**
        * True for adjustments that apply to an entire invocice, false for adjustments
@@ -8181,6 +10520,25 @@ export namespace SubscriptionUpdateTrialResponse {
        * The reason for the adjustment.
        */
       reason: string | null;
+    }
+
+    export namespace PlanPhaseMaximumAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -8214,11 +10572,6 @@ export namespace SubscriptionUpdateTrialResponse {
     amount_discount: string;
 
     /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this discount interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -8231,17 +10584,36 @@ export namespace SubscriptionUpdateTrialResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<AmountDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
   }
 
-  export interface PercentageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace AmountDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface PercentageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -8255,6 +10627,11 @@ export namespace SubscriptionUpdateTrialResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<PercentageDiscountInterval.Filter>;
+
+    /**
      * Only available if discount_type is `percentage`.This is a number between 0
      * and 1.
      */
@@ -8266,12 +10643,26 @@ export namespace SubscriptionUpdateTrialResponse {
     start_date: string;
   }
 
-  export interface UsageDiscountInterval {
-    /**
-     * The price ids that this discount interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace PercentageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface UsageDiscountInterval {
     /**
      * The price interval ids that this discount interval applies to.
      */
@@ -8285,6 +10676,11 @@ export namespace SubscriptionUpdateTrialResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<UsageDiscountInterval.Filter>;
+
+    /**
      * The start date of the discount interval.
      */
     start_date: string;
@@ -8294,6 +10690,25 @@ export namespace SubscriptionUpdateTrialResponse {
      * discount is for
      */
     usage_discount: number;
+  }
+
+  export namespace UsageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface FixedFeeQuantitySchedule {
@@ -8308,11 +10723,6 @@ export namespace SubscriptionUpdateTrialResponse {
 
   export interface MaximumInterval {
     /**
-     * The price ids that this maximum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
      * The price interval ids that this maximum interval applies to.
      */
     applies_to_price_interval_ids: Array<string>;
@@ -8321,6 +10731,11 @@ export namespace SubscriptionUpdateTrialResponse {
      * The end date of the maximum interval.
      */
     end_date: string | null;
+
+    /**
+     * The filters that determine which prices this maximum interval applies to.
+     */
+    filters: Array<MaximumInterval.Filter>;
 
     /**
      * The maximum amount to charge in a given billing period for the price intervals
@@ -8334,12 +10749,26 @@ export namespace SubscriptionUpdateTrialResponse {
     start_date: string;
   }
 
-  export interface MinimumInterval {
-    /**
-     * The price ids that this minimum interval applies to.
-     */
-    applies_to_price_ids: Array<string>;
+  export namespace MaximumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MinimumInterval {
     /**
      * The price interval ids that this minimum interval applies to.
      */
@@ -8351,6 +10780,11 @@ export namespace SubscriptionUpdateTrialResponse {
     end_date: string | null;
 
     /**
+     * The filters that determine which prices this minimum interval applies to.
+     */
+    filters: Array<MinimumInterval.Filter>;
+
+    /**
      * The minimum amount to charge in a given billing period for the price intervals
      * this minimum applies to.
      */
@@ -8360,6 +10794,25 @@ export namespace SubscriptionUpdateTrialResponse {
      * The start date of the minimum interval.
      */
     start_date: string;
+  }
+
+  export namespace MinimumInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   /**
@@ -8531,6 +10984,12 @@ export interface SubscriptionCreateParams {
    */
   credits_overage_rate?: number | null;
 
+  /**
+   * The currency to use for the subscription. If not specified, the invoicing
+   * currency for the plan will be used.
+   */
+  currency?: string | null;
+
   customer_id?: string | null;
 
   /**
@@ -8585,6 +11044,12 @@ export interface SubscriptionCreateParams {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * The name to use for the subscription. If not specified, the plan name will be
+   * used.
+   */
+  name?: string | null;
 
   /**
    * The net terms determines the difference between the invoice date and the issue
@@ -8695,12 +11160,12 @@ export namespace SubscriptionCreateParams {
     export interface NewPercentageDiscount {
       adjustment_type: 'percentage_discount';
 
+      percentage_discount: number;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      percentage_discount: number;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -8712,12 +11177,12 @@ export namespace SubscriptionCreateParams {
     export interface NewUsageDiscount {
       adjustment_type: 'usage_discount';
 
+      usage_discount: number;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      usage_discount: number;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -8734,7 +11199,7 @@ export namespace SubscriptionCreateParams {
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -8747,16 +11212,16 @@ export namespace SubscriptionCreateParams {
       adjustment_type: 'minimum';
 
       /**
-       * The set of price IDs to which this adjustment applies.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
        * The item ID that revenue from this minimum will be attributed to.
        */
       item_id: string;
 
       minimum_amount: string;
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -8768,12 +11233,12 @@ export namespace SubscriptionCreateParams {
     export interface NewMaximum {
       adjustment_type: 'maximum';
 
+      maximum_amount: string;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      maximum_amount: string;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -8853,6 +11318,9 @@ export namespace SubscriptionCreateParams {
       | AddPrice.NewSubscriptionGroupedWithMeteredMinimumPrice
       | AddPrice.NewSubscriptionMatrixWithDisplayNamePrice
       | AddPrice.NewSubscriptionGroupedTieredPackagePrice
+      | AddPrice.NewSubscriptionMatrixWithAllocationPrice
+      | AddPrice.NewSubscriptionTieredPackageWithMinimumPrice
+      | AddPrice.NewSubscriptionGroupedTieredPrice
       | null;
 
     /**
@@ -8967,6 +11435,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionUnitPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -9024,6 +11497,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -9093,6 +11587,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -9156,6 +11655,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -9223,6 +11743,11 @@ export namespace SubscriptionCreateParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMatrixPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -9311,6 +11836,27 @@ export namespace SubscriptionCreateParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -9375,6 +11921,11 @@ export namespace SubscriptionCreateParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -9456,6 +12007,27 @@ export namespace SubscriptionCreateParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -9520,6 +12092,11 @@ export namespace SubscriptionCreateParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -9607,6 +12184,27 @@ export namespace SubscriptionCreateParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -9671,6 +12269,11 @@ export namespace SubscriptionCreateParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -9738,6 +12341,27 @@ export namespace SubscriptionCreateParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -9802,6 +12426,11 @@ export namespace SubscriptionCreateParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBulkBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -9884,6 +12513,27 @@ export namespace SubscriptionCreateParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -9948,6 +12598,11 @@ export namespace SubscriptionCreateParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBulkPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -10024,6 +12679,27 @@ export namespace SubscriptionCreateParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -10090,6 +12766,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionThresholdTotalAmountPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -10140,6 +12821,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -10209,6 +12911,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -10259,6 +12966,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -10328,6 +13056,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredWithMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -10378,6 +13111,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -10447,6 +13201,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionUnitWithPercentPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -10497,6 +13256,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -10566,6 +13346,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionPackageWithAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -10616,6 +13401,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -10685,6 +13491,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTierWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -10735,6 +13546,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -10804,6 +13636,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionUnitWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -10854,6 +13691,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -10923,6 +13781,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -10973,6 +13836,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -11042,6 +13926,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedWithProratedMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -11092,6 +13981,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -11161,6 +14071,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBulkWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -11211,6 +14126,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -11280,6 +14216,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionScalableMatrixWithUnitPricingPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -11330,6 +14271,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -11399,6 +14361,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionScalableMatrixWithTieredPricingPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -11449,6 +14416,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -11518,6 +14506,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionCumulativeGroupedBulkPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -11568,6 +14561,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -11637,6 +14651,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMaxGroupTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -11687,6 +14706,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -11756,6 +14796,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedWithMeteredMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -11806,6 +14851,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -11875,6 +14941,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMatrixWithDisplayNamePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -11925,6 +14996,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -11994,6 +15086,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -12044,6 +15141,500 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewSubscriptionMatrixWithAllocationPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      matrix_with_allocation_config: NewSubscriptionMatrixWithAllocationPrice.MatrixWithAllocationConfig;
+
+      model_type: 'matrix_with_allocation';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewSubscriptionMatrixWithAllocationPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMatrixWithAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewSubscriptionMatrixWithAllocationPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionMatrixWithAllocationPrice {
+      export interface MatrixWithAllocationConfig {
+        /**
+         * Allocation to be used to calculate the price
+         */
+        allocation: number;
+
+        /**
+         * Default per unit rate for any usage not bucketed into a specified matrix_value
+         */
+        default_unit_amount: string;
+
+        /**
+         * One or two event property values to evaluate matrix groups by
+         */
+        dimensions: Array<string | null>;
+
+        /**
+         * Matrix values for specified matrix grouping keys
+         */
+        matrix_values: Array<MatrixWithAllocationConfig.MatrixValue>;
+      }
+
+      export namespace MatrixWithAllocationConfig {
+        export interface MatrixValue {
+          /**
+           * One or two matrix keys to filter usage to this Matrix value by. For example,
+           * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
+           * instance tier.
+           */
+          dimension_values: Array<string | null>;
+
+          /**
+           * Unit price for the specified dimension_values
+           */
+          unit_amount: string;
+        }
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewSubscriptionTieredPackageWithMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'tiered_package_with_minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      tiered_package_with_minimum_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewSubscriptionTieredPackageWithMinimumPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredPackageWithMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewSubscriptionTieredPackageWithMinimumPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionTieredPackageWithMinimumPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewSubscriptionGroupedTieredPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      grouped_tiered_config: Record<string, unknown>;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'grouped_tiered';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewSubscriptionGroupedTieredPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedTieredPrice.DimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewSubscriptionGroupedTieredPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionGroupedTieredPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -12127,12 +15718,12 @@ export namespace SubscriptionCreateParams {
     export interface NewPercentageDiscount {
       adjustment_type: 'percentage_discount';
 
+      percentage_discount: number;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      percentage_discount: number;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -12144,12 +15735,12 @@ export namespace SubscriptionCreateParams {
     export interface NewUsageDiscount {
       adjustment_type: 'usage_discount';
 
+      usage_discount: number;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      usage_discount: number;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -12166,7 +15757,7 @@ export namespace SubscriptionCreateParams {
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -12179,16 +15770,16 @@ export namespace SubscriptionCreateParams {
       adjustment_type: 'minimum';
 
       /**
-       * The set of price IDs to which this adjustment applies.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
        * The item ID that revenue from this minimum will be attributed to.
        */
       item_id: string;
 
       minimum_amount: string;
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -12200,12 +15791,12 @@ export namespace SubscriptionCreateParams {
     export interface NewMaximum {
       adjustment_type: 'maximum';
 
+      maximum_amount: string;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      maximum_amount: string;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -12283,6 +15874,9 @@ export namespace SubscriptionCreateParams {
       | ReplacePrice.NewSubscriptionGroupedWithMeteredMinimumPrice
       | ReplacePrice.NewSubscriptionMatrixWithDisplayNamePrice
       | ReplacePrice.NewSubscriptionGroupedTieredPackagePrice
+      | ReplacePrice.NewSubscriptionMatrixWithAllocationPrice
+      | ReplacePrice.NewSubscriptionTieredPackageWithMinimumPrice
+      | ReplacePrice.NewSubscriptionGroupedTieredPrice
       | null;
 
     /**
@@ -12390,6 +15984,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionUnitPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -12447,6 +16046,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -12516,6 +16136,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -12579,6 +16204,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -12646,6 +16292,11 @@ export namespace SubscriptionCreateParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMatrixPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -12734,6 +16385,27 @@ export namespace SubscriptionCreateParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -12798,6 +16470,11 @@ export namespace SubscriptionCreateParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -12879,6 +16556,27 @@ export namespace SubscriptionCreateParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -12943,6 +16641,11 @@ export namespace SubscriptionCreateParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -13030,6 +16733,27 @@ export namespace SubscriptionCreateParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -13094,6 +16818,11 @@ export namespace SubscriptionCreateParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -13161,6 +16890,27 @@ export namespace SubscriptionCreateParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -13225,6 +16975,11 @@ export namespace SubscriptionCreateParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBulkBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -13307,6 +17062,27 @@ export namespace SubscriptionCreateParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -13371,6 +17147,11 @@ export namespace SubscriptionCreateParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBulkPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -13447,6 +17228,27 @@ export namespace SubscriptionCreateParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -13513,6 +17315,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionThresholdTotalAmountPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -13563,6 +17370,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -13632,6 +17460,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -13682,6 +17515,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -13751,6 +17605,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredWithMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -13801,6 +17660,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -13870,6 +17750,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionUnitWithPercentPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -13920,6 +17805,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -13989,6 +17895,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionPackageWithAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -14039,6 +17950,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -14108,6 +18040,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTierWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -14158,6 +18095,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -14227,6 +18185,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionUnitWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -14277,6 +18240,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -14346,6 +18330,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -14396,6 +18385,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -14465,6 +18475,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedWithProratedMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -14515,6 +18530,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -14584,6 +18620,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBulkWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -14634,6 +18675,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -14703,6 +18765,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionScalableMatrixWithUnitPricingPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -14753,6 +18820,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -14822,6 +18910,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionScalableMatrixWithTieredPricingPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -14872,6 +18965,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -14941,6 +19055,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionCumulativeGroupedBulkPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -14991,6 +19110,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -15060,6 +19200,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMaxGroupTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -15110,6 +19255,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -15179,6 +19345,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedWithMeteredMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -15229,6 +19400,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -15298,6 +19490,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMatrixWithDisplayNamePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -15348,6 +19545,27 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -15417,6 +19635,11 @@ export namespace SubscriptionCreateParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -15467,6 +19690,500 @@ export namespace SubscriptionCreateParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewSubscriptionMatrixWithAllocationPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      matrix_with_allocation_config: NewSubscriptionMatrixWithAllocationPrice.MatrixWithAllocationConfig;
+
+      model_type: 'matrix_with_allocation';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewSubscriptionMatrixWithAllocationPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMatrixWithAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewSubscriptionMatrixWithAllocationPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionMatrixWithAllocationPrice {
+      export interface MatrixWithAllocationConfig {
+        /**
+         * Allocation to be used to calculate the price
+         */
+        allocation: number;
+
+        /**
+         * Default per unit rate for any usage not bucketed into a specified matrix_value
+         */
+        default_unit_amount: string;
+
+        /**
+         * One or two event property values to evaluate matrix groups by
+         */
+        dimensions: Array<string | null>;
+
+        /**
+         * Matrix values for specified matrix grouping keys
+         */
+        matrix_values: Array<MatrixWithAllocationConfig.MatrixValue>;
+      }
+
+      export namespace MatrixWithAllocationConfig {
+        export interface MatrixValue {
+          /**
+           * One or two matrix keys to filter usage to this Matrix value by. For example,
+           * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
+           * instance tier.
+           */
+          dimension_values: Array<string | null>;
+
+          /**
+           * Unit price for the specified dimension_values
+           */
+          unit_amount: string;
+        }
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewSubscriptionTieredPackageWithMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'tiered_package_with_minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      tiered_package_with_minimum_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewSubscriptionTieredPackageWithMinimumPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredPackageWithMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewSubscriptionTieredPackageWithMinimumPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionTieredPackageWithMinimumPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewSubscriptionGroupedTieredPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      grouped_tiered_config: Record<string, unknown>;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'grouped_tiered';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewSubscriptionGroupedTieredPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedTieredPrice.DimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewSubscriptionGroupedTieredPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionGroupedTieredPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -15896,6 +20613,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingUnitPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -15947,6 +20669,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -16015,6 +20758,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -16072,6 +20820,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -16138,6 +20907,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * The per unit conversion rate of the price currency to the invoicing currency.
        */
       conversion_rate?: number | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingMatrixPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -16220,6 +20994,27 @@ export namespace SubscriptionPriceIntervalsParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -16283,6 +21078,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * The per unit conversion rate of the price currency to the invoicing currency.
        */
       conversion_rate?: number | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingMatrixWithAllocationPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -16370,6 +21170,27 @@ export namespace SubscriptionPriceIntervalsParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -16433,6 +21254,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * The per unit conversion rate of the price currency to the invoicing currency.
        */
       conversion_rate?: number | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingTieredPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -16508,6 +21334,27 @@ export namespace SubscriptionPriceIntervalsParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -16571,6 +21418,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * The per unit conversion rate of the price currency to the invoicing currency.
        */
       conversion_rate?: number | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingTieredBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -16652,6 +21504,27 @@ export namespace SubscriptionPriceIntervalsParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -16717,6 +21590,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingBpsPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -16773,6 +21651,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -16839,6 +21738,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * The per unit conversion rate of the price currency to the invoicing currency.
        */
       conversion_rate?: number | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingBulkBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -16915,6 +21819,27 @@ export namespace SubscriptionPriceIntervalsParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -16978,6 +21903,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * The per unit conversion rate of the price currency to the invoicing currency.
        */
       conversion_rate?: number | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingBulkPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -17048,6 +21978,27 @@ export namespace SubscriptionPriceIntervalsParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -17113,6 +22064,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingThresholdTotalAmountPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -17157,6 +22113,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -17225,6 +22202,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -17269,6 +22251,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -17337,6 +22340,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingGroupedTieredPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -17381,6 +22389,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -17449,6 +22478,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingMaxGroupTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -17493,6 +22527,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -17561,6 +22616,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingTieredWithMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -17605,6 +22665,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -17673,6 +22754,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingPackageWithAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -17717,6 +22803,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -17785,6 +22892,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingTieredPackageWithMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -17829,6 +22941,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -17897,6 +23030,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingUnitWithPercentPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -17941,6 +23079,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -18009,6 +23168,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingTieredWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -18053,6 +23217,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -18121,6 +23306,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingUnitWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -18165,6 +23355,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -18233,6 +23444,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingGroupedAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -18277,6 +23493,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -18345,6 +23582,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingGroupedWithProratedMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -18389,6 +23631,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -18457,6 +23720,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingGroupedWithMeteredMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -18501,6 +23769,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -18569,6 +23858,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingMatrixWithDisplayNamePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -18613,6 +23907,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -18681,6 +23996,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingBulkWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -18725,6 +24045,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -18793,6 +24134,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingGroupedTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -18837,6 +24183,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -18905,6 +24272,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingScalableMatrixWithUnitPricingPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -18949,6 +24321,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -19017,6 +24410,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingScalableMatrixWithTieredPricingPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -19061,6 +24459,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -19129,6 +24548,11 @@ export namespace SubscriptionPriceIntervalsParams {
       conversion_rate?: number | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewFloatingCumulativeGroupedBulkPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -19173,6 +24597,27 @@ export namespace SubscriptionPriceIntervalsParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -19225,12 +24670,12 @@ export namespace SubscriptionPriceIntervalsParams {
     export interface NewPercentageDiscount {
       adjustment_type: 'percentage_discount';
 
+      percentage_discount: number;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      percentage_discount: number;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -19242,12 +24687,12 @@ export namespace SubscriptionPriceIntervalsParams {
     export interface NewUsageDiscount {
       adjustment_type: 'usage_discount';
 
+      usage_discount: number;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      usage_discount: number;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -19264,7 +24709,7 @@ export namespace SubscriptionPriceIntervalsParams {
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -19277,16 +24722,16 @@ export namespace SubscriptionPriceIntervalsParams {
       adjustment_type: 'minimum';
 
       /**
-       * The set of price IDs to which this adjustment applies.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
        * The item ID that revenue from this minimum will be attributed to.
        */
       item_id: string;
 
       minimum_amount: string;
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -19298,12 +24743,12 @@ export namespace SubscriptionPriceIntervalsParams {
     export interface NewMaximum {
       adjustment_type: 'maximum';
 
+      maximum_amount: string;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      maximum_amount: string;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -19593,12 +25038,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
     export interface NewPercentageDiscount {
       adjustment_type: 'percentage_discount';
 
+      percentage_discount: number;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      percentage_discount: number;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -19610,12 +25055,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
     export interface NewUsageDiscount {
       adjustment_type: 'usage_discount';
 
+      usage_discount: number;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      usage_discount: number;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -19632,7 +25077,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -19645,16 +25090,16 @@ export namespace SubscriptionSchedulePlanChangeParams {
       adjustment_type: 'minimum';
 
       /**
-       * The set of price IDs to which this adjustment applies.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
        * The item ID that revenue from this minimum will be attributed to.
        */
       item_id: string;
 
       minimum_amount: string;
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -19666,12 +25111,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
     export interface NewMaximum {
       adjustment_type: 'maximum';
 
+      maximum_amount: string;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      maximum_amount: string;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -19751,6 +25196,9 @@ export namespace SubscriptionSchedulePlanChangeParams {
       | AddPrice.NewSubscriptionGroupedWithMeteredMinimumPrice
       | AddPrice.NewSubscriptionMatrixWithDisplayNamePrice
       | AddPrice.NewSubscriptionGroupedTieredPackagePrice
+      | AddPrice.NewSubscriptionMatrixWithAllocationPrice
+      | AddPrice.NewSubscriptionTieredPackageWithMinimumPrice
+      | AddPrice.NewSubscriptionGroupedTieredPrice
       | null;
 
     /**
@@ -19865,6 +25313,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionUnitPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -19922,6 +25375,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -19991,6 +25465,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -20054,6 +25533,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -20121,6 +25621,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMatrixPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -20209,6 +25714,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -20273,6 +25799,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -20354,6 +25885,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -20418,6 +25970,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -20505,6 +26062,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -20569,6 +26147,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -20636,6 +26219,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -20700,6 +26304,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBulkBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -20782,6 +26391,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -20846,6 +26476,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBulkPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -20922,6 +26557,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -20988,6 +26644,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionThresholdTotalAmountPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -21038,6 +26699,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -21107,6 +26789,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -21157,6 +26844,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -21226,6 +26934,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredWithMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -21276,6 +26989,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -21345,6 +27079,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionUnitWithPercentPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -21395,6 +27134,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -21464,6 +27224,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionPackageWithAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -21514,6 +27279,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -21583,6 +27369,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTierWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -21633,6 +27424,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -21702,6 +27514,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionUnitWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -21752,6 +27569,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -21821,6 +27659,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -21871,6 +27714,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -21940,6 +27804,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedWithProratedMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -21990,6 +27859,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -22059,6 +27949,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBulkWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -22109,6 +28004,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -22178,6 +28094,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionScalableMatrixWithUnitPricingPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -22228,6 +28149,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -22297,6 +28239,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionScalableMatrixWithTieredPricingPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -22347,6 +28294,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -22416,6 +28384,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionCumulativeGroupedBulkPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -22466,6 +28439,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -22535,6 +28529,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMaxGroupTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -22585,6 +28584,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -22654,6 +28674,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedWithMeteredMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -22704,6 +28729,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -22773,6 +28819,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMatrixWithDisplayNamePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -22823,6 +28874,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -22892,6 +28964,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -22942,6 +29019,500 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewSubscriptionMatrixWithAllocationPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      matrix_with_allocation_config: NewSubscriptionMatrixWithAllocationPrice.MatrixWithAllocationConfig;
+
+      model_type: 'matrix_with_allocation';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewSubscriptionMatrixWithAllocationPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMatrixWithAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewSubscriptionMatrixWithAllocationPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionMatrixWithAllocationPrice {
+      export interface MatrixWithAllocationConfig {
+        /**
+         * Allocation to be used to calculate the price
+         */
+        allocation: number;
+
+        /**
+         * Default per unit rate for any usage not bucketed into a specified matrix_value
+         */
+        default_unit_amount: string;
+
+        /**
+         * One or two event property values to evaluate matrix groups by
+         */
+        dimensions: Array<string | null>;
+
+        /**
+         * Matrix values for specified matrix grouping keys
+         */
+        matrix_values: Array<MatrixWithAllocationConfig.MatrixValue>;
+      }
+
+      export namespace MatrixWithAllocationConfig {
+        export interface MatrixValue {
+          /**
+           * One or two matrix keys to filter usage to this Matrix value by. For example,
+           * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
+           * instance tier.
+           */
+          dimension_values: Array<string | null>;
+
+          /**
+           * Unit price for the specified dimension_values
+           */
+          unit_amount: string;
+        }
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewSubscriptionTieredPackageWithMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'tiered_package_with_minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      tiered_package_with_minimum_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewSubscriptionTieredPackageWithMinimumPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredPackageWithMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewSubscriptionTieredPackageWithMinimumPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionTieredPackageWithMinimumPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewSubscriptionGroupedTieredPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      grouped_tiered_config: Record<string, unknown>;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'grouped_tiered';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewSubscriptionGroupedTieredPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedTieredPrice.DimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewSubscriptionGroupedTieredPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionGroupedTieredPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -23025,12 +29596,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
     export interface NewPercentageDiscount {
       adjustment_type: 'percentage_discount';
 
+      percentage_discount: number;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      percentage_discount: number;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -23042,12 +29613,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
     export interface NewUsageDiscount {
       adjustment_type: 'usage_discount';
 
+      usage_discount: number;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      usage_discount: number;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -23064,7 +29635,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -23077,16 +29648,16 @@ export namespace SubscriptionSchedulePlanChangeParams {
       adjustment_type: 'minimum';
 
       /**
-       * The set of price IDs to which this adjustment applies.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
        * The item ID that revenue from this minimum will be attributed to.
        */
       item_id: string;
 
       minimum_amount: string;
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -23098,12 +29669,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
     export interface NewMaximum {
       adjustment_type: 'maximum';
 
+      maximum_amount: string;
+
       /**
        * The set of price IDs to which this adjustment applies.
        */
-      applies_to_price_ids: Array<string>;
-
-      maximum_amount: string;
+      applies_to_price_ids?: Array<string> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -23181,6 +29752,9 @@ export namespace SubscriptionSchedulePlanChangeParams {
       | ReplacePrice.NewSubscriptionGroupedWithMeteredMinimumPrice
       | ReplacePrice.NewSubscriptionMatrixWithDisplayNamePrice
       | ReplacePrice.NewSubscriptionGroupedTieredPackagePrice
+      | ReplacePrice.NewSubscriptionMatrixWithAllocationPrice
+      | ReplacePrice.NewSubscriptionTieredPackageWithMinimumPrice
+      | ReplacePrice.NewSubscriptionGroupedTieredPrice
       | null;
 
     /**
@@ -23288,6 +29862,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionUnitPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -23345,6 +29924,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -23414,6 +30014,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -23477,6 +30082,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -23544,6 +30170,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMatrixPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -23632,6 +30263,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -23696,6 +30348,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -23777,6 +30434,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -23841,6 +30519,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -23928,6 +30611,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -23992,6 +30696,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -24059,6 +30768,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -24123,6 +30853,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBulkBpsPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -24205,6 +30940,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -24269,6 +31025,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * price is billed.
        */
       currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBulkPrice.DimensionalPriceConfiguration | null;
 
       /**
        * An alias for the price.
@@ -24345,6 +31106,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
        * Within each billing cycle, specifies the cadence at which invoices are produced.
        * If unspecified, a single invoice is produced per billing cycle.
        */
@@ -24411,6 +31193,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionThresholdTotalAmountPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -24461,6 +31248,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -24530,6 +31338,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -24580,6 +31393,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -24649,6 +31483,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredWithMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -24699,6 +31538,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -24768,6 +31628,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionUnitWithPercentPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -24818,6 +31683,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -24887,6 +31773,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionPackageWithAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -24937,6 +31828,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -25006,6 +31918,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTierWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -25056,6 +31973,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -25125,6 +32063,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionUnitWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -25175,6 +32118,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -25244,6 +32208,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -25294,6 +32263,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -25363,6 +32353,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedWithProratedMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -25413,6 +32408,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -25482,6 +32498,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionBulkWithProrationPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -25532,6 +32553,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -25601,6 +32643,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionScalableMatrixWithUnitPricingPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -25651,6 +32698,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -25720,6 +32788,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionScalableMatrixWithTieredPricingPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -25770,6 +32843,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -25839,6 +32933,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionCumulativeGroupedBulkPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -25889,6 +32988,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -25958,6 +33078,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMaxGroupTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -26008,6 +33133,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -26077,6 +33223,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedWithMeteredMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -26127,6 +33278,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -26196,6 +33368,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMatrixWithDisplayNamePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -26246,6 +33423,27 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -26315,6 +33513,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency?: string | null;
 
       /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+      /**
        * An alias for the price.
        */
       external_price_id?: string | null;
@@ -26365,6 +33568,500 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The unit of billing period duration.
          */
         duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewSubscriptionMatrixWithAllocationPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      matrix_with_allocation_config: NewSubscriptionMatrixWithAllocationPrice.MatrixWithAllocationConfig;
+
+      model_type: 'matrix_with_allocation';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewSubscriptionMatrixWithAllocationPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionMatrixWithAllocationPrice.DimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewSubscriptionMatrixWithAllocationPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionMatrixWithAllocationPrice {
+      export interface MatrixWithAllocationConfig {
+        /**
+         * Allocation to be used to calculate the price
+         */
+        allocation: number;
+
+        /**
+         * Default per unit rate for any usage not bucketed into a specified matrix_value
+         */
+        default_unit_amount: string;
+
+        /**
+         * One or two event property values to evaluate matrix groups by
+         */
+        dimensions: Array<string | null>;
+
+        /**
+         * Matrix values for specified matrix grouping keys
+         */
+        matrix_values: Array<MatrixWithAllocationConfig.MatrixValue>;
+      }
+
+      export namespace MatrixWithAllocationConfig {
+        export interface MatrixValue {
+          /**
+           * One or two matrix keys to filter usage to this Matrix value by. For example,
+           * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
+           * instance tier.
+           */
+          dimension_values: Array<string | null>;
+
+          /**
+           * Unit price for the specified dimension_values
+           */
+          unit_amount: string;
+        }
+      }
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewSubscriptionTieredPackageWithMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'tiered_package_with_minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      tiered_package_with_minimum_config: Record<string, unknown>;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewSubscriptionTieredPackageWithMinimumPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionTieredPackageWithMinimumPrice.DimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewSubscriptionTieredPackageWithMinimumPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionTieredPackageWithMinimumPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
+      }
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      export interface InvoicingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+    }
+
+    export interface NewSubscriptionGroupedTieredPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      grouped_tiered_config: Record<string, unknown>;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      model_type: 'grouped_tiered';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: NewSubscriptionGroupedTieredPrice.BillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: NewSubscriptionGroupedTieredPrice.DimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: NewSubscriptionGroupedTieredPrice.InvoicingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: Record<string, string | null> | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionGroupedTieredPrice {
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      export interface BillingCycleConfiguration {
+        /**
+         * The duration of the billing period.
+         */
+        duration: number;
+
+        /**
+         * The unit of billing period duration.
+         */
+        duration_unit: 'day' | 'month';
+      }
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      export interface DimensionalPriceConfiguration {
+        /**
+         * The list of dimension values matching (in order) the dimensions of the price
+         * group
+         */
+        dimension_values: Array<string>;
+
+        /**
+         * The id of the dimensional price group to include this price in
+         */
+        dimensional_price_group_id?: string | null;
+
+        /**
+         * The external id of the dimensional price group to include this price in
+         */
+        external_dimensional_price_group_id?: string | null;
       }
 
       /**
@@ -26432,7 +34129,7 @@ export interface SubscriptionUpdateFixedFeeQuantityParams {
 
   /**
    * The date that the quantity change should take effect, localized to the
-   * customer's timezone. Ifthis parameter is not passed in, the quantity change is
+   * customer's timezone. If this parameter is not passed in, the quantity change is
    * effective according to `change_option`.
    */
   effective_date?: string | null;

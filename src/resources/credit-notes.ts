@@ -254,14 +254,14 @@ export interface CreditNoteCreateParams {
   line_items: Array<CreditNoteCreateParams.LineItem>;
 
   /**
+   * An optional reason for the credit note.
+   */
+  reason: 'duplicate' | 'fraudulent' | 'order_change' | 'product_unsatisfactory';
+
+  /**
    * An optional memo to attach to the credit note.
    */
   memo?: string | null;
-
-  /**
-   * An optional reason for the credit note.
-   */
-  reason?: 'duplicate' | 'fraudulent' | 'order_change' | 'product_unsatisfactory' | null;
 }
 
 export namespace CreditNoteCreateParams {

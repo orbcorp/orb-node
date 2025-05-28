@@ -173,7 +173,8 @@ export namespace SubscriptionChangeRetrieveResponse {
     default_invoice_memo: string | null;
 
     /**
-     * The discount intervals for this subscription sorted by the start_date.
+     * @deprecated The discount intervals for this subscription sorted by the
+     * start_date.
      */
     discount_intervals: Array<
       | Subscription.AmountDiscountInterval
@@ -191,7 +192,8 @@ export namespace SubscriptionChangeRetrieveResponse {
     invoicing_threshold: string | null;
 
     /**
-     * The maximum intervals for this subscription sorted by the start_date.
+     * @deprecated The maximum intervals for this subscription sorted by the
+     * start_date.
      */
     maximum_intervals: Array<Subscription.MaximumInterval>;
 
@@ -204,9 +206,15 @@ export namespace SubscriptionChangeRetrieveResponse {
     metadata: Record<string, string>;
 
     /**
-     * The minimum intervals for this subscription sorted by the start_date.
+     * @deprecated The minimum intervals for this subscription sorted by the
+     * start_date.
      */
     minimum_intervals: Array<Subscription.MinimumInterval>;
+
+    /**
+     * The name of the subscription.
+     */
+    name: string;
 
     /**
      * Determines the difference between the invoice issue date for subscription
@@ -227,7 +235,7 @@ export namespace SubscriptionChangeRetrieveResponse {
      * subscription. You can see more about how to configure prices in the
      * [Price resource](/reference/price).
      */
-    plan: PlansAPI.Plan;
+    plan: PlansAPI.Plan | null;
 
     /**
      * The price intervals for this subscription.
@@ -287,9 +295,14 @@ export namespace SubscriptionChangeRetrieveResponse {
         adjustment_type: 'usage_discount';
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -314,6 +327,25 @@ export namespace SubscriptionChangeRetrieveResponse {
         usage_discount: number;
       }
 
+      export namespace PlanPhaseUsageDiscountAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
+      }
+
       export interface PlanPhaseAmountDiscountAdjustment {
         id: string;
 
@@ -326,9 +358,14 @@ export namespace SubscriptionChangeRetrieveResponse {
         amount_discount: string;
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -347,15 +384,39 @@ export namespace SubscriptionChangeRetrieveResponse {
         reason: string | null;
       }
 
+      export namespace PlanPhaseAmountDiscountAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
+      }
+
       export interface PlanPhasePercentageDiscountAdjustment {
         id: string;
 
         adjustment_type: 'percentage_discount';
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -380,15 +441,39 @@ export namespace SubscriptionChangeRetrieveResponse {
         reason: string | null;
       }
 
+      export namespace PlanPhasePercentageDiscountAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
+      }
+
       export interface PlanPhaseMinimumAdjustment {
         id: string;
 
         adjustment_type: 'minimum';
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -418,15 +503,39 @@ export namespace SubscriptionChangeRetrieveResponse {
         reason: string | null;
       }
 
+      export namespace PlanPhaseMinimumAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
+      }
+
       export interface PlanPhaseMaximumAdjustment {
         id: string;
 
         adjustment_type: 'maximum';
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -449,6 +558,25 @@ export namespace SubscriptionChangeRetrieveResponse {
          * The reason for the adjustment.
          */
         reason: string | null;
+      }
+
+      export namespace PlanPhaseMaximumAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
       }
     }
 
@@ -482,11 +610,6 @@ export namespace SubscriptionChangeRetrieveResponse {
       amount_discount: string;
 
       /**
-       * The price ids that this discount interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
        * The price interval ids that this discount interval applies to.
        */
       applies_to_price_interval_ids: Array<string>;
@@ -499,17 +622,36 @@ export namespace SubscriptionChangeRetrieveResponse {
       end_date: string | null;
 
       /**
+       * The filters that determine which prices this discount interval applies to.
+       */
+      filters: Array<AmountDiscountInterval.Filter>;
+
+      /**
        * The start date of the discount interval.
        */
       start_date: string;
     }
 
-    export interface PercentageDiscountInterval {
-      /**
-       * The price ids that this discount interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
+    export namespace AmountDiscountInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
+    export interface PercentageDiscountInterval {
       /**
        * The price interval ids that this discount interval applies to.
        */
@@ -523,6 +665,11 @@ export namespace SubscriptionChangeRetrieveResponse {
       end_date: string | null;
 
       /**
+       * The filters that determine which prices this discount interval applies to.
+       */
+      filters: Array<PercentageDiscountInterval.Filter>;
+
+      /**
        * Only available if discount_type is `percentage`.This is a number between 0
        * and 1.
        */
@@ -534,12 +681,26 @@ export namespace SubscriptionChangeRetrieveResponse {
       start_date: string;
     }
 
-    export interface UsageDiscountInterval {
-      /**
-       * The price ids that this discount interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
+    export namespace PercentageDiscountInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
+    export interface UsageDiscountInterval {
       /**
        * The price interval ids that this discount interval applies to.
        */
@@ -553,6 +714,11 @@ export namespace SubscriptionChangeRetrieveResponse {
       end_date: string | null;
 
       /**
+       * The filters that determine which prices this discount interval applies to.
+       */
+      filters: Array<UsageDiscountInterval.Filter>;
+
+      /**
        * The start date of the discount interval.
        */
       start_date: string;
@@ -562,6 +728,25 @@ export namespace SubscriptionChangeRetrieveResponse {
        * discount is for
        */
       usage_discount: number;
+    }
+
+    export namespace UsageDiscountInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     export interface FixedFeeQuantitySchedule {
@@ -576,11 +761,6 @@ export namespace SubscriptionChangeRetrieveResponse {
 
     export interface MaximumInterval {
       /**
-       * The price ids that this maximum interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
        * The price interval ids that this maximum interval applies to.
        */
       applies_to_price_interval_ids: Array<string>;
@@ -589,6 +769,11 @@ export namespace SubscriptionChangeRetrieveResponse {
        * The end date of the maximum interval.
        */
       end_date: string | null;
+
+      /**
+       * The filters that determine which prices this maximum interval applies to.
+       */
+      filters: Array<MaximumInterval.Filter>;
 
       /**
        * The maximum amount to charge in a given billing period for the price intervals
@@ -602,12 +787,26 @@ export namespace SubscriptionChangeRetrieveResponse {
       start_date: string;
     }
 
-    export interface MinimumInterval {
-      /**
-       * The price ids that this minimum interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
+    export namespace MaximumInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
+    export interface MinimumInterval {
       /**
        * The price interval ids that this minimum interval applies to.
        */
@@ -619,6 +818,11 @@ export namespace SubscriptionChangeRetrieveResponse {
       end_date: string | null;
 
       /**
+       * The filters that determine which prices this minimum interval applies to.
+       */
+      filters: Array<MinimumInterval.Filter>;
+
+      /**
        * The minimum amount to charge in a given billing period for the price intervals
        * this minimum applies to.
        */
@@ -628,6 +832,25 @@ export namespace SubscriptionChangeRetrieveResponse {
        * The start date of the minimum interval.
        */
       start_date: string;
+    }
+
+    export namespace MinimumInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     /**
@@ -866,7 +1089,8 @@ export namespace SubscriptionChangeApplyResponse {
     default_invoice_memo: string | null;
 
     /**
-     * The discount intervals for this subscription sorted by the start_date.
+     * @deprecated The discount intervals for this subscription sorted by the
+     * start_date.
      */
     discount_intervals: Array<
       | Subscription.AmountDiscountInterval
@@ -884,7 +1108,8 @@ export namespace SubscriptionChangeApplyResponse {
     invoicing_threshold: string | null;
 
     /**
-     * The maximum intervals for this subscription sorted by the start_date.
+     * @deprecated The maximum intervals for this subscription sorted by the
+     * start_date.
      */
     maximum_intervals: Array<Subscription.MaximumInterval>;
 
@@ -897,9 +1122,15 @@ export namespace SubscriptionChangeApplyResponse {
     metadata: Record<string, string>;
 
     /**
-     * The minimum intervals for this subscription sorted by the start_date.
+     * @deprecated The minimum intervals for this subscription sorted by the
+     * start_date.
      */
     minimum_intervals: Array<Subscription.MinimumInterval>;
+
+    /**
+     * The name of the subscription.
+     */
+    name: string;
 
     /**
      * Determines the difference between the invoice issue date for subscription
@@ -920,7 +1151,7 @@ export namespace SubscriptionChangeApplyResponse {
      * subscription. You can see more about how to configure prices in the
      * [Price resource](/reference/price).
      */
-    plan: PlansAPI.Plan;
+    plan: PlansAPI.Plan | null;
 
     /**
      * The price intervals for this subscription.
@@ -980,9 +1211,14 @@ export namespace SubscriptionChangeApplyResponse {
         adjustment_type: 'usage_discount';
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1007,6 +1243,25 @@ export namespace SubscriptionChangeApplyResponse {
         usage_discount: number;
       }
 
+      export namespace PlanPhaseUsageDiscountAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
+      }
+
       export interface PlanPhaseAmountDiscountAdjustment {
         id: string;
 
@@ -1019,9 +1274,14 @@ export namespace SubscriptionChangeApplyResponse {
         amount_discount: string;
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1040,15 +1300,39 @@ export namespace SubscriptionChangeApplyResponse {
         reason: string | null;
       }
 
+      export namespace PlanPhaseAmountDiscountAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
+      }
+
       export interface PlanPhasePercentageDiscountAdjustment {
         id: string;
 
         adjustment_type: 'percentage_discount';
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1073,15 +1357,39 @@ export namespace SubscriptionChangeApplyResponse {
         reason: string | null;
       }
 
+      export namespace PlanPhasePercentageDiscountAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
+      }
+
       export interface PlanPhaseMinimumAdjustment {
         id: string;
 
         adjustment_type: 'minimum';
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1111,15 +1419,39 @@ export namespace SubscriptionChangeApplyResponse {
         reason: string | null;
       }
 
+      export namespace PlanPhaseMinimumAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
+      }
+
       export interface PlanPhaseMaximumAdjustment {
         id: string;
 
         adjustment_type: 'maximum';
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1142,6 +1474,25 @@ export namespace SubscriptionChangeApplyResponse {
          * The reason for the adjustment.
          */
         reason: string | null;
+      }
+
+      export namespace PlanPhaseMaximumAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
       }
     }
 
@@ -1175,11 +1526,6 @@ export namespace SubscriptionChangeApplyResponse {
       amount_discount: string;
 
       /**
-       * The price ids that this discount interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
        * The price interval ids that this discount interval applies to.
        */
       applies_to_price_interval_ids: Array<string>;
@@ -1192,17 +1538,36 @@ export namespace SubscriptionChangeApplyResponse {
       end_date: string | null;
 
       /**
+       * The filters that determine which prices this discount interval applies to.
+       */
+      filters: Array<AmountDiscountInterval.Filter>;
+
+      /**
        * The start date of the discount interval.
        */
       start_date: string;
     }
 
-    export interface PercentageDiscountInterval {
-      /**
-       * The price ids that this discount interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
+    export namespace AmountDiscountInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
+    export interface PercentageDiscountInterval {
       /**
        * The price interval ids that this discount interval applies to.
        */
@@ -1216,6 +1581,11 @@ export namespace SubscriptionChangeApplyResponse {
       end_date: string | null;
 
       /**
+       * The filters that determine which prices this discount interval applies to.
+       */
+      filters: Array<PercentageDiscountInterval.Filter>;
+
+      /**
        * Only available if discount_type is `percentage`.This is a number between 0
        * and 1.
        */
@@ -1227,12 +1597,26 @@ export namespace SubscriptionChangeApplyResponse {
       start_date: string;
     }
 
-    export interface UsageDiscountInterval {
-      /**
-       * The price ids that this discount interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
+    export namespace PercentageDiscountInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
+    export interface UsageDiscountInterval {
       /**
        * The price interval ids that this discount interval applies to.
        */
@@ -1246,6 +1630,11 @@ export namespace SubscriptionChangeApplyResponse {
       end_date: string | null;
 
       /**
+       * The filters that determine which prices this discount interval applies to.
+       */
+      filters: Array<UsageDiscountInterval.Filter>;
+
+      /**
        * The start date of the discount interval.
        */
       start_date: string;
@@ -1255,6 +1644,25 @@ export namespace SubscriptionChangeApplyResponse {
        * discount is for
        */
       usage_discount: number;
+    }
+
+    export namespace UsageDiscountInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     export interface FixedFeeQuantitySchedule {
@@ -1269,11 +1677,6 @@ export namespace SubscriptionChangeApplyResponse {
 
     export interface MaximumInterval {
       /**
-       * The price ids that this maximum interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
        * The price interval ids that this maximum interval applies to.
        */
       applies_to_price_interval_ids: Array<string>;
@@ -1282,6 +1685,11 @@ export namespace SubscriptionChangeApplyResponse {
        * The end date of the maximum interval.
        */
       end_date: string | null;
+
+      /**
+       * The filters that determine which prices this maximum interval applies to.
+       */
+      filters: Array<MaximumInterval.Filter>;
 
       /**
        * The maximum amount to charge in a given billing period for the price intervals
@@ -1295,12 +1703,26 @@ export namespace SubscriptionChangeApplyResponse {
       start_date: string;
     }
 
-    export interface MinimumInterval {
-      /**
-       * The price ids that this minimum interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
+    export namespace MaximumInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
+    export interface MinimumInterval {
       /**
        * The price interval ids that this minimum interval applies to.
        */
@@ -1312,6 +1734,11 @@ export namespace SubscriptionChangeApplyResponse {
       end_date: string | null;
 
       /**
+       * The filters that determine which prices this minimum interval applies to.
+       */
+      filters: Array<MinimumInterval.Filter>;
+
+      /**
        * The minimum amount to charge in a given billing period for the price intervals
        * this minimum applies to.
        */
@@ -1321,6 +1748,25 @@ export namespace SubscriptionChangeApplyResponse {
        * The start date of the minimum interval.
        */
       start_date: string;
+    }
+
+    export namespace MinimumInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     /**
@@ -1559,7 +2005,8 @@ export namespace SubscriptionChangeCancelResponse {
     default_invoice_memo: string | null;
 
     /**
-     * The discount intervals for this subscription sorted by the start_date.
+     * @deprecated The discount intervals for this subscription sorted by the
+     * start_date.
      */
     discount_intervals: Array<
       | Subscription.AmountDiscountInterval
@@ -1577,7 +2024,8 @@ export namespace SubscriptionChangeCancelResponse {
     invoicing_threshold: string | null;
 
     /**
-     * The maximum intervals for this subscription sorted by the start_date.
+     * @deprecated The maximum intervals for this subscription sorted by the
+     * start_date.
      */
     maximum_intervals: Array<Subscription.MaximumInterval>;
 
@@ -1590,9 +2038,15 @@ export namespace SubscriptionChangeCancelResponse {
     metadata: Record<string, string>;
 
     /**
-     * The minimum intervals for this subscription sorted by the start_date.
+     * @deprecated The minimum intervals for this subscription sorted by the
+     * start_date.
      */
     minimum_intervals: Array<Subscription.MinimumInterval>;
+
+    /**
+     * The name of the subscription.
+     */
+    name: string;
 
     /**
      * Determines the difference between the invoice issue date for subscription
@@ -1613,7 +2067,7 @@ export namespace SubscriptionChangeCancelResponse {
      * subscription. You can see more about how to configure prices in the
      * [Price resource](/reference/price).
      */
-    plan: PlansAPI.Plan;
+    plan: PlansAPI.Plan | null;
 
     /**
      * The price intervals for this subscription.
@@ -1673,9 +2127,14 @@ export namespace SubscriptionChangeCancelResponse {
         adjustment_type: 'usage_discount';
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1700,6 +2159,25 @@ export namespace SubscriptionChangeCancelResponse {
         usage_discount: number;
       }
 
+      export namespace PlanPhaseUsageDiscountAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
+      }
+
       export interface PlanPhaseAmountDiscountAdjustment {
         id: string;
 
@@ -1712,9 +2190,14 @@ export namespace SubscriptionChangeCancelResponse {
         amount_discount: string;
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1733,15 +2216,39 @@ export namespace SubscriptionChangeCancelResponse {
         reason: string | null;
       }
 
+      export namespace PlanPhaseAmountDiscountAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
+      }
+
       export interface PlanPhasePercentageDiscountAdjustment {
         id: string;
 
         adjustment_type: 'percentage_discount';
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1766,15 +2273,39 @@ export namespace SubscriptionChangeCancelResponse {
         reason: string | null;
       }
 
+      export namespace PlanPhasePercentageDiscountAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
+      }
+
       export interface PlanPhaseMinimumAdjustment {
         id: string;
 
         adjustment_type: 'minimum';
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1804,15 +2335,39 @@ export namespace SubscriptionChangeCancelResponse {
         reason: string | null;
       }
 
+      export namespace PlanPhaseMinimumAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
+      }
+
       export interface PlanPhaseMaximumAdjustment {
         id: string;
 
         adjustment_type: 'maximum';
 
         /**
-         * The price IDs that this adjustment applies to.
+         * @deprecated The price IDs that this adjustment applies to.
          */
         applies_to_price_ids: Array<string>;
+
+        /**
+         * The filters that determine which prices to apply this adjustment to.
+         */
+        filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
         /**
          * True for adjustments that apply to an entire invocice, false for adjustments
@@ -1835,6 +2390,25 @@ export namespace SubscriptionChangeCancelResponse {
          * The reason for the adjustment.
          */
         reason: string | null;
+      }
+
+      export namespace PlanPhaseMaximumAdjustment {
+        export interface Filter {
+          /**
+           * The property of the price to filter on.
+           */
+          field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+          /**
+           * Should prices that match the filter be included or excluded.
+           */
+          operator: 'includes' | 'excludes';
+
+          /**
+           * The IDs or values that match this filter.
+           */
+          values: Array<string>;
+        }
       }
     }
 
@@ -1868,11 +2442,6 @@ export namespace SubscriptionChangeCancelResponse {
       amount_discount: string;
 
       /**
-       * The price ids that this discount interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
        * The price interval ids that this discount interval applies to.
        */
       applies_to_price_interval_ids: Array<string>;
@@ -1885,17 +2454,36 @@ export namespace SubscriptionChangeCancelResponse {
       end_date: string | null;
 
       /**
+       * The filters that determine which prices this discount interval applies to.
+       */
+      filters: Array<AmountDiscountInterval.Filter>;
+
+      /**
        * The start date of the discount interval.
        */
       start_date: string;
     }
 
-    export interface PercentageDiscountInterval {
-      /**
-       * The price ids that this discount interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
+    export namespace AmountDiscountInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
+    export interface PercentageDiscountInterval {
       /**
        * The price interval ids that this discount interval applies to.
        */
@@ -1909,6 +2497,11 @@ export namespace SubscriptionChangeCancelResponse {
       end_date: string | null;
 
       /**
+       * The filters that determine which prices this discount interval applies to.
+       */
+      filters: Array<PercentageDiscountInterval.Filter>;
+
+      /**
        * Only available if discount_type is `percentage`.This is a number between 0
        * and 1.
        */
@@ -1920,12 +2513,26 @@ export namespace SubscriptionChangeCancelResponse {
       start_date: string;
     }
 
-    export interface UsageDiscountInterval {
-      /**
-       * The price ids that this discount interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
+    export namespace PercentageDiscountInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
+    export interface UsageDiscountInterval {
       /**
        * The price interval ids that this discount interval applies to.
        */
@@ -1939,6 +2546,11 @@ export namespace SubscriptionChangeCancelResponse {
       end_date: string | null;
 
       /**
+       * The filters that determine which prices this discount interval applies to.
+       */
+      filters: Array<UsageDiscountInterval.Filter>;
+
+      /**
        * The start date of the discount interval.
        */
       start_date: string;
@@ -1948,6 +2560,25 @@ export namespace SubscriptionChangeCancelResponse {
        * discount is for
        */
       usage_discount: number;
+    }
+
+    export namespace UsageDiscountInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     export interface FixedFeeQuantitySchedule {
@@ -1962,11 +2593,6 @@ export namespace SubscriptionChangeCancelResponse {
 
     export interface MaximumInterval {
       /**
-       * The price ids that this maximum interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
-
-      /**
        * The price interval ids that this maximum interval applies to.
        */
       applies_to_price_interval_ids: Array<string>;
@@ -1975,6 +2601,11 @@ export namespace SubscriptionChangeCancelResponse {
        * The end date of the maximum interval.
        */
       end_date: string | null;
+
+      /**
+       * The filters that determine which prices this maximum interval applies to.
+       */
+      filters: Array<MaximumInterval.Filter>;
 
       /**
        * The maximum amount to charge in a given billing period for the price intervals
@@ -1988,12 +2619,26 @@ export namespace SubscriptionChangeCancelResponse {
       start_date: string;
     }
 
-    export interface MinimumInterval {
-      /**
-       * The price ids that this minimum interval applies to.
-       */
-      applies_to_price_ids: Array<string>;
+    export namespace MaximumInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
 
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
+    export interface MinimumInterval {
       /**
        * The price interval ids that this minimum interval applies to.
        */
@@ -2005,6 +2650,11 @@ export namespace SubscriptionChangeCancelResponse {
       end_date: string | null;
 
       /**
+       * The filters that determine which prices this minimum interval applies to.
+       */
+      filters: Array<MinimumInterval.Filter>;
+
+      /**
        * The minimum amount to charge in a given billing period for the price intervals
        * this minimum applies to.
        */
@@ -2014,6 +2664,25 @@ export namespace SubscriptionChangeCancelResponse {
        * The start date of the minimum interval.
        */
       start_date: string;
+    }
+
+    export namespace MinimumInterval {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     /**
