@@ -11358,10 +11358,26 @@ export namespace SubscriptionCreateParams {
       currency: string;
 
       /**
-       * Whether the allocated amount should expire at the end of the cadence or roll
-       * over to the next period.
+       * The custom expiration for the allocation.
        */
-      expires_at_end_of_cadence: boolean;
+      custom_expiration?: AllocationPrice.CustomExpiration | null;
+
+      /**
+       * Whether the allocated amount should expire at the end of the cadence or roll
+       * over to the next period. Set to null if using custom_expiration.
+       */
+      expires_at_end_of_cadence?: boolean | null;
+    }
+
+    export namespace AllocationPrice {
+      /**
+       * The custom expiration for the allocation.
+       */
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface Discount {
@@ -15907,10 +15923,26 @@ export namespace SubscriptionCreateParams {
       currency: string;
 
       /**
-       * Whether the allocated amount should expire at the end of the cadence or roll
-       * over to the next period.
+       * The custom expiration for the allocation.
        */
-      expires_at_end_of_cadence: boolean;
+      custom_expiration?: AllocationPrice.CustomExpiration | null;
+
+      /**
+       * Whether the allocated amount should expire at the end of the cadence or roll
+       * over to the next period. Set to null if using custom_expiration.
+       */
+      expires_at_end_of_cadence?: boolean | null;
+    }
+
+    export namespace AllocationPrice {
+      /**
+       * The custom expiration for the allocation.
+       */
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface Discount {
@@ -20517,10 +20549,26 @@ export namespace SubscriptionPriceIntervalsParams {
       currency: string;
 
       /**
-       * Whether the allocated amount should expire at the end of the cadence or roll
-       * over to the next period.
+       * The custom expiration for the allocation.
        */
-      expires_at_end_of_cadence: boolean;
+      custom_expiration?: AllocationPrice.CustomExpiration | null;
+
+      /**
+       * Whether the allocated amount should expire at the end of the cadence or roll
+       * over to the next period. Set to null if using custom_expiration.
+       */
+      expires_at_end_of_cadence?: boolean | null;
+    }
+
+    export namespace AllocationPrice {
+      /**
+       * The custom expiration for the allocation.
+       */
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface AmountDiscountCreationParams {
@@ -25236,10 +25284,26 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency: string;
 
       /**
-       * Whether the allocated amount should expire at the end of the cadence or roll
-       * over to the next period.
+       * The custom expiration for the allocation.
        */
-      expires_at_end_of_cadence: boolean;
+      custom_expiration?: AllocationPrice.CustomExpiration | null;
+
+      /**
+       * Whether the allocated amount should expire at the end of the cadence or roll
+       * over to the next period. Set to null if using custom_expiration.
+       */
+      expires_at_end_of_cadence?: boolean | null;
+    }
+
+    export namespace AllocationPrice {
+      /**
+       * The custom expiration for the allocation.
+       */
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface Discount {
@@ -29785,10 +29849,26 @@ export namespace SubscriptionSchedulePlanChangeParams {
       currency: string;
 
       /**
-       * Whether the allocated amount should expire at the end of the cadence or roll
-       * over to the next period.
+       * The custom expiration for the allocation.
        */
-      expires_at_end_of_cadence: boolean;
+      custom_expiration?: AllocationPrice.CustomExpiration | null;
+
+      /**
+       * Whether the allocated amount should expire at the end of the cadence or roll
+       * over to the next period. Set to null if using custom_expiration.
+       */
+      expires_at_end_of_cadence?: boolean | null;
+    }
+
+    export namespace AllocationPrice {
+      /**
+       * The custom expiration for the allocation.
+       */
+      export interface CustomExpiration {
+        duration: number;
+
+        duration_unit: 'day' | 'month';
+      }
     }
 
     export interface Discount {

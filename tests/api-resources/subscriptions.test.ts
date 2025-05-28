@@ -268,6 +268,7 @@ describe('resource subscriptions', () => {
             amount: '10.00',
             cadence: 'monthly',
             currency: 'USD',
+            custom_expiration: { duration: 0, duration_unit: 'day' },
             expires_at_end_of_cadence: true,
           },
           discounts: [
@@ -347,6 +348,7 @@ describe('resource subscriptions', () => {
             amount: '10.00',
             cadence: 'monthly',
             currency: 'USD',
+            custom_expiration: { duration: 0, duration_unit: 'day' },
             expires_at_end_of_cadence: true,
           },
           discounts: [
