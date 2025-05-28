@@ -3,6 +3,7 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
+import * as InvoicesAPI from '../../invoices';
 import { Page, type PageParams } from '../../../pagination';
 
 export class Ledger extends APIResource {
@@ -513,6 +514,11 @@ export namespace LedgerListResponse {
     metadata: Record<string, string>;
 
     starting_balance: number;
+
+    /**
+     * If the increment resulted in invoice creation, the list of created invoices
+     */
+    created_invoices?: Array<InvoicesAPI.Invoice> | null;
   }
 
   export namespace IncrementLedgerEntry {
@@ -896,6 +902,11 @@ export namespace LedgerCreateEntryResponse {
     metadata: Record<string, string>;
 
     starting_balance: number;
+
+    /**
+     * If the increment resulted in invoice creation, the list of created invoices
+     */
+    created_invoices?: Array<InvoicesAPI.Invoice> | null;
   }
 
   export namespace IncrementLedgerEntry {
@@ -1279,6 +1290,11 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     metadata: Record<string, string>;
 
     starting_balance: number;
+
+    /**
+     * If the increment resulted in invoice creation, the list of created invoices
+     */
+    created_invoices?: Array<InvoicesAPI.Invoice> | null;
   }
 
   export namespace IncrementLedgerEntry {
@@ -1662,6 +1678,11 @@ export namespace LedgerListByExternalIDResponse {
     metadata: Record<string, string>;
 
     starting_balance: number;
+
+    /**
+     * If the increment resulted in invoice creation, the list of created invoices
+     */
+    created_invoices?: Array<InvoicesAPI.Invoice> | null;
   }
 
   export namespace IncrementLedgerEntry {

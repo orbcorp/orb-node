@@ -4,13 +4,20 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as Shared from '../shared';
-import * as ExternalPlanIDAPI from './external-plan-id';
-import { ExternalPlanID, ExternalPlanIDUpdateParams } from './external-plan-id';
+import * as VersionsAPI from './versions';
+import { VersionCreateParams, VersionCreateResponse, VersionRetrieveResponse, Versions } from './versions';
 import * as PricesAPI from '../prices/prices';
+import * as ExternalPlanIDAPI from './external-plan-id/external-plan-id';
+import {
+  ExternalPlanID,
+  ExternalPlanIDSetDefaultVersionParams,
+  ExternalPlanIDUpdateParams,
+} from './external-plan-id/external-plan-id';
 import { Page, type PageParams } from '../../pagination';
 
 export class Plans extends APIResource {
   externalPlanId: ExternalPlanIDAPI.ExternalPlanID = new ExternalPlanIDAPI.ExternalPlanID(this._client);
+  versions: VersionsAPI.Versions = new VersionsAPI.Versions(this._client);
 
   /**
    * This endpoint allows creation of plans including their prices.
@@ -23,7 +30,7 @@ export class Plans extends APIResource {
    * This endpoint can be used to update the `external_plan_id`, and `metadata` of an
    * existing plan.
    *
-   * Other fields on a customer are currently immutable.
+   * Other fields on a plan are currently immutable.
    */
   update(planId: string, body: PlanUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Plan> {
     return this._client.put(`/plans/${planId}`, { body, ...options });
@@ -69,6 +76,20 @@ export class Plans extends APIResource {
    */
   fetch(planId: string, options?: Core.RequestOptions): Core.APIPromise<Plan> {
     return this._client.get(`/plans/${planId}`, options);
+  }
+
+  /**
+   * This API endpoint is in beta and its interface may change. It is recommended for
+   * use only in test mode.
+   *
+   * This endpoint allows setting the default version of a plan.
+   */
+  setDefaultVersion(
+    planId: string,
+    body: PlanSetDefaultVersionParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Plan> {
+    return this._client.post(`/plans/${planId}/set_default_version`, { body, ...options });
   }
 }
 
@@ -119,6 +140,9 @@ export interface Plan {
 
   description: string;
 
+  /**
+   * @deprecated
+   */
   discount: Shared.Discount | null;
 
   /**
@@ -134,8 +158,14 @@ export interface Plan {
    */
   invoicing_currency: string;
 
+  /**
+   * @deprecated
+   */
   maximum: Plan.Maximum | null;
 
+  /**
+   * @deprecated
+   */
   maximum_amount: string | null;
 
   /**
@@ -146,8 +176,14 @@ export interface Plan {
    */
   metadata: Record<string, string>;
 
+  /**
+   * @deprecated
+   */
   minimum: Plan.Minimum | null;
 
+  /**
+   * @deprecated
+   */
   minimum_amount: string | null;
 
   name: string;
@@ -185,9 +221,14 @@ export namespace Plan {
     adjustment_type: 'usage_discount';
 
     /**
-     * The price IDs that this adjustment applies to.
+     * @deprecated The price IDs that this adjustment applies to.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
     /**
      * True for adjustments that apply to an entire invocice, false for adjustments
@@ -212,6 +253,25 @@ export namespace Plan {
     usage_discount: number;
   }
 
+  export namespace PlanPhaseUsageDiscountAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface PlanPhaseAmountDiscountAdjustment {
     id: string;
 
@@ -224,9 +284,14 @@ export namespace Plan {
     amount_discount: string;
 
     /**
-     * The price IDs that this adjustment applies to.
+     * @deprecated The price IDs that this adjustment applies to.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
     /**
      * True for adjustments that apply to an entire invocice, false for adjustments
@@ -245,15 +310,39 @@ export namespace Plan {
     reason: string | null;
   }
 
+  export namespace PlanPhaseAmountDiscountAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface PlanPhasePercentageDiscountAdjustment {
     id: string;
 
     adjustment_type: 'percentage_discount';
 
     /**
-     * The price IDs that this adjustment applies to.
+     * @deprecated The price IDs that this adjustment applies to.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
     /**
      * True for adjustments that apply to an entire invocice, false for adjustments
@@ -278,15 +367,39 @@ export namespace Plan {
     reason: string | null;
   }
 
+  export namespace PlanPhasePercentageDiscountAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface PlanPhaseMinimumAdjustment {
     id: string;
 
     adjustment_type: 'minimum';
 
     /**
-     * The price IDs that this adjustment applies to.
+     * @deprecated The price IDs that this adjustment applies to.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
     /**
      * True for adjustments that apply to an entire invocice, false for adjustments
@@ -316,15 +429,39 @@ export namespace Plan {
     reason: string | null;
   }
 
+  export namespace PlanPhaseMinimumAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface PlanPhaseMaximumAdjustment {
     id: string;
 
     adjustment_type: 'maximum';
 
     /**
-     * The price IDs that this adjustment applies to.
+     * @deprecated The price IDs that this adjustment applies to.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
     /**
      * True for adjustments that apply to an entire invocice, false for adjustments
@@ -349,6 +486,25 @@ export namespace Plan {
     reason: string | null;
   }
 
+  export namespace PlanPhaseMaximumAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface BasePlan {
     id: string | null;
 
@@ -362,12 +518,20 @@ export namespace Plan {
     name: string | null;
   }
 
+  /**
+   * @deprecated
+   */
   export interface Maximum {
     /**
-     * List of price_ids that this maximum amount applies to. For plan/plan phase
-     * maximums, this can be a subset of prices.
+     * @deprecated List of price_ids that this maximum amount applies to. For plan/plan
+     * phase maximums, this can be a subset of prices.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this maximum to.
+     */
+    filters: Array<Maximum.Filter>;
 
     /**
      * Maximum amount applied
@@ -375,17 +539,63 @@ export namespace Plan {
     maximum_amount: string;
   }
 
+  export namespace Maximum {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  /**
+   * @deprecated
+   */
   export interface Minimum {
     /**
-     * List of price_ids that this minimum amount applies to. For plan/plan phase
-     * minimums, this can be a subset of prices.
+     * @deprecated List of price_ids that this minimum amount applies to. For plan/plan
+     * phase minimums, this can be a subset of prices.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this minimum to.
+     */
+    filters: Array<Minimum.Filter>;
 
     /**
      * Minimum amount applied
      */
     minimum_amount: string;
+  }
+
+  export namespace Minimum {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface PlanPhase {
@@ -422,10 +632,15 @@ export namespace Plan {
   export namespace PlanPhase {
     export interface Maximum {
       /**
-       * List of price_ids that this maximum amount applies to. For plan/plan phase
-       * maximums, this can be a subset of prices.
+       * @deprecated List of price_ids that this maximum amount applies to. For plan/plan
+       * phase maximums, this can be a subset of prices.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this maximum to.
+       */
+      filters: Array<Maximum.Filter>;
 
       /**
        * Maximum amount applied
@@ -433,17 +648,60 @@ export namespace Plan {
       maximum_amount: string;
     }
 
+    export namespace Maximum {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
+
     export interface Minimum {
       /**
-       * List of price_ids that this minimum amount applies to. For plan/plan phase
-       * minimums, this can be a subset of prices.
+       * @deprecated List of price_ids that this minimum amount applies to. For plan/plan
+       * phase minimums, this can be a subset of prices.
        */
       applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this minimum to.
+       */
+      filters: Array<Minimum.Filter>;
 
       /**
        * Minimum amount applied
        */
       minimum_amount: string;
+    }
+
+    export namespace Minimum {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -501,6 +759,9 @@ export interface PlanCreateParams {
     | PlanCreateParams.NewPlanScalableMatrixWithUnitPricingPrice
     | PlanCreateParams.NewPlanScalableMatrixWithTieredPricingPrice
     | PlanCreateParams.NewPlanCumulativeGroupedBulkPrice
+    | PlanCreateParams.NewPlanTieredPackageWithMinimumPrice
+    | PlanCreateParams.NewPlanMatrixWithAllocationPrice
+    | PlanCreateParams.NewPlanGroupedTieredPrice
   >;
 
   /**
@@ -582,6 +843,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanUnitPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -633,6 +899,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -702,6 +989,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanPackagePrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -759,6 +1051,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -826,6 +1139,11 @@ export namespace PlanCreateParams {
      * price is billed.
      */
     currency?: string | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanMatrixPrice.DimensionalPriceConfiguration | null;
 
     /**
      * An alias for the price.
@@ -908,6 +1226,27 @@ export namespace PlanCreateParams {
     }
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
+    }
+
+    /**
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
@@ -972,6 +1311,11 @@ export namespace PlanCreateParams {
      * price is billed.
      */
     currency?: string | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanTieredPrice.DimensionalPriceConfiguration | null;
 
     /**
      * An alias for the price.
@@ -1047,6 +1391,27 @@ export namespace PlanCreateParams {
     }
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
+    }
+
+    /**
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
@@ -1111,6 +1476,11 @@ export namespace PlanCreateParams {
      * price is billed.
      */
     currency?: string | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanTieredBpsPrice.DimensionalPriceConfiguration | null;
 
     /**
      * An alias for the price.
@@ -1192,6 +1562,27 @@ export namespace PlanCreateParams {
     }
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
+    }
+
+    /**
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
@@ -1258,6 +1649,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanBpsPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -1314,6 +1710,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -1381,6 +1798,11 @@ export namespace PlanCreateParams {
      * price is billed.
      */
     currency?: string | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanBulkBpsPrice.DimensionalPriceConfiguration | null;
 
     /**
      * An alias for the price.
@@ -1457,6 +1879,27 @@ export namespace PlanCreateParams {
     }
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
+    }
+
+    /**
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
@@ -1521,6 +1964,11 @@ export namespace PlanCreateParams {
      * price is billed.
      */
     currency?: string | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanBulkPrice.DimensionalPriceConfiguration | null;
 
     /**
      * An alias for the price.
@@ -1591,6 +2039,27 @@ export namespace PlanCreateParams {
     }
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
+    }
+
+    /**
      * Within each billing cycle, specifies the cadence at which invoices are produced.
      * If unspecified, a single invoice is produced per billing cycle.
      */
@@ -1657,6 +2126,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanThresholdTotalAmountPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -1701,6 +2175,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -1770,6 +2265,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -1814,6 +2314,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -1883,6 +2404,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanTieredWithMinimumPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -1927,6 +2453,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -1996,6 +2543,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanUnitWithPercentPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2040,6 +2592,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -2109,6 +2682,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanPackageWithAllocationPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2153,6 +2731,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -2222,6 +2821,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanTierWithProrationPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2266,6 +2870,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -2335,6 +2960,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanUnitWithProrationPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2379,6 +3009,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -2448,6 +3099,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanGroupedAllocationPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2492,6 +3148,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -2561,6 +3238,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanGroupedWithProratedMinimumPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2605,6 +3287,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -2674,6 +3377,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanGroupedWithMeteredMinimumPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2718,6 +3426,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -2787,6 +3516,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanMatrixWithDisplayNamePrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2831,6 +3565,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -2900,6 +3655,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanBulkWithProrationPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -2944,6 +3704,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -3013,6 +3794,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanGroupedTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -3057,6 +3843,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -3126,6 +3933,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanMaxGroupTieredPackagePrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -3170,6 +3982,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -3239,6 +4072,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanScalableMatrixWithUnitPricingPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -3283,6 +4121,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -3352,6 +4211,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanScalableMatrixWithTieredPricingPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -3396,6 +4260,27 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -3465,6 +4350,11 @@ export namespace PlanCreateParams {
     currency?: string | null;
 
     /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanCumulativeGroupedBulkPrice.DimensionalPriceConfiguration | null;
+
+    /**
      * An alias for the price.
      */
     external_price_id?: string | null;
@@ -3509,6 +4399,482 @@ export namespace PlanCreateParams {
        * The unit of billing period duration.
        */
       duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+  }
+
+  export interface NewPlanTieredPackageWithMinimumPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'tiered_package_with_minimum';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    tiered_package_with_minimum_config: Record<string, unknown>;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: NewPlanTieredPackageWithMinimumPrice.BillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanTieredPackageWithMinimumPrice.DimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: NewPlanTieredPackageWithMinimumPrice.InvoicingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewPlanTieredPackageWithMinimumPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+  }
+
+  export interface NewPlanMatrixWithAllocationPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    matrix_with_allocation_config: NewPlanMatrixWithAllocationPrice.MatrixWithAllocationConfig;
+
+    model_type: 'matrix_with_allocation';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: NewPlanMatrixWithAllocationPrice.BillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanMatrixWithAllocationPrice.DimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: NewPlanMatrixWithAllocationPrice.InvoicingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewPlanMatrixWithAllocationPrice {
+    export interface MatrixWithAllocationConfig {
+      /**
+       * Allocation to be used to calculate the price
+       */
+      allocation: number;
+
+      /**
+       * Default per unit rate for any usage not bucketed into a specified matrix_value
+       */
+      default_unit_amount: string;
+
+      /**
+       * One or two event property values to evaluate matrix groups by
+       */
+      dimensions: Array<string | null>;
+
+      /**
+       * Matrix values for specified matrix grouping keys
+       */
+      matrix_values: Array<MatrixWithAllocationConfig.MatrixValue>;
+    }
+
+    export namespace MatrixWithAllocationConfig {
+      export interface MatrixValue {
+        /**
+         * One or two matrix keys to filter usage to this Matrix value by. For example,
+         * ["region", "tier"] could be used to filter cloud usage by a cloud region and an
+         * instance tier.
+         */
+        dimension_values: Array<string | null>;
+
+        /**
+         * Unit price for the specified dimension_values
+         */
+        unit_amount: string;
+      }
+    }
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
+    }
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    export interface InvoicingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+  }
+
+  export interface NewPlanGroupedTieredPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    grouped_tiered_config: Record<string, unknown>;
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    model_type: 'grouped_tiered';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: NewPlanGroupedTieredPrice.BillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+     * price is billed.
+     */
+    currency?: string | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: NewPlanGroupedTieredPrice.DimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: NewPlanGroupedTieredPrice.InvoicingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: Record<string, string | null> | null;
+  }
+
+  export namespace NewPlanGroupedTieredPrice {
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    export interface BillingCycleConfiguration {
+      /**
+       * The duration of the billing period.
+       */
+      duration: number;
+
+      /**
+       * The unit of billing period duration.
+       */
+      duration_unit: 'day' | 'month';
+    }
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    export interface DimensionalPriceConfiguration {
+      /**
+       * The list of dimension values matching (in order) the dimensions of the price
+       * group
+       */
+      dimension_values: Array<string>;
+
+      /**
+       * The id of the dimensional price group to include this price in
+       */
+      dimensional_price_group_id?: string | null;
+
+      /**
+       * The external id of the dimensional price group to include this price in
+       */
+      external_dimensional_price_group_id?: string | null;
     }
 
     /**
@@ -3560,8 +4926,16 @@ export interface PlanListParams extends PageParams {
   status?: 'active' | 'archived' | 'draft';
 }
 
+export interface PlanSetDefaultVersionParams {
+  /**
+   * Plan version to set as the default.
+   */
+  version: number;
+}
+
 Plans.PlansPage = PlansPage;
 Plans.ExternalPlanID = ExternalPlanID;
+Plans.Versions = Versions;
 
 export declare namespace Plans {
   export {
@@ -3570,7 +4944,19 @@ export declare namespace Plans {
     type PlanCreateParams as PlanCreateParams,
     type PlanUpdateParams as PlanUpdateParams,
     type PlanListParams as PlanListParams,
+    type PlanSetDefaultVersionParams as PlanSetDefaultVersionParams,
   };
 
-  export { ExternalPlanID as ExternalPlanID, type ExternalPlanIDUpdateParams as ExternalPlanIDUpdateParams };
+  export {
+    ExternalPlanID as ExternalPlanID,
+    type ExternalPlanIDUpdateParams as ExternalPlanIDUpdateParams,
+    type ExternalPlanIDSetDefaultVersionParams as ExternalPlanIDSetDefaultVersionParams,
+  };
+
+  export {
+    Versions as Versions,
+    type VersionCreateResponse as VersionCreateResponse,
+    type VersionRetrieveResponse as VersionRetrieveResponse,
+    type VersionCreateParams as VersionCreateParams,
+  };
 }

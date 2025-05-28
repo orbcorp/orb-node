@@ -6,13 +6,13 @@ export interface AmountDiscount {
    */
   amount_discount: string;
 
+  discount_type: 'amount';
+
   /**
    * List of price_ids that this discount applies to. For plan/plan phase discounts,
    * this can be a subset of prices.
    */
-  applies_to_price_ids: Array<string>;
-
-  discount_type: 'amount';
+  applies_to_price_ids?: Array<string> | null;
 
   reason?: string | null;
 }
@@ -30,12 +30,6 @@ export interface PaginationMetadata {
 }
 
 export interface PercentageDiscount {
-  /**
-   * List of price_ids that this discount applies to. For plan/plan phase discounts,
-   * this can be a subset of prices.
-   */
-  applies_to_price_ids: Array<string>;
-
   discount_type: 'percentage';
 
   /**
@@ -44,17 +38,23 @@ export interface PercentageDiscount {
    */
   percentage_discount: number;
 
-  reason?: string | null;
-}
-
-export interface TrialDiscount {
   /**
    * List of price_ids that this discount applies to. For plan/plan phase discounts,
    * this can be a subset of prices.
    */
-  applies_to_price_ids: Array<string>;
+  applies_to_price_ids?: Array<string> | null;
 
+  reason?: string | null;
+}
+
+export interface TrialDiscount {
   discount_type: 'trial';
+
+  /**
+   * List of price_ids that this discount applies to. For plan/plan phase discounts,
+   * this can be a subset of prices.
+   */
+  applies_to_price_ids?: Array<string> | null;
 
   reason?: string | null;
 
@@ -70,12 +70,6 @@ export interface TrialDiscount {
 }
 
 export interface UsageDiscount {
-  /**
-   * List of price_ids that this discount applies to. For plan/plan phase discounts,
-   * this can be a subset of prices.
-   */
-  applies_to_price_ids: Array<string>;
-
   discount_type: 'usage';
 
   /**
@@ -83,6 +77,12 @@ export interface UsageDiscount {
    * discount is for
    */
   usage_discount: number;
+
+  /**
+   * List of price_ids that this discount applies to. For plan/plan phase discounts,
+   * this can be a subset of prices.
+   */
+  applies_to_price_ids?: Array<string> | null;
 
   reason?: string | null;
 }

@@ -166,9 +166,14 @@ export namespace InvoiceLineItemCreateResponse {
     amount: string;
 
     /**
-     * The price IDs that this adjustment applies to.
+     * @deprecated The price IDs that this adjustment applies to.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<MonetaryUsageDiscountAdjustment.Filter>;
 
     /**
      * True for adjustments that apply to an entire invocice, false for adjustments
@@ -188,6 +193,25 @@ export namespace InvoiceLineItemCreateResponse {
     usage_discount: number;
   }
 
+  export namespace MonetaryUsageDiscountAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface MonetaryAmountDiscountAdjustment {
     id: string;
 
@@ -205,9 +229,14 @@ export namespace InvoiceLineItemCreateResponse {
     amount_discount: string;
 
     /**
-     * The price IDs that this adjustment applies to.
+     * @deprecated The price IDs that this adjustment applies to.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<MonetaryAmountDiscountAdjustment.Filter>;
 
     /**
      * True for adjustments that apply to an entire invocice, false for adjustments
@@ -221,6 +250,25 @@ export namespace InvoiceLineItemCreateResponse {
     reason: string | null;
   }
 
+  export namespace MonetaryAmountDiscountAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface MonetaryPercentageDiscountAdjustment {
     id: string;
 
@@ -232,9 +280,14 @@ export namespace InvoiceLineItemCreateResponse {
     amount: string;
 
     /**
-     * The price IDs that this adjustment applies to.
+     * @deprecated The price IDs that this adjustment applies to.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<MonetaryPercentageDiscountAdjustment.Filter>;
 
     /**
      * True for adjustments that apply to an entire invocice, false for adjustments
@@ -254,6 +307,25 @@ export namespace InvoiceLineItemCreateResponse {
     reason: string | null;
   }
 
+  export namespace MonetaryPercentageDiscountAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface MonetaryMinimumAdjustment {
     id: string;
 
@@ -265,9 +337,14 @@ export namespace InvoiceLineItemCreateResponse {
     amount: string;
 
     /**
-     * The price IDs that this adjustment applies to.
+     * @deprecated The price IDs that this adjustment applies to.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<MonetaryMinimumAdjustment.Filter>;
 
     /**
      * True for adjustments that apply to an entire invocice, false for adjustments
@@ -292,6 +369,25 @@ export namespace InvoiceLineItemCreateResponse {
     reason: string | null;
   }
 
+  export namespace MonetaryMinimumAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface MonetaryMaximumAdjustment {
     id: string;
 
@@ -303,9 +399,14 @@ export namespace InvoiceLineItemCreateResponse {
     amount: string;
 
     /**
-     * The price IDs that this adjustment applies to.
+     * @deprecated The price IDs that this adjustment applies to.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<MonetaryMaximumAdjustment.Filter>;
 
     /**
      * True for adjustments that apply to an entire invocice, false for adjustments
@@ -325,15 +426,39 @@ export namespace InvoiceLineItemCreateResponse {
     reason: string | null;
   }
 
+  export namespace MonetaryMaximumAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   /**
    * @deprecated This field is deprecated in favor of `adjustments`.
    */
   export interface Maximum {
     /**
-     * List of price_ids that this maximum amount applies to. For plan/plan phase
-     * maximums, this can be a subset of prices.
+     * @deprecated List of price_ids that this maximum amount applies to. For plan/plan
+     * phase maximums, this can be a subset of prices.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this maximum to.
+     */
+    filters: Array<Maximum.Filter>;
 
     /**
      * Maximum amount applied
@@ -341,20 +466,63 @@ export namespace InvoiceLineItemCreateResponse {
     maximum_amount: string;
   }
 
+  export namespace Maximum {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   /**
    * @deprecated This field is deprecated in favor of `adjustments`.
    */
   export interface Minimum {
     /**
-     * List of price_ids that this minimum amount applies to. For plan/plan phase
-     * minimums, this can be a subset of prices.
+     * @deprecated List of price_ids that this minimum amount applies to. For plan/plan
+     * phase minimums, this can be a subset of prices.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this minimum to.
+     */
+    filters: Array<Minimum.Filter>;
 
     /**
      * Minimum amount applied
      */
     minimum_amount: string;
+  }
+
+  export namespace Minimum {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface MatrixSubLineItem {

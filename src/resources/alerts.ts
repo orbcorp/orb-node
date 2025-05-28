@@ -224,6 +224,12 @@ export interface Alert {
     | 'credit_balance_recovered'
     | 'usage_exceeded'
     | 'cost_exceeded';
+
+  /**
+   * The current status of the alert. This field is only present for credit balance
+   * alerts.
+   */
+  balance_alert_status?: Array<Alert.BalanceAlertStatus> | null;
 }
 
 export namespace Alert {
@@ -279,6 +285,21 @@ export namespace Alert {
      * or above this value.
      */
     value: number;
+  }
+
+  /**
+   * Alert status is used to determine if an alert is currently in-alert or not.
+   */
+  export interface BalanceAlertStatus {
+    /**
+     * Whether the alert is currently in-alert or not.
+     */
+    in_alert: boolean;
+
+    /**
+     * The value of the threshold that defines the alert status.
+     */
+    threshold_value: number;
   }
 }
 

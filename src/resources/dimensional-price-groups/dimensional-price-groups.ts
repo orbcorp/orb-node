@@ -20,7 +20,7 @@ export class DimensionalPriceGroups extends APIResource {
    * For example, suppose we have a billable metric that measures the number of
    * widgets used and we want to charge differently depending on the color of the
    * widget. We can create a price group with a dimension "color" and two prices: one
-   * that charges $10 per red widget and one that charges $20 per blue widget.
+   * that charges \$10 per red widget and one that charges \$20 per blue widget.
    */
   create(
     body: DimensionalPriceGroupCreateParams,

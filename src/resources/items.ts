@@ -37,6 +37,13 @@ export class Items extends APIResource {
   }
 
   /**
+   * Archive item
+   */
+  archive(itemId: string, options?: Core.RequestOptions): Core.APIPromise<Item> {
+    return this._client.post(`/items/${itemId}/archive`, options);
+  }
+
+  /**
    * This endpoint returns an item identified by its item_id.
    */
   fetch(itemId: string, options?: Core.RequestOptions): Core.APIPromise<Item> {
@@ -57,6 +64,14 @@ export interface Item {
   created_at: string;
 
   external_connections: Array<Item.ExternalConnection>;
+
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: Record<string, string>;
 
   name: string;
 }
@@ -81,10 +96,24 @@ export interface ItemCreateParams {
    * The name of the item.
    */
   name: string;
+
+  /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: Record<string, string | null> | null;
 }
 
 export interface ItemUpdateParams {
   external_connections?: Array<ItemUpdateParams.ExternalConnection> | null;
+
+  /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: Record<string, string | null> | null;
 
   name?: string | null;
 }

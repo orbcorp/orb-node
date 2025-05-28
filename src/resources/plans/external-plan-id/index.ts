@@ -4,16 +4,7 @@ export {
   ExternalPlanID,
   type ExternalPlanIDUpdateParams,
   type ExternalPlanIDSetDefaultVersionParams,
-} from './external-plan-id/index';
-export {
-  PlansPage,
-  Plans,
-  type Plan,
-  type PlanCreateParams,
-  type PlanUpdateParams,
-  type PlanListParams,
-  type PlanSetDefaultVersionParams,
-} from './plans';
+} from './external-plan-id';
 export {
   Versions,
   type VersionCreateResponse,

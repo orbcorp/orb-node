@@ -12,6 +12,7 @@ describe('resource creditNotes', () => {
   test('create: only required params', async () => {
     const responsePromise = client.creditNotes.create({
       line_items: [{ amount: 'amount', invoice_line_item_id: '4khy3nwzktxv7' }],
+      reason: 'duplicate',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -25,8 +26,8 @@ describe('resource creditNotes', () => {
   test('create: required and optional params', async () => {
     const response = await client.creditNotes.create({
       line_items: [{ amount: 'amount', invoice_line_item_id: '4khy3nwzktxv7' }],
-      memo: 'An optional memo for my credit note.',
       reason: 'duplicate',
+      memo: 'An optional memo for my credit note.',
     });
   });
 
