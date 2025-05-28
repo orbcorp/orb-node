@@ -54,6 +54,41 @@ export class Prices extends APIResource {
   }
 
   /**
+   * [NOTE] It is recommended to use the `/v1/prices/evaluate` which offers further
+   * functionality, such as multiple prices, inline price definitions, and querying
+   * over preview events.
+   *
+   * This endpoint is used to evaluate the output of a price for a given customer and
+   * time range. It enables filtering and grouping the output using
+   * [computed properties](/extensibility/advanced-metrics#computed-properties),
+   * supporting the following workflows:
+   *
+   * 1. Showing detailed usage and costs to the end customer.
+   * 2. Auditing subtotals on invoice line items.
+   *
+   * For these workflows, the expressiveness of computed properties in both the
+   * filters and grouping is critical. For example, if you'd like to show your
+   * customer their usage grouped by hour and another property, you can do so with
+   * the following `grouping_keys`:
+   * `["hour_floor_timestamp_millis(timestamp_millis)", "my_property"]`. If you'd
+   * like to examine a customer's usage for a specific property value, you can do so
+   * with the following `filter`:
+   * `my_property = 'foo' AND my_other_property = 'bar'`.
+   *
+   * By default, the start of the time range must be no more than 100 days ago and
+   * the length of the results must be no greater than 1000. Note that this is a POST
+   * endpoint rather than a GET endpoint because it employs a JSON body rather than
+   * query parameters.
+   */
+  evaluate(
+    priceId: string,
+    body: PriceEvaluateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PriceEvaluateResponse> {
+    return this._client.post(`/prices/${priceId}/evaluate`, { body, ...options });
+  }
+
+  /**
    * This endpoint is used to evaluate the output of price(s) for a given customer
    * and time range over either ingested events or preview events. It enables
    * filtering and grouping the output using
@@ -85,7 +120,10 @@ export class Prices extends APIResource {
    * endpoint rather than a GET endpoint because it employs a JSON body rather than
    * query parameters.
    */
-  evaluate(body: PriceEvaluateParams, options?: Core.RequestOptions): Core.APIPromise<PriceEvaluateResponse> {
+  evaluateMultiple(
+    body: PriceEvaluateMultipleParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PriceEvaluateMultipleResponse> {
     return this._client.post('/prices/evaluate', { body, ...options });
   }
 
@@ -5606,10 +5644,14 @@ export namespace Price {
 }
 
 export interface PriceEvaluateResponse {
-  data: Array<PriceEvaluateResponse.Data>;
+  data: Array<EvaluatePriceGroup>;
 }
 
-export namespace PriceEvaluateResponse {
+export interface PriceEvaluateMultipleResponse {
+  data: Array<PriceEvaluateMultipleResponse.Data>;
+}
+
+export namespace PriceEvaluateMultipleResponse {
   export interface Data {
     /**
      * The currency of the price
@@ -9766,9 +9808,45 @@ export interface PriceEvaluateParams {
   customer_id?: string | null;
 
   /**
+   * The external customer ID of the customer to which this evaluation is scoped.
+   */
+  external_customer_id?: string | null;
+
+  /**
+   * A boolean
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the underlying billable metric
+   */
+  filter?: string | null;
+
+  /**
+   * Properties (or
+   * [computed properties](/extensibility/advanced-metrics#computed-properties)) used
+   * to group the underlying billable metric
+   */
+  grouping_keys?: Array<string>;
+}
+
+export interface PriceEvaluateMultipleParams {
+  /**
+   * The exclusive upper bound for event timestamps
+   */
+  timeframe_end: string;
+
+  /**
+   * The inclusive lower bound for event timestamps
+   */
+  timeframe_start: string;
+
+  /**
+   * The ID of the customer to which this evaluation is scoped.
+   */
+  customer_id?: string | null;
+
+  /**
    * Optional list of preview events to use instead of actual usage data (max 500)
    */
-  events?: Array<PriceEvaluateParams.Event> | null;
+  events?: Array<PriceEvaluateMultipleParams.Event> | null;
 
   /**
    * The external customer ID of the customer to which this evaluation is scoped.
@@ -9778,10 +9856,10 @@ export interface PriceEvaluateParams {
   /**
    * List of prices to evaluate (max 100)
    */
-  price_evaluations?: Array<PriceEvaluateParams.PriceEvaluation>;
+  price_evaluations?: Array<PriceEvaluateMultipleParams.PriceEvaluation>;
 }
 
-export namespace PriceEvaluateParams {
+export namespace PriceEvaluateMultipleParams {
   export interface Event {
     /**
      * A name to meaningfully identify the action or event type.
@@ -13953,11 +14031,13 @@ export declare namespace Prices {
     type EvaluatePriceGroup as EvaluatePriceGroup,
     type Price as Price,
     type PriceEvaluateResponse as PriceEvaluateResponse,
+    type PriceEvaluateMultipleResponse as PriceEvaluateMultipleResponse,
     PricesPage as PricesPage,
     type PriceCreateParams as PriceCreateParams,
     type PriceUpdateParams as PriceUpdateParams,
     type PriceListParams as PriceListParams,
     type PriceEvaluateParams as PriceEvaluateParams,
+    type PriceEvaluateMultipleParams as PriceEvaluateMultipleParams,
   };
 
   export {
