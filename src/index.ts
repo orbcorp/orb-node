@@ -137,6 +137,7 @@ import {
   Plan,
   PlanCreateParams,
   PlanListParams,
+  PlanSetDefaultVersionParams,
   PlanUpdateParams,
   Plans,
   PlansPage,
@@ -460,6 +461,7 @@ export declare namespace Orb {
     type PlanCreateParams as PlanCreateParams,
     type PlanUpdateParams as PlanUpdateParams,
     type PlanListParams as PlanListParams,
+    type PlanSetDefaultVersionParams as PlanSetDefaultVersionParams,
   };
 
   export {

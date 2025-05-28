@@ -253,8 +253,8 @@ describe('resource subscriptions', () => {
         {
           adjustment: {
             adjustment_type: 'percentage_discount',
-            applies_to_price_ids: ['price_1', 'price_2'],
             percentage_discount: 0,
+            applies_to_price_ids: ['price_1', 'price_2'],
             is_invoice_level: true,
           },
           end_date: '2019-12-27T18:11:19.117Z',
@@ -294,9 +294,14 @@ describe('resource subscriptions', () => {
             billing_cycle_configuration: { duration: 0, duration_unit: 'day' },
             conversion_rate: 0,
             currency: 'currency',
+            dimensional_price_configuration: {
+              dimension_values: ['string'],
+              dimensional_price_group_id: 'dimensional_price_group_id',
+              external_dimensional_price_group_id: 'external_dimensional_price_group_id',
+            },
             external_price_id: 'external_price_id',
             fixed_price_quantity: 0,
-            invoice_grouping_key: 'invoice_grouping_key',
+            invoice_grouping_key: 'x',
             invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
             metadata: { foo: 'string' },
             reference_id: 'reference_id',
@@ -328,8 +333,8 @@ describe('resource subscriptions', () => {
         {
           adjustment: {
             adjustment_type: 'percentage_discount',
-            applies_to_price_ids: ['price_1', 'price_2'],
             percentage_discount: 0,
+            applies_to_price_ids: ['price_1', 'price_2'],
             is_invoice_level: true,
           },
           replaces_adjustment_id: 'replaces_adjustment_id',
@@ -367,9 +372,14 @@ describe('resource subscriptions', () => {
             billing_cycle_configuration: { duration: 0, duration_unit: 'day' },
             conversion_rate: 0,
             currency: 'currency',
+            dimensional_price_configuration: {
+              dimension_values: ['string'],
+              dimensional_price_group_id: 'dimensional_price_group_id',
+              external_dimensional_price_group_id: 'external_dimensional_price_group_id',
+            },
             external_price_id: 'external_price_id',
             fixed_price_quantity: 0,
-            invoice_grouping_key: 'invoice_grouping_key',
+            invoice_grouping_key: 'x',
             invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
             metadata: { foo: 'string' },
             reference_id: 'reference_id',

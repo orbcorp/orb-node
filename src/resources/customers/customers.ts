@@ -103,10 +103,7 @@ export class Customers extends APIResource {
    * **Note**: This operation happens asynchronously and can be expected to take a
    * few minutes to propagate to related resources. However, querying for the
    * customer on subsequent GET requests while deletion is in process will reflect
-   * its deletion with a `deleted: true` property. Once the customer deletion has
-   * been fully processed, the customer will not be returned in the API.
-   *
-   * On successful processing, this returns an empty dictionary (`{}`) in the API.
+   * its deletion.
    */
   delete(customerId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.delete(`/customers/${customerId}`, {
@@ -812,6 +809,7 @@ export interface CustomerCreateParams {
   tax_configuration?:
     | CustomerCreateParams.NewAvalaraTaxConfiguration
     | CustomerCreateParams.NewTaxJarConfiguration
+    | CustomerCreateParams.NewSphereConfiguration
     | null;
 
   /**
@@ -1007,6 +1005,12 @@ export namespace CustomerCreateParams {
     tax_exempt: boolean;
 
     tax_provider: 'taxjar';
+  }
+
+  export interface NewSphereConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'sphere';
   }
 
   /**
@@ -1352,6 +1356,7 @@ export interface CustomerUpdateParams {
   tax_configuration?:
     | CustomerUpdateParams.NewAvalaraTaxConfiguration
     | CustomerUpdateParams.NewTaxJarConfiguration
+    | CustomerUpdateParams.NewSphereConfiguration
     | null;
 
   /**
@@ -1540,6 +1545,12 @@ export namespace CustomerUpdateParams {
     tax_exempt: boolean;
 
     tax_provider: 'taxjar';
+  }
+
+  export interface NewSphereConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'sphere';
   }
 
   /**
@@ -1895,6 +1906,7 @@ export interface CustomerUpdateByExternalIDParams {
   tax_configuration?:
     | CustomerUpdateByExternalIDParams.NewAvalaraTaxConfiguration
     | CustomerUpdateByExternalIDParams.NewTaxJarConfiguration
+    | CustomerUpdateByExternalIDParams.NewSphereConfiguration
     | null;
 
   /**
@@ -2083,6 +2095,12 @@ export namespace CustomerUpdateByExternalIDParams {
     tax_exempt: boolean;
 
     tax_provider: 'taxjar';
+  }
+
+  export interface NewSphereConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'sphere';
   }
 
   /**
