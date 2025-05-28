@@ -87,7 +87,7 @@ describe('resource prices', () => {
   });
 
   test('evaluate: only required params', async () => {
-    const responsePromise = client.prices.evaluate({
+    const responsePromise = client.prices.evaluate('price_id', {
       timeframe_end: '2019-12-27T18:11:19.117Z',
       timeframe_start: '2019-12-27T18:11:19.117Z',
     });
@@ -101,7 +101,32 @@ describe('resource prices', () => {
   });
 
   test('evaluate: required and optional params', async () => {
-    const response = await client.prices.evaluate({
+    const response = await client.prices.evaluate('price_id', {
+      timeframe_end: '2019-12-27T18:11:19.117Z',
+      timeframe_start: '2019-12-27T18:11:19.117Z',
+      customer_id: 'customer_id',
+      external_customer_id: 'external_customer_id',
+      filter: "my_numeric_property > 100 AND my_other_property = 'bar'",
+      grouping_keys: ["case when my_event_type = 'foo' then true else false end"],
+    });
+  });
+
+  test('evaluateMultiple: only required params', async () => {
+    const responsePromise = client.prices.evaluateMultiple({
+      timeframe_end: '2019-12-27T18:11:19.117Z',
+      timeframe_start: '2019-12-27T18:11:19.117Z',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('evaluateMultiple: required and optional params', async () => {
+    const response = await client.prices.evaluateMultiple({
       timeframe_end: '2019-12-27T18:11:19.117Z',
       timeframe_start: '2019-12-27T18:11:19.117Z',
       customer_id: 'customer_id',

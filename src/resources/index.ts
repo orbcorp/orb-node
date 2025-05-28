@@ -14,6 +14,13 @@ export {
   type AlertEnableParams,
 } from './alerts';
 export {
+  Beta,
+  type PlanVersion,
+  type PlanVersionPhase,
+  type BetaCreatePlanVersionParams,
+  type BetaSetDefaultPlanVersionParams,
+} from './beta/beta';
+export {
   BillableMetricsPage,
   Metrics,
   type BillableMetric,
@@ -93,7 +100,6 @@ export {
   type PlanCreateParams,
   type PlanUpdateParams,
   type PlanListParams,
-  type PlanSetDefaultVersionParams,
 } from './plans/plans';
 export {
   PricesPage,
@@ -101,10 +107,12 @@ export {
   type EvaluatePriceGroup,
   type Price,
   type PriceEvaluateResponse,
+  type PriceEvaluateMultipleResponse,
   type PriceCreateParams,
   type PriceUpdateParams,
   type PriceListParams,
   type PriceEvaluateParams,
+  type PriceEvaluateMultipleParams,
 } from './prices/prices';
 export {
   SubscriptionChanges,

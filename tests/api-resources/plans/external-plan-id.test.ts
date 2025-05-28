@@ -37,19 +37,4 @@ describe('resource externalPlanId', () => {
       client.plans.externalPlanId.fetch('external_plan_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
-
-  test('setDefaultVersion: only required params', async () => {
-    const responsePromise = client.plans.externalPlanId.setDefaultVersion('external_plan_id', { version: 0 });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('setDefaultVersion: required and optional params', async () => {
-    const response = await client.plans.externalPlanId.setDefaultVersion('external_plan_id', { version: 0 });
-  });
 });

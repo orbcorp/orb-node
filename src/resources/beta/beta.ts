@@ -2,20 +2,29 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
+import * as ExternalPlanIDAPI from './external-plan-id';
+import {
+  ExternalPlanID,
+  ExternalPlanIDCreatePlanVersionParams,
+  ExternalPlanIDSetDefaultPlanVersionParams,
+} from './external-plan-id';
+import * as PlansAPI from '../plans/plans';
 import * as PricesAPI from '../prices/prices';
 
-export class Versions extends APIResource {
+export class Beta extends APIResource {
+  externalPlanId: ExternalPlanIDAPI.ExternalPlanID = new ExternalPlanIDAPI.ExternalPlanID(this._client);
+
   /**
    * This API endpoint is in beta and its interface may change. It is recommended for
    * use only in test mode.
    *
    * This endpoint allows the creation of a new plan version for an existing plan.
    */
-  create(
+  createPlanVersion(
     planId: string,
-    body: VersionCreateParams,
+    body: BetaCreatePlanVersionParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<VersionCreateResponse> {
+  ): Core.APIPromise<PlanVersion> {
     return this._client.post(`/plans/${planId}/versions`, { body, ...options });
   }
 
@@ -26,35 +35,49 @@ export class Versions extends APIResource {
    * This endpoint is used to fetch a plan version. It returns the phases, prices,
    * and adjustments present on this version of the plan.
    */
-  retrieve(
+  fetchPlanVersion(
     planId: string,
     version: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<VersionRetrieveResponse> {
+  ): Core.APIPromise<PlanVersion> {
     return this._client.get(`/plans/${planId}/versions/${version}`, options);
   }
+
+  /**
+   * This API endpoint is in beta and its interface may change. It is recommended for
+   * use only in test mode.
+   *
+   * This endpoint allows setting the default version of a plan.
+   */
+  setDefaultPlanVersion(
+    planId: string,
+    body: BetaSetDefaultPlanVersionParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PlansAPI.Plan> {
+    return this._client.post(`/plans/${planId}/set_default_version`, { body, ...options });
+  }
 }
 
 /**
  * The PlanVersion resource represents the prices and adjustments present on a
  * specific version of a plan.
  */
-export interface VersionCreateResponse {
+export interface PlanVersion {
   /**
    * Adjustments for this plan. If the plan has phases, this includes adjustments
    * across all phases of the plan.
    */
   adjustments: Array<
-    | VersionCreateResponse.PlanPhaseUsageDiscountAdjustment
-    | VersionCreateResponse.PlanPhaseAmountDiscountAdjustment
-    | VersionCreateResponse.PlanPhasePercentageDiscountAdjustment
-    | VersionCreateResponse.PlanPhaseMinimumAdjustment
-    | VersionCreateResponse.PlanPhaseMaximumAdjustment
+    | PlanVersion.PlanPhaseUsageDiscountAdjustment
+    | PlanVersion.PlanPhaseAmountDiscountAdjustment
+    | PlanVersion.PlanPhasePercentageDiscountAdjustment
+    | PlanVersion.PlanPhaseMinimumAdjustment
+    | PlanVersion.PlanPhaseMaximumAdjustment
   >;
 
   created_at: string;
 
-  plan_phases: Array<VersionCreateResponse.PlanPhase> | null;
+  plan_phases: Array<PlanVersionPhase> | null;
 
   /**
    * Prices for this plan. If the plan has phases, this includes prices across all
@@ -65,7 +88,7 @@ export interface VersionCreateResponse {
   version: number;
 }
 
-export namespace VersionCreateResponse {
+export namespace PlanVersion {
   export interface PlanPhaseUsageDiscountAdjustment {
     id: string;
 
@@ -355,373 +378,30 @@ export namespace VersionCreateResponse {
       values: Array<string>;
     }
   }
-
-  export interface PlanPhase {
-    id: string;
-
-    description: string | null;
-
-    /**
-     * How many terms of length `duration_unit` this phase is active for. If null, this
-     * phase is evergreen and active indefinitely
-     */
-    duration: number | null;
-
-    duration_unit: 'daily' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | null;
-
-    name: string;
-
-    /**
-     * Determines the ordering of the phase in a plan's lifecycle. 1 = first phase.
-     */
-    order: number;
-  }
 }
 
-/**
- * The PlanVersion resource represents the prices and adjustments present on a
- * specific version of a plan.
- */
-export interface VersionRetrieveResponse {
-  /**
-   * Adjustments for this plan. If the plan has phases, this includes adjustments
-   * across all phases of the plan.
-   */
-  adjustments: Array<
-    | VersionRetrieveResponse.PlanPhaseUsageDiscountAdjustment
-    | VersionRetrieveResponse.PlanPhaseAmountDiscountAdjustment
-    | VersionRetrieveResponse.PlanPhasePercentageDiscountAdjustment
-    | VersionRetrieveResponse.PlanPhaseMinimumAdjustment
-    | VersionRetrieveResponse.PlanPhaseMaximumAdjustment
-  >;
+export interface PlanVersionPhase {
+  id: string;
 
-  created_at: string;
-
-  plan_phases: Array<VersionRetrieveResponse.PlanPhase> | null;
+  description: string | null;
 
   /**
-   * Prices for this plan. If the plan has phases, this includes prices across all
-   * phases of the plan.
+   * How many terms of length `duration_unit` this phase is active for. If null, this
+   * phase is evergreen and active indefinitely
    */
-  prices: Array<PricesAPI.Price>;
+  duration: number | null;
 
-  version: number;
+  duration_unit: 'daily' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | null;
+
+  name: string;
+
+  /**
+   * Determines the ordering of the phase in a plan's lifecycle. 1 = first phase.
+   */
+  order: number;
 }
 
-export namespace VersionRetrieveResponse {
-  export interface PlanPhaseUsageDiscountAdjustment {
-    id: string;
-
-    adjustment_type: 'usage_discount';
-
-    /**
-     * @deprecated The price IDs that this adjustment applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * The filters that determine which prices to apply this adjustment to.
-     */
-    filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
-
-    /**
-     * True for adjustments that apply to an entire invocice, false for adjustments
-     * that apply to only one price.
-     */
-    is_invoice_level: boolean;
-
-    /**
-     * The plan phase in which this adjustment is active.
-     */
-    plan_phase_order: number | null;
-
-    /**
-     * The reason for the adjustment.
-     */
-    reason: string | null;
-
-    /**
-     * The number of usage units by which to discount the price this adjustment applies
-     * to in a given billing period.
-     */
-    usage_discount: number;
-  }
-
-  export namespace PlanPhaseUsageDiscountAdjustment {
-    export interface Filter {
-      /**
-       * The property of the price to filter on.
-       */
-      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-      /**
-       * Should prices that match the filter be included or excluded.
-       */
-      operator: 'includes' | 'excludes';
-
-      /**
-       * The IDs or values that match this filter.
-       */
-      values: Array<string>;
-    }
-  }
-
-  export interface PlanPhaseAmountDiscountAdjustment {
-    id: string;
-
-    adjustment_type: 'amount_discount';
-
-    /**
-     * The amount by which to discount the prices this adjustment applies to in a given
-     * billing period.
-     */
-    amount_discount: string;
-
-    /**
-     * @deprecated The price IDs that this adjustment applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * The filters that determine which prices to apply this adjustment to.
-     */
-    filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
-
-    /**
-     * True for adjustments that apply to an entire invocice, false for adjustments
-     * that apply to only one price.
-     */
-    is_invoice_level: boolean;
-
-    /**
-     * The plan phase in which this adjustment is active.
-     */
-    plan_phase_order: number | null;
-
-    /**
-     * The reason for the adjustment.
-     */
-    reason: string | null;
-  }
-
-  export namespace PlanPhaseAmountDiscountAdjustment {
-    export interface Filter {
-      /**
-       * The property of the price to filter on.
-       */
-      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-      /**
-       * Should prices that match the filter be included or excluded.
-       */
-      operator: 'includes' | 'excludes';
-
-      /**
-       * The IDs or values that match this filter.
-       */
-      values: Array<string>;
-    }
-  }
-
-  export interface PlanPhasePercentageDiscountAdjustment {
-    id: string;
-
-    adjustment_type: 'percentage_discount';
-
-    /**
-     * @deprecated The price IDs that this adjustment applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * The filters that determine which prices to apply this adjustment to.
-     */
-    filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
-
-    /**
-     * True for adjustments that apply to an entire invocice, false for adjustments
-     * that apply to only one price.
-     */
-    is_invoice_level: boolean;
-
-    /**
-     * The percentage (as a value between 0 and 1) by which to discount the price
-     * intervals this adjustment applies to in a given billing period.
-     */
-    percentage_discount: number;
-
-    /**
-     * The plan phase in which this adjustment is active.
-     */
-    plan_phase_order: number | null;
-
-    /**
-     * The reason for the adjustment.
-     */
-    reason: string | null;
-  }
-
-  export namespace PlanPhasePercentageDiscountAdjustment {
-    export interface Filter {
-      /**
-       * The property of the price to filter on.
-       */
-      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-      /**
-       * Should prices that match the filter be included or excluded.
-       */
-      operator: 'includes' | 'excludes';
-
-      /**
-       * The IDs or values that match this filter.
-       */
-      values: Array<string>;
-    }
-  }
-
-  export interface PlanPhaseMinimumAdjustment {
-    id: string;
-
-    adjustment_type: 'minimum';
-
-    /**
-     * @deprecated The price IDs that this adjustment applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * The filters that determine which prices to apply this adjustment to.
-     */
-    filters: Array<PlanPhaseMinimumAdjustment.Filter>;
-
-    /**
-     * True for adjustments that apply to an entire invocice, false for adjustments
-     * that apply to only one price.
-     */
-    is_invoice_level: boolean;
-
-    /**
-     * The item ID that revenue from this minimum will be attributed to.
-     */
-    item_id: string;
-
-    /**
-     * The minimum amount to charge in a given billing period for the prices this
-     * adjustment applies to.
-     */
-    minimum_amount: string;
-
-    /**
-     * The plan phase in which this adjustment is active.
-     */
-    plan_phase_order: number | null;
-
-    /**
-     * The reason for the adjustment.
-     */
-    reason: string | null;
-  }
-
-  export namespace PlanPhaseMinimumAdjustment {
-    export interface Filter {
-      /**
-       * The property of the price to filter on.
-       */
-      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-      /**
-       * Should prices that match the filter be included or excluded.
-       */
-      operator: 'includes' | 'excludes';
-
-      /**
-       * The IDs or values that match this filter.
-       */
-      values: Array<string>;
-    }
-  }
-
-  export interface PlanPhaseMaximumAdjustment {
-    id: string;
-
-    adjustment_type: 'maximum';
-
-    /**
-     * @deprecated The price IDs that this adjustment applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * The filters that determine which prices to apply this adjustment to.
-     */
-    filters: Array<PlanPhaseMaximumAdjustment.Filter>;
-
-    /**
-     * True for adjustments that apply to an entire invocice, false for adjustments
-     * that apply to only one price.
-     */
-    is_invoice_level: boolean;
-
-    /**
-     * The maximum amount to charge in a given billing period for the prices this
-     * adjustment applies to.
-     */
-    maximum_amount: string;
-
-    /**
-     * The plan phase in which this adjustment is active.
-     */
-    plan_phase_order: number | null;
-
-    /**
-     * The reason for the adjustment.
-     */
-    reason: string | null;
-  }
-
-  export namespace PlanPhaseMaximumAdjustment {
-    export interface Filter {
-      /**
-       * The property of the price to filter on.
-       */
-      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-      /**
-       * Should prices that match the filter be included or excluded.
-       */
-      operator: 'includes' | 'excludes';
-
-      /**
-       * The IDs or values that match this filter.
-       */
-      values: Array<string>;
-    }
-  }
-
-  export interface PlanPhase {
-    id: string;
-
-    description: string | null;
-
-    /**
-     * How many terms of length `duration_unit` this phase is active for. If null, this
-     * phase is evergreen and active indefinitely
-     */
-    duration: number | null;
-
-    duration_unit: 'daily' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | null;
-
-    name: string;
-
-    /**
-     * Determines the ordering of the phase in a plan's lifecycle. 1 = first phase.
-     */
-    order: number;
-  }
-}
-
-export interface VersionCreateParams {
+export interface BetaCreatePlanVersionParams {
   /**
    * New version number.
    */
@@ -730,32 +410,32 @@ export interface VersionCreateParams {
   /**
    * Additional adjustments to be added to the plan.
    */
-  add_adjustments?: Array<VersionCreateParams.AddAdjustment> | null;
+  add_adjustments?: Array<BetaCreatePlanVersionParams.AddAdjustment> | null;
 
   /**
    * Additional prices to be added to the plan.
    */
-  add_prices?: Array<VersionCreateParams.AddPrice> | null;
+  add_prices?: Array<BetaCreatePlanVersionParams.AddPrice> | null;
 
   /**
    * Adjustments to be removed from the plan.
    */
-  remove_adjustments?: Array<VersionCreateParams.RemoveAdjustment> | null;
+  remove_adjustments?: Array<BetaCreatePlanVersionParams.RemoveAdjustment> | null;
 
   /**
    * Prices to be removed from the plan.
    */
-  remove_prices?: Array<VersionCreateParams.RemovePrice> | null;
+  remove_prices?: Array<BetaCreatePlanVersionParams.RemovePrice> | null;
 
   /**
    * Adjustments to be replaced with additional adjustments on the plan.
    */
-  replace_adjustments?: Array<VersionCreateParams.ReplaceAdjustment> | null;
+  replace_adjustments?: Array<BetaCreatePlanVersionParams.ReplaceAdjustment> | null;
 
   /**
    * Prices to be replaced with additional prices on the plan.
    */
-  replace_prices?: Array<VersionCreateParams.ReplacePrice> | null;
+  replace_prices?: Array<BetaCreatePlanVersionParams.ReplacePrice> | null;
 
   /**
    * Set this new plan version as the default
@@ -763,7 +443,7 @@ export interface VersionCreateParams {
   set_as_default?: boolean | null;
 }
 
-export namespace VersionCreateParams {
+export namespace BetaCreatePlanVersionParams {
   export interface AddAdjustment {
     /**
      * The definition of a new adjustment to create and add to the plan.
@@ -9369,10 +9049,26 @@ export namespace VersionCreateParams {
   }
 }
 
-export declare namespace Versions {
+export interface BetaSetDefaultPlanVersionParams {
+  /**
+   * Plan version to set as the default.
+   */
+  version: number;
+}
+
+Beta.ExternalPlanID = ExternalPlanID;
+
+export declare namespace Beta {
   export {
-    type VersionCreateResponse as VersionCreateResponse,
-    type VersionRetrieveResponse as VersionRetrieveResponse,
-    type VersionCreateParams as VersionCreateParams,
+    type PlanVersion as PlanVersion,
+    type PlanVersionPhase as PlanVersionPhase,
+    type BetaCreatePlanVersionParams as BetaCreatePlanVersionParams,
+    type BetaSetDefaultPlanVersionParams as BetaSetDefaultPlanVersionParams,
+  };
+
+  export {
+    ExternalPlanID as ExternalPlanID,
+    type ExternalPlanIDCreatePlanVersionParams as ExternalPlanIDCreatePlanVersionParams,
+    type ExternalPlanIDSetDefaultPlanVersionParams as ExternalPlanIDSetDefaultPlanVersionParams,
   };
 }

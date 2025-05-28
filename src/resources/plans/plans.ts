@@ -4,20 +4,13 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as Shared from '../shared';
-import * as VersionsAPI from './versions';
-import { VersionCreateParams, VersionCreateResponse, VersionRetrieveResponse, Versions } from './versions';
+import * as ExternalPlanIDAPI from './external-plan-id';
+import { ExternalPlanID, ExternalPlanIDUpdateParams } from './external-plan-id';
 import * as PricesAPI from '../prices/prices';
-import * as ExternalPlanIDAPI from './external-plan-id/external-plan-id';
-import {
-  ExternalPlanID,
-  ExternalPlanIDSetDefaultVersionParams,
-  ExternalPlanIDUpdateParams,
-} from './external-plan-id/external-plan-id';
 import { Page, type PageParams } from '../../pagination';
 
 export class Plans extends APIResource {
   externalPlanId: ExternalPlanIDAPI.ExternalPlanID = new ExternalPlanIDAPI.ExternalPlanID(this._client);
-  versions: VersionsAPI.Versions = new VersionsAPI.Versions(this._client);
 
   /**
    * This endpoint allows creation of plans including their prices.
@@ -76,20 +69,6 @@ export class Plans extends APIResource {
    */
   fetch(planId: string, options?: Core.RequestOptions): Core.APIPromise<Plan> {
     return this._client.get(`/plans/${planId}`, options);
-  }
-
-  /**
-   * This API endpoint is in beta and its interface may change. It is recommended for
-   * use only in test mode.
-   *
-   * This endpoint allows setting the default version of a plan.
-   */
-  setDefaultVersion(
-    planId: string,
-    body: PlanSetDefaultVersionParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Plan> {
-    return this._client.post(`/plans/${planId}/set_default_version`, { body, ...options });
   }
 }
 
@@ -4926,16 +4905,8 @@ export interface PlanListParams extends PageParams {
   status?: 'active' | 'archived' | 'draft';
 }
 
-export interface PlanSetDefaultVersionParams {
-  /**
-   * Plan version to set as the default.
-   */
-  version: number;
-}
-
 Plans.PlansPage = PlansPage;
 Plans.ExternalPlanID = ExternalPlanID;
-Plans.Versions = Versions;
 
 export declare namespace Plans {
   export {
@@ -4944,19 +4915,7 @@ export declare namespace Plans {
     type PlanCreateParams as PlanCreateParams,
     type PlanUpdateParams as PlanUpdateParams,
     type PlanListParams as PlanListParams,
-    type PlanSetDefaultVersionParams as PlanSetDefaultVersionParams,
   };
 
-  export {
-    ExternalPlanID as ExternalPlanID,
-    type ExternalPlanIDUpdateParams as ExternalPlanIDUpdateParams,
-    type ExternalPlanIDSetDefaultVersionParams as ExternalPlanIDSetDefaultVersionParams,
-  };
-
-  export {
-    Versions as Versions,
-    type VersionCreateResponse as VersionCreateResponse,
-    type VersionRetrieveResponse as VersionRetrieveResponse,
-    type VersionCreateParams as VersionCreateParams,
-  };
+  export { ExternalPlanID as ExternalPlanID, type ExternalPlanIDUpdateParams as ExternalPlanIDUpdateParams };
 }
