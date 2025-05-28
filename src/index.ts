@@ -101,6 +101,13 @@ import {
 } from './resources/subscriptions';
 import { TopLevel, TopLevelPingResponse } from './resources/top-level';
 import {
+  Beta,
+  BetaCreatePlanVersionParams,
+  BetaSetDefaultPlanVersionParams,
+  PlanVersion,
+  PlanVersionPhase,
+} from './resources/beta/beta';
+import {
   Coupon,
   CouponCreateParams,
   CouponListParams,
@@ -137,7 +144,6 @@ import {
   Plan,
   PlanCreateParams,
   PlanListParams,
-  PlanSetDefaultVersionParams,
   PlanUpdateParams,
   Plans,
   PlansPage,
@@ -146,6 +152,8 @@ import {
   EvaluatePriceGroup,
   Price,
   PriceCreateParams,
+  PriceEvaluateMultipleParams,
+  PriceEvaluateMultipleResponse,
   PriceEvaluateParams,
   PriceEvaluateResponse,
   PriceListParams,
@@ -279,6 +287,7 @@ export class Orb extends Core.APIClient {
   }
 
   topLevel: API.TopLevel = new API.TopLevel(this);
+  beta: API.Beta = new API.Beta(this);
   coupons: API.Coupons = new API.Coupons(this);
   creditNotes: API.CreditNotes = new API.CreditNotes(this);
   customers: API.Customers = new API.Customers(this);
@@ -348,6 +357,7 @@ export class Orb extends Core.APIClient {
 }
 
 Orb.TopLevel = TopLevel;
+Orb.Beta = Beta;
 Orb.Coupons = Coupons;
 Orb.CouponsPage = CouponsPage;
 Orb.CreditNotes = CreditNotes;
@@ -379,6 +389,14 @@ export declare namespace Orb {
   export { type PageParams as PageParams, type PageResponse as PageResponse };
 
   export { TopLevel as TopLevel, type TopLevelPingResponse as TopLevelPingResponse };
+
+  export {
+    Beta as Beta,
+    type PlanVersion as PlanVersion,
+    type PlanVersionPhase as PlanVersionPhase,
+    type BetaCreatePlanVersionParams as BetaCreatePlanVersionParams,
+    type BetaSetDefaultPlanVersionParams as BetaSetDefaultPlanVersionParams,
+  };
 
   export {
     Coupons as Coupons,
@@ -461,7 +479,6 @@ export declare namespace Orb {
     type PlanCreateParams as PlanCreateParams,
     type PlanUpdateParams as PlanUpdateParams,
     type PlanListParams as PlanListParams,
-    type PlanSetDefaultVersionParams as PlanSetDefaultVersionParams,
   };
 
   export {
@@ -469,11 +486,13 @@ export declare namespace Orb {
     type EvaluatePriceGroup as EvaluatePriceGroup,
     type Price as Price,
     type PriceEvaluateResponse as PriceEvaluateResponse,
+    type PriceEvaluateMultipleResponse as PriceEvaluateMultipleResponse,
     PricesPage as PricesPage,
     type PriceCreateParams as PriceCreateParams,
     type PriceUpdateParams as PriceUpdateParams,
     type PriceListParams as PriceListParams,
     type PriceEvaluateParams as PriceEvaluateParams,
+    type PriceEvaluateMultipleParams as PriceEvaluateMultipleParams,
   };
 
   export {

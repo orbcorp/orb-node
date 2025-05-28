@@ -22,6 +22,27 @@ Methods:
 
 - <code title="get /ping">client.topLevel.<a href="./src/resources/top-level.ts">ping</a>() -> TopLevelPingResponse</code>
 
+# Beta
+
+Types:
+
+- <code><a href="./src/resources/beta/beta.ts">PlanVersion</a></code>
+- <code><a href="./src/resources/beta/beta.ts">PlanVersionPhase</a></code>
+
+Methods:
+
+- <code title="post /plans/{plan_id}/versions">client.beta.<a href="./src/resources/beta/beta.ts">createPlanVersion</a>(planId, { ...params }) -> PlanVersion</code>
+- <code title="get /plans/{plan_id}/versions/{version}">client.beta.<a href="./src/resources/beta/beta.ts">fetchPlanVersion</a>(planId, version) -> PlanVersion</code>
+- <code title="post /plans/{plan_id}/set_default_version">client.beta.<a href="./src/resources/beta/beta.ts">setDefaultPlanVersion</a>(planId, { ...params }) -> Plan</code>
+
+## ExternalPlanID
+
+Methods:
+
+- <code title="post /plans/external_plan_id/{external_plan_id}/versions">client.beta.externalPlanId.<a href="./src/resources/beta/external-plan-id.ts">createPlanVersion</a>(externalPlanId, { ...params }) -> PlanVersion</code>
+- <code title="get /plans/external_plan_id/{external_plan_id}/versions/{version}">client.beta.externalPlanId.<a href="./src/resources/beta/external-plan-id.ts">fetchPlanVersion</a>(externalPlanId, version) -> PlanVersion</code>
+- <code title="post /plans/external_plan_id/{external_plan_id}/set_default_version">client.beta.externalPlanId.<a href="./src/resources/beta/external-plan-id.ts">setDefaultPlanVersion</a>(externalPlanId, { ...params }) -> Plan</code>
+
 # Coupons
 
 Types:
@@ -253,39 +274,13 @@ Methods:
 - <code title="put /plans/{plan_id}">client.plans.<a href="./src/resources/plans/plans.ts">update</a>(planId, { ...params }) -> Plan</code>
 - <code title="get /plans">client.plans.<a href="./src/resources/plans/plans.ts">list</a>({ ...params }) -> PlansPage</code>
 - <code title="get /plans/{plan_id}">client.plans.<a href="./src/resources/plans/plans.ts">fetch</a>(planId) -> Plan</code>
-- <code title="post /plans/{plan_id}/set_default_version">client.plans.<a href="./src/resources/plans/plans.ts">setDefaultVersion</a>(planId, { ...params }) -> Plan</code>
 
 ## ExternalPlanID
 
 Methods:
 
-- <code title="put /plans/external_plan_id/{external_plan_id}">client.plans.externalPlanId.<a href="./src/resources/plans/external-plan-id/external-plan-id.ts">update</a>(otherExternalPlanId, { ...params }) -> Plan</code>
-- <code title="get /plans/external_plan_id/{external_plan_id}">client.plans.externalPlanId.<a href="./src/resources/plans/external-plan-id/external-plan-id.ts">fetch</a>(externalPlanId) -> Plan</code>
-- <code title="post /plans/external_plan_id/{external_plan_id}/set_default_version">client.plans.externalPlanId.<a href="./src/resources/plans/external-plan-id/external-plan-id.ts">setDefaultVersion</a>(externalPlanId, { ...params }) -> Plan</code>
-
-### Versions
-
-Types:
-
-- <code><a href="./src/resources/plans/external-plan-id/versions.ts">VersionCreateResponse</a></code>
-- <code><a href="./src/resources/plans/external-plan-id/versions.ts">VersionRetrieveResponse</a></code>
-
-Methods:
-
-- <code title="post /plans/external_plan_id/{external_plan_id}/versions">client.plans.externalPlanId.versions.<a href="./src/resources/plans/external-plan-id/versions.ts">create</a>(externalPlanId, { ...params }) -> VersionCreateResponse</code>
-- <code title="get /plans/external_plan_id/{external_plan_id}/versions/{version}">client.plans.externalPlanId.versions.<a href="./src/resources/plans/external-plan-id/versions.ts">retrieve</a>(externalPlanId, version) -> VersionRetrieveResponse</code>
-
-## Versions
-
-Types:
-
-- <code><a href="./src/resources/plans/versions.ts">VersionCreateResponse</a></code>
-- <code><a href="./src/resources/plans/versions.ts">VersionRetrieveResponse</a></code>
-
-Methods:
-
-- <code title="post /plans/{plan_id}/versions">client.plans.versions.<a href="./src/resources/plans/versions.ts">create</a>(planId, { ...params }) -> VersionCreateResponse</code>
-- <code title="get /plans/{plan_id}/versions/{version}">client.plans.versions.<a href="./src/resources/plans/versions.ts">retrieve</a>(planId, version) -> VersionRetrieveResponse</code>
+- <code title="put /plans/external_plan_id/{external_plan_id}">client.plans.externalPlanId.<a href="./src/resources/plans/external-plan-id.ts">update</a>(otherExternalPlanId, { ...params }) -> Plan</code>
+- <code title="get /plans/external_plan_id/{external_plan_id}">client.plans.externalPlanId.<a href="./src/resources/plans/external-plan-id.ts">fetch</a>(externalPlanId) -> Plan</code>
 
 # Prices
 
@@ -294,13 +289,15 @@ Types:
 - <code><a href="./src/resources/prices/prices.ts">EvaluatePriceGroup</a></code>
 - <code><a href="./src/resources/prices/prices.ts">Price</a></code>
 - <code><a href="./src/resources/prices/prices.ts">PriceEvaluateResponse</a></code>
+- <code><a href="./src/resources/prices/prices.ts">PriceEvaluateMultipleResponse</a></code>
 
 Methods:
 
 - <code title="post /prices">client.prices.<a href="./src/resources/prices/prices.ts">create</a>({ ...params }) -> Price</code>
 - <code title="put /prices/{price_id}">client.prices.<a href="./src/resources/prices/prices.ts">update</a>(priceId, { ...params }) -> Price</code>
 - <code title="get /prices">client.prices.<a href="./src/resources/prices/prices.ts">list</a>({ ...params }) -> PricesPage</code>
-- <code title="post /prices/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluate</a>({ ...params }) -> PriceEvaluateResponse</code>
+- <code title="post /prices/{price_id}/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluate</a>(priceId, { ...params }) -> PriceEvaluateResponse</code>
+- <code title="post /prices/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluateMultiple</a>({ ...params }) -> PriceEvaluateMultipleResponse</code>
 - <code title="get /prices/{price_id}">client.prices.<a href="./src/resources/prices/prices.ts">fetch</a>(priceId) -> Price</code>
 
 ## ExternalPriceID

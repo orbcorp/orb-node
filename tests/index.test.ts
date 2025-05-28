@@ -209,10 +209,7 @@ describe('idempotency', () => {
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
       apiKey: 'My API Key',
     });
-    await client.coupons.create(
-      { discount: { discount_type: 'percentage', percentage_discount: 0 }, redemption_code: 'HALFOFF' },
-      { idempotencyKey: 'my-idempotency-key' },
-    );
+    await client.beta.createPlanVersion('plan_id', { version: 0 }, { idempotencyKey: 'my-idempotency-key' });
   });
 });
 
