@@ -133,7 +133,7 @@ describe('resource prices', () => {
       events: [
         {
           event_name: 'event_name',
-          properties: {},
+          properties: { foo: 'bar' },
           timestamp: '2020-12-09T16:09:53Z',
           customer_id: 'customer_id',
           external_customer_id: 'external_customer_id',
