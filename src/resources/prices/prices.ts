@@ -10150,7 +10150,7 @@ export namespace PriceEvaluateMultipleParams {
      * A dictionary of custom properties. Values in this dictionary must be numeric,
      * boolean, or strings. Nested dictionaries are disallowed.
      */
-    properties: unknown;
+    properties: Record<string, unknown>;
 
     /**
      * An ISO 8601 format date with no timezone offset (i.e. UTC). This should
