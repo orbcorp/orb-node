@@ -942,7 +942,7 @@ export namespace Invoice {
      * For more on the types of prices, see
      * [the core concepts documentation](/core-concepts#plan-and-price)
      */
-    price: PricesAPI.Price | null;
+    price: PricesAPI.Price;
 
     /**
      * Either the fixed fee quantity or the usage during the service period.
@@ -2381,7 +2381,7 @@ export namespace InvoiceFetchUpcomingResponse {
      * For more on the types of prices, see
      * [the core concepts documentation](/core-concepts#plan-and-price)
      */
-    price: PricesAPI.Price | null;
+    price: PricesAPI.Price;
 
     /**
      * Either the fixed fee quantity or the usage during the service period.
