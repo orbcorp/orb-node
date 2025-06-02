@@ -319,6 +319,7 @@ Types:
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionFetchCostsResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionFetchScheduleResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionPriceIntervalsResponse</a></code>
+- <code><a href="./src/resources/subscriptions.ts">SubscriptionRedeemCouponResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionSchedulePlanChangeResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionTriggerPhaseResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionUnscheduleCancellationResponse</a></code>
@@ -338,6 +339,7 @@ Methods:
 - <code title="get /subscriptions/{subscription_id}/schedule">client.subscriptions.<a href="./src/resources/subscriptions.ts">fetchSchedule</a>(subscriptionId, { ...params }) -> SubscriptionFetchScheduleResponsesPage</code>
 - <code title="get /subscriptions/{subscription_id}/usage">client.subscriptions.<a href="./src/resources/subscriptions.ts">fetchUsage</a>(subscriptionId, { ...params }) -> SubscriptionUsage</code>
 - <code title="post /subscriptions/{subscription_id}/price_intervals">client.subscriptions.<a href="./src/resources/subscriptions.ts">priceIntervals</a>(subscriptionId, { ...params }) -> SubscriptionPriceIntervalsResponse</code>
+- <code title="post /subscriptions/{subscription_id}/redeem_coupon">client.subscriptions.<a href="./src/resources/subscriptions.ts">redeemCoupon</a>(subscriptionId, { ...params }) -> SubscriptionRedeemCouponResponse</code>
 - <code title="post /subscriptions/{subscription_id}/schedule_plan_change">client.subscriptions.<a href="./src/resources/subscriptions.ts">schedulePlanChange</a>(subscriptionId, { ...params }) -> SubscriptionSchedulePlanChangeResponse</code>
 - <code title="post /subscriptions/{subscription_id}/trigger_phase">client.subscriptions.<a href="./src/resources/subscriptions.ts">triggerPhase</a>(subscriptionId, { ...params }) -> SubscriptionTriggerPhaseResponse</code>
 - <code title="post /subscriptions/{subscription_id}/unschedule_cancellation">client.subscriptions.<a href="./src/resources/subscriptions.ts">unscheduleCancellation</a>(subscriptionId) -> SubscriptionUnscheduleCancellationResponse</code>

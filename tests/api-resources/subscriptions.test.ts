@@ -233,6 +233,29 @@ describe('resource subscriptions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
+  test('redeemCoupon: only required params', async () => {
+    const responsePromise = client.subscriptions.redeemCoupon('subscription_id', {
+      change_option: 'requested_date',
+      coupon_id: 'coupon_id',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('redeemCoupon: required and optional params', async () => {
+    const response = await client.subscriptions.redeemCoupon('subscription_id', {
+      change_option: 'requested_date',
+      coupon_id: 'coupon_id',
+      allow_invoice_credit_or_void: true,
+      change_date: '2017-07-21T17:32:28Z',
+    });
+  });
+
   test('schedulePlanChange: only required params', async () => {
     const responsePromise = client.subscriptions.schedulePlanChange('subscription_id', {
       change_option: 'requested_date',
