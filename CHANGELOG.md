@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.74.0 (2025-06-03)
+
+Full Changelog: [v4.73.0...v4.74.0](https://github.com/orbcorp/orb-node/compare/v4.73.0...v4.74.0)
+
+### Features
+
+* **api:** api update ([011d28e](https://github.com/orbcorp/orb-node/commit/011d28ea580b817c6ddfed2189784f3e96298a2e))
+* **api:** api update ([7e37115](https://github.com/orbcorp/orb-node/commit/7e3711516a3d51a16c8aac0e821eae40ab73815b))
+
+
+### Chores
+
+* **docs:** use top-level-await in example snippets ([28bedd6](https://github.com/orbcorp/orb-node/commit/28bedd68f0eac7f3cc10ff55bb4a0afb46c9294a))
+
 ## 4.73.0 (2025-05-28)
 
 Full Changelog: [v4.72.3...v4.73.0](https://github.com/orbcorp/orb-node/compare/v4.72.3...v4.73.0)
