@@ -1003,7 +1003,7 @@ export class Subscriptions extends APIResource {
 
   /**
    * This endpoint can be used to unschedule any pending plan changes on an existing
-   * subscription.
+   * subscription. When called, all upcoming plan changes will be unscheduled.
    */
   unschedulePendingPlanChanges(
     subscriptionId: string,
