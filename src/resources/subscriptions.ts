@@ -25791,11 +25791,6 @@ export interface SubscriptionRedeemCouponParams {
   change_option: 'requested_date' | 'end_of_subscription_term' | 'immediate';
 
   /**
-   * Coupon ID to be redeemed for this subscription.
-   */
-  coupon_id: string;
-
-  /**
    * If false, this request will fail if it would void an issued invoice or create a
    * credit note. Consider using this as a safety mechanism if you do not expect
    * existing invoices to be changed.
@@ -25807,6 +25802,16 @@ export interface SubscriptionRedeemCouponParams {
    * passed if the `change_option` is `requested_date`.
    */
   change_date?: string | null;
+
+  /**
+   * Coupon ID to be redeemed for this subscription.
+   */
+  coupon_id?: string | null;
+
+  /**
+   * Redemption code of the coupon to be redeemed for this subscription.
+   */
+  coupon_redemption_code?: string | null;
 }
 
 export interface SubscriptionSchedulePlanChangeParams {
