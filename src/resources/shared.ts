@@ -14,7 +14,31 @@ export interface AmountDiscount {
    */
   applies_to_price_ids?: Array<string> | null;
 
+  /**
+   * The filters that determine which prices to apply this discount to.
+   */
+  filters?: Array<AmountDiscount.Filter> | null;
+
   reason?: string | null;
+}
+
+export namespace AmountDiscount {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export type BillingCycleRelativeDate = 'start_of_term' | 'end_of_term';
@@ -44,7 +68,31 @@ export interface PercentageDiscount {
    */
   applies_to_price_ids?: Array<string> | null;
 
+  /**
+   * The filters that determine which prices to apply this discount to.
+   */
+  filters?: Array<PercentageDiscount.Filter> | null;
+
   reason?: string | null;
+}
+
+export namespace PercentageDiscount {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface TrialDiscount {
@@ -55,6 +103,11 @@ export interface TrialDiscount {
    * this can be a subset of prices.
    */
   applies_to_price_ids?: Array<string> | null;
+
+  /**
+   * The filters that determine which prices to apply this discount to.
+   */
+  filters?: Array<TrialDiscount.Filter> | null;
 
   reason?: string | null;
 
@@ -67,6 +120,25 @@ export interface TrialDiscount {
    * Only available if discount_type is `trial`
    */
   trial_percentage_discount?: number | null;
+}
+
+export namespace TrialDiscount {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface UsageDiscount {
@@ -84,5 +156,29 @@ export interface UsageDiscount {
    */
   applies_to_price_ids?: Array<string> | null;
 
+  /**
+   * The filters that determine which prices to apply this discount to.
+   */
+  filters?: Array<UsageDiscount.Filter> | null;
+
   reason?: string | null;
+}
+
+export namespace UsageDiscount {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }

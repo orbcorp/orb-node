@@ -468,15 +468,59 @@ export namespace BetaCreatePlanVersionParams {
       percentage_discount: number;
 
       /**
+       * If set, the adjustment will apply to every price on the subscription.
+       */
+      applies_to_all?: true | null;
+
+      /**
+       * The set of item IDs to which this adjustment applies.
+       */
+      applies_to_item_ids?: Array<string> | null;
+
+      /**
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * If set, only prices in the specified currency will have the adjustment applied.
+       */
+      currency?: string | null;
+
+      /**
+       * A list of filters that determine which prices this adjustment will apply to.
+       */
+      filters?: Array<NewPercentageDiscount.Filter> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
        * will be applied at the invoice level, possibly to multiple prices.
        */
       is_invoice_level?: boolean;
+
+      /**
+       * If set, only prices of the specified type will have the adjustment applied.
+       */
+      price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+    }
+
+    export namespace NewPercentageDiscount {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     export interface NewUsageDiscount {
@@ -485,15 +529,59 @@ export namespace BetaCreatePlanVersionParams {
       usage_discount: number;
 
       /**
+       * If set, the adjustment will apply to every price on the subscription.
+       */
+      applies_to_all?: true | null;
+
+      /**
+       * The set of item IDs to which this adjustment applies.
+       */
+      applies_to_item_ids?: Array<string> | null;
+
+      /**
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * If set, only prices in the specified currency will have the adjustment applied.
+       */
+      currency?: string | null;
+
+      /**
+       * A list of filters that determine which prices this adjustment will apply to.
+       */
+      filters?: Array<NewUsageDiscount.Filter> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
        * will be applied at the invoice level, possibly to multiple prices.
        */
       is_invoice_level?: boolean;
+
+      /**
+       * If set, only prices of the specified type will have the adjustment applied.
+       */
+      price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+    }
+
+    export namespace NewUsageDiscount {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     export interface NewAmountDiscount {
@@ -502,15 +590,59 @@ export namespace BetaCreatePlanVersionParams {
       amount_discount: string;
 
       /**
+       * If set, the adjustment will apply to every price on the subscription.
+       */
+      applies_to_all?: true | null;
+
+      /**
+       * The set of item IDs to which this adjustment applies.
+       */
+      applies_to_item_ids?: Array<string> | null;
+
+      /**
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * If set, only prices in the specified currency will have the adjustment applied.
+       */
+      currency?: string | null;
+
+      /**
+       * A list of filters that determine which prices this adjustment will apply to.
+       */
+      filters?: Array<NewAmountDiscount.Filter> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
        * will be applied at the invoice level, possibly to multiple prices.
        */
       is_invoice_level?: boolean;
+
+      /**
+       * If set, only prices of the specified type will have the adjustment applied.
+       */
+      price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+    }
+
+    export namespace NewAmountDiscount {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     export interface NewMinimum {
@@ -524,15 +656,59 @@ export namespace BetaCreatePlanVersionParams {
       minimum_amount: string;
 
       /**
+       * If set, the adjustment will apply to every price on the subscription.
+       */
+      applies_to_all?: true | null;
+
+      /**
+       * The set of item IDs to which this adjustment applies.
+       */
+      applies_to_item_ids?: Array<string> | null;
+
+      /**
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * If set, only prices in the specified currency will have the adjustment applied.
+       */
+      currency?: string | null;
+
+      /**
+       * A list of filters that determine which prices this adjustment will apply to.
+       */
+      filters?: Array<NewMinimum.Filter> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
        * will be applied at the invoice level, possibly to multiple prices.
        */
       is_invoice_level?: boolean;
+
+      /**
+       * If set, only prices of the specified type will have the adjustment applied.
+       */
+      price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+    }
+
+    export namespace NewMinimum {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     export interface NewMaximum {
@@ -541,15 +717,59 @@ export namespace BetaCreatePlanVersionParams {
       maximum_amount: string;
 
       /**
+       * If set, the adjustment will apply to every price on the subscription.
+       */
+      applies_to_all?: true | null;
+
+      /**
+       * The set of item IDs to which this adjustment applies.
+       */
+      applies_to_item_ids?: Array<string> | null;
+
+      /**
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * If set, only prices in the specified currency will have the adjustment applied.
+       */
+      currency?: string | null;
+
+      /**
+       * A list of filters that determine which prices this adjustment will apply to.
+       */
+      filters?: Array<NewMaximum.Filter> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
        * will be applied at the invoice level, possibly to multiple prices.
        */
       is_invoice_level?: boolean;
+
+      /**
+       * If set, only prices of the specified type will have the adjustment applied.
+       */
+      price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+    }
+
+    export namespace NewMaximum {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
@@ -4798,15 +5018,59 @@ export namespace BetaCreatePlanVersionParams {
       percentage_discount: number;
 
       /**
+       * If set, the adjustment will apply to every price on the subscription.
+       */
+      applies_to_all?: true | null;
+
+      /**
+       * The set of item IDs to which this adjustment applies.
+       */
+      applies_to_item_ids?: Array<string> | null;
+
+      /**
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * If set, only prices in the specified currency will have the adjustment applied.
+       */
+      currency?: string | null;
+
+      /**
+       * A list of filters that determine which prices this adjustment will apply to.
+       */
+      filters?: Array<NewPercentageDiscount.Filter> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
        * will be applied at the invoice level, possibly to multiple prices.
        */
       is_invoice_level?: boolean;
+
+      /**
+       * If set, only prices of the specified type will have the adjustment applied.
+       */
+      price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+    }
+
+    export namespace NewPercentageDiscount {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     export interface NewUsageDiscount {
@@ -4815,15 +5079,59 @@ export namespace BetaCreatePlanVersionParams {
       usage_discount: number;
 
       /**
+       * If set, the adjustment will apply to every price on the subscription.
+       */
+      applies_to_all?: true | null;
+
+      /**
+       * The set of item IDs to which this adjustment applies.
+       */
+      applies_to_item_ids?: Array<string> | null;
+
+      /**
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * If set, only prices in the specified currency will have the adjustment applied.
+       */
+      currency?: string | null;
+
+      /**
+       * A list of filters that determine which prices this adjustment will apply to.
+       */
+      filters?: Array<NewUsageDiscount.Filter> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
        * will be applied at the invoice level, possibly to multiple prices.
        */
       is_invoice_level?: boolean;
+
+      /**
+       * If set, only prices of the specified type will have the adjustment applied.
+       */
+      price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+    }
+
+    export namespace NewUsageDiscount {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     export interface NewAmountDiscount {
@@ -4832,15 +5140,59 @@ export namespace BetaCreatePlanVersionParams {
       amount_discount: string;
 
       /**
+       * If set, the adjustment will apply to every price on the subscription.
+       */
+      applies_to_all?: true | null;
+
+      /**
+       * The set of item IDs to which this adjustment applies.
+       */
+      applies_to_item_ids?: Array<string> | null;
+
+      /**
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * If set, only prices in the specified currency will have the adjustment applied.
+       */
+      currency?: string | null;
+
+      /**
+       * A list of filters that determine which prices this adjustment will apply to.
+       */
+      filters?: Array<NewAmountDiscount.Filter> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
        * will be applied at the invoice level, possibly to multiple prices.
        */
       is_invoice_level?: boolean;
+
+      /**
+       * If set, only prices of the specified type will have the adjustment applied.
+       */
+      price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+    }
+
+    export namespace NewAmountDiscount {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     export interface NewMinimum {
@@ -4854,15 +5206,59 @@ export namespace BetaCreatePlanVersionParams {
       minimum_amount: string;
 
       /**
+       * If set, the adjustment will apply to every price on the subscription.
+       */
+      applies_to_all?: true | null;
+
+      /**
+       * The set of item IDs to which this adjustment applies.
+       */
+      applies_to_item_ids?: Array<string> | null;
+
+      /**
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * If set, only prices in the specified currency will have the adjustment applied.
+       */
+      currency?: string | null;
+
+      /**
+       * A list of filters that determine which prices this adjustment will apply to.
+       */
+      filters?: Array<NewMinimum.Filter> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
        * will be applied at the invoice level, possibly to multiple prices.
        */
       is_invoice_level?: boolean;
+
+      /**
+       * If set, only prices of the specified type will have the adjustment applied.
+       */
+      price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+    }
+
+    export namespace NewMinimum {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
 
     export interface NewMaximum {
@@ -4871,15 +5267,59 @@ export namespace BetaCreatePlanVersionParams {
       maximum_amount: string;
 
       /**
+       * If set, the adjustment will apply to every price on the subscription.
+       */
+      applies_to_all?: true | null;
+
+      /**
+       * The set of item IDs to which this adjustment applies.
+       */
+      applies_to_item_ids?: Array<string> | null;
+
+      /**
        * The set of price IDs to which this adjustment applies.
        */
       applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * If set, only prices in the specified currency will have the adjustment applied.
+       */
+      currency?: string | null;
+
+      /**
+       * A list of filters that determine which prices this adjustment will apply to.
+       */
+      filters?: Array<NewMaximum.Filter> | null;
 
       /**
        * When false, this adjustment will be applied to a single price. Otherwise, it
        * will be applied at the invoice level, possibly to multiple prices.
        */
       is_invoice_level?: boolean;
+
+      /**
+       * If set, only prices of the specified type will have the adjustment applied.
+       */
+      price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+    }
+
+    export namespace NewMaximum {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
     }
   }
 
