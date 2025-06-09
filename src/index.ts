@@ -176,6 +176,8 @@ import {
   PriceEvaluateMultipleParams,
   PriceEvaluateMultipleResponse,
   PriceEvaluateParams,
+  PriceEvaluatePreviewEventsParams,
+  PriceEvaluatePreviewEventsResponse,
   PriceEvaluateResponse,
   PriceListParams,
   PriceUpdateParams,
@@ -507,11 +509,13 @@ export declare namespace Orb {
     type EvaluatePriceGroup as EvaluatePriceGroup,
     type PriceEvaluateResponse as PriceEvaluateResponse,
     type PriceEvaluateMultipleResponse as PriceEvaluateMultipleResponse,
+    type PriceEvaluatePreviewEventsResponse as PriceEvaluatePreviewEventsResponse,
     type PriceCreateParams as PriceCreateParams,
     type PriceUpdateParams as PriceUpdateParams,
     type PriceListParams as PriceListParams,
     type PriceEvaluateParams as PriceEvaluateParams,
     type PriceEvaluateMultipleParams as PriceEvaluateMultipleParams,
+    type PriceEvaluatePreviewEventsParams as PriceEvaluatePreviewEventsParams,
   };
 
   export {
