@@ -39,6 +39,7 @@ describe('resource prices', () => {
       billed_in_advance: true,
       billing_cycle_configuration: { duration: 0, duration_unit: 'day' },
       conversion_rate: 0,
+      conversion_rate_config: { conversion_rate_type: 'unit', unit_config: { unit_amount: 'unit_amount' } },
       dimensional_price_configuration: {
         dimension_values: ['string'],
         dimensional_price_group_id: 'dimensional_price_group_id',
@@ -155,6 +156,75 @@ describe('resource prices', () => {
             billed_in_advance: true,
             billing_cycle_configuration: { duration: 0, duration_unit: 'day' },
             conversion_rate: 0,
+            conversion_rate_config: {
+              conversion_rate_type: 'unit',
+              unit_config: { unit_amount: 'unit_amount' },
+            },
+            dimensional_price_configuration: {
+              dimension_values: ['string'],
+              dimensional_price_group_id: 'dimensional_price_group_id',
+              external_dimensional_price_group_id: 'external_dimensional_price_group_id',
+            },
+            external_price_id: 'external_price_id',
+            fixed_price_quantity: 0,
+            invoice_grouping_key: 'x',
+            invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
+            metadata: { foo: 'string' },
+          },
+          price_id: 'price_id',
+        },
+      ],
+    });
+  });
+
+  test('evaluatePreviewEvents: only required params', async () => {
+    const responsePromise = client.prices.evaluatePreviewEvents({
+      timeframe_end: '2019-12-27T18:11:19.117Z',
+      timeframe_start: '2019-12-27T18:11:19.117Z',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('evaluatePreviewEvents: required and optional params', async () => {
+    const response = await client.prices.evaluatePreviewEvents({
+      timeframe_end: '2019-12-27T18:11:19.117Z',
+      timeframe_start: '2019-12-27T18:11:19.117Z',
+      customer_id: 'customer_id',
+      events: [
+        {
+          event_name: 'event_name',
+          properties: { foo: 'bar' },
+          timestamp: '2020-12-09T16:09:53Z',
+          customer_id: 'customer_id',
+          external_customer_id: 'external_customer_id',
+        },
+      ],
+      external_customer_id: 'external_customer_id',
+      price_evaluations: [
+        {
+          filter: "my_numeric_property > 100 AND my_other_property = 'bar'",
+          grouping_keys: ["case when my_event_type = 'foo' then true else false end"],
+          price: {
+            cadence: 'annual',
+            currency: 'currency',
+            item_id: 'item_id',
+            model_type: 'unit',
+            name: 'Annual fee',
+            unit_config: { unit_amount: 'unit_amount' },
+            billable_metric_id: 'billable_metric_id',
+            billed_in_advance: true,
+            billing_cycle_configuration: { duration: 0, duration_unit: 'day' },
+            conversion_rate: 0,
+            conversion_rate_config: {
+              conversion_rate_type: 'unit',
+              unit_config: { unit_amount: 'unit_amount' },
+            },
             dimensional_price_configuration: {
               dimension_values: ['string'],
               dimensional_price_group_id: 'dimensional_price_group_id',
