@@ -434,6 +434,7 @@ Types:
 - <code><a href="./src/resources/prices/prices.ts">EvaluatePriceGroup</a></code>
 - <code><a href="./src/resources/prices/prices.ts">PriceEvaluateResponse</a></code>
 - <code><a href="./src/resources/prices/prices.ts">PriceEvaluateMultipleResponse</a></code>
+- <code><a href="./src/resources/prices/prices.ts">PriceEvaluatePreviewEventsResponse</a></code>
 
 Methods:
 
@@ -442,6 +443,7 @@ Methods:
 - <code title="get /prices">client.prices.<a href="./src/resources/prices/prices.ts">list</a>({ ...params }) -> PricesPage</code>
 - <code title="post /prices/{price_id}/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluate</a>(priceId, { ...params }) -> PriceEvaluateResponse</code>
 - <code title="post /prices/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluateMultiple</a>({ ...params }) -> PriceEvaluateMultipleResponse</code>
+- <code title="post /prices/evaluate_preview_events">client.prices.<a href="./src/resources/prices/prices.ts">evaluatePreviewEvents</a>({ ...params }) -> PriceEvaluatePreviewEventsResponse</code>
 - <code title="get /prices/{price_id}">client.prices.<a href="./src/resources/prices/prices.ts">fetch</a>(priceId) -> Price</code>
 
 ## ExternalPriceID
