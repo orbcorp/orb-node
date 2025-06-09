@@ -2,15 +2,148 @@
 
 Types:
 
+- <code><a href="./src/resources/shared.ts">Address</a></code>
+- <code><a href="./src/resources/shared.ts">AdjustmentInterval</a></code>
+- <code><a href="./src/resources/shared.ts">AggregatedCost</a></code>
+- <code><a href="./src/resources/shared.ts">Allocation</a></code>
 - <code><a href="./src/resources/shared.ts">AmountDiscount</a></code>
+- <code><a href="./src/resources/shared.ts">AmountDiscountInterval</a></code>
+- <code><a href="./src/resources/shared.ts">BillableMetricTiny</a></code>
+- <code><a href="./src/resources/shared.ts">BillingCycleAnchorConfiguration</a></code>
+- <code><a href="./src/resources/shared.ts">BillingCycleConfiguration</a></code>
 - <code><a href="./src/resources/shared.ts">BillingCycleRelativeDate</a></code>
+- <code><a href="./src/resources/shared.ts">BPSConfig</a></code>
+- <code><a href="./src/resources/shared.ts">BPSTier</a></code>
+- <code><a href="./src/resources/shared.ts">BulkBPSConfig</a></code>
+- <code><a href="./src/resources/shared.ts">BulkBPSTier</a></code>
+- <code><a href="./src/resources/shared.ts">BulkConfig</a></code>
+- <code><a href="./src/resources/shared.ts">BulkTier</a></code>
+- <code><a href="./src/resources/shared.ts">ChangedSubscriptionResources</a></code>
+- <code><a href="./src/resources/shared.ts">ConversionRateTier</a></code>
+- <code><a href="./src/resources/shared.ts">ConversionRateTieredConfig</a></code>
+- <code><a href="./src/resources/shared.ts">ConversionRateUnitConfig</a></code>
+- <code><a href="./src/resources/shared.ts">CouponRedemption</a></code>
+- <code><a href="./src/resources/shared.ts">CreditNote</a></code>
+- <code><a href="./src/resources/shared.ts">CreditNoteTiny</a></code>
+- <code><a href="./src/resources/shared.ts">CustomExpiration</a></code>
+- <code><a href="./src/resources/shared.ts">CustomerMinified</a></code>
+- <code><a href="./src/resources/shared.ts">CustomerTaxID</a></code>
+- <code><a href="./src/resources/shared.ts">DimensionalPriceConfiguration</a></code>
 - <code><a href="./src/resources/shared.ts">Discount</a></code>
+- <code><a href="./src/resources/shared.ts">FixedFeeQuantityScheduleEntry</a></code>
+- <code><a href="./src/resources/shared.ts">FixedFeeQuantityTransition</a></code>
+- <code><a href="./src/resources/shared.ts">Invoice</a></code>
 - <code><a href="./src/resources/shared.ts">InvoiceLevelDiscount</a></code>
+- <code><a href="./src/resources/shared.ts">InvoiceTiny</a></code>
+- <code><a href="./src/resources/shared.ts">ItemSlim</a></code>
+- <code><a href="./src/resources/shared.ts">MatrixConfig</a></code>
+- <code><a href="./src/resources/shared.ts">MatrixSubLineItem</a></code>
+- <code><a href="./src/resources/shared.ts">MatrixValue</a></code>
+- <code><a href="./src/resources/shared.ts">MatrixWithAllocationConfig</a></code>
+- <code><a href="./src/resources/shared.ts">Maximum</a></code>
+- <code><a href="./src/resources/shared.ts">MaximumInterval</a></code>
+- <code><a href="./src/resources/shared.ts">Minimum</a></code>
+- <code><a href="./src/resources/shared.ts">MinimumInterval</a></code>
+- <code><a href="./src/resources/shared.ts">MonetaryAmountDiscountAdjustment</a></code>
+- <code><a href="./src/resources/shared.ts">MonetaryMaximumAdjustment</a></code>
+- <code><a href="./src/resources/shared.ts">MonetaryMinimumAdjustment</a></code>
+- <code><a href="./src/resources/shared.ts">MonetaryPercentageDiscountAdjustment</a></code>
+- <code><a href="./src/resources/shared.ts">MonetaryUsageDiscountAdjustment</a></code>
+- <code><a href="./src/resources/shared.ts">NewAllocationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewAmountDiscount</a></code>
+- <code><a href="./src/resources/shared.ts">NewBillingCycleConfiguration</a></code>
+- <code><a href="./src/resources/shared.ts">NewDimensionalPriceConfiguration</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingBPSPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingBulkBPSPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingBulkPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingBulkWithProrationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingCumulativeGroupedBulkPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingGroupedAllocationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingGroupedTieredPackagePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingGroupedTieredPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingGroupedWithMeteredMinimumPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingGroupedWithProratedMinimumPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingMatrixPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingMatrixWithAllocationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingMatrixWithDisplayNamePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingMaxGroupTieredPackagePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingPackagePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingPackageWithAllocationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingScalableMatrixWithTieredPricingPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingScalableMatrixWithUnitPricingPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingThresholdTotalAmountPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingTieredBPSPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingTieredPackagePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingTieredPackageWithMinimumPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingTieredPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingTieredWithMinimumPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingTieredWithProrationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingUnitPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingUnitWithPercentPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingUnitWithProrationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewMaximum</a></code>
+- <code><a href="./src/resources/shared.ts">NewMinimum</a></code>
+- <code><a href="./src/resources/shared.ts">NewPercentageDiscount</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanBPSPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanBulkBPSPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanBulkPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanBulkWithProrationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanCumulativeGroupedBulkPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanGroupedAllocationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanGroupedTieredPackagePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanGroupedTieredPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanGroupedWithMeteredMinimumPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanGroupedWithProratedMinimumPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanMatrixPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanMatrixWithAllocationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanMatrixWithDisplayNamePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanMaxGroupTieredPackagePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanPackagePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanPackageWithAllocationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanScalableMatrixWithTieredPricingPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanScalableMatrixWithUnitPricingPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanThresholdTotalAmountPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanTierWithProrationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanTieredBPSPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanTieredPackagePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanTieredPackageWithMinimumPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanTieredPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanTieredWithMinimumPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanUnitPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanUnitWithPercentPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanUnitWithProrationPrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewUsageDiscount</a></code>
+- <code><a href="./src/resources/shared.ts">OtherSubLineItem</a></code>
+- <code><a href="./src/resources/shared.ts">PackageConfig</a></code>
 - <code><a href="./src/resources/shared.ts">PaginationMetadata</a></code>
+- <code><a href="./src/resources/shared.ts">PerPriceCost</a></code>
 - <code><a href="./src/resources/shared.ts">PercentageDiscount</a></code>
+- <code><a href="./src/resources/shared.ts">PercentageDiscountInterval</a></code>
+- <code><a href="./src/resources/shared.ts">PlanPhaseAmountDiscountAdjustment</a></code>
+- <code><a href="./src/resources/shared.ts">PlanPhaseMaximumAdjustment</a></code>
+- <code><a href="./src/resources/shared.ts">PlanPhaseMinimumAdjustment</a></code>
+- <code><a href="./src/resources/shared.ts">PlanPhasePercentageDiscountAdjustment</a></code>
+- <code><a href="./src/resources/shared.ts">PlanPhaseUsageDiscountAdjustment</a></code>
+- <code><a href="./src/resources/shared.ts">Price</a></code>
+- <code><a href="./src/resources/shared.ts">PriceInterval</a></code>
+- <code><a href="./src/resources/shared.ts">SubLineItemGrouping</a></code>
+- <code><a href="./src/resources/shared.ts">SubLineItemMatrixConfig</a></code>
+- <code><a href="./src/resources/shared.ts">SubscriptionChangeMinified</a></code>
+- <code><a href="./src/resources/shared.ts">SubscriptionMinified</a></code>
+- <code><a href="./src/resources/shared.ts">SubscriptionTrialInfo</a></code>
+- <code><a href="./src/resources/shared.ts">TaxAmount</a></code>
+- <code><a href="./src/resources/shared.ts">Tier</a></code>
+- <code><a href="./src/resources/shared.ts">TierConfig</a></code>
+- <code><a href="./src/resources/shared.ts">TierSubLineItem</a></code>
+- <code><a href="./src/resources/shared.ts">TieredBPSConfig</a></code>
+- <code><a href="./src/resources/shared.ts">TieredConfig</a></code>
+- <code><a href="./src/resources/shared.ts">TieredConversionRateConfig</a></code>
+- <code><a href="./src/resources/shared.ts">TransformPriceFilter</a></code>
 - <code><a href="./src/resources/shared.ts">TrialDiscount</a></code>
+- <code><a href="./src/resources/shared.ts">UnitConfig</a></code>
+- <code><a href="./src/resources/shared.ts">UnitConversionRateConfig</a></code>
 - <code><a href="./src/resources/shared.ts">UsageDiscount</a></code>
-
+- <code><a href="./src/resources/shared.ts">UsageDiscountInterval</a></code>
 
 # TopLevel
 
@@ -64,10 +197,6 @@ Methods:
 
 # CreditNotes
 
-Types:
-
-- <code><a href="./src/resources/credit-notes.ts">CreditNote</a></code>
-
 Methods:
 
 - <code title="post /credit_notes">client.creditNotes.<a href="./src/resources/credit-notes.ts">create</a>({ ...params }) -> CreditNote</code>
@@ -78,7 +207,15 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/customers/customers.ts">AccountingProviderConfig</a></code>
+- <code><a href="./src/resources/customers/customers.ts">AddressInput</a></code>
 - <code><a href="./src/resources/customers/customers.ts">Customer</a></code>
+- <code><a href="./src/resources/customers/customers.ts">CustomerHierarchyConfig</a></code>
+- <code><a href="./src/resources/customers/customers.ts">NewAccountingSyncConfiguration</a></code>
+- <code><a href="./src/resources/customers/customers.ts">NewAvalaraTaxConfiguration</a></code>
+- <code><a href="./src/resources/customers/customers.ts">NewReportingConfiguration</a></code>
+- <code><a href="./src/resources/customers/customers.ts">NewSphereConfiguration</a></code>
+- <code><a href="./src/resources/customers/customers.ts">NewTaxJarConfiguration</a></code>
 
 Methods:
 
@@ -120,6 +257,14 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/customers/credits/ledger.ts">AffectedBlock</a></code>
+- <code><a href="./src/resources/customers/credits/ledger.ts">AmendmentLedgerEntry</a></code>
+- <code><a href="./src/resources/customers/credits/ledger.ts">CreditBlockExpiryLedgerEntry</a></code>
+- <code><a href="./src/resources/customers/credits/ledger.ts">DecrementLedgerEntry</a></code>
+- <code><a href="./src/resources/customers/credits/ledger.ts">ExpirationChangeLedgerEntry</a></code>
+- <code><a href="./src/resources/customers/credits/ledger.ts">IncrementLedgerEntry</a></code>
+- <code><a href="./src/resources/customers/credits/ledger.ts">VoidInitiatedLedgerEntry</a></code>
+- <code><a href="./src/resources/customers/credits/ledger.ts">VoidLedgerEntry</a></code>
 - <code><a href="./src/resources/customers/credits/ledger.ts">LedgerListResponse</a></code>
 - <code><a href="./src/resources/customers/credits/ledger.ts">LedgerCreateEntryResponse</a></code>
 - <code><a href="./src/resources/customers/credits/ledger.ts">LedgerCreateEntryByExternalIDResponse</a></code>
@@ -136,6 +281,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/customers/credits/top-ups.ts">TopUpInvoiceSettings</a></code>
 - <code><a href="./src/resources/customers/credits/top-ups.ts">TopUpCreateResponse</a></code>
 - <code><a href="./src/resources/customers/credits/top-ups.ts">TopUpListResponse</a></code>
 - <code><a href="./src/resources/customers/credits/top-ups.ts">TopUpCreateByExternalIDResponse</a></code>
@@ -220,7 +366,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/invoices.ts">Invoice</a></code>
 - <code><a href="./src/resources/invoices.ts">InvoiceFetchUpcomingResponse</a></code>
 
 Methods:
@@ -287,9 +432,9 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/prices/prices.ts">EvaluatePriceGroup</a></code>
-- <code><a href="./src/resources/prices/prices.ts">Price</a></code>
 - <code><a href="./src/resources/prices/prices.ts">PriceEvaluateResponse</a></code>
 - <code><a href="./src/resources/prices/prices.ts">PriceEvaluateMultipleResponse</a></code>
+- <code><a href="./src/resources/prices/prices.ts">PriceEvaluatePreviewEventsResponse</a></code>
 
 Methods:
 
@@ -298,6 +443,7 @@ Methods:
 - <code title="get /prices">client.prices.<a href="./src/resources/prices/prices.ts">list</a>({ ...params }) -> PricesPage</code>
 - <code title="post /prices/{price_id}/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluate</a>(priceId, { ...params }) -> PriceEvaluateResponse</code>
 - <code title="post /prices/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluateMultiple</a>({ ...params }) -> PriceEvaluateMultipleResponse</code>
+- <code title="post /prices/evaluate_preview_events">client.prices.<a href="./src/resources/prices/prices.ts">evaluatePreviewEvents</a>({ ...params }) -> PriceEvaluatePreviewEventsResponse</code>
 - <code title="get /prices/{price_id}">client.prices.<a href="./src/resources/prices/prices.ts">fetch</a>(priceId) -> Price</code>
 
 ## ExternalPriceID
@@ -311,48 +457,67 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/subscriptions.ts">DiscountOverride</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionBPSPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionBulkBPSPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionBulkPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionBulkWithProrationPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionCumulativeGroupedBulkPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionGroupedAllocationPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionGroupedTieredPackagePrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionGroupedTieredPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionGroupedWithMeteredMinimumPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionGroupedWithProratedMinimumPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionMatrixPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionMatrixWithAllocationPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionMatrixWithDisplayNamePrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionMaxGroupTieredPackagePrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionPackagePrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionPackageWithAllocationPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionScalableMatrixWithTieredPricingPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionScalableMatrixWithUnitPricingPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionThresholdTotalAmountPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTierWithProrationPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTieredBPSPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTieredPackagePrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTieredPackageWithMinimumPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTieredPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTieredWithMinimumPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionUnitPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionUnitWithPercentPrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionUnitWithProrationPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">Subscription</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionUsage</a></code>
 - <code><a href="./src/resources/subscriptions.ts">Subscriptions</a></code>
-- <code><a href="./src/resources/subscriptions.ts">SubscriptionCreateResponse</a></code>
-- <code><a href="./src/resources/subscriptions.ts">SubscriptionCancelResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionFetchCostsResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionFetchScheduleResponse</a></code>
-- <code><a href="./src/resources/subscriptions.ts">SubscriptionPriceIntervalsResponse</a></code>
-- <code><a href="./src/resources/subscriptions.ts">SubscriptionRedeemCouponResponse</a></code>
-- <code><a href="./src/resources/subscriptions.ts">SubscriptionSchedulePlanChangeResponse</a></code>
-- <code><a href="./src/resources/subscriptions.ts">SubscriptionTriggerPhaseResponse</a></code>
-- <code><a href="./src/resources/subscriptions.ts">SubscriptionUnscheduleCancellationResponse</a></code>
-- <code><a href="./src/resources/subscriptions.ts">SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse</a></code>
-- <code><a href="./src/resources/subscriptions.ts">SubscriptionUnschedulePendingPlanChangesResponse</a></code>
-- <code><a href="./src/resources/subscriptions.ts">SubscriptionUpdateFixedFeeQuantityResponse</a></code>
-- <code><a href="./src/resources/subscriptions.ts">SubscriptionUpdateTrialResponse</a></code>
 
 Methods:
 
-- <code title="post /subscriptions">client.subscriptions.<a href="./src/resources/subscriptions.ts">create</a>({ ...params }) -> SubscriptionCreateResponse</code>
+- <code title="post /subscriptions">client.subscriptions.<a href="./src/resources/subscriptions.ts">create</a>({ ...params }) -> MutatedSubscription</code>
 - <code title="put /subscriptions/{subscription_id}">client.subscriptions.<a href="./src/resources/subscriptions.ts">update</a>(subscriptionId, { ...params }) -> Subscription</code>
 - <code title="get /subscriptions">client.subscriptions.<a href="./src/resources/subscriptions.ts">list</a>({ ...params }) -> SubscriptionsPage</code>
-- <code title="post /subscriptions/{subscription_id}/cancel">client.subscriptions.<a href="./src/resources/subscriptions.ts">cancel</a>(subscriptionId, { ...params }) -> SubscriptionCancelResponse</code>
+- <code title="post /subscriptions/{subscription_id}/cancel">client.subscriptions.<a href="./src/resources/subscriptions.ts">cancel</a>(subscriptionId, { ...params }) -> MutatedSubscription</code>
 - <code title="get /subscriptions/{subscription_id}">client.subscriptions.<a href="./src/resources/subscriptions.ts">fetch</a>(subscriptionId) -> Subscription</code>
 - <code title="get /subscriptions/{subscription_id}/costs">client.subscriptions.<a href="./src/resources/subscriptions.ts">fetchCosts</a>(subscriptionId, { ...params }) -> SubscriptionFetchCostsResponse</code>
 - <code title="get /subscriptions/{subscription_id}/schedule">client.subscriptions.<a href="./src/resources/subscriptions.ts">fetchSchedule</a>(subscriptionId, { ...params }) -> SubscriptionFetchScheduleResponsesPage</code>
 - <code title="get /subscriptions/{subscription_id}/usage">client.subscriptions.<a href="./src/resources/subscriptions.ts">fetchUsage</a>(subscriptionId, { ...params }) -> SubscriptionUsage</code>
-- <code title="post /subscriptions/{subscription_id}/price_intervals">client.subscriptions.<a href="./src/resources/subscriptions.ts">priceIntervals</a>(subscriptionId, { ...params }) -> SubscriptionPriceIntervalsResponse</code>
-- <code title="post /subscriptions/{subscription_id}/redeem_coupon">client.subscriptions.<a href="./src/resources/subscriptions.ts">redeemCoupon</a>(subscriptionId, { ...params }) -> SubscriptionRedeemCouponResponse</code>
-- <code title="post /subscriptions/{subscription_id}/schedule_plan_change">client.subscriptions.<a href="./src/resources/subscriptions.ts">schedulePlanChange</a>(subscriptionId, { ...params }) -> SubscriptionSchedulePlanChangeResponse</code>
-- <code title="post /subscriptions/{subscription_id}/trigger_phase">client.subscriptions.<a href="./src/resources/subscriptions.ts">triggerPhase</a>(subscriptionId, { ...params }) -> SubscriptionTriggerPhaseResponse</code>
-- <code title="post /subscriptions/{subscription_id}/unschedule_cancellation">client.subscriptions.<a href="./src/resources/subscriptions.ts">unscheduleCancellation</a>(subscriptionId) -> SubscriptionUnscheduleCancellationResponse</code>
-- <code title="post /subscriptions/{subscription_id}/unschedule_fixed_fee_quantity_updates">client.subscriptions.<a href="./src/resources/subscriptions.ts">unscheduleFixedFeeQuantityUpdates</a>(subscriptionId, { ...params }) -> SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse</code>
-- <code title="post /subscriptions/{subscription_id}/unschedule_pending_plan_changes">client.subscriptions.<a href="./src/resources/subscriptions.ts">unschedulePendingPlanChanges</a>(subscriptionId) -> SubscriptionUnschedulePendingPlanChangesResponse</code>
-- <code title="post /subscriptions/{subscription_id}/update_fixed_fee_quantity">client.subscriptions.<a href="./src/resources/subscriptions.ts">updateFixedFeeQuantity</a>(subscriptionId, { ...params }) -> SubscriptionUpdateFixedFeeQuantityResponse</code>
-- <code title="post /subscriptions/{subscription_id}/update_trial">client.subscriptions.<a href="./src/resources/subscriptions.ts">updateTrial</a>(subscriptionId, { ...params }) -> SubscriptionUpdateTrialResponse</code>
+- <code title="post /subscriptions/{subscription_id}/price_intervals">client.subscriptions.<a href="./src/resources/subscriptions.ts">priceIntervals</a>(subscriptionId, { ...params }) -> MutatedSubscription</code>
+- <code title="post /subscriptions/{subscription_id}/redeem_coupon">client.subscriptions.<a href="./src/resources/subscriptions.ts">redeemCoupon</a>(subscriptionId, { ...params }) -> MutatedSubscription</code>
+- <code title="post /subscriptions/{subscription_id}/schedule_plan_change">client.subscriptions.<a href="./src/resources/subscriptions.ts">schedulePlanChange</a>(subscriptionId, { ...params }) -> MutatedSubscription</code>
+- <code title="post /subscriptions/{subscription_id}/trigger_phase">client.subscriptions.<a href="./src/resources/subscriptions.ts">triggerPhase</a>(subscriptionId, { ...params }) -> MutatedSubscription</code>
+- <code title="post /subscriptions/{subscription_id}/unschedule_cancellation">client.subscriptions.<a href="./src/resources/subscriptions.ts">unscheduleCancellation</a>(subscriptionId) -> MutatedSubscription</code>
+- <code title="post /subscriptions/{subscription_id}/unschedule_fixed_fee_quantity_updates">client.subscriptions.<a href="./src/resources/subscriptions.ts">unscheduleFixedFeeQuantityUpdates</a>(subscriptionId, { ...params }) -> MutatedSubscription</code>
+- <code title="post /subscriptions/{subscription_id}/unschedule_pending_plan_changes">client.subscriptions.<a href="./src/resources/subscriptions.ts">unschedulePendingPlanChanges</a>(subscriptionId) -> MutatedSubscription</code>
+- <code title="post /subscriptions/{subscription_id}/update_fixed_fee_quantity">client.subscriptions.<a href="./src/resources/subscriptions.ts">updateFixedFeeQuantity</a>(subscriptionId, { ...params }) -> MutatedSubscription</code>
+- <code title="post /subscriptions/{subscription_id}/update_trial">client.subscriptions.<a href="./src/resources/subscriptions.ts">updateTrial</a>(subscriptionId, { ...params }) -> MutatedSubscription</code>
 
 # Alerts
 
 Types:
 
 - <code><a href="./src/resources/alerts.ts">Alert</a></code>
+- <code><a href="./src/resources/alerts.ts">Threshold</a></code>
 
 Methods:
 
@@ -388,6 +553,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/subscription-changes.ts">MutatedSubscription</a></code>
 - <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeRetrieveResponse</a></code>
 - <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeApplyResponse</a></code>
 - <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeCancelResponse</a></code>

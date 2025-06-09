@@ -3,7 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as PricesAPI from '../prices/prices';
+import * as Shared from '../shared';
 
 export class Costs extends APIResource {
   /**
@@ -286,109 +286,11 @@ export class Costs extends APIResource {
 }
 
 export interface CostListResponse {
-  data: Array<CostListResponse.Data>;
-}
-
-export namespace CostListResponse {
-  export interface Data {
-    per_price_costs: Array<Data.PerPriceCost>;
-
-    /**
-     * Total costs for the timeframe, excluding any minimums and discounts.
-     */
-    subtotal: string;
-
-    timeframe_end: string;
-
-    timeframe_start: string;
-
-    /**
-     * Total costs for the timeframe, including any minimums and discounts.
-     */
-    total: string;
-  }
-
-  export namespace Data {
-    export interface PerPriceCost {
-      /**
-       * The price object
-       */
-      price: PricesAPI.Price;
-
-      /**
-       * The price the cost is associated with
-       */
-      price_id: string;
-
-      /**
-       * Price's contributions for the timeframe, excluding any minimums and discounts.
-       */
-      subtotal: string;
-
-      /**
-       * Price's contributions for the timeframe, including minimums and discounts.
-       */
-      total: string;
-
-      /**
-       * The price's quantity for the timeframe
-       */
-      quantity?: number | null;
-    }
-  }
+  data: Array<Shared.AggregatedCost>;
 }
 
 export interface CostListByExternalIDResponse {
-  data: Array<CostListByExternalIDResponse.Data>;
-}
-
-export namespace CostListByExternalIDResponse {
-  export interface Data {
-    per_price_costs: Array<Data.PerPriceCost>;
-
-    /**
-     * Total costs for the timeframe, excluding any minimums and discounts.
-     */
-    subtotal: string;
-
-    timeframe_end: string;
-
-    timeframe_start: string;
-
-    /**
-     * Total costs for the timeframe, including any minimums and discounts.
-     */
-    total: string;
-  }
-
-  export namespace Data {
-    export interface PerPriceCost {
-      /**
-       * The price object
-       */
-      price: PricesAPI.Price;
-
-      /**
-       * The price the cost is associated with
-       */
-      price_id: string;
-
-      /**
-       * Price's contributions for the timeframe, excluding any minimums and discounts.
-       */
-      subtotal: string;
-
-      /**
-       * Price's contributions for the timeframe, including minimums and discounts.
-       */
-      total: string;
-
-      /**
-       * The price's quantity for the timeframe
-       */
-      quantity?: number | null;
-    }
-  }
+  data: Array<Shared.AggregatedCost>;
 }
 
 export interface CostListParams {

@@ -236,7 +236,6 @@ describe('resource subscriptions', () => {
   test('redeemCoupon: only required params', async () => {
     const responsePromise = client.subscriptions.redeemCoupon('subscription_id', {
       change_option: 'requested_date',
-      coupon_id: 'coupon_id',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -250,9 +249,10 @@ describe('resource subscriptions', () => {
   test('redeemCoupon: required and optional params', async () => {
     const response = await client.subscriptions.redeemCoupon('subscription_id', {
       change_option: 'requested_date',
-      coupon_id: 'coupon_id',
       allow_invoice_credit_or_void: true,
       change_date: '2017-07-21T17:32:28Z',
+      coupon_id: 'coupon_id',
+      coupon_redemption_code: 'coupon_redemption_code',
     });
   });
 
@@ -277,8 +277,13 @@ describe('resource subscriptions', () => {
           adjustment: {
             adjustment_type: 'percentage_discount',
             percentage_discount: 0,
+            applies_to_all: true,
+            applies_to_item_ids: ['item_1', 'item_2'],
             applies_to_price_ids: ['price_1', 'price_2'],
+            currency: 'currency',
+            filters: [{ field: 'price_id', operator: 'includes', values: ['string'] }],
             is_invoice_level: true,
+            price_type: 'usage',
           },
           end_date: '2019-12-27T18:11:19.117Z',
           plan_phase_order: 0,
@@ -317,6 +322,10 @@ describe('resource subscriptions', () => {
             billed_in_advance: true,
             billing_cycle_configuration: { duration: 0, duration_unit: 'day' },
             conversion_rate: 0,
+            conversion_rate_config: {
+              conversion_rate_type: 'unit',
+              unit_config: { unit_amount: 'unit_amount' },
+            },
             currency: 'currency',
             dimensional_price_configuration: {
               dimension_values: ['string'],
@@ -358,8 +367,13 @@ describe('resource subscriptions', () => {
           adjustment: {
             adjustment_type: 'percentage_discount',
             percentage_discount: 0,
+            applies_to_all: true,
+            applies_to_item_ids: ['item_1', 'item_2'],
             applies_to_price_ids: ['price_1', 'price_2'],
+            currency: 'currency',
+            filters: [{ field: 'price_id', operator: 'includes', values: ['string'] }],
             is_invoice_level: true,
+            price_type: 'usage',
           },
           replaces_adjustment_id: 'replaces_adjustment_id',
         },
@@ -396,6 +410,10 @@ describe('resource subscriptions', () => {
             billed_in_advance: true,
             billing_cycle_configuration: { duration: 0, duration_unit: 'day' },
             conversion_rate: 0,
+            conversion_rate_config: {
+              conversion_rate_type: 'unit',
+              unit_config: { unit_amount: 'unit_amount' },
+            },
             currency: 'currency',
             dimensional_price_configuration: {
               dimension_values: ['string'],
