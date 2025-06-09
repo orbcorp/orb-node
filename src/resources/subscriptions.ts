@@ -1136,14 +1136,6 @@ export interface NewSubscriptionBPSPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionBPSPrice.UnitConversionRateConfig
-    | NewSubscriptionBPSPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -1188,57 +1180,6 @@ export interface NewSubscriptionBPSPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionBPSPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionBulkBPSPrice {
@@ -1285,14 +1226,6 @@ export interface NewSubscriptionBulkBPSPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionBulkBPSPrice.UnitConversionRateConfig
-    | NewSubscriptionBulkBPSPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -1337,57 +1270,6 @@ export interface NewSubscriptionBulkBPSPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionBulkBPSPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionBulkPrice {
@@ -1434,14 +1316,6 @@ export interface NewSubscriptionBulkPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionBulkPrice.UnitConversionRateConfig
-    | NewSubscriptionBulkPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -1486,57 +1360,6 @@ export interface NewSubscriptionBulkPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionBulkPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionBulkWithProrationPrice {
@@ -1583,14 +1406,6 @@ export interface NewSubscriptionBulkWithProrationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionBulkWithProrationPrice.UnitConversionRateConfig
-    | NewSubscriptionBulkWithProrationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -1635,57 +1450,6 @@ export interface NewSubscriptionBulkWithProrationPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionBulkWithProrationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionCumulativeGroupedBulkPrice {
@@ -1732,14 +1496,6 @@ export interface NewSubscriptionCumulativeGroupedBulkPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionCumulativeGroupedBulkPrice.UnitConversionRateConfig
-    | NewSubscriptionCumulativeGroupedBulkPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -1784,57 +1540,6 @@ export interface NewSubscriptionCumulativeGroupedBulkPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionCumulativeGroupedBulkPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionGroupedAllocationPrice {
@@ -1881,14 +1586,6 @@ export interface NewSubscriptionGroupedAllocationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionGroupedAllocationPrice.UnitConversionRateConfig
-    | NewSubscriptionGroupedAllocationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -1933,57 +1630,6 @@ export interface NewSubscriptionGroupedAllocationPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionGroupedAllocationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionGroupedTieredPackagePrice {
@@ -2030,14 +1676,6 @@ export interface NewSubscriptionGroupedTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionGroupedTieredPackagePrice.UnitConversionRateConfig
-    | NewSubscriptionGroupedTieredPackagePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -2082,57 +1720,6 @@ export interface NewSubscriptionGroupedTieredPackagePrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionGroupedTieredPackagePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionGroupedTieredPrice {
@@ -2179,14 +1766,6 @@ export interface NewSubscriptionGroupedTieredPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionGroupedTieredPrice.UnitConversionRateConfig
-    | NewSubscriptionGroupedTieredPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -2231,57 +1810,6 @@ export interface NewSubscriptionGroupedTieredPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionGroupedTieredPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionGroupedWithMeteredMinimumPrice {
@@ -2328,14 +1856,6 @@ export interface NewSubscriptionGroupedWithMeteredMinimumPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionGroupedWithMeteredMinimumPrice.UnitConversionRateConfig
-    | NewSubscriptionGroupedWithMeteredMinimumPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -2380,57 +1900,6 @@ export interface NewSubscriptionGroupedWithMeteredMinimumPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionGroupedWithMeteredMinimumPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionGroupedWithProratedMinimumPrice {
@@ -2477,14 +1946,6 @@ export interface NewSubscriptionGroupedWithProratedMinimumPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionGroupedWithProratedMinimumPrice.UnitConversionRateConfig
-    | NewSubscriptionGroupedWithProratedMinimumPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -2529,57 +1990,6 @@ export interface NewSubscriptionGroupedWithProratedMinimumPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionGroupedWithProratedMinimumPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionMatrixPrice {
@@ -2626,14 +2036,6 @@ export interface NewSubscriptionMatrixPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionMatrixPrice.UnitConversionRateConfig
-    | NewSubscriptionMatrixPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -2678,57 +2080,6 @@ export interface NewSubscriptionMatrixPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionMatrixPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionMatrixWithAllocationPrice {
@@ -2775,14 +2126,6 @@ export interface NewSubscriptionMatrixWithAllocationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionMatrixWithAllocationPrice.UnitConversionRateConfig
-    | NewSubscriptionMatrixWithAllocationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -2827,57 +2170,6 @@ export interface NewSubscriptionMatrixWithAllocationPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionMatrixWithAllocationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionMatrixWithDisplayNamePrice {
@@ -2924,14 +2216,6 @@ export interface NewSubscriptionMatrixWithDisplayNamePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionMatrixWithDisplayNamePrice.UnitConversionRateConfig
-    | NewSubscriptionMatrixWithDisplayNamePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -2976,57 +2260,6 @@ export interface NewSubscriptionMatrixWithDisplayNamePrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionMatrixWithDisplayNamePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionMaxGroupTieredPackagePrice {
@@ -3073,14 +2306,6 @@ export interface NewSubscriptionMaxGroupTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionMaxGroupTieredPackagePrice.UnitConversionRateConfig
-    | NewSubscriptionMaxGroupTieredPackagePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -3125,57 +2350,6 @@ export interface NewSubscriptionMaxGroupTieredPackagePrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionMaxGroupTieredPackagePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionPackagePrice {
@@ -3222,14 +2396,6 @@ export interface NewSubscriptionPackagePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionPackagePrice.UnitConversionRateConfig
-    | NewSubscriptionPackagePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -3274,57 +2440,6 @@ export interface NewSubscriptionPackagePrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionPackagePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionPackageWithAllocationPrice {
@@ -3371,14 +2486,6 @@ export interface NewSubscriptionPackageWithAllocationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionPackageWithAllocationPrice.UnitConversionRateConfig
-    | NewSubscriptionPackageWithAllocationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -3423,57 +2530,6 @@ export interface NewSubscriptionPackageWithAllocationPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionPackageWithAllocationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionScalableMatrixWithTieredPricingPrice {
@@ -3520,14 +2576,6 @@ export interface NewSubscriptionScalableMatrixWithTieredPricingPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionScalableMatrixWithTieredPricingPrice.UnitConversionRateConfig
-    | NewSubscriptionScalableMatrixWithTieredPricingPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -3572,57 +2620,6 @@ export interface NewSubscriptionScalableMatrixWithTieredPricingPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionScalableMatrixWithTieredPricingPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionScalableMatrixWithUnitPricingPrice {
@@ -3669,14 +2666,6 @@ export interface NewSubscriptionScalableMatrixWithUnitPricingPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionScalableMatrixWithUnitPricingPrice.UnitConversionRateConfig
-    | NewSubscriptionScalableMatrixWithUnitPricingPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -3721,57 +2710,6 @@ export interface NewSubscriptionScalableMatrixWithUnitPricingPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionScalableMatrixWithUnitPricingPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionThresholdTotalAmountPrice {
@@ -3818,14 +2756,6 @@ export interface NewSubscriptionThresholdTotalAmountPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionThresholdTotalAmountPrice.UnitConversionRateConfig
-    | NewSubscriptionThresholdTotalAmountPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -3870,57 +2800,6 @@ export interface NewSubscriptionThresholdTotalAmountPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionThresholdTotalAmountPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionTierWithProrationPrice {
@@ -3967,14 +2846,6 @@ export interface NewSubscriptionTierWithProrationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionTierWithProrationPrice.UnitConversionRateConfig
-    | NewSubscriptionTierWithProrationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -4019,57 +2890,6 @@ export interface NewSubscriptionTierWithProrationPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionTierWithProrationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionTieredBPSPrice {
@@ -4116,14 +2936,6 @@ export interface NewSubscriptionTieredBPSPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionTieredBPSPrice.UnitConversionRateConfig
-    | NewSubscriptionTieredBPSPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -4168,57 +2980,6 @@ export interface NewSubscriptionTieredBPSPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionTieredBPSPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionTieredPackagePrice {
@@ -4265,14 +3026,6 @@ export interface NewSubscriptionTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionTieredPackagePrice.UnitConversionRateConfig
-    | NewSubscriptionTieredPackagePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -4317,57 +3070,6 @@ export interface NewSubscriptionTieredPackagePrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionTieredPackagePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionTieredPackageWithMinimumPrice {
@@ -4414,14 +3116,6 @@ export interface NewSubscriptionTieredPackageWithMinimumPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionTieredPackageWithMinimumPrice.UnitConversionRateConfig
-    | NewSubscriptionTieredPackageWithMinimumPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -4466,57 +3160,6 @@ export interface NewSubscriptionTieredPackageWithMinimumPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionTieredPackageWithMinimumPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionTieredPrice {
@@ -4563,14 +3206,6 @@ export interface NewSubscriptionTieredPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionTieredPrice.UnitConversionRateConfig
-    | NewSubscriptionTieredPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -4615,57 +3250,6 @@ export interface NewSubscriptionTieredPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionTieredPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionTieredWithMinimumPrice {
@@ -4712,14 +3296,6 @@ export interface NewSubscriptionTieredWithMinimumPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionTieredWithMinimumPrice.UnitConversionRateConfig
-    | NewSubscriptionTieredWithMinimumPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -4764,57 +3340,6 @@ export interface NewSubscriptionTieredWithMinimumPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionTieredWithMinimumPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionUnitPrice {
@@ -4861,14 +3386,6 @@ export interface NewSubscriptionUnitPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionUnitPrice.UnitConversionRateConfig
-    | NewSubscriptionUnitPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -4913,57 +3430,6 @@ export interface NewSubscriptionUnitPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionUnitPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionUnitWithPercentPrice {
@@ -5010,14 +3476,6 @@ export interface NewSubscriptionUnitWithPercentPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionUnitWithPercentPrice.UnitConversionRateConfig
-    | NewSubscriptionUnitWithPercentPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -5062,57 +3520,6 @@ export interface NewSubscriptionUnitWithPercentPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionUnitWithPercentPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewSubscriptionUnitWithProrationPrice {
@@ -5159,14 +3566,6 @@ export interface NewSubscriptionUnitWithProrationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewSubscriptionUnitWithProrationPrice.UnitConversionRateConfig
-    | NewSubscriptionUnitWithProrationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -5211,57 +3610,6 @@ export interface NewSubscriptionUnitWithProrationPrice {
    * in the same API call.
    */
   reference_id?: string | null;
-}
-
-export namespace NewSubscriptionUnitWithProrationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 /**
