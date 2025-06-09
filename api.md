@@ -9,6 +9,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">PaginationMetadata</a></code>
 - <code><a href="./src/resources/shared.ts">PercentageDiscount</a></code>
 - <code><a href="./src/resources/shared.ts">TrialDiscount</a></code>
+- <code><a href="./src/resources/shared.ts">UsageDiscount</a></code>
 
 # TopLevel
 
@@ -19,6 +20,27 @@ Types:
 Methods:
 
 - <code title="get /ping">client.topLevel.<a href="./src/resources/top-level.ts">ping</a>() -> TopLevelPingResponse</code>
+
+# Beta
+
+Types:
+
+- <code><a href="./src/resources/beta/beta.ts">PlanVersion</a></code>
+- <code><a href="./src/resources/beta/beta.ts">PlanVersionPhase</a></code>
+
+Methods:
+
+- <code title="post /plans/{plan_id}/versions">client.beta.<a href="./src/resources/beta/beta.ts">createPlanVersion</a>(planId, { ...params }) -> PlanVersion</code>
+- <code title="get /plans/{plan_id}/versions/{version}">client.beta.<a href="./src/resources/beta/beta.ts">fetchPlanVersion</a>(planId, version) -> PlanVersion</code>
+- <code title="post /plans/{plan_id}/set_default_version">client.beta.<a href="./src/resources/beta/beta.ts">setDefaultPlanVersion</a>(planId, { ...params }) -> Plan</code>
+
+## ExternalPlanID
+
+Methods:
+
+- <code title="post /plans/external_plan_id/{external_plan_id}/versions">client.beta.externalPlanId.<a href="./src/resources/beta/external-plan-id.ts">createPlanVersion</a>(externalPlanId, { ...params }) -> PlanVersion</code>
+- <code title="get /plans/external_plan_id/{external_plan_id}/versions/{version}">client.beta.externalPlanId.<a href="./src/resources/beta/external-plan-id.ts">fetchPlanVersion</a>(externalPlanId, version) -> PlanVersion</code>
+- <code title="post /plans/external_plan_id/{external_plan_id}/set_default_version">client.beta.externalPlanId.<a href="./src/resources/beta/external-plan-id.ts">setDefaultPlanVersion</a>(externalPlanId, { ...params }) -> Plan</code>
 
 # Coupons
 
@@ -65,6 +87,8 @@ Methods:
 - <code title="delete /customers/{customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">delete</a>(customerId) -> void</code>
 - <code title="get /customers/{customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">fetch</a>(customerId) -> Customer</code>
 - <code title="get /customers/external_customer_id/{external_customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">fetchByExternalId</a>(externalCustomerId) -> Customer</code>
+- <code title="post /customers/{customer_id}/sync_payment_methods_from_gateway">client.customers.<a href="./src/resources/customers/customers.ts">syncPaymentMethodsFromGateway</a>(customerId) -> void</code>
+- <code title="post /customers/external_customer_id/{external_customer_id}/sync_payment_methods_from_gateway">client.customers.<a href="./src/resources/customers/customers.ts">syncPaymentMethodsFromGatewayByExternalCustomerId</a>(externalCustomerId) -> void</code>
 - <code title="put /customers/external_customer_id/{external_customer_id}">client.customers.<a href="./src/resources/customers/customers.ts">updateByExternalId</a>(id, { ...params }) -> Customer</code>
 
 ## Costs
@@ -221,6 +245,7 @@ Methods:
 - <code title="post /items">client.items.<a href="./src/resources/items.ts">create</a>({ ...params }) -> Item</code>
 - <code title="put /items/{item_id}">client.items.<a href="./src/resources/items.ts">update</a>(itemId, { ...params }) -> Item</code>
 - <code title="get /items">client.items.<a href="./src/resources/items.ts">list</a>({ ...params }) -> ItemsPage</code>
+- <code title="post /items/{item_id}/archive">client.items.<a href="./src/resources/items.ts">archive</a>(itemId) -> Item</code>
 - <code title="get /items/{item_id}">client.items.<a href="./src/resources/items.ts">fetch</a>(itemId) -> Item</code>
 
 # Metrics
@@ -263,6 +288,7 @@ Types:
 - <code><a href="./src/resources/prices/prices.ts">EvaluatePriceGroup</a></code>
 - <code><a href="./src/resources/prices/prices.ts">Price</a></code>
 - <code><a href="./src/resources/prices/prices.ts">PriceEvaluateResponse</a></code>
+- <code><a href="./src/resources/prices/prices.ts">PriceEvaluateMultipleResponse</a></code>
 
 Methods:
 
@@ -270,6 +296,7 @@ Methods:
 - <code title="put /prices/{price_id}">client.prices.<a href="./src/resources/prices/prices.ts">update</a>(priceId, { ...params }) -> Price</code>
 - <code title="get /prices">client.prices.<a href="./src/resources/prices/prices.ts">list</a>({ ...params }) -> PricesPage</code>
 - <code title="post /prices/{price_id}/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluate</a>(priceId, { ...params }) -> PriceEvaluateResponse</code>
+- <code title="post /prices/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluateMultiple</a>({ ...params }) -> PriceEvaluateMultipleResponse</code>
 - <code title="get /prices/{price_id}">client.prices.<a href="./src/resources/prices/prices.ts">fetch</a>(priceId) -> Price</code>
 
 ## ExternalPriceID
@@ -291,6 +318,7 @@ Types:
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionFetchCostsResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionFetchScheduleResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionPriceIntervalsResponse</a></code>
+- <code><a href="./src/resources/subscriptions.ts">SubscriptionRedeemCouponResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionSchedulePlanChangeResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionTriggerPhaseResponse</a></code>
 - <code><a href="./src/resources/subscriptions.ts">SubscriptionUnscheduleCancellationResponse</a></code>
@@ -310,6 +338,7 @@ Methods:
 - <code title="get /subscriptions/{subscription_id}/schedule">client.subscriptions.<a href="./src/resources/subscriptions.ts">fetchSchedule</a>(subscriptionId, { ...params }) -> SubscriptionFetchScheduleResponsesPage</code>
 - <code title="get /subscriptions/{subscription_id}/usage">client.subscriptions.<a href="./src/resources/subscriptions.ts">fetchUsage</a>(subscriptionId, { ...params }) -> SubscriptionUsage</code>
 - <code title="post /subscriptions/{subscription_id}/price_intervals">client.subscriptions.<a href="./src/resources/subscriptions.ts">priceIntervals</a>(subscriptionId, { ...params }) -> SubscriptionPriceIntervalsResponse</code>
+- <code title="post /subscriptions/{subscription_id}/redeem_coupon">client.subscriptions.<a href="./src/resources/subscriptions.ts">redeemCoupon</a>(subscriptionId, { ...params }) -> SubscriptionRedeemCouponResponse</code>
 - <code title="post /subscriptions/{subscription_id}/schedule_plan_change">client.subscriptions.<a href="./src/resources/subscriptions.ts">schedulePlanChange</a>(subscriptionId, { ...params }) -> SubscriptionSchedulePlanChangeResponse</code>
 - <code title="post /subscriptions/{subscription_id}/trigger_phase">client.subscriptions.<a href="./src/resources/subscriptions.ts">triggerPhase</a>(subscriptionId, { ...params }) -> SubscriptionTriggerPhaseResponse</code>
 - <code title="post /subscriptions/{subscription_id}/unschedule_cancellation">client.subscriptions.<a href="./src/resources/subscriptions.ts">unscheduleCancellation</a>(subscriptionId) -> SubscriptionUnscheduleCancellationResponse</code>
@@ -332,5 +361,38 @@ Methods:
 - <code title="post /alerts/customer_id/{customer_id}">client.alerts.<a href="./src/resources/alerts.ts">createForCustomer</a>(customerId, { ...params }) -> Alert</code>
 - <code title="post /alerts/external_customer_id/{external_customer_id}">client.alerts.<a href="./src/resources/alerts.ts">createForExternalCustomer</a>(externalCustomerId, { ...params }) -> Alert</code>
 - <code title="post /alerts/subscription_id/{subscription_id}">client.alerts.<a href="./src/resources/alerts.ts">createForSubscription</a>(subscriptionId, { ...params }) -> Alert</code>
-- <code title="post /alerts/{alert_configuration_id}/disable">client.alerts.<a href="./src/resources/alerts.ts">disable</a>(alertConfigurationId) -> Alert</code>
-- <code title="post /alerts/{alert_configuration_id}/enable">client.alerts.<a href="./src/resources/alerts.ts">enable</a>(alertConfigurationId) -> Alert</code>
+- <code title="post /alerts/{alert_configuration_id}/disable">client.alerts.<a href="./src/resources/alerts.ts">disable</a>(alertConfigurationId, { ...params }) -> Alert</code>
+- <code title="post /alerts/{alert_configuration_id}/enable">client.alerts.<a href="./src/resources/alerts.ts">enable</a>(alertConfigurationId, { ...params }) -> Alert</code>
+
+# DimensionalPriceGroups
+
+Types:
+
+- <code><a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">DimensionalPriceGroup</a></code>
+- <code><a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">DimensionalPriceGroups</a></code>
+
+Methods:
+
+- <code title="post /dimensional_price_groups">client.dimensionalPriceGroups.<a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">create</a>({ ...params }) -> DimensionalPriceGroup</code>
+- <code title="get /dimensional_price_groups/{dimensional_price_group_id}">client.dimensionalPriceGroups.<a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">retrieve</a>(dimensionalPriceGroupId) -> DimensionalPriceGroup</code>
+- <code title="get /dimensional_price_groups">client.dimensionalPriceGroups.<a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">list</a>({ ...params }) -> DimensionalPriceGroupsPage</code>
+
+## ExternalDimensionalPriceGroupID
+
+Methods:
+
+- <code title="get /dimensional_price_groups/external_dimensional_price_group_id/{external_dimensional_price_group_id}">client.dimensionalPriceGroups.externalDimensionalPriceGroupId.<a href="./src/resources/dimensional-price-groups/external-dimensional-price-group-id.ts">retrieve</a>(externalDimensionalPriceGroupId) -> DimensionalPriceGroup</code>
+
+# SubscriptionChanges
+
+Types:
+
+- <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeRetrieveResponse</a></code>
+- <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeApplyResponse</a></code>
+- <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeCancelResponse</a></code>
+
+Methods:
+
+- <code title="get /subscription_changes/{subscription_change_id}">client.subscriptionChanges.<a href="./src/resources/subscription-changes.ts">retrieve</a>(subscriptionChangeId) -> SubscriptionChangeRetrieveResponse</code>
+- <code title="post /subscription_changes/{subscription_change_id}/apply">client.subscriptionChanges.<a href="./src/resources/subscription-changes.ts">apply</a>(subscriptionChangeId, { ...params }) -> SubscriptionChangeApplyResponse</code>
+- <code title="post /subscription_changes/{subscription_change_id}/cancel">client.subscriptionChanges.<a href="./src/resources/subscription-changes.ts">cancel</a>(subscriptionChangeId) -> SubscriptionChangeCancelResponse</code>

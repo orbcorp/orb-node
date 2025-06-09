@@ -10,7 +10,7 @@ const client = new Orb({
 
 describe('resource customers', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.customers.create({ email: 'dev@stainlessapi.com', name: 'x' });
+    const responsePromise = client.customers.create({ email: 'dev@stainless.com', name: 'x' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource customers', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.customers.create({
-      email: 'dev@stainlessapi.com',
+      email: 'dev@stainless.com',
       name: 'x',
       accounting_sync_configuration: {
         accounting_providers: [
@@ -30,7 +30,7 @@ describe('resource customers', () => {
         ],
         excluded: true,
       },
-      additional_emails: ['string'],
+      additional_emails: ['dev@stainless.com'],
       auto_collection: true,
       billing_address: {
         city: 'city',
@@ -43,6 +43,7 @@ describe('resource customers', () => {
       currency: 'currency',
       email_delivery: true,
       external_customer_id: 'external_customer_id',
+      hierarchy: { child_customer_ids: ['string'], parent_customer_id: 'parent_customer_id' },
       metadata: { foo: 'string' },
       payment_provider: 'quickbooks',
       payment_provider_id: 'payment_provider_id',
@@ -162,6 +163,45 @@ describe('resource customers', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.customers.fetchByExternalId('external_customer_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
+  });
+
+  test('syncPaymentMethodsFromGateway', async () => {
+    const responsePromise = client.customers.syncPaymentMethodsFromGateway('customer_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('syncPaymentMethodsFromGateway: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.customers.syncPaymentMethodsFromGateway('customer_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
+  });
+
+  test('syncPaymentMethodsFromGatewayByExternalCustomerId', async () => {
+    const responsePromise =
+      client.customers.syncPaymentMethodsFromGatewayByExternalCustomerId('external_customer_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('syncPaymentMethodsFromGatewayByExternalCustomerId: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.customers.syncPaymentMethodsFromGatewayByExternalCustomerId('external_customer_id', {
+        path: '/_stainless_unknown_path',
+      }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 

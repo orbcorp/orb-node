@@ -40,17 +40,17 @@ export class Customers extends APIResource {
 
   /**
    * This operation is used to create an Orb customer, who is party to the core
-   * billing relationship. See [Customer](../guides/concepts#customer) for an
-   * overview of the customer resource.
+   * billing relationship. See [Customer](/core-concepts##customer) for an overview
+   * of the customer resource.
    *
    * This endpoint is critical in the following Orb functionality:
    *
    * - Automated charges can be configured by setting `payment_provider` and
    *   `payment_provider_id` to automatically issue invoices
-   * - [Customer ID Aliases](../guides/events-and-metrics/customer-aliases) can be
-   *   configured by setting `external_customer_id`
-   * - [Timezone localization](../guides/product-catalog/timezones.md) can be
-   *   configured on a per-customer basis by setting the `timezone` parameter
+   * - [Customer ID Aliases](/events-and-metrics/customer-aliases) can be configured
+   *   by setting `external_customer_id`
+   * - [Timezone localization](/essentials/timezones) can be configured on a
+   *   per-customer basis by setting the `timezone` parameter
    */
   create(body: CustomerCreateParams, options?: Core.RequestOptions): Core.APIPromise<Customer> {
     return this._client.post('/customers', { body, ...options });
@@ -75,10 +75,9 @@ export class Customers extends APIResource {
    * This endpoint returns a list of all customers for an account. The list of
    * customers is ordered starting from the most recently created customer. This
    * endpoint follows Orb's
-   * [standardized pagination format](../reference/pagination).
+   * [standardized pagination format](/api-reference/pagination).
    *
-   * See [Customer](../guides/concepts#customer) for an overview of the customer
-   * model.
+   * See [Customer](/core-concepts##customer) for an overview of the customer model.
    */
   list(query?: CustomerListParams, options?: Core.RequestOptions): Core.PagePromise<CustomersPage, Customer>;
   list(options?: Core.RequestOptions): Core.PagePromise<CustomersPage, Customer>;
@@ -97,15 +96,14 @@ export class Customers extends APIResource {
    * provided the customer does not have any issued invoices. Customers with issued
    * invoices cannot be deleted. This operation is irreversible. Note that this is a
    * _soft_ deletion, but the data will be inaccessible through the API and Orb
-   * dashboard. For a hard-deletion, please reach out to the Orb team directly.
+   * dashboard.
+   *
+   * For a hard-deletion, please reach out to the Orb team directly.
    *
    * **Note**: This operation happens asynchronously and can be expected to take a
    * few minutes to propagate to related resources. However, querying for the
    * customer on subsequent GET requests while deletion is in process will reflect
-   * its deletion with a `deleted: true` property. Once the customer deletion has
-   * been fully processed, the customer will not be returned in the API.
-   *
-   * On successful processing, this returns an empty dictionary (`{}`) in the API.
+   * its deletion.
    */
   delete(customerId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.delete(`/customers/${customerId}`, {
@@ -119,8 +117,8 @@ export class Customers extends APIResource {
    * `Customer` is in the process of being deleted, only the properties `id` and
    * `deleted: true` will be returned.
    *
-   * See the [Customer resource](../guides/core-concepts.mdx#customer) for a full
-   * discussion of the Customer model.
+   * See the [Customer resource](/core-concepts#customer) for a full discussion of
+   * the Customer model.
    */
   fetch(customerId: string, options?: Core.RequestOptions): Core.APIPromise<Customer> {
     return this._client.get(`/customers/${customerId}`, options);
@@ -128,7 +126,7 @@ export class Customers extends APIResource {
 
   /**
    * This endpoint is used to fetch customer details given an `external_customer_id`
-   * (see [Customer ID Aliases](../guides/events-and-metrics/customer-aliases)).
+   * (see [Customer ID Aliases](/events-and-metrics/customer-aliases)).
    *
    * Note that the resource and semantics of this endpoint exactly mirror
    * [Get Customer](fetch-customer).
@@ -138,9 +136,42 @@ export class Customers extends APIResource {
   }
 
   /**
+   * Sync Orb's payment methods for the customer with their gateway.
+   *
+   * This method can be called before taking an action that may cause the customer to
+   * be charged, ensuring that the most up-to-date payment method is charged.
+   *
+   * **Note**: This functionality is currently only available for Stripe.
+   */
+  syncPaymentMethodsFromGateway(customerId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
+    return this._client.post(`/customers/${customerId}/sync_payment_methods_from_gateway`, {
+      ...options,
+      headers: { Accept: '*/*', ...options?.headers },
+    });
+  }
+
+  /**
+   * Sync Orb's payment methods for the customer with their gateway.
+   *
+   * This method can be called before taking an action that may cause the customer to
+   * be charged, ensuring that the most up-to-date payment method is charged.
+   *
+   * **Note**: This functionality is currently only available for Stripe.
+   */
+  syncPaymentMethodsFromGatewayByExternalCustomerId(
+    externalCustomerId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void> {
+    return this._client.post(
+      `/customers/external_customer_id/${externalCustomerId}/sync_payment_methods_from_gateway`,
+      { ...options, headers: { Accept: '*/*', ...options?.headers } },
+    );
+  }
+
+  /**
    * This endpoint is used to update customer details given an `external_customer_id`
-   * (see [Customer ID Aliases](../guides/events-and-metrics/customer-aliases)). Note
-   * that the resource and semantics of this endpoint exactly mirror
+   * (see [Customer ID Aliases](/events-and-metrics/customer-aliases)). Note that the
+   * resource and semantics of this endpoint exactly mirror
    * [Update Customer](update-customer).
    */
   updateByExternalId(
@@ -162,7 +193,7 @@ export class CustomersPage extends Page<Customer> {}
  * it's often desirable to have these match existing identifiers in your system. To
  * avoid having to denormalize Orb ID information, you can pass in an
  * `external_customer_id` with your own identifier. See
- * [Customer ID Aliases](../guides/events-and-metrics/customer-aliases) for further
+ * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further
  * information about how these aliases work in Orb.
  *
  * In addition to having an identifier in your system, a customer may exist in a
@@ -171,9 +202,8 @@ export class CustomersPage extends Page<Customer> {}
  *
  * A customer also has a timezone (from the standard
  * [IANA timezone database](https://www.iana.org/time-zones)), which defaults to
- * your account's timezone. See
- * [Timezone localization](../guides/product-catalog/timezones.md) for information
- * on what this timezone parameter influences within Orb.
+ * your account's timezone. See [Timezone localization](/essentials/timezones) for
+ * information on what this timezone parameter influences within Orb.
  */
 export interface Customer {
   id: string;
@@ -210,6 +240,11 @@ export interface Customer {
    * an existing identifier in your system.
    */
   external_customer_id: string | null;
+
+  /**
+   * The hierarchical relationships for this customer.
+   */
+  hierarchy: Customer.Hierarchy;
 
   /**
    * User specified key-value pairs for the resource. If not present, this defaults
@@ -375,6 +410,29 @@ export namespace Customer {
     postal_code: string | null;
 
     state: string | null;
+  }
+
+  /**
+   * The hierarchical relationships for this customer.
+   */
+  export interface Hierarchy {
+    children: Array<Hierarchy.Child>;
+
+    parent: Hierarchy.Parent | null;
+  }
+
+  export namespace Hierarchy {
+    export interface Child {
+      id: string;
+
+      external_customer_id: string | null;
+    }
+
+    export interface Parent {
+      id: string;
+
+      external_customer_id: string | null;
+    }
   }
 
   export interface ShippingAddress {
@@ -720,6 +778,11 @@ export interface CustomerCreateParams {
   external_customer_id?: string | null;
 
   /**
+   * The hierarchical relationships for this customer.
+   */
+  hierarchy?: CustomerCreateParams.Hierarchy | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -746,6 +809,7 @@ export interface CustomerCreateParams {
   tax_configuration?:
     | CustomerCreateParams.NewAvalaraTaxConfiguration
     | CustomerCreateParams.NewTaxJarConfiguration
+    | CustomerCreateParams.NewSphereConfiguration
     | null;
 
   /**
@@ -894,6 +958,23 @@ export namespace CustomerCreateParams {
     state?: string | null;
   }
 
+  /**
+   * The hierarchical relationships for this customer.
+   */
+  export interface Hierarchy {
+    /**
+     * A list of child customer IDs to add to the hierarchy. The desired child
+     * customers must not already be part of another hierarchy.
+     */
+    child_customer_ids?: Array<string>;
+
+    /**
+     * The ID of the parent customer in the hierarchy. The desired parent customer must
+     * not be a child of another customer.
+     */
+    parent_customer_id?: string | null;
+  }
+
   export interface ReportingConfiguration {
     exempt: boolean;
   }
@@ -924,6 +1005,12 @@ export namespace CustomerCreateParams {
     tax_exempt: boolean;
 
     tax_provider: 'taxjar';
+  }
+
+  export interface NewSphereConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'sphere';
   }
 
   /**
@@ -1229,6 +1316,11 @@ export interface CustomerUpdateParams {
   external_customer_id?: string | null;
 
   /**
+   * The hierarchical relationships for this customer.
+   */
+  hierarchy?: CustomerUpdateParams.Hierarchy | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -1264,6 +1356,7 @@ export interface CustomerUpdateParams {
   tax_configuration?:
     | CustomerUpdateParams.NewAvalaraTaxConfiguration
     | CustomerUpdateParams.NewTaxJarConfiguration
+    | CustomerUpdateParams.NewSphereConfiguration
     | null;
 
   /**
@@ -1405,6 +1498,23 @@ export namespace CustomerUpdateParams {
     state?: string | null;
   }
 
+  /**
+   * The hierarchical relationships for this customer.
+   */
+  export interface Hierarchy {
+    /**
+     * A list of child customer IDs to add to the hierarchy. The desired child
+     * customers must not already be part of another hierarchy.
+     */
+    child_customer_ids?: Array<string>;
+
+    /**
+     * The ID of the parent customer in the hierarchy. The desired parent customer must
+     * not be a child of another customer.
+     */
+    parent_customer_id?: string | null;
+  }
+
   export interface ReportingConfiguration {
     exempt: boolean;
   }
@@ -1435,6 +1545,12 @@ export namespace CustomerUpdateParams {
     tax_exempt: boolean;
 
     tax_provider: 'taxjar';
+  }
+
+  export interface NewSphereConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'sphere';
   }
 
   /**
@@ -1750,6 +1866,11 @@ export interface CustomerUpdateByExternalIDParams {
   external_customer_id?: string | null;
 
   /**
+   * The hierarchical relationships for this customer.
+   */
+  hierarchy?: CustomerUpdateByExternalIDParams.Hierarchy | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -1785,6 +1906,7 @@ export interface CustomerUpdateByExternalIDParams {
   tax_configuration?:
     | CustomerUpdateByExternalIDParams.NewAvalaraTaxConfiguration
     | CustomerUpdateByExternalIDParams.NewTaxJarConfiguration
+    | CustomerUpdateByExternalIDParams.NewSphereConfiguration
     | null;
 
   /**
@@ -1926,6 +2048,23 @@ export namespace CustomerUpdateByExternalIDParams {
     state?: string | null;
   }
 
+  /**
+   * The hierarchical relationships for this customer.
+   */
+  export interface Hierarchy {
+    /**
+     * A list of child customer IDs to add to the hierarchy. The desired child
+     * customers must not already be part of another hierarchy.
+     */
+    child_customer_ids?: Array<string>;
+
+    /**
+     * The ID of the parent customer in the hierarchy. The desired parent customer must
+     * not be a child of another customer.
+     */
+    parent_customer_id?: string | null;
+  }
+
   export interface ReportingConfiguration {
     exempt: boolean;
   }
@@ -1956,6 +2095,12 @@ export namespace CustomerUpdateByExternalIDParams {
     tax_exempt: boolean;
 
     tax_provider: 'taxjar';
+  }
+
+  export interface NewSphereConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'sphere';
   }
 
   /**

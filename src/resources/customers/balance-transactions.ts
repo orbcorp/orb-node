@@ -40,13 +40,6 @@ export class BalanceTransactions extends APIResource {
    * This endpoint retrieves all customer balance transactions in reverse
    * chronological order for a single customer, providing a complete audit trail of
    * all adjustments and invoice applications.
-   *
-   * ## Eligibility
-   *
-   * The customer balance can only be applied to invoices or adjusted manually if
-   * invoices are not synced to a separate invoicing provider. If a payment gateway
-   * such as Stripe is used, the balance will be applied to the invoice before
-   * forwarding payment to the gateway.
    */
   list(
     customerId: string,
@@ -89,7 +82,8 @@ export interface BalanceTransactionCreateResponse {
     | 'return_from_voiding'
     | 'credit_note_applied'
     | 'credit_note_voided'
-    | 'overpayment_refund';
+    | 'overpayment_refund'
+    | 'external_payment';
 
   /**
    * The value of the amount changed in the transaction.
@@ -155,7 +149,8 @@ export interface BalanceTransactionListResponse {
     | 'return_from_voiding'
     | 'credit_note_applied'
     | 'credit_note_voided'
-    | 'overpayment_refund';
+    | 'overpayment_refund'
+    | 'external_payment';
 
   /**
    * The value of the amount changed in the transaction.

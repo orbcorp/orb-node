@@ -25,9 +25,34 @@ export interface InvoiceLineItemCreateResponse {
   id: string;
 
   /**
-   * The final amount after any discounts or minimums.
+   * The line amount after any adjustments and before overage conversion, credits and
+   * partial invoicing.
+   */
+  adjusted_subtotal: string;
+
+  /**
+   * All adjustments applied to the line item in the order they were applied based on
+   * invoice calculations (ie. usage discounts -> amount discounts -> percentage
+   * discounts -> minimums -> maximums).
+   */
+  adjustments: Array<
+    | InvoiceLineItemCreateResponse.MonetaryUsageDiscountAdjustment
+    | InvoiceLineItemCreateResponse.MonetaryAmountDiscountAdjustment
+    | InvoiceLineItemCreateResponse.MonetaryPercentageDiscountAdjustment
+    | InvoiceLineItemCreateResponse.MonetaryMinimumAdjustment
+    | InvoiceLineItemCreateResponse.MonetaryMaximumAdjustment
+  >;
+
+  /**
+   * The final amount for a line item after all adjustments and pre paid credits have
+   * been applied.
    */
   amount: string;
+
+  /**
+   * The number of prepaid credits applied.
+   */
+  credits_applied: string;
 
   discount: Shared.Discount | null;
 
@@ -37,24 +62,46 @@ export interface InvoiceLineItemCreateResponse {
   end_date: string;
 
   /**
+   * An additional filter that was used to calculate the usage for this line item.
+   */
+  filter: string | null;
+
+  /**
    * [DEPRECATED] For configured prices that are split by a grouping key, this will
    * be populated with the key and a value. The `amount` and `subtotal` will be the
    * values for this particular grouping.
    */
   grouping: string | null;
 
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`.
+   */
   maximum: InvoiceLineItemCreateResponse.Maximum | null;
 
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`.
+   */
   maximum_amount: string | null;
 
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`.
+   */
   minimum: InvoiceLineItemCreateResponse.Minimum | null;
 
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`.
+   */
   minimum_amount: string | null;
 
   /**
    * The name of the price associated with this line item.
    */
   name: string;
+
+  /**
+   * Any amount applied from a partial invoice
+   */
+  partially_invoiced_amount: string;
 
   /**
    * The Price resource represents a price that can be billed on a subscription,
@@ -65,232 +112,14 @@ export interface InvoiceLineItemCreateResponse {
    * is serialized differently in a given Price object. The model_type field
    * determines the key for the configuration object that is present.
    *
-   * ## Unit pricing
-   *
-   * With unit pricing, each unit costs a fixed amount.
-   *
-   * ```json
-   * {
-   *     ...
-   *     "model_type": "unit",
-   *     "unit_config": {
-   *         "unit_amount": "0.50"
-   *     }
-   *     ...
-   * }
-   * ```
-   *
-   * ## Tiered pricing
-   *
-   * In tiered pricing, the cost of a given unit depends on the tier range that it
-   * falls into, where each tier range is defined by an upper and lower bound. For
-   * example, the first ten units may cost $0.50 each and all units thereafter may
-   * cost $0.10 each.
-   *
-   * ```json
-   * {
-   *     ...
-   *     "model_type": "tiered",
-   *     "tiered_config": {
-   *         "tiers": [
-   *             {
-   *                 "first_unit": 1,
-   *                 "last_unit": 10,
-   *                 "unit_amount": "0.50"
-   *             },
-   *             {
-   *                 "first_unit": 11,
-   *                 "last_unit": null,
-   *                 "unit_amount": "0.10"
-   *             }
-   *         ]
-   *     }
-   *     ...
-   * ```
-   *
-   * ## Bulk pricing
-   *
-   * Bulk pricing applies when the number of units determine the cost of all units.
-   * For example, if you've bought less than 10 units, they may each be $0.50 for a
-   * total of $5.00. Once you've bought more than 10 units, all units may now be
-   * priced at $0.40 (i.e. 101 units total would be $40.40).
-   *
-   * ```json
-   * {
-   *     ...
-   *     "model_type": "bulk",
-   *     "bulk_config": {
-   *         "tiers": [
-   *             {
-   *                 "maximum_units": 10,
-   *                 "unit_amount": "0.50"
-   *             },
-   *             {
-   *                 "maximum_units": 1000,
-   *                 "unit_amount": "0.40"
-   *             }
-   *         ]
-   *     }
-   *     ...
-   * }
-   * ```
-   *
-   * ## Package pricing
-   *
-   * Package pricing defines the size or granularity of a unit for billing purposes.
-   * For example, if the package size is set to 5, then 4 units will be billed as 5
-   * and 6 units will be billed at 10.
-   *
-   * ```json
-   * {
-   *     ...
-   *     "model_type": "package",
-   *     "package_config": {
-   *         "package_amount": "0.80",
-   *         "package_size": 10
-   *     }
-   *     ...
-   * }
-   * ```
-   *
-   * ## BPS pricing
-   *
-   * BPS pricing specifies a per-event (e.g. per-payment) rate in one hundredth of a
-   * percent (the number of basis points to charge), as well as a cap per event to
-   * assess. For example, this would allow you to assess a fee of 0.25% on every
-   * payment you process, with a maximum charge of $25 per payment.
-   *
-   * ```json
-   * {
-   *     ...
-   *     "model_type": "bps",
-   *     "bps_config": {
-   *        "bps": 125,
-   *        "per_unit_maximum": "11.00"
-   *     }
-   *     ...
-   *  }
-   * ```
-   *
-   * ## Bulk BPS pricing
-   *
-   * Bulk BPS pricing specifies BPS parameters in a tiered manner, dependent on the
-   * total quantity across all events. Similar to bulk pricing, the BPS parameters of
-   * a given event depends on the tier range that the billing period falls into. Each
-   * tier range is defined by an upper bound. For example, after $1.5M of payment
-   * volume is reached, each individual payment may have a lower cap or a smaller
-   * take-rate.
-   *
-   * ```json
-   *     ...
-   *     "model_type": "bulk_bps",
-   *     "bulk_bps_config": {
-   *         "tiers": [
-   *            {
-   *                 "maximum_amount": "1000000.00",
-   *                 "bps": 125,
-   *                 "per_unit_maximum": "19.00"
-   *            },
-   *           {
-   *                 "maximum_amount": null,
-   *                 "bps": 115,
-   *                 "per_unit_maximum": "4.00"
-   *             }
-   *         ]
-   *     }
-   *     ...
-   * }
-   * ```
-   *
-   * ## Tiered BPS pricing
-   *
-   * Tiered BPS pricing specifies BPS parameters in a graduated manner, where an
-   * event's applicable parameter is a function of its marginal addition to the
-   * period total. Similar to tiered pricing, the BPS parameters of a given event
-   * depends on the tier range that it falls into, where each tier range is defined
-   * by an upper and lower bound. For example, the first few payments may have a 0.8
-   * BPS take-rate and all payments after a specific volume may incur a take-rate of
-   * 0.5 BPS each.
-   *
-   * ```json
-   *     ...
-   *     "model_type": "tiered_bps",
-   *     "tiered_bps_config": {
-   *         "tiers": [
-   *            {
-   *                 "minimum_amount": "0",
-   *                 "maximum_amount": "1000000.00",
-   *                 "bps": 125,
-   *                 "per_unit_maximum": "19.00"
-   *            },
-   *           {
-   *                 "minimum_amount": "1000000.00",
-   *                 "maximum_amount": null,
-   *                 "bps": 115,
-   *                 "per_unit_maximum": "4.00"
-   *             }
-   *         ]
-   *     }
-   *     ...
-   * }
-   * ```
-   *
-   * ## Matrix pricing
-   *
-   * Matrix pricing defines a set of unit prices in a one or two-dimensional matrix.
-   * `dimensions` defines the two event property values evaluated in this pricing
-   * model. In a one-dimensional matrix, the second value is `null`. Every
-   * configuration has a list of `matrix_values` which give the unit prices for
-   * specified property values. In a one-dimensional matrix, the matrix values will
-   * have `dimension_values` where the second value of the pair is null. If an event
-   * does not match any of the dimension values in the matrix, it will resort to the
-   * `default_unit_amount`.
-   *
-   * ```json
-   * {
-   *     "model_type": "matrix"
-   *     "matrix_config": {
-   *         "default_unit_amount": "3.00",
-   *         "dimensions": [
-   *             "cluster_name",
-   *             "region"
-   *         ],
-   *         "matrix_values": [
-   *             {
-   *                 "dimension_values": [
-   *                     "alpha",
-   *                     "west"
-   *                 ],
-   *                 "unit_amount": "2.00"
-   *             },
-   *             ...
-   *         ]
-   *     }
-   * }
-   * ```
-   *
-   * ## Fixed fees
-   *
-   * Fixed fees are prices that are applied independent of usage quantities, and
-   * follow unit pricing. They also have an additional parameter
-   * `fixed_price_quantity`. If the Price represents a fixed cost, this represents
-   * the quantity of units applied.
-   *
-   * ```json
-   * {
-   *     ...
-   *     "id": "price_id",
-   *     "model_type": "unit",
-   *     "unit_config": {
-   *        "unit_amount": "2.00"
-   *     },
-   *     "fixed_price_quantity": 3.0
-   *     ...
-   * }
-   * ```
+   * For more on the types of prices, see
+   * [the core concepts documentation](/core-concepts#plan-and-price)
    */
-  price: PricesAPI.Price | null;
+  price: PricesAPI.Price;
 
+  /**
+   * Either the fixed fee quantity or the usage during the service period.
+   */
   quantity: number;
 
   /**
@@ -309,7 +138,7 @@ export interface InvoiceLineItemCreateResponse {
   >;
 
   /**
-   * The line amount before any line item-specific discounts or minimums.
+   * The line amount before before any adjustments.
    */
   subtotal: string;
 
@@ -318,15 +147,318 @@ export interface InvoiceLineItemCreateResponse {
    * integration is configured.
    */
   tax_amounts: Array<InvoiceLineItemCreateResponse.TaxAmount>;
+
+  /**
+   * A list of customer ids that were used to calculate the usage for this line item.
+   */
+  usage_customer_ids: Array<string> | null;
 }
 
 export namespace InvoiceLineItemCreateResponse {
-  export interface Maximum {
+  export interface MonetaryUsageDiscountAdjustment {
+    id: string;
+
+    adjustment_type: 'usage_discount';
+
     /**
-     * List of price_ids that this maximum amount applies to. For plan/plan phase
-     * maximums, this can be a subset of prices.
+     * The value applied by an adjustment.
+     */
+    amount: string;
+
+    /**
+     * @deprecated The price IDs that this adjustment applies to.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<MonetaryUsageDiscountAdjustment.Filter>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+
+    /**
+     * The number of usage units by which to discount the price this adjustment applies
+     * to in a given billing period.
+     */
+    usage_discount: number;
+  }
+
+  export namespace MonetaryUsageDiscountAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MonetaryAmountDiscountAdjustment {
+    id: string;
+
+    adjustment_type: 'amount_discount';
+
+    /**
+     * The value applied by an adjustment.
+     */
+    amount: string;
+
+    /**
+     * The amount by which to discount the prices this adjustment applies to in a given
+     * billing period.
+     */
+    amount_discount: string;
+
+    /**
+     * @deprecated The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<MonetaryAmountDiscountAdjustment.Filter>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+  }
+
+  export namespace MonetaryAmountDiscountAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MonetaryPercentageDiscountAdjustment {
+    id: string;
+
+    adjustment_type: 'percentage_discount';
+
+    /**
+     * The value applied by an adjustment.
+     */
+    amount: string;
+
+    /**
+     * @deprecated The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<MonetaryPercentageDiscountAdjustment.Filter>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The percentage (as a value between 0 and 1) by which to discount the price
+     * intervals this adjustment applies to in a given billing period.
+     */
+    percentage_discount: number;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+  }
+
+  export namespace MonetaryPercentageDiscountAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MonetaryMinimumAdjustment {
+    id: string;
+
+    adjustment_type: 'minimum';
+
+    /**
+     * The value applied by an adjustment.
+     */
+    amount: string;
+
+    /**
+     * @deprecated The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<MonetaryMinimumAdjustment.Filter>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The item ID that revenue from this minimum will be attributed to.
+     */
+    item_id: string;
+
+    /**
+     * The minimum amount to charge in a given billing period for the prices this
+     * adjustment applies to.
+     */
+    minimum_amount: string;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+  }
+
+  export namespace MonetaryMinimumAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  export interface MonetaryMaximumAdjustment {
+    id: string;
+
+    adjustment_type: 'maximum';
+
+    /**
+     * The value applied by an adjustment.
+     */
+    amount: string;
+
+    /**
+     * @deprecated The price IDs that this adjustment applies to.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this adjustment to.
+     */
+    filters: Array<MonetaryMaximumAdjustment.Filter>;
+
+    /**
+     * True for adjustments that apply to an entire invocice, false for adjustments
+     * that apply to only one price.
+     */
+    is_invoice_level: boolean;
+
+    /**
+     * The maximum amount to charge in a given billing period for the prices this
+     * adjustment applies to.
+     */
+    maximum_amount: string;
+
+    /**
+     * The reason for the adjustment.
+     */
+    reason: string | null;
+  }
+
+  export namespace MonetaryMaximumAdjustment {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`.
+   */
+  export interface Maximum {
+    /**
+     * @deprecated List of price_ids that this maximum amount applies to. For plan/plan
+     * phase maximums, this can be a subset of prices.
+     */
+    applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this maximum to.
+     */
+    filters: Array<Maximum.Filter>;
 
     /**
      * Maximum amount applied
@@ -334,17 +466,63 @@ export namespace InvoiceLineItemCreateResponse {
     maximum_amount: string;
   }
 
+  export namespace Maximum {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`.
+   */
   export interface Minimum {
     /**
-     * List of price_ids that this minimum amount applies to. For plan/plan phase
-     * minimums, this can be a subset of prices.
+     * @deprecated List of price_ids that this minimum amount applies to. For plan/plan
+     * phase minimums, this can be a subset of prices.
      */
     applies_to_price_ids: Array<string>;
+
+    /**
+     * The filters that determine which prices to apply this minimum to.
+     */
+    filters: Array<Minimum.Filter>;
 
     /**
      * Minimum amount applied
      */
     minimum_amount: string;
+  }
+
+  export namespace Minimum {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface MatrixSubLineItem {

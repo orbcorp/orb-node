@@ -37,11 +37,13 @@ export class Backfills extends APIResource {
    * only affect events for that customer. If neither is specified, the backfill will
    * affect all customers.
    *
-   * When `replace_existing_events` is `true`, the field `filter` can be optionally
-   * added which enables filtering using
-   * [computed properties](../guides/extensibility/advanced-metrics#computed-properties).
-   * The expressiveness of computed properties allows you to deprecate existing
-   * events based on both a period of time and specific property values.
+   * When `replace_existing_events` is `true`, this indicates that existing events in
+   * the timeframe should no longer be counted towards invoiced usage. In this
+   * scenario, the parameter `filter` can be optionally added which enables filtering
+   * using
+   * [computed properties](/extensibility/advanced-metrics#computed-properties). The
+   * expressiveness of computed properties allows you to deprecate existing events
+   * based on both a period of time and specific property values.
    */
   create(body: BackfillCreateParams, options?: Core.RequestOptions): Core.APIPromise<BackfillCreateResponse> {
     return this._client.post('/events/backfills', { body, ...options });
@@ -52,9 +54,9 @@ export class Backfills extends APIResource {
    *
    * The list of backfills is ordered starting from the most recently created
    * backfill. The response also includes
-   * [`pagination_metadata`](../reference/pagination), which lets the caller retrieve
-   * the next page of results if they exist. More information about pagination can be
-   * found in the [Pagination-metadata schema](pagination).
+   * [`pagination_metadata`](/api-reference/pagination), which lets the caller
+   * retrieve the next page of results if they exist. More information about
+   * pagination can be found in the [Pagination-metadata schema](pagination).
    */
   list(
     query?: BackfillListParams,
@@ -131,6 +133,13 @@ export interface BackfillCreateResponse {
   events_ingested: number;
 
   /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
    * The time at which this backfill was reverted.
    */
   reverted_at: string | null;
@@ -146,8 +155,8 @@ export interface BackfillCreateResponse {
 
   /**
    * A boolean
-   * [computed property](../guides/extensibility/advanced-metrics#computed-properties)
-   * used to filter the set of events to deprecate
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the set of events to deprecate
    */
   deprecation_filter?: string | null;
 }
@@ -179,6 +188,13 @@ export interface BackfillListResponse {
   events_ingested: number;
 
   /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
    * The time at which this backfill was reverted.
    */
   reverted_at: string | null;
@@ -194,8 +210,8 @@ export interface BackfillListResponse {
 
   /**
    * A boolean
-   * [computed property](../guides/extensibility/advanced-metrics#computed-properties)
-   * used to filter the set of events to deprecate
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the set of events to deprecate
    */
   deprecation_filter?: string | null;
 }
@@ -227,6 +243,13 @@ export interface BackfillCloseResponse {
   events_ingested: number;
 
   /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
    * The time at which this backfill was reverted.
    */
   reverted_at: string | null;
@@ -242,8 +265,8 @@ export interface BackfillCloseResponse {
 
   /**
    * A boolean
-   * [computed property](../guides/extensibility/advanced-metrics#computed-properties)
-   * used to filter the set of events to deprecate
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the set of events to deprecate
    */
   deprecation_filter?: string | null;
 }
@@ -275,6 +298,13 @@ export interface BackfillFetchResponse {
   events_ingested: number;
 
   /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
    * The time at which this backfill was reverted.
    */
   reverted_at: string | null;
@@ -290,8 +320,8 @@ export interface BackfillFetchResponse {
 
   /**
    * A boolean
-   * [computed property](../guides/extensibility/advanced-metrics#computed-properties)
-   * used to filter the set of events to deprecate
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the set of events to deprecate
    */
   deprecation_filter?: string | null;
 }
@@ -323,6 +353,13 @@ export interface BackfillRevertResponse {
   events_ingested: number;
 
   /**
+   * If `true`, existing events in the backfill's timeframe will be replaced with the
+   * newly ingested events associated with the backfill. If `false`, newly ingested
+   * events will be added to the existing events.
+   */
+  replace_existing_events: boolean;
+
+  /**
    * The time at which this backfill was reverted.
    */
   reverted_at: string | null;
@@ -338,20 +375,24 @@ export interface BackfillRevertResponse {
 
   /**
    * A boolean
-   * [computed property](../guides/extensibility/advanced-metrics#computed-properties)
-   * used to filter the set of events to deprecate
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the set of events to deprecate
    */
   deprecation_filter?: string | null;
 }
 
 export interface BackfillCreateParams {
   /**
-   * The (exclusive) end of the usage timeframe affected by this backfill.
+   * The (exclusive) end of the usage timeframe affected by this backfill. By
+   * default, Orb allows backfills up to 10 days in duration at a time. Reach out to
+   * discuss extending this limit and your use case.
    */
   timeframe_end: string;
 
   /**
-   * The (inclusive) start of the usage timeframe affected by this backfill.
+   * The (inclusive) start of the usage timeframe affected by this backfill. By
+   * default, Orb allows backfills up to 10 days in duration at a time. Reach out to
+   * discuss extending this limit and your use case.
    */
   timeframe_start: string;
 
@@ -370,8 +411,8 @@ export interface BackfillCreateParams {
 
   /**
    * A boolean
-   * [computed property](../guides/extensibility/advanced-metrics#computed-properties)
-   * used to filter the set of events to deprecate
+   * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+   * filter the set of events to deprecate
    */
   deprecation_filter?: string | null;
 

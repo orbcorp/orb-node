@@ -10,7 +10,16 @@ export {
   type AlertCreateForCustomerParams,
   type AlertCreateForExternalCustomerParams,
   type AlertCreateForSubscriptionParams,
+  type AlertDisableParams,
+  type AlertEnableParams,
 } from './alerts';
+export {
+  Beta,
+  type PlanVersion,
+  type PlanVersionPhase,
+  type BetaCreatePlanVersionParams,
+  type BetaSetDefaultPlanVersionParams,
+} from './beta/beta';
 export {
   BillableMetricsPage,
   Metrics,
@@ -42,6 +51,13 @@ export {
   type CustomerListParams,
   type CustomerUpdateByExternalIDParams,
 } from './customers/customers';
+export {
+  DimensionalPriceGroupsPage,
+  DimensionalPriceGroups,
+  type DimensionalPriceGroup,
+  type DimensionalPriceGroupCreateParams,
+  type DimensionalPriceGroupListParams,
+} from './dimensional-price-groups/dimensional-price-groups';
 export {
   Events,
   type EventUpdateResponse,
@@ -91,15 +107,24 @@ export {
   type EvaluatePriceGroup,
   type Price,
   type PriceEvaluateResponse,
+  type PriceEvaluateMultipleResponse,
   type PriceCreateParams,
   type PriceUpdateParams,
   type PriceListParams,
   type PriceEvaluateParams,
+  type PriceEvaluateMultipleParams,
 } from './prices/prices';
+export {
+  SubscriptionChanges,
+  type SubscriptionChangeRetrieveResponse,
+  type SubscriptionChangeApplyResponse,
+  type SubscriptionChangeCancelResponse,
+  type SubscriptionChangeApplyParams,
+} from './subscription-changes';
 export {
   SubscriptionsPage,
   SubscriptionFetchScheduleResponsesPage,
-  type Subscriptions,
+  Subscriptions,
   type Subscription,
   type SubscriptionUsage,
   type SubscriptionCreateResponse,
@@ -107,6 +132,7 @@ export {
   type SubscriptionFetchCostsResponse,
   type SubscriptionFetchScheduleResponse,
   type SubscriptionPriceIntervalsResponse,
+  type SubscriptionRedeemCouponResponse,
   type SubscriptionSchedulePlanChangeResponse,
   type SubscriptionTriggerPhaseResponse,
   type SubscriptionUnscheduleCancellationResponse,
@@ -122,6 +148,7 @@ export {
   type SubscriptionFetchScheduleParams,
   type SubscriptionFetchUsageParams,
   type SubscriptionPriceIntervalsParams,
+  type SubscriptionRedeemCouponParams,
   type SubscriptionSchedulePlanChangeParams,
   type SubscriptionTriggerPhaseParams,
   type SubscriptionUnscheduleFixedFeeQuantityUpdatesParams,

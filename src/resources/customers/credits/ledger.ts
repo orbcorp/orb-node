@@ -3,17 +3,18 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
+import * as InvoicesAPI from '../../invoices';
 import { Page, type PageParams } from '../../../pagination';
 
 export class Ledger extends APIResource {
   /**
    * The credits ledger provides _auditing_ functionality over Orb's credits system
    * with a list of actions that have taken place to modify a customer's credit
-   * balance. This [paginated endpoint](../reference/pagination) lists these entries,
-   * starting from the most recent ledger entry.
+   * balance. This [paginated endpoint](/api-reference/pagination) lists these
+   * entries, starting from the most recent ledger entry.
    *
    * More details on using Orb's real-time credit feature are
-   * [here](../guides/product-catalog/prepurchase.md).
+   * [here](/product-catalog/prepurchase).
    *
    * There are four major types of modifications to credit balance, detailed below.
    *
@@ -123,10 +124,11 @@ export class Ledger extends APIResource {
    *    will return a credit block that represents the changes (i.e. balance changes
    *    or transfers).
    * 2. A ledger entry will be added to the credits ledger for this customer, and
-   *    therefore returned in the [View Credits Ledger](fetch-customer-credits)
-   *    response as well as serialized in the response to this request. In the case
-   *    of deductions without a specified block, multiple ledger entries may be
-   *    created if the deduction spans credit blocks.
+   *    therefore returned in the
+   *    [View Credits Ledger](fetch-customer-credits-ledger) response as well as
+   *    serialized in the response to this request. In the case of deductions without
+   *    a specified block, multiple ledger entries may be created if the deduction
+   *    spans credit blocks.
    * 3. If `invoice_settings` is specified, an invoice will be created that reflects
    *    the cost of the credits (based on `amount` and `per_unit_cost_basis`).
    *
@@ -242,10 +244,11 @@ export class Ledger extends APIResource {
    *    will return a credit block that represents the changes (i.e. balance changes
    *    or transfers).
    * 2. A ledger entry will be added to the credits ledger for this customer, and
-   *    therefore returned in the [View Credits Ledger](fetch-customer-credits)
-   *    response as well as serialized in the response to this request. In the case
-   *    of deductions without a specified block, multiple ledger entries may be
-   *    created if the deduction spans credit blocks.
+   *    therefore returned in the
+   *    [View Credits Ledger](fetch-customer-credits-ledger) response as well as
+   *    serialized in the response to this request. In the case of deductions without
+   *    a specified block, multiple ledger entries may be created if the deduction
+   *    spans credit blocks.
    * 3. If `invoice_settings` is specified, an invoice will be created that reflects
    *    the cost of the credits (based on `amount` and `per_unit_cost_basis`).
    *
@@ -356,11 +359,11 @@ export class Ledger extends APIResource {
   /**
    * The credits ledger provides _auditing_ functionality over Orb's credits system
    * with a list of actions that have taken place to modify a customer's credit
-   * balance. This [paginated endpoint](../reference/pagination) lists these entries,
-   * starting from the most recent ledger entry.
+   * balance. This [paginated endpoint](/api-reference/pagination) lists these
+   * entries, starting from the most recent ledger entry.
    *
    * More details on using Orb's real-time credit feature are
-   * [here](../guides/product-catalog/prepurchase.md).
+   * [here](/product-catalog/prepurchase).
    *
    * There are four major types of modifications to credit balance, detailed below.
    *
@@ -466,8 +469,8 @@ export class LedgerListResponsesPage extends Page<LedgerListResponse> {}
 export class LedgerListByExternalIDResponsesPage extends Page<LedgerListByExternalIDResponse> {}
 
 /**
- * The [Credit Ledger Entry resource](/guides/product-catalog/prepurchase) models
- * prepaid credits within Orb.
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid
+ * credits within Orb.
  */
 export type LedgerListResponse =
   | LedgerListResponse.IncrementLedgerEntry
@@ -511,6 +514,11 @@ export namespace LedgerListResponse {
     metadata: Record<string, string>;
 
     starting_balance: number;
+
+    /**
+     * If the increment resulted in invoice creation, the list of created invoices
+     */
+    created_invoices?: Array<InvoicesAPI.Invoice> | null;
   }
 
   export namespace IncrementLedgerEntry {
@@ -616,7 +624,7 @@ export namespace LedgerListResponse {
      */
     metadata: Record<string, string>;
 
-    new_block_expiry_date: string;
+    new_block_expiry_date: string | null;
 
     starting_balance: number;
   }
@@ -849,8 +857,8 @@ export namespace LedgerListResponse {
 }
 
 /**
- * The [Credit Ledger Entry resource](/guides/product-catalog/prepurchase) models
- * prepaid credits within Orb.
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid
+ * credits within Orb.
  */
 export type LedgerCreateEntryResponse =
   | LedgerCreateEntryResponse.IncrementLedgerEntry
@@ -894,6 +902,11 @@ export namespace LedgerCreateEntryResponse {
     metadata: Record<string, string>;
 
     starting_balance: number;
+
+    /**
+     * If the increment resulted in invoice creation, the list of created invoices
+     */
+    created_invoices?: Array<InvoicesAPI.Invoice> | null;
   }
 
   export namespace IncrementLedgerEntry {
@@ -999,7 +1012,7 @@ export namespace LedgerCreateEntryResponse {
      */
     metadata: Record<string, string>;
 
-    new_block_expiry_date: string;
+    new_block_expiry_date: string | null;
 
     starting_balance: number;
   }
@@ -1232,8 +1245,8 @@ export namespace LedgerCreateEntryResponse {
 }
 
 /**
- * The [Credit Ledger Entry resource](/guides/product-catalog/prepurchase) models
- * prepaid credits within Orb.
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid
+ * credits within Orb.
  */
 export type LedgerCreateEntryByExternalIDResponse =
   | LedgerCreateEntryByExternalIDResponse.IncrementLedgerEntry
@@ -1277,6 +1290,11 @@ export namespace LedgerCreateEntryByExternalIDResponse {
     metadata: Record<string, string>;
 
     starting_balance: number;
+
+    /**
+     * If the increment resulted in invoice creation, the list of created invoices
+     */
+    created_invoices?: Array<InvoicesAPI.Invoice> | null;
   }
 
   export namespace IncrementLedgerEntry {
@@ -1382,7 +1400,7 @@ export namespace LedgerCreateEntryByExternalIDResponse {
      */
     metadata: Record<string, string>;
 
-    new_block_expiry_date: string;
+    new_block_expiry_date: string | null;
 
     starting_balance: number;
   }
@@ -1615,8 +1633,8 @@ export namespace LedgerCreateEntryByExternalIDResponse {
 }
 
 /**
- * The [Credit Ledger Entry resource](/guides/product-catalog/prepurchase) models
- * prepaid credits within Orb.
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid
+ * credits within Orb.
  */
 export type LedgerListByExternalIDResponse =
   | LedgerListByExternalIDResponse.IncrementLedgerEntry
@@ -1660,6 +1678,11 @@ export namespace LedgerListByExternalIDResponse {
     metadata: Record<string, string>;
 
     starting_balance: number;
+
+    /**
+     * If the increment resulted in invoice creation, the list of created invoices
+     */
+    created_invoices?: Array<InvoicesAPI.Invoice> | null;
   }
 
   export namespace IncrementLedgerEntry {
@@ -1765,7 +1788,7 @@ export namespace LedgerListByExternalIDResponse {
      */
     metadata: Record<string, string>;
 
-    new_block_expiry_date: string;
+    new_block_expiry_date: string | null;
 
     starting_balance: number;
   }
@@ -2033,7 +2056,7 @@ export type LedgerCreateEntryParams =
   | LedgerCreateEntryParams.AddVoidCreditLedgerEntryRequestParams
   | LedgerCreateEntryParams.AddAmendmentCreditLedgerEntryRequestParams;
 
-export namespace LedgerCreateEntryParams {
+export declare namespace LedgerCreateEntryParams {
   export interface AddIncrementCreditLedgerEntryRequestParams {
     /**
      * The number of credits to effect. Note that this is required for increment,
@@ -2073,7 +2096,7 @@ export namespace LedgerCreateEntryParams {
      * per_unit_cost_basis, as the calculation of the invoice total is done on that
      * basis.
      */
-    invoice_settings?: LedgerCreateEntryParams.AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
+    invoice_settings?: AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -2284,7 +2307,7 @@ export type LedgerCreateEntryByExternalIDParams =
   | LedgerCreateEntryByExternalIDParams.AddVoidCreditLedgerEntryRequestParams
   | LedgerCreateEntryByExternalIDParams.AddAmendmentCreditLedgerEntryRequestParams;
 
-export namespace LedgerCreateEntryByExternalIDParams {
+export declare namespace LedgerCreateEntryByExternalIDParams {
   export interface AddIncrementCreditLedgerEntryRequestParams {
     /**
      * The number of credits to effect. Note that this is required for increment,
@@ -2324,7 +2347,7 @@ export namespace LedgerCreateEntryByExternalIDParams {
      * per_unit_cost_basis, as the calculation of the invoice total is done on that
      * basis.
      */
-    invoice_settings?: LedgerCreateEntryByExternalIDParams.AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
+    invoice_settings?: AddIncrementCreditLedgerEntryRequestParams.InvoiceSettings | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed

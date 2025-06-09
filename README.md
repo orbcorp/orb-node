@@ -24,16 +24,12 @@ const client = new Orb({
   apiKey: process.env['ORB_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const customer = await client.customers.create({
-    email: 'example-customer@withorb.com',
-    name: 'My Customer',
-  });
+const customer = await client.customers.create({
+  email: 'example-customer@withorb.com',
+  name: 'My Customer',
+});
 
-  console.log(customer.id);
-}
-
-main();
+console.log(customer.id);
 ```
 
 ### Request & Response types
@@ -48,12 +44,8 @@ const client = new Orb({
   apiKey: process.env['ORB_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const params: Orb.CustomerCreateParams = { email: 'example-customer@withorb.com', name: 'My Customer' };
-  const customer: Orb.Customer = await client.customers.create(params);
-}
-
-main();
+const params: Orb.CustomerCreateParams = { email: 'example-customer@withorb.com', name: 'My Customer' };
+const customer: Orb.Customer = await client.customers.create(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -66,24 +58,20 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const customer = await client.customers
-    .create({ email: 'example-customer@withorb.com', name: 'My Customer' })
-    .catch(async (err) => {
-      if (err instanceof Orb.APIError) {
-        console.log(err.status); // 400
-        console.log(err.name); // BadRequestError
-        console.log(err.headers); // {server: 'nginx', ...}
-      } else {
-        throw err;
-      }
-    });
-}
-
-main();
+const customer = await client.customers
+  .create({ email: 'example-customer@withorb.com', name: 'My Customer' })
+  .catch(async (err) => {
+    if (err instanceof Orb.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 ```
 
-Error codes are as followed:
+Error codes are as follows:
 
 | Status Code | Error Type                 |
 | ----------- | -------------------------- |
@@ -308,7 +296,7 @@ await client.customers.create(
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
 
 1. Changes that only affect static types, without breaking runtime behavior.
-2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals)_.
+2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_
 3. Changes that we do not expect to impact the vast majority of users in practice.
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.

@@ -35,7 +35,7 @@ export class Alerts extends APIResource {
    *
    * The list of alerts is ordered starting from the most recently created alert.
    * This endpoint follows Orb's
-   * [standardized pagination format](../reference/pagination).
+   * [standardized pagination format](/api-reference/pagination).
    */
   list(query?: AlertListParams, options?: Core.RequestOptions): Core.PagePromise<AlertsPage, Alert>;
   list(options?: Core.RequestOptions): Core.PagePromise<AlertsPage, Alert>;
@@ -54,8 +54,7 @@ export class Alerts extends APIResource {
    * are three types of alerts that can be scoped to customers:
    * `credit_balance_depleted`, `credit_balance_dropped`, and
    * `credit_balance_recovered`. Customers can have a maximum of one of each type of
-   * alert per
-   * [credit balance currency](https://docs.withorb.com/guides/product-catalog/prepurchase).
+   * alert per [credit balance currency](/product-catalog/prepurchase).
    * `credit_balance_dropped` alerts require a list of thresholds to be provided
    * while `credit_balance_depleted` and `credit_balance_recovered` alerts do not
    * require thresholds.
@@ -73,8 +72,7 @@ export class Alerts extends APIResource {
    * are three types of alerts that can be scoped to customers:
    * `credit_balance_depleted`, `credit_balance_dropped`, and
    * `credit_balance_recovered`. Customers can have a maximum of one of each type of
-   * alert per
-   * [credit balance currency](https://docs.withorb.com/guides/product-catalog/prepurchase).
+   * alert per [credit balance currency](/product-catalog/prepurchase).
    * `credit_balance_dropped` alerts require a list of thresholds to be provided
    * while `credit_balance_depleted` and `credit_balance_recovered` alerts do not
    * require thresholds.
@@ -109,34 +107,66 @@ export class Alerts extends APIResource {
   }
 
   /**
-   * This endpoint can be used to disable an alert.
+   * This endpoint allows you to disable an alert. To disable a plan-level alert for
+   * a specific subscription, you must include the `subscription_id`. The
+   * `subscription_id` is not required for customer or subscription level alerts.
    */
-  disable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert> {
-    return this._client.post(`/alerts/${alertConfigurationId}/disable`, options);
+  disable(
+    alertConfigurationId: string,
+    params?: AlertDisableParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Alert>;
+  disable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert>;
+  disable(
+    alertConfigurationId: string,
+    params: AlertDisableParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Alert> {
+    if (isRequestOptions(params)) {
+      return this.disable(alertConfigurationId, {}, params);
+    }
+    const { subscription_id } = params;
+    return this._client.post(`/alerts/${alertConfigurationId}/disable`, {
+      query: { subscription_id },
+      ...options,
+    });
   }
 
   /**
-   * This endpoint can be used to enable an alert.
+   * This endpoint allows you to enable an alert. To enable a plan-level alert for a
+   * specific subscription, you must include the `subscription_id`. The
+   * `subscription_id` is not required for customer or subscription level alerts.
    */
-  enable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert> {
-    return this._client.post(`/alerts/${alertConfigurationId}/enable`, options);
+  enable(
+    alertConfigurationId: string,
+    params?: AlertEnableParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Alert>;
+  enable(alertConfigurationId: string, options?: Core.RequestOptions): Core.APIPromise<Alert>;
+  enable(
+    alertConfigurationId: string,
+    params: AlertEnableParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Alert> {
+    if (isRequestOptions(params)) {
+      return this.enable(alertConfigurationId, {}, params);
+    }
+    const { subscription_id } = params;
+    return this._client.post(`/alerts/${alertConfigurationId}/enable`, {
+      query: { subscription_id },
+      ...options,
+    });
   }
 }
 
 export class AlertsPage extends Page<Alert> {}
 
 /**
- * [Alerts within Orb](https://docs.withorb.com/guides/product-catalog/configuring-alerts)
- * monitor spending, usage, or credit balance and trigger webhooks when a threshold
- * is exceeded.
+ * [Alerts within Orb](/product-catalog/configuring-alerts) monitor spending,
+ * usage, or credit balance and trigger webhooks when a threshold is exceeded.
  *
  * Alerts created through the API can be scoped to either customers or
  * subscriptions.
- *
- * | Scope        | Monitors                       | Vaild Alert Types                                                                   |
- * | ------------ | ------------------------------ | ----------------------------------------------------------------------------------- |
- * | Customer     | A customer's credit balance    | `credit_balance_depleted`, `credit_balance_recovered`, and `credit_balance_dropped` |
- * | Subscription | A subscription's usage or cost | `usage_exceeded` and `cost_exceeded`                                                |
  */
 export interface Alert {
   /**
@@ -157,7 +187,7 @@ export interface Alert {
   /**
    * The customer the alert applies to.
    */
-  customer: Record<string, string | null> | null;
+  customer: Alert.Customer | null;
 
   /**
    * Whether the alert is enabled or disabled.
@@ -167,17 +197,17 @@ export interface Alert {
   /**
    * The metric the alert applies to.
    */
-  metric: Record<string, string | null> | null;
+  metric: Alert.Metric | null;
 
   /**
    * The plan the alert applies to.
    */
-  plan: Record<string, string | null> | null;
+  plan: Alert.Plan | null;
 
   /**
    * The subscription the alert applies to.
    */
-  subscription: Record<string, string | null> | null;
+  subscription: Alert.Subscription | null;
 
   /**
    * The thresholds that define the conditions under which the alert will be
@@ -189,14 +219,61 @@ export interface Alert {
    * The type of alert. This must be a valid alert type.
    */
   type:
-    | 'usage_exceeded'
-    | 'cost_exceeded'
     | 'credit_balance_depleted'
     | 'credit_balance_dropped'
-    | 'credit_balance_recovered';
+    | 'credit_balance_recovered'
+    | 'usage_exceeded'
+    | 'cost_exceeded';
+
+  /**
+   * The current status of the alert. This field is only present for credit balance
+   * alerts.
+   */
+  balance_alert_status?: Array<Alert.BalanceAlertStatus> | null;
 }
 
 export namespace Alert {
+  /**
+   * The customer the alert applies to.
+   */
+  export interface Customer {
+    id: string;
+
+    external_customer_id: string | null;
+  }
+
+  /**
+   * The metric the alert applies to.
+   */
+  export interface Metric {
+    id: string;
+  }
+
+  /**
+   * The plan the alert applies to.
+   */
+  export interface Plan {
+    id: string | null;
+
+    /**
+     * An optional user-defined ID for this plan resource, used throughout the system
+     * as an alias for this Plan. Use this field to identify a plan by an existing
+     * identifier in your system.
+     */
+    external_plan_id: string | null;
+
+    name: string | null;
+
+    plan_version: string;
+  }
+
+  /**
+   * The subscription the alert applies to.
+   */
+  export interface Subscription {
+    id: string;
+  }
+
   /**
    * Thresholds are used to define the conditions under which an alert will be
    * triggered.
@@ -208,6 +285,21 @@ export namespace Alert {
      * or above this value.
      */
     value: number;
+  }
+
+  /**
+   * Alert status is used to determine if an alert is currently in-alert or not.
+   */
+  export interface BalanceAlertStatus {
+    /**
+     * Whether the alert is currently in-alert or not.
+     */
+    in_alert: boolean;
+
+    /**
+     * The value of the threshold that defines the alert status.
+     */
+    threshold_value: number;
   }
 }
 
@@ -267,12 +359,7 @@ export interface AlertCreateForCustomerParams {
   /**
    * The type of alert to create. This must be a valid alert type.
    */
-  type:
-    | 'usage_exceeded'
-    | 'cost_exceeded'
-    | 'credit_balance_depleted'
-    | 'credit_balance_dropped'
-    | 'credit_balance_recovered';
+  type: 'credit_balance_depleted' | 'credit_balance_dropped' | 'credit_balance_recovered';
 
   /**
    * The thresholds that define the values at which the alert will be triggered.
@@ -304,12 +391,7 @@ export interface AlertCreateForExternalCustomerParams {
   /**
    * The type of alert to create. This must be a valid alert type.
    */
-  type:
-    | 'usage_exceeded'
-    | 'cost_exceeded'
-    | 'credit_balance_depleted'
-    | 'credit_balance_dropped'
-    | 'credit_balance_recovered';
+  type: 'credit_balance_depleted' | 'credit_balance_dropped' | 'credit_balance_recovered';
 
   /**
    * The thresholds that define the values at which the alert will be triggered.
@@ -341,12 +423,7 @@ export interface AlertCreateForSubscriptionParams {
   /**
    * The type of alert to create. This must be a valid alert type.
    */
-  type:
-    | 'usage_exceeded'
-    | 'cost_exceeded'
-    | 'credit_balance_depleted'
-    | 'credit_balance_dropped'
-    | 'credit_balance_recovered';
+  type: 'usage_exceeded' | 'cost_exceeded';
 
   /**
    * The metric to track usage for.
@@ -369,6 +446,20 @@ export namespace AlertCreateForSubscriptionParams {
   }
 }
 
+export interface AlertDisableParams {
+  /**
+   * Used to update the status of a plan alert scoped to this subscription_id
+   */
+  subscription_id?: string | null;
+}
+
+export interface AlertEnableParams {
+  /**
+   * Used to update the status of a plan alert scoped to this subscription_id
+   */
+  subscription_id?: string | null;
+}
+
 Alerts.AlertsPage = AlertsPage;
 
 export declare namespace Alerts {
@@ -380,5 +471,7 @@ export declare namespace Alerts {
     type AlertCreateForCustomerParams as AlertCreateForCustomerParams,
     type AlertCreateForExternalCustomerParams as AlertCreateForExternalCustomerParams,
     type AlertCreateForSubscriptionParams as AlertCreateForSubscriptionParams,
+    type AlertDisableParams as AlertDisableParams,
+    type AlertEnableParams as AlertEnableParams,
   };
 }

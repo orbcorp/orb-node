@@ -50,7 +50,8 @@ export class TopUps extends APIResource {
   }
 
   /**
-   * Delete top-up
+   * This deactivates the top-up and voids any invoices associated with pending
+   * credit blocks purchased through the top-up.
    */
   delete(customerId: string, topUpId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.delete(`/customers/${customerId}/credits/top_ups/${topUpId}`, {
@@ -80,7 +81,8 @@ export class TopUps extends APIResource {
   }
 
   /**
-   * Delete top-up by external ID
+   * This deactivates the top-up and voids any invoices associated with pending
+   * credit blocks purchased through the top-up.
    */
   deleteByExternalId(
     externalCustomerId: string,
@@ -191,8 +193,10 @@ export namespace TopUpCreateResponse {
     memo?: string | null;
 
     /**
-     * If true, new credit blocks created by this top-up will require that the
-     * corresponding invoice is paid before they can be drawn down from.
+     * When true, credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they are drawn down from. If any topup
+     * block is pending payment, further automatic top-ups will be paused until the
+     * invoice is paid or voided.
      */
     require_successful_payment?: boolean;
   }
@@ -264,8 +268,10 @@ export namespace TopUpListResponse {
     memo?: string | null;
 
     /**
-     * If true, new credit blocks created by this top-up will require that the
-     * corresponding invoice is paid before they can be drawn down from.
+     * When true, credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they are drawn down from. If any topup
+     * block is pending payment, further automatic top-ups will be paused until the
+     * invoice is paid or voided.
      */
     require_successful_payment?: boolean;
   }
@@ -337,8 +343,10 @@ export namespace TopUpCreateByExternalIDResponse {
     memo?: string | null;
 
     /**
-     * If true, new credit blocks created by this top-up will require that the
-     * corresponding invoice is paid before they can be drawn down from.
+     * When true, credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they are drawn down from. If any topup
+     * block is pending payment, further automatic top-ups will be paused until the
+     * invoice is paid or voided.
      */
     require_successful_payment?: boolean;
   }
@@ -410,8 +418,10 @@ export namespace TopUpListByExternalIDResponse {
     memo?: string | null;
 
     /**
-     * If true, new credit blocks created by this top-up will require that the
-     * corresponding invoice is paid before they can be drawn down from.
+     * When true, credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they are drawn down from. If any topup
+     * block is pending payment, further automatic top-ups will be paused until the
+     * invoice is paid or voided.
      */
     require_successful_payment?: boolean;
   }
@@ -444,6 +454,12 @@ export interface TopUpCreateParams {
    * threshold, the top-up will be triggered.
    */
   threshold: string;
+
+  /**
+   * The date from which the top-up is active. If unspecified, the top-up is active
+   * immediately. This should not be more than 10 days in the past.
+   */
+  active_from?: string | null;
 
   /**
    * The number of days or months after which the top-up expires. If unspecified, it
@@ -481,8 +497,10 @@ export namespace TopUpCreateParams {
     memo?: string | null;
 
     /**
-     * If true, new credit blocks created by this top-up will require that the
-     * corresponding invoice is paid before they can be drawn down from.
+     * When true, credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they are drawn down from. If any topup
+     * block is pending payment, further automatic top-ups will be paused until the
+     * invoice is paid or voided.
      */
     require_successful_payment?: boolean;
   }
@@ -517,6 +535,12 @@ export interface TopUpCreateByExternalIDParams {
    * threshold, the top-up will be triggered.
    */
   threshold: string;
+
+  /**
+   * The date from which the top-up is active. If unspecified, the top-up is active
+   * immediately. This should not be more than 10 days in the past.
+   */
+  active_from?: string | null;
 
   /**
    * The number of days or months after which the top-up expires. If unspecified, it
@@ -554,8 +578,10 @@ export namespace TopUpCreateByExternalIDParams {
     memo?: string | null;
 
     /**
-     * If true, new credit blocks created by this top-up will require that the
-     * corresponding invoice is paid before they can be drawn down from.
+     * When true, credit blocks created by this top-up will require that the
+     * corresponding invoice is paid before they are drawn down from. If any topup
+     * block is pending payment, further automatic top-ups will be paused until the
+     * invoice is paid or voided.
      */
     require_successful_payment?: boolean;
   }

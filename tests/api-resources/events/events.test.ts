@@ -12,7 +12,7 @@ describe('resource events', () => {
   test('update: only required params', async () => {
     const responsePromise = client.events.update('event_id', {
       event_name: 'event_name',
-      properties: {},
+      properties: { foo: 'bar' },
       timestamp: '2020-12-09T16:09:53Z',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -27,7 +27,7 @@ describe('resource events', () => {
   test('update: required and optional params', async () => {
     const response = await client.events.update('event_id', {
       event_name: 'event_name',
-      properties: {},
+      properties: { foo: 'bar' },
       timestamp: '2020-12-09T16:09:53Z',
       customer_id: 'customer_id',
       external_customer_id: 'external_customer_id',
@@ -58,7 +58,7 @@ describe('resource events', () => {
         {
           event_name: 'event_name',
           idempotency_key: 'idempotency_key',
-          properties: {},
+          properties: { foo: 'bar' },
           timestamp: '2020-12-09T16:09:53Z',
         },
       ],
@@ -78,7 +78,7 @@ describe('resource events', () => {
         {
           event_name: 'event_name',
           idempotency_key: 'idempotency_key',
-          properties: {},
+          properties: { foo: 'bar' },
           timestamp: '2020-12-09T16:09:53Z',
           customer_id: 'customer_id',
           external_customer_id: 'external_customer_id',

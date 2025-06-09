@@ -16,7 +16,12 @@ import {
   type RequestInit,
   type Response,
   type HeadersInit,
+  init,
 } from './_shims/index';
+
+// try running side effects outside of _shims/index to workaround https://github.com/vercel/next.js/issues/76881
+init();
+
 export { type Response };
 import { BlobLike, isBlobLike, isMultipartBody } from './uploads';
 export {
@@ -27,6 +32,20 @@ export {
 } from './uploads';
 
 export type Fetch = (url: RequestInfo, init?: RequestInit) => Promise<Response>;
+
+/**
+ * An alias to the builtin `Array` type so we can
+ * easily alias it in import statements if there are name clashes.
+ */
+type _Array<T> = Array<T>;
+
+/**
+ * An alias to the builtin `Record` type so we can
+ * easily alias it in import statements if there are name clashes.
+ */
+type _Record<K extends keyof any, T> = Record<K, T>;
+
+export type { _Array as Array, _Record as Record };
 
 type PromiseOrValue<T> = T | Promise<T>;
 
@@ -48,8 +67,8 @@ async function defaultParseResponse<T>(props: APIResponseProps): Promise<T> {
   }
 
   const contentType = response.headers.get('content-type');
-  const isJSON =
-    contentType?.includes('application/json') || contentType?.includes('application/vnd.api+json');
+  const mediaType = contentType?.split(';')[0]?.trim();
+  const isJSON = mediaType?.includes('application/json') || mediaType?.endsWith('+json');
   if (isJSON) {
     const json = await response.json();
 
@@ -163,7 +182,7 @@ export abstract class APIClient {
     maxRetries = 2,
     timeout = 60000, // 1 minute
     httpAgent,
-    fetch: overridenFetch,
+    fetch: overriddenFetch,
   }: {
     baseURL: string;
     maxRetries?: number | undefined;
@@ -176,7 +195,7 @@ export abstract class APIClient {
     this.timeout = validatePositiveInteger('timeout', timeout);
     this.httpAgent = httpAgent;
 
-    this.fetch = overridenFetch ?? fetch;
+    this.fetch = overriddenFetch ?? fetch;
   }
 
   protected authHeaders(opts: FinalRequestOptions): Headers {
@@ -277,9 +296,10 @@ export abstract class APIClient {
   }
 
   buildRequest<Req>(
-    options: FinalRequestOptions<Req>,
+    inputOptions: FinalRequestOptions<Req>,
     { retryCount = 0 }: { retryCount?: number } = {},
   ): { req: RequestInit; url: string; timeout: number } {
+    const options = { ...inputOptions };
     const { method, path, query, headers: headers = {} } = options;
 
     const body =
@@ -292,9 +312,9 @@ export abstract class APIClient {
 
     const url = this.buildURL(path!, query);
     if ('timeout' in options) validatePositiveInteger('timeout', options.timeout);
-    const timeout = options.timeout ?? this.timeout;
+    options.timeout = options.timeout ?? this.timeout;
     const httpAgent = options.httpAgent ?? this.httpAgent ?? getDefaultAgent(url);
-    const minAgentTimeout = timeout + 1000;
+    const minAgentTimeout = options.timeout + 1000;
     if (
       typeof (httpAgent as any)?.options?.timeout === 'number' &&
       minAgentTimeout > ((httpAgent as any).options.timeout ?? 0)
@@ -307,8 +327,8 @@ export abstract class APIClient {
     }
 
     if (this.idempotencyHeader && method !== 'get') {
-      if (!options.idempotencyKey) options.idempotencyKey = this.defaultIdempotencyKey();
-      headers[this.idempotencyHeader] = options.idempotencyKey;
+      if (!inputOptions.idempotencyKey) inputOptions.idempotencyKey = this.defaultIdempotencyKey();
+      headers[this.idempotencyHeader] = inputOptions.idempotencyKey;
     }
 
     const reqHeaders = this.buildHeaders({ options, headers, contentLength, retryCount });
@@ -323,7 +343,7 @@ export abstract class APIClient {
       signal: options.signal ?? null,
     };
 
-    return { req, url, timeout };
+    return { req, url, timeout: options.timeout };
   }
 
   private buildHeaders({
@@ -351,14 +371,21 @@ export abstract class APIClient {
       delete reqHeaders['content-type'];
     }
 
-    // Don't set the retry count header if it was already set or removed through default headers or by the
-    // caller. We check `defaultHeaders` and `headers`, which can contain nulls, instead of `reqHeaders` to
-    // account for the removal case.
+    // Don't set theses headers if they were already set or removed through default headers or by the caller.
+    // We check `defaultHeaders` and `headers`, which can contain nulls, instead of `reqHeaders` to account
+    // for the removal case.
     if (
       getHeader(defaultHeaders, 'x-stainless-retry-count') === undefined &&
       getHeader(headers, 'x-stainless-retry-count') === undefined
     ) {
       reqHeaders['x-stainless-retry-count'] = String(retryCount);
+    }
+    if (
+      getHeader(defaultHeaders, 'x-stainless-timeout') === undefined &&
+      getHeader(headers, 'x-stainless-timeout') === undefined &&
+      options.timeout
+    ) {
+      reqHeaders['x-stainless-timeout'] = String(Math.trunc(options.timeout / 1000));
     }
 
     this.validateHeaders(reqHeaders, headers);
@@ -387,7 +414,7 @@ export abstract class APIClient {
       !headers ? {}
       : Symbol.iterator in headers ?
         Object.fromEntries(Array.from(headers as Iterable<string[]>).map((header) => [...header]))
-      : { ...headers }
+      : { ...(headers as any as Record<string, string>) }
     );
   }
 
@@ -522,18 +549,22 @@ export abstract class APIClient {
 
     const timeout = setTimeout(() => controller.abort(), ms);
 
-    return (
-      this.getRequestClient()
-        // use undefined this binding; fetch errors if bound to something else in browser/cloudflare
-        .fetch.call(undefined, url, { signal: controller.signal as any, ...options })
-        .finally(() => {
-          clearTimeout(timeout);
-        })
-    );
-  }
+    const fetchOptions = {
+      signal: controller.signal as any,
+      ...options,
+    };
+    if (fetchOptions.method) {
+      // Custom methods like 'patch' need to be uppercased
+      // See https://github.com/nodejs/undici/issues/2294
+      fetchOptions.method = fetchOptions.method.toUpperCase();
+    }
 
-  protected getRequestClient(): RequestClient {
-    return { fetch: this.fetch };
+    return (
+      // use undefined this binding; fetch errors if bound to something else in browser/cloudflare
+      this.fetch.call(undefined, url, fetchOptions).finally(() => {
+        clearTimeout(timeout);
+      })
+    );
   }
 
   private shouldRetry(response: Response): boolean {
@@ -976,8 +1007,8 @@ export const safeJSON = (text: string) => {
   }
 };
 
-// https://stackoverflow.com/a/19709846
-const startsWithSchemeRegexp = new RegExp('^(?:[a-z]+:)?//', 'i');
+// https://url.spec.whatwg.org/#url-scheme-string
+const startsWithSchemeRegexp = /^[a-z][a-z0-9+.-]*:/i;
 const isAbsoluteURL = (url: string): boolean => {
   return startsWithSchemeRegexp.test(url);
 };

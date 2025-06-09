@@ -8,7 +8,7 @@ import { Page, type PageParams } from '../pagination';
 export class CreditNotes extends APIResource {
   /**
    * This endpoint is used to create a single
-   * [`Credit Note`](../guides/invoicing/credit-notes).
+   * [`Credit Note`](/invoicing/credit-notes).
    */
   create(body: CreditNoteCreateParams, options?: Core.RequestOptions): Core.APIPromise<CreditNote> {
     return this._client.post('/credit_notes', { body, ...options });
@@ -35,8 +35,8 @@ export class CreditNotes extends APIResource {
   }
 
   /**
-   * This endpoint is used to fetch a single
-   * [`Credit Note`](../guides/invoicing/credit-notes) given an identifier.
+   * This endpoint is used to fetch a single [`Credit Note`](/invoicing/credit-notes)
+   * given an identifier.
    */
   fetch(creditNoteId: string, options?: Core.RequestOptions): Core.APIPromise<CreditNote> {
     return this._client.get(`/credit_notes/${creditNoteId}`, options);
@@ -46,8 +46,8 @@ export class CreditNotes extends APIResource {
 export class CreditNotesPage extends Page<CreditNote> {}
 
 /**
- * The [Credit Note](/guides/invoicing/credit-notes) resource represents a credit
- * that has been applied to a particular invoice.
+ * The [Credit Note](/invoicing/credit-notes) resource represents a credit that has
+ * been applied to a particular invoice.
  */
 export interface CreditNote {
   /**
@@ -139,6 +139,11 @@ export namespace CreditNote {
      * The amount of the line item, including any line item minimums and discounts.
      */
     amount: string;
+
+    /**
+     * The id of the item associated with this line item.
+     */
+    item_id: string;
 
     /**
      * The name of the corresponding invoice line item.
@@ -249,14 +254,14 @@ export interface CreditNoteCreateParams {
   line_items: Array<CreditNoteCreateParams.LineItem>;
 
   /**
+   * An optional reason for the credit note.
+   */
+  reason: 'duplicate' | 'fraudulent' | 'order_change' | 'product_unsatisfactory';
+
+  /**
    * An optional memo to attach to the credit note.
    */
   memo?: string | null;
-
-  /**
-   * An optional reason for the credit note.
-   */
-  reason?: 'duplicate' | 'fraudulent' | 'order_change' | 'product_unsatisfactory' | null;
 }
 
 export namespace CreditNoteCreateParams {
@@ -273,7 +278,15 @@ export namespace CreditNoteCreateParams {
   }
 }
 
-export interface CreditNoteListParams extends PageParams {}
+export interface CreditNoteListParams extends PageParams {
+  'created_at[gt]'?: string | null;
+
+  'created_at[gte]'?: string | null;
+
+  'created_at[lt]'?: string | null;
+
+  'created_at[lte]'?: string | null;
+}
 
 CreditNotes.CreditNotesPage = CreditNotesPage;
 

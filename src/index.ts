@@ -13,6 +13,8 @@ import {
   AlertCreateForCustomerParams,
   AlertCreateForExternalCustomerParams,
   AlertCreateForSubscriptionParams,
+  AlertDisableParams,
+  AlertEnableParams,
   AlertListParams,
   AlertUpdateParams,
   Alerts,
@@ -59,6 +61,13 @@ import {
   Metrics,
 } from './resources/metrics';
 import {
+  SubscriptionChangeApplyParams,
+  SubscriptionChangeApplyResponse,
+  SubscriptionChangeCancelResponse,
+  SubscriptionChangeRetrieveResponse,
+  SubscriptionChanges,
+} from './resources/subscription-changes';
+import {
   Subscription,
   SubscriptionCancelParams,
   SubscriptionCancelResponse,
@@ -73,6 +82,8 @@ import {
   SubscriptionListParams,
   SubscriptionPriceIntervalsParams,
   SubscriptionPriceIntervalsResponse,
+  SubscriptionRedeemCouponParams,
+  SubscriptionRedeemCouponResponse,
   SubscriptionSchedulePlanChangeParams,
   SubscriptionSchedulePlanChangeResponse,
   SubscriptionTriggerPhaseParams,
@@ -92,6 +103,13 @@ import {
 } from './resources/subscriptions';
 import { TopLevel, TopLevelPingResponse } from './resources/top-level';
 import {
+  Beta,
+  BetaCreatePlanVersionParams,
+  BetaSetDefaultPlanVersionParams,
+  PlanVersion,
+  PlanVersionPhase,
+} from './resources/beta/beta';
+import {
   Coupon,
   CouponCreateParams,
   CouponListParams,
@@ -107,6 +125,13 @@ import {
   Customers,
   CustomersPage,
 } from './resources/customers/customers';
+import {
+  DimensionalPriceGroup,
+  DimensionalPriceGroupCreateParams,
+  DimensionalPriceGroupListParams,
+  DimensionalPriceGroups,
+  DimensionalPriceGroupsPage,
+} from './resources/dimensional-price-groups/dimensional-price-groups';
 import {
   EventDeprecateResponse,
   EventIngestParams,
@@ -129,6 +154,8 @@ import {
   EvaluatePriceGroup,
   Price,
   PriceCreateParams,
+  PriceEvaluateMultipleParams,
+  PriceEvaluateMultipleResponse,
   PriceEvaluateParams,
   PriceEvaluateResponse,
   PriceListParams,
@@ -162,7 +189,7 @@ export interface ClientOptions {
    * Note that request timeouts are retried by default, so in a worst-case scenario you may wait
    * much longer than this timeout before the promise succeeds or fails.
    */
-  timeout?: number;
+  timeout?: number | undefined;
 
   /**
    * An HTTP agent used to manage HTTP(S) connections.
@@ -170,7 +197,7 @@ export interface ClientOptions {
    * If not provided, an agent will be constructed by default in the Node.js environment,
    * otherwise no agent is used.
    */
-  httpAgent?: Agent;
+  httpAgent?: Agent | undefined;
 
   /**
    * Specify a custom `fetch` function implementation.
@@ -186,7 +213,7 @@ export interface ClientOptions {
    *
    * @default 2
    */
-  maxRetries?: number;
+  maxRetries?: number | undefined;
 
   /**
    * Default headers to include with every request to the API.
@@ -194,7 +221,7 @@ export interface ClientOptions {
    * These can be removed in individual requests by explicitly setting the
    * header to `undefined` or `null` in request options.
    */
-  defaultHeaders?: Core.Headers;
+  defaultHeaders?: Core.Headers | undefined;
 
   /**
    * Default query parameters to include with every request to the API.
@@ -202,7 +229,7 @@ export interface ClientOptions {
    * These can be removed in individual requests by explicitly setting the
    * param to `undefined` in request options.
    */
-  defaultQuery?: Core.DefaultQuery;
+  defaultQuery?: Core.DefaultQuery | undefined;
 }
 
 /**
@@ -262,6 +289,7 @@ export class Orb extends Core.APIClient {
   }
 
   topLevel: API.TopLevel = new API.TopLevel(this);
+  beta: API.Beta = new API.Beta(this);
   coupons: API.Coupons = new API.Coupons(this);
   creditNotes: API.CreditNotes = new API.CreditNotes(this);
   customers: API.Customers = new API.Customers(this);
@@ -274,6 +302,8 @@ export class Orb extends Core.APIClient {
   prices: API.Prices = new API.Prices(this);
   subscriptions: API.Subscriptions = new API.Subscriptions(this);
   alerts: API.Alerts = new API.Alerts(this);
+  dimensionalPriceGroups: API.DimensionalPriceGroups = new API.DimensionalPriceGroups(this);
+  subscriptionChanges: API.SubscriptionChanges = new API.SubscriptionChanges(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -328,6 +358,7 @@ export class Orb extends Core.APIClient {
 }
 
 Orb.TopLevel = TopLevel;
+Orb.Beta = Beta;
 Orb.Coupons = Coupons;
 Orb.CouponsPage = CouponsPage;
 Orb.CreditNotes = CreditNotes;
@@ -350,6 +381,8 @@ Orb.SubscriptionsPage = SubscriptionsPage;
 Orb.SubscriptionFetchScheduleResponsesPage = SubscriptionFetchScheduleResponsesPage;
 Orb.Alerts = Alerts;
 Orb.AlertsPage = AlertsPage;
+Orb.DimensionalPriceGroupsPage = DimensionalPriceGroupsPage;
+Orb.SubscriptionChanges = SubscriptionChanges;
 export declare namespace Orb {
   export type RequestOptions = Core.RequestOptions;
 
@@ -357,6 +390,14 @@ export declare namespace Orb {
   export { type PageParams as PageParams, type PageResponse as PageResponse };
 
   export { TopLevel as TopLevel, type TopLevelPingResponse as TopLevelPingResponse };
+
+  export {
+    Beta as Beta,
+    type PlanVersion as PlanVersion,
+    type PlanVersionPhase as PlanVersionPhase,
+    type BetaCreatePlanVersionParams as BetaCreatePlanVersionParams,
+    type BetaSetDefaultPlanVersionParams as BetaSetDefaultPlanVersionParams,
+  };
 
   export {
     Coupons as Coupons,
@@ -446,11 +487,13 @@ export declare namespace Orb {
     type EvaluatePriceGroup as EvaluatePriceGroup,
     type Price as Price,
     type PriceEvaluateResponse as PriceEvaluateResponse,
+    type PriceEvaluateMultipleResponse as PriceEvaluateMultipleResponse,
     PricesPage as PricesPage,
     type PriceCreateParams as PriceCreateParams,
     type PriceUpdateParams as PriceUpdateParams,
     type PriceListParams as PriceListParams,
     type PriceEvaluateParams as PriceEvaluateParams,
+    type PriceEvaluateMultipleParams as PriceEvaluateMultipleParams,
   };
 
   export {
@@ -462,6 +505,7 @@ export declare namespace Orb {
     type SubscriptionFetchCostsResponse as SubscriptionFetchCostsResponse,
     type SubscriptionFetchScheduleResponse as SubscriptionFetchScheduleResponse,
     type SubscriptionPriceIntervalsResponse as SubscriptionPriceIntervalsResponse,
+    type SubscriptionRedeemCouponResponse as SubscriptionRedeemCouponResponse,
     type SubscriptionSchedulePlanChangeResponse as SubscriptionSchedulePlanChangeResponse,
     type SubscriptionTriggerPhaseResponse as SubscriptionTriggerPhaseResponse,
     type SubscriptionUnscheduleCancellationResponse as SubscriptionUnscheduleCancellationResponse,
@@ -479,6 +523,7 @@ export declare namespace Orb {
     type SubscriptionFetchScheduleParams as SubscriptionFetchScheduleParams,
     type SubscriptionFetchUsageParams as SubscriptionFetchUsageParams,
     type SubscriptionPriceIntervalsParams as SubscriptionPriceIntervalsParams,
+    type SubscriptionRedeemCouponParams as SubscriptionRedeemCouponParams,
     type SubscriptionSchedulePlanChangeParams as SubscriptionSchedulePlanChangeParams,
     type SubscriptionTriggerPhaseParams as SubscriptionTriggerPhaseParams,
     type SubscriptionUnscheduleFixedFeeQuantityUpdatesParams as SubscriptionUnscheduleFixedFeeQuantityUpdatesParams,
@@ -495,6 +540,24 @@ export declare namespace Orb {
     type AlertCreateForCustomerParams as AlertCreateForCustomerParams,
     type AlertCreateForExternalCustomerParams as AlertCreateForExternalCustomerParams,
     type AlertCreateForSubscriptionParams as AlertCreateForSubscriptionParams,
+    type AlertDisableParams as AlertDisableParams,
+    type AlertEnableParams as AlertEnableParams,
+  };
+
+  export {
+    type DimensionalPriceGroups as DimensionalPriceGroups,
+    type DimensionalPriceGroup as DimensionalPriceGroup,
+    DimensionalPriceGroupsPage as DimensionalPriceGroupsPage,
+    type DimensionalPriceGroupCreateParams as DimensionalPriceGroupCreateParams,
+    type DimensionalPriceGroupListParams as DimensionalPriceGroupListParams,
+  };
+
+  export {
+    SubscriptionChanges as SubscriptionChanges,
+    type SubscriptionChangeRetrieveResponse as SubscriptionChangeRetrieveResponse,
+    type SubscriptionChangeApplyResponse as SubscriptionChangeApplyResponse,
+    type SubscriptionChangeCancelResponse as SubscriptionChangeCancelResponse,
+    type SubscriptionChangeApplyParams as SubscriptionChangeApplyParams,
   };
 
   export type AmountDiscount = API.AmountDiscount;
@@ -504,6 +567,7 @@ export declare namespace Orb {
   export type PaginationMetadata = API.PaginationMetadata;
   export type PercentageDiscount = API.PercentageDiscount;
   export type TrialDiscount = API.TrialDiscount;
+  export type UsageDiscount = API.UsageDiscount;
 }
 
 export { toFile, fileFromPath } from './uploads';

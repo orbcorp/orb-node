@@ -96,6 +96,11 @@ describe('instantiate client', () => {
     expect(response).toEqual({ url: 'http://localhost:5000/foo', custom: true });
   });
 
+  test('explicit global fetch', async () => {
+    // make sure the global fetch type is assignable to our Fetch type
+    const client = new Orb({ baseURL: 'http://localhost:5000/', apiKey: 'My API Key', fetch: defaultFetch });
+  });
+
   test('custom signal', async () => {
     const client = new Orb({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -120,6 +125,19 @@ describe('instantiate client', () => {
 
     await expect(client.get('/foo', { signal: controller.signal })).rejects.toThrowError(APIUserAbortError);
     expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  test('normalized method', async () => {
+    let capturedRequest: RequestInit | undefined;
+    const testFetch = async (url: RequestInfo, init: RequestInit = {}): Promise<Response> => {
+      capturedRequest = init;
+      return new Response(JSON.stringify({}), { headers: { 'Content-Type': 'application/json' } });
+    };
+
+    const client = new Orb({ baseURL: 'http://localhost:5000/', apiKey: 'My API Key', fetch: testFetch });
+
+    await client.patch('/foo');
+    expect(capturedRequest?.method).toEqual('PATCH');
   });
 
   describe('baseUrl', () => {
@@ -177,7 +195,7 @@ describe('instantiate client', () => {
     expect(client.apiKey).toBe('My API Key');
   });
 
-  test('with overriden environment variable arguments', () => {
+  test('with overridden environment variable arguments', () => {
     // set options via env var
     process.env['ORB_API_KEY'] = 'another My API Key';
     const client = new Orb({ apiKey: 'My API Key' });
@@ -191,10 +209,7 @@ describe('idempotency', () => {
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
       apiKey: 'My API Key',
     });
-    await client.coupons.create(
-      { discount: { discount_type: 'percentage', percentage_discount: 0 }, redemption_code: 'HALFOFF' },
-      { idempotencyKey: 'my-idempotency-key' },
-    );
+    await client.beta.createPlanVersion('plan_id', { version: 0 }, { idempotencyKey: 'my-idempotency-key' });
   });
 });
 

@@ -7,8 +7,10 @@ export {
   type EvaluatePriceGroup,
   type Price,
   type PriceEvaluateResponse,
+  type PriceEvaluateMultipleResponse,
   type PriceCreateParams,
   type PriceUpdateParams,
   type PriceListParams,
   type PriceEvaluateParams,
+  type PriceEvaluateMultipleParams,
 } from './prices';

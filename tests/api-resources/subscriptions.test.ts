@@ -60,7 +60,7 @@ describe('resource subscriptions', () => {
           'created_at[lte]': '2019-12-27T18:11:19.117Z',
           cursor: 'cursor',
           customer_id: ['string'],
-          external_customer_id: 'external_customer_id',
+          external_customer_id: ['string'],
           limit: 1,
           status: 'active',
         },
@@ -85,6 +85,7 @@ describe('resource subscriptions', () => {
   test('cancel: required and optional params', async () => {
     const response = await client.subscriptions.cancel('subscription_id', {
       cancel_option: 'end_of_subscription_term',
+      allow_invoice_credit_or_void: true,
       cancellation_date: '2019-12-27T18:11:19.117Z',
     });
   });
@@ -232,6 +233,29 @@ describe('resource subscriptions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
+  test('redeemCoupon: only required params', async () => {
+    const responsePromise = client.subscriptions.redeemCoupon('subscription_id', {
+      change_option: 'requested_date',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('redeemCoupon: required and optional params', async () => {
+    const response = await client.subscriptions.redeemCoupon('subscription_id', {
+      change_option: 'requested_date',
+      allow_invoice_credit_or_void: true,
+      change_date: '2017-07-21T17:32:28Z',
+      coupon_id: 'coupon_id',
+      coupon_redemption_code: 'coupon_redemption_code',
+    });
+  });
+
   test('schedulePlanChange: only required params', async () => {
     const responsePromise = client.subscriptions.schedulePlanChange('subscription_id', {
       change_option: 'requested_date',
@@ -252,8 +276,14 @@ describe('resource subscriptions', () => {
         {
           adjustment: {
             adjustment_type: 'percentage_discount',
-            applies_to_price_ids: ['price_1', 'price_2'],
             percentage_discount: 0,
+            applies_to_all: true,
+            applies_to_item_ids: ['item_1', 'item_2'],
+            applies_to_price_ids: ['price_1', 'price_2'],
+            currency: 'currency',
+            filters: [{ field: 'price_id', operator: 'includes', values: ['string'] }],
+            is_invoice_level: true,
+            price_type: 'usage',
           },
           end_date: '2019-12-27T18:11:19.117Z',
           plan_phase_order: 0,
@@ -262,6 +292,13 @@ describe('resource subscriptions', () => {
       ],
       add_prices: [
         {
+          allocation_price: {
+            amount: '10.00',
+            cadence: 'monthly',
+            currency: 'USD',
+            custom_expiration: { duration: 0, duration_unit: 'day' },
+            expires_at_end_of_cadence: true,
+          },
           discounts: [
             {
               discount_type: 'percentage',
@@ -286,9 +323,14 @@ describe('resource subscriptions', () => {
             billing_cycle_configuration: { duration: 0, duration_unit: 'day' },
             conversion_rate: 0,
             currency: 'currency',
+            dimensional_price_configuration: {
+              dimension_values: ['string'],
+              dimensional_price_group_id: 'dimensional_price_group_id',
+              external_dimensional_price_group_id: 'external_dimensional_price_group_id',
+            },
             external_price_id: 'external_price_id',
             fixed_price_quantity: 0,
-            invoice_grouping_key: 'invoice_grouping_key',
+            invoice_grouping_key: 'x',
             invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
             metadata: { foo: 'string' },
             reference_id: 'reference_id',
@@ -306,6 +348,7 @@ describe('resource subscriptions', () => {
       credits_overage_rate: 0,
       default_invoice_memo: 'default_invoice_memo',
       external_plan_id: 'ZMwNQefe7J3ecf7W',
+      filter: "my_property > 100 AND my_other_property = 'bar'",
       initial_phase_order: 2,
       invoicing_threshold: '10.00',
       net_terms: 0,
@@ -319,8 +362,14 @@ describe('resource subscriptions', () => {
         {
           adjustment: {
             adjustment_type: 'percentage_discount',
-            applies_to_price_ids: ['price_1', 'price_2'],
             percentage_discount: 0,
+            applies_to_all: true,
+            applies_to_item_ids: ['item_1', 'item_2'],
+            applies_to_price_ids: ['price_1', 'price_2'],
+            currency: 'currency',
+            filters: [{ field: 'price_id', operator: 'includes', values: ['string'] }],
+            is_invoice_level: true,
+            price_type: 'usage',
           },
           replaces_adjustment_id: 'replaces_adjustment_id',
         },
@@ -328,6 +377,13 @@ describe('resource subscriptions', () => {
       replace_prices: [
         {
           replaces_price_id: 'replaces_price_id',
+          allocation_price: {
+            amount: '10.00',
+            cadence: 'monthly',
+            currency: 'USD',
+            custom_expiration: { duration: 0, duration_unit: 'day' },
+            expires_at_end_of_cadence: true,
+          },
           discounts: [
             {
               discount_type: 'percentage',
@@ -351,9 +407,14 @@ describe('resource subscriptions', () => {
             billing_cycle_configuration: { duration: 0, duration_unit: 'day' },
             conversion_rate: 0,
             currency: 'currency',
+            dimensional_price_configuration: {
+              dimension_values: ['string'],
+              dimensional_price_group_id: 'dimensional_price_group_id',
+              external_dimensional_price_group_id: 'external_dimensional_price_group_id',
+            },
             external_price_id: 'external_price_id',
             fixed_price_quantity: 0,
-            invoice_grouping_key: 'invoice_grouping_key',
+            invoice_grouping_key: 'x',
             invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
             metadata: { foo: 'string' },
             reference_id: 'reference_id',
@@ -362,6 +423,7 @@ describe('resource subscriptions', () => {
         },
       ],
       trial_duration_days: 0,
+      usage_customer_ids: ['string'],
     });
   });
 
@@ -451,6 +513,7 @@ describe('resource subscriptions', () => {
     const response = await client.subscriptions.updateFixedFeeQuantity('subscription_id', {
       price_id: 'price_id',
       quantity: 0,
+      allow_invoice_credit_or_void: true,
       change_option: 'immediate',
       effective_date: '2022-12-21',
     });
