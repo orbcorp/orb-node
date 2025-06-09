@@ -3,6 +3,7 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
+import * as Shared from './shared';
 import { Page, type PageParams } from '../pagination';
 
 export class Alerts extends APIResource {
@@ -187,7 +188,7 @@ export interface Alert {
   /**
    * The customer the alert applies to.
    */
-  customer: Alert.Customer | null;
+  customer: Shared.CustomerMinified | null;
 
   /**
    * Whether the alert is enabled or disabled.
@@ -207,13 +208,13 @@ export interface Alert {
   /**
    * The subscription the alert applies to.
    */
-  subscription: Alert.Subscription | null;
+  subscription: Shared.SubscriptionMinified | null;
 
   /**
    * The thresholds that define the conditions under which the alert will be
    * triggered.
    */
-  thresholds: Array<Alert.Threshold> | null;
+  thresholds: Array<Threshold> | null;
 
   /**
    * The type of alert. This must be a valid alert type.
@@ -233,15 +234,6 @@ export interface Alert {
 }
 
 export namespace Alert {
-  /**
-   * The customer the alert applies to.
-   */
-  export interface Customer {
-    id: string;
-
-    external_customer_id: string | null;
-  }
-
   /**
    * The metric the alert applies to.
    */
@@ -268,26 +260,6 @@ export namespace Alert {
   }
 
   /**
-   * The subscription the alert applies to.
-   */
-  export interface Subscription {
-    id: string;
-  }
-
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
-
-  /**
    * Alert status is used to determine if an alert is currently in-alert or not.
    */
   export interface BalanceAlertStatus {
@@ -303,26 +275,24 @@ export namespace Alert {
   }
 }
 
+/**
+ * Thresholds are used to define the conditions under which an alert will be
+ * triggered.
+ */
+export interface Threshold {
+  /**
+   * The value at which an alert will fire. For credit balance alerts, the alert will
+   * fire at or below this value. For usage and cost alerts, the alert will fire at
+   * or above this value.
+   */
+  value: number;
+}
+
 export interface AlertUpdateParams {
   /**
    * The thresholds that define the values at which the alert will be triggered.
    */
-  thresholds: Array<AlertUpdateParams.Threshold>;
-}
-
-export namespace AlertUpdateParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
+  thresholds: Array<Threshold>;
 }
 
 export interface AlertListParams extends PageParams {
@@ -364,22 +334,7 @@ export interface AlertCreateForCustomerParams {
   /**
    * The thresholds that define the values at which the alert will be triggered.
    */
-  thresholds?: Array<AlertCreateForCustomerParams.Threshold> | null;
-}
-
-export namespace AlertCreateForCustomerParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
+  thresholds?: Array<Threshold> | null;
 }
 
 export interface AlertCreateForExternalCustomerParams {
@@ -396,29 +351,14 @@ export interface AlertCreateForExternalCustomerParams {
   /**
    * The thresholds that define the values at which the alert will be triggered.
    */
-  thresholds?: Array<AlertCreateForExternalCustomerParams.Threshold> | null;
-}
-
-export namespace AlertCreateForExternalCustomerParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
+  thresholds?: Array<Threshold> | null;
 }
 
 export interface AlertCreateForSubscriptionParams {
   /**
    * The thresholds that define the values at which the alert will be triggered.
    */
-  thresholds: Array<AlertCreateForSubscriptionParams.Threshold>;
+  thresholds: Array<Threshold>;
 
   /**
    * The type of alert to create. This must be a valid alert type.
@@ -429,21 +369,6 @@ export interface AlertCreateForSubscriptionParams {
    * The metric to track usage for.
    */
   metric_id?: string | null;
-}
-
-export namespace AlertCreateForSubscriptionParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
 }
 
 export interface AlertDisableParams {
@@ -465,6 +390,7 @@ Alerts.AlertsPage = AlertsPage;
 export declare namespace Alerts {
   export {
     type Alert as Alert,
+    type Threshold as Threshold,
     AlertsPage as AlertsPage,
     type AlertUpdateParams as AlertUpdateParams,
     type AlertListParams as AlertListParams,

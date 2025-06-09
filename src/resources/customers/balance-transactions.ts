@@ -3,6 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as Shared from '../shared';
 import { Page, type PageParams } from '../../pagination';
 
 export class BalanceTransactions extends APIResource {
@@ -95,7 +96,7 @@ export interface BalanceTransactionCreateResponse {
    */
   created_at: string;
 
-  credit_note: BalanceTransactionCreateResponse.CreditNote | null;
+  credit_note: Shared.CreditNoteTiny | null;
 
   /**
    * An optional description provided for manual customer balance adjustments.
@@ -108,7 +109,7 @@ export interface BalanceTransactionCreateResponse {
    */
   ending_balance: string;
 
-  invoice: BalanceTransactionCreateResponse.Invoice | null;
+  invoice: Shared.InvoiceTiny | null;
 
   /**
    * The original value of the customer's balance prior to the transaction, in the
@@ -117,22 +118,6 @@ export interface BalanceTransactionCreateResponse {
   starting_balance: string;
 
   type: 'increment' | 'decrement';
-}
-
-export namespace BalanceTransactionCreateResponse {
-  export interface CreditNote {
-    /**
-     * The id of the Credit note
-     */
-    id: string;
-  }
-
-  export interface Invoice {
-    /**
-     * The Invoice id
-     */
-    id: string;
-  }
 }
 
 export interface BalanceTransactionListResponse {
@@ -162,7 +147,7 @@ export interface BalanceTransactionListResponse {
    */
   created_at: string;
 
-  credit_note: BalanceTransactionListResponse.CreditNote | null;
+  credit_note: Shared.CreditNoteTiny | null;
 
   /**
    * An optional description provided for manual customer balance adjustments.
@@ -175,7 +160,7 @@ export interface BalanceTransactionListResponse {
    */
   ending_balance: string;
 
-  invoice: BalanceTransactionListResponse.Invoice | null;
+  invoice: Shared.InvoiceTiny | null;
 
   /**
    * The original value of the customer's balance prior to the transaction, in the
@@ -184,22 +169,6 @@ export interface BalanceTransactionListResponse {
   starting_balance: string;
 
   type: 'increment' | 'decrement';
-}
-
-export namespace BalanceTransactionListResponse {
-  export interface CreditNote {
-    /**
-     * The id of the Credit note
-     */
-    id: string;
-  }
-
-  export interface Invoice {
-    /**
-     * The Invoice id
-     */
-    id: string;
-  }
 }
 
 export interface BalanceTransactionCreateParams {

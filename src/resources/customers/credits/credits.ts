@@ -5,6 +5,12 @@ import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
 import * as LedgerAPI from './ledger';
 import {
+  AffectedBlock,
+  AmendmentLedgerEntry,
+  CreditBlockExpiryLedgerEntry,
+  DecrementLedgerEntry,
+  ExpirationChangeLedgerEntry,
+  IncrementLedgerEntry,
   Ledger,
   LedgerCreateEntryByExternalIDParams,
   LedgerCreateEntryByExternalIDResponse,
@@ -16,6 +22,8 @@ import {
   LedgerListParams,
   LedgerListResponse,
   LedgerListResponsesPage,
+  VoidInitiatedLedgerEntry,
+  VoidLedgerEntry,
 } from './ledger';
 import * as TopUpsAPI from './top-ups';
 import {
@@ -23,6 +31,7 @@ import {
   TopUpCreateByExternalIDResponse,
   TopUpCreateParams,
   TopUpCreateResponse,
+  TopUpInvoiceSettings,
   TopUpListByExternalIDParams,
   TopUpListByExternalIDResponse,
   TopUpListByExternalIDResponsesPage,
@@ -186,6 +195,14 @@ export declare namespace Credits {
 
   export {
     Ledger as Ledger,
+    type AffectedBlock as AffectedBlock,
+    type AmendmentLedgerEntry as AmendmentLedgerEntry,
+    type CreditBlockExpiryLedgerEntry as CreditBlockExpiryLedgerEntry,
+    type DecrementLedgerEntry as DecrementLedgerEntry,
+    type ExpirationChangeLedgerEntry as ExpirationChangeLedgerEntry,
+    type IncrementLedgerEntry as IncrementLedgerEntry,
+    type VoidInitiatedLedgerEntry as VoidInitiatedLedgerEntry,
+    type VoidLedgerEntry as VoidLedgerEntry,
     type LedgerListResponse as LedgerListResponse,
     type LedgerCreateEntryResponse as LedgerCreateEntryResponse,
     type LedgerCreateEntryByExternalIDResponse as LedgerCreateEntryByExternalIDResponse,
@@ -200,6 +217,7 @@ export declare namespace Credits {
 
   export {
     TopUps as TopUps,
+    type TopUpInvoiceSettings as TopUpInvoiceSettings,
     type TopUpCreateResponse as TopUpCreateResponse,
     type TopUpListResponse as TopUpListResponse,
     type TopUpCreateByExternalIDResponse as TopUpCreateByExternalIDResponse,

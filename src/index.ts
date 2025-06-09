@@ -19,21 +19,15 @@ import {
   AlertUpdateParams,
   Alerts,
   AlertsPage,
+  Threshold,
 } from './resources/alerts';
-import {
-  CreditNote,
-  CreditNoteCreateParams,
-  CreditNoteListParams,
-  CreditNotes,
-  CreditNotesPage,
-} from './resources/credit-notes';
+import { CreditNoteCreateParams, CreditNoteListParams, CreditNotes } from './resources/credit-notes';
 import {
   InvoiceLineItemCreateParams,
   InvoiceLineItemCreateResponse,
   InvoiceLineItems,
 } from './resources/invoice-line-items';
 import {
-  Invoice,
   InvoiceCreateParams,
   InvoiceFetchUpcomingParams,
   InvoiceFetchUpcomingResponse,
@@ -42,7 +36,6 @@ import {
   InvoiceMarkPaidParams,
   InvoiceUpdateParams,
   Invoices,
-  InvoicesPage,
 } from './resources/invoices';
 import {
   Item,
@@ -61,6 +54,7 @@ import {
   Metrics,
 } from './resources/metrics';
 import {
+  MutatedSubscription,
   SubscriptionChangeApplyParams,
   SubscriptionChangeApplyResponse,
   SubscriptionChangeCancelResponse,
@@ -68,11 +62,38 @@ import {
   SubscriptionChanges,
 } from './resources/subscription-changes';
 import {
+  DiscountOverride,
+  NewSubscriptionBPSPrice,
+  NewSubscriptionBulkBPSPrice,
+  NewSubscriptionBulkPrice,
+  NewSubscriptionBulkWithProrationPrice,
+  NewSubscriptionCumulativeGroupedBulkPrice,
+  NewSubscriptionGroupedAllocationPrice,
+  NewSubscriptionGroupedTieredPackagePrice,
+  NewSubscriptionGroupedTieredPrice,
+  NewSubscriptionGroupedWithMeteredMinimumPrice,
+  NewSubscriptionGroupedWithProratedMinimumPrice,
+  NewSubscriptionMatrixPrice,
+  NewSubscriptionMatrixWithAllocationPrice,
+  NewSubscriptionMatrixWithDisplayNamePrice,
+  NewSubscriptionMaxGroupTieredPackagePrice,
+  NewSubscriptionPackagePrice,
+  NewSubscriptionPackageWithAllocationPrice,
+  NewSubscriptionScalableMatrixWithTieredPricingPrice,
+  NewSubscriptionScalableMatrixWithUnitPricingPrice,
+  NewSubscriptionThresholdTotalAmountPrice,
+  NewSubscriptionTierWithProrationPrice,
+  NewSubscriptionTieredBPSPrice,
+  NewSubscriptionTieredPackagePrice,
+  NewSubscriptionTieredPackageWithMinimumPrice,
+  NewSubscriptionTieredPrice,
+  NewSubscriptionTieredWithMinimumPrice,
+  NewSubscriptionUnitPrice,
+  NewSubscriptionUnitWithPercentPrice,
+  NewSubscriptionUnitWithProrationPrice,
   Subscription,
   SubscriptionCancelParams,
-  SubscriptionCancelResponse,
   SubscriptionCreateParams,
-  SubscriptionCreateResponse,
   SubscriptionFetchCostsParams,
   SubscriptionFetchCostsResponse,
   SubscriptionFetchScheduleParams,
@@ -81,22 +102,13 @@ import {
   SubscriptionFetchUsageParams,
   SubscriptionListParams,
   SubscriptionPriceIntervalsParams,
-  SubscriptionPriceIntervalsResponse,
   SubscriptionRedeemCouponParams,
-  SubscriptionRedeemCouponResponse,
   SubscriptionSchedulePlanChangeParams,
-  SubscriptionSchedulePlanChangeResponse,
   SubscriptionTriggerPhaseParams,
-  SubscriptionTriggerPhaseResponse,
-  SubscriptionUnscheduleCancellationResponse,
   SubscriptionUnscheduleFixedFeeQuantityUpdatesParams,
-  SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse,
-  SubscriptionUnschedulePendingPlanChangesResponse,
   SubscriptionUpdateFixedFeeQuantityParams,
-  SubscriptionUpdateFixedFeeQuantityResponse,
   SubscriptionUpdateParams,
   SubscriptionUpdateTrialParams,
-  SubscriptionUpdateTrialResponse,
   SubscriptionUsage,
   Subscriptions,
   SubscriptionsPage,
@@ -117,13 +129,21 @@ import {
   CouponsPage,
 } from './resources/coupons/coupons';
 import {
+  AccountingProviderConfig,
+  AddressInput,
   Customer,
   CustomerCreateParams,
+  CustomerHierarchyConfig,
   CustomerListParams,
   CustomerUpdateByExternalIDParams,
   CustomerUpdateParams,
   Customers,
   CustomersPage,
+  NewAccountingSyncConfiguration,
+  NewAvalaraTaxConfiguration,
+  NewReportingConfiguration,
+  NewSphereConfiguration,
+  NewTaxJarConfiguration,
 } from './resources/customers/customers';
 import {
   DimensionalPriceGroup,
@@ -152,7 +172,6 @@ import {
 } from './resources/plans/plans';
 import {
   EvaluatePriceGroup,
-  Price,
   PriceCreateParams,
   PriceEvaluateMultipleParams,
   PriceEvaluateMultipleResponse,
@@ -161,7 +180,6 @@ import {
   PriceListParams,
   PriceUpdateParams,
   Prices,
-  PricesPage,
 } from './resources/prices/prices';
 
 export interface ClientOptions {
@@ -363,13 +381,11 @@ Orb.Beta = Beta;
 Orb.Coupons = Coupons;
 Orb.CouponsPage = CouponsPage;
 Orb.CreditNotes = CreditNotes;
-Orb.CreditNotesPage = CreditNotesPage;
 Orb.Customers = Customers;
 Orb.CustomersPage = CustomersPage;
 Orb.Events = Events;
 Orb.InvoiceLineItems = InvoiceLineItems;
 Orb.Invoices = Invoices;
-Orb.InvoicesPage = InvoicesPage;
 Orb.Items = Items;
 Orb.ItemsPage = ItemsPage;
 Orb.Metrics = Metrics;
@@ -377,7 +393,6 @@ Orb.BillableMetricsPage = BillableMetricsPage;
 Orb.Plans = Plans;
 Orb.PlansPage = PlansPage;
 Orb.Prices = Prices;
-Orb.PricesPage = PricesPage;
 Orb.SubscriptionsPage = SubscriptionsPage;
 Orb.SubscriptionFetchScheduleResponsesPage = SubscriptionFetchScheduleResponsesPage;
 Orb.Alerts = Alerts;
@@ -410,15 +425,21 @@ export declare namespace Orb {
 
   export {
     CreditNotes as CreditNotes,
-    type CreditNote as CreditNote,
-    CreditNotesPage as CreditNotesPage,
     type CreditNoteCreateParams as CreditNoteCreateParams,
     type CreditNoteListParams as CreditNoteListParams,
   };
 
   export {
     Customers as Customers,
+    type AccountingProviderConfig as AccountingProviderConfig,
+    type AddressInput as AddressInput,
     type Customer as Customer,
+    type CustomerHierarchyConfig as CustomerHierarchyConfig,
+    type NewAccountingSyncConfiguration as NewAccountingSyncConfiguration,
+    type NewAvalaraTaxConfiguration as NewAvalaraTaxConfiguration,
+    type NewReportingConfiguration as NewReportingConfiguration,
+    type NewSphereConfiguration as NewSphereConfiguration,
+    type NewTaxJarConfiguration as NewTaxJarConfiguration,
     CustomersPage as CustomersPage,
     type CustomerCreateParams as CustomerCreateParams,
     type CustomerUpdateParams as CustomerUpdateParams,
@@ -445,9 +466,7 @@ export declare namespace Orb {
 
   export {
     Invoices as Invoices,
-    type Invoice as Invoice,
     type InvoiceFetchUpcomingResponse as InvoiceFetchUpcomingResponse,
-    InvoicesPage as InvoicesPage,
     type InvoiceCreateParams as InvoiceCreateParams,
     type InvoiceUpdateParams as InvoiceUpdateParams,
     type InvoiceListParams as InvoiceListParams,
@@ -486,10 +505,8 @@ export declare namespace Orb {
   export {
     Prices as Prices,
     type EvaluatePriceGroup as EvaluatePriceGroup,
-    type Price as Price,
     type PriceEvaluateResponse as PriceEvaluateResponse,
     type PriceEvaluateMultipleResponse as PriceEvaluateMultipleResponse,
-    PricesPage as PricesPage,
     type PriceCreateParams as PriceCreateParams,
     type PriceUpdateParams as PriceUpdateParams,
     type PriceListParams as PriceListParams,
@@ -499,21 +516,39 @@ export declare namespace Orb {
 
   export {
     type Subscriptions as Subscriptions,
+    type DiscountOverride as DiscountOverride,
+    type NewSubscriptionBPSPrice as NewSubscriptionBPSPrice,
+    type NewSubscriptionBulkBPSPrice as NewSubscriptionBulkBPSPrice,
+    type NewSubscriptionBulkPrice as NewSubscriptionBulkPrice,
+    type NewSubscriptionBulkWithProrationPrice as NewSubscriptionBulkWithProrationPrice,
+    type NewSubscriptionCumulativeGroupedBulkPrice as NewSubscriptionCumulativeGroupedBulkPrice,
+    type NewSubscriptionGroupedAllocationPrice as NewSubscriptionGroupedAllocationPrice,
+    type NewSubscriptionGroupedTieredPackagePrice as NewSubscriptionGroupedTieredPackagePrice,
+    type NewSubscriptionGroupedTieredPrice as NewSubscriptionGroupedTieredPrice,
+    type NewSubscriptionGroupedWithMeteredMinimumPrice as NewSubscriptionGroupedWithMeteredMinimumPrice,
+    type NewSubscriptionGroupedWithProratedMinimumPrice as NewSubscriptionGroupedWithProratedMinimumPrice,
+    type NewSubscriptionMatrixPrice as NewSubscriptionMatrixPrice,
+    type NewSubscriptionMatrixWithAllocationPrice as NewSubscriptionMatrixWithAllocationPrice,
+    type NewSubscriptionMatrixWithDisplayNamePrice as NewSubscriptionMatrixWithDisplayNamePrice,
+    type NewSubscriptionMaxGroupTieredPackagePrice as NewSubscriptionMaxGroupTieredPackagePrice,
+    type NewSubscriptionPackagePrice as NewSubscriptionPackagePrice,
+    type NewSubscriptionPackageWithAllocationPrice as NewSubscriptionPackageWithAllocationPrice,
+    type NewSubscriptionScalableMatrixWithTieredPricingPrice as NewSubscriptionScalableMatrixWithTieredPricingPrice,
+    type NewSubscriptionScalableMatrixWithUnitPricingPrice as NewSubscriptionScalableMatrixWithUnitPricingPrice,
+    type NewSubscriptionThresholdTotalAmountPrice as NewSubscriptionThresholdTotalAmountPrice,
+    type NewSubscriptionTierWithProrationPrice as NewSubscriptionTierWithProrationPrice,
+    type NewSubscriptionTieredBPSPrice as NewSubscriptionTieredBPSPrice,
+    type NewSubscriptionTieredPackagePrice as NewSubscriptionTieredPackagePrice,
+    type NewSubscriptionTieredPackageWithMinimumPrice as NewSubscriptionTieredPackageWithMinimumPrice,
+    type NewSubscriptionTieredPrice as NewSubscriptionTieredPrice,
+    type NewSubscriptionTieredWithMinimumPrice as NewSubscriptionTieredWithMinimumPrice,
+    type NewSubscriptionUnitPrice as NewSubscriptionUnitPrice,
+    type NewSubscriptionUnitWithPercentPrice as NewSubscriptionUnitWithPercentPrice,
+    type NewSubscriptionUnitWithProrationPrice as NewSubscriptionUnitWithProrationPrice,
     type Subscription as Subscription,
     type SubscriptionUsage as SubscriptionUsage,
-    type SubscriptionCreateResponse as SubscriptionCreateResponse,
-    type SubscriptionCancelResponse as SubscriptionCancelResponse,
     type SubscriptionFetchCostsResponse as SubscriptionFetchCostsResponse,
     type SubscriptionFetchScheduleResponse as SubscriptionFetchScheduleResponse,
-    type SubscriptionPriceIntervalsResponse as SubscriptionPriceIntervalsResponse,
-    type SubscriptionRedeemCouponResponse as SubscriptionRedeemCouponResponse,
-    type SubscriptionSchedulePlanChangeResponse as SubscriptionSchedulePlanChangeResponse,
-    type SubscriptionTriggerPhaseResponse as SubscriptionTriggerPhaseResponse,
-    type SubscriptionUnscheduleCancellationResponse as SubscriptionUnscheduleCancellationResponse,
-    type SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse as SubscriptionUnscheduleFixedFeeQuantityUpdatesResponse,
-    type SubscriptionUnschedulePendingPlanChangesResponse as SubscriptionUnschedulePendingPlanChangesResponse,
-    type SubscriptionUpdateFixedFeeQuantityResponse as SubscriptionUpdateFixedFeeQuantityResponse,
-    type SubscriptionUpdateTrialResponse as SubscriptionUpdateTrialResponse,
     SubscriptionsPage as SubscriptionsPage,
     SubscriptionFetchScheduleResponsesPage as SubscriptionFetchScheduleResponsesPage,
     type SubscriptionCreateParams as SubscriptionCreateParams,
@@ -535,6 +570,7 @@ export declare namespace Orb {
   export {
     Alerts as Alerts,
     type Alert as Alert,
+    type Threshold as Threshold,
     AlertsPage as AlertsPage,
     type AlertUpdateParams as AlertUpdateParams,
     type AlertListParams as AlertListParams,
@@ -555,20 +591,152 @@ export declare namespace Orb {
 
   export {
     SubscriptionChanges as SubscriptionChanges,
+    type MutatedSubscription as MutatedSubscription,
     type SubscriptionChangeRetrieveResponse as SubscriptionChangeRetrieveResponse,
     type SubscriptionChangeApplyResponse as SubscriptionChangeApplyResponse,
     type SubscriptionChangeCancelResponse as SubscriptionChangeCancelResponse,
     type SubscriptionChangeApplyParams as SubscriptionChangeApplyParams,
   };
 
+  export type Address = API.Address;
+  export type AdjustmentInterval = API.AdjustmentInterval;
+  export type AggregatedCost = API.AggregatedCost;
+  export type Allocation = API.Allocation;
   export type AmountDiscount = API.AmountDiscount;
+  export type AmountDiscountInterval = API.AmountDiscountInterval;
+  export type BillableMetricTiny = API.BillableMetricTiny;
+  export type BillingCycleAnchorConfiguration = API.BillingCycleAnchorConfiguration;
+  export type BillingCycleConfiguration = API.BillingCycleConfiguration;
   export type BillingCycleRelativeDate = API.BillingCycleRelativeDate;
+  export type BPSConfig = API.BPSConfig;
+  export type BPSTier = API.BPSTier;
+  export type BulkBPSConfig = API.BulkBPSConfig;
+  export type BulkBPSTier = API.BulkBPSTier;
+  export type BulkConfig = API.BulkConfig;
+  export type BulkTier = API.BulkTier;
+  export type ChangedSubscriptionResources = API.ChangedSubscriptionResources;
+  export type CouponRedemption = API.CouponRedemption;
+  export type CreditNote = API.CreditNote;
+  export type CreditNoteTiny = API.CreditNoteTiny;
+  export type CustomExpiration = API.CustomExpiration;
+  export type CustomerMinified = API.CustomerMinified;
+  export type CustomerTaxID = API.CustomerTaxID;
+  export type DimensionalPriceConfiguration = API.DimensionalPriceConfiguration;
   export type Discount = API.Discount;
+  export type FixedFeeQuantityScheduleEntry = API.FixedFeeQuantityScheduleEntry;
+  export type FixedFeeQuantityTransition = API.FixedFeeQuantityTransition;
+  export type Invoice = API.Invoice;
   export type InvoiceLevelDiscount = API.InvoiceLevelDiscount;
+  export type InvoiceTiny = API.InvoiceTiny;
+  export type ItemSlim = API.ItemSlim;
+  export type MatrixConfig = API.MatrixConfig;
+  export type MatrixSubLineItem = API.MatrixSubLineItem;
+  export type MatrixValue = API.MatrixValue;
+  export type MatrixWithAllocationConfig = API.MatrixWithAllocationConfig;
+  export type Maximum = API.Maximum;
+  export type MaximumInterval = API.MaximumInterval;
+  export type Minimum = API.Minimum;
+  export type MinimumInterval = API.MinimumInterval;
+  export type MonetaryAmountDiscountAdjustment = API.MonetaryAmountDiscountAdjustment;
+  export type MonetaryMaximumAdjustment = API.MonetaryMaximumAdjustment;
+  export type MonetaryMinimumAdjustment = API.MonetaryMinimumAdjustment;
+  export type MonetaryPercentageDiscountAdjustment = API.MonetaryPercentageDiscountAdjustment;
+  export type MonetaryUsageDiscountAdjustment = API.MonetaryUsageDiscountAdjustment;
+  export type NewAllocationPrice = API.NewAllocationPrice;
+  export type NewAmountDiscount = API.NewAmountDiscount;
+  export type NewBillingCycleConfiguration = API.NewBillingCycleConfiguration;
+  export type NewDimensionalPriceConfiguration = API.NewDimensionalPriceConfiguration;
+  export type NewFloatingBPSPrice = API.NewFloatingBPSPrice;
+  export type NewFloatingBulkBPSPrice = API.NewFloatingBulkBPSPrice;
+  export type NewFloatingBulkPrice = API.NewFloatingBulkPrice;
+  export type NewFloatingBulkWithProrationPrice = API.NewFloatingBulkWithProrationPrice;
+  export type NewFloatingCumulativeGroupedBulkPrice = API.NewFloatingCumulativeGroupedBulkPrice;
+  export type NewFloatingGroupedAllocationPrice = API.NewFloatingGroupedAllocationPrice;
+  export type NewFloatingGroupedTieredPackagePrice = API.NewFloatingGroupedTieredPackagePrice;
+  export type NewFloatingGroupedTieredPrice = API.NewFloatingGroupedTieredPrice;
+  export type NewFloatingGroupedWithMeteredMinimumPrice = API.NewFloatingGroupedWithMeteredMinimumPrice;
+  export type NewFloatingGroupedWithProratedMinimumPrice = API.NewFloatingGroupedWithProratedMinimumPrice;
+  export type NewFloatingMatrixPrice = API.NewFloatingMatrixPrice;
+  export type NewFloatingMatrixWithAllocationPrice = API.NewFloatingMatrixWithAllocationPrice;
+  export type NewFloatingMatrixWithDisplayNamePrice = API.NewFloatingMatrixWithDisplayNamePrice;
+  export type NewFloatingMaxGroupTieredPackagePrice = API.NewFloatingMaxGroupTieredPackagePrice;
+  export type NewFloatingPackagePrice = API.NewFloatingPackagePrice;
+  export type NewFloatingPackageWithAllocationPrice = API.NewFloatingPackageWithAllocationPrice;
+  export type NewFloatingScalableMatrixWithTieredPricingPrice =
+    API.NewFloatingScalableMatrixWithTieredPricingPrice;
+  export type NewFloatingScalableMatrixWithUnitPricingPrice =
+    API.NewFloatingScalableMatrixWithUnitPricingPrice;
+  export type NewFloatingThresholdTotalAmountPrice = API.NewFloatingThresholdTotalAmountPrice;
+  export type NewFloatingTieredBPSPrice = API.NewFloatingTieredBPSPrice;
+  export type NewFloatingTieredPackagePrice = API.NewFloatingTieredPackagePrice;
+  export type NewFloatingTieredPackageWithMinimumPrice = API.NewFloatingTieredPackageWithMinimumPrice;
+  export type NewFloatingTieredPrice = API.NewFloatingTieredPrice;
+  export type NewFloatingTieredWithMinimumPrice = API.NewFloatingTieredWithMinimumPrice;
+  export type NewFloatingTieredWithProrationPrice = API.NewFloatingTieredWithProrationPrice;
+  export type NewFloatingUnitPrice = API.NewFloatingUnitPrice;
+  export type NewFloatingUnitWithPercentPrice = API.NewFloatingUnitWithPercentPrice;
+  export type NewFloatingUnitWithProrationPrice = API.NewFloatingUnitWithProrationPrice;
+  export type NewMaximum = API.NewMaximum;
+  export type NewMinimum = API.NewMinimum;
+  export type NewPercentageDiscount = API.NewPercentageDiscount;
+  export type NewPlanBPSPrice = API.NewPlanBPSPrice;
+  export type NewPlanBulkBPSPrice = API.NewPlanBulkBPSPrice;
+  export type NewPlanBulkPrice = API.NewPlanBulkPrice;
+  export type NewPlanBulkWithProrationPrice = API.NewPlanBulkWithProrationPrice;
+  export type NewPlanCumulativeGroupedBulkPrice = API.NewPlanCumulativeGroupedBulkPrice;
+  export type NewPlanGroupedAllocationPrice = API.NewPlanGroupedAllocationPrice;
+  export type NewPlanGroupedTieredPackagePrice = API.NewPlanGroupedTieredPackagePrice;
+  export type NewPlanGroupedTieredPrice = API.NewPlanGroupedTieredPrice;
+  export type NewPlanGroupedWithMeteredMinimumPrice = API.NewPlanGroupedWithMeteredMinimumPrice;
+  export type NewPlanGroupedWithProratedMinimumPrice = API.NewPlanGroupedWithProratedMinimumPrice;
+  export type NewPlanMatrixPrice = API.NewPlanMatrixPrice;
+  export type NewPlanMatrixWithAllocationPrice = API.NewPlanMatrixWithAllocationPrice;
+  export type NewPlanMatrixWithDisplayNamePrice = API.NewPlanMatrixWithDisplayNamePrice;
+  export type NewPlanMaxGroupTieredPackagePrice = API.NewPlanMaxGroupTieredPackagePrice;
+  export type NewPlanPackagePrice = API.NewPlanPackagePrice;
+  export type NewPlanPackageWithAllocationPrice = API.NewPlanPackageWithAllocationPrice;
+  export type NewPlanScalableMatrixWithTieredPricingPrice = API.NewPlanScalableMatrixWithTieredPricingPrice;
+  export type NewPlanScalableMatrixWithUnitPricingPrice = API.NewPlanScalableMatrixWithUnitPricingPrice;
+  export type NewPlanThresholdTotalAmountPrice = API.NewPlanThresholdTotalAmountPrice;
+  export type NewPlanTierWithProrationPrice = API.NewPlanTierWithProrationPrice;
+  export type NewPlanTieredBPSPrice = API.NewPlanTieredBPSPrice;
+  export type NewPlanTieredPackagePrice = API.NewPlanTieredPackagePrice;
+  export type NewPlanTieredPackageWithMinimumPrice = API.NewPlanTieredPackageWithMinimumPrice;
+  export type NewPlanTieredPrice = API.NewPlanTieredPrice;
+  export type NewPlanTieredWithMinimumPrice = API.NewPlanTieredWithMinimumPrice;
+  export type NewPlanUnitPrice = API.NewPlanUnitPrice;
+  export type NewPlanUnitWithPercentPrice = API.NewPlanUnitWithPercentPrice;
+  export type NewPlanUnitWithProrationPrice = API.NewPlanUnitWithProrationPrice;
+  export type NewUsageDiscount = API.NewUsageDiscount;
+  export type OtherSubLineItem = API.OtherSubLineItem;
+  export type PackageConfig = API.PackageConfig;
   export type PaginationMetadata = API.PaginationMetadata;
+  export type PerPriceCost = API.PerPriceCost;
   export type PercentageDiscount = API.PercentageDiscount;
+  export type PercentageDiscountInterval = API.PercentageDiscountInterval;
+  export type PlanPhaseAmountDiscountAdjustment = API.PlanPhaseAmountDiscountAdjustment;
+  export type PlanPhaseMaximumAdjustment = API.PlanPhaseMaximumAdjustment;
+  export type PlanPhaseMinimumAdjustment = API.PlanPhaseMinimumAdjustment;
+  export type PlanPhasePercentageDiscountAdjustment = API.PlanPhasePercentageDiscountAdjustment;
+  export type PlanPhaseUsageDiscountAdjustment = API.PlanPhaseUsageDiscountAdjustment;
+  export type Price = API.Price;
+  export type PriceInterval = API.PriceInterval;
+  export type SubLineItemGrouping = API.SubLineItemGrouping;
+  export type SubLineItemMatrixConfig = API.SubLineItemMatrixConfig;
+  export type SubscriptionChangeMinified = API.SubscriptionChangeMinified;
+  export type SubscriptionMinified = API.SubscriptionMinified;
+  export type SubscriptionTrialInfo = API.SubscriptionTrialInfo;
+  export type TaxAmount = API.TaxAmount;
+  export type Tier = API.Tier;
+  export type TierConfig = API.TierConfig;
+  export type TierSubLineItem = API.TierSubLineItem;
+  export type TieredBPSConfig = API.TieredBPSConfig;
+  export type TieredConfig = API.TieredConfig;
+  export type TransformPriceFilter = API.TransformPriceFilter;
   export type TrialDiscount = API.TrialDiscount;
+  export type UnitConfig = API.UnitConfig;
   export type UsageDiscount = API.UsageDiscount;
+  export type UsageDiscountInterval = API.UsageDiscountInterval;
 }
 
 export { toFile, fileFromPath } from './uploads';
