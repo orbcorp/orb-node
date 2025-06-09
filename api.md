@@ -11,7 +11,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">TrialDiscount</a></code>
 - <code><a href="./src/resources/shared.ts">UsageDiscount</a></code>
 
-
 # TopLevel
 
 Types:
