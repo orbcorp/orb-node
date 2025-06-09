@@ -1,5 +1,28 @@
 # Changelog
 
+## 5.0.0 (2025-06-09)
+
+Full Changelog: [v4.74.0...v5.0.0](https://github.com/orbcorp/orb-node/compare/v4.74.0...v5.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** breaking change to re-use types
+
+### Features
+
+* **api:** api update ([f568653](https://github.com/orbcorp/orb-node/commit/f5686531660890c996aed2bcd3fbfdbf6ba71013))
+* **api:** api update ([4c28249](https://github.com/orbcorp/orb-node/commit/4c28249f71e8a9aa3d75ac9a448ebb6f70301af2))
+* **api:** api update ([9dc5bb3](https://github.com/orbcorp/orb-node/commit/9dc5bb3e4d0e2005691b3a886591a317bd84a60a))
+* **api:** api update ([9328fae](https://github.com/orbcorp/orb-node/commit/9328faed43114dfe9f4fead3e6da314f6e626d33))
+* **api:** api update ([44e9c35](https://github.com/orbcorp/orb-node/commit/44e9c35fb3b805cccb264647d7686fa00dd2a71b))
+* **api:** manual updates ([8cc1c0b](https://github.com/orbcorp/orb-node/commit/8cc1c0bfb17d0ec2537e9470340a7926df177a28))
+* **client:** breaking change to re-use types ([17a06ae](https://github.com/orbcorp/orb-node/commit/17a06aea5f1edb125fb033156a8eb76c6510cd76))
+
+
+### Chores
+
+* **internal:** codegen related update ([89ce8ec](https://github.com/orbcorp/orb-node/commit/89ce8ecf96b39394f17eb8b7735cc710d0e50cc4))
+
 ## 4.74.0 (2025-06-03)
 
 Full Changelog: [v4.73.0...v4.74.0](https://github.com/orbcorp/orb-node/compare/v4.73.0...v4.74.0)
