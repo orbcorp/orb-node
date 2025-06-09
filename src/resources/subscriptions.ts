@@ -1136,6 +1136,11 @@ export interface NewSubscriptionBPSPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -1224,6 +1229,11 @@ export interface NewSubscriptionBulkBPSPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -1316,6 +1326,11 @@ export interface NewSubscriptionBulkPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -1404,6 +1419,11 @@ export interface NewSubscriptionBulkWithProrationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -1496,6 +1516,11 @@ export interface NewSubscriptionCumulativeGroupedBulkPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -1584,6 +1609,11 @@ export interface NewSubscriptionGroupedAllocationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -1676,6 +1706,11 @@ export interface NewSubscriptionGroupedTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -1764,6 +1799,11 @@ export interface NewSubscriptionGroupedTieredPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -1856,6 +1896,11 @@ export interface NewSubscriptionGroupedWithMeteredMinimumPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -1944,6 +1989,11 @@ export interface NewSubscriptionGroupedWithProratedMinimumPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -2036,6 +2086,11 @@ export interface NewSubscriptionMatrixPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -2124,6 +2179,11 @@ export interface NewSubscriptionMatrixWithAllocationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -2216,6 +2276,11 @@ export interface NewSubscriptionMatrixWithDisplayNamePrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -2304,6 +2369,11 @@ export interface NewSubscriptionMaxGroupTieredPackagePrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -2396,6 +2466,11 @@ export interface NewSubscriptionPackagePrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -2484,6 +2559,11 @@ export interface NewSubscriptionPackageWithAllocationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -2576,6 +2656,11 @@ export interface NewSubscriptionScalableMatrixWithTieredPricingPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -2664,6 +2749,11 @@ export interface NewSubscriptionScalableMatrixWithUnitPricingPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -2756,6 +2846,11 @@ export interface NewSubscriptionThresholdTotalAmountPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -2844,6 +2939,11 @@ export interface NewSubscriptionTierWithProrationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -2936,6 +3036,11 @@ export interface NewSubscriptionTieredBPSPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -3024,6 +3129,11 @@ export interface NewSubscriptionTieredPackagePrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -3116,6 +3226,11 @@ export interface NewSubscriptionTieredPackageWithMinimumPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -3204,6 +3319,11 @@ export interface NewSubscriptionTieredPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -3296,6 +3416,11 @@ export interface NewSubscriptionTieredWithMinimumPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -3384,6 +3509,11 @@ export interface NewSubscriptionUnitPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -3476,6 +3606,11 @@ export interface NewSubscriptionUnitWithPercentPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -3564,6 +3699,11 @@ export interface NewSubscriptionUnitWithProrationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this

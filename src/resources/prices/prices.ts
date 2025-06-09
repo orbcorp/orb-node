@@ -95,22 +95,13 @@ export class Prices extends APIResource {
 
   /**
    * This endpoint is used to evaluate the output of price(s) for a given customer
-   * and time range over either ingested events or preview events. It enables
-   * filtering and grouping the output using
+   * and time range over ingested events. It enables filtering and grouping the
+   * output using
    * [computed properties](/extensibility/advanced-metrics#computed-properties),
    * supporting the following workflows:
    *
    * 1. Showing detailed usage and costs to the end customer.
    * 2. Auditing subtotals on invoice line items.
-   *
-   * Prices may either reference existing prices in your Orb account or be defined
-   * inline in the request body. Up to 100 prices can be evaluated in a single
-   * request.
-   *
-   * Price evaluation by default uses ingested events, but you can also provide a
-   * list of preview events to use instead. Up to 500 preview events can be provided
-   * in a single request. When using ingested events, the start of the time range
-   * must be no more than 100 days ago.
    *
    * For these workflows, the expressiveness of computed properties in both the
    * filters and grouping is critical. For example, if you'd like to show your
@@ -121,15 +112,50 @@ export class Prices extends APIResource {
    * with the following `filter`:
    * `my_property = 'foo' AND my_other_property = 'bar'`.
    *
-   * The length of the results must be no greater than 1000. Note that this is a POST
-   * endpoint rather than a GET endpoint because it employs a JSON body rather than
-   * query parameters.
+   * Prices may either reference existing prices in your Orb account or be defined
+   * inline in the request body. Up to 100 prices can be evaluated in a single
+   * request.
+   *
+   * Prices are evaluated on ingested events and the start of the time range must be
+   * no more than 100 days ago. To evaluate based off a set of provided events, the
+   * [evaluate preview events](/api-reference/price/evaluate-preview-events) endpoint
+   * can be used instead.
+   *
+   * Note that this is a POST endpoint rather than a GET endpoint because it employs
+   * a JSON body rather than query parameters.
    */
   evaluateMultiple(
     body: PriceEvaluateMultipleParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<PriceEvaluateMultipleResponse> {
     return this._client.post('/prices/evaluate', { body, ...options });
+  }
+
+  /**
+   * This endpoint evaluates prices on preview events instead of actual usage, making
+   * it ideal for building price calculators and cost estimation tools. You can
+   * filter and group results using
+   * [computed properties](/extensibility/advanced-metrics#computed-properties) to
+   * analyze pricing across different dimensions.
+   *
+   * Prices may either reference existing prices in your Orb account or be defined
+   * inline in the request body. The endpoint has the following limitations:
+   *
+   * 1. Up to 100 prices can be evaluated in a single request.
+   * 2. Up to 500 preview events can be provided in a single request.
+   *
+   * A top-level customer_id is required to evaluate the preview events.
+   * Additionally, all events without a customer_id will have the top-level
+   * customer_id added.
+   *
+   * Note that this is a POST endpoint rather than a GET endpoint because it employs
+   * a JSON body rather than query parameters.
+   */
+  evaluatePreviewEvents(
+    body: PriceEvaluatePreviewEventsParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PriceEvaluatePreviewEventsResponse> {
+    return this._client.post('/prices/evaluate_preview_events', { body, ...options });
   }
 
   /**
@@ -166,6 +192,34 @@ export interface PriceEvaluateMultipleResponse {
 }
 
 export namespace PriceEvaluateMultipleResponse {
+  export interface Data {
+    /**
+     * The currency of the price
+     */
+    currency: string;
+
+    /**
+     * The computed price groups associated with input price.
+     */
+    price_groups: Array<PricesAPI.EvaluatePriceGroup>;
+
+    /**
+     * The index of the inline price
+     */
+    inline_price_index?: number | null;
+
+    /**
+     * The ID of the price
+     */
+    price_id?: string | null;
+  }
+}
+
+export interface PriceEvaluatePreviewEventsResponse {
+  data: Array<PriceEvaluatePreviewEventsResponse.Data>;
+}
+
+export namespace PriceEvaluatePreviewEventsResponse {
   export interface Data {
     /**
      * The currency of the price
@@ -269,6 +323,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -350,6 +409,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -435,6 +499,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -516,6 +585,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -601,6 +675,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -682,6 +761,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -767,6 +851,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -848,6 +937,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -933,6 +1027,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -1014,6 +1113,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -1099,6 +1203,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -1180,6 +1289,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -1265,6 +1379,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -1346,6 +1465,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -1431,6 +1555,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -1512,6 +1641,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -1597,6 +1731,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -1678,6 +1817,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -1763,6 +1907,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -1844,6 +1993,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -1929,6 +2083,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -2010,6 +2169,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -2095,6 +2259,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -2176,6 +2345,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -2261,6 +2435,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -2342,6 +2521,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -2427,6 +2611,11 @@ export declare namespace PriceCreateParams {
     conversion_rate?: number | null;
 
     /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
      * For dimensional price: specifies a price group and dimension values
      */
     dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
@@ -2508,6 +2697,11 @@ export declare namespace PriceCreateParams {
      * The per unit conversion rate of the price currency to the invoicing currency.
      */
     conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     /**
      * For dimensional price: specifies a price group and dimension values
@@ -2609,11 +2803,6 @@ export interface PriceEvaluateMultipleParams {
   customer_id?: string | null;
 
   /**
-   * Optional list of preview events to use instead of actual usage data (max 500)
-   */
-  events?: Array<PriceEvaluateMultipleParams.Event> | null;
-
-  /**
    * The external customer ID of the customer to which this evaluation is scoped.
    */
   external_customer_id?: string | null;
@@ -2625,6 +2814,96 @@ export interface PriceEvaluateMultipleParams {
 }
 
 export namespace PriceEvaluateMultipleParams {
+  export interface PriceEvaluation {
+    /**
+     * A boolean
+     * [computed property](/extensibility/advanced-metrics#computed-properties) used to
+     * filter the underlying billable metric
+     */
+    filter?: string | null;
+
+    /**
+     * Properties (or
+     * [computed properties](/extensibility/advanced-metrics#computed-properties)) used
+     * to group the underlying billable metric
+     */
+    grouping_keys?: Array<string>;
+
+    /**
+     * An inline price definition to evaluate, allowing you to test price
+     * configurations before adding them to Orb.
+     */
+    price?:
+      | Shared.NewFloatingUnitPrice
+      | Shared.NewFloatingPackagePrice
+      | Shared.NewFloatingMatrixPrice
+      | Shared.NewFloatingMatrixWithAllocationPrice
+      | Shared.NewFloatingTieredPrice
+      | Shared.NewFloatingTieredBPSPrice
+      | Shared.NewFloatingBPSPrice
+      | Shared.NewFloatingBulkBPSPrice
+      | Shared.NewFloatingBulkPrice
+      | Shared.NewFloatingThresholdTotalAmountPrice
+      | Shared.NewFloatingTieredPackagePrice
+      | Shared.NewFloatingGroupedTieredPrice
+      | Shared.NewFloatingMaxGroupTieredPackagePrice
+      | Shared.NewFloatingTieredWithMinimumPrice
+      | Shared.NewFloatingPackageWithAllocationPrice
+      | Shared.NewFloatingTieredPackageWithMinimumPrice
+      | Shared.NewFloatingUnitWithPercentPrice
+      | Shared.NewFloatingTieredWithProrationPrice
+      | Shared.NewFloatingUnitWithProrationPrice
+      | Shared.NewFloatingGroupedAllocationPrice
+      | Shared.NewFloatingGroupedWithProratedMinimumPrice
+      | Shared.NewFloatingGroupedWithMeteredMinimumPrice
+      | Shared.NewFloatingMatrixWithDisplayNamePrice
+      | Shared.NewFloatingBulkWithProrationPrice
+      | Shared.NewFloatingGroupedTieredPackagePrice
+      | Shared.NewFloatingScalableMatrixWithUnitPricingPrice
+      | Shared.NewFloatingScalableMatrixWithTieredPricingPrice
+      | Shared.NewFloatingCumulativeGroupedBulkPrice
+      | null;
+
+    /**
+     * The ID of a price to evaluate that exists in your Orb account.
+     */
+    price_id?: string | null;
+  }
+}
+
+export interface PriceEvaluatePreviewEventsParams {
+  /**
+   * The exclusive upper bound for event timestamps
+   */
+  timeframe_end: string;
+
+  /**
+   * The inclusive lower bound for event timestamps
+   */
+  timeframe_start: string;
+
+  /**
+   * The ID of the customer to which this evaluation is scoped.
+   */
+  customer_id?: string | null;
+
+  /**
+   * List of preview events to use instead of actual usage data
+   */
+  events?: Array<PriceEvaluatePreviewEventsParams.Event>;
+
+  /**
+   * The external customer ID of the customer to which this evaluation is scoped.
+   */
+  external_customer_id?: string | null;
+
+  /**
+   * List of prices to evaluate (max 100)
+   */
+  price_evaluations?: Array<PriceEvaluatePreviewEventsParams.PriceEvaluation>;
+}
+
+export namespace PriceEvaluatePreviewEventsParams {
   export interface Event {
     /**
      * A name to meaningfully identify the action or event type.
@@ -2720,11 +2999,13 @@ export declare namespace Prices {
     type EvaluatePriceGroup as EvaluatePriceGroup,
     type PriceEvaluateResponse as PriceEvaluateResponse,
     type PriceEvaluateMultipleResponse as PriceEvaluateMultipleResponse,
+    type PriceEvaluatePreviewEventsResponse as PriceEvaluatePreviewEventsResponse,
     type PriceCreateParams as PriceCreateParams,
     type PriceUpdateParams as PriceUpdateParams,
     type PriceListParams as PriceListParams,
     type PriceEvaluateParams as PriceEvaluateParams,
     type PriceEvaluateMultipleParams as PriceEvaluateMultipleParams,
+    type PriceEvaluatePreviewEventsParams as PriceEvaluatePreviewEventsParams,
   };
 
   export {

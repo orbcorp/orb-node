@@ -1875,6 +1875,11 @@ export interface NewFloatingBPSPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -1956,6 +1961,11 @@ export interface NewFloatingBulkBPSPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -2041,6 +2051,11 @@ export interface NewFloatingBulkPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2122,6 +2137,11 @@ export interface NewFloatingBulkWithProrationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -2207,6 +2227,11 @@ export interface NewFloatingCumulativeGroupedBulkPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2288,6 +2313,11 @@ export interface NewFloatingGroupedAllocationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -2373,6 +2403,11 @@ export interface NewFloatingGroupedTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2454,6 +2489,11 @@ export interface NewFloatingGroupedTieredPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -2539,6 +2579,11 @@ export interface NewFloatingGroupedWithMeteredMinimumPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2620,6 +2665,11 @@ export interface NewFloatingGroupedWithProratedMinimumPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -2705,6 +2755,11 @@ export interface NewFloatingMatrixPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2786,6 +2841,11 @@ export interface NewFloatingMatrixWithAllocationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -2871,6 +2931,11 @@ export interface NewFloatingMatrixWithDisplayNamePrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2952,6 +3017,11 @@ export interface NewFloatingMaxGroupTieredPackagePrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -3037,6 +3107,11 @@ export interface NewFloatingPackagePrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3118,6 +3193,11 @@ export interface NewFloatingPackageWithAllocationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -3203,6 +3283,11 @@ export interface NewFloatingScalableMatrixWithTieredPricingPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3284,6 +3369,11 @@ export interface NewFloatingScalableMatrixWithUnitPricingPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -3369,6 +3459,11 @@ export interface NewFloatingThresholdTotalAmountPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3450,6 +3545,11 @@ export interface NewFloatingTieredBPSPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -3535,6 +3635,11 @@ export interface NewFloatingTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3616,6 +3721,11 @@ export interface NewFloatingTieredPackageWithMinimumPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -3701,6 +3811,11 @@ export interface NewFloatingTieredPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3782,6 +3897,11 @@ export interface NewFloatingTieredWithMinimumPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -3867,6 +3987,11 @@ export interface NewFloatingTieredWithProrationPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3948,6 +4073,11 @@ export interface NewFloatingUnitPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -4033,6 +4163,11 @@ export interface NewFloatingUnitWithPercentPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -4114,6 +4249,11 @@ export interface NewFloatingUnitWithProrationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * For dimensional price: specifies a price group and dimension values
@@ -4325,6 +4465,11 @@ export interface NewPlanBPSPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -4407,6 +4552,11 @@ export interface NewPlanBulkBPSPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -4493,6 +4643,11 @@ export interface NewPlanBulkPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -4575,6 +4730,11 @@ export interface NewPlanBulkWithProrationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -4661,6 +4821,11 @@ export interface NewPlanCumulativeGroupedBulkPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -4743,6 +4908,11 @@ export interface NewPlanGroupedAllocationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -4829,6 +4999,11 @@ export interface NewPlanGroupedTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -4911,6 +5086,11 @@ export interface NewPlanGroupedTieredPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -4997,6 +5177,11 @@ export interface NewPlanGroupedWithMeteredMinimumPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -5079,6 +5264,11 @@ export interface NewPlanGroupedWithProratedMinimumPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -5165,6 +5355,11 @@ export interface NewPlanMatrixPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -5247,6 +5442,11 @@ export interface NewPlanMatrixWithAllocationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -5333,6 +5533,11 @@ export interface NewPlanMatrixWithDisplayNamePrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -5415,6 +5620,11 @@ export interface NewPlanMaxGroupTieredPackagePrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -5501,6 +5711,11 @@ export interface NewPlanPackagePrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -5583,6 +5798,11 @@ export interface NewPlanPackageWithAllocationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -5669,6 +5889,11 @@ export interface NewPlanScalableMatrixWithTieredPricingPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -5751,6 +5976,11 @@ export interface NewPlanScalableMatrixWithUnitPricingPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -5837,6 +6067,11 @@ export interface NewPlanThresholdTotalAmountPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -5919,6 +6154,11 @@ export interface NewPlanTierWithProrationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -6005,6 +6245,11 @@ export interface NewPlanTieredBPSPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -6087,6 +6332,11 @@ export interface NewPlanTieredPackagePrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -6173,6 +6423,11 @@ export interface NewPlanTieredPackageWithMinimumPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -6255,6 +6510,11 @@ export interface NewPlanTieredPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -6341,6 +6601,11 @@ export interface NewPlanTieredWithMinimumPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -6423,6 +6688,11 @@ export interface NewPlanUnitPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -6509,6 +6779,11 @@ export interface NewPlanUnitWithPercentPrice {
   conversion_rate?: number | null;
 
   /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
+
+  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -6591,6 +6866,11 @@ export interface NewPlanUnitWithProrationPrice {
    * The per unit conversion rate of the price currency to the invoicing currency.
    */
   conversion_rate?: number | null;
+
+  /**
+   * The configuration for the rate of the price currency to the invoicing currency.
+   */
+  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
 
   /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
@@ -7038,6 +7318,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -7108,6 +7390,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -7180,6 +7464,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -7251,6 +7537,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -7321,6 +7609,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -7395,6 +7685,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -7465,6 +7757,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -7537,6 +7831,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -7605,6 +7901,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -7677,6 +7975,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -7747,6 +8047,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -7819,6 +8121,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -7889,6 +8193,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -7961,6 +8267,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -8031,6 +8339,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -8103,6 +8413,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -8173,6 +8485,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -8245,6 +8559,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -8315,6 +8631,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -8387,6 +8705,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -8458,6 +8778,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -8528,6 +8850,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -8602,6 +8926,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -8670,6 +8996,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -8742,6 +9070,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -8812,6 +9142,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -8884,6 +9216,8 @@ export namespace Price {
 
     conversion_rate: number | null;
 
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -8954,6 +9288,8 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
 
     created_at: string;
 
