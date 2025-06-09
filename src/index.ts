@@ -176,8 +176,6 @@ import {
   PriceEvaluateMultipleParams,
   PriceEvaluateMultipleResponse,
   PriceEvaluateParams,
-  PriceEvaluatePreviewEventsParams,
-  PriceEvaluatePreviewEventsResponse,
   PriceEvaluateResponse,
   PriceListParams,
   PriceUpdateParams,
@@ -508,13 +506,11 @@ export declare namespace Orb {
     type EvaluatePriceGroup as EvaluatePriceGroup,
     type PriceEvaluateResponse as PriceEvaluateResponse,
     type PriceEvaluateMultipleResponse as PriceEvaluateMultipleResponse,
-    type PriceEvaluatePreviewEventsResponse as PriceEvaluatePreviewEventsResponse,
     type PriceCreateParams as PriceCreateParams,
     type PriceUpdateParams as PriceUpdateParams,
     type PriceListParams as PriceListParams,
     type PriceEvaluateParams as PriceEvaluateParams,
     type PriceEvaluateMultipleParams as PriceEvaluateMultipleParams,
-    type PriceEvaluatePreviewEventsParams as PriceEvaluatePreviewEventsParams,
   };
 
   export {
@@ -618,6 +614,9 @@ export declare namespace Orb {
   export type BulkConfig = API.BulkConfig;
   export type BulkTier = API.BulkTier;
   export type ChangedSubscriptionResources = API.ChangedSubscriptionResources;
+  export type ConversionRateTier = API.ConversionRateTier;
+  export type ConversionRateTieredConfig = API.ConversionRateTieredConfig;
+  export type ConversionRateUnitConfig = API.ConversionRateUnitConfig;
   export type CouponRedemption = API.CouponRedemption;
   export type CreditNote = API.CreditNote;
   export type CreditNoteTiny = API.CreditNoteTiny;
@@ -735,9 +734,11 @@ export declare namespace Orb {
   export type TierSubLineItem = API.TierSubLineItem;
   export type TieredBPSConfig = API.TieredBPSConfig;
   export type TieredConfig = API.TieredConfig;
+  export type TieredConversionRateConfig = API.TieredConversionRateConfig;
   export type TransformPriceFilter = API.TransformPriceFilter;
   export type TrialDiscount = API.TrialDiscount;
   export type UnitConfig = API.UnitConfig;
+  export type UnitConversionRateConfig = API.UnitConversionRateConfig;
   export type UsageDiscount = API.UsageDiscount;
   export type UsageDiscountInterval = API.UsageDiscountInterval;
 }

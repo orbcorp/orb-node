@@ -6,11 +6,9 @@ export {
   type EvaluatePriceGroup,
   type PriceEvaluateResponse,
   type PriceEvaluateMultipleResponse,
-  type PriceEvaluatePreviewEventsResponse,
   type PriceCreateParams,
   type PriceUpdateParams,
   type PriceListParams,
   type PriceEvaluateParams,
   type PriceEvaluateMultipleParams,
-  type PriceEvaluatePreviewEventsParams,
 } from './prices';

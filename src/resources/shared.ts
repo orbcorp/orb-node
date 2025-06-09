@@ -255,6 +255,37 @@ export interface ChangedSubscriptionResources {
   voided_invoices: Array<Invoice>;
 }
 
+export interface ConversionRateTier {
+  /**
+   * Exclusive tier starting value
+   */
+  first_unit: number;
+
+  /**
+   * Amount per unit of overage
+   */
+  unit_amount: string;
+
+  /**
+   * Inclusive tier ending value. If null, this is treated as the last tier
+   */
+  last_unit?: number | null;
+}
+
+export interface ConversionRateTieredConfig {
+  /**
+   * Tiers for rating based on total usage quantities into the specified tier
+   */
+  tiers: Array<ConversionRateTier>;
+}
+
+export interface ConversionRateUnitConfig {
+  /**
+   * Amount per unit of overage
+   */
+  unit_amount: string;
+}
+
 export interface CouponRedemption {
   coupon_id: string;
 
@@ -1844,14 +1875,6 @@ export interface NewFloatingBPSPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingBPSPrice.UnitConversionRateConfig
-    | NewFloatingBPSPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -1884,57 +1907,6 @@ export interface NewFloatingBPSPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingBPSPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingBulkBPSPrice {
@@ -1986,14 +1958,6 @@ export interface NewFloatingBulkBPSPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingBulkBPSPrice.UnitConversionRateConfig
-    | NewFloatingBulkBPSPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2026,57 +1990,6 @@ export interface NewFloatingBulkBPSPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingBulkBPSPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingBulkPrice {
@@ -2128,14 +2041,6 @@ export interface NewFloatingBulkPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingBulkPrice.UnitConversionRateConfig
-    | NewFloatingBulkPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2168,57 +2073,6 @@ export interface NewFloatingBulkPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingBulkPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingBulkWithProrationPrice {
@@ -2270,14 +2124,6 @@ export interface NewFloatingBulkWithProrationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingBulkWithProrationPrice.UnitConversionRateConfig
-    | NewFloatingBulkWithProrationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2310,57 +2156,6 @@ export interface NewFloatingBulkWithProrationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingBulkWithProrationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingCumulativeGroupedBulkPrice {
@@ -2412,14 +2207,6 @@ export interface NewFloatingCumulativeGroupedBulkPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingCumulativeGroupedBulkPrice.UnitConversionRateConfig
-    | NewFloatingCumulativeGroupedBulkPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2452,57 +2239,6 @@ export interface NewFloatingCumulativeGroupedBulkPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingCumulativeGroupedBulkPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingGroupedAllocationPrice {
@@ -2554,14 +2290,6 @@ export interface NewFloatingGroupedAllocationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingGroupedAllocationPrice.UnitConversionRateConfig
-    | NewFloatingGroupedAllocationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2594,57 +2322,6 @@ export interface NewFloatingGroupedAllocationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingGroupedAllocationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingGroupedTieredPackagePrice {
@@ -2696,14 +2373,6 @@ export interface NewFloatingGroupedTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingGroupedTieredPackagePrice.UnitConversionRateConfig
-    | NewFloatingGroupedTieredPackagePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2736,57 +2405,6 @@ export interface NewFloatingGroupedTieredPackagePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingGroupedTieredPackagePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingGroupedTieredPrice {
@@ -2838,14 +2456,6 @@ export interface NewFloatingGroupedTieredPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingGroupedTieredPrice.UnitConversionRateConfig
-    | NewFloatingGroupedTieredPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -2878,57 +2488,6 @@ export interface NewFloatingGroupedTieredPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingGroupedTieredPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingGroupedWithMeteredMinimumPrice {
@@ -2980,14 +2539,6 @@ export interface NewFloatingGroupedWithMeteredMinimumPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingGroupedWithMeteredMinimumPrice.UnitConversionRateConfig
-    | NewFloatingGroupedWithMeteredMinimumPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3020,57 +2571,6 @@ export interface NewFloatingGroupedWithMeteredMinimumPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingGroupedWithMeteredMinimumPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingGroupedWithProratedMinimumPrice {
@@ -3122,14 +2622,6 @@ export interface NewFloatingGroupedWithProratedMinimumPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingGroupedWithProratedMinimumPrice.UnitConversionRateConfig
-    | NewFloatingGroupedWithProratedMinimumPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3162,57 +2654,6 @@ export interface NewFloatingGroupedWithProratedMinimumPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingGroupedWithProratedMinimumPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingMatrixPrice {
@@ -3264,14 +2705,6 @@ export interface NewFloatingMatrixPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingMatrixPrice.UnitConversionRateConfig
-    | NewFloatingMatrixPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3304,57 +2737,6 @@ export interface NewFloatingMatrixPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingMatrixPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingMatrixWithAllocationPrice {
@@ -3406,14 +2788,6 @@ export interface NewFloatingMatrixWithAllocationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingMatrixWithAllocationPrice.UnitConversionRateConfig
-    | NewFloatingMatrixWithAllocationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3446,57 +2820,6 @@ export interface NewFloatingMatrixWithAllocationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingMatrixWithAllocationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingMatrixWithDisplayNamePrice {
@@ -3548,14 +2871,6 @@ export interface NewFloatingMatrixWithDisplayNamePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingMatrixWithDisplayNamePrice.UnitConversionRateConfig
-    | NewFloatingMatrixWithDisplayNamePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3588,57 +2903,6 @@ export interface NewFloatingMatrixWithDisplayNamePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingMatrixWithDisplayNamePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingMaxGroupTieredPackagePrice {
@@ -3690,14 +2954,6 @@ export interface NewFloatingMaxGroupTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingMaxGroupTieredPackagePrice.UnitConversionRateConfig
-    | NewFloatingMaxGroupTieredPackagePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3730,57 +2986,6 @@ export interface NewFloatingMaxGroupTieredPackagePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingMaxGroupTieredPackagePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingPackagePrice {
@@ -3832,14 +3037,6 @@ export interface NewFloatingPackagePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingPackagePrice.UnitConversionRateConfig
-    | NewFloatingPackagePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -3872,57 +3069,6 @@ export interface NewFloatingPackagePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingPackagePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingPackageWithAllocationPrice {
@@ -3974,14 +3120,6 @@ export interface NewFloatingPackageWithAllocationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingPackageWithAllocationPrice.UnitConversionRateConfig
-    | NewFloatingPackageWithAllocationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -4014,57 +3152,6 @@ export interface NewFloatingPackageWithAllocationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingPackageWithAllocationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingScalableMatrixWithTieredPricingPrice {
@@ -4116,14 +3203,6 @@ export interface NewFloatingScalableMatrixWithTieredPricingPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingScalableMatrixWithTieredPricingPrice.UnitConversionRateConfig
-    | NewFloatingScalableMatrixWithTieredPricingPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -4156,57 +3235,6 @@ export interface NewFloatingScalableMatrixWithTieredPricingPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingScalableMatrixWithTieredPricingPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingScalableMatrixWithUnitPricingPrice {
@@ -4258,14 +3286,6 @@ export interface NewFloatingScalableMatrixWithUnitPricingPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingScalableMatrixWithUnitPricingPrice.UnitConversionRateConfig
-    | NewFloatingScalableMatrixWithUnitPricingPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -4298,57 +3318,6 @@ export interface NewFloatingScalableMatrixWithUnitPricingPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingScalableMatrixWithUnitPricingPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingThresholdTotalAmountPrice {
@@ -4400,14 +3369,6 @@ export interface NewFloatingThresholdTotalAmountPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingThresholdTotalAmountPrice.UnitConversionRateConfig
-    | NewFloatingThresholdTotalAmountPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -4440,57 +3401,6 @@ export interface NewFloatingThresholdTotalAmountPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingThresholdTotalAmountPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingTieredBPSPrice {
@@ -4542,14 +3452,6 @@ export interface NewFloatingTieredBPSPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingTieredBPSPrice.UnitConversionRateConfig
-    | NewFloatingTieredBPSPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -4582,57 +3484,6 @@ export interface NewFloatingTieredBPSPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingTieredBPSPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingTieredPackagePrice {
@@ -4684,14 +3535,6 @@ export interface NewFloatingTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingTieredPackagePrice.UnitConversionRateConfig
-    | NewFloatingTieredPackagePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -4724,57 +3567,6 @@ export interface NewFloatingTieredPackagePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingTieredPackagePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingTieredPackageWithMinimumPrice {
@@ -4826,14 +3618,6 @@ export interface NewFloatingTieredPackageWithMinimumPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingTieredPackageWithMinimumPrice.UnitConversionRateConfig
-    | NewFloatingTieredPackageWithMinimumPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -4866,57 +3650,6 @@ export interface NewFloatingTieredPackageWithMinimumPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingTieredPackageWithMinimumPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingTieredPrice {
@@ -4968,14 +3701,6 @@ export interface NewFloatingTieredPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingTieredPrice.UnitConversionRateConfig
-    | NewFloatingTieredPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -5008,57 +3733,6 @@ export interface NewFloatingTieredPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingTieredPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingTieredWithMinimumPrice {
@@ -5110,14 +3784,6 @@ export interface NewFloatingTieredWithMinimumPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingTieredWithMinimumPrice.UnitConversionRateConfig
-    | NewFloatingTieredWithMinimumPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -5150,57 +3816,6 @@ export interface NewFloatingTieredWithMinimumPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingTieredWithMinimumPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingTieredWithProrationPrice {
@@ -5252,14 +3867,6 @@ export interface NewFloatingTieredWithProrationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingTieredWithProrationPrice.UnitConversionRateConfig
-    | NewFloatingTieredWithProrationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -5292,57 +3899,6 @@ export interface NewFloatingTieredWithProrationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingTieredWithProrationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingUnitPrice {
@@ -5394,14 +3950,6 @@ export interface NewFloatingUnitPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingUnitPrice.UnitConversionRateConfig
-    | NewFloatingUnitPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -5434,57 +3982,6 @@ export interface NewFloatingUnitPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingUnitPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingUnitWithPercentPrice {
@@ -5536,14 +4033,6 @@ export interface NewFloatingUnitWithPercentPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingUnitWithPercentPrice.UnitConversionRateConfig
-    | NewFloatingUnitWithPercentPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -5576,57 +4065,6 @@ export interface NewFloatingUnitWithPercentPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingUnitWithPercentPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewFloatingUnitWithProrationPrice {
@@ -5678,14 +4116,6 @@ export interface NewFloatingUnitWithProrationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewFloatingUnitWithProrationPrice.UnitConversionRateConfig
-    | NewFloatingUnitWithProrationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * For dimensional price: specifies a price group and dimension values
    */
   dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
@@ -5718,57 +4148,6 @@ export interface NewFloatingUnitWithProrationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewFloatingUnitWithProrationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewMaximum {
@@ -5946,14 +4325,6 @@ export interface NewPlanBPSPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanBPSPrice.UnitConversionRateConfig
-    | NewPlanBPSPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -5992,57 +4363,6 @@ export interface NewPlanBPSPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanBPSPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanBulkBPSPrice {
@@ -6089,14 +4409,6 @@ export interface NewPlanBulkBPSPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanBulkBPSPrice.UnitConversionRateConfig
-    | NewPlanBulkBPSPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -6135,57 +4447,6 @@ export interface NewPlanBulkBPSPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanBulkBPSPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanBulkPrice {
@@ -6232,14 +4493,6 @@ export interface NewPlanBulkPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanBulkPrice.UnitConversionRateConfig
-    | NewPlanBulkPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -6278,57 +4531,6 @@ export interface NewPlanBulkPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanBulkPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanBulkWithProrationPrice {
@@ -6375,14 +4577,6 @@ export interface NewPlanBulkWithProrationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanBulkWithProrationPrice.UnitConversionRateConfig
-    | NewPlanBulkWithProrationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -6421,57 +4615,6 @@ export interface NewPlanBulkWithProrationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanBulkWithProrationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanCumulativeGroupedBulkPrice {
@@ -6518,14 +4661,6 @@ export interface NewPlanCumulativeGroupedBulkPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanCumulativeGroupedBulkPrice.UnitConversionRateConfig
-    | NewPlanCumulativeGroupedBulkPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -6564,57 +4699,6 @@ export interface NewPlanCumulativeGroupedBulkPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanCumulativeGroupedBulkPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanGroupedAllocationPrice {
@@ -6661,14 +4745,6 @@ export interface NewPlanGroupedAllocationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanGroupedAllocationPrice.UnitConversionRateConfig
-    | NewPlanGroupedAllocationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -6707,57 +4783,6 @@ export interface NewPlanGroupedAllocationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanGroupedAllocationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanGroupedTieredPackagePrice {
@@ -6804,14 +4829,6 @@ export interface NewPlanGroupedTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanGroupedTieredPackagePrice.UnitConversionRateConfig
-    | NewPlanGroupedTieredPackagePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -6850,57 +4867,6 @@ export interface NewPlanGroupedTieredPackagePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanGroupedTieredPackagePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanGroupedTieredPrice {
@@ -6947,14 +4913,6 @@ export interface NewPlanGroupedTieredPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanGroupedTieredPrice.UnitConversionRateConfig
-    | NewPlanGroupedTieredPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -6993,57 +4951,6 @@ export interface NewPlanGroupedTieredPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanGroupedTieredPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanGroupedWithMeteredMinimumPrice {
@@ -7090,14 +4997,6 @@ export interface NewPlanGroupedWithMeteredMinimumPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanGroupedWithMeteredMinimumPrice.UnitConversionRateConfig
-    | NewPlanGroupedWithMeteredMinimumPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -7136,57 +5035,6 @@ export interface NewPlanGroupedWithMeteredMinimumPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanGroupedWithMeteredMinimumPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanGroupedWithProratedMinimumPrice {
@@ -7233,14 +5081,6 @@ export interface NewPlanGroupedWithProratedMinimumPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanGroupedWithProratedMinimumPrice.UnitConversionRateConfig
-    | NewPlanGroupedWithProratedMinimumPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -7279,57 +5119,6 @@ export interface NewPlanGroupedWithProratedMinimumPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanGroupedWithProratedMinimumPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanMatrixPrice {
@@ -7376,14 +5165,6 @@ export interface NewPlanMatrixPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanMatrixPrice.UnitConversionRateConfig
-    | NewPlanMatrixPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -7422,57 +5203,6 @@ export interface NewPlanMatrixPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanMatrixPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanMatrixWithAllocationPrice {
@@ -7519,14 +5249,6 @@ export interface NewPlanMatrixWithAllocationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanMatrixWithAllocationPrice.UnitConversionRateConfig
-    | NewPlanMatrixWithAllocationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -7565,57 +5287,6 @@ export interface NewPlanMatrixWithAllocationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanMatrixWithAllocationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanMatrixWithDisplayNamePrice {
@@ -7662,14 +5333,6 @@ export interface NewPlanMatrixWithDisplayNamePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanMatrixWithDisplayNamePrice.UnitConversionRateConfig
-    | NewPlanMatrixWithDisplayNamePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -7708,57 +5371,6 @@ export interface NewPlanMatrixWithDisplayNamePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanMatrixWithDisplayNamePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanMaxGroupTieredPackagePrice {
@@ -7805,14 +5417,6 @@ export interface NewPlanMaxGroupTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanMaxGroupTieredPackagePrice.UnitConversionRateConfig
-    | NewPlanMaxGroupTieredPackagePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -7851,57 +5455,6 @@ export interface NewPlanMaxGroupTieredPackagePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanMaxGroupTieredPackagePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanPackagePrice {
@@ -7948,14 +5501,6 @@ export interface NewPlanPackagePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanPackagePrice.UnitConversionRateConfig
-    | NewPlanPackagePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -7994,57 +5539,6 @@ export interface NewPlanPackagePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanPackagePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanPackageWithAllocationPrice {
@@ -8091,14 +5585,6 @@ export interface NewPlanPackageWithAllocationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanPackageWithAllocationPrice.UnitConversionRateConfig
-    | NewPlanPackageWithAllocationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -8137,57 +5623,6 @@ export interface NewPlanPackageWithAllocationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanPackageWithAllocationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanScalableMatrixWithTieredPricingPrice {
@@ -8234,14 +5669,6 @@ export interface NewPlanScalableMatrixWithTieredPricingPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanScalableMatrixWithTieredPricingPrice.UnitConversionRateConfig
-    | NewPlanScalableMatrixWithTieredPricingPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -8280,57 +5707,6 @@ export interface NewPlanScalableMatrixWithTieredPricingPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanScalableMatrixWithTieredPricingPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanScalableMatrixWithUnitPricingPrice {
@@ -8377,14 +5753,6 @@ export interface NewPlanScalableMatrixWithUnitPricingPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanScalableMatrixWithUnitPricingPrice.UnitConversionRateConfig
-    | NewPlanScalableMatrixWithUnitPricingPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -8423,57 +5791,6 @@ export interface NewPlanScalableMatrixWithUnitPricingPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanScalableMatrixWithUnitPricingPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanThresholdTotalAmountPrice {
@@ -8520,14 +5837,6 @@ export interface NewPlanThresholdTotalAmountPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanThresholdTotalAmountPrice.UnitConversionRateConfig
-    | NewPlanThresholdTotalAmountPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -8566,57 +5875,6 @@ export interface NewPlanThresholdTotalAmountPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanThresholdTotalAmountPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanTierWithProrationPrice {
@@ -8663,14 +5921,6 @@ export interface NewPlanTierWithProrationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanTierWithProrationPrice.UnitConversionRateConfig
-    | NewPlanTierWithProrationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -8709,57 +5959,6 @@ export interface NewPlanTierWithProrationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanTierWithProrationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanTieredBPSPrice {
@@ -8806,14 +6005,6 @@ export interface NewPlanTieredBPSPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanTieredBPSPrice.UnitConversionRateConfig
-    | NewPlanTieredBPSPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -8852,57 +6043,6 @@ export interface NewPlanTieredBPSPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanTieredBPSPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanTieredPackagePrice {
@@ -8949,14 +6089,6 @@ export interface NewPlanTieredPackagePrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanTieredPackagePrice.UnitConversionRateConfig
-    | NewPlanTieredPackagePrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -8995,57 +6127,6 @@ export interface NewPlanTieredPackagePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanTieredPackagePrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanTieredPackageWithMinimumPrice {
@@ -9092,14 +6173,6 @@ export interface NewPlanTieredPackageWithMinimumPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanTieredPackageWithMinimumPrice.UnitConversionRateConfig
-    | NewPlanTieredPackageWithMinimumPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -9138,57 +6211,6 @@ export interface NewPlanTieredPackageWithMinimumPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanTieredPackageWithMinimumPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanTieredPrice {
@@ -9235,14 +6257,6 @@ export interface NewPlanTieredPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanTieredPrice.UnitConversionRateConfig
-    | NewPlanTieredPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -9281,57 +6295,6 @@ export interface NewPlanTieredPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanTieredPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanTieredWithMinimumPrice {
@@ -9378,14 +6341,6 @@ export interface NewPlanTieredWithMinimumPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanTieredWithMinimumPrice.UnitConversionRateConfig
-    | NewPlanTieredWithMinimumPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -9424,57 +6379,6 @@ export interface NewPlanTieredWithMinimumPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanTieredWithMinimumPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanUnitPrice {
@@ -9521,14 +6425,6 @@ export interface NewPlanUnitPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanUnitPrice.UnitConversionRateConfig
-    | NewPlanUnitPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -9567,57 +6463,6 @@ export interface NewPlanUnitPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanUnitPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanUnitWithPercentPrice {
@@ -9664,14 +6509,6 @@ export interface NewPlanUnitWithPercentPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanUnitWithPercentPrice.UnitConversionRateConfig
-    | NewPlanUnitWithPercentPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -9710,57 +6547,6 @@ export interface NewPlanUnitWithPercentPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanUnitWithPercentPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewPlanUnitWithProrationPrice {
@@ -9807,14 +6593,6 @@ export interface NewPlanUnitWithProrationPrice {
   conversion_rate?: number | null;
 
   /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?:
-    | NewPlanUnitWithProrationPrice.UnitConversionRateConfig
-    | NewPlanUnitWithProrationPrice.TieredConversionRateConfig
-    | null;
-
-  /**
    * An ISO 4217 currency string, or custom pricing unit identifier, in which this
    * price is billed.
    */
@@ -9853,57 +6631,6 @@ export interface NewPlanUnitWithProrationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
-}
-
-export namespace NewPlanUnitWithProrationPrice {
-  export interface UnitConversionRateConfig {
-    conversion_rate_type: 'unit';
-
-    unit_config: UnitConversionRateConfig.UnitConfig;
-  }
-
-  export namespace UnitConversionRateConfig {
-    export interface UnitConfig {
-      /**
-       * Amount per unit of overage
-       */
-      unit_amount: string;
-    }
-  }
-
-  export interface TieredConversionRateConfig {
-    conversion_rate_type: 'tiered';
-
-    tiered_config: TieredConversionRateConfig.TieredConfig;
-  }
-
-  export namespace TieredConversionRateConfig {
-    export interface TieredConfig {
-      /**
-       * Tiers for rating based on total usage quantities into the specified tier
-       */
-      tiers: Array<TieredConfig.Tier>;
-    }
-
-    export namespace TieredConfig {
-      export interface Tier {
-        /**
-         * Exclusive tier starting value
-         */
-        first_unit: number;
-
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-
-        /**
-         * Inclusive tier ending value. If null, this is treated as the last tier
-         */
-        last_unit?: number | null;
-      }
-    }
-  }
 }
 
 export interface NewUsageDiscount {
@@ -10311,8 +7038,6 @@ export namespace Price {
 
     conversion_rate: number | null;
 
-    conversion_rate_config: UnitPrice.UnitConversionRateConfig | UnitPrice.TieredConversionRateConfig | null;
-
     created_at: string;
 
     credit_allocation: Shared.Allocation | null;
@@ -10373,57 +7098,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace UnitPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface PackagePrice {
     id: string;
 
@@ -10434,11 +7108,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | PackagePrice.UnitConversionRateConfig
-      | PackagePrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -10500,57 +7169,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace PackagePrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface MatrixPrice {
     id: string;
 
@@ -10561,11 +7179,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | MatrixPrice.UnitConversionRateConfig
-      | MatrixPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -10627,57 +7240,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace MatrixPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface TieredPrice {
     id: string;
 
@@ -10688,11 +7250,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | TieredPrice.UnitConversionRateConfig
-      | TieredPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -10754,57 +7311,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace TieredPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface TieredBPSPrice {
     id: string;
 
@@ -10815,11 +7321,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | TieredBPSPrice.UnitConversionRateConfig
-      | TieredBPSPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -10881,57 +7382,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace TieredBPSPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface BPSPrice {
     id: string;
 
@@ -10944,8 +7394,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config: BPSPrice.UnitConversionRateConfig | BPSPrice.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -11005,57 +7453,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace BPSPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface BulkBPSPrice {
     id: string;
 
@@ -11068,11 +7465,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | BulkBPSPrice.UnitConversionRateConfig
-      | BulkBPSPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -11132,57 +7524,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace BulkBPSPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface BulkPrice {
     id: string;
 
@@ -11195,8 +7536,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config: BulkPrice.UnitConversionRateConfig | BulkPrice.TieredConversionRateConfig | null;
 
     created_at: string;
 
@@ -11256,57 +7595,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace BulkPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface ThresholdTotalAmountPrice {
     id: string;
 
@@ -11317,11 +7605,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | ThresholdTotalAmountPrice.UnitConversionRateConfig
-      | ThresholdTotalAmountPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -11383,57 +7666,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace ThresholdTotalAmountPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface TieredPackagePrice {
     id: string;
 
@@ -11444,11 +7676,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | TieredPackagePrice.UnitConversionRateConfig
-      | TieredPackagePrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -11510,57 +7737,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace TieredPackagePrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface GroupedTieredPrice {
     id: string;
 
@@ -11571,11 +7747,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | GroupedTieredPrice.UnitConversionRateConfig
-      | GroupedTieredPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -11637,57 +7808,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace GroupedTieredPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface TieredWithMinimumPrice {
     id: string;
 
@@ -11698,11 +7818,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | TieredWithMinimumPrice.UnitConversionRateConfig
-      | TieredWithMinimumPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -11764,57 +7879,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace TieredWithMinimumPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface TieredPackageWithMinimumPrice {
     id: string;
 
@@ -11825,11 +7889,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | TieredPackageWithMinimumPrice.UnitConversionRateConfig
-      | TieredPackageWithMinimumPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -11891,57 +7950,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace TieredPackageWithMinimumPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface PackageWithAllocationPrice {
     id: string;
 
@@ -11952,11 +7960,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | PackageWithAllocationPrice.UnitConversionRateConfig
-      | PackageWithAllocationPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -12018,57 +8021,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace PackageWithAllocationPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface UnitWithPercentPrice {
     id: string;
 
@@ -12079,11 +8031,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | UnitWithPercentPrice.UnitConversionRateConfig
-      | UnitWithPercentPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -12145,57 +8092,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace UnitWithPercentPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface MatrixWithAllocationPrice {
     id: string;
 
@@ -12206,11 +8102,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | MatrixWithAllocationPrice.UnitConversionRateConfig
-      | MatrixWithAllocationPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -12272,57 +8163,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace MatrixWithAllocationPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface TieredWithProrationPrice {
     id: string;
 
@@ -12333,11 +8173,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | TieredWithProrationPrice.UnitConversionRateConfig
-      | TieredWithProrationPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -12399,57 +8234,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace TieredWithProrationPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface UnitWithProrationPrice {
     id: string;
 
@@ -12460,11 +8244,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | UnitWithProrationPrice.UnitConversionRateConfig
-      | UnitWithProrationPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -12526,57 +8305,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace UnitWithProrationPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface GroupedAllocationPrice {
     id: string;
 
@@ -12587,11 +8315,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | GroupedAllocationPrice.UnitConversionRateConfig
-      | GroupedAllocationPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -12653,57 +8376,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace GroupedAllocationPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface GroupedWithProratedMinimumPrice {
     id: string;
 
@@ -12714,11 +8386,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | GroupedWithProratedMinimumPrice.UnitConversionRateConfig
-      | GroupedWithProratedMinimumPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -12780,57 +8447,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace GroupedWithProratedMinimumPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface GroupedWithMeteredMinimumPrice {
     id: string;
 
@@ -12841,11 +8457,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | GroupedWithMeteredMinimumPrice.UnitConversionRateConfig
-      | GroupedWithMeteredMinimumPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -12907,57 +8518,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace GroupedWithMeteredMinimumPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface MatrixWithDisplayNamePrice {
     id: string;
 
@@ -12968,11 +8528,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | MatrixWithDisplayNamePrice.UnitConversionRateConfig
-      | MatrixWithDisplayNamePrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -13034,57 +8589,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace MatrixWithDisplayNamePrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface BulkWithProrationPrice {
     id: string;
 
@@ -13097,11 +8601,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | BulkWithProrationPrice.UnitConversionRateConfig
-      | BulkWithProrationPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -13161,57 +8660,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace BulkWithProrationPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface GroupedTieredPackagePrice {
     id: string;
 
@@ -13222,11 +8670,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | GroupedTieredPackagePrice.UnitConversionRateConfig
-      | GroupedTieredPackagePrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -13288,57 +8731,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace GroupedTieredPackagePrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface MaxGroupTieredPackagePrice {
     id: string;
 
@@ -13349,11 +8741,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | MaxGroupTieredPackagePrice.UnitConversionRateConfig
-      | MaxGroupTieredPackagePrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -13415,57 +8802,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace MaxGroupTieredPackagePrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface ScalableMatrixWithUnitPricingPrice {
     id: string;
 
@@ -13476,11 +8812,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | ScalableMatrixWithUnitPricingPrice.UnitConversionRateConfig
-      | ScalableMatrixWithUnitPricingPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -13542,57 +8873,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace ScalableMatrixWithUnitPricingPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface ScalableMatrixWithTieredPricingPrice {
     id: string;
 
@@ -13603,11 +8883,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | ScalableMatrixWithTieredPricingPrice.UnitConversionRateConfig
-      | ScalableMatrixWithTieredPricingPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -13669,57 +8944,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export namespace ScalableMatrixWithTieredPricingPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
-  }
-
   export interface CumulativeGroupedBulkPrice {
     id: string;
 
@@ -13730,11 +8954,6 @@ export namespace Price {
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
     conversion_rate: number | null;
-
-    conversion_rate_config:
-      | CumulativeGroupedBulkPrice.UnitConversionRateConfig
-      | CumulativeGroupedBulkPrice.TieredConversionRateConfig
-      | null;
 
     created_at: string;
 
@@ -13794,57 +9013,6 @@ export namespace Price {
     price_type: 'usage_price' | 'fixed_price';
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
-  }
-
-  export namespace CumulativeGroupedBulkPrice {
-    export interface UnitConversionRateConfig {
-      conversion_rate_type: 'unit';
-
-      unit_config: UnitConversionRateConfig.UnitConfig;
-    }
-
-    export namespace UnitConversionRateConfig {
-      export interface UnitConfig {
-        /**
-         * Amount per unit of overage
-         */
-        unit_amount: string;
-      }
-    }
-
-    export interface TieredConversionRateConfig {
-      conversion_rate_type: 'tiered';
-
-      tiered_config: TieredConversionRateConfig.TieredConfig;
-    }
-
-    export namespace TieredConversionRateConfig {
-      export interface TieredConfig {
-        /**
-         * Tiers for rating based on total usage quantities into the specified tier
-         */
-        tiers: Array<TieredConfig.Tier>;
-      }
-
-      export namespace TieredConfig {
-        export interface Tier {
-          /**
-           * Exclusive tier starting value
-           */
-          first_unit: number;
-
-          /**
-           * Amount per unit of overage
-           */
-          unit_amount: string;
-
-          /**
-           * Inclusive tier ending value. If null, this is treated as the last tier
-           */
-          last_unit?: number | null;
-        }
-      }
-    }
   }
 }
 
@@ -14021,6 +9189,12 @@ export interface TieredConfig {
   tiers: Array<Tier>;
 }
 
+export interface TieredConversionRateConfig {
+  conversion_rate_type: 'tiered';
+
+  tiered_config: ConversionRateTieredConfig;
+}
+
 export interface TransformPriceFilter {
   /**
    * The property of the price to filter on.
@@ -14070,6 +9244,12 @@ export interface UnitConfig {
    * Rate per unit of usage
    */
   unit_amount: string;
+}
+
+export interface UnitConversionRateConfig {
+  conversion_rate_type: 'unit';
+
+  unit_config: ConversionRateUnitConfig;
 }
 
 export interface UsageDiscount {

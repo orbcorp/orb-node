@@ -19,6 +19,9 @@ Types:
 - <code><a href="./src/resources/shared.ts">BulkConfig</a></code>
 - <code><a href="./src/resources/shared.ts">BulkTier</a></code>
 - <code><a href="./src/resources/shared.ts">ChangedSubscriptionResources</a></code>
+- <code><a href="./src/resources/shared.ts">ConversionRateTier</a></code>
+- <code><a href="./src/resources/shared.ts">ConversionRateTieredConfig</a></code>
+- <code><a href="./src/resources/shared.ts">ConversionRateUnitConfig</a></code>
 - <code><a href="./src/resources/shared.ts">CouponRedemption</a></code>
 - <code><a href="./src/resources/shared.ts">CreditNote</a></code>
 - <code><a href="./src/resources/shared.ts">CreditNoteTiny</a></code>
@@ -134,9 +137,11 @@ Types:
 - <code><a href="./src/resources/shared.ts">TierSubLineItem</a></code>
 - <code><a href="./src/resources/shared.ts">TieredBPSConfig</a></code>
 - <code><a href="./src/resources/shared.ts">TieredConfig</a></code>
+- <code><a href="./src/resources/shared.ts">TieredConversionRateConfig</a></code>
 - <code><a href="./src/resources/shared.ts">TransformPriceFilter</a></code>
 - <code><a href="./src/resources/shared.ts">TrialDiscount</a></code>
 - <code><a href="./src/resources/shared.ts">UnitConfig</a></code>
+- <code><a href="./src/resources/shared.ts">UnitConversionRateConfig</a></code>
 - <code><a href="./src/resources/shared.ts">UsageDiscount</a></code>
 - <code><a href="./src/resources/shared.ts">UsageDiscountInterval</a></code>
 
@@ -429,7 +434,6 @@ Types:
 - <code><a href="./src/resources/prices/prices.ts">EvaluatePriceGroup</a></code>
 - <code><a href="./src/resources/prices/prices.ts">PriceEvaluateResponse</a></code>
 - <code><a href="./src/resources/prices/prices.ts">PriceEvaluateMultipleResponse</a></code>
-- <code><a href="./src/resources/prices/prices.ts">PriceEvaluatePreviewEventsResponse</a></code>
 
 Methods:
 
@@ -438,7 +442,6 @@ Methods:
 - <code title="get /prices">client.prices.<a href="./src/resources/prices/prices.ts">list</a>({ ...params }) -> PricesPage</code>
 - <code title="post /prices/{price_id}/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluate</a>(priceId, { ...params }) -> PriceEvaluateResponse</code>
 - <code title="post /prices/evaluate">client.prices.<a href="./src/resources/prices/prices.ts">evaluateMultiple</a>({ ...params }) -> PriceEvaluateMultipleResponse</code>
-- <code title="post /prices/evaluate_preview_events">client.prices.<a href="./src/resources/prices/prices.ts">evaluatePreviewEvents</a>({ ...params }) -> PriceEvaluatePreviewEventsResponse</code>
 - <code title="get /prices/{price_id}">client.prices.<a href="./src/resources/prices/prices.ts">fetch</a>(priceId) -> Price</code>
 
 ## ExternalPriceID
