@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import * as Core from '../core';
 import * as Shared from './shared';
-import * as PricesAPI from './prices/prices';
 
 export class InvoiceLineItems extends APIResource {
   /**
@@ -36,11 +35,11 @@ export interface InvoiceLineItemCreateResponse {
    * discounts -> minimums -> maximums).
    */
   adjustments: Array<
-    | InvoiceLineItemCreateResponse.MonetaryUsageDiscountAdjustment
-    | InvoiceLineItemCreateResponse.MonetaryAmountDiscountAdjustment
-    | InvoiceLineItemCreateResponse.MonetaryPercentageDiscountAdjustment
-    | InvoiceLineItemCreateResponse.MonetaryMinimumAdjustment
-    | InvoiceLineItemCreateResponse.MonetaryMaximumAdjustment
+    | Shared.MonetaryUsageDiscountAdjustment
+    | Shared.MonetaryAmountDiscountAdjustment
+    | Shared.MonetaryPercentageDiscountAdjustment
+    | Shared.MonetaryMinimumAdjustment
+    | Shared.MonetaryMaximumAdjustment
   >;
 
   /**
@@ -76,7 +75,7 @@ export interface InvoiceLineItemCreateResponse {
   /**
    * @deprecated This field is deprecated in favor of `adjustments`.
    */
-  maximum: InvoiceLineItemCreateResponse.Maximum | null;
+  maximum: Shared.Maximum | null;
 
   /**
    * @deprecated This field is deprecated in favor of `adjustments`.
@@ -86,7 +85,7 @@ export interface InvoiceLineItemCreateResponse {
   /**
    * @deprecated This field is deprecated in favor of `adjustments`.
    */
-  minimum: InvoiceLineItemCreateResponse.Minimum | null;
+  minimum: Shared.Minimum | null;
 
   /**
    * @deprecated This field is deprecated in favor of `adjustments`.
@@ -115,7 +114,7 @@ export interface InvoiceLineItemCreateResponse {
    * For more on the types of prices, see
    * [the core concepts documentation](/core-concepts#plan-and-price)
    */
-  price: PricesAPI.Price;
+  price: Shared.Price;
 
   /**
    * Either the fixed fee quantity or the usage during the service period.
@@ -131,11 +130,7 @@ export interface InvoiceLineItemCreateResponse {
    * For complex pricing structures, the line item can be broken down further in
    * `sub_line_items`.
    */
-  sub_line_items: Array<
-    | InvoiceLineItemCreateResponse.MatrixSubLineItem
-    | InvoiceLineItemCreateResponse.TierSubLineItem
-    | InvoiceLineItemCreateResponse.OtherSubLineItem
-  >;
+  sub_line_items: Array<Shared.MatrixSubLineItem | Shared.TierSubLineItem | Shared.OtherSubLineItem>;
 
   /**
    * The line amount before before any adjustments.
@@ -146,498 +141,12 @@ export interface InvoiceLineItemCreateResponse {
    * An array of tax rates and their incurred tax amounts. Empty if no tax
    * integration is configured.
    */
-  tax_amounts: Array<InvoiceLineItemCreateResponse.TaxAmount>;
+  tax_amounts: Array<Shared.TaxAmount>;
 
   /**
    * A list of customer ids that were used to calculate the usage for this line item.
    */
   usage_customer_ids: Array<string> | null;
-}
-
-export namespace InvoiceLineItemCreateResponse {
-  export interface MonetaryUsageDiscountAdjustment {
-    id: string;
-
-    adjustment_type: 'usage_discount';
-
-    /**
-     * The value applied by an adjustment.
-     */
-    amount: string;
-
-    /**
-     * @deprecated The price IDs that this adjustment applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * The filters that determine which prices to apply this adjustment to.
-     */
-    filters: Array<MonetaryUsageDiscountAdjustment.Filter>;
-
-    /**
-     * True for adjustments that apply to an entire invocice, false for adjustments
-     * that apply to only one price.
-     */
-    is_invoice_level: boolean;
-
-    /**
-     * The reason for the adjustment.
-     */
-    reason: string | null;
-
-    /**
-     * The number of usage units by which to discount the price this adjustment applies
-     * to in a given billing period.
-     */
-    usage_discount: number;
-  }
-
-  export namespace MonetaryUsageDiscountAdjustment {
-    export interface Filter {
-      /**
-       * The property of the price to filter on.
-       */
-      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-      /**
-       * Should prices that match the filter be included or excluded.
-       */
-      operator: 'includes' | 'excludes';
-
-      /**
-       * The IDs or values that match this filter.
-       */
-      values: Array<string>;
-    }
-  }
-
-  export interface MonetaryAmountDiscountAdjustment {
-    id: string;
-
-    adjustment_type: 'amount_discount';
-
-    /**
-     * The value applied by an adjustment.
-     */
-    amount: string;
-
-    /**
-     * The amount by which to discount the prices this adjustment applies to in a given
-     * billing period.
-     */
-    amount_discount: string;
-
-    /**
-     * @deprecated The price IDs that this adjustment applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * The filters that determine which prices to apply this adjustment to.
-     */
-    filters: Array<MonetaryAmountDiscountAdjustment.Filter>;
-
-    /**
-     * True for adjustments that apply to an entire invocice, false for adjustments
-     * that apply to only one price.
-     */
-    is_invoice_level: boolean;
-
-    /**
-     * The reason for the adjustment.
-     */
-    reason: string | null;
-  }
-
-  export namespace MonetaryAmountDiscountAdjustment {
-    export interface Filter {
-      /**
-       * The property of the price to filter on.
-       */
-      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-      /**
-       * Should prices that match the filter be included or excluded.
-       */
-      operator: 'includes' | 'excludes';
-
-      /**
-       * The IDs or values that match this filter.
-       */
-      values: Array<string>;
-    }
-  }
-
-  export interface MonetaryPercentageDiscountAdjustment {
-    id: string;
-
-    adjustment_type: 'percentage_discount';
-
-    /**
-     * The value applied by an adjustment.
-     */
-    amount: string;
-
-    /**
-     * @deprecated The price IDs that this adjustment applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * The filters that determine which prices to apply this adjustment to.
-     */
-    filters: Array<MonetaryPercentageDiscountAdjustment.Filter>;
-
-    /**
-     * True for adjustments that apply to an entire invocice, false for adjustments
-     * that apply to only one price.
-     */
-    is_invoice_level: boolean;
-
-    /**
-     * The percentage (as a value between 0 and 1) by which to discount the price
-     * intervals this adjustment applies to in a given billing period.
-     */
-    percentage_discount: number;
-
-    /**
-     * The reason for the adjustment.
-     */
-    reason: string | null;
-  }
-
-  export namespace MonetaryPercentageDiscountAdjustment {
-    export interface Filter {
-      /**
-       * The property of the price to filter on.
-       */
-      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-      /**
-       * Should prices that match the filter be included or excluded.
-       */
-      operator: 'includes' | 'excludes';
-
-      /**
-       * The IDs or values that match this filter.
-       */
-      values: Array<string>;
-    }
-  }
-
-  export interface MonetaryMinimumAdjustment {
-    id: string;
-
-    adjustment_type: 'minimum';
-
-    /**
-     * The value applied by an adjustment.
-     */
-    amount: string;
-
-    /**
-     * @deprecated The price IDs that this adjustment applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * The filters that determine which prices to apply this adjustment to.
-     */
-    filters: Array<MonetaryMinimumAdjustment.Filter>;
-
-    /**
-     * True for adjustments that apply to an entire invocice, false for adjustments
-     * that apply to only one price.
-     */
-    is_invoice_level: boolean;
-
-    /**
-     * The item ID that revenue from this minimum will be attributed to.
-     */
-    item_id: string;
-
-    /**
-     * The minimum amount to charge in a given billing period for the prices this
-     * adjustment applies to.
-     */
-    minimum_amount: string;
-
-    /**
-     * The reason for the adjustment.
-     */
-    reason: string | null;
-  }
-
-  export namespace MonetaryMinimumAdjustment {
-    export interface Filter {
-      /**
-       * The property of the price to filter on.
-       */
-      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-      /**
-       * Should prices that match the filter be included or excluded.
-       */
-      operator: 'includes' | 'excludes';
-
-      /**
-       * The IDs or values that match this filter.
-       */
-      values: Array<string>;
-    }
-  }
-
-  export interface MonetaryMaximumAdjustment {
-    id: string;
-
-    adjustment_type: 'maximum';
-
-    /**
-     * The value applied by an adjustment.
-     */
-    amount: string;
-
-    /**
-     * @deprecated The price IDs that this adjustment applies to.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * The filters that determine which prices to apply this adjustment to.
-     */
-    filters: Array<MonetaryMaximumAdjustment.Filter>;
-
-    /**
-     * True for adjustments that apply to an entire invocice, false for adjustments
-     * that apply to only one price.
-     */
-    is_invoice_level: boolean;
-
-    /**
-     * The maximum amount to charge in a given billing period for the prices this
-     * adjustment applies to.
-     */
-    maximum_amount: string;
-
-    /**
-     * The reason for the adjustment.
-     */
-    reason: string | null;
-  }
-
-  export namespace MonetaryMaximumAdjustment {
-    export interface Filter {
-      /**
-       * The property of the price to filter on.
-       */
-      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-      /**
-       * Should prices that match the filter be included or excluded.
-       */
-      operator: 'includes' | 'excludes';
-
-      /**
-       * The IDs or values that match this filter.
-       */
-      values: Array<string>;
-    }
-  }
-
-  /**
-   * @deprecated This field is deprecated in favor of `adjustments`.
-   */
-  export interface Maximum {
-    /**
-     * @deprecated List of price_ids that this maximum amount applies to. For plan/plan
-     * phase maximums, this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * The filters that determine which prices to apply this maximum to.
-     */
-    filters: Array<Maximum.Filter>;
-
-    /**
-     * Maximum amount applied
-     */
-    maximum_amount: string;
-  }
-
-  export namespace Maximum {
-    export interface Filter {
-      /**
-       * The property of the price to filter on.
-       */
-      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-      /**
-       * Should prices that match the filter be included or excluded.
-       */
-      operator: 'includes' | 'excludes';
-
-      /**
-       * The IDs or values that match this filter.
-       */
-      values: Array<string>;
-    }
-  }
-
-  /**
-   * @deprecated This field is deprecated in favor of `adjustments`.
-   */
-  export interface Minimum {
-    /**
-     * @deprecated List of price_ids that this minimum amount applies to. For plan/plan
-     * phase minimums, this can be a subset of prices.
-     */
-    applies_to_price_ids: Array<string>;
-
-    /**
-     * The filters that determine which prices to apply this minimum to.
-     */
-    filters: Array<Minimum.Filter>;
-
-    /**
-     * Minimum amount applied
-     */
-    minimum_amount: string;
-  }
-
-  export namespace Minimum {
-    export interface Filter {
-      /**
-       * The property of the price to filter on.
-       */
-      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-      /**
-       * Should prices that match the filter be included or excluded.
-       */
-      operator: 'includes' | 'excludes';
-
-      /**
-       * The IDs or values that match this filter.
-       */
-      values: Array<string>;
-    }
-  }
-
-  export interface MatrixSubLineItem {
-    /**
-     * The total amount for this sub line item.
-     */
-    amount: string;
-
-    grouping: MatrixSubLineItem.Grouping | null;
-
-    matrix_config: MatrixSubLineItem.MatrixConfig;
-
-    name: string;
-
-    quantity: number;
-
-    type: 'matrix';
-  }
-
-  export namespace MatrixSubLineItem {
-    export interface Grouping {
-      key: string;
-
-      /**
-       * No value indicates the default group
-       */
-      value: string | null;
-    }
-
-    export interface MatrixConfig {
-      /**
-       * The ordered dimension values for this line item.
-       */
-      dimension_values: Array<string | null>;
-    }
-  }
-
-  export interface TierSubLineItem {
-    /**
-     * The total amount for this sub line item.
-     */
-    amount: string;
-
-    grouping: TierSubLineItem.Grouping | null;
-
-    name: string;
-
-    quantity: number;
-
-    tier_config: TierSubLineItem.TierConfig;
-
-    type: 'tier';
-  }
-
-  export namespace TierSubLineItem {
-    export interface Grouping {
-      key: string;
-
-      /**
-       * No value indicates the default group
-       */
-      value: string | null;
-    }
-
-    export interface TierConfig {
-      first_unit: number;
-
-      last_unit: number | null;
-
-      unit_amount: string;
-    }
-  }
-
-  export interface OtherSubLineItem {
-    /**
-     * The total amount for this sub line item.
-     */
-    amount: string;
-
-    grouping: OtherSubLineItem.Grouping | null;
-
-    name: string;
-
-    quantity: number;
-
-    type: "'null'";
-  }
-
-  export namespace OtherSubLineItem {
-    export interface Grouping {
-      key: string;
-
-      /**
-       * No value indicates the default group
-       */
-      value: string | null;
-    }
-  }
-
-  export interface TaxAmount {
-    /**
-     * The amount of additional tax incurred by this tax rate.
-     */
-    amount: string;
-
-    /**
-     * The human-readable description of the applied tax rate.
-     */
-    tax_rate_description: string;
-
-    /**
-     * The tax rate percentage, out of 100.
-     */
-    tax_rate_percentage: string | null;
-  }
 }
 
 export interface InvoiceLineItemCreateParams {
