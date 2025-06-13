@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.0.1 (2025-06-13)
+
+Full Changelog: [v5.0.0...v5.0.1](https://github.com/orbcorp/orb-node/compare/v5.0.0...v5.0.1)
+
+### Bug Fixes
+
+* publish script — handle NPM errors correctly ([1678c34](https://github.com/orbcorp/orb-node/commit/1678c342b2abf1d2fc88e4e253b3c5ac7df4d9a0))
+
+
+### Chores
+
+* **internal:** make base APIResource abstract ([9a95185](https://github.com/orbcorp/orb-node/commit/9a95185ee2c315169985d08e5696ef4dd38a3e2b))
+
 ## 5.0.0 (2025-06-09)
 
 Full Changelog: [v4.74.0...v5.0.0](https://github.com/orbcorp/orb-node/compare/v4.74.0...v5.0.0)
