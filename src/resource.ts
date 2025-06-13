@@ -2,7 +2,7 @@
 
 import type { Orb } from './index';
 
-export class APIResource {
+export abstract class APIResource {
   protected _client: Orb;
 
   constructor(client: Orb) {
