@@ -295,6 +295,7 @@ export class Orb extends Core.APIClient {
 
     super({
       baseURL: options.baseURL!,
+      baseURLOverridden: baseURL ? baseURL !== 'https://api.withorb.com/v1' : false,
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,
@@ -325,6 +326,13 @@ export class Orb extends Core.APIClient {
   alerts: API.Alerts = new API.Alerts(this);
   dimensionalPriceGroups: API.DimensionalPriceGroups = new API.DimensionalPriceGroups(this);
   subscriptionChanges: API.SubscriptionChanges = new API.SubscriptionChanges(this);
+
+  /**
+   * Check whether the base URL is set to its default.
+   */
+  #baseURLOverridden(): boolean {
+    return this.baseURL !== 'https://api.withorb.com/v1';
+  }
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
