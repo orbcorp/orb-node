@@ -4511,6 +4511,12 @@ export interface NewPlanBPSPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanBulkBPSPrice {
@@ -4600,6 +4606,12 @@ export interface NewPlanBulkBPSPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanBulkPrice {
@@ -4689,6 +4701,12 @@ export interface NewPlanBulkPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanBulkWithProrationPrice {
@@ -4778,6 +4796,12 @@ export interface NewPlanBulkWithProrationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanCumulativeGroupedBulkPrice {
@@ -4867,6 +4891,12 @@ export interface NewPlanCumulativeGroupedBulkPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanGroupedAllocationPrice {
@@ -4956,6 +4986,12 @@ export interface NewPlanGroupedAllocationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanGroupedTieredPackagePrice {
@@ -5045,6 +5081,12 @@ export interface NewPlanGroupedTieredPackagePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanGroupedTieredPrice {
@@ -5134,6 +5176,12 @@ export interface NewPlanGroupedTieredPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanGroupedWithMeteredMinimumPrice {
@@ -5223,6 +5271,12 @@ export interface NewPlanGroupedWithMeteredMinimumPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanGroupedWithProratedMinimumPrice {
@@ -5312,6 +5366,12 @@ export interface NewPlanGroupedWithProratedMinimumPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanMatrixPrice {
@@ -5401,6 +5461,12 @@ export interface NewPlanMatrixPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanMatrixWithAllocationPrice {
@@ -5490,6 +5556,12 @@ export interface NewPlanMatrixWithAllocationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanMatrixWithDisplayNamePrice {
@@ -5579,6 +5651,12 @@ export interface NewPlanMatrixWithDisplayNamePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanMaxGroupTieredPackagePrice {
@@ -5668,6 +5746,12 @@ export interface NewPlanMaxGroupTieredPackagePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanPackagePrice {
@@ -5757,6 +5841,12 @@ export interface NewPlanPackagePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanPackageWithAllocationPrice {
@@ -5846,6 +5936,12 @@ export interface NewPlanPackageWithAllocationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanScalableMatrixWithTieredPricingPrice {
@@ -5935,6 +6031,12 @@ export interface NewPlanScalableMatrixWithTieredPricingPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanScalableMatrixWithUnitPricingPrice {
@@ -6024,6 +6126,12 @@ export interface NewPlanScalableMatrixWithUnitPricingPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanThresholdTotalAmountPrice {
@@ -6113,6 +6221,12 @@ export interface NewPlanThresholdTotalAmountPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanTierWithProrationPrice {
@@ -6202,6 +6316,12 @@ export interface NewPlanTierWithProrationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanTieredBPSPrice {
@@ -6291,6 +6411,12 @@ export interface NewPlanTieredBPSPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanTieredPackagePrice {
@@ -6380,6 +6506,12 @@ export interface NewPlanTieredPackagePrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanTieredPackageWithMinimumPrice {
@@ -6469,6 +6601,12 @@ export interface NewPlanTieredPackageWithMinimumPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanTieredPrice {
@@ -6558,6 +6696,12 @@ export interface NewPlanTieredPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanTieredWithMinimumPrice {
@@ -6647,6 +6791,12 @@ export interface NewPlanTieredWithMinimumPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanUnitPrice {
@@ -6736,6 +6886,12 @@ export interface NewPlanUnitPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanUnitWithPercentPrice {
@@ -6825,6 +6981,12 @@ export interface NewPlanUnitWithPercentPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanUnitWithProrationPrice {
@@ -6914,6 +7076,12 @@ export interface NewPlanUnitWithProrationPrice {
    * by setting `metadata` to `null`.
    */
   metadata?: Record<string, string | null> | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewUsageDiscount {
