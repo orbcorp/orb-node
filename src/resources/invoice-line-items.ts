@@ -53,6 +53,9 @@ export interface InvoiceLineItemCreateResponse {
    */
   credits_applied: string;
 
+  /**
+   * @deprecated This field is deprecated in favor of `adjustments`
+   */
   discount: Shared.Discount | null;
 
   /**
