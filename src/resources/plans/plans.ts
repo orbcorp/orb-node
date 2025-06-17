@@ -265,36 +265,13 @@ export interface PlanCreateParams {
    * Prices for this plan. If the plan has phases, this includes prices across all
    * phases of the plan.
    */
-  prices: Array<
-    | Shared.NewPlanUnitPrice
-    | Shared.NewPlanPackagePrice
-    | Shared.NewPlanMatrixPrice
-    | Shared.NewPlanTieredPrice
-    | Shared.NewPlanTieredBPSPrice
-    | Shared.NewPlanBPSPrice
-    | Shared.NewPlanBulkBPSPrice
-    | Shared.NewPlanBulkPrice
-    | Shared.NewPlanThresholdTotalAmountPrice
-    | Shared.NewPlanTieredPackagePrice
-    | Shared.NewPlanTieredWithMinimumPrice
-    | Shared.NewPlanUnitWithPercentPrice
-    | Shared.NewPlanPackageWithAllocationPrice
-    | Shared.NewPlanTierWithProrationPrice
-    | Shared.NewPlanUnitWithProrationPrice
-    | Shared.NewPlanGroupedAllocationPrice
-    | Shared.NewPlanGroupedWithProratedMinimumPrice
-    | Shared.NewPlanGroupedWithMeteredMinimumPrice
-    | Shared.NewPlanMatrixWithDisplayNamePrice
-    | Shared.NewPlanBulkWithProrationPrice
-    | Shared.NewPlanGroupedTieredPackagePrice
-    | Shared.NewPlanMaxGroupTieredPackagePrice
-    | Shared.NewPlanScalableMatrixWithUnitPricingPrice
-    | Shared.NewPlanScalableMatrixWithTieredPricingPrice
-    | Shared.NewPlanCumulativeGroupedBulkPrice
-    | Shared.NewPlanTieredPackageWithMinimumPrice
-    | Shared.NewPlanMatrixWithAllocationPrice
-    | Shared.NewPlanGroupedTieredPrice
-  >;
+  prices: Array<PlanCreateParams.Price>;
+
+  /**
+   * Adjustments for this plan. If the plan has phases, this includes adjustments
+   * across all phases of the plan.
+   */
+  adjustments?: Array<PlanCreateParams.Adjustment> | null;
 
   /**
    * Free-form text which is available on the invoice PDF and the Orb invoice portal.
@@ -318,10 +295,101 @@ export interface PlanCreateParams {
   net_terms?: number | null;
 
   /**
+   * Configuration of pre-defined phases, each with their own prices and adjustments.
+   * Leave unspecified for plans with a single phase.
+   */
+  plan_phases?: Array<PlanCreateParams.PlanPhase> | null;
+
+  /**
    * The status of the plan to create (either active or draft). If not specified,
    * this defaults to active.
    */
   status?: 'active' | 'draft';
+}
+
+export namespace PlanCreateParams {
+  export interface Price {
+    /**
+     * The allocation price to add to the plan.
+     */
+    allocation_price?: Shared.NewAllocationPrice | null;
+
+    /**
+     * The phase to add this price to.
+     */
+    plan_phase_order?: number | null;
+
+    /**
+     * The price to add to the plan
+     */
+    price?:
+      | Shared.NewPlanUnitPrice
+      | Shared.NewPlanPackagePrice
+      | Shared.NewPlanMatrixPrice
+      | Shared.NewPlanTieredPrice
+      | Shared.NewPlanTieredBPSPrice
+      | Shared.NewPlanBPSPrice
+      | Shared.NewPlanBulkBPSPrice
+      | Shared.NewPlanBulkPrice
+      | Shared.NewPlanThresholdTotalAmountPrice
+      | Shared.NewPlanTieredPackagePrice
+      | Shared.NewPlanTieredWithMinimumPrice
+      | Shared.NewPlanUnitWithPercentPrice
+      | Shared.NewPlanPackageWithAllocationPrice
+      | Shared.NewPlanTierWithProrationPrice
+      | Shared.NewPlanUnitWithProrationPrice
+      | Shared.NewPlanGroupedAllocationPrice
+      | Shared.NewPlanGroupedWithProratedMinimumPrice
+      | Shared.NewPlanGroupedWithMeteredMinimumPrice
+      | Shared.NewPlanMatrixWithDisplayNamePrice
+      | Shared.NewPlanBulkWithProrationPrice
+      | Shared.NewPlanGroupedTieredPackagePrice
+      | Shared.NewPlanMaxGroupTieredPackagePrice
+      | Shared.NewPlanScalableMatrixWithUnitPricingPrice
+      | Shared.NewPlanScalableMatrixWithTieredPricingPrice
+      | Shared.NewPlanCumulativeGroupedBulkPrice
+      | Shared.NewPlanTieredPackageWithMinimumPrice
+      | Shared.NewPlanMatrixWithAllocationPrice
+      | Shared.NewPlanGroupedTieredPrice
+      | null;
+  }
+
+  export interface Adjustment {
+    /**
+     * The definition of a new adjustment to create and add to the plan.
+     */
+    adjustment:
+      | Shared.NewPercentageDiscount
+      | Shared.NewUsageDiscount
+      | Shared.NewAmountDiscount
+      | Shared.NewMinimum
+      | Shared.NewMaximum;
+
+    /**
+     * The phase to add this adjustment to.
+     */
+    plan_phase_order?: number | null;
+  }
+
+  export interface PlanPhase {
+    /**
+     * Determines the ordering of the phase in a plan's lifecycle. 1 = first phase.
+     */
+    order: number;
+
+    /**
+     * Align billing cycle day with phase start date.
+     */
+    align_billing_with_phase_start_date?: boolean | null;
+
+    /**
+     * How many terms of length `duration_unit` this phase is active for. If null, this
+     * phase is evergreen and active indefinitely
+     */
+    duration?: number | null;
+
+    duration_unit?: 'daily' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | null;
+  }
 }
 
 export interface PlanUpdateParams {
