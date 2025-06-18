@@ -949,11 +949,6 @@ export declare namespace LedgerCreateEntryParams {
     entry_type: 'expiration_change';
 
     /**
-     * An ISO 8601 format date that identifies the origination credit block to expire
-     */
-    expiry_date: string | null;
-
-    /**
      * A future date (specified in YYYY-MM-DD format) used for expiration change,
      * denoting when credits transferred (as part of a partial block expiration) should
      * expire.
@@ -984,6 +979,11 @@ export declare namespace LedgerCreateEntryParams {
      * for noting corrections as a result of an incident, etc.
      */
     description?: string | null;
+
+    /**
+     * An ISO 8601 format date that identifies the origination credit block to expire
+     */
+    expiry_date?: string | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -1200,11 +1200,6 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
     entry_type: 'expiration_change';
 
     /**
-     * An ISO 8601 format date that identifies the origination credit block to expire
-     */
-    expiry_date: string | null;
-
-    /**
      * A future date (specified in YYYY-MM-DD format) used for expiration change,
      * denoting when credits transferred (as part of a partial block expiration) should
      * expire.
@@ -1235,6 +1230,11 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
      * for noting corrections as a result of an incident, etc.
      */
     description?: string | null;
+
+    /**
+     * An ISO 8601 format date that identifies the origination credit block to expire
+     */
+    expiry_date?: string | null;
 
     /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
