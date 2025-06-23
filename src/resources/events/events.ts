@@ -451,7 +451,7 @@ export namespace EventSearchResponse {
      * A dictionary of custom properties. Values in this dictionary must be numeric,
      * boolean, or strings. Nested dictionaries are disallowed.
      */
-    properties: Record<string, unknown>;
+    properties: { [key: string]: unknown };
 
     /**
      * An ISO 8601 format date with no timezone offset (i.e. UTC). This should
@@ -472,7 +472,7 @@ export interface EventUpdateParams {
    * A dictionary of custom properties. Values in this dictionary must be numeric,
    * boolean, or strings. Nested dictionaries are disallowed.
    */
-  properties: Record<string, unknown>;
+  properties: { [key: string]: unknown };
 
   /**
    * An ISO 8601 format date with no timezone offset (i.e. UTC). This should
@@ -530,7 +530,7 @@ export namespace EventIngestParams {
      * A dictionary of custom properties. Values in this dictionary must be numeric,
      * boolean, or strings. Nested dictionaries are disallowed.
      */
-    properties: Record<string, unknown>;
+    properties: { [key: string]: unknown };
 
     /**
      * An ISO 8601 format date with no timezone offset (i.e. UTC). This should

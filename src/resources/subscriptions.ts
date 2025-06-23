@@ -1178,7 +1178,7 @@ export interface NewSubscriptionBPSPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -1273,7 +1273,7 @@ export interface NewSubscriptionBulkBPSPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -1368,7 +1368,7 @@ export interface NewSubscriptionBulkPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -1378,7 +1378,7 @@ export interface NewSubscriptionBulkPrice {
 }
 
 export interface NewSubscriptionBulkWithProrationPrice {
-  bulk_with_proration_config: Record<string, unknown>;
+  bulk_with_proration_config: { [key: string]: unknown };
 
   /**
    * The cadence to bill for this price on.
@@ -1463,7 +1463,7 @@ export interface NewSubscriptionBulkWithProrationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -1478,7 +1478,7 @@ export interface NewSubscriptionCumulativeGroupedBulkPrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  cumulative_grouped_bulk_config: Record<string, unknown>;
+  cumulative_grouped_bulk_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -1558,7 +1558,7 @@ export interface NewSubscriptionCumulativeGroupedBulkPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -1573,7 +1573,7 @@ export interface NewSubscriptionGroupedAllocationPrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_allocation_config: Record<string, unknown>;
+  grouped_allocation_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -1653,7 +1653,7 @@ export interface NewSubscriptionGroupedAllocationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -1668,7 +1668,7 @@ export interface NewSubscriptionGroupedTieredPackagePrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_tiered_package_config: Record<string, unknown>;
+  grouped_tiered_package_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -1748,7 +1748,7 @@ export interface NewSubscriptionGroupedTieredPackagePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -1763,7 +1763,7 @@ export interface NewSubscriptionGroupedTieredPrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_tiered_config: Record<string, unknown>;
+  grouped_tiered_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -1843,7 +1843,7 @@ export interface NewSubscriptionGroupedTieredPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -1858,7 +1858,7 @@ export interface NewSubscriptionGroupedWithMeteredMinimumPrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_with_metered_minimum_config: Record<string, unknown>;
+  grouped_with_metered_minimum_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -1938,7 +1938,7 @@ export interface NewSubscriptionGroupedWithMeteredMinimumPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -1953,7 +1953,7 @@ export interface NewSubscriptionGroupedWithProratedMinimumPrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_with_prorated_minimum_config: Record<string, unknown>;
+  grouped_with_prorated_minimum_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -2033,7 +2033,7 @@ export interface NewSubscriptionGroupedWithProratedMinimumPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -2128,7 +2128,7 @@ export interface NewSubscriptionMatrixPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -2223,7 +2223,7 @@ export interface NewSubscriptionMatrixWithAllocationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -2243,7 +2243,7 @@ export interface NewSubscriptionMatrixWithDisplayNamePrice {
    */
   item_id: string;
 
-  matrix_with_display_name_config: Record<string, unknown>;
+  matrix_with_display_name_config: { [key: string]: unknown };
 
   model_type: 'matrix_with_display_name';
 
@@ -2318,7 +2318,7 @@ export interface NewSubscriptionMatrixWithDisplayNamePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -2338,7 +2338,7 @@ export interface NewSubscriptionMaxGroupTieredPackagePrice {
    */
   item_id: string;
 
-  max_group_tiered_package_config: Record<string, unknown>;
+  max_group_tiered_package_config: { [key: string]: unknown };
 
   model_type: 'max_group_tiered_package';
 
@@ -2413,7 +2413,7 @@ export interface NewSubscriptionMaxGroupTieredPackagePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -2508,7 +2508,7 @@ export interface NewSubscriptionPackagePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -2535,7 +2535,7 @@ export interface NewSubscriptionPackageWithAllocationPrice {
    */
   name: string;
 
-  package_with_allocation_config: Record<string, unknown>;
+  package_with_allocation_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -2603,7 +2603,7 @@ export interface NewSubscriptionPackageWithAllocationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -2630,7 +2630,7 @@ export interface NewSubscriptionScalableMatrixWithTieredPricingPrice {
    */
   name: string;
 
-  scalable_matrix_with_tiered_pricing_config: Record<string, unknown>;
+  scalable_matrix_with_tiered_pricing_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -2698,7 +2698,7 @@ export interface NewSubscriptionScalableMatrixWithTieredPricingPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -2725,7 +2725,7 @@ export interface NewSubscriptionScalableMatrixWithUnitPricingPrice {
    */
   name: string;
 
-  scalable_matrix_with_unit_pricing_config: Record<string, unknown>;
+  scalable_matrix_with_unit_pricing_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -2793,7 +2793,7 @@ export interface NewSubscriptionScalableMatrixWithUnitPricingPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -2820,7 +2820,7 @@ export interface NewSubscriptionThresholdTotalAmountPrice {
    */
   name: string;
 
-  threshold_total_amount_config: Record<string, unknown>;
+  threshold_total_amount_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -2888,7 +2888,7 @@ export interface NewSubscriptionThresholdTotalAmountPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -2915,7 +2915,7 @@ export interface NewSubscriptionTierWithProrationPrice {
    */
   name: string;
 
-  tiered_with_proration_config: Record<string, unknown>;
+  tiered_with_proration_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -2983,7 +2983,7 @@ export interface NewSubscriptionTierWithProrationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -3078,7 +3078,7 @@ export interface NewSubscriptionTieredBPSPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -3105,7 +3105,7 @@ export interface NewSubscriptionTieredPackagePrice {
    */
   name: string;
 
-  tiered_package_config: Record<string, unknown>;
+  tiered_package_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3173,7 +3173,7 @@ export interface NewSubscriptionTieredPackagePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -3200,7 +3200,7 @@ export interface NewSubscriptionTieredPackageWithMinimumPrice {
    */
   name: string;
 
-  tiered_package_with_minimum_config: Record<string, unknown>;
+  tiered_package_with_minimum_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3268,7 +3268,7 @@ export interface NewSubscriptionTieredPackageWithMinimumPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -3363,7 +3363,7 @@ export interface NewSubscriptionTieredPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -3390,7 +3390,7 @@ export interface NewSubscriptionTieredWithMinimumPrice {
    */
   name: string;
 
-  tiered_with_minimum_config: Record<string, unknown>;
+  tiered_with_minimum_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3458,7 +3458,7 @@ export interface NewSubscriptionTieredWithMinimumPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -3553,7 +3553,7 @@ export interface NewSubscriptionUnitPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -3580,7 +3580,7 @@ export interface NewSubscriptionUnitWithPercentPrice {
    */
   name: string;
 
-  unit_with_percent_config: Record<string, unknown>;
+  unit_with_percent_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3648,7 +3648,7 @@ export interface NewSubscriptionUnitWithPercentPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -3675,7 +3675,7 @@ export interface NewSubscriptionUnitWithProrationPrice {
    */
   name: string;
 
-  unit_with_proration_config: Record<string, unknown>;
+  unit_with_proration_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3743,7 +3743,7 @@ export interface NewSubscriptionUnitWithProrationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * A transient ID that can be used to reference this price when adding adjustments
@@ -3878,7 +3878,7 @@ export interface Subscription {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   /**
    * @deprecated The minimum intervals for this subscription sorted by the
@@ -4140,7 +4140,7 @@ export interface SubscriptionCreateParams {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * The name to use for the subscription. If not specified, the plan name will be
@@ -4483,7 +4483,7 @@ export interface SubscriptionUpdateParams {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * Determines the difference between the invoice issue date for subscription

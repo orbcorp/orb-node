@@ -358,7 +358,7 @@ export interface InvoiceFetchUpcomingResponse {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   minimum: Shared.Minimum | null;
 
@@ -757,7 +757,7 @@ export interface InvoiceCreateParams {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * When true, this invoice will be submitted for issuance upon creation. When
@@ -803,7 +803,7 @@ export interface InvoiceUpdateParams {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface InvoiceListParams extends PageParams {

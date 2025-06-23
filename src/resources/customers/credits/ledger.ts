@@ -505,7 +505,7 @@ export interface AmendmentLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   starting_balance: number;
 }
@@ -539,7 +539,7 @@ export interface CreditBlockExpiryLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   starting_balance: number;
 }
@@ -573,7 +573,7 @@ export interface DecrementLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   starting_balance: number;
 
@@ -613,7 +613,7 @@ export interface ExpirationChangeLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   new_block_expiry_date: string | null;
 
@@ -649,7 +649,7 @@ export interface IncrementLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   starting_balance: number;
 
@@ -688,7 +688,7 @@ export interface VoidInitiatedLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   new_block_expiry_date: string;
 
@@ -728,7 +728,7 @@ export interface VoidLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   starting_balance: number;
 
@@ -872,7 +872,7 @@ export declare namespace LedgerCreateEntryParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
 
     /**
      * Can only be specified when entry_type=increment. How much, in the customer's
@@ -942,7 +942,7 @@ export declare namespace LedgerCreateEntryParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface AddExpirationChangeCreditLedgerEntryRequestParams {
@@ -990,7 +990,7 @@ export declare namespace LedgerCreateEntryParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface AddVoidCreditLedgerEntryRequestParams {
@@ -1025,7 +1025,7 @@ export declare namespace LedgerCreateEntryParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
 
     /**
      * Can only be specified when `entry_type=void`. The reason for the void.
@@ -1065,7 +1065,7 @@ export declare namespace LedgerCreateEntryParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 }
 
@@ -1123,7 +1123,7 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
 
     /**
      * Can only be specified when entry_type=increment. How much, in the customer's
@@ -1193,7 +1193,7 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface AddExpirationChangeCreditLedgerEntryRequestParams {
@@ -1241,7 +1241,7 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface AddVoidCreditLedgerEntryRequestParams {
@@ -1276,7 +1276,7 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
 
     /**
      * Can only be specified when `entry_type=void`. The reason for the void.
@@ -1316,7 +1316,7 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 }
 

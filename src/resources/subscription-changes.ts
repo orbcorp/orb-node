@@ -169,7 +169,7 @@ export interface MutatedSubscription {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   /**
    * @deprecated The minimum intervals for this subscription sorted by the
