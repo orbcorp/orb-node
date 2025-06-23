@@ -152,7 +152,7 @@ export interface Plan {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   /**
    * @deprecated
@@ -285,7 +285,7 @@ export interface PlanCreateParams {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * The net terms determines the difference between the invoice date and the issue
@@ -405,7 +405,7 @@ export interface PlanUpdateParams {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface PlanListParams extends PageParams {

@@ -359,7 +359,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingPackagePrice {
@@ -447,7 +447,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingMatrixPrice {
@@ -535,7 +535,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingMatrixWithAllocationPrice {
@@ -623,7 +623,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingTieredPrice {
@@ -711,7 +711,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingTieredBPSPrice {
@@ -799,7 +799,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingBPSPrice {
@@ -887,7 +887,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingBulkBPSPrice {
@@ -975,7 +975,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingBulkPrice {
@@ -1063,7 +1063,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingThresholdTotalAmountPrice {
@@ -1089,7 +1089,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    threshold_total_amount_config: Record<string, unknown>;
+    threshold_total_amount_config: { [key: string]: unknown };
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1151,7 +1151,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingTieredPackagePrice {
@@ -1177,7 +1177,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_package_config: Record<string, unknown>;
+    tiered_package_config: { [key: string]: unknown };
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1239,7 +1239,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingGroupedTieredPrice {
@@ -1253,7 +1253,7 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_tiered_config: Record<string, unknown>;
+    grouped_tiered_config: { [key: string]: unknown };
 
     /**
      * The id of the item the price will be associated with.
@@ -1327,7 +1327,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingMaxGroupTieredPackagePrice {
@@ -1346,7 +1346,7 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
-    max_group_tiered_package_config: Record<string, unknown>;
+    max_group_tiered_package_config: { [key: string]: unknown };
 
     model_type: 'max_group_tiered_package';
 
@@ -1415,7 +1415,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingTieredWithMinimumPrice {
@@ -1441,7 +1441,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_with_minimum_config: Record<string, unknown>;
+    tiered_with_minimum_config: { [key: string]: unknown };
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1503,7 +1503,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingPackageWithAllocationPrice {
@@ -1529,7 +1529,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    package_with_allocation_config: Record<string, unknown>;
+    package_with_allocation_config: { [key: string]: unknown };
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1591,7 +1591,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingTieredPackageWithMinimumPrice {
@@ -1617,7 +1617,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_package_with_minimum_config: Record<string, unknown>;
+    tiered_package_with_minimum_config: { [key: string]: unknown };
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1679,7 +1679,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingUnitWithPercentPrice {
@@ -1705,7 +1705,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    unit_with_percent_config: Record<string, unknown>;
+    unit_with_percent_config: { [key: string]: unknown };
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1767,7 +1767,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingTieredWithProrationPrice {
@@ -1793,7 +1793,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_with_proration_config: Record<string, unknown>;
+    tiered_with_proration_config: { [key: string]: unknown };
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1855,7 +1855,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingUnitWithProrationPrice {
@@ -1881,7 +1881,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    unit_with_proration_config: Record<string, unknown>;
+    unit_with_proration_config: { [key: string]: unknown };
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1943,7 +1943,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingGroupedAllocationPrice {
@@ -1957,7 +1957,7 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_allocation_config: Record<string, unknown>;
+    grouped_allocation_config: { [key: string]: unknown };
 
     /**
      * The id of the item the price will be associated with.
@@ -2031,7 +2031,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingGroupedWithProratedMinimumPrice {
@@ -2045,7 +2045,7 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_with_prorated_minimum_config: Record<string, unknown>;
+    grouped_with_prorated_minimum_config: { [key: string]: unknown };
 
     /**
      * The id of the item the price will be associated with.
@@ -2119,7 +2119,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingGroupedWithMeteredMinimumPrice {
@@ -2133,7 +2133,7 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_with_metered_minimum_config: Record<string, unknown>;
+    grouped_with_metered_minimum_config: { [key: string]: unknown };
 
     /**
      * The id of the item the price will be associated with.
@@ -2207,7 +2207,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingMatrixWithDisplayNamePrice {
@@ -2226,7 +2226,7 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
-    matrix_with_display_name_config: Record<string, unknown>;
+    matrix_with_display_name_config: { [key: string]: unknown };
 
     model_type: 'matrix_with_display_name';
 
@@ -2295,11 +2295,11 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingBulkWithProrationPrice {
-    bulk_with_proration_config: Record<string, unknown>;
+    bulk_with_proration_config: { [key: string]: unknown };
 
     /**
      * The cadence to bill for this price on.
@@ -2383,7 +2383,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingGroupedTieredPackagePrice {
@@ -2397,7 +2397,7 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_tiered_package_config: Record<string, unknown>;
+    grouped_tiered_package_config: { [key: string]: unknown };
 
     /**
      * The id of the item the price will be associated with.
@@ -2471,7 +2471,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingScalableMatrixWithUnitPricingPrice {
@@ -2497,7 +2497,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    scalable_matrix_with_unit_pricing_config: Record<string, unknown>;
+    scalable_matrix_with_unit_pricing_config: { [key: string]: unknown };
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -2559,7 +2559,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingScalableMatrixWithTieredPricingPrice {
@@ -2585,7 +2585,7 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    scalable_matrix_with_tiered_pricing_config: Record<string, unknown>;
+    scalable_matrix_with_tiered_pricing_config: { [key: string]: unknown };
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -2647,7 +2647,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface NewFloatingCumulativeGroupedBulkPrice {
@@ -2656,7 +2656,7 @@ export declare namespace PriceCreateParams {
      */
     cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-    cumulative_grouped_bulk_config: Record<string, unknown>;
+    cumulative_grouped_bulk_config: { [key: string]: unknown };
 
     /**
      * An ISO 4217 currency string for which this price is billed in.
@@ -2735,7 +2735,7 @@ export declare namespace PriceCreateParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 }
 
@@ -2745,7 +2745,7 @@ export interface PriceUpdateParams {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface PriceListParams extends PageParams {}
@@ -2914,7 +2914,7 @@ export namespace PriceEvaluatePreviewEventsParams {
      * A dictionary of custom properties. Values in this dictionary must be numeric,
      * boolean, or strings. Nested dictionaries are disallowed.
      */
-    properties: Record<string, unknown>;
+    properties: { [key: string]: unknown };
 
     /**
      * An ISO 8601 format date with no timezone offset (i.e. UTC). This should
