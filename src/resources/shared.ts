@@ -1569,6 +1569,12 @@ export interface MonetaryAmountDiscountAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface MonetaryMaximumAdjustment {
@@ -1607,6 +1613,12 @@ export interface MonetaryMaximumAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface MonetaryMinimumAdjustment {
@@ -1650,6 +1662,12 @@ export interface MonetaryMinimumAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface MonetaryPercentageDiscountAdjustment {
@@ -1688,6 +1706,12 @@ export interface MonetaryPercentageDiscountAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface MonetaryUsageDiscountAdjustment {
@@ -1720,6 +1744,12 @@ export interface MonetaryUsageDiscountAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 
   /**
    * The number of usage units by which to discount the price this adjustment applies
@@ -7276,6 +7306,12 @@ export interface PlanPhaseAmountDiscountAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface PlanPhaseMaximumAdjustment {
@@ -7314,6 +7350,12 @@ export interface PlanPhaseMaximumAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface PlanPhaseMinimumAdjustment {
@@ -7357,6 +7399,12 @@ export interface PlanPhaseMinimumAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface PlanPhasePercentageDiscountAdjustment {
@@ -7395,6 +7443,12 @@ export interface PlanPhasePercentageDiscountAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface PlanPhaseUsageDiscountAdjustment {
@@ -7427,6 +7481,12 @@ export interface PlanPhaseUsageDiscountAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 
   /**
    * The number of usage units by which to discount the price this adjustment applies
@@ -7546,6 +7606,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     unit_config: Shared.UnitConfig;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
@@ -7621,6 +7687,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
@@ -7694,6 +7766,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
@@ -7764,6 +7842,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     tiered_config: Shared.TieredConfig;
 
@@ -7837,6 +7921,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     tiered_bps_config: Shared.TieredBPSConfig;
 
@@ -7913,6 +8003,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
@@ -7985,6 +8081,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8059,6 +8161,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
@@ -8129,6 +8237,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     threshold_total_amount_config: { [key: string]: unknown };
 
@@ -8202,6 +8316,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     tiered_package_config: { [key: string]: unknown };
 
@@ -8278,6 +8398,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
@@ -8348,6 +8474,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     tiered_with_minimum_config: { [key: string]: unknown };
 
@@ -8421,6 +8553,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     tiered_package_with_minimum_config: { [key: string]: unknown };
 
@@ -8497,6 +8635,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
@@ -8567,6 +8711,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     unit_with_percent_config: { [key: string]: unknown };
 
@@ -8643,6 +8793,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
@@ -8713,6 +8869,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     tiered_with_proration_config: { [key: string]: unknown };
 
@@ -8786,6 +8948,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     unit_with_proration_config: { [key: string]: unknown };
 
@@ -8862,6 +9030,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
@@ -8934,6 +9108,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -9008,6 +9188,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
@@ -9080,6 +9266,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -9154,6 +9346,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
@@ -9226,6 +9424,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -9300,6 +9504,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
@@ -9370,6 +9580,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     scalable_matrix_with_unit_pricing_config: { [key: string]: unknown };
 
@@ -9443,6 +9659,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     scalable_matrix_with_tiered_pricing_config: { [key: string]: unknown };
 
@@ -9518,6 +9740,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
