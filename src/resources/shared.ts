@@ -1767,7 +1767,7 @@ export interface NewAllocationPrice {
   /**
    * The cadence at which to allocate the amount to the customer.
    */
-  cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+  cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
   /**
    * An ISO 4217 currency string or a custom pricing unit identifier in which to bill
