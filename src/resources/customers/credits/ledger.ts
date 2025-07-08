@@ -903,6 +903,13 @@ export declare namespace LedgerCreateEntryParams {
       net_terms: number;
 
       /**
+       * An ISO 8601 format date that denotes when this invoice should be dated in the
+       * customer's timezone. If not provided, the invoice date will default to the
+       * credit block's effective date.
+       */
+      invoice_date?: (string & {}) | (string & {}) | null;
+
+      /**
        * An optional memo to display on the invoice.
        */
       memo?: string | null;
@@ -1152,6 +1159,13 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
        * to 0.
        */
       net_terms: number;
+
+      /**
+       * An ISO 8601 format date that denotes when this invoice should be dated in the
+       * customer's timezone. If not provided, the invoice date will default to the
+       * credit block's effective date.
+       */
+      invoice_date?: (string & {}) | (string & {}) | null;
 
       /**
        * An optional memo to display on the invoice.
