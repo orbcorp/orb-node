@@ -412,6 +412,16 @@ export namespace CreditNote {
      * Any line item discounts from the invoice's line item.
      */
     discounts?: Array<LineItem.Discount>;
+
+    /**
+     * The end time of the service period for this credit note line item.
+     */
+    end_time_exclusive?: string | null;
+
+    /**
+     * The start time of the service period for this credit note line item.
+     */
+    start_time_inclusive?: string | null;
   }
 
   export namespace LineItem {

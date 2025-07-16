@@ -134,6 +134,7 @@ describe('resource prices', () => {
       external_customer_id: 'external_customer_id',
       price_evaluations: [
         {
+          external_price_id: 'external_price_id',
           filter: "my_numeric_property > 100 AND my_other_property = 'bar'",
           grouping_keys: ["case when my_event_type = 'foo' then true else false end"],
           price: {
@@ -199,6 +200,7 @@ describe('resource prices', () => {
       external_customer_id: 'external_customer_id',
       price_evaluations: [
         {
+          external_price_id: 'external_price_id',
           filter: "my_numeric_property > 100 AND my_other_property = 'bar'",
           grouping_keys: ["case when my_event_type = 'foo' then true else false end"],
           price: {
