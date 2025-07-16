@@ -29,14 +29,14 @@ describe('resource creditNotes', () => {
         {
           amount: 'amount',
           invoice_line_item_id: '4khy3nwzktxv7',
-          end_date: '2023-01-31',
-          start_date: '2023-01-01',
+          end_date: '2023-09-22',
+          start_date: '2023-09-22',
         },
       ],
       reason: 'duplicate',
-      end_date: '2023-01-31',
+      end_date: '2023-09-22',
       memo: 'An optional memo for my credit note.',
-      start_date: '2023-01-01',
+      start_date: '2023-09-22',
     });
   });
 
