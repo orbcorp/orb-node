@@ -142,7 +142,7 @@ export interface MutatedSubscription {
 
   /**
    * @deprecated The discount intervals for this subscription sorted by the
-   * start_date.
+   * start_date. This field is deprecated in favor of `adjustment_intervals`.
    */
   discount_intervals: Array<
     Shared.AmountDiscountInterval | Shared.PercentageDiscountInterval | Shared.UsageDiscountInterval
@@ -159,7 +159,7 @@ export interface MutatedSubscription {
 
   /**
    * @deprecated The maximum intervals for this subscription sorted by the
-   * start_date.
+   * start_date. This field is deprecated in favor of `adjustment_intervals`.
    */
   maximum_intervals: Array<Shared.MaximumInterval>;
 
@@ -173,7 +173,7 @@ export interface MutatedSubscription {
 
   /**
    * @deprecated The minimum intervals for this subscription sorted by the
-   * start_date.
+   * start_date. This field is deprecated in favor of `adjustment_intervals`.
    */
   minimum_intervals: Array<Shared.MinimumInterval>;
 

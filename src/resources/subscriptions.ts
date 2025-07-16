@@ -267,7 +267,7 @@ export class Subscriptions extends APIResource {
    * is hit. To enable threshold billing, pass in an `invoicing_threshold`, which is
    * specified in the subscription's invoicing currency, when creating a
    * subscription. E.g. pass in `10.00` to issue an invoice when usage amounts hit
-   * $10.00 for a subscription that invoices in USD.
+   * \$10.00 for a subscription that invoices in USD.
    */
   create(
     body: SubscriptionCreateParams,
@@ -3851,7 +3851,7 @@ export interface Subscription {
 
   /**
    * @deprecated The discount intervals for this subscription sorted by the
-   * start_date.
+   * start_date. This field is deprecated in favor of `adjustment_intervals`.
    */
   discount_intervals: Array<
     Shared.AmountDiscountInterval | Shared.PercentageDiscountInterval | Shared.UsageDiscountInterval
@@ -3868,7 +3868,7 @@ export interface Subscription {
 
   /**
    * @deprecated The maximum intervals for this subscription sorted by the
-   * start_date.
+   * start_date. This field is deprecated in favor of `adjustment_intervals`.
    */
   maximum_intervals: Array<Shared.MaximumInterval>;
 
@@ -3882,7 +3882,7 @@ export interface Subscription {
 
   /**
    * @deprecated The minimum intervals for this subscription sorted by the
-   * start_date.
+   * start_date. This field is deprecated in favor of `adjustment_intervals`.
    */
   minimum_intervals: Array<Shared.MinimumInterval>;
 
@@ -4832,8 +4832,8 @@ export namespace SubscriptionPriceIntervalsParams {
     billing_cycle_day?: number | null;
 
     /**
-     * The updated end date of this price interval. If not specified, the start date
-     * will not be updated.
+     * The updated end date of this price interval. If not specified, the end date will
+     * not be updated.
      */
     end_date?: (string & {}) | Shared.BillingCycleRelativeDate | null;
 
@@ -4890,8 +4890,8 @@ export namespace SubscriptionPriceIntervalsParams {
     adjustment_interval_id: string;
 
     /**
-     * The updated end date of this adjustment interval. If not specified, the start
-     * date will not be updated.
+     * The updated end date of this adjustment interval. If not specified, the end date
+     * will not be updated.
      */
     end_date?: (string & {}) | Shared.BillingCycleRelativeDate | null;
 

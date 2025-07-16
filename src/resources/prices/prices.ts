@@ -204,6 +204,11 @@ export namespace PriceEvaluateMultipleResponse {
     price_groups: Array<PricesAPI.EvaluatePriceGroup>;
 
     /**
+     * The external ID of the price
+     */
+    external_price_id?: string | null;
+
+    /**
      * The index of the inline price
      */
     inline_price_index?: number | null;
@@ -230,6 +235,11 @@ export namespace PriceEvaluatePreviewEventsResponse {
      * The computed price groups associated with input price.
      */
     price_groups: Array<PricesAPI.EvaluatePriceGroup>;
+
+    /**
+     * The external ID of the price
+     */
+    external_price_id?: string | null;
 
     /**
      * The index of the inline price
@@ -2816,6 +2826,11 @@ export interface PriceEvaluateMultipleParams {
 export namespace PriceEvaluateMultipleParams {
   export interface PriceEvaluation {
     /**
+     * The external ID of a price to evaluate that exists in your Orb account.
+     */
+    external_price_id?: string | null;
+
+    /**
      * A boolean
      * [computed property](/extensibility/advanced-metrics#computed-properties) used to
      * filter the underlying billable metric
@@ -2936,6 +2951,11 @@ export namespace PriceEvaluatePreviewEventsParams {
   }
 
   export interface PriceEvaluation {
+    /**
+     * The external ID of a price to evaluate that exists in your Orb account.
+     */
+    external_price_id?: string | null;
+
     /**
      * A boolean
      * [computed property](/extensibility/advanced-metrics#computed-properties) used to
