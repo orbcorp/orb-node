@@ -4532,7 +4532,7 @@ export interface SubscriptionCancelParams {
 
 export interface SubscriptionFetchCostsParams {
   /**
-   * The currency or custom pricing unit to use.
+   * The currency to use.
    */
   currency?: string | null;
 
