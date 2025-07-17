@@ -1,5 +1,44 @@
 # Changelog
 
+## 5.1.0 (2025-07-17)
+
+Full Changelog: [v5.0.0...v5.1.0](https://github.com/orbcorp/orb-node/compare/v5.0.0...v5.1.0)
+
+### Features
+
+* **api:** api update ([5f861b0](https://github.com/orbcorp/orb-node/commit/5f861b076256a7172ff83a2adee978632324665b))
+* **api:** api update ([1939793](https://github.com/orbcorp/orb-node/commit/19397931ab0cfc5a7582995af8027117878047ea))
+* **api:** api update ([54fb67f](https://github.com/orbcorp/orb-node/commit/54fb67f3f221e4d10f388540e2181bc3f2048780))
+* **api:** api update ([b4f8f97](https://github.com/orbcorp/orb-node/commit/b4f8f973a593a4d09e46035dca03475ac39b834c))
+* **api:** api update ([ecfef87](https://github.com/orbcorp/orb-node/commit/ecfef87e64aaaf582ee484eb6a55d3c016c33d49))
+* **api:** api update ([fc96b5b](https://github.com/orbcorp/orb-node/commit/fc96b5bb78c87225c26e9d02fd42b473daf6cb8c))
+* **api:** api update ([44d2c02](https://github.com/orbcorp/orb-node/commit/44d2c02d887d0e09c32d3a7738de8b31c8421b1c))
+* **api:** api update ([81496fc](https://github.com/orbcorp/orb-node/commit/81496fc6baf0b872a705372289effad7992fb025))
+* **api:** api update ([63e9ce1](https://github.com/orbcorp/orb-node/commit/63e9ce18c1f8ed120cf360fcc58931f8ed9e7e7a))
+* **client:** add support for endpoint-specific base URLs ([0e61c32](https://github.com/orbcorp/orb-node/commit/0e61c325001e2ce26b26b2a5f70658d8e91a4458))
+
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([d9bddc1](https://github.com/orbcorp/orb-node/commit/d9bddc13b51bb6854ef04e86da16300dd9a86606))
+* **client:** don't send `Content-Type` for bodyless methods ([33ba457](https://github.com/orbcorp/orb-node/commit/33ba457255b066c8ee465be2e0fb63c3956de9cc))
+* publish script — handle NPM errors correctly ([1678c34](https://github.com/orbcorp/orb-node/commit/1678c342b2abf1d2fc88e4e253b3c5ac7df4d9a0))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([77a5b1e](https://github.com/orbcorp/orb-node/commit/77a5b1e22b94ce2c0a27bb2b4fb14359a4203ca4))
+* **ci:** only run for pushes and fork pull requests ([5b3d838](https://github.com/orbcorp/orb-node/commit/5b3d838882117c0c23284a0c9f9c2bb2c4add313))
+* **internal:** bump test timeout ([d89af51](https://github.com/orbcorp/orb-node/commit/d89af5103034c83a7b52b1a87f2bada06d118d66))
+* **internal:** make base APIResource abstract ([9a95185](https://github.com/orbcorp/orb-node/commit/9a95185ee2c315169985d08e5696ef4dd38a3e2b))
+* make some internal functions async ([c7e0dab](https://github.com/orbcorp/orb-node/commit/c7e0dab4ae701fa809d524fd9171d17359832fba))
+* mention unit type in timeout docs ([132b903](https://github.com/orbcorp/orb-node/commit/132b90306594db72d0c447402ce231e287e7908e))
+
+
+### Refactors
+
+* **types:** replace Record with mapped types ([509fcfb](https://github.com/orbcorp/orb-node/commit/509fcfb895402525e2d6ce1d6e8ca994ead496a8))
+
 ## 5.0.0 (2025-06-09)
 
 Full Changelog: [v4.74.0...v5.0.0](https://github.com/orbcorp/orb-node/compare/v4.74.0...v5.0.0)
