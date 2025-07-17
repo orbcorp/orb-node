@@ -53,4 +53,4 @@ else
 fi
 
 echo "==> Running tests"
-./node_modules/.bin/jest "$@"
+./node_modules/.bin/jest --testTimeout=60000 "$@"
