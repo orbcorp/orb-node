@@ -412,6 +412,16 @@ export namespace CreditNote {
      * Any line item discounts from the invoice's line item.
      */
     discounts?: Array<LineItem.Discount>;
+
+    /**
+     * The end time of the service period for this credit note line item.
+     */
+    end_time_exclusive?: string | null;
+
+    /**
+     * The start time of the service period for this credit note line item.
+     */
+    start_time_inclusive?: string | null;
   }
 
   export namespace LineItem {
@@ -1012,7 +1022,7 @@ export interface Invoice {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   minimum: Minimum | null;
 
@@ -1224,6 +1234,9 @@ export namespace Invoice {
      */
     credits_applied: string;
 
+    /**
+     * @deprecated This field is deprecated in favor of `adjustments`
+     */
     discount: Shared.Discount | null;
 
     /**
@@ -1566,6 +1579,12 @@ export interface MonetaryAmountDiscountAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface MonetaryMaximumAdjustment {
@@ -1604,6 +1623,12 @@ export interface MonetaryMaximumAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface MonetaryMinimumAdjustment {
@@ -1647,6 +1672,12 @@ export interface MonetaryMinimumAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface MonetaryPercentageDiscountAdjustment {
@@ -1685,6 +1716,12 @@ export interface MonetaryPercentageDiscountAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface MonetaryUsageDiscountAdjustment {
@@ -1719,6 +1756,12 @@ export interface MonetaryUsageDiscountAdjustment {
   reason: string | null;
 
   /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
+
+  /**
    * The number of usage units by which to discount the price this adjustment applies
    * to in a given billing period.
    */
@@ -1734,7 +1777,7 @@ export interface NewAllocationPrice {
   /**
    * The cadence at which to allocate the amount to the customer.
    */
-  cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+  cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual';
 
   /**
    * An ISO 4217 currency string or a custom pricing unit identifier in which to bill
@@ -1911,7 +1954,7 @@ export interface NewFloatingBPSPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingBulkBPSPrice {
@@ -1999,7 +2042,7 @@ export interface NewFloatingBulkBPSPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingBulkPrice {
@@ -2087,11 +2130,11 @@ export interface NewFloatingBulkPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingBulkWithProrationPrice {
-  bulk_with_proration_config: Record<string, unknown>;
+  bulk_with_proration_config: { [key: string]: unknown };
 
   /**
    * The cadence to bill for this price on.
@@ -2175,7 +2218,7 @@ export interface NewFloatingBulkWithProrationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingCumulativeGroupedBulkPrice {
@@ -2184,7 +2227,7 @@ export interface NewFloatingCumulativeGroupedBulkPrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  cumulative_grouped_bulk_config: Record<string, unknown>;
+  cumulative_grouped_bulk_config: { [key: string]: unknown };
 
   /**
    * An ISO 4217 currency string for which this price is billed in.
@@ -2263,7 +2306,7 @@ export interface NewFloatingCumulativeGroupedBulkPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingGroupedAllocationPrice {
@@ -2277,7 +2320,7 @@ export interface NewFloatingGroupedAllocationPrice {
    */
   currency: string;
 
-  grouped_allocation_config: Record<string, unknown>;
+  grouped_allocation_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -2351,7 +2394,7 @@ export interface NewFloatingGroupedAllocationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingGroupedTieredPackagePrice {
@@ -2365,7 +2408,7 @@ export interface NewFloatingGroupedTieredPackagePrice {
    */
   currency: string;
 
-  grouped_tiered_package_config: Record<string, unknown>;
+  grouped_tiered_package_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -2439,7 +2482,7 @@ export interface NewFloatingGroupedTieredPackagePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingGroupedTieredPrice {
@@ -2453,7 +2496,7 @@ export interface NewFloatingGroupedTieredPrice {
    */
   currency: string;
 
-  grouped_tiered_config: Record<string, unknown>;
+  grouped_tiered_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -2527,7 +2570,7 @@ export interface NewFloatingGroupedTieredPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingGroupedWithMeteredMinimumPrice {
@@ -2541,7 +2584,7 @@ export interface NewFloatingGroupedWithMeteredMinimumPrice {
    */
   currency: string;
 
-  grouped_with_metered_minimum_config: Record<string, unknown>;
+  grouped_with_metered_minimum_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -2615,7 +2658,7 @@ export interface NewFloatingGroupedWithMeteredMinimumPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingGroupedWithProratedMinimumPrice {
@@ -2629,7 +2672,7 @@ export interface NewFloatingGroupedWithProratedMinimumPrice {
    */
   currency: string;
 
-  grouped_with_prorated_minimum_config: Record<string, unknown>;
+  grouped_with_prorated_minimum_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -2703,7 +2746,7 @@ export interface NewFloatingGroupedWithProratedMinimumPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingMatrixPrice {
@@ -2791,7 +2834,7 @@ export interface NewFloatingMatrixPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingMatrixWithAllocationPrice {
@@ -2879,7 +2922,7 @@ export interface NewFloatingMatrixWithAllocationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingMatrixWithDisplayNamePrice {
@@ -2898,7 +2941,7 @@ export interface NewFloatingMatrixWithDisplayNamePrice {
    */
   item_id: string;
 
-  matrix_with_display_name_config: Record<string, unknown>;
+  matrix_with_display_name_config: { [key: string]: unknown };
 
   model_type: 'matrix_with_display_name';
 
@@ -2967,7 +3010,7 @@ export interface NewFloatingMatrixWithDisplayNamePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingMaxGroupTieredPackagePrice {
@@ -2986,7 +3029,7 @@ export interface NewFloatingMaxGroupTieredPackagePrice {
    */
   item_id: string;
 
-  max_group_tiered_package_config: Record<string, unknown>;
+  max_group_tiered_package_config: { [key: string]: unknown };
 
   model_type: 'max_group_tiered_package';
 
@@ -3055,7 +3098,7 @@ export interface NewFloatingMaxGroupTieredPackagePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingPackagePrice {
@@ -3143,7 +3186,7 @@ export interface NewFloatingPackagePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingPackageWithAllocationPrice {
@@ -3169,7 +3212,7 @@ export interface NewFloatingPackageWithAllocationPrice {
    */
   name: string;
 
-  package_with_allocation_config: Record<string, unknown>;
+  package_with_allocation_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3231,7 +3274,7 @@ export interface NewFloatingPackageWithAllocationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingScalableMatrixWithTieredPricingPrice {
@@ -3257,7 +3300,7 @@ export interface NewFloatingScalableMatrixWithTieredPricingPrice {
    */
   name: string;
 
-  scalable_matrix_with_tiered_pricing_config: Record<string, unknown>;
+  scalable_matrix_with_tiered_pricing_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3319,7 +3362,7 @@ export interface NewFloatingScalableMatrixWithTieredPricingPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingScalableMatrixWithUnitPricingPrice {
@@ -3345,7 +3388,7 @@ export interface NewFloatingScalableMatrixWithUnitPricingPrice {
    */
   name: string;
 
-  scalable_matrix_with_unit_pricing_config: Record<string, unknown>;
+  scalable_matrix_with_unit_pricing_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3407,7 +3450,7 @@ export interface NewFloatingScalableMatrixWithUnitPricingPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingThresholdTotalAmountPrice {
@@ -3433,7 +3476,7 @@ export interface NewFloatingThresholdTotalAmountPrice {
    */
   name: string;
 
-  threshold_total_amount_config: Record<string, unknown>;
+  threshold_total_amount_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3495,7 +3538,7 @@ export interface NewFloatingThresholdTotalAmountPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingTieredBPSPrice {
@@ -3583,7 +3626,7 @@ export interface NewFloatingTieredBPSPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingTieredPackagePrice {
@@ -3609,7 +3652,7 @@ export interface NewFloatingTieredPackagePrice {
    */
   name: string;
 
-  tiered_package_config: Record<string, unknown>;
+  tiered_package_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3671,7 +3714,7 @@ export interface NewFloatingTieredPackagePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingTieredPackageWithMinimumPrice {
@@ -3697,7 +3740,7 @@ export interface NewFloatingTieredPackageWithMinimumPrice {
    */
   name: string;
 
-  tiered_package_with_minimum_config: Record<string, unknown>;
+  tiered_package_with_minimum_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3759,7 +3802,7 @@ export interface NewFloatingTieredPackageWithMinimumPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingTieredPrice {
@@ -3847,7 +3890,7 @@ export interface NewFloatingTieredPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingTieredWithMinimumPrice {
@@ -3873,7 +3916,7 @@ export interface NewFloatingTieredWithMinimumPrice {
    */
   name: string;
 
-  tiered_with_minimum_config: Record<string, unknown>;
+  tiered_with_minimum_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3935,7 +3978,7 @@ export interface NewFloatingTieredWithMinimumPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingTieredWithProrationPrice {
@@ -3961,7 +4004,7 @@ export interface NewFloatingTieredWithProrationPrice {
    */
   name: string;
 
-  tiered_with_proration_config: Record<string, unknown>;
+  tiered_with_proration_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -4023,7 +4066,7 @@ export interface NewFloatingTieredWithProrationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingUnitPrice {
@@ -4111,7 +4154,7 @@ export interface NewFloatingUnitPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingUnitWithPercentPrice {
@@ -4137,7 +4180,7 @@ export interface NewFloatingUnitWithPercentPrice {
    */
   name: string;
 
-  unit_with_percent_config: Record<string, unknown>;
+  unit_with_percent_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -4199,7 +4242,7 @@ export interface NewFloatingUnitWithPercentPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingUnitWithProrationPrice {
@@ -4225,7 +4268,7 @@ export interface NewFloatingUnitWithProrationPrice {
    */
   name: string;
 
-  unit_with_proration_config: Record<string, unknown>;
+  unit_with_proration_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -4287,7 +4330,7 @@ export interface NewFloatingUnitWithProrationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewMaximum {
@@ -4507,7 +4550,13 @@ export interface NewPlanBPSPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanBulkBPSPrice {
@@ -4596,7 +4645,13 @@ export interface NewPlanBulkBPSPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanBulkPrice {
@@ -4685,11 +4740,17 @@ export interface NewPlanBulkPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanBulkWithProrationPrice {
-  bulk_with_proration_config: Record<string, unknown>;
+  bulk_with_proration_config: { [key: string]: unknown };
 
   /**
    * The cadence to bill for this price on.
@@ -4774,7 +4835,13 @@ export interface NewPlanBulkWithProrationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanCumulativeGroupedBulkPrice {
@@ -4783,7 +4850,7 @@ export interface NewPlanCumulativeGroupedBulkPrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  cumulative_grouped_bulk_config: Record<string, unknown>;
+  cumulative_grouped_bulk_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -4863,7 +4930,13 @@ export interface NewPlanCumulativeGroupedBulkPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanGroupedAllocationPrice {
@@ -4872,7 +4945,7 @@ export interface NewPlanGroupedAllocationPrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_allocation_config: Record<string, unknown>;
+  grouped_allocation_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -4952,7 +5025,13 @@ export interface NewPlanGroupedAllocationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanGroupedTieredPackagePrice {
@@ -4961,7 +5040,7 @@ export interface NewPlanGroupedTieredPackagePrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_tiered_package_config: Record<string, unknown>;
+  grouped_tiered_package_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -5041,7 +5120,13 @@ export interface NewPlanGroupedTieredPackagePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanGroupedTieredPrice {
@@ -5050,7 +5135,7 @@ export interface NewPlanGroupedTieredPrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_tiered_config: Record<string, unknown>;
+  grouped_tiered_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -5130,7 +5215,13 @@ export interface NewPlanGroupedTieredPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanGroupedWithMeteredMinimumPrice {
@@ -5139,7 +5230,7 @@ export interface NewPlanGroupedWithMeteredMinimumPrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_with_metered_minimum_config: Record<string, unknown>;
+  grouped_with_metered_minimum_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -5219,7 +5310,13 @@ export interface NewPlanGroupedWithMeteredMinimumPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanGroupedWithProratedMinimumPrice {
@@ -5228,7 +5325,7 @@ export interface NewPlanGroupedWithProratedMinimumPrice {
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_with_prorated_minimum_config: Record<string, unknown>;
+  grouped_with_prorated_minimum_config: { [key: string]: unknown };
 
   /**
    * The id of the item the price will be associated with.
@@ -5308,7 +5405,13 @@ export interface NewPlanGroupedWithProratedMinimumPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanMatrixPrice {
@@ -5397,7 +5500,13 @@ export interface NewPlanMatrixPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanMatrixWithAllocationPrice {
@@ -5486,7 +5595,13 @@ export interface NewPlanMatrixWithAllocationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanMatrixWithDisplayNamePrice {
@@ -5500,7 +5615,7 @@ export interface NewPlanMatrixWithDisplayNamePrice {
    */
   item_id: string;
 
-  matrix_with_display_name_config: Record<string, unknown>;
+  matrix_with_display_name_config: { [key: string]: unknown };
 
   model_type: 'matrix_with_display_name';
 
@@ -5575,7 +5690,13 @@ export interface NewPlanMatrixWithDisplayNamePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanMaxGroupTieredPackagePrice {
@@ -5589,7 +5710,7 @@ export interface NewPlanMaxGroupTieredPackagePrice {
    */
   item_id: string;
 
-  max_group_tiered_package_config: Record<string, unknown>;
+  max_group_tiered_package_config: { [key: string]: unknown };
 
   model_type: 'max_group_tiered_package';
 
@@ -5664,7 +5785,13 @@ export interface NewPlanMaxGroupTieredPackagePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanPackagePrice {
@@ -5753,7 +5880,13 @@ export interface NewPlanPackagePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanPackageWithAllocationPrice {
@@ -5774,7 +5907,7 @@ export interface NewPlanPackageWithAllocationPrice {
    */
   name: string;
 
-  package_with_allocation_config: Record<string, unknown>;
+  package_with_allocation_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -5842,7 +5975,13 @@ export interface NewPlanPackageWithAllocationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanScalableMatrixWithTieredPricingPrice {
@@ -5863,7 +6002,7 @@ export interface NewPlanScalableMatrixWithTieredPricingPrice {
    */
   name: string;
 
-  scalable_matrix_with_tiered_pricing_config: Record<string, unknown>;
+  scalable_matrix_with_tiered_pricing_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -5931,7 +6070,13 @@ export interface NewPlanScalableMatrixWithTieredPricingPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanScalableMatrixWithUnitPricingPrice {
@@ -5952,7 +6097,7 @@ export interface NewPlanScalableMatrixWithUnitPricingPrice {
    */
   name: string;
 
-  scalable_matrix_with_unit_pricing_config: Record<string, unknown>;
+  scalable_matrix_with_unit_pricing_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -6020,7 +6165,13 @@ export interface NewPlanScalableMatrixWithUnitPricingPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanThresholdTotalAmountPrice {
@@ -6041,7 +6192,7 @@ export interface NewPlanThresholdTotalAmountPrice {
    */
   name: string;
 
-  threshold_total_amount_config: Record<string, unknown>;
+  threshold_total_amount_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -6109,7 +6260,13 @@ export interface NewPlanThresholdTotalAmountPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanTierWithProrationPrice {
@@ -6130,7 +6287,7 @@ export interface NewPlanTierWithProrationPrice {
    */
   name: string;
 
-  tiered_with_proration_config: Record<string, unknown>;
+  tiered_with_proration_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -6198,7 +6355,13 @@ export interface NewPlanTierWithProrationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanTieredBPSPrice {
@@ -6287,7 +6450,13 @@ export interface NewPlanTieredBPSPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanTieredPackagePrice {
@@ -6308,7 +6477,7 @@ export interface NewPlanTieredPackagePrice {
    */
   name: string;
 
-  tiered_package_config: Record<string, unknown>;
+  tiered_package_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -6376,7 +6545,13 @@ export interface NewPlanTieredPackagePrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanTieredPackageWithMinimumPrice {
@@ -6397,7 +6572,7 @@ export interface NewPlanTieredPackageWithMinimumPrice {
    */
   name: string;
 
-  tiered_package_with_minimum_config: Record<string, unknown>;
+  tiered_package_with_minimum_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -6465,7 +6640,13 @@ export interface NewPlanTieredPackageWithMinimumPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanTieredPrice {
@@ -6554,7 +6735,13 @@ export interface NewPlanTieredPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanTieredWithMinimumPrice {
@@ -6575,7 +6762,7 @@ export interface NewPlanTieredWithMinimumPrice {
    */
   name: string;
 
-  tiered_with_minimum_config: Record<string, unknown>;
+  tiered_with_minimum_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -6643,7 +6830,13 @@ export interface NewPlanTieredWithMinimumPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanUnitPrice {
@@ -6732,7 +6925,13 @@ export interface NewPlanUnitPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanUnitWithPercentPrice {
@@ -6753,7 +6952,7 @@ export interface NewPlanUnitWithPercentPrice {
    */
   name: string;
 
-  unit_with_percent_config: Record<string, unknown>;
+  unit_with_percent_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -6821,7 +7020,13 @@ export interface NewPlanUnitWithPercentPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewPlanUnitWithProrationPrice {
@@ -6842,7 +7047,7 @@ export interface NewPlanUnitWithProrationPrice {
    */
   name: string;
 
-  unit_with_proration_config: Record<string, unknown>;
+  unit_with_proration_config: { [key: string]: unknown };
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -6910,7 +7115,13 @@ export interface NewPlanUnitWithProrationPrice {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * A transient ID that can be used to reference this price when adding adjustments
+   * in the same API call.
+   */
+  reference_id?: string | null;
 }
 
 export interface NewUsageDiscount {
@@ -7105,6 +7316,12 @@ export interface PlanPhaseAmountDiscountAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface PlanPhaseMaximumAdjustment {
@@ -7143,6 +7360,12 @@ export interface PlanPhaseMaximumAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface PlanPhaseMinimumAdjustment {
@@ -7186,6 +7409,12 @@ export interface PlanPhaseMinimumAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface PlanPhasePercentageDiscountAdjustment {
@@ -7224,6 +7453,12 @@ export interface PlanPhasePercentageDiscountAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 }
 
 export interface PlanPhaseUsageDiscountAdjustment {
@@ -7256,6 +7491,12 @@ export interface PlanPhaseUsageDiscountAdjustment {
    * The reason for the adjustment.
    */
   reason: string | null;
+
+  /**
+   * The adjustment id this adjustment replaces. This adjustment will take the place
+   * of the replaced adjustment in plan version migrations.
+   */
+  replaces_adjustment_id: string | null;
 
   /**
    * The number of usage units by which to discount the price this adjustment applies
@@ -7355,7 +7596,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -7374,6 +7615,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     unit_config: Shared.UnitConfig;
 
@@ -7428,7 +7675,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -7449,6 +7696,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -7503,7 +7756,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -7522,6 +7775,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -7574,7 +7833,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -7593,6 +7852,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     tiered_config: Shared.TieredConfig;
 
@@ -7647,7 +7912,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -7666,6 +7931,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     tiered_bps_config: Shared.TieredBPSConfig;
 
@@ -7722,7 +7993,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -7741,6 +8012,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -7795,7 +8072,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -7814,6 +8091,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -7868,7 +8151,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -7887,6 +8170,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -7939,7 +8228,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -7959,7 +8248,13 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    threshold_total_amount_config: Record<string, unknown>;
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    threshold_total_amount_config: { [key: string]: unknown };
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8012,7 +8307,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8032,7 +8327,13 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    tiered_package_config: Record<string, unknown>;
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    tiered_package_config: { [key: string]: unknown };
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8065,7 +8366,7 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    grouped_tiered_config: Record<string, unknown>;
+    grouped_tiered_config: { [key: string]: unknown };
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -8087,7 +8388,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8106,6 +8407,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8158,7 +8465,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8178,7 +8485,13 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    tiered_with_minimum_config: Record<string, unknown>;
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    tiered_with_minimum_config: { [key: string]: unknown };
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8231,7 +8544,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8251,7 +8564,13 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    tiered_package_with_minimum_config: Record<string, unknown>;
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    tiered_package_with_minimum_config: { [key: string]: unknown };
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8304,7 +8623,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8320,11 +8639,17 @@ export namespace Price {
 
     name: string;
 
-    package_with_allocation_config: Record<string, unknown>;
+    package_with_allocation_config: { [key: string]: unknown };
 
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8377,7 +8702,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8397,7 +8722,13 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    unit_with_percent_config: Record<string, unknown>;
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    unit_with_percent_config: { [key: string]: unknown };
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8452,7 +8783,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8471,6 +8802,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8523,7 +8860,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8543,7 +8880,13 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    tiered_with_proration_config: Record<string, unknown>;
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    tiered_with_proration_config: { [key: string]: unknown };
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8596,7 +8939,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8616,7 +8959,13 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    unit_with_proration_config: Record<string, unknown>;
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    unit_with_proration_config: { [key: string]: unknown };
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8649,7 +8998,7 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    grouped_allocation_config: Record<string, unknown>;
+    grouped_allocation_config: { [key: string]: unknown };
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -8671,7 +9020,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8690,6 +9039,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8722,7 +9077,7 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    grouped_with_prorated_minimum_config: Record<string, unknown>;
+    grouped_with_prorated_minimum_config: { [key: string]: unknown };
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -8744,7 +9099,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8763,6 +9118,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8795,7 +9156,7 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    grouped_with_metered_minimum_config: Record<string, unknown>;
+    grouped_with_metered_minimum_config: { [key: string]: unknown };
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -8817,7 +9178,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8836,6 +9197,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -8872,7 +9239,7 @@ export namespace Price {
 
     item: Shared.ItemSlim;
 
-    matrix_with_display_name_config: Record<string, unknown>;
+    matrix_with_display_name_config: { [key: string]: unknown };
 
     /**
      * @deprecated
@@ -8890,7 +9257,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8910,6 +9277,12 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
@@ -8920,7 +9293,7 @@ export namespace Price {
 
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
-    bulk_with_proration_config: Record<string, unknown>;
+    bulk_with_proration_config: { [key: string]: unknown };
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
@@ -8963,7 +9336,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -8982,6 +9355,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -9014,7 +9393,7 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
-    grouped_tiered_package_config: Record<string, unknown>;
+    grouped_tiered_package_config: { [key: string]: unknown };
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -9036,7 +9415,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -9055,6 +9434,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -9091,7 +9476,7 @@ export namespace Price {
 
     item: Shared.ItemSlim;
 
-    max_group_tiered_package_config: Record<string, unknown>;
+    max_group_tiered_package_config: { [key: string]: unknown };
 
     /**
      * @deprecated
@@ -9109,7 +9494,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -9128,6 +9513,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -9180,7 +9571,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -9200,7 +9591,13 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    scalable_matrix_with_unit_pricing_config: Record<string, unknown>;
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    scalable_matrix_with_unit_pricing_config: { [key: string]: unknown };
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -9253,7 +9650,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -9273,7 +9670,13 @@ export namespace Price {
 
     price_type: 'usage_price' | 'fixed_price';
 
-    scalable_matrix_with_tiered_pricing_config: Record<string, unknown>;
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    scalable_matrix_with_tiered_pricing_config: { [key: string]: unknown };
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
@@ -9295,7 +9698,7 @@ export namespace Price {
 
     credit_allocation: Shared.Allocation | null;
 
-    cumulative_grouped_bulk_config: Record<string, unknown>;
+    cumulative_grouped_bulk_config: { [key: string]: unknown };
 
     currency: string;
 
@@ -9328,7 +9731,7 @@ export namespace Price {
      * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
      * `null`.
      */
-    metadata: Record<string, string>;
+    metadata: { [key: string]: string };
 
     /**
      * @deprecated
@@ -9347,6 +9750,12 @@ export namespace Price {
     plan_phase_order: number | null;
 
     price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }

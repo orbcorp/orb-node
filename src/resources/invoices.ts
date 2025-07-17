@@ -131,7 +131,7 @@ export class Invoices extends APIResource {
    *
    * If the associated invoice has used the customer balance to change the amount
    * due, the customer balance operation will be reverted. For example, if the
-   * invoice used $10 of customer balance, that amount will be added back to the
+   * invoice used \$10 of customer balance, that amount will be added back to the
    * customer balance upon voiding.
    *
    * If the invoice was used to purchase a credit block, but the invoice is not yet
@@ -358,7 +358,7 @@ export interface InvoiceFetchUpcomingResponse {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   minimum: Shared.Minimum | null;
 
@@ -575,6 +575,9 @@ export namespace InvoiceFetchUpcomingResponse {
      */
     credits_applied: string;
 
+    /**
+     * @deprecated This field is deprecated in favor of `adjustments`
+     */
     discount: Shared.Discount | null;
 
     /**
@@ -754,7 +757,7 @@ export interface InvoiceCreateParams {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 
   /**
    * When true, this invoice will be submitted for issuance upon creation. When
@@ -800,7 +803,7 @@ export interface InvoiceUpdateParams {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface InvoiceListParams extends PageParams {

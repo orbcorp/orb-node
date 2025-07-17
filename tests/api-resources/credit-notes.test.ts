@@ -25,9 +25,18 @@ describe('resource creditNotes', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.creditNotes.create({
-      line_items: [{ amount: 'amount', invoice_line_item_id: '4khy3nwzktxv7' }],
+      line_items: [
+        {
+          amount: 'amount',
+          invoice_line_item_id: '4khy3nwzktxv7',
+          end_date: '2023-09-22',
+          start_date: '2023-09-22',
+        },
+      ],
       reason: 'duplicate',
+      end_date: '2023-09-22',
       memo: 'An optional memo for my credit note.',
+      start_date: '2023-09-22',
     });
   });
 

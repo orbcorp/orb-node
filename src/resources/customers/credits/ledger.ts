@@ -46,8 +46,8 @@ export class Ledger extends APIResource {
    * deductions take place from a non-expiring credit block.
    *
    * If there are multiple blocks with the same expiration date, Orb will deduct from
-   * the block with the _lower cost basis_ first (e.g. trial credits with a $0 cost
-   * basis before paid credits with a $5.00 cost basis).
+   * the block with the _lower cost basis_ first (e.g. trial credits with a \$0 cost
+   * basis before paid credits with a \$5.00 cost basis).
    *
    * It's also possible for a single usage event's deduction to _span_ credit blocks.
    * In this case, Orb will deduct from the next block, ending at the credit block
@@ -395,8 +395,8 @@ export class Ledger extends APIResource {
    * deductions take place from a non-expiring credit block.
    *
    * If there are multiple blocks with the same expiration date, Orb will deduct from
-   * the block with the _lower cost basis_ first (e.g. trial credits with a $0 cost
-   * basis before paid credits with a $5.00 cost basis).
+   * the block with the _lower cost basis_ first (e.g. trial credits with a \$0 cost
+   * basis before paid credits with a \$5.00 cost basis).
    *
    * It's also possible for a single usage event's deduction to _span_ credit blocks.
    * In this case, Orb will deduct from the next block, ending at the credit block
@@ -505,7 +505,7 @@ export interface AmendmentLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   starting_balance: number;
 }
@@ -539,7 +539,7 @@ export interface CreditBlockExpiryLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   starting_balance: number;
 }
@@ -573,7 +573,7 @@ export interface DecrementLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   starting_balance: number;
 
@@ -613,7 +613,7 @@ export interface ExpirationChangeLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   new_block_expiry_date: string | null;
 
@@ -649,7 +649,7 @@ export interface IncrementLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   starting_balance: number;
 
@@ -688,7 +688,7 @@ export interface VoidInitiatedLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   new_block_expiry_date: string;
 
@@ -728,7 +728,7 @@ export interface VoidLedgerEntry {
    * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
    * `null`.
    */
-  metadata: Record<string, string>;
+  metadata: { [key: string]: string };
 
   starting_balance: number;
 
@@ -872,7 +872,7 @@ export declare namespace LedgerCreateEntryParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
 
     /**
      * Can only be specified when entry_type=increment. How much, in the customer's
@@ -901,6 +901,13 @@ export declare namespace LedgerCreateEntryParams {
        * to 0.
        */
       net_terms: number;
+
+      /**
+       * An ISO 8601 format date that denotes when this invoice should be dated in the
+       * customer's timezone. If not provided, the invoice date will default to the
+       * credit block's effective date.
+       */
+      invoice_date?: (string & {}) | (string & {}) | null;
 
       /**
        * An optional memo to display on the invoice.
@@ -942,16 +949,11 @@ export declare namespace LedgerCreateEntryParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface AddExpirationChangeCreditLedgerEntryRequestParams {
     entry_type: 'expiration_change';
-
-    /**
-     * An ISO 8601 format date that identifies the origination credit block to expire
-     */
-    expiry_date: string | null;
 
     /**
      * A future date (specified in YYYY-MM-DD format) used for expiration change,
@@ -986,11 +988,16 @@ export declare namespace LedgerCreateEntryParams {
     description?: string | null;
 
     /**
+     * An ISO 8601 format date that identifies the origination credit block to expire
+     */
+    expiry_date?: string | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface AddVoidCreditLedgerEntryRequestParams {
@@ -1025,7 +1032,7 @@ export declare namespace LedgerCreateEntryParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
 
     /**
      * Can only be specified when `entry_type=void`. The reason for the void.
@@ -1065,7 +1072,7 @@ export declare namespace LedgerCreateEntryParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 }
 
@@ -1123,7 +1130,7 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
 
     /**
      * Can only be specified when entry_type=increment. How much, in the customer's
@@ -1152,6 +1159,13 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
        * to 0.
        */
       net_terms: number;
+
+      /**
+       * An ISO 8601 format date that denotes when this invoice should be dated in the
+       * customer's timezone. If not provided, the invoice date will default to the
+       * credit block's effective date.
+       */
+      invoice_date?: (string & {}) | (string & {}) | null;
 
       /**
        * An optional memo to display on the invoice.
@@ -1193,16 +1207,11 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface AddExpirationChangeCreditLedgerEntryRequestParams {
     entry_type: 'expiration_change';
-
-    /**
-     * An ISO 8601 format date that identifies the origination credit block to expire
-     */
-    expiry_date: string | null;
 
     /**
      * A future date (specified in YYYY-MM-DD format) used for expiration change,
@@ -1237,11 +1246,16 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
     description?: string | null;
 
     /**
+     * An ISO 8601 format date that identifies the origination credit block to expire
+     */
+    expiry_date?: string | null;
+
+    /**
      * User-specified key/value pairs for the resource. Individual keys can be removed
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 
   export interface AddVoidCreditLedgerEntryRequestParams {
@@ -1276,7 +1290,7 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
 
     /**
      * Can only be specified when `entry_type=void`. The reason for the void.
@@ -1316,7 +1330,7 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
      * by setting the value to `null`, and the entire metadata mapping can be cleared
      * by setting `metadata` to `null`.
      */
-    metadata?: Record<string, string | null> | null;
+    metadata?: { [key: string]: string | null } | null;
   }
 }
 
