@@ -24,7 +24,6 @@ describe('resource invoices', () => {
           unit_config: { unit_amount: 'unit_amount' },
         },
       ],
-      net_terms: 0,
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -50,7 +49,6 @@ describe('resource invoices', () => {
           unit_config: { unit_amount: 'unit_amount' },
         },
       ],
-      net_terms: 0,
       customer_id: '4khy3nwzktxv7',
       discount: {
         discount_type: 'percentage',
@@ -62,6 +60,7 @@ describe('resource invoices', () => {
       external_customer_id: 'external-customer-id',
       memo: 'An optional memo for my invoice.',
       metadata: { foo: 'string' },
+      net_terms: 0,
       will_auto_issue: false,
     });
   });
