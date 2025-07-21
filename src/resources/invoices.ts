@@ -723,14 +723,6 @@ export interface InvoiceCreateParams {
   line_items: Array<InvoiceCreateParams.LineItem>;
 
   /**
-   * Determines the difference between the invoice issue date for subscription
-   * invoices as the date that they are due. A value of '0' here represents that the
-   * invoice is due on issue, whereas a value of 30 represents that the customer has
-   * 30 days to pay the invoice.
-   */
-  net_terms: number;
-
-  /**
    * The id of the `Customer` to create this invoice for. One of `customer_id` and
    * `external_customer_id` are required.
    */
@@ -758,6 +750,14 @@ export interface InvoiceCreateParams {
    * by setting `metadata` to `null`.
    */
   metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * Determines the difference between the invoice issue date for subscription
+   * invoices as the date that they are due. A value of '0' here represents that the
+   * invoice is due on issue, whereas a value of 30 represents that the customer has
+   * 30 days to pay the invoice.
+   */
+  net_terms?: number | null;
 
   /**
    * When true, this invoice will be submitted for issuance upon creation. When
