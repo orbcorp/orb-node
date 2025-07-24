@@ -295,7 +295,7 @@ export interface CostListByExternalIDResponse {
 
 export interface CostListParams {
   /**
-   * The currency to use.
+   * The currency or custom pricing unit to use.
    */
   currency?: string | null;
 
@@ -320,7 +320,7 @@ export interface CostListParams {
 
 export interface CostListByExternalIDParams {
   /**
-   * The currency to use.
+   * The currency or custom pricing unit to use.
    */
   currency?: string | null;
 
