@@ -900,7 +900,7 @@ export declare namespace LedgerCreateEntryParams {
        * date for the invoice. If you intend the invoice to be due on issue, set this
        * to 0.
        */
-      net_terms: number;
+      net_terms: number | null;
 
       /**
        * An ISO 8601 format date that denotes when this invoice should be dated in the
@@ -1158,7 +1158,7 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
        * date for the invoice. If you intend the invoice to be due on issue, set this
        * to 0.
        */
-      net_terms: number;
+      net_terms: number | null;
 
       /**
        * An ISO 8601 format date that denotes when this invoice should be dated in the
