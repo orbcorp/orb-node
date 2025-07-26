@@ -149,6 +149,7 @@ import {
   DimensionalPriceGroup,
   DimensionalPriceGroupCreateParams,
   DimensionalPriceGroupListParams,
+  DimensionalPriceGroupUpdateParams,
   DimensionalPriceGroups,
   DimensionalPriceGroupsPage,
 } from './resources/dimensional-price-groups/dimensional-price-groups';
@@ -600,6 +601,7 @@ export declare namespace Orb {
     type DimensionalPriceGroup as DimensionalPriceGroup,
     DimensionalPriceGroupsPage as DimensionalPriceGroupsPage,
     type DimensionalPriceGroupCreateParams as DimensionalPriceGroupCreateParams,
+    type DimensionalPriceGroupUpdateParams as DimensionalPriceGroupUpdateParams,
     type DimensionalPriceGroupListParams as DimensionalPriceGroupListParams,
   };
 

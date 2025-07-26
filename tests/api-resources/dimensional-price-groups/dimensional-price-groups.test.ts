@@ -54,6 +54,17 @@ describe('resource dimensionalPriceGroups', () => {
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
+  test('update', async () => {
+    const responsePromise = client.dimensionalPriceGroups.update('dimensional_price_group_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
   test('list', async () => {
     const responsePromise = client.dimensionalPriceGroups.list();
     const rawResponse = await responsePromise.asResponse();
