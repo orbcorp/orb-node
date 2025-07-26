@@ -5,7 +5,10 @@ import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as Shared from '../shared';
 import * as ExternalDimensionalPriceGroupIDAPI from './external-dimensional-price-group-id';
-import { ExternalDimensionalPriceGroupID } from './external-dimensional-price-group-id';
+import {
+  ExternalDimensionalPriceGroupID,
+  ExternalDimensionalPriceGroupIDUpdateParams,
+} from './external-dimensional-price-group-id';
 import { Page, type PageParams } from '../../pagination';
 
 export class DimensionalPriceGroups extends APIResource {
@@ -37,6 +40,19 @@ export class DimensionalPriceGroups extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<DimensionalPriceGroup> {
     return this._client.get(`/dimensional_price_groups/${dimensionalPriceGroupId}`, options);
+  }
+
+  /**
+   * This endpoint can be used to update the `external_dimensional_price_group_id`
+   * and `metadata` of an existing dimensional price group. Other fields on a
+   * dimensional price group are currently immutable.
+   */
+  update(
+    dimensionalPriceGroupId: string,
+    body: DimensionalPriceGroupUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<DimensionalPriceGroup> {
+    return this._client.put(`/dimensional_price_groups/${dimensionalPriceGroupId}`, { body, ...options });
   }
 
   /**
@@ -128,6 +144,23 @@ export interface DimensionalPriceGroupCreateParams {
   metadata?: { [key: string]: string | null } | null;
 }
 
+export interface DimensionalPriceGroupUpdateParams {
+  /**
+   * An optional user-defined ID for this dimensional price group resource, used
+   * throughout the system as an alias for this dimensional price group. Use this
+   * field to identify a dimensional price group by an existing identifier in your
+   * system.
+   */
+  external_dimensional_price_group_id?: string | null;
+
+  /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: { [key: string]: string | null } | null;
+}
+
 export interface DimensionalPriceGroupListParams extends PageParams {}
 
 DimensionalPriceGroups.DimensionalPriceGroupsPage = DimensionalPriceGroupsPage;
@@ -139,8 +172,12 @@ export declare namespace DimensionalPriceGroups {
     type DimensionalPriceGroups as DimensionalPriceGroups,
     DimensionalPriceGroupsPage as DimensionalPriceGroupsPage,
     type DimensionalPriceGroupCreateParams as DimensionalPriceGroupCreateParams,
+    type DimensionalPriceGroupUpdateParams as DimensionalPriceGroupUpdateParams,
     type DimensionalPriceGroupListParams as DimensionalPriceGroupListParams,
   };
 
-  export { ExternalDimensionalPriceGroupID as ExternalDimensionalPriceGroupID };
+  export {
+    ExternalDimensionalPriceGroupID as ExternalDimensionalPriceGroupID,
+    type ExternalDimensionalPriceGroupIDUpdateParams as ExternalDimensionalPriceGroupIDUpdateParams,
+  };
 }

@@ -5,6 +5,10 @@ export {
   DimensionalPriceGroups,
   type DimensionalPriceGroup,
   type DimensionalPriceGroupCreateParams,
+  type DimensionalPriceGroupUpdateParams,
   type DimensionalPriceGroupListParams,
 } from './dimensional-price-groups';
-export { ExternalDimensionalPriceGroupID } from './external-dimensional-price-group-id';
+export {
+  ExternalDimensionalPriceGroupID,
+  type ExternalDimensionalPriceGroupIDUpdateParams,
+} from './external-dimensional-price-group-id';

@@ -59,6 +59,7 @@ export {
   DimensionalPriceGroups,
   type DimensionalPriceGroup,
   type DimensionalPriceGroupCreateParams,
+  type DimensionalPriceGroupUpdateParams,
   type DimensionalPriceGroupListParams,
 } from './dimensional-price-groups/dimensional-price-groups';
 export {

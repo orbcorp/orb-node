@@ -541,6 +541,7 @@ Methods:
 
 - <code title="post /dimensional_price_groups">client.dimensionalPriceGroups.<a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">create</a>({ ...params }) -> DimensionalPriceGroup</code>
 - <code title="get /dimensional_price_groups/{dimensional_price_group_id}">client.dimensionalPriceGroups.<a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">retrieve</a>(dimensionalPriceGroupId) -> DimensionalPriceGroup</code>
+- <code title="put /dimensional_price_groups/{dimensional_price_group_id}">client.dimensionalPriceGroups.<a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">update</a>(dimensionalPriceGroupId, { ...params }) -> DimensionalPriceGroup</code>
 - <code title="get /dimensional_price_groups">client.dimensionalPriceGroups.<a href="./src/resources/dimensional-price-groups/dimensional-price-groups.ts">list</a>({ ...params }) -> DimensionalPriceGroupsPage</code>
 
 ## ExternalDimensionalPriceGroupID
@@ -548,6 +549,7 @@ Methods:
 Methods:
 
 - <code title="get /dimensional_price_groups/external_dimensional_price_group_id/{external_dimensional_price_group_id}">client.dimensionalPriceGroups.externalDimensionalPriceGroupId.<a href="./src/resources/dimensional-price-groups/external-dimensional-price-group-id.ts">retrieve</a>(externalDimensionalPriceGroupId) -> DimensionalPriceGroup</code>
+- <code title="put /dimensional_price_groups/external_dimensional_price_group_id/{external_dimensional_price_group_id}">client.dimensionalPriceGroups.externalDimensionalPriceGroupId.<a href="./src/resources/dimensional-price-groups/external-dimensional-price-group-id.ts">update</a>(externalDimensionalPriceGroupId, { ...params }) -> DimensionalPriceGroup</code>
 
 # SubscriptionChanges
 
