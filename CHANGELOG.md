@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.5.1 (2025-07-29)
+
+Full Changelog: [v5.5.0...v5.5.1](https://github.com/orbcorp/orb-node/compare/v5.5.0...v5.5.1)
+
+### Chores
+
+* **internal:** remove redundant imports config ([349e78c](https://github.com/orbcorp/orb-node/commit/349e78ca322b95500f1e5ee5e0eb917040fcfb25))
+
 ## 5.5.0 (2025-07-26)
 
 Full Changelog: [v5.4.0...v5.5.0](https://github.com/orbcorp/orb-node/compare/v5.4.0...v5.5.0)
