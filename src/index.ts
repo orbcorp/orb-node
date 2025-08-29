@@ -411,6 +411,7 @@ Orb.Alerts = Alerts;
 Orb.AlertsPage = AlertsPage;
 Orb.DimensionalPriceGroupsPage = DimensionalPriceGroupsPage;
 Orb.SubscriptionChanges = SubscriptionChanges;
+
 export declare namespace Orb {
   export type RequestOptions = Core.RequestOptions;
 
