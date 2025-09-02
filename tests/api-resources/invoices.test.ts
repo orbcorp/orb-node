@@ -57,6 +57,7 @@ describe('resource invoices', () => {
         filters: [{ field: 'price_id', operator: 'includes', values: ['string'] }],
         reason: 'reason',
       },
+      due_date: '2023-09-22',
       external_customer_id: 'external-customer-id',
       memo: 'An optional memo for my invoice.',
       metadata: { foo: 'string' },

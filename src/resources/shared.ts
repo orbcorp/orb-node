@@ -155,65 +155,6 @@ export interface BillingCycleConfiguration {
 
 export type BillingCycleRelativeDate = 'start_of_term' | 'end_of_term';
 
-export interface BPSConfig {
-  /**
-   * Basis point take rate per event
-   */
-  bps: number;
-
-  /**
-   * Optional currency amount maximum to cap spend per event
-   */
-  per_unit_maximum?: string | null;
-}
-
-export interface BPSTier {
-  /**
-   * Per-event basis point rate
-   */
-  bps: number;
-
-  /**
-   * Exclusive tier starting value
-   */
-  minimum_amount: string;
-
-  /**
-   * Inclusive tier ending value
-   */
-  maximum_amount?: string | null;
-
-  /**
-   * Per unit maximum to charge
-   */
-  per_unit_maximum?: string | null;
-}
-
-export interface BulkBPSConfig {
-  /**
-   * Tiers for a bulk BPS pricing model where all usage is aggregated to a single
-   * tier based on total volume
-   */
-  tiers: Array<BulkBPSTier>;
-}
-
-export interface BulkBPSTier {
-  /**
-   * Basis points to rate on
-   */
-  bps: number;
-
-  /**
-   * Upper bound for tier
-   */
-  maximum_amount?: string | null;
-
-  /**
-   * The maximum amount to charge for any one event
-   */
-  per_unit_maximum?: string | null;
-}
-
 export interface BulkConfig {
   /**
    * Bulk tiers for rating based on total usage volume
@@ -1313,7 +1254,8 @@ export namespace Invoice {
       | 'credit_note_applied'
       | 'credit_note_voided'
       | 'overpayment_refund'
-      | 'external_payment';
+      | 'external_payment'
+      | 'small_invoice_carryover';
 
     /**
      * The value of the amount changed in the transaction.
@@ -1468,7 +1410,7 @@ export namespace Invoice {
     sub_line_items: Array<Shared.MatrixSubLineItem | Shared.TierSubLineItem | Shared.OtherSubLineItem>;
 
     /**
-     * The line amount before before any adjustments.
+     * The line amount before any adjustments.
      */
     subtotal: string;
 
@@ -1509,6 +1451,12 @@ export namespace Invoice {
      * The ID of the payment attempt in the payment provider.
      */
     payment_provider_id: string | null;
+
+    /**
+     * URL to the downloadable PDF version of the receipt. This field will be `null`
+     * for payment attempts that did not succeed.
+     */
+    receipt_pdf: string | null;
 
     /**
      * Whether the payment attempt succeeded.
@@ -1721,8 +1669,8 @@ export interface MonetaryAmountDiscountAdjustment {
   filters: Array<TransformPriceFilter>;
 
   /**
-   * True for adjustments that apply to an entire invocice, false for adjustments
-   * that apply to only one price.
+   * True for adjustments that apply to an entire invoice, false for adjustments that
+   * apply to only one price.
    */
   is_invoice_level: boolean;
 
@@ -1759,8 +1707,8 @@ export interface MonetaryMaximumAdjustment {
   filters: Array<TransformPriceFilter>;
 
   /**
-   * True for adjustments that apply to an entire invocice, false for adjustments
-   * that apply to only one price.
+   * True for adjustments that apply to an entire invoice, false for adjustments that
+   * apply to only one price.
    */
   is_invoice_level: boolean;
 
@@ -1803,8 +1751,8 @@ export interface MonetaryMinimumAdjustment {
   filters: Array<TransformPriceFilter>;
 
   /**
-   * True for adjustments that apply to an entire invocice, false for adjustments
-   * that apply to only one price.
+   * True for adjustments that apply to an entire invoice, false for adjustments that
+   * apply to only one price.
    */
   is_invoice_level: boolean;
 
@@ -1852,8 +1800,8 @@ export interface MonetaryPercentageDiscountAdjustment {
   filters: Array<TransformPriceFilter>;
 
   /**
-   * True for adjustments that apply to an entire invocice, false for adjustments
-   * that apply to only one price.
+   * True for adjustments that apply to an entire invoice, false for adjustments that
+   * apply to only one price.
    */
   is_invoice_level: boolean;
 
@@ -1896,8 +1844,8 @@ export interface MonetaryUsageDiscountAdjustment {
   filters: Array<TransformPriceFilter>;
 
   /**
-   * True for adjustments that apply to an entire invocice, false for adjustments
-   * that apply to only one price.
+   * True for adjustments that apply to an entire invoice, false for adjustments that
+   * apply to only one price.
    */
   is_invoice_level: boolean;
 
@@ -2018,182 +1966,6 @@ export interface NewDimensionalPriceConfiguration {
    * The external id of the dimensional price group to include this price in
    */
   external_dimensional_price_group_id?: string | null;
-}
-
-export interface NewFloatingBPSPrice {
-  bps_config: BPSConfig;
-
-  /**
-   * The cadence to bill for this price on.
-   */
-  cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-  /**
-   * An ISO 4217 currency string for which this price is billed in.
-   */
-  currency: string;
-
-  /**
-   * The id of the item the price will be associated with.
-   */
-  item_id: string;
-
-  model_type: 'bps';
-
-  /**
-   * The name of the price.
-   */
-  name: string;
-
-  /**
-   * The id of the billable metric for the price. Only needed if the price is
-   * usage-based.
-   */
-  billable_metric_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, the price will be billed in-advance if
-   * this is true, and in-arrears if this is false.
-   */
-  billed_in_advance?: boolean | null;
-
-  /**
-   * For custom cadence: specifies the duration of the billing period in days or
-   * months.
-   */
-  billing_cycle_configuration?: NewBillingCycleConfiguration | null;
-
-  /**
-   * The per unit conversion rate of the price currency to the invoicing currency.
-   */
-  conversion_rate?: number | null;
-
-  /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
-
-  /**
-   * For dimensional price: specifies a price group and dimension values
-   */
-  dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
-
-  /**
-   * An alias for the price.
-   */
-  external_price_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, this represents the quantity of units
-   * applied.
-   */
-  fixed_price_quantity?: number | null;
-
-  /**
-   * The property used to group this price on an invoice
-   */
-  invoice_grouping_key?: string | null;
-
-  /**
-   * Within each billing cycle, specifies the cadence at which invoices are produced.
-   * If unspecified, a single invoice is produced per billing cycle.
-   */
-  invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
-
-  /**
-   * User-specified key/value pairs for the resource. Individual keys can be removed
-   * by setting the value to `null`, and the entire metadata mapping can be cleared
-   * by setting `metadata` to `null`.
-   */
-  metadata?: { [key: string]: string | null } | null;
-}
-
-export interface NewFloatingBulkBPSPrice {
-  bulk_bps_config: BulkBPSConfig;
-
-  /**
-   * The cadence to bill for this price on.
-   */
-  cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-  /**
-   * An ISO 4217 currency string for which this price is billed in.
-   */
-  currency: string;
-
-  /**
-   * The id of the item the price will be associated with.
-   */
-  item_id: string;
-
-  model_type: 'bulk_bps';
-
-  /**
-   * The name of the price.
-   */
-  name: string;
-
-  /**
-   * The id of the billable metric for the price. Only needed if the price is
-   * usage-based.
-   */
-  billable_metric_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, the price will be billed in-advance if
-   * this is true, and in-arrears if this is false.
-   */
-  billed_in_advance?: boolean | null;
-
-  /**
-   * For custom cadence: specifies the duration of the billing period in days or
-   * months.
-   */
-  billing_cycle_configuration?: NewBillingCycleConfiguration | null;
-
-  /**
-   * The per unit conversion rate of the price currency to the invoicing currency.
-   */
-  conversion_rate?: number | null;
-
-  /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
-
-  /**
-   * For dimensional price: specifies a price group and dimension values
-   */
-  dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
-
-  /**
-   * An alias for the price.
-   */
-  external_price_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, this represents the quantity of units
-   * applied.
-   */
-  fixed_price_quantity?: number | null;
-
-  /**
-   * The property used to group this price on an invoice
-   */
-  invoice_grouping_key?: string | null;
-
-  /**
-   * Within each billing cycle, specifies the cadence at which invoices are produced.
-   * If unspecified, a single invoice is produced per billing cycle.
-   */
-  invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
-
-  /**
-   * User-specified key/value pairs for the resource. Individual keys can be removed
-   * by setting the value to `null`, and the entire metadata mapping can be cleared
-   * by setting `metadata` to `null`.
-   */
-  metadata?: { [key: string]: string | null } | null;
 }
 
 export interface NewFloatingBulkPrice {
@@ -3692,94 +3464,6 @@ export interface NewFloatingThresholdTotalAmountPrice {
   metadata?: { [key: string]: string | null } | null;
 }
 
-export interface NewFloatingTieredBPSPrice {
-  /**
-   * The cadence to bill for this price on.
-   */
-  cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-  /**
-   * An ISO 4217 currency string for which this price is billed in.
-   */
-  currency: string;
-
-  /**
-   * The id of the item the price will be associated with.
-   */
-  item_id: string;
-
-  model_type: 'tiered_bps';
-
-  /**
-   * The name of the price.
-   */
-  name: string;
-
-  tiered_bps_config: TieredBPSConfig;
-
-  /**
-   * The id of the billable metric for the price. Only needed if the price is
-   * usage-based.
-   */
-  billable_metric_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, the price will be billed in-advance if
-   * this is true, and in-arrears if this is false.
-   */
-  billed_in_advance?: boolean | null;
-
-  /**
-   * For custom cadence: specifies the duration of the billing period in days or
-   * months.
-   */
-  billing_cycle_configuration?: NewBillingCycleConfiguration | null;
-
-  /**
-   * The per unit conversion rate of the price currency to the invoicing currency.
-   */
-  conversion_rate?: number | null;
-
-  /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
-
-  /**
-   * For dimensional price: specifies a price group and dimension values
-   */
-  dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
-
-  /**
-   * An alias for the price.
-   */
-  external_price_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, this represents the quantity of units
-   * applied.
-   */
-  fixed_price_quantity?: number | null;
-
-  /**
-   * The property used to group this price on an invoice
-   */
-  invoice_grouping_key?: string | null;
-
-  /**
-   * Within each billing cycle, specifies the cadence at which invoices are produced.
-   * If unspecified, a single invoice is produced per billing cycle.
-   */
-  invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
-
-  /**
-   * User-specified key/value pairs for the resource. Individual keys can be removed
-   * by setting the value to `null`, and the entire metadata mapping can be cleared
-   * by setting `metadata` to `null`.
-   */
-  metadata?: { [key: string]: string | null } | null;
-}
-
 export interface NewFloatingTieredPackagePrice {
   /**
    * The cadence to bill for this price on.
@@ -4613,196 +4297,6 @@ export interface NewPercentageDiscount {
    * If set, only prices of the specified type will have the adjustment applied.
    */
   price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
-}
-
-export interface NewPlanBPSPrice {
-  bps_config: BPSConfig;
-
-  /**
-   * The cadence to bill for this price on.
-   */
-  cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-  /**
-   * The id of the item the price will be associated with.
-   */
-  item_id: string;
-
-  model_type: 'bps';
-
-  /**
-   * The name of the price.
-   */
-  name: string;
-
-  /**
-   * The id of the billable metric for the price. Only needed if the price is
-   * usage-based.
-   */
-  billable_metric_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, the price will be billed in-advance if
-   * this is true, and in-arrears if this is false.
-   */
-  billed_in_advance?: boolean | null;
-
-  /**
-   * For custom cadence: specifies the duration of the billing period in days or
-   * months.
-   */
-  billing_cycle_configuration?: NewBillingCycleConfiguration | null;
-
-  /**
-   * The per unit conversion rate of the price currency to the invoicing currency.
-   */
-  conversion_rate?: number | null;
-
-  /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
-
-  /**
-   * An ISO 4217 currency string, or custom pricing unit identifier, in which this
-   * price is billed.
-   */
-  currency?: string | null;
-
-  /**
-   * For dimensional price: specifies a price group and dimension values
-   */
-  dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
-
-  /**
-   * An alias for the price.
-   */
-  external_price_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, this represents the quantity of units
-   * applied.
-   */
-  fixed_price_quantity?: number | null;
-
-  /**
-   * The property used to group this price on an invoice
-   */
-  invoice_grouping_key?: string | null;
-
-  /**
-   * Within each billing cycle, specifies the cadence at which invoices are produced.
-   * If unspecified, a single invoice is produced per billing cycle.
-   */
-  invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
-
-  /**
-   * User-specified key/value pairs for the resource. Individual keys can be removed
-   * by setting the value to `null`, and the entire metadata mapping can be cleared
-   * by setting `metadata` to `null`.
-   */
-  metadata?: { [key: string]: string | null } | null;
-
-  /**
-   * A transient ID that can be used to reference this price when adding adjustments
-   * in the same API call.
-   */
-  reference_id?: string | null;
-}
-
-export interface NewPlanBulkBPSPrice {
-  bulk_bps_config: BulkBPSConfig;
-
-  /**
-   * The cadence to bill for this price on.
-   */
-  cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-  /**
-   * The id of the item the price will be associated with.
-   */
-  item_id: string;
-
-  model_type: 'bulk_bps';
-
-  /**
-   * The name of the price.
-   */
-  name: string;
-
-  /**
-   * The id of the billable metric for the price. Only needed if the price is
-   * usage-based.
-   */
-  billable_metric_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, the price will be billed in-advance if
-   * this is true, and in-arrears if this is false.
-   */
-  billed_in_advance?: boolean | null;
-
-  /**
-   * For custom cadence: specifies the duration of the billing period in days or
-   * months.
-   */
-  billing_cycle_configuration?: NewBillingCycleConfiguration | null;
-
-  /**
-   * The per unit conversion rate of the price currency to the invoicing currency.
-   */
-  conversion_rate?: number | null;
-
-  /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
-
-  /**
-   * An ISO 4217 currency string, or custom pricing unit identifier, in which this
-   * price is billed.
-   */
-  currency?: string | null;
-
-  /**
-   * For dimensional price: specifies a price group and dimension values
-   */
-  dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
-
-  /**
-   * An alias for the price.
-   */
-  external_price_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, this represents the quantity of units
-   * applied.
-   */
-  fixed_price_quantity?: number | null;
-
-  /**
-   * The property used to group this price on an invoice
-   */
-  invoice_grouping_key?: string | null;
-
-  /**
-   * Within each billing cycle, specifies the cadence at which invoices are produced.
-   * If unspecified, a single invoice is produced per billing cycle.
-   */
-  invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
-
-  /**
-   * User-specified key/value pairs for the resource. Individual keys can be removed
-   * by setting the value to `null`, and the entire metadata mapping can be cleared
-   * by setting `metadata` to `null`.
-   */
-  metadata?: { [key: string]: string | null } | null;
-
-  /**
-   * A transient ID that can be used to reference this price when adding adjustments
-   * in the same API call.
-   */
-  reference_id?: string | null;
 }
 
 export interface NewPlanBulkPrice {
@@ -6515,101 +6009,6 @@ export interface NewPlanTierWithProrationPrice {
   reference_id?: string | null;
 }
 
-export interface NewPlanTieredBPSPrice {
-  /**
-   * The cadence to bill for this price on.
-   */
-  cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-  /**
-   * The id of the item the price will be associated with.
-   */
-  item_id: string;
-
-  model_type: 'tiered_bps';
-
-  /**
-   * The name of the price.
-   */
-  name: string;
-
-  tiered_bps_config: TieredBPSConfig;
-
-  /**
-   * The id of the billable metric for the price. Only needed if the price is
-   * usage-based.
-   */
-  billable_metric_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, the price will be billed in-advance if
-   * this is true, and in-arrears if this is false.
-   */
-  billed_in_advance?: boolean | null;
-
-  /**
-   * For custom cadence: specifies the duration of the billing period in days or
-   * months.
-   */
-  billing_cycle_configuration?: NewBillingCycleConfiguration | null;
-
-  /**
-   * The per unit conversion rate of the price currency to the invoicing currency.
-   */
-  conversion_rate?: number | null;
-
-  /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?: UnitConversionRateConfig | TieredConversionRateConfig | null;
-
-  /**
-   * An ISO 4217 currency string, or custom pricing unit identifier, in which this
-   * price is billed.
-   */
-  currency?: string | null;
-
-  /**
-   * For dimensional price: specifies a price group and dimension values
-   */
-  dimensional_price_configuration?: NewDimensionalPriceConfiguration | null;
-
-  /**
-   * An alias for the price.
-   */
-  external_price_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, this represents the quantity of units
-   * applied.
-   */
-  fixed_price_quantity?: number | null;
-
-  /**
-   * The property used to group this price on an invoice
-   */
-  invoice_grouping_key?: string | null;
-
-  /**
-   * Within each billing cycle, specifies the cadence at which invoices are produced.
-   * If unspecified, a single invoice is produced per billing cycle.
-   */
-  invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
-
-  /**
-   * User-specified key/value pairs for the resource. Individual keys can be removed
-   * by setting the value to `null`, and the entire metadata mapping can be cleared
-   * by setting `metadata` to `null`.
-   */
-  metadata?: { [key: string]: string | null } | null;
-
-  /**
-   * A transient ID that can be used to reference this price when adding adjustments
-   * in the same API call.
-   */
-  reference_id?: string | null;
-}
-
 export interface NewPlanTieredPackagePrice {
   /**
    * The cadence to bill for this price on.
@@ -7453,8 +6852,8 @@ export interface PlanPhaseAmountDiscountAdjustment {
   filters: Array<TransformPriceFilter>;
 
   /**
-   * True for adjustments that apply to an entire invocice, false for adjustments
-   * that apply to only one price.
+   * True for adjustments that apply to an entire invoice, false for adjustments that
+   * apply to only one price.
    */
   is_invoice_level: boolean;
 
@@ -7491,8 +6890,8 @@ export interface PlanPhaseMaximumAdjustment {
   filters: Array<TransformPriceFilter>;
 
   /**
-   * True for adjustments that apply to an entire invocice, false for adjustments
-   * that apply to only one price.
+   * True for adjustments that apply to an entire invoice, false for adjustments that
+   * apply to only one price.
    */
   is_invoice_level: boolean;
 
@@ -7535,8 +6934,8 @@ export interface PlanPhaseMinimumAdjustment {
   filters: Array<TransformPriceFilter>;
 
   /**
-   * True for adjustments that apply to an entire invocice, false for adjustments
-   * that apply to only one price.
+   * True for adjustments that apply to an entire invoice, false for adjustments that
+   * apply to only one price.
    */
   is_invoice_level: boolean;
 
@@ -7584,8 +6983,8 @@ export interface PlanPhasePercentageDiscountAdjustment {
   filters: Array<TransformPriceFilter>;
 
   /**
-   * True for adjustments that apply to an entire invocice, false for adjustments
-   * that apply to only one price.
+   * True for adjustments that apply to an entire invoice, false for adjustments that
+   * apply to only one price.
    */
   is_invoice_level: boolean;
 
@@ -7628,8 +7027,8 @@ export interface PlanPhaseUsageDiscountAdjustment {
   filters: Array<TransformPriceFilter>;
 
   /**
-   * True for adjustments that apply to an entire invocice, false for adjustments
-   * that apply to only one price.
+   * True for adjustments that apply to an entire invoice, false for adjustments that
+   * apply to only one price.
    */
   is_invoice_level: boolean;
 
@@ -7673,9 +7072,6 @@ export type Price =
   | Price.PackagePrice
   | Price.MatrixPrice
   | Price.TieredPrice
-  | Price.TieredBPSPrice
-  | Price.BPSPrice
-  | Price.BulkBPSPrice
   | Price.BulkPrice
   | Price.ThresholdTotalAmountPrice
   | Price.TieredPackagePrice
@@ -7697,7 +7093,8 @@ export type Price =
   | Price.ScalableMatrixWithUnitPricingPrice
   | Price.ScalableMatrixWithTieredPricingPrice
   | Price.CumulativeGroupedBulkPrice
-  | Price.GroupedWithMinMaxThresholdsPrice;
+  | Price.GroupedWithMinMaxThresholdsPrice
+  | Price.MinimumCompositePrice;
 
 export namespace Price {
   export interface UnitPrice {
@@ -7708,6 +7105,8 @@ export namespace Price {
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -7788,6 +7187,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -7866,6 +7267,8 @@ export namespace Price {
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -7946,6 +7349,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -8016,243 +7421,6 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
-  export interface TieredBPSPrice {
-    id: string;
-
-    billable_metric: Shared.BillableMetricTiny | null;
-
-    billing_cycle_configuration: Shared.BillingCycleConfiguration;
-
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
-
-    conversion_rate: number | null;
-
-    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    created_at: string;
-
-    credit_allocation: Shared.Allocation | null;
-
-    currency: string;
-
-    /**
-     * @deprecated
-     */
-    discount: Shared.Discount | null;
-
-    external_price_id: string | null;
-
-    fixed_price_quantity: number | null;
-
-    invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
-
-    item: Shared.ItemSlim;
-
-    /**
-     * @deprecated
-     */
-    maximum: Shared.Maximum | null;
-
-    /**
-     * @deprecated
-     */
-    maximum_amount: string | null;
-
-    /**
-     * User specified key-value pairs for the resource. If not present, this defaults
-     * to an empty dictionary. Individual keys can be removed by setting the value to
-     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
-     * `null`.
-     */
-    metadata: { [key: string]: string };
-
-    /**
-     * @deprecated
-     */
-    minimum: Shared.Minimum | null;
-
-    /**
-     * @deprecated
-     */
-    minimum_amount: string | null;
-
-    model_type: 'tiered_bps';
-
-    name: string;
-
-    plan_phase_order: number | null;
-
-    price_type: 'usage_price' | 'fixed_price';
-
-    /**
-     * The price id this price replaces. This price will take the place of the replaced
-     * price in plan version migrations.
-     */
-    replaces_price_id: string | null;
-
-    tiered_bps_config: Shared.TieredBPSConfig;
-
-    dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
-  }
-
-  export interface BPSPrice {
-    id: string;
-
-    billable_metric: Shared.BillableMetricTiny | null;
-
-    billing_cycle_configuration: Shared.BillingCycleConfiguration;
-
-    bps_config: Shared.BPSConfig;
-
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
-
-    conversion_rate: number | null;
-
-    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    created_at: string;
-
-    credit_allocation: Shared.Allocation | null;
-
-    currency: string;
-
-    /**
-     * @deprecated
-     */
-    discount: Shared.Discount | null;
-
-    external_price_id: string | null;
-
-    fixed_price_quantity: number | null;
-
-    invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
-
-    item: Shared.ItemSlim;
-
-    /**
-     * @deprecated
-     */
-    maximum: Shared.Maximum | null;
-
-    /**
-     * @deprecated
-     */
-    maximum_amount: string | null;
-
-    /**
-     * User specified key-value pairs for the resource. If not present, this defaults
-     * to an empty dictionary. Individual keys can be removed by setting the value to
-     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
-     * `null`.
-     */
-    metadata: { [key: string]: string };
-
-    /**
-     * @deprecated
-     */
-    minimum: Shared.Minimum | null;
-
-    /**
-     * @deprecated
-     */
-    minimum_amount: string | null;
-
-    model_type: 'bps';
-
-    name: string;
-
-    plan_phase_order: number | null;
-
-    price_type: 'usage_price' | 'fixed_price';
-
-    /**
-     * The price id this price replaces. This price will take the place of the replaced
-     * price in plan version migrations.
-     */
-    replaces_price_id: string | null;
-
-    dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
-  }
-
-  export interface BulkBPSPrice {
-    id: string;
-
-    billable_metric: Shared.BillableMetricTiny | null;
-
-    billing_cycle_configuration: Shared.BillingCycleConfiguration;
-
-    bulk_bps_config: Shared.BulkBPSConfig;
-
-    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
-
-    conversion_rate: number | null;
-
-    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    created_at: string;
-
-    credit_allocation: Shared.Allocation | null;
-
-    currency: string;
-
-    /**
-     * @deprecated
-     */
-    discount: Shared.Discount | null;
-
-    external_price_id: string | null;
-
-    fixed_price_quantity: number | null;
-
-    invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
-
-    item: Shared.ItemSlim;
-
-    /**
-     * @deprecated
-     */
-    maximum: Shared.Maximum | null;
-
-    /**
-     * @deprecated
-     */
-    maximum_amount: string | null;
-
-    /**
-     * User specified key-value pairs for the resource. If not present, this defaults
-     * to an empty dictionary. Individual keys can be removed by setting the value to
-     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
-     * `null`.
-     */
-    metadata: { [key: string]: string };
-
-    /**
-     * @deprecated
-     */
-    minimum: Shared.Minimum | null;
-
-    /**
-     * @deprecated
-     */
-    minimum_amount: string | null;
-
-    model_type: 'bulk_bps';
-
-    name: string;
-
-    plan_phase_order: number | null;
-
-    price_type: 'usage_price' | 'fixed_price';
-
-    /**
-     * The price id this price replaces. This price will take the place of the replaced
-     * price in plan version migrations.
-     */
-    replaces_price_id: string | null;
-
-    dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
-  }
-
   export interface BulkPrice {
     id: string;
 
@@ -8263,6 +7431,8 @@ export namespace Price {
     bulk_config: Shared.BulkConfig;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -8340,6 +7510,8 @@ export namespace Price {
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -8420,6 +7592,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -8498,6 +7672,8 @@ export namespace Price {
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -8578,6 +7754,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -8656,6 +7834,8 @@ export namespace Price {
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -8736,6 +7916,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -8814,6 +7996,8 @@ export namespace Price {
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -8894,6 +8078,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -8972,6 +8158,8 @@ export namespace Price {
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -9052,6 +8240,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -9130,6 +8320,8 @@ export namespace Price {
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -9210,6 +8402,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -9289,6 +8483,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -9367,6 +8563,8 @@ export namespace Price {
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -9449,6 +8647,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -9525,6 +8725,8 @@ export namespace Price {
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -9605,6 +8807,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -9683,6 +8887,8 @@ export namespace Price {
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -9763,6 +8969,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -9841,6 +9049,8 @@ export namespace Price {
     billing_cycle_configuration: Shared.BillingCycleConfiguration;
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -9921,6 +9131,8 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
     conversion_rate: number | null;
 
     conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
@@ -9989,6 +9201,102 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+  }
+
+  export interface MinimumCompositePrice {
+    id: string;
+
+    billable_metric: Shared.BillableMetricTiny | null;
+
+    billing_cycle_configuration: Shared.BillingCycleConfiguration;
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
+    conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    created_at: string;
+
+    credit_allocation: Shared.Allocation | null;
+
+    currency: string;
+
+    /**
+     * @deprecated
+     */
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
+
+    item: Shared.ItemSlim;
+
+    /**
+     * @deprecated
+     */
+    maximum: Shared.Maximum | null;
+
+    /**
+     * @deprecated
+     */
+    maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: { [key: string]: string };
+
+    /**
+     * @deprecated
+     */
+    minimum: Shared.Minimum | null;
+
+    /**
+     * @deprecated
+     */
+    minimum_amount: string | null;
+
+    minimum_config: MinimumCompositePrice.MinimumConfig;
+
+    model_type: 'minimum';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+  }
+
+  export namespace MinimumCompositePrice {
+    export interface MinimumConfig {
+      /**
+       * The minimum amount to apply
+       */
+      minimum_amount: string;
+
+      /**
+       * By default, subtotals from minimum composite prices are prorated based on the
+       * service period. Set to false to disable proration.
+       */
+      prorated?: boolean | null;
+    }
   }
 }
 
@@ -10148,14 +9456,6 @@ export interface TierSubLineItem {
   tier_config: TierConfig;
 
   type: 'tier';
-}
-
-export interface TieredBPSConfig {
-  /**
-   * Tiers for a Graduated BPS pricing model, where usage is bucketed into specified
-   * tiers
-   */
-  tiers: Array<BPSTier>;
 }
 
 export interface TieredConfig {
