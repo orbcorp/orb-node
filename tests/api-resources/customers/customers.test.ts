@@ -32,6 +32,7 @@ describe('resource customers', () => {
       },
       additional_emails: ['dev@stainless.com'],
       auto_collection: true,
+      auto_issuance: true,
       billing_address: {
         city: 'city',
         country: 'country',

@@ -234,6 +234,13 @@ export interface Customer {
   auto_collection: boolean;
 
   /**
+   * Whether invoices for this customer should be automatically issued. If true,
+   * invoices will be automatically issued. If false, invoices will require manual
+   * approval. If null, inherits the account-level setting.
+   */
+  auto_issuance: boolean | null;
+
+  /**
    * The customer's current balance in their currency.
    */
   balance: string;
@@ -558,6 +565,14 @@ export interface CustomerCreateParams {
    */
   auto_collection?: boolean | null;
 
+  /**
+   * Used to determine if invoices for this customer will be automatically issued. If
+   * true, invoices will be automatically issued. If false, invoices will require
+   * manual approval. If `null` is specified, the customer's auto issuance setting
+   * will be inherited from the account-level setting.
+   */
+  auto_issuance?: boolean | null;
+
   billing_address?: AddressInput | null;
 
   /**
@@ -777,6 +792,14 @@ export interface CustomerUpdateParams {
    * when a payment provider is provided on customer creation.
    */
   auto_collection?: boolean | null;
+
+  /**
+   * Used to determine if invoices for this customer will be automatically issued. If
+   * true, invoices will be automatically issued. If false, invoices will require
+   * manual approval.If `null` is specified, the customer's auto issuance setting
+   * will be inherited from the account-level setting.
+   */
+  auto_issuance?: boolean | null;
 
   billing_address?: AddressInput | null;
 
@@ -1016,6 +1039,14 @@ export interface CustomerUpdateByExternalIDParams {
    * when a payment provider is provided on customer creation.
    */
   auto_collection?: boolean | null;
+
+  /**
+   * Used to determine if invoices for this customer will be automatically issued. If
+   * true, invoices will be automatically issued. If false, invoices will require
+   * manual approval.If `null` is specified, the customer's auto issuance setting
+   * will be inherited from the account-level setting.
+   */
+  auto_issuance?: boolean | null;
 
   billing_address?: AddressInput | null;
 

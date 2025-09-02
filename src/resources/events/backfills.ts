@@ -39,8 +39,8 @@ export class Backfills extends APIResource {
    *
    * When `replace_existing_events` is `true`, this indicates that existing events in
    * the timeframe should no longer be counted towards invoiced usage. In this
-   * scenario, the parameter `filter` can be optionally added which enables filtering
-   * using
+   * scenario, the parameter `deprecation_filter` can be optionally added which
+   * enables filtering using
    * [computed properties](/extensibility/advanced-metrics#computed-properties). The
    * expressiveness of computed properties allows you to deprecate existing events
    * based on both a period of time and specific property values.

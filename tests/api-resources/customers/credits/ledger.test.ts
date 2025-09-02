@@ -74,6 +74,7 @@ describe('resource ledger', () => {
       invoice_settings: {
         auto_collection: true,
         net_terms: 0,
+        custom_due_date: '2019-12-27',
         invoice_date: '2019-12-27',
         memo: 'memo',
         require_successful_payment: true,
@@ -108,6 +109,7 @@ describe('resource ledger', () => {
       invoice_settings: {
         auto_collection: true,
         net_terms: 0,
+        custom_due_date: '2019-12-27',
         invoice_date: '2019-12-27',
         memo: 'memo',
         require_successful_payment: true,

@@ -107,8 +107,8 @@ export class Invoices extends APIResource {
   }
 
   /**
-   * This endpoint allows an invoice's status to be set the `paid` status. This can
-   * only be done to invoices that are in the `issued` status.
+   * This endpoint allows an invoice's status to be set to the `paid` status. This
+   * can only be done to invoices that are in the `issued` or `synced` status.
    */
   markPaid(
     invoiceId: string,
@@ -127,8 +127,8 @@ export class Invoices extends APIResource {
   }
 
   /**
-   * This endpoint allows an invoice's status to be set the `void` status. This can
-   * only be done to invoices that are in the `issued` status.
+   * This endpoint allows an invoice's status to be set to the `void` status. This
+   * can only be done to invoices that are in the `issued` status.
    *
    * If the associated invoice has used the customer balance to change the amount
    * due, the customer balance operation will be reverted. For example, if the
@@ -543,7 +543,8 @@ export namespace InvoiceFetchUpcomingResponse {
       | 'credit_note_applied'
       | 'credit_note_voided'
       | 'overpayment_refund'
-      | 'external_payment';
+      | 'external_payment'
+      | 'small_invoice_carryover';
 
     /**
      * The value of the amount changed in the transaction.
@@ -698,7 +699,7 @@ export namespace InvoiceFetchUpcomingResponse {
     sub_line_items: Array<Shared.MatrixSubLineItem | Shared.TierSubLineItem | Shared.OtherSubLineItem>;
 
     /**
-     * The line amount before before any adjustments.
+     * The line amount before any adjustments.
      */
     subtotal: string;
 
@@ -741,6 +742,12 @@ export namespace InvoiceFetchUpcomingResponse {
     payment_provider_id: string | null;
 
     /**
+     * URL to the downloadable PDF version of the receipt. This field will be `null`
+     * for payment attempts that did not succeed.
+     */
+    receipt_pdf: string | null;
+
+    /**
      * Whether the payment attempt succeeded.
      */
     succeeded: boolean;
@@ -774,13 +781,20 @@ export interface InvoiceCreateParams {
   discount?: Shared.Discount | null;
 
   /**
+   * An optional custom due date for the invoice. If not set, the due date will be
+   * calculated based on the `net_terms` value.
+   */
+  due_date?: (string & {}) | (string & {}) | null;
+
+  /**
    * The `external_customer_id` of the `Customer` to create this invoice for. One of
    * `customer_id` and `external_customer_id` are required.
    */
   external_customer_id?: string | null;
 
   /**
-   * An optional memo to attach to the invoice.
+   * An optional memo to attach to the invoice. If no memo is provided, we will
+   * attach the default memo
    */
   memo?: string | null;
 
@@ -792,10 +806,11 @@ export interface InvoiceCreateParams {
   metadata?: { [key: string]: string | null } | null;
 
   /**
-   * Determines the difference between the invoice issue date for subscription
-   * invoices as the date that they are due. A value of '0' here represents that the
-   * invoice is due on issue, whereas a value of 30 represents that the customer has
-   * 30 days to pay the invoice.
+   * The net terms determines the due date of the invoice. Due date is calculated
+   * based on the invoice or issuance date, depending on the account's configured due
+   * date calculation method. A value of '0' here represents that the invoice is due
+   * on issue, whereas a value of '30' represents that the customer has 30 days to
+   * pay the invoice. Do not set this field if you want to set a custom due date.
    */
   net_terms?: number | null;
 
@@ -839,11 +854,26 @@ export namespace InvoiceCreateParams {
 
 export interface InvoiceUpdateParams {
   /**
+   * An optional custom due date for the invoice. If not set, the due date will be
+   * calculated based on the `net_terms` value.
+   */
+  due_date?: (string & {}) | (string & {}) | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
   metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * The net terms determines the due date of the invoice. Due date is calculated
+   * based on the invoice or issuance date, depending on the account's configured due
+   * date calculation method. A value of '0' here represents that the invoice is due
+   * on issue, whereas a value of '30' represents that the customer has 30 days to
+   * pay the invoice. Do not set this field if you want to set a custom due date.
+   */
+  net_terms?: number | null;
 }
 
 export interface InvoiceListParams extends PageParams {
