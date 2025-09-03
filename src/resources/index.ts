@@ -141,6 +141,7 @@ export {
   type NewSubscriptionMatrixWithAllocationPrice,
   type NewSubscriptionMatrixWithDisplayNamePrice,
   type NewSubscriptionMaxGroupTieredPackagePrice,
+  type NewSubscriptionMinimumCompositePrice,
   type NewSubscriptionPackagePrice,
   type NewSubscriptionPackageWithAllocationPrice,
   type NewSubscriptionScalableMatrixWithTieredPricingPrice,
