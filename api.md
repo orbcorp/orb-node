@@ -96,7 +96,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">NewPlanScalableMatrixWithTieredPricingPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanScalableMatrixWithUnitPricingPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanThresholdTotalAmountPrice</a></code>
-- <code><a href="./src/resources/shared.ts">NewPlanTierWithProrationPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanTieredPackagePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanTieredPackageWithMinimumPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanTieredPrice</a></code>
@@ -125,7 +124,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">SubscriptionTrialInfo</a></code>
 - <code><a href="./src/resources/shared.ts">TaxAmount</a></code>
 - <code><a href="./src/resources/shared.ts">Tier</a></code>
-- <code><a href="./src/resources/shared.ts">TierConfig</a></code>
 - <code><a href="./src/resources/shared.ts">TierSubLineItem</a></code>
 - <code><a href="./src/resources/shared.ts">TieredConfig</a></code>
 - <code><a href="./src/resources/shared.ts">TieredConversionRateConfig</a></code>
@@ -467,7 +465,6 @@ Types:
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionScalableMatrixWithTieredPricingPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionScalableMatrixWithUnitPricingPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionThresholdTotalAmountPrice</a></code>
-- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTierWithProrationPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTieredPackagePrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTieredPackageWithMinimumPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTieredPrice</a></code>

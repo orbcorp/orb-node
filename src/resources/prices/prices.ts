@@ -255,31 +255,31 @@ export namespace PriceEvaluatePreviewEventsResponse {
 
 export type PriceCreateParams =
   | PriceCreateParams.NewFloatingUnitPrice
-  | PriceCreateParams.NewFloatingPackagePrice
-  | PriceCreateParams.NewFloatingMatrixPrice
-  | PriceCreateParams.NewFloatingMatrixWithAllocationPrice
   | PriceCreateParams.NewFloatingTieredPrice
   | PriceCreateParams.NewFloatingBulkPrice
+  | PriceCreateParams.NewFloatingPackagePrice
+  | PriceCreateParams.NewFloatingMatrixPrice
   | PriceCreateParams.NewFloatingThresholdTotalAmountPrice
   | PriceCreateParams.NewFloatingTieredPackagePrice
-  | PriceCreateParams.NewFloatingGroupedTieredPrice
-  | PriceCreateParams.NewFloatingMaxGroupTieredPackagePrice
   | PriceCreateParams.NewFloatingTieredWithMinimumPrice
-  | PriceCreateParams.NewFloatingPackageWithAllocationPrice
+  | PriceCreateParams.NewFloatingGroupedTieredPrice
   | PriceCreateParams.NewFloatingTieredPackageWithMinimumPrice
+  | PriceCreateParams.NewFloatingPackageWithAllocationPrice
   | PriceCreateParams.NewFloatingUnitWithPercentPrice
+  | PriceCreateParams.NewFloatingMatrixWithAllocationPrice
   | PriceCreateParams.NewFloatingTieredWithProrationPrice
   | PriceCreateParams.NewFloatingUnitWithProrationPrice
   | PriceCreateParams.NewFloatingGroupedAllocationPrice
+  | PriceCreateParams.NewFloatingBulkWithProrationPrice
   | PriceCreateParams.NewFloatingGroupedWithProratedMinimumPrice
   | PriceCreateParams.NewFloatingGroupedWithMeteredMinimumPrice
+  | PriceCreateParams.NewFloatingGroupedWithMinMaxThresholdsPrice
   | PriceCreateParams.NewFloatingMatrixWithDisplayNamePrice
-  | PriceCreateParams.NewFloatingBulkWithProrationPrice
   | PriceCreateParams.NewFloatingGroupedTieredPackagePrice
+  | PriceCreateParams.NewFloatingMaxGroupTieredPackagePrice
   | PriceCreateParams.NewFloatingScalableMatrixWithUnitPricingPrice
   | PriceCreateParams.NewFloatingScalableMatrixWithTieredPricingPrice
   | PriceCreateParams.NewFloatingCumulativeGroupedBulkPrice
-  | PriceCreateParams.NewFloatingGroupedWithMinMaxThresholdsPrice
   | PriceCreateParams.NewFloatingMinimumCompositePrice;
 
 export declare namespace PriceCreateParams {
@@ -299,6 +299,9 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'unit';
 
     /**
@@ -306,7 +309,198 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
+    /**
+     * Configuration for unit pricing
+     */
     unit_config: Shared.UnitConfig;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: { [key: string]: string | null } | null;
+  }
+
+  export interface NewFloatingTieredPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'tiered';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * Configuration for tiered pricing
+     */
+    tiered_config: Shared.TieredConfig;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: { [key: string]: string | null } | null;
+  }
+
+  export interface NewFloatingBulkPrice {
+    /**
+     * Configuration for bulk pricing
+     */
+    bulk_config: Shared.BulkConfig;
+
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'bulk';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -387,6 +581,9 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'package';
 
     /**
@@ -394,6 +591,9 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
+    /**
+     * Configuration for package pricing
+     */
     package_config: Shared.PackageConfig;
 
     /**
@@ -475,273 +675,15 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
+    /**
+     * Configuration for matrix pricing
+     */
     matrix_config: Shared.MatrixConfig;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'matrix';
-
-    /**
-     * The name of the price.
-     */
-    name: string;
-
-    /**
-     * The id of the billable metric for the price. Only needed if the price is
-     * usage-based.
-     */
-    billable_metric_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, the price will be billed in-advance if
-     * this is true, and in-arrears if this is false.
-     */
-    billed_in_advance?: boolean | null;
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * The per unit conversion rate of the price currency to the invoicing currency.
-     */
-    conversion_rate?: number | null;
-
-    /**
-     * The configuration for the rate of the price currency to the invoicing currency.
-     */
-    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    /**
-     * For dimensional price: specifies a price group and dimension values
-     */
-    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
-
-    /**
-     * An alias for the price.
-     */
-    external_price_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, this represents the quantity of units
-     * applied.
-     */
-    fixed_price_quantity?: number | null;
-
-    /**
-     * The property used to group this price on an invoice
-     */
-    invoice_grouping_key?: string | null;
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * User-specified key/value pairs for the resource. Individual keys can be removed
-     * by setting the value to `null`, and the entire metadata mapping can be cleared
-     * by setting `metadata` to `null`.
-     */
-    metadata?: { [key: string]: string | null } | null;
-  }
-
-  export interface NewFloatingMatrixWithAllocationPrice {
-    /**
-     * The cadence to bill for this price on.
-     */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-    /**
-     * An ISO 4217 currency string for which this price is billed in.
-     */
-    currency: string;
-
-    /**
-     * The id of the item the price will be associated with.
-     */
-    item_id: string;
-
-    matrix_with_allocation_config: Shared.MatrixWithAllocationConfig;
-
-    model_type: 'matrix_with_allocation';
-
-    /**
-     * The name of the price.
-     */
-    name: string;
-
-    /**
-     * The id of the billable metric for the price. Only needed if the price is
-     * usage-based.
-     */
-    billable_metric_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, the price will be billed in-advance if
-     * this is true, and in-arrears if this is false.
-     */
-    billed_in_advance?: boolean | null;
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * The per unit conversion rate of the price currency to the invoicing currency.
-     */
-    conversion_rate?: number | null;
-
-    /**
-     * The configuration for the rate of the price currency to the invoicing currency.
-     */
-    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    /**
-     * For dimensional price: specifies a price group and dimension values
-     */
-    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
-
-    /**
-     * An alias for the price.
-     */
-    external_price_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, this represents the quantity of units
-     * applied.
-     */
-    fixed_price_quantity?: number | null;
-
-    /**
-     * The property used to group this price on an invoice
-     */
-    invoice_grouping_key?: string | null;
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * User-specified key/value pairs for the resource. Individual keys can be removed
-     * by setting the value to `null`, and the entire metadata mapping can be cleared
-     * by setting `metadata` to `null`.
-     */
-    metadata?: { [key: string]: string | null } | null;
-  }
-
-  export interface NewFloatingTieredPrice {
-    /**
-     * The cadence to bill for this price on.
-     */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-    /**
-     * An ISO 4217 currency string for which this price is billed in.
-     */
-    currency: string;
-
-    /**
-     * The id of the item the price will be associated with.
-     */
-    item_id: string;
-
-    model_type: 'tiered';
-
-    /**
-     * The name of the price.
-     */
-    name: string;
-
-    tiered_config: Shared.TieredConfig;
-
-    /**
-     * The id of the billable metric for the price. Only needed if the price is
-     * usage-based.
-     */
-    billable_metric_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, the price will be billed in-advance if
-     * this is true, and in-arrears if this is false.
-     */
-    billed_in_advance?: boolean | null;
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * The per unit conversion rate of the price currency to the invoicing currency.
-     */
-    conversion_rate?: number | null;
-
-    /**
-     * The configuration for the rate of the price currency to the invoicing currency.
-     */
-    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    /**
-     * For dimensional price: specifies a price group and dimension values
-     */
-    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
-
-    /**
-     * An alias for the price.
-     */
-    external_price_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, this represents the quantity of units
-     * applied.
-     */
-    fixed_price_quantity?: number | null;
-
-    /**
-     * The property used to group this price on an invoice
-     */
-    invoice_grouping_key?: string | null;
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * User-specified key/value pairs for the resource. Individual keys can be removed
-     * by setting the value to `null`, and the entire metadata mapping can be cleared
-     * by setting `metadata` to `null`.
-     */
-    metadata?: { [key: string]: string | null } | null;
-  }
-
-  export interface NewFloatingBulkPrice {
-    bulk_config: Shared.BulkConfig;
-
-    /**
-     * The cadence to bill for this price on.
-     */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-    /**
-     * An ISO 4217 currency string for which this price is billed in.
-     */
-    currency: string;
-
-    /**
-     * The id of the item the price will be associated with.
-     */
-    item_id: string;
-
-    model_type: 'bulk';
 
     /**
      * The name of the price.
@@ -827,6 +769,9 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'threshold_total_amount';
 
     /**
@@ -834,7 +779,10 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    threshold_total_amount_config: { [key: string]: unknown };
+    /**
+     * Configuration for threshold_total_amount pricing
+     */
+    threshold_total_amount_config: NewFloatingThresholdTotalAmountPrice.ThresholdTotalAmountConfig;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -897,6 +845,41 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: { [key: string]: string | null } | null;
+  }
+
+  export namespace NewFloatingThresholdTotalAmountPrice {
+    /**
+     * Configuration for threshold_total_amount pricing
+     */
+    export interface ThresholdTotalAmountConfig {
+      /**
+       * When the quantity consumed passes a provided threshold, the configured total
+       * will be charged
+       */
+      consumption_table: Array<ThresholdTotalAmountConfig.ConsumptionTable>;
+
+      /**
+       * If true, the unit price will be prorated to the billing period
+       */
+      prorate?: boolean | null;
+    }
+
+    export namespace ThresholdTotalAmountConfig {
+      /**
+       * Configuration for a single threshold
+       */
+      export interface ConsumptionTable {
+        /**
+         * Quantity threshold
+         */
+        threshold: string;
+
+        /**
+         * Total amount for this threshold
+         */
+        total_amount: string;
+      }
+    }
   }
 
   export interface NewFloatingTieredPackagePrice {
@@ -915,6 +898,9 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'tiered_package';
 
     /**
@@ -922,7 +908,10 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_package_config: { [key: string]: unknown };
+    /**
+     * Configuration for tiered_package pricing
+     */
+    tiered_package_config: NewFloatingTieredPackagePrice.TieredPackageConfig;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -987,6 +976,180 @@ export declare namespace PriceCreateParams {
     metadata?: { [key: string]: string | null } | null;
   }
 
+  export namespace NewFloatingTieredPackagePrice {
+    /**
+     * Configuration for tiered_package pricing
+     */
+    export interface TieredPackageConfig {
+      /**
+       * Package size
+       */
+      package_size: string;
+
+      /**
+       * Apply tiered pricing after rounding up the quantity to the package size. Tiers
+       * are defined using exclusive lower bounds.
+       */
+      tiers: Array<TieredPackageConfig.Tier>;
+    }
+
+    export namespace TieredPackageConfig {
+      /**
+       * Configuration for a single tier with business logic
+       */
+      export interface Tier {
+        /**
+         * Price per package
+         */
+        per_unit: string;
+
+        /**
+         * Tier lower bound
+         */
+        tier_lower_bound: string;
+      }
+    }
+  }
+
+  export interface NewFloatingTieredWithMinimumPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'tiered_with_minimum';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * Configuration for tiered_with_minimum pricing
+     */
+    tiered_with_minimum_config: NewFloatingTieredWithMinimumPrice.TieredWithMinimumConfig;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: { [key: string]: string | null } | null;
+  }
+
+  export namespace NewFloatingTieredWithMinimumPrice {
+    /**
+     * Configuration for tiered_with_minimum pricing
+     */
+    export interface TieredWithMinimumConfig {
+      /**
+       * Tiered pricing with a minimum amount dependent on the volume tier. Tiers are
+       * defined using exclusive lower bounds.
+       */
+      tiers: Array<TieredWithMinimumConfig.Tier>;
+
+      /**
+       * If true, tiers with an accrued amount of 0 will not be included in the rating.
+       */
+      hide_zero_amount_tiers?: boolean;
+
+      /**
+       * If true, the unit price will be prorated to the billing period
+       */
+      prorate?: boolean;
+    }
+
+    export namespace TieredWithMinimumConfig {
+      /**
+       * Configuration for a single tier
+       */
+      export interface Tier {
+        /**
+         * Minimum amount
+         */
+        minimum_amount: string;
+
+        /**
+         * Tier lower bound
+         */
+        tier_lower_bound: string;
+
+        /**
+         * Per unit amount
+         */
+        unit_amount: string;
+      }
+    }
+  }
+
   export interface NewFloatingGroupedTieredPrice {
     /**
      * The cadence to bill for this price on.
@@ -998,13 +1161,19 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_tiered_config: { [key: string]: unknown };
+    /**
+     * Configuration for grouped_tiered pricing
+     */
+    grouped_tiered_config: NewFloatingGroupedTieredPrice.GroupedTieredConfig;
 
     /**
      * The id of the item the price will be associated with.
      */
     item_id: string;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'grouped_tiered';
 
     /**
@@ -1075,268 +1244,39 @@ export declare namespace PriceCreateParams {
     metadata?: { [key: string]: string | null } | null;
   }
 
-  export interface NewFloatingMaxGroupTieredPackagePrice {
+  export namespace NewFloatingGroupedTieredPrice {
     /**
-     * The cadence to bill for this price on.
+     * Configuration for grouped_tiered pricing
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+    export interface GroupedTieredConfig {
+      /**
+       * The billable metric property used to group before tiering
+       */
+      grouping_key: string;
 
-    /**
-     * An ISO 4217 currency string for which this price is billed in.
-     */
-    currency: string;
+      /**
+       * Apply tiered pricing to each segment generated after grouping with the provided
+       * key
+       */
+      tiers: Array<GroupedTieredConfig.Tier>;
+    }
 
-    /**
-     * The id of the item the price will be associated with.
-     */
-    item_id: string;
+    export namespace GroupedTieredConfig {
+      /**
+       * Configuration for a single tier
+       */
+      export interface Tier {
+        /**
+         * Tier lower bound
+         */
+        tier_lower_bound: string;
 
-    max_group_tiered_package_config: { [key: string]: unknown };
-
-    model_type: 'max_group_tiered_package';
-
-    /**
-     * The name of the price.
-     */
-    name: string;
-
-    /**
-     * The id of the billable metric for the price. Only needed if the price is
-     * usage-based.
-     */
-    billable_metric_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, the price will be billed in-advance if
-     * this is true, and in-arrears if this is false.
-     */
-    billed_in_advance?: boolean | null;
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * The per unit conversion rate of the price currency to the invoicing currency.
-     */
-    conversion_rate?: number | null;
-
-    /**
-     * The configuration for the rate of the price currency to the invoicing currency.
-     */
-    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    /**
-     * For dimensional price: specifies a price group and dimension values
-     */
-    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
-
-    /**
-     * An alias for the price.
-     */
-    external_price_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, this represents the quantity of units
-     * applied.
-     */
-    fixed_price_quantity?: number | null;
-
-    /**
-     * The property used to group this price on an invoice
-     */
-    invoice_grouping_key?: string | null;
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * User-specified key/value pairs for the resource. Individual keys can be removed
-     * by setting the value to `null`, and the entire metadata mapping can be cleared
-     * by setting `metadata` to `null`.
-     */
-    metadata?: { [key: string]: string | null } | null;
-  }
-
-  export interface NewFloatingTieredWithMinimumPrice {
-    /**
-     * The cadence to bill for this price on.
-     */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-    /**
-     * An ISO 4217 currency string for which this price is billed in.
-     */
-    currency: string;
-
-    /**
-     * The id of the item the price will be associated with.
-     */
-    item_id: string;
-
-    model_type: 'tiered_with_minimum';
-
-    /**
-     * The name of the price.
-     */
-    name: string;
-
-    tiered_with_minimum_config: { [key: string]: unknown };
-
-    /**
-     * The id of the billable metric for the price. Only needed if the price is
-     * usage-based.
-     */
-    billable_metric_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, the price will be billed in-advance if
-     * this is true, and in-arrears if this is false.
-     */
-    billed_in_advance?: boolean | null;
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * The per unit conversion rate of the price currency to the invoicing currency.
-     */
-    conversion_rate?: number | null;
-
-    /**
-     * The configuration for the rate of the price currency to the invoicing currency.
-     */
-    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    /**
-     * For dimensional price: specifies a price group and dimension values
-     */
-    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
-
-    /**
-     * An alias for the price.
-     */
-    external_price_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, this represents the quantity of units
-     * applied.
-     */
-    fixed_price_quantity?: number | null;
-
-    /**
-     * The property used to group this price on an invoice
-     */
-    invoice_grouping_key?: string | null;
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * User-specified key/value pairs for the resource. Individual keys can be removed
-     * by setting the value to `null`, and the entire metadata mapping can be cleared
-     * by setting `metadata` to `null`.
-     */
-    metadata?: { [key: string]: string | null } | null;
-  }
-
-  export interface NewFloatingPackageWithAllocationPrice {
-    /**
-     * The cadence to bill for this price on.
-     */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-    /**
-     * An ISO 4217 currency string for which this price is billed in.
-     */
-    currency: string;
-
-    /**
-     * The id of the item the price will be associated with.
-     */
-    item_id: string;
-
-    model_type: 'package_with_allocation';
-
-    /**
-     * The name of the price.
-     */
-    name: string;
-
-    package_with_allocation_config: { [key: string]: unknown };
-
-    /**
-     * The id of the billable metric for the price. Only needed if the price is
-     * usage-based.
-     */
-    billable_metric_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, the price will be billed in-advance if
-     * this is true, and in-arrears if this is false.
-     */
-    billed_in_advance?: boolean | null;
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * The per unit conversion rate of the price currency to the invoicing currency.
-     */
-    conversion_rate?: number | null;
-
-    /**
-     * The configuration for the rate of the price currency to the invoicing currency.
-     */
-    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    /**
-     * For dimensional price: specifies a price group and dimension values
-     */
-    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
-
-    /**
-     * An alias for the price.
-     */
-    external_price_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, this represents the quantity of units
-     * applied.
-     */
-    fixed_price_quantity?: number | null;
-
-    /**
-     * The property used to group this price on an invoice
-     */
-    invoice_grouping_key?: string | null;
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * User-specified key/value pairs for the resource. Individual keys can be removed
-     * by setting the value to `null`, and the entire metadata mapping can be cleared
-     * by setting `metadata` to `null`.
-     */
-    metadata?: { [key: string]: string | null } | null;
+        /**
+         * Per unit amount
+         */
+        unit_amount: string;
+      }
+    }
   }
 
   export interface NewFloatingTieredPackageWithMinimumPrice {
@@ -1355,6 +1295,9 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'tiered_package_with_minimum';
 
     /**
@@ -1362,7 +1305,10 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_package_with_minimum_config: { [key: string]: unknown };
+    /**
+     * Configuration for tiered_package_with_minimum pricing
+     */
+    tiered_package_with_minimum_config: NewFloatingTieredPackageWithMinimumPrice.TieredPackageWithMinimumConfig;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1427,6 +1373,162 @@ export declare namespace PriceCreateParams {
     metadata?: { [key: string]: string | null } | null;
   }
 
+  export namespace NewFloatingTieredPackageWithMinimumPrice {
+    /**
+     * Configuration for tiered_package_with_minimum pricing
+     */
+    export interface TieredPackageWithMinimumConfig {
+      /**
+       * Package size
+       */
+      package_size: number;
+
+      /**
+       * Apply tiered pricing after rounding up the quantity to the package size. Tiers
+       * are defined using exclusive lower bounds.
+       */
+      tiers: Array<TieredPackageWithMinimumConfig.Tier>;
+    }
+
+    export namespace TieredPackageWithMinimumConfig {
+      /**
+       * Configuration for a single tier
+       */
+      export interface Tier {
+        /**
+         * Minimum amount
+         */
+        minimum_amount: string;
+
+        /**
+         * Price per package
+         */
+        per_unit: string;
+
+        /**
+         * Tier lower bound
+         */
+        tier_lower_bound: string;
+      }
+    }
+  }
+
+  export interface NewFloatingPackageWithAllocationPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'package_with_allocation';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * Configuration for package_with_allocation pricing
+     */
+    package_with_allocation_config: NewFloatingPackageWithAllocationPrice.PackageWithAllocationConfig;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: { [key: string]: string | null } | null;
+  }
+
+  export namespace NewFloatingPackageWithAllocationPrice {
+    /**
+     * Configuration for package_with_allocation pricing
+     */
+    export interface PackageWithAllocationConfig {
+      /**
+       * Usage allocation
+       */
+      allocation: string;
+
+      /**
+       * Price per package
+       */
+      package_amount: string;
+
+      /**
+       * Package size
+       */
+      package_size: string;
+    }
+  }
+
   export interface NewFloatingUnitWithPercentPrice {
     /**
      * The cadence to bill for this price on.
@@ -1443,6 +1545,9 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'unit_with_percent';
 
     /**
@@ -1450,7 +1555,121 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    unit_with_percent_config: { [key: string]: unknown };
+    /**
+     * Configuration for unit_with_percent pricing
+     */
+    unit_with_percent_config: NewFloatingUnitWithPercentPrice.UnitWithPercentConfig;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: { [key: string]: string | null } | null;
+  }
+
+  export namespace NewFloatingUnitWithPercentPrice {
+    /**
+     * Configuration for unit_with_percent pricing
+     */
+    export interface UnitWithPercentConfig {
+      /**
+       * What percent, out of 100, of the calculated total to charge
+       */
+      percent: string;
+
+      /**
+       * Rate per unit of usage
+       */
+      unit_amount: string;
+    }
+  }
+
+  export interface NewFloatingMatrixWithAllocationPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    /**
+     * Configuration for matrix_with_allocation pricing
+     */
+    matrix_with_allocation_config: Shared.MatrixWithAllocationConfig;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'matrix_with_allocation';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1531,6 +1750,9 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'tiered_with_proration';
 
     /**
@@ -1538,7 +1760,10 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    tiered_with_proration_config: { [key: string]: unknown };
+    /**
+     * Configuration for tiered_with_proration pricing
+     */
+    tiered_with_proration_config: NewFloatingTieredWithProrationPrice.TieredWithProrationConfig;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1601,6 +1826,36 @@ export declare namespace PriceCreateParams {
      * by setting `metadata` to `null`.
      */
     metadata?: { [key: string]: string | null } | null;
+  }
+
+  export namespace NewFloatingTieredWithProrationPrice {
+    /**
+     * Configuration for tiered_with_proration pricing
+     */
+    export interface TieredWithProrationConfig {
+      /**
+       * Tiers for rating based on total usage quantities into the specified tier with
+       * proration
+       */
+      tiers: Array<TieredWithProrationConfig.Tier>;
+    }
+
+    export namespace TieredWithProrationConfig {
+      /**
+       * Configuration for a single tiered with proration tier
+       */
+      export interface Tier {
+        /**
+         * Inclusive tier starting value
+         */
+        tier_lower_bound: string;
+
+        /**
+         * Amount per unit
+         */
+        unit_amount: string;
+      }
+    }
   }
 
   export interface NewFloatingUnitWithProrationPrice {
@@ -1619,6 +1874,9 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'unit_with_proration';
 
     /**
@@ -1626,7 +1884,10 @@ export declare namespace PriceCreateParams {
      */
     name: string;
 
-    unit_with_proration_config: { [key: string]: unknown };
+    /**
+     * Configuration for unit_with_proration pricing
+     */
+    unit_with_proration_config: NewFloatingUnitWithProrationPrice.UnitWithProrationConfig;
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -1691,6 +1952,18 @@ export declare namespace PriceCreateParams {
     metadata?: { [key: string]: string | null } | null;
   }
 
+  export namespace NewFloatingUnitWithProrationPrice {
+    /**
+     * Configuration for unit_with_proration pricing
+     */
+    export interface UnitWithProrationConfig {
+      /**
+       * Rate per unit of usage
+       */
+      unit_amount: string;
+    }
+  }
+
   export interface NewFloatingGroupedAllocationPrice {
     /**
      * The cadence to bill for this price on.
@@ -1702,13 +1975,19 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_allocation_config: { [key: string]: unknown };
+    /**
+     * Configuration for grouped_allocation pricing
+     */
+    grouped_allocation_config: NewFloatingGroupedAllocationPrice.GroupedAllocationConfig;
 
     /**
      * The id of the item the price will be associated with.
      */
     item_id: string;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'grouped_allocation';
 
     /**
@@ -1779,272 +2058,33 @@ export declare namespace PriceCreateParams {
     metadata?: { [key: string]: string | null } | null;
   }
 
-  export interface NewFloatingGroupedWithProratedMinimumPrice {
+  export namespace NewFloatingGroupedAllocationPrice {
     /**
-     * The cadence to bill for this price on.
+     * Configuration for grouped_allocation pricing
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+    export interface GroupedAllocationConfig {
+      /**
+       * Usage allocation per group
+       */
+      allocation: string;
 
-    /**
-     * An ISO 4217 currency string for which this price is billed in.
-     */
-    currency: string;
+      /**
+       * How to determine the groups that should each be allocated some quantity
+       */
+      grouping_key: string;
 
-    grouped_with_prorated_minimum_config: { [key: string]: unknown };
-
-    /**
-     * The id of the item the price will be associated with.
-     */
-    item_id: string;
-
-    model_type: 'grouped_with_prorated_minimum';
-
-    /**
-     * The name of the price.
-     */
-    name: string;
-
-    /**
-     * The id of the billable metric for the price. Only needed if the price is
-     * usage-based.
-     */
-    billable_metric_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, the price will be billed in-advance if
-     * this is true, and in-arrears if this is false.
-     */
-    billed_in_advance?: boolean | null;
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * The per unit conversion rate of the price currency to the invoicing currency.
-     */
-    conversion_rate?: number | null;
-
-    /**
-     * The configuration for the rate of the price currency to the invoicing currency.
-     */
-    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    /**
-     * For dimensional price: specifies a price group and dimension values
-     */
-    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
-
-    /**
-     * An alias for the price.
-     */
-    external_price_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, this represents the quantity of units
-     * applied.
-     */
-    fixed_price_quantity?: number | null;
-
-    /**
-     * The property used to group this price on an invoice
-     */
-    invoice_grouping_key?: string | null;
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * User-specified key/value pairs for the resource. Individual keys can be removed
-     * by setting the value to `null`, and the entire metadata mapping can be cleared
-     * by setting `metadata` to `null`.
-     */
-    metadata?: { [key: string]: string | null } | null;
-  }
-
-  export interface NewFloatingGroupedWithMeteredMinimumPrice {
-    /**
-     * The cadence to bill for this price on.
-     */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-    /**
-     * An ISO 4217 currency string for which this price is billed in.
-     */
-    currency: string;
-
-    grouped_with_metered_minimum_config: { [key: string]: unknown };
-
-    /**
-     * The id of the item the price will be associated with.
-     */
-    item_id: string;
-
-    model_type: 'grouped_with_metered_minimum';
-
-    /**
-     * The name of the price.
-     */
-    name: string;
-
-    /**
-     * The id of the billable metric for the price. Only needed if the price is
-     * usage-based.
-     */
-    billable_metric_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, the price will be billed in-advance if
-     * this is true, and in-arrears if this is false.
-     */
-    billed_in_advance?: boolean | null;
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * The per unit conversion rate of the price currency to the invoicing currency.
-     */
-    conversion_rate?: number | null;
-
-    /**
-     * The configuration for the rate of the price currency to the invoicing currency.
-     */
-    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    /**
-     * For dimensional price: specifies a price group and dimension values
-     */
-    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
-
-    /**
-     * An alias for the price.
-     */
-    external_price_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, this represents the quantity of units
-     * applied.
-     */
-    fixed_price_quantity?: number | null;
-
-    /**
-     * The property used to group this price on an invoice
-     */
-    invoice_grouping_key?: string | null;
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * User-specified key/value pairs for the resource. Individual keys can be removed
-     * by setting the value to `null`, and the entire metadata mapping can be cleared
-     * by setting `metadata` to `null`.
-     */
-    metadata?: { [key: string]: string | null } | null;
-  }
-
-  export interface NewFloatingMatrixWithDisplayNamePrice {
-    /**
-     * The cadence to bill for this price on.
-     */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-    /**
-     * An ISO 4217 currency string for which this price is billed in.
-     */
-    currency: string;
-
-    /**
-     * The id of the item the price will be associated with.
-     */
-    item_id: string;
-
-    matrix_with_display_name_config: { [key: string]: unknown };
-
-    model_type: 'matrix_with_display_name';
-
-    /**
-     * The name of the price.
-     */
-    name: string;
-
-    /**
-     * The id of the billable metric for the price. Only needed if the price is
-     * usage-based.
-     */
-    billable_metric_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, the price will be billed in-advance if
-     * this is true, and in-arrears if this is false.
-     */
-    billed_in_advance?: boolean | null;
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * The per unit conversion rate of the price currency to the invoicing currency.
-     */
-    conversion_rate?: number | null;
-
-    /**
-     * The configuration for the rate of the price currency to the invoicing currency.
-     */
-    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    /**
-     * For dimensional price: specifies a price group and dimension values
-     */
-    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
-
-    /**
-     * An alias for the price.
-     */
-    external_price_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, this represents the quantity of units
-     * applied.
-     */
-    fixed_price_quantity?: number | null;
-
-    /**
-     * The property used to group this price on an invoice
-     */
-    invoice_grouping_key?: string | null;
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * User-specified key/value pairs for the resource. Individual keys can be removed
-     * by setting the value to `null`, and the entire metadata mapping can be cleared
-     * by setting `metadata` to `null`.
-     */
-    metadata?: { [key: string]: string | null } | null;
+      /**
+       * Unit rate for post-allocation
+       */
+      overage_unit_rate: string;
+    }
   }
 
   export interface NewFloatingBulkWithProrationPrice {
-    bulk_with_proration_config: { [key: string]: unknown };
+    /**
+     * Configuration for bulk_with_proration pricing
+     */
+    bulk_with_proration_config: NewFloatingBulkWithProrationPrice.BulkWithProrationConfig;
 
     /**
      * The cadence to bill for this price on.
@@ -2061,6 +2101,9 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'bulk_with_proration';
 
     /**
@@ -2131,7 +2174,36 @@ export declare namespace PriceCreateParams {
     metadata?: { [key: string]: string | null } | null;
   }
 
-  export interface NewFloatingGroupedTieredPackagePrice {
+  export namespace NewFloatingBulkWithProrationPrice {
+    /**
+     * Configuration for bulk_with_proration pricing
+     */
+    export interface BulkWithProrationConfig {
+      /**
+       * Bulk tiers for rating based on total usage volume
+       */
+      tiers: Array<BulkWithProrationConfig.Tier>;
+    }
+
+    export namespace BulkWithProrationConfig {
+      /**
+       * Configuration for a single bulk pricing tier with proration
+       */
+      export interface Tier {
+        /**
+         * Cost per unit
+         */
+        unit_amount: string;
+
+        /**
+         * The lower bound for this tier
+         */
+        tier_lower_bound?: string | null;
+      }
+    }
+  }
+
+  export interface NewFloatingGroupedWithProratedMinimumPrice {
     /**
      * The cadence to bill for this price on.
      */
@@ -2142,14 +2214,20 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_tiered_package_config: { [key: string]: unknown };
+    /**
+     * Configuration for grouped_with_prorated_minimum pricing
+     */
+    grouped_with_prorated_minimum_config: NewFloatingGroupedWithProratedMinimumPrice.GroupedWithProratedMinimumConfig;
 
     /**
      * The id of the item the price will be associated with.
      */
     item_id: string;
 
-    model_type: 'grouped_tiered_package';
+    /**
+     * The pricing model type
+     */
+    model_type: 'grouped_with_prorated_minimum';
 
     /**
      * The name of the price.
@@ -2219,7 +2297,29 @@ export declare namespace PriceCreateParams {
     metadata?: { [key: string]: string | null } | null;
   }
 
-  export interface NewFloatingScalableMatrixWithUnitPricingPrice {
+  export namespace NewFloatingGroupedWithProratedMinimumPrice {
+    /**
+     * Configuration for grouped_with_prorated_minimum pricing
+     */
+    export interface GroupedWithProratedMinimumConfig {
+      /**
+       * How to determine the groups that should each have a minimum
+       */
+      grouping_key: string;
+
+      /**
+       * The minimum amount to charge per group
+       */
+      minimum: string;
+
+      /**
+       * The amount to charge per unit
+       */
+      unit_rate: string;
+    }
+  }
+
+  export interface NewFloatingGroupedWithMeteredMinimumPrice {
     /**
      * The cadence to bill for this price on.
      */
@@ -2231,18 +2331,24 @@ export declare namespace PriceCreateParams {
     currency: string;
 
     /**
+     * Configuration for grouped_with_metered_minimum pricing
+     */
+    grouped_with_metered_minimum_config: NewFloatingGroupedWithMeteredMinimumPrice.GroupedWithMeteredMinimumConfig;
+
+    /**
      * The id of the item the price will be associated with.
      */
     item_id: string;
 
-    model_type: 'scalable_matrix_with_unit_pricing';
+    /**
+     * The pricing model type
+     */
+    model_type: 'grouped_with_metered_minimum';
 
     /**
      * The name of the price.
      */
     name: string;
-
-    scalable_matrix_with_unit_pricing_config: { [key: string]: unknown };
 
     /**
      * The id of the billable metric for the price. Only needed if the price is
@@ -2307,180 +2413,75 @@ export declare namespace PriceCreateParams {
     metadata?: { [key: string]: string | null } | null;
   }
 
-  export interface NewFloatingScalableMatrixWithTieredPricingPrice {
+  export namespace NewFloatingGroupedWithMeteredMinimumPrice {
     /**
-     * The cadence to bill for this price on.
+     * Configuration for grouped_with_metered_minimum pricing
      */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+    export interface GroupedWithMeteredMinimumConfig {
+      /**
+       * Used to partition the usage into groups. The minimum amount is applied to each
+       * group.
+       */
+      grouping_key: string;
 
-    /**
-     * An ISO 4217 currency string for which this price is billed in.
-     */
-    currency: string;
+      /**
+       * The minimum amount to charge per group per unit
+       */
+      minimum_unit_amount: string;
 
-    /**
-     * The id of the item the price will be associated with.
-     */
-    item_id: string;
+      /**
+       * Used to determine the unit rate
+       */
+      pricing_key: string;
 
-    model_type: 'scalable_matrix_with_tiered_pricing';
+      /**
+       * Scale the unit rates by the scaling factor.
+       */
+      scaling_factors: Array<GroupedWithMeteredMinimumConfig.ScalingFactor>;
 
-    /**
-     * The name of the price.
-     */
-    name: string;
+      /**
+       * Used to determine the unit rate scaling factor
+       */
+      scaling_key: string;
 
-    scalable_matrix_with_tiered_pricing_config: { [key: string]: unknown };
+      /**
+       * Apply per unit pricing to each pricing value. The minimum amount is applied any
+       * unmatched usage.
+       */
+      unit_amounts: Array<GroupedWithMeteredMinimumConfig.UnitAmount>;
+    }
 
-    /**
-     * The id of the billable metric for the price. Only needed if the price is
-     * usage-based.
-     */
-    billable_metric_id?: string | null;
+    export namespace GroupedWithMeteredMinimumConfig {
+      /**
+       * Configuration for a scaling factor
+       */
+      export interface ScalingFactor {
+        /**
+         * Scaling factor
+         */
+        scaling_factor: string;
 
-    /**
-     * If the Price represents a fixed cost, the price will be billed in-advance if
-     * this is true, and in-arrears if this is false.
-     */
-    billed_in_advance?: boolean | null;
+        /**
+         * Scaling value
+         */
+        scaling_value: string;
+      }
 
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+      /**
+       * Configuration for a unit amount
+       */
+      export interface UnitAmount {
+        /**
+         * Pricing value
+         */
+        pricing_value: string;
 
-    /**
-     * The per unit conversion rate of the price currency to the invoicing currency.
-     */
-    conversion_rate?: number | null;
-
-    /**
-     * The configuration for the rate of the price currency to the invoicing currency.
-     */
-    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    /**
-     * For dimensional price: specifies a price group and dimension values
-     */
-    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
-
-    /**
-     * An alias for the price.
-     */
-    external_price_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, this represents the quantity of units
-     * applied.
-     */
-    fixed_price_quantity?: number | null;
-
-    /**
-     * The property used to group this price on an invoice
-     */
-    invoice_grouping_key?: string | null;
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * User-specified key/value pairs for the resource. Individual keys can be removed
-     * by setting the value to `null`, and the entire metadata mapping can be cleared
-     * by setting `metadata` to `null`.
-     */
-    metadata?: { [key: string]: string | null } | null;
-  }
-
-  export interface NewFloatingCumulativeGroupedBulkPrice {
-    /**
-     * The cadence to bill for this price on.
-     */
-    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-    cumulative_grouped_bulk_config: { [key: string]: unknown };
-
-    /**
-     * An ISO 4217 currency string for which this price is billed in.
-     */
-    currency: string;
-
-    /**
-     * The id of the item the price will be associated with.
-     */
-    item_id: string;
-
-    model_type: 'cumulative_grouped_bulk';
-
-    /**
-     * The name of the price.
-     */
-    name: string;
-
-    /**
-     * The id of the billable metric for the price. Only needed if the price is
-     * usage-based.
-     */
-    billable_metric_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, the price will be billed in-advance if
-     * this is true, and in-arrears if this is false.
-     */
-    billed_in_advance?: boolean | null;
-
-    /**
-     * For custom cadence: specifies the duration of the billing period in days or
-     * months.
-     */
-    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * The per unit conversion rate of the price currency to the invoicing currency.
-     */
-    conversion_rate?: number | null;
-
-    /**
-     * The configuration for the rate of the price currency to the invoicing currency.
-     */
-    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-    /**
-     * For dimensional price: specifies a price group and dimension values
-     */
-    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
-
-    /**
-     * An alias for the price.
-     */
-    external_price_id?: string | null;
-
-    /**
-     * If the Price represents a fixed cost, this represents the quantity of units
-     * applied.
-     */
-    fixed_price_quantity?: number | null;
-
-    /**
-     * The property used to group this price on an invoice
-     */
-    invoice_grouping_key?: string | null;
-
-    /**
-     * Within each billing cycle, specifies the cadence at which invoices are produced.
-     * If unspecified, a single invoice is produced per billing cycle.
-     */
-    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-    /**
-     * User-specified key/value pairs for the resource. Individual keys can be removed
-     * by setting the value to `null`, and the entire metadata mapping can be cleared
-     * by setting `metadata` to `null`.
-     */
-    metadata?: { [key: string]: string | null } | null;
+        /**
+         * Per unit amount
+         */
+        unit_amount: string;
+      }
+    }
   }
 
   export interface NewFloatingGroupedWithMinMaxThresholdsPrice {
@@ -2494,13 +2495,19 @@ export declare namespace PriceCreateParams {
      */
     currency: string;
 
-    grouped_with_min_max_thresholds_config: { [key: string]: unknown };
+    /**
+     * Configuration for grouped_with_min_max_thresholds pricing
+     */
+    grouped_with_min_max_thresholds_config: NewFloatingGroupedWithMinMaxThresholdsPrice.GroupedWithMinMaxThresholdsConfig;
 
     /**
      * The id of the item the price will be associated with.
      */
     item_id: string;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'grouped_with_min_max_thresholds';
 
     /**
@@ -2571,6 +2578,872 @@ export declare namespace PriceCreateParams {
     metadata?: { [key: string]: string | null } | null;
   }
 
+  export namespace NewFloatingGroupedWithMinMaxThresholdsPrice {
+    /**
+     * Configuration for grouped_with_min_max_thresholds pricing
+     */
+    export interface GroupedWithMinMaxThresholdsConfig {
+      /**
+       * The event property used to group before applying thresholds
+       */
+      grouping_key: string;
+
+      /**
+       * The maximum amount to charge each group
+       */
+      maximum_charge: string;
+
+      /**
+       * The minimum amount to charge each group, regardless of usage
+       */
+      minimum_charge: string;
+
+      /**
+       * The base price charged per group
+       */
+      per_unit_rate: string;
+    }
+  }
+
+  export interface NewFloatingMatrixWithDisplayNamePrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    /**
+     * Configuration for matrix_with_display_name pricing
+     */
+    matrix_with_display_name_config: NewFloatingMatrixWithDisplayNamePrice.MatrixWithDisplayNameConfig;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'matrix_with_display_name';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: { [key: string]: string | null } | null;
+  }
+
+  export namespace NewFloatingMatrixWithDisplayNamePrice {
+    /**
+     * Configuration for matrix_with_display_name pricing
+     */
+    export interface MatrixWithDisplayNameConfig {
+      /**
+       * Used to determine the unit rate
+       */
+      dimension: string;
+
+      /**
+       * Apply per unit pricing to each dimension value
+       */
+      unit_amounts: Array<MatrixWithDisplayNameConfig.UnitAmount>;
+    }
+
+    export namespace MatrixWithDisplayNameConfig {
+      /**
+       * Configuration for a unit amount item
+       */
+      export interface UnitAmount {
+        /**
+         * The dimension value
+         */
+        dimension_value: string;
+
+        /**
+         * Display name for this dimension value
+         */
+        display_name: string;
+
+        /**
+         * Per unit amount
+         */
+        unit_amount: string;
+      }
+    }
+  }
+
+  export interface NewFloatingGroupedTieredPackagePrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * Configuration for grouped_tiered_package pricing
+     */
+    grouped_tiered_package_config: NewFloatingGroupedTieredPackagePrice.GroupedTieredPackageConfig;
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'grouped_tiered_package';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: { [key: string]: string | null } | null;
+  }
+
+  export namespace NewFloatingGroupedTieredPackagePrice {
+    /**
+     * Configuration for grouped_tiered_package pricing
+     */
+    export interface GroupedTieredPackageConfig {
+      /**
+       * The event property used to group before tiering
+       */
+      grouping_key: string;
+
+      /**
+       * Package size
+       */
+      package_size: string;
+
+      /**
+       * Apply tiered pricing after rounding up the quantity to the package size. Tiers
+       * are defined using exclusive lower bounds.
+       */
+      tiers: Array<GroupedTieredPackageConfig.Tier>;
+    }
+
+    export namespace GroupedTieredPackageConfig {
+      /**
+       * Configuration for a single tier
+       */
+      export interface Tier {
+        /**
+         * Price per package
+         */
+        per_unit: string;
+
+        /**
+         * Tier lower bound
+         */
+        tier_lower_bound: string;
+      }
+    }
+  }
+
+  export interface NewFloatingMaxGroupTieredPackagePrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    /**
+     * Configuration for max_group_tiered_package pricing
+     */
+    max_group_tiered_package_config: NewFloatingMaxGroupTieredPackagePrice.MaxGroupTieredPackageConfig;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'max_group_tiered_package';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: { [key: string]: string | null } | null;
+  }
+
+  export namespace NewFloatingMaxGroupTieredPackagePrice {
+    /**
+     * Configuration for max_group_tiered_package pricing
+     */
+    export interface MaxGroupTieredPackageConfig {
+      /**
+       * The event property used to group before tiering the group with the highest value
+       */
+      grouping_key: string;
+
+      /**
+       * Package size
+       */
+      package_size: string;
+
+      /**
+       * Apply tiered pricing to the largest group after grouping with the provided key.
+       */
+      tiers: Array<MaxGroupTieredPackageConfig.Tier>;
+    }
+
+    export namespace MaxGroupTieredPackageConfig {
+      /**
+       * Configuration for a single tier
+       */
+      export interface Tier {
+        /**
+         * Tier lower bound
+         */
+        tier_lower_bound: string;
+
+        /**
+         * Per unit amount
+         */
+        unit_amount: string;
+      }
+    }
+  }
+
+  export interface NewFloatingScalableMatrixWithUnitPricingPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'scalable_matrix_with_unit_pricing';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * Configuration for scalable_matrix_with_unit_pricing pricing
+     */
+    scalable_matrix_with_unit_pricing_config: NewFloatingScalableMatrixWithUnitPricingPrice.ScalableMatrixWithUnitPricingConfig;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: { [key: string]: string | null } | null;
+  }
+
+  export namespace NewFloatingScalableMatrixWithUnitPricingPrice {
+    /**
+     * Configuration for scalable_matrix_with_unit_pricing pricing
+     */
+    export interface ScalableMatrixWithUnitPricingConfig {
+      /**
+       * Used to determine the unit rate
+       */
+      first_dimension: string;
+
+      /**
+       * Apply a scaling factor to each dimension
+       */
+      matrix_scaling_factors: Array<ScalableMatrixWithUnitPricingConfig.MatrixScalingFactor>;
+
+      /**
+       * The final unit price to rate against the output of the matrix
+       */
+      unit_price: string;
+
+      /**
+       * If true, the unit price will be prorated to the billing period
+       */
+      prorate?: boolean | null;
+
+      /**
+       * Used to determine the unit rate (optional)
+       */
+      second_dimension?: string | null;
+    }
+
+    export namespace ScalableMatrixWithUnitPricingConfig {
+      /**
+       * Configuration for a single matrix scaling factor
+       */
+      export interface MatrixScalingFactor {
+        /**
+         * First dimension value
+         */
+        first_dimension_value: string;
+
+        /**
+         * Scaling factor
+         */
+        scaling_factor: string;
+
+        /**
+         * Second dimension value (optional)
+         */
+        second_dimension_value?: string | null;
+      }
+    }
+  }
+
+  export interface NewFloatingScalableMatrixWithTieredPricingPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'scalable_matrix_with_tiered_pricing';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * Configuration for scalable_matrix_with_tiered_pricing pricing
+     */
+    scalable_matrix_with_tiered_pricing_config: NewFloatingScalableMatrixWithTieredPricingPrice.ScalableMatrixWithTieredPricingConfig;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: { [key: string]: string | null } | null;
+  }
+
+  export namespace NewFloatingScalableMatrixWithTieredPricingPrice {
+    /**
+     * Configuration for scalable_matrix_with_tiered_pricing pricing
+     */
+    export interface ScalableMatrixWithTieredPricingConfig {
+      /**
+       * Used for the scalable matrix first dimension
+       */
+      first_dimension: string;
+
+      /**
+       * Apply a scaling factor to each dimension
+       */
+      matrix_scaling_factors: Array<ScalableMatrixWithTieredPricingConfig.MatrixScalingFactor>;
+
+      /**
+       * Tier pricing structure
+       */
+      tiers: Array<ScalableMatrixWithTieredPricingConfig.Tier>;
+
+      /**
+       * Used for the scalable matrix second dimension (optional)
+       */
+      second_dimension?: string | null;
+    }
+
+    export namespace ScalableMatrixWithTieredPricingConfig {
+      /**
+       * Configuration for a single matrix scaling factor
+       */
+      export interface MatrixScalingFactor {
+        /**
+         * First dimension value
+         */
+        first_dimension_value: string;
+
+        /**
+         * Scaling factor
+         */
+        scaling_factor: string;
+
+        /**
+         * Second dimension value (optional)
+         */
+        second_dimension_value?: string | null;
+      }
+
+      /**
+       * Configuration for a single tier entry with business logic
+       */
+      export interface Tier {
+        /**
+         * Tier lower bound
+         */
+        tier_lower_bound: string;
+
+        /**
+         * Per unit amount
+         */
+        unit_amount: string;
+      }
+    }
+  }
+
+  export interface NewFloatingCumulativeGroupedBulkPrice {
+    /**
+     * The cadence to bill for this price on.
+     */
+    cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+    /**
+     * Configuration for cumulative_grouped_bulk pricing
+     */
+    cumulative_grouped_bulk_config: NewFloatingCumulativeGroupedBulkPrice.CumulativeGroupedBulkConfig;
+
+    /**
+     * An ISO 4217 currency string for which this price is billed in.
+     */
+    currency: string;
+
+    /**
+     * The id of the item the price will be associated with.
+     */
+    item_id: string;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'cumulative_grouped_bulk';
+
+    /**
+     * The name of the price.
+     */
+    name: string;
+
+    /**
+     * The id of the billable metric for the price. Only needed if the price is
+     * usage-based.
+     */
+    billable_metric_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, the price will be billed in-advance if
+     * this is true, and in-arrears if this is false.
+     */
+    billed_in_advance?: boolean | null;
+
+    /**
+     * For custom cadence: specifies the duration of the billing period in days or
+     * months.
+     */
+    billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * The per unit conversion rate of the price currency to the invoicing currency.
+     */
+    conversion_rate?: number | null;
+
+    /**
+     * The configuration for the rate of the price currency to the invoicing currency.
+     */
+    conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    /**
+     * For dimensional price: specifies a price group and dimension values
+     */
+    dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+    /**
+     * An alias for the price.
+     */
+    external_price_id?: string | null;
+
+    /**
+     * If the Price represents a fixed cost, this represents the quantity of units
+     * applied.
+     */
+    fixed_price_quantity?: number | null;
+
+    /**
+     * The property used to group this price on an invoice
+     */
+    invoice_grouping_key?: string | null;
+
+    /**
+     * Within each billing cycle, specifies the cadence at which invoices are produced.
+     * If unspecified, a single invoice is produced per billing cycle.
+     */
+    invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+    /**
+     * User-specified key/value pairs for the resource. Individual keys can be removed
+     * by setting the value to `null`, and the entire metadata mapping can be cleared
+     * by setting `metadata` to `null`.
+     */
+    metadata?: { [key: string]: string | null } | null;
+  }
+
+  export namespace NewFloatingCumulativeGroupedBulkPrice {
+    /**
+     * Configuration for cumulative_grouped_bulk pricing
+     */
+    export interface CumulativeGroupedBulkConfig {
+      /**
+       * Each tier lower bound must have the same group of values.
+       */
+      dimension_values: Array<CumulativeGroupedBulkConfig.DimensionValue>;
+
+      /**
+       * Grouping key name
+       */
+      group: string;
+    }
+
+    export namespace CumulativeGroupedBulkConfig {
+      /**
+       * Configuration for a dimension value entry
+       */
+      export interface DimensionValue {
+        /**
+         * Grouping key value
+         */
+        grouping_key: string;
+
+        /**
+         * Tier lower bound
+         */
+        tier_lower_bound: string;
+
+        /**
+         * Unit amount for this combination
+         */
+        unit_amount: string;
+      }
+    }
+  }
+
   export interface NewFloatingMinimumCompositePrice {
     /**
      * The cadence to bill for this price on.
@@ -2587,8 +3460,14 @@ export declare namespace PriceCreateParams {
      */
     item_id: string;
 
+    /**
+     * Configuration for minimum pricing
+     */
     minimum_config: NewFloatingMinimumCompositePrice.MinimumConfig;
 
+    /**
+     * The pricing model type
+     */
     model_type: 'minimum';
 
     /**
@@ -2660,6 +3539,9 @@ export declare namespace PriceCreateParams {
   }
 
   export namespace NewFloatingMinimumCompositePrice {
+    /**
+     * Configuration for minimum pricing
+     */
     export interface MinimumConfig {
       /**
        * The minimum amount to apply
@@ -2667,10 +3549,9 @@ export declare namespace PriceCreateParams {
       minimum_amount: string;
 
       /**
-       * By default, subtotals from minimum composite prices are prorated based on the
-       * service period. Set to false to disable proration.
+       * If true, subtotals from this price are prorated based on the service period
        */
-      prorated?: boolean | null;
+      prorated?: boolean;
     }
   }
 }
@@ -2771,36 +3652,35 @@ export namespace PriceEvaluateMultipleParams {
     grouping_keys?: Array<string>;
 
     /**
-     * An inline price definition to evaluate, allowing you to test price
-     * configurations before adding them to Orb.
+     * New floating price request body params.
      */
     price?:
       | Shared.NewFloatingUnitPrice
-      | Shared.NewFloatingPackagePrice
-      | Shared.NewFloatingMatrixPrice
-      | Shared.NewFloatingMatrixWithAllocationPrice
       | Shared.NewFloatingTieredPrice
       | Shared.NewFloatingBulkPrice
+      | Shared.NewFloatingPackagePrice
+      | Shared.NewFloatingMatrixPrice
       | Shared.NewFloatingThresholdTotalAmountPrice
       | Shared.NewFloatingTieredPackagePrice
-      | Shared.NewFloatingGroupedTieredPrice
-      | Shared.NewFloatingMaxGroupTieredPackagePrice
       | Shared.NewFloatingTieredWithMinimumPrice
-      | Shared.NewFloatingPackageWithAllocationPrice
+      | Shared.NewFloatingGroupedTieredPrice
       | Shared.NewFloatingTieredPackageWithMinimumPrice
+      | Shared.NewFloatingPackageWithAllocationPrice
       | Shared.NewFloatingUnitWithPercentPrice
+      | Shared.NewFloatingMatrixWithAllocationPrice
       | Shared.NewFloatingTieredWithProrationPrice
       | Shared.NewFloatingUnitWithProrationPrice
       | Shared.NewFloatingGroupedAllocationPrice
+      | Shared.NewFloatingBulkWithProrationPrice
       | Shared.NewFloatingGroupedWithProratedMinimumPrice
       | Shared.NewFloatingGroupedWithMeteredMinimumPrice
+      | PriceEvaluation.NewFloatingGroupedWithMinMaxThresholdsPrice
       | Shared.NewFloatingMatrixWithDisplayNamePrice
-      | Shared.NewFloatingBulkWithProrationPrice
       | Shared.NewFloatingGroupedTieredPackagePrice
+      | Shared.NewFloatingMaxGroupTieredPackagePrice
       | Shared.NewFloatingScalableMatrixWithUnitPricingPrice
       | Shared.NewFloatingScalableMatrixWithTieredPricingPrice
       | Shared.NewFloatingCumulativeGroupedBulkPrice
-      | PriceEvaluation.NewFloatingGroupedWithMinMaxThresholdsPrice
       | Shared.NewFloatingMinimumCompositePrice
       | null;
 
@@ -2822,13 +3702,19 @@ export namespace PriceEvaluateMultipleParams {
        */
       currency: string;
 
-      grouped_with_min_max_thresholds_config: { [key: string]: unknown };
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      grouped_with_min_max_thresholds_config: NewFloatingGroupedWithMinMaxThresholdsPrice.GroupedWithMinMaxThresholdsConfig;
 
       /**
        * The id of the item the price will be associated with.
        */
       item_id: string;
 
+      /**
+       * The pricing model type
+       */
       model_type: 'grouped_with_min_max_thresholds';
 
       /**
@@ -2897,6 +3783,33 @@ export namespace PriceEvaluateMultipleParams {
        * by setting `metadata` to `null`.
        */
       metadata?: { [key: string]: string | null } | null;
+    }
+
+    export namespace NewFloatingGroupedWithMinMaxThresholdsPrice {
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      export interface GroupedWithMinMaxThresholdsConfig {
+        /**
+         * The event property used to group before applying thresholds
+         */
+        grouping_key: string;
+
+        /**
+         * The maximum amount to charge each group
+         */
+        maximum_charge: string;
+
+        /**
+         * The minimum amount to charge each group, regardless of usage
+         */
+        minimum_charge: string;
+
+        /**
+         * The base price charged per group
+         */
+        per_unit_rate: string;
+      }
     }
   }
 }
@@ -2986,36 +3899,35 @@ export namespace PriceEvaluatePreviewEventsParams {
     grouping_keys?: Array<string>;
 
     /**
-     * An inline price definition to evaluate, allowing you to test price
-     * configurations before adding them to Orb.
+     * New floating price request body params.
      */
     price?:
       | Shared.NewFloatingUnitPrice
-      | Shared.NewFloatingPackagePrice
-      | Shared.NewFloatingMatrixPrice
-      | Shared.NewFloatingMatrixWithAllocationPrice
       | Shared.NewFloatingTieredPrice
       | Shared.NewFloatingBulkPrice
+      | Shared.NewFloatingPackagePrice
+      | Shared.NewFloatingMatrixPrice
       | Shared.NewFloatingThresholdTotalAmountPrice
       | Shared.NewFloatingTieredPackagePrice
-      | Shared.NewFloatingGroupedTieredPrice
-      | Shared.NewFloatingMaxGroupTieredPackagePrice
       | Shared.NewFloatingTieredWithMinimumPrice
-      | Shared.NewFloatingPackageWithAllocationPrice
+      | Shared.NewFloatingGroupedTieredPrice
       | Shared.NewFloatingTieredPackageWithMinimumPrice
+      | Shared.NewFloatingPackageWithAllocationPrice
       | Shared.NewFloatingUnitWithPercentPrice
+      | Shared.NewFloatingMatrixWithAllocationPrice
       | Shared.NewFloatingTieredWithProrationPrice
       | Shared.NewFloatingUnitWithProrationPrice
       | Shared.NewFloatingGroupedAllocationPrice
+      | Shared.NewFloatingBulkWithProrationPrice
       | Shared.NewFloatingGroupedWithProratedMinimumPrice
       | Shared.NewFloatingGroupedWithMeteredMinimumPrice
+      | PriceEvaluation.NewFloatingGroupedWithMinMaxThresholdsPrice
       | Shared.NewFloatingMatrixWithDisplayNamePrice
-      | Shared.NewFloatingBulkWithProrationPrice
       | Shared.NewFloatingGroupedTieredPackagePrice
+      | Shared.NewFloatingMaxGroupTieredPackagePrice
       | Shared.NewFloatingScalableMatrixWithUnitPricingPrice
       | Shared.NewFloatingScalableMatrixWithTieredPricingPrice
       | Shared.NewFloatingCumulativeGroupedBulkPrice
-      | PriceEvaluation.NewFloatingGroupedWithMinMaxThresholdsPrice
       | Shared.NewFloatingMinimumCompositePrice
       | null;
 
@@ -3037,13 +3949,19 @@ export namespace PriceEvaluatePreviewEventsParams {
        */
       currency: string;
 
-      grouped_with_min_max_thresholds_config: { [key: string]: unknown };
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      grouped_with_min_max_thresholds_config: NewFloatingGroupedWithMinMaxThresholdsPrice.GroupedWithMinMaxThresholdsConfig;
 
       /**
        * The id of the item the price will be associated with.
        */
       item_id: string;
 
+      /**
+       * The pricing model type
+       */
       model_type: 'grouped_with_min_max_thresholds';
 
       /**
@@ -3112,6 +4030,33 @@ export namespace PriceEvaluatePreviewEventsParams {
        * by setting `metadata` to `null`.
        */
       metadata?: { [key: string]: string | null } | null;
+    }
+
+    export namespace NewFloatingGroupedWithMinMaxThresholdsPrice {
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      export interface GroupedWithMinMaxThresholdsConfig {
+        /**
+         * The event property used to group before applying thresholds
+         */
+        grouping_key: string;
+
+        /**
+         * The maximum amount to charge each group
+         */
+        maximum_charge: string;
+
+        /**
+         * The minimum amount to charge each group, regardless of usage
+         */
+        minimum_charge: string;
+
+        /**
+         * The base price charged per group
+         */
+        per_unit_rate: string;
+      }
     }
   }
 }

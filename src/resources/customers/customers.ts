@@ -554,7 +554,8 @@ export interface CustomerCreateParams {
 
   /**
    * Additional email addresses for this customer. If populated, these email
-   * addresses will be CC'd for customer communications.
+   * addresses will be CC'd for customer communications. The total number of email
+   * addresses (including the primary email) cannot exceed 50.
    */
   additional_emails?: Array<string> | null;
 
@@ -619,7 +620,12 @@ export interface CustomerCreateParams {
 
   shipping_address?: AddressInput | null;
 
-  tax_configuration?: NewAvalaraTaxConfiguration | NewTaxJarConfiguration | NewSphereConfiguration | null;
+  tax_configuration?:
+    | NewAvalaraTaxConfiguration
+    | NewTaxJarConfiguration
+    | NewSphereConfiguration
+    | CustomerCreateParams.NewNumeralConfiguration
+    | null;
 
   /**
    * Tax IDs are commonly required to be displayed on customer invoices, which are
@@ -777,12 +783,21 @@ export interface CustomerCreateParams {
   timezone?: string | null;
 }
 
+export namespace CustomerCreateParams {
+  export interface NewNumeralConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'numeral';
+  }
+}
+
 export interface CustomerUpdateParams {
   accounting_sync_configuration?: NewAccountingSyncConfiguration | null;
 
   /**
    * Additional email addresses for this customer. If populated, these email
-   * addresses will be CC'd for customer communications.
+   * addresses will be CC'd for customer communications. The total number of email
+   * addresses (including the primary email) cannot exceed 50.
    */
   additional_emails?: Array<string> | null;
 
@@ -863,7 +878,12 @@ export interface CustomerUpdateParams {
 
   shipping_address?: AddressInput | null;
 
-  tax_configuration?: NewAvalaraTaxConfiguration | NewTaxJarConfiguration | NewSphereConfiguration | null;
+  tax_configuration?:
+    | NewAvalaraTaxConfiguration
+    | NewTaxJarConfiguration
+    | NewSphereConfiguration
+    | CustomerUpdateParams.NewNumeralConfiguration
+    | null;
 
   /**
    * Tax IDs are commonly required to be displayed on customer invoices, which are
@@ -1012,6 +1032,14 @@ export interface CustomerUpdateParams {
    * | Zimbabwe               | `zw_tin`     | Zimbabwe Tax Identification Number                                                                      |
    */
   tax_id?: Shared.CustomerTaxID | null;
+}
+
+export namespace CustomerUpdateParams {
+  export interface NewNumeralConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'numeral';
+  }
 }
 
 export interface CustomerListParams extends PageParams {
@@ -1029,7 +1057,8 @@ export interface CustomerUpdateByExternalIDParams {
 
   /**
    * Additional email addresses for this customer. If populated, these email
-   * addresses will be CC'd for customer communications.
+   * addresses will be CC'd for customer communications. The total number of email
+   * addresses (including the primary email) cannot exceed 50.
    */
   additional_emails?: Array<string> | null;
 
@@ -1110,7 +1139,12 @@ export interface CustomerUpdateByExternalIDParams {
 
   shipping_address?: AddressInput | null;
 
-  tax_configuration?: NewAvalaraTaxConfiguration | NewTaxJarConfiguration | NewSphereConfiguration | null;
+  tax_configuration?:
+    | NewAvalaraTaxConfiguration
+    | NewTaxJarConfiguration
+    | NewSphereConfiguration
+    | CustomerUpdateByExternalIDParams.NewNumeralConfiguration
+    | null;
 
   /**
    * Tax IDs are commonly required to be displayed on customer invoices, which are
@@ -1259,6 +1293,14 @@ export interface CustomerUpdateByExternalIDParams {
    * | Zimbabwe               | `zw_tin`     | Zimbabwe Tax Identification Number                                                                      |
    */
   tax_id?: Shared.CustomerTaxID | null;
+}
+
+export namespace CustomerUpdateByExternalIDParams {
+  export interface NewNumeralConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'numeral';
+  }
 }
 
 Customers.CustomersPage = CustomersPage;

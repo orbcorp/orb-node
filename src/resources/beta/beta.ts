@@ -181,53 +181,190 @@ export namespace BetaCreatePlanVersionParams {
     plan_phase_order?: number | null;
 
     /**
-     * The price to add to the plan
+     * New plan price request body params.
      */
     price?:
       | Shared.NewPlanUnitPrice
-      | Shared.NewPlanPackagePrice
-      | Shared.NewPlanMatrixPrice
       | Shared.NewPlanTieredPrice
       | Shared.NewPlanBulkPrice
+      | Shared.NewPlanPackagePrice
+      | Shared.NewPlanMatrixPrice
       | Shared.NewPlanThresholdTotalAmountPrice
       | Shared.NewPlanTieredPackagePrice
       | Shared.NewPlanTieredWithMinimumPrice
-      | Shared.NewPlanUnitWithPercentPrice
+      | Shared.NewPlanGroupedTieredPrice
+      | Shared.NewPlanTieredPackageWithMinimumPrice
       | Shared.NewPlanPackageWithAllocationPrice
-      | Shared.NewPlanTierWithProrationPrice
+      | Shared.NewPlanUnitWithPercentPrice
+      | Shared.NewPlanMatrixWithAllocationPrice
+      | AddPrice.NewPlanTieredWithProrationPrice
       | Shared.NewPlanUnitWithProrationPrice
       | Shared.NewPlanGroupedAllocationPrice
+      | Shared.NewPlanBulkWithProrationPrice
       | Shared.NewPlanGroupedWithProratedMinimumPrice
       | Shared.NewPlanGroupedWithMeteredMinimumPrice
       | AddPrice.NewPlanGroupedWithMinMaxThresholdsPrice
       | Shared.NewPlanMatrixWithDisplayNamePrice
-      | Shared.NewPlanBulkWithProrationPrice
       | Shared.NewPlanGroupedTieredPackagePrice
       | Shared.NewPlanMaxGroupTieredPackagePrice
       | Shared.NewPlanScalableMatrixWithUnitPricingPrice
       | Shared.NewPlanScalableMatrixWithTieredPricingPrice
       | Shared.NewPlanCumulativeGroupedBulkPrice
-      | Shared.NewPlanTieredPackageWithMinimumPrice
-      | Shared.NewPlanMatrixWithAllocationPrice
-      | Shared.NewPlanGroupedTieredPrice
       | Shared.NewPlanMinimumCompositePrice
       | null;
   }
 
   export namespace AddPrice {
-    export interface NewPlanGroupedWithMinMaxThresholdsPrice {
+    export interface NewPlanTieredWithProrationPrice {
       /**
        * The cadence to bill for this price on.
        */
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-      grouped_with_min_max_thresholds_config: { [key: string]: unknown };
 
       /**
        * The id of the item the price will be associated with.
        */
       item_id: string;
 
+      /**
+       * The pricing model type
+       */
+      model_type: 'tiered_with_proration';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * Configuration for tiered_with_proration pricing
+       */
+      tiered_with_proration_config: NewPlanTieredWithProrationPrice.TieredWithProrationConfig;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewPlanTieredWithProrationPrice {
+      /**
+       * Configuration for tiered_with_proration pricing
+       */
+      export interface TieredWithProrationConfig {
+        /**
+         * Tiers for rating based on total usage quantities into the specified tier with
+         * proration
+         */
+        tiers: Array<TieredWithProrationConfig.Tier>;
+      }
+
+      export namespace TieredWithProrationConfig {
+        /**
+         * Configuration for a single tiered with proration tier
+         */
+        export interface Tier {
+          /**
+           * Inclusive tier starting value
+           */
+          tier_lower_bound: string;
+
+          /**
+           * Amount per unit
+           */
+          unit_amount: string;
+        }
+      }
+    }
+
+    export interface NewPlanGroupedWithMinMaxThresholdsPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      grouped_with_min_max_thresholds_config: NewPlanGroupedWithMinMaxThresholdsPrice.GroupedWithMinMaxThresholdsConfig;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
       model_type: 'grouped_with_min_max_thresholds';
 
       /**
@@ -309,6 +446,33 @@ export namespace BetaCreatePlanVersionParams {
        */
       reference_id?: string | null;
     }
+
+    export namespace NewPlanGroupedWithMinMaxThresholdsPrice {
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      export interface GroupedWithMinMaxThresholdsConfig {
+        /**
+         * The event property used to group before applying thresholds
+         */
+        grouping_key: string;
+
+        /**
+         * The maximum amount to charge each group
+         */
+        maximum_charge: string;
+
+        /**
+         * The minimum amount to charge each group, regardless of usage
+         */
+        minimum_charge: string;
+
+        /**
+         * The base price charged per group
+         */
+        per_unit_rate: string;
+      }
+    }
   }
 
   export interface RemoveAdjustment {
@@ -374,53 +538,190 @@ export namespace BetaCreatePlanVersionParams {
     plan_phase_order?: number | null;
 
     /**
-     * The price to add to the plan
+     * New plan price request body params.
      */
     price?:
       | Shared.NewPlanUnitPrice
-      | Shared.NewPlanPackagePrice
-      | Shared.NewPlanMatrixPrice
       | Shared.NewPlanTieredPrice
       | Shared.NewPlanBulkPrice
+      | Shared.NewPlanPackagePrice
+      | Shared.NewPlanMatrixPrice
       | Shared.NewPlanThresholdTotalAmountPrice
       | Shared.NewPlanTieredPackagePrice
       | Shared.NewPlanTieredWithMinimumPrice
-      | Shared.NewPlanUnitWithPercentPrice
+      | Shared.NewPlanGroupedTieredPrice
+      | Shared.NewPlanTieredPackageWithMinimumPrice
       | Shared.NewPlanPackageWithAllocationPrice
-      | Shared.NewPlanTierWithProrationPrice
+      | Shared.NewPlanUnitWithPercentPrice
+      | Shared.NewPlanMatrixWithAllocationPrice
+      | ReplacePrice.NewPlanTieredWithProrationPrice
       | Shared.NewPlanUnitWithProrationPrice
       | Shared.NewPlanGroupedAllocationPrice
+      | Shared.NewPlanBulkWithProrationPrice
       | Shared.NewPlanGroupedWithProratedMinimumPrice
       | Shared.NewPlanGroupedWithMeteredMinimumPrice
       | ReplacePrice.NewPlanGroupedWithMinMaxThresholdsPrice
       | Shared.NewPlanMatrixWithDisplayNamePrice
-      | Shared.NewPlanBulkWithProrationPrice
       | Shared.NewPlanGroupedTieredPackagePrice
       | Shared.NewPlanMaxGroupTieredPackagePrice
       | Shared.NewPlanScalableMatrixWithUnitPricingPrice
       | Shared.NewPlanScalableMatrixWithTieredPricingPrice
       | Shared.NewPlanCumulativeGroupedBulkPrice
-      | Shared.NewPlanTieredPackageWithMinimumPrice
-      | Shared.NewPlanMatrixWithAllocationPrice
-      | Shared.NewPlanGroupedTieredPrice
       | Shared.NewPlanMinimumCompositePrice
       | null;
   }
 
   export namespace ReplacePrice {
-    export interface NewPlanGroupedWithMinMaxThresholdsPrice {
+    export interface NewPlanTieredWithProrationPrice {
       /**
        * The cadence to bill for this price on.
        */
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-      grouped_with_min_max_thresholds_config: { [key: string]: unknown };
 
       /**
        * The id of the item the price will be associated with.
        */
       item_id: string;
 
+      /**
+       * The pricing model type
+       */
+      model_type: 'tiered_with_proration';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * Configuration for tiered_with_proration pricing
+       */
+      tiered_with_proration_config: NewPlanTieredWithProrationPrice.TieredWithProrationConfig;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewPlanTieredWithProrationPrice {
+      /**
+       * Configuration for tiered_with_proration pricing
+       */
+      export interface TieredWithProrationConfig {
+        /**
+         * Tiers for rating based on total usage quantities into the specified tier with
+         * proration
+         */
+        tiers: Array<TieredWithProrationConfig.Tier>;
+      }
+
+      export namespace TieredWithProrationConfig {
+        /**
+         * Configuration for a single tiered with proration tier
+         */
+        export interface Tier {
+          /**
+           * Inclusive tier starting value
+           */
+          tier_lower_bound: string;
+
+          /**
+           * Amount per unit
+           */
+          unit_amount: string;
+        }
+      }
+    }
+
+    export interface NewPlanGroupedWithMinMaxThresholdsPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      grouped_with_min_max_thresholds_config: NewPlanGroupedWithMinMaxThresholdsPrice.GroupedWithMinMaxThresholdsConfig;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
       model_type: 'grouped_with_min_max_thresholds';
 
       /**
@@ -501,6 +802,33 @@ export namespace BetaCreatePlanVersionParams {
        * in the same API call.
        */
       reference_id?: string | null;
+    }
+
+    export namespace NewPlanGroupedWithMinMaxThresholdsPrice {
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      export interface GroupedWithMinMaxThresholdsConfig {
+        /**
+         * The event property used to group before applying thresholds
+         */
+        grouping_key: string;
+
+        /**
+         * The maximum amount to charge each group
+         */
+        maximum_charge: string;
+
+        /**
+         * The minimum amount to charge each group, regardless of usage
+         */
+        minimum_charge: string;
+
+        /**
+         * The base price charged per group
+         */
+        per_unit_rate: string;
+      }
     }
   }
 }
