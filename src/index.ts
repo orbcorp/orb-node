@@ -81,7 +81,6 @@ import {
   NewSubscriptionScalableMatrixWithTieredPricingPrice,
   NewSubscriptionScalableMatrixWithUnitPricingPrice,
   NewSubscriptionThresholdTotalAmountPrice,
-  NewSubscriptionTierWithProrationPrice,
   NewSubscriptionTieredPackagePrice,
   NewSubscriptionTieredPackageWithMinimumPrice,
   NewSubscriptionTieredPrice,
@@ -549,7 +548,6 @@ export declare namespace Orb {
     type NewSubscriptionScalableMatrixWithTieredPricingPrice as NewSubscriptionScalableMatrixWithTieredPricingPrice,
     type NewSubscriptionScalableMatrixWithUnitPricingPrice as NewSubscriptionScalableMatrixWithUnitPricingPrice,
     type NewSubscriptionThresholdTotalAmountPrice as NewSubscriptionThresholdTotalAmountPrice,
-    type NewSubscriptionTierWithProrationPrice as NewSubscriptionTierWithProrationPrice,
     type NewSubscriptionTieredPackagePrice as NewSubscriptionTieredPackagePrice,
     type NewSubscriptionTieredPackageWithMinimumPrice as NewSubscriptionTieredPackageWithMinimumPrice,
     type NewSubscriptionTieredPrice as NewSubscriptionTieredPrice,
@@ -707,7 +705,6 @@ export declare namespace Orb {
   export type NewPlanScalableMatrixWithTieredPricingPrice = API.NewPlanScalableMatrixWithTieredPricingPrice;
   export type NewPlanScalableMatrixWithUnitPricingPrice = API.NewPlanScalableMatrixWithUnitPricingPrice;
   export type NewPlanThresholdTotalAmountPrice = API.NewPlanThresholdTotalAmountPrice;
-  export type NewPlanTierWithProrationPrice = API.NewPlanTierWithProrationPrice;
   export type NewPlanTieredPackagePrice = API.NewPlanTieredPackagePrice;
   export type NewPlanTieredPackageWithMinimumPrice = API.NewPlanTieredPackageWithMinimumPrice;
   export type NewPlanTieredPrice = API.NewPlanTieredPrice;
@@ -736,7 +733,6 @@ export declare namespace Orb {
   export type SubscriptionTrialInfo = API.SubscriptionTrialInfo;
   export type TaxAmount = API.TaxAmount;
   export type Tier = API.Tier;
-  export type TierConfig = API.TierConfig;
   export type TierSubLineItem = API.TierSubLineItem;
   export type TieredConfig = API.TieredConfig;
   export type TieredConversionRateConfig = API.TieredConversionRateConfig;

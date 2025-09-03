@@ -1093,6 +1093,9 @@ export interface DiscountOverride {
 }
 
 export interface NewSubscriptionBulkPrice {
+  /**
+   * Configuration for bulk pricing
+   */
   bulk_config: Shared.BulkConfig;
 
   /**
@@ -1105,6 +1108,9 @@ export interface NewSubscriptionBulkPrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'bulk';
 
   /**
@@ -1188,7 +1194,10 @@ export interface NewSubscriptionBulkPrice {
 }
 
 export interface NewSubscriptionBulkWithProrationPrice {
-  bulk_with_proration_config: { [key: string]: unknown };
+  /**
+   * Configuration for bulk_with_proration pricing
+   */
+  bulk_with_proration_config: NewSubscriptionBulkWithProrationPrice.BulkWithProrationConfig;
 
   /**
    * The cadence to bill for this price on.
@@ -1200,6 +1209,9 @@ export interface NewSubscriptionBulkWithProrationPrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'bulk_with_proration';
 
   /**
@@ -1282,19 +1294,54 @@ export interface NewSubscriptionBulkWithProrationPrice {
   reference_id?: string | null;
 }
 
+export namespace NewSubscriptionBulkWithProrationPrice {
+  /**
+   * Configuration for bulk_with_proration pricing
+   */
+  export interface BulkWithProrationConfig {
+    /**
+     * Bulk tiers for rating based on total usage volume
+     */
+    tiers: Array<BulkWithProrationConfig.Tier>;
+  }
+
+  export namespace BulkWithProrationConfig {
+    /**
+     * Configuration for a single bulk pricing tier with proration
+     */
+    export interface Tier {
+      /**
+       * Cost per unit
+       */
+      unit_amount: string;
+
+      /**
+       * The lower bound for this tier
+       */
+      tier_lower_bound?: string | null;
+    }
+  }
+}
+
 export interface NewSubscriptionCumulativeGroupedBulkPrice {
   /**
    * The cadence to bill for this price on.
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  cumulative_grouped_bulk_config: { [key: string]: unknown };
+  /**
+   * Configuration for cumulative_grouped_bulk pricing
+   */
+  cumulative_grouped_bulk_config: NewSubscriptionCumulativeGroupedBulkPrice.CumulativeGroupedBulkConfig;
 
   /**
    * The id of the item the price will be associated with.
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'cumulative_grouped_bulk';
 
   /**
@@ -1377,19 +1424,64 @@ export interface NewSubscriptionCumulativeGroupedBulkPrice {
   reference_id?: string | null;
 }
 
+export namespace NewSubscriptionCumulativeGroupedBulkPrice {
+  /**
+   * Configuration for cumulative_grouped_bulk pricing
+   */
+  export interface CumulativeGroupedBulkConfig {
+    /**
+     * Each tier lower bound must have the same group of values.
+     */
+    dimension_values: Array<CumulativeGroupedBulkConfig.DimensionValue>;
+
+    /**
+     * Grouping key name
+     */
+    group: string;
+  }
+
+  export namespace CumulativeGroupedBulkConfig {
+    /**
+     * Configuration for a dimension value entry
+     */
+    export interface DimensionValue {
+      /**
+       * Grouping key value
+       */
+      grouping_key: string;
+
+      /**
+       * Tier lower bound
+       */
+      tier_lower_bound: string;
+
+      /**
+       * Unit amount for this combination
+       */
+      unit_amount: string;
+    }
+  }
+}
+
 export interface NewSubscriptionGroupedAllocationPrice {
   /**
    * The cadence to bill for this price on.
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_allocation_config: { [key: string]: unknown };
+  /**
+   * Configuration for grouped_allocation pricing
+   */
+  grouped_allocation_config: NewSubscriptionGroupedAllocationPrice.GroupedAllocationConfig;
 
   /**
    * The id of the item the price will be associated with.
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'grouped_allocation';
 
   /**
@@ -1472,19 +1564,47 @@ export interface NewSubscriptionGroupedAllocationPrice {
   reference_id?: string | null;
 }
 
+export namespace NewSubscriptionGroupedAllocationPrice {
+  /**
+   * Configuration for grouped_allocation pricing
+   */
+  export interface GroupedAllocationConfig {
+    /**
+     * Usage allocation per group
+     */
+    allocation: string;
+
+    /**
+     * How to determine the groups that should each be allocated some quantity
+     */
+    grouping_key: string;
+
+    /**
+     * Unit rate for post-allocation
+     */
+    overage_unit_rate: string;
+  }
+}
+
 export interface NewSubscriptionGroupedTieredPackagePrice {
   /**
    * The cadence to bill for this price on.
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_tiered_package_config: { [key: string]: unknown };
+  /**
+   * Configuration for grouped_tiered_package pricing
+   */
+  grouped_tiered_package_config: NewSubscriptionGroupedTieredPackagePrice.GroupedTieredPackageConfig;
 
   /**
    * The id of the item the price will be associated with.
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'grouped_tiered_package';
 
   /**
@@ -1567,19 +1687,65 @@ export interface NewSubscriptionGroupedTieredPackagePrice {
   reference_id?: string | null;
 }
 
+export namespace NewSubscriptionGroupedTieredPackagePrice {
+  /**
+   * Configuration for grouped_tiered_package pricing
+   */
+  export interface GroupedTieredPackageConfig {
+    /**
+     * The event property used to group before tiering
+     */
+    grouping_key: string;
+
+    /**
+     * Package size
+     */
+    package_size: string;
+
+    /**
+     * Apply tiered pricing after rounding up the quantity to the package size. Tiers
+     * are defined using exclusive lower bounds.
+     */
+    tiers: Array<GroupedTieredPackageConfig.Tier>;
+  }
+
+  export namespace GroupedTieredPackageConfig {
+    /**
+     * Configuration for a single tier
+     */
+    export interface Tier {
+      /**
+       * Price per package
+       */
+      per_unit: string;
+
+      /**
+       * Tier lower bound
+       */
+      tier_lower_bound: string;
+    }
+  }
+}
+
 export interface NewSubscriptionGroupedTieredPrice {
   /**
    * The cadence to bill for this price on.
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_tiered_config: { [key: string]: unknown };
+  /**
+   * Configuration for grouped_tiered pricing
+   */
+  grouped_tiered_config: NewSubscriptionGroupedTieredPrice.GroupedTieredConfig;
 
   /**
    * The id of the item the price will be associated with.
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'grouped_tiered';
 
   /**
@@ -1662,19 +1828,60 @@ export interface NewSubscriptionGroupedTieredPrice {
   reference_id?: string | null;
 }
 
+export namespace NewSubscriptionGroupedTieredPrice {
+  /**
+   * Configuration for grouped_tiered pricing
+   */
+  export interface GroupedTieredConfig {
+    /**
+     * The billable metric property used to group before tiering
+     */
+    grouping_key: string;
+
+    /**
+     * Apply tiered pricing to each segment generated after grouping with the provided
+     * key
+     */
+    tiers: Array<GroupedTieredConfig.Tier>;
+  }
+
+  export namespace GroupedTieredConfig {
+    /**
+     * Configuration for a single tier
+     */
+    export interface Tier {
+      /**
+       * Tier lower bound
+       */
+      tier_lower_bound: string;
+
+      /**
+       * Per unit amount
+       */
+      unit_amount: string;
+    }
+  }
+}
+
 export interface NewSubscriptionGroupedWithMeteredMinimumPrice {
   /**
    * The cadence to bill for this price on.
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_with_metered_minimum_config: { [key: string]: unknown };
+  /**
+   * Configuration for grouped_with_metered_minimum pricing
+   */
+  grouped_with_metered_minimum_config: NewSubscriptionGroupedWithMeteredMinimumPrice.GroupedWithMeteredMinimumConfig;
 
   /**
    * The id of the item the price will be associated with.
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'grouped_with_metered_minimum';
 
   /**
@@ -1757,19 +1964,96 @@ export interface NewSubscriptionGroupedWithMeteredMinimumPrice {
   reference_id?: string | null;
 }
 
+export namespace NewSubscriptionGroupedWithMeteredMinimumPrice {
+  /**
+   * Configuration for grouped_with_metered_minimum pricing
+   */
+  export interface GroupedWithMeteredMinimumConfig {
+    /**
+     * Used to partition the usage into groups. The minimum amount is applied to each
+     * group.
+     */
+    grouping_key: string;
+
+    /**
+     * The minimum amount to charge per group per unit
+     */
+    minimum_unit_amount: string;
+
+    /**
+     * Used to determine the unit rate
+     */
+    pricing_key: string;
+
+    /**
+     * Scale the unit rates by the scaling factor.
+     */
+    scaling_factors: Array<GroupedWithMeteredMinimumConfig.ScalingFactor>;
+
+    /**
+     * Used to determine the unit rate scaling factor
+     */
+    scaling_key: string;
+
+    /**
+     * Apply per unit pricing to each pricing value. The minimum amount is applied any
+     * unmatched usage.
+     */
+    unit_amounts: Array<GroupedWithMeteredMinimumConfig.UnitAmount>;
+  }
+
+  export namespace GroupedWithMeteredMinimumConfig {
+    /**
+     * Configuration for a scaling factor
+     */
+    export interface ScalingFactor {
+      /**
+       * Scaling factor
+       */
+      scaling_factor: string;
+
+      /**
+       * Scaling value
+       */
+      scaling_value: string;
+    }
+
+    /**
+     * Configuration for a unit amount
+     */
+    export interface UnitAmount {
+      /**
+       * Pricing value
+       */
+      pricing_value: string;
+
+      /**
+       * Per unit amount
+       */
+      unit_amount: string;
+    }
+  }
+}
+
 export interface NewSubscriptionGroupedWithProratedMinimumPrice {
   /**
    * The cadence to bill for this price on.
    */
   cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
 
-  grouped_with_prorated_minimum_config: { [key: string]: unknown };
+  /**
+   * Configuration for grouped_with_prorated_minimum pricing
+   */
+  grouped_with_prorated_minimum_config: NewSubscriptionGroupedWithProratedMinimumPrice.GroupedWithProratedMinimumConfig;
 
   /**
    * The id of the item the price will be associated with.
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'grouped_with_prorated_minimum';
 
   /**
@@ -1852,6 +2136,28 @@ export interface NewSubscriptionGroupedWithProratedMinimumPrice {
   reference_id?: string | null;
 }
 
+export namespace NewSubscriptionGroupedWithProratedMinimumPrice {
+  /**
+   * Configuration for grouped_with_prorated_minimum pricing
+   */
+  export interface GroupedWithProratedMinimumConfig {
+    /**
+     * How to determine the groups that should each have a minimum
+     */
+    grouping_key: string;
+
+    /**
+     * The minimum amount to charge per group
+     */
+    minimum: string;
+
+    /**
+     * The amount to charge per unit
+     */
+    unit_rate: string;
+  }
+}
+
 export interface NewSubscriptionMatrixPrice {
   /**
    * The cadence to bill for this price on.
@@ -1863,8 +2169,14 @@ export interface NewSubscriptionMatrixPrice {
    */
   item_id: string;
 
+  /**
+   * Configuration for matrix pricing
+   */
   matrix_config: Shared.MatrixConfig;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'matrix';
 
   /**
@@ -1958,8 +2270,14 @@ export interface NewSubscriptionMatrixWithAllocationPrice {
    */
   item_id: string;
 
+  /**
+   * Configuration for matrix_with_allocation pricing
+   */
   matrix_with_allocation_config: Shared.MatrixWithAllocationConfig;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'matrix_with_allocation';
 
   /**
@@ -2053,8 +2371,14 @@ export interface NewSubscriptionMatrixWithDisplayNamePrice {
    */
   item_id: string;
 
-  matrix_with_display_name_config: { [key: string]: unknown };
+  /**
+   * Configuration for matrix_with_display_name pricing
+   */
+  matrix_with_display_name_config: NewSubscriptionMatrixWithDisplayNamePrice.MatrixWithDisplayNameConfig;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'matrix_with_display_name';
 
   /**
@@ -2137,6 +2461,45 @@ export interface NewSubscriptionMatrixWithDisplayNamePrice {
   reference_id?: string | null;
 }
 
+export namespace NewSubscriptionMatrixWithDisplayNamePrice {
+  /**
+   * Configuration for matrix_with_display_name pricing
+   */
+  export interface MatrixWithDisplayNameConfig {
+    /**
+     * Used to determine the unit rate
+     */
+    dimension: string;
+
+    /**
+     * Apply per unit pricing to each dimension value
+     */
+    unit_amounts: Array<MatrixWithDisplayNameConfig.UnitAmount>;
+  }
+
+  export namespace MatrixWithDisplayNameConfig {
+    /**
+     * Configuration for a unit amount item
+     */
+    export interface UnitAmount {
+      /**
+       * The dimension value
+       */
+      dimension_value: string;
+
+      /**
+       * Display name for this dimension value
+       */
+      display_name: string;
+
+      /**
+       * Per unit amount
+       */
+      unit_amount: string;
+    }
+  }
+}
+
 export interface NewSubscriptionMaxGroupTieredPackagePrice {
   /**
    * The cadence to bill for this price on.
@@ -2148,8 +2511,14 @@ export interface NewSubscriptionMaxGroupTieredPackagePrice {
    */
   item_id: string;
 
-  max_group_tiered_package_config: { [key: string]: unknown };
+  /**
+   * Configuration for max_group_tiered_package pricing
+   */
+  max_group_tiered_package_config: NewSubscriptionMaxGroupTieredPackagePrice.MaxGroupTieredPackageConfig;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'max_group_tiered_package';
 
   /**
@@ -2232,6 +2601,45 @@ export interface NewSubscriptionMaxGroupTieredPackagePrice {
   reference_id?: string | null;
 }
 
+export namespace NewSubscriptionMaxGroupTieredPackagePrice {
+  /**
+   * Configuration for max_group_tiered_package pricing
+   */
+  export interface MaxGroupTieredPackageConfig {
+    /**
+     * The event property used to group before tiering the group with the highest value
+     */
+    grouping_key: string;
+
+    /**
+     * Package size
+     */
+    package_size: string;
+
+    /**
+     * Apply tiered pricing to the largest group after grouping with the provided key.
+     */
+    tiers: Array<MaxGroupTieredPackageConfig.Tier>;
+  }
+
+  export namespace MaxGroupTieredPackageConfig {
+    /**
+     * Configuration for a single tier
+     */
+    export interface Tier {
+      /**
+       * Tier lower bound
+       */
+      tier_lower_bound: string;
+
+      /**
+       * Per unit amount
+       */
+      unit_amount: string;
+    }
+  }
+}
+
 export interface NewSubscriptionMinimumCompositePrice {
   /**
    * The cadence to bill for this price on.
@@ -2243,8 +2651,14 @@ export interface NewSubscriptionMinimumCompositePrice {
    */
   item_id: string;
 
+  /**
+   * Configuration for minimum pricing
+   */
   minimum_config: NewSubscriptionMinimumCompositePrice.MinimumConfig;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'minimum';
 
   /**
@@ -2328,6 +2742,9 @@ export interface NewSubscriptionMinimumCompositePrice {
 }
 
 export namespace NewSubscriptionMinimumCompositePrice {
+  /**
+   * Configuration for minimum pricing
+   */
   export interface MinimumConfig {
     /**
      * The minimum amount to apply
@@ -2335,10 +2752,9 @@ export namespace NewSubscriptionMinimumCompositePrice {
     minimum_amount: string;
 
     /**
-     * By default, subtotals from minimum composite prices are prorated based on the
-     * service period. Set to false to disable proration.
+     * If true, subtotals from this price are prorated based on the service period
      */
-    prorated?: boolean | null;
+    prorated?: boolean;
   }
 }
 
@@ -2353,6 +2769,9 @@ export interface NewSubscriptionPackagePrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'package';
 
   /**
@@ -2360,6 +2779,9 @@ export interface NewSubscriptionPackagePrice {
    */
   name: string;
 
+  /**
+   * Configuration for package pricing
+   */
   package_config: Shared.PackageConfig;
 
   /**
@@ -2448,6 +2870,9 @@ export interface NewSubscriptionPackageWithAllocationPrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'package_with_allocation';
 
   /**
@@ -2455,7 +2880,10 @@ export interface NewSubscriptionPackageWithAllocationPrice {
    */
   name: string;
 
-  package_with_allocation_config: { [key: string]: unknown };
+  /**
+   * Configuration for package_with_allocation pricing
+   */
+  package_with_allocation_config: NewSubscriptionPackageWithAllocationPrice.PackageWithAllocationConfig;
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -2530,6 +2958,28 @@ export interface NewSubscriptionPackageWithAllocationPrice {
    * in the same API call.
    */
   reference_id?: string | null;
+}
+
+export namespace NewSubscriptionPackageWithAllocationPrice {
+  /**
+   * Configuration for package_with_allocation pricing
+   */
+  export interface PackageWithAllocationConfig {
+    /**
+     * Usage allocation
+     */
+    allocation: string;
+
+    /**
+     * Price per package
+     */
+    package_amount: string;
+
+    /**
+     * Package size
+     */
+    package_size: string;
+  }
 }
 
 export interface NewSubscriptionScalableMatrixWithTieredPricingPrice {
@@ -2543,6 +2993,9 @@ export interface NewSubscriptionScalableMatrixWithTieredPricingPrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'scalable_matrix_with_tiered_pricing';
 
   /**
@@ -2550,7 +3003,10 @@ export interface NewSubscriptionScalableMatrixWithTieredPricingPrice {
    */
   name: string;
 
-  scalable_matrix_with_tiered_pricing_config: { [key: string]: unknown };
+  /**
+   * Configuration for scalable_matrix_with_tiered_pricing pricing
+   */
+  scalable_matrix_with_tiered_pricing_config: NewSubscriptionScalableMatrixWithTieredPricingPrice.ScalableMatrixWithTieredPricingConfig;
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -2625,6 +3081,70 @@ export interface NewSubscriptionScalableMatrixWithTieredPricingPrice {
    * in the same API call.
    */
   reference_id?: string | null;
+}
+
+export namespace NewSubscriptionScalableMatrixWithTieredPricingPrice {
+  /**
+   * Configuration for scalable_matrix_with_tiered_pricing pricing
+   */
+  export interface ScalableMatrixWithTieredPricingConfig {
+    /**
+     * Used for the scalable matrix first dimension
+     */
+    first_dimension: string;
+
+    /**
+     * Apply a scaling factor to each dimension
+     */
+    matrix_scaling_factors: Array<ScalableMatrixWithTieredPricingConfig.MatrixScalingFactor>;
+
+    /**
+     * Tier pricing structure
+     */
+    tiers: Array<ScalableMatrixWithTieredPricingConfig.Tier>;
+
+    /**
+     * Used for the scalable matrix second dimension (optional)
+     */
+    second_dimension?: string | null;
+  }
+
+  export namespace ScalableMatrixWithTieredPricingConfig {
+    /**
+     * Configuration for a single matrix scaling factor
+     */
+    export interface MatrixScalingFactor {
+      /**
+       * First dimension value
+       */
+      first_dimension_value: string;
+
+      /**
+       * Scaling factor
+       */
+      scaling_factor: string;
+
+      /**
+       * Second dimension value (optional)
+       */
+      second_dimension_value?: string | null;
+    }
+
+    /**
+     * Configuration for a single tier entry with business logic
+     */
+    export interface Tier {
+      /**
+       * Tier lower bound
+       */
+      tier_lower_bound: string;
+
+      /**
+       * Per unit amount
+       */
+      unit_amount: string;
+    }
+  }
 }
 
 export interface NewSubscriptionScalableMatrixWithUnitPricingPrice {
@@ -2638,6 +3158,9 @@ export interface NewSubscriptionScalableMatrixWithUnitPricingPrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'scalable_matrix_with_unit_pricing';
 
   /**
@@ -2645,7 +3168,10 @@ export interface NewSubscriptionScalableMatrixWithUnitPricingPrice {
    */
   name: string;
 
-  scalable_matrix_with_unit_pricing_config: { [key: string]: unknown };
+  /**
+   * Configuration for scalable_matrix_with_unit_pricing pricing
+   */
+  scalable_matrix_with_unit_pricing_config: NewSubscriptionScalableMatrixWithUnitPricingPrice.ScalableMatrixWithUnitPricingConfig;
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -2720,6 +3246,60 @@ export interface NewSubscriptionScalableMatrixWithUnitPricingPrice {
    * in the same API call.
    */
   reference_id?: string | null;
+}
+
+export namespace NewSubscriptionScalableMatrixWithUnitPricingPrice {
+  /**
+   * Configuration for scalable_matrix_with_unit_pricing pricing
+   */
+  export interface ScalableMatrixWithUnitPricingConfig {
+    /**
+     * Used to determine the unit rate
+     */
+    first_dimension: string;
+
+    /**
+     * Apply a scaling factor to each dimension
+     */
+    matrix_scaling_factors: Array<ScalableMatrixWithUnitPricingConfig.MatrixScalingFactor>;
+
+    /**
+     * The final unit price to rate against the output of the matrix
+     */
+    unit_price: string;
+
+    /**
+     * If true, the unit price will be prorated to the billing period
+     */
+    prorate?: boolean | null;
+
+    /**
+     * Used to determine the unit rate (optional)
+     */
+    second_dimension?: string | null;
+  }
+
+  export namespace ScalableMatrixWithUnitPricingConfig {
+    /**
+     * Configuration for a single matrix scaling factor
+     */
+    export interface MatrixScalingFactor {
+      /**
+       * First dimension value
+       */
+      first_dimension_value: string;
+
+      /**
+       * Scaling factor
+       */
+      scaling_factor: string;
+
+      /**
+       * Second dimension value (optional)
+       */
+      second_dimension_value?: string | null;
+    }
+  }
 }
 
 export interface NewSubscriptionThresholdTotalAmountPrice {
@@ -2733,6 +3313,9 @@ export interface NewSubscriptionThresholdTotalAmountPrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'threshold_total_amount';
 
   /**
@@ -2740,7 +3323,10 @@ export interface NewSubscriptionThresholdTotalAmountPrice {
    */
   name: string;
 
-  threshold_total_amount_config: { [key: string]: unknown };
+  /**
+   * Configuration for threshold_total_amount pricing
+   */
+  threshold_total_amount_config: NewSubscriptionThresholdTotalAmountPrice.ThresholdTotalAmountConfig;
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -2817,99 +3403,39 @@ export interface NewSubscriptionThresholdTotalAmountPrice {
   reference_id?: string | null;
 }
 
-export interface NewSubscriptionTierWithProrationPrice {
+export namespace NewSubscriptionThresholdTotalAmountPrice {
   /**
-   * The cadence to bill for this price on.
+   * Configuration for threshold_total_amount pricing
    */
-  cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+  export interface ThresholdTotalAmountConfig {
+    /**
+     * When the quantity consumed passes a provided threshold, the configured total
+     * will be charged
+     */
+    consumption_table: Array<ThresholdTotalAmountConfig.ConsumptionTable>;
 
-  /**
-   * The id of the item the price will be associated with.
-   */
-  item_id: string;
+    /**
+     * If true, the unit price will be prorated to the billing period
+     */
+    prorate?: boolean | null;
+  }
 
-  model_type: 'tiered_with_proration';
+  export namespace ThresholdTotalAmountConfig {
+    /**
+     * Configuration for a single threshold
+     */
+    export interface ConsumptionTable {
+      /**
+       * Quantity threshold
+       */
+      threshold: string;
 
-  /**
-   * The name of the price.
-   */
-  name: string;
-
-  tiered_with_proration_config: { [key: string]: unknown };
-
-  /**
-   * The id of the billable metric for the price. Only needed if the price is
-   * usage-based.
-   */
-  billable_metric_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, the price will be billed in-advance if
-   * this is true, and in-arrears if this is false.
-   */
-  billed_in_advance?: boolean | null;
-
-  /**
-   * For custom cadence: specifies the duration of the billing period in days or
-   * months.
-   */
-  billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-  /**
-   * The per unit conversion rate of the price currency to the invoicing currency.
-   */
-  conversion_rate?: number | null;
-
-  /**
-   * The configuration for the rate of the price currency to the invoicing currency.
-   */
-  conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
-
-  /**
-   * An ISO 4217 currency string, or custom pricing unit identifier, in which this
-   * price is billed.
-   */
-  currency?: string | null;
-
-  /**
-   * For dimensional price: specifies a price group and dimension values
-   */
-  dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
-
-  /**
-   * An alias for the price.
-   */
-  external_price_id?: string | null;
-
-  /**
-   * If the Price represents a fixed cost, this represents the quantity of units
-   * applied.
-   */
-  fixed_price_quantity?: number | null;
-
-  /**
-   * The property used to group this price on an invoice
-   */
-  invoice_grouping_key?: string | null;
-
-  /**
-   * Within each billing cycle, specifies the cadence at which invoices are produced.
-   * If unspecified, a single invoice is produced per billing cycle.
-   */
-  invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
-
-  /**
-   * User-specified key/value pairs for the resource. Individual keys can be removed
-   * by setting the value to `null`, and the entire metadata mapping can be cleared
-   * by setting `metadata` to `null`.
-   */
-  metadata?: { [key: string]: string | null } | null;
-
-  /**
-   * A transient ID that can be used to reference this price when adding adjustments
-   * in the same API call.
-   */
-  reference_id?: string | null;
+      /**
+       * Total amount for this threshold
+       */
+      total_amount: string;
+    }
+  }
 }
 
 export interface NewSubscriptionTieredPackagePrice {
@@ -2923,6 +3449,9 @@ export interface NewSubscriptionTieredPackagePrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'tiered_package';
 
   /**
@@ -2930,7 +3459,10 @@ export interface NewSubscriptionTieredPackagePrice {
    */
   name: string;
 
-  tiered_package_config: { [key: string]: unknown };
+  /**
+   * Configuration for tiered_package pricing
+   */
+  tiered_package_config: NewSubscriptionTieredPackagePrice.TieredPackageConfig;
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3005,6 +3537,41 @@ export interface NewSubscriptionTieredPackagePrice {
    * in the same API call.
    */
   reference_id?: string | null;
+}
+
+export namespace NewSubscriptionTieredPackagePrice {
+  /**
+   * Configuration for tiered_package pricing
+   */
+  export interface TieredPackageConfig {
+    /**
+     * Package size
+     */
+    package_size: string;
+
+    /**
+     * Apply tiered pricing after rounding up the quantity to the package size. Tiers
+     * are defined using exclusive lower bounds.
+     */
+    tiers: Array<TieredPackageConfig.Tier>;
+  }
+
+  export namespace TieredPackageConfig {
+    /**
+     * Configuration for a single tier with business logic
+     */
+    export interface Tier {
+      /**
+       * Price per package
+       */
+      per_unit: string;
+
+      /**
+       * Tier lower bound
+       */
+      tier_lower_bound: string;
+    }
+  }
 }
 
 export interface NewSubscriptionTieredPackageWithMinimumPrice {
@@ -3018,6 +3585,9 @@ export interface NewSubscriptionTieredPackageWithMinimumPrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'tiered_package_with_minimum';
 
   /**
@@ -3025,7 +3595,10 @@ export interface NewSubscriptionTieredPackageWithMinimumPrice {
    */
   name: string;
 
-  tiered_package_with_minimum_config: { [key: string]: unknown };
+  /**
+   * Configuration for tiered_package_with_minimum pricing
+   */
+  tiered_package_with_minimum_config: NewSubscriptionTieredPackageWithMinimumPrice.TieredPackageWithMinimumConfig;
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3102,6 +3675,46 @@ export interface NewSubscriptionTieredPackageWithMinimumPrice {
   reference_id?: string | null;
 }
 
+export namespace NewSubscriptionTieredPackageWithMinimumPrice {
+  /**
+   * Configuration for tiered_package_with_minimum pricing
+   */
+  export interface TieredPackageWithMinimumConfig {
+    /**
+     * Package size
+     */
+    package_size: number;
+
+    /**
+     * Apply tiered pricing after rounding up the quantity to the package size. Tiers
+     * are defined using exclusive lower bounds.
+     */
+    tiers: Array<TieredPackageWithMinimumConfig.Tier>;
+  }
+
+  export namespace TieredPackageWithMinimumConfig {
+    /**
+     * Configuration for a single tier
+     */
+    export interface Tier {
+      /**
+       * Minimum amount
+       */
+      minimum_amount: string;
+
+      /**
+       * Price per package
+       */
+      per_unit: string;
+
+      /**
+       * Tier lower bound
+       */
+      tier_lower_bound: string;
+    }
+  }
+}
+
 export interface NewSubscriptionTieredPrice {
   /**
    * The cadence to bill for this price on.
@@ -3113,6 +3726,9 @@ export interface NewSubscriptionTieredPrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'tiered';
 
   /**
@@ -3120,6 +3736,9 @@ export interface NewSubscriptionTieredPrice {
    */
   name: string;
 
+  /**
+   * Configuration for tiered pricing
+   */
   tiered_config: Shared.TieredConfig;
 
   /**
@@ -3208,6 +3827,9 @@ export interface NewSubscriptionTieredWithMinimumPrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'tiered_with_minimum';
 
   /**
@@ -3215,7 +3837,10 @@ export interface NewSubscriptionTieredWithMinimumPrice {
    */
   name: string;
 
-  tiered_with_minimum_config: { [key: string]: unknown };
+  /**
+   * Configuration for tiered_with_minimum pricing
+   */
+  tiered_with_minimum_config: NewSubscriptionTieredWithMinimumPrice.TieredWithMinimumConfig;
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3292,6 +3917,51 @@ export interface NewSubscriptionTieredWithMinimumPrice {
   reference_id?: string | null;
 }
 
+export namespace NewSubscriptionTieredWithMinimumPrice {
+  /**
+   * Configuration for tiered_with_minimum pricing
+   */
+  export interface TieredWithMinimumConfig {
+    /**
+     * Tiered pricing with a minimum amount dependent on the volume tier. Tiers are
+     * defined using exclusive lower bounds.
+     */
+    tiers: Array<TieredWithMinimumConfig.Tier>;
+
+    /**
+     * If true, tiers with an accrued amount of 0 will not be included in the rating.
+     */
+    hide_zero_amount_tiers?: boolean;
+
+    /**
+     * If true, the unit price will be prorated to the billing period
+     */
+    prorate?: boolean;
+  }
+
+  export namespace TieredWithMinimumConfig {
+    /**
+     * Configuration for a single tier
+     */
+    export interface Tier {
+      /**
+       * Minimum amount
+       */
+      minimum_amount: string;
+
+      /**
+       * Tier lower bound
+       */
+      tier_lower_bound: string;
+
+      /**
+       * Per unit amount
+       */
+      unit_amount: string;
+    }
+  }
+}
+
 export interface NewSubscriptionUnitPrice {
   /**
    * The cadence to bill for this price on.
@@ -3303,6 +3973,9 @@ export interface NewSubscriptionUnitPrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'unit';
 
   /**
@@ -3310,6 +3983,9 @@ export interface NewSubscriptionUnitPrice {
    */
   name: string;
 
+  /**
+   * Configuration for unit pricing
+   */
   unit_config: Shared.UnitConfig;
 
   /**
@@ -3398,6 +4074,9 @@ export interface NewSubscriptionUnitWithPercentPrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'unit_with_percent';
 
   /**
@@ -3405,7 +4084,10 @@ export interface NewSubscriptionUnitWithPercentPrice {
    */
   name: string;
 
-  unit_with_percent_config: { [key: string]: unknown };
+  /**
+   * Configuration for unit_with_percent pricing
+   */
+  unit_with_percent_config: NewSubscriptionUnitWithPercentPrice.UnitWithPercentConfig;
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3482,6 +4164,23 @@ export interface NewSubscriptionUnitWithPercentPrice {
   reference_id?: string | null;
 }
 
+export namespace NewSubscriptionUnitWithPercentPrice {
+  /**
+   * Configuration for unit_with_percent pricing
+   */
+  export interface UnitWithPercentConfig {
+    /**
+     * What percent, out of 100, of the calculated total to charge
+     */
+    percent: string;
+
+    /**
+     * Rate per unit of usage
+     */
+    unit_amount: string;
+  }
+}
+
 export interface NewSubscriptionUnitWithProrationPrice {
   /**
    * The cadence to bill for this price on.
@@ -3493,6 +4192,9 @@ export interface NewSubscriptionUnitWithProrationPrice {
    */
   item_id: string;
 
+  /**
+   * The pricing model type
+   */
   model_type: 'unit_with_proration';
 
   /**
@@ -3500,7 +4202,10 @@ export interface NewSubscriptionUnitWithProrationPrice {
    */
   name: string;
 
-  unit_with_proration_config: { [key: string]: unknown };
+  /**
+   * Configuration for unit_with_proration pricing
+   */
+  unit_with_proration_config: NewSubscriptionUnitWithProrationPrice.UnitWithProrationConfig;
 
   /**
    * The id of the billable metric for the price. Only needed if the price is
@@ -3575,6 +4280,18 @@ export interface NewSubscriptionUnitWithProrationPrice {
    * in the same API call.
    */
   reference_id?: string | null;
+}
+
+export namespace NewSubscriptionUnitWithProrationPrice {
+  /**
+   * Configuration for unit_with_proration pricing
+   */
+  export interface UnitWithProrationConfig {
+    /**
+     * Rate per unit of usage
+     */
+    unit_amount: string;
+  }
 }
 
 /**
@@ -4120,35 +4837,35 @@ export namespace SubscriptionCreateParams {
     plan_phase_order?: number | null;
 
     /**
-     * The definition of a new price to create and add to the subscription.
+     * New subscription price request body params.
      */
     price?:
       | SubscriptionsAPI.NewSubscriptionUnitPrice
-      | SubscriptionsAPI.NewSubscriptionPackagePrice
-      | SubscriptionsAPI.NewSubscriptionMatrixPrice
       | SubscriptionsAPI.NewSubscriptionTieredPrice
       | SubscriptionsAPI.NewSubscriptionBulkPrice
+      | SubscriptionsAPI.NewSubscriptionPackagePrice
+      | SubscriptionsAPI.NewSubscriptionMatrixPrice
       | SubscriptionsAPI.NewSubscriptionThresholdTotalAmountPrice
       | SubscriptionsAPI.NewSubscriptionTieredPackagePrice
       | SubscriptionsAPI.NewSubscriptionTieredWithMinimumPrice
-      | SubscriptionsAPI.NewSubscriptionUnitWithPercentPrice
+      | SubscriptionsAPI.NewSubscriptionGroupedTieredPrice
+      | SubscriptionsAPI.NewSubscriptionTieredPackageWithMinimumPrice
       | SubscriptionsAPI.NewSubscriptionPackageWithAllocationPrice
-      | SubscriptionsAPI.NewSubscriptionTierWithProrationPrice
+      | SubscriptionsAPI.NewSubscriptionUnitWithPercentPrice
+      | SubscriptionsAPI.NewSubscriptionMatrixWithAllocationPrice
+      | AddPrice.NewSubscriptionTieredWithProrationPrice
       | SubscriptionsAPI.NewSubscriptionUnitWithProrationPrice
       | SubscriptionsAPI.NewSubscriptionGroupedAllocationPrice
-      | SubscriptionsAPI.NewSubscriptionGroupedWithProratedMinimumPrice
       | SubscriptionsAPI.NewSubscriptionBulkWithProrationPrice
+      | SubscriptionsAPI.NewSubscriptionGroupedWithProratedMinimumPrice
+      | SubscriptionsAPI.NewSubscriptionGroupedWithMeteredMinimumPrice
+      | AddPrice.NewSubscriptionGroupedWithMinMaxThresholdsPrice
+      | SubscriptionsAPI.NewSubscriptionMatrixWithDisplayNamePrice
+      | SubscriptionsAPI.NewSubscriptionGroupedTieredPackagePrice
+      | SubscriptionsAPI.NewSubscriptionMaxGroupTieredPackagePrice
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithUnitPricingPrice
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithTieredPricingPrice
       | SubscriptionsAPI.NewSubscriptionCumulativeGroupedBulkPrice
-      | SubscriptionsAPI.NewSubscriptionMaxGroupTieredPackagePrice
-      | SubscriptionsAPI.NewSubscriptionGroupedWithMeteredMinimumPrice
-      | SubscriptionsAPI.NewSubscriptionMatrixWithDisplayNamePrice
-      | SubscriptionsAPI.NewSubscriptionGroupedTieredPackagePrice
-      | SubscriptionsAPI.NewSubscriptionMatrixWithAllocationPrice
-      | SubscriptionsAPI.NewSubscriptionTieredPackageWithMinimumPrice
-      | SubscriptionsAPI.NewSubscriptionGroupedTieredPrice
-      | AddPrice.NewSubscriptionGroupedWithMinMaxThresholdsPrice
       | SubscriptionsAPI.NewSubscriptionMinimumCompositePrice
       | null;
 
@@ -4166,19 +4883,156 @@ export namespace SubscriptionCreateParams {
   }
 
   export namespace AddPrice {
-    export interface NewSubscriptionGroupedWithMinMaxThresholdsPrice {
+    export interface NewSubscriptionTieredWithProrationPrice {
       /**
        * The cadence to bill for this price on.
        */
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-      grouped_with_min_max_thresholds_config: { [key: string]: unknown };
 
       /**
        * The id of the item the price will be associated with.
        */
       item_id: string;
 
+      /**
+       * The pricing model type
+       */
+      model_type: 'tiered_with_proration';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * Configuration for tiered_with_proration pricing
+       */
+      tiered_with_proration_config: NewSubscriptionTieredWithProrationPrice.TieredWithProrationConfig;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionTieredWithProrationPrice {
+      /**
+       * Configuration for tiered_with_proration pricing
+       */
+      export interface TieredWithProrationConfig {
+        /**
+         * Tiers for rating based on total usage quantities into the specified tier with
+         * proration
+         */
+        tiers: Array<TieredWithProrationConfig.Tier>;
+      }
+
+      export namespace TieredWithProrationConfig {
+        /**
+         * Configuration for a single tiered with proration tier
+         */
+        export interface Tier {
+          /**
+           * Inclusive tier starting value
+           */
+          tier_lower_bound: string;
+
+          /**
+           * Amount per unit
+           */
+          unit_amount: string;
+        }
+      }
+    }
+
+    export interface NewSubscriptionGroupedWithMinMaxThresholdsPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      grouped_with_min_max_thresholds_config: NewSubscriptionGroupedWithMinMaxThresholdsPrice.GroupedWithMinMaxThresholdsConfig;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
       model_type: 'grouped_with_min_max_thresholds';
 
       /**
@@ -4260,6 +5114,33 @@ export namespace SubscriptionCreateParams {
        */
       reference_id?: string | null;
     }
+
+    export namespace NewSubscriptionGroupedWithMinMaxThresholdsPrice {
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      export interface GroupedWithMinMaxThresholdsConfig {
+        /**
+         * The event property used to group before applying thresholds
+         */
+        grouping_key: string;
+
+        /**
+         * The maximum amount to charge each group
+         */
+        maximum_charge: string;
+
+        /**
+         * The minimum amount to charge each group, regardless of usage
+         */
+        minimum_charge: string;
+
+        /**
+         * The base price charged per group
+         */
+        per_unit_rate: string;
+      }
+    }
   }
 
   export interface RemoveAdjustment {
@@ -4338,35 +5219,35 @@ export namespace SubscriptionCreateParams {
     minimum_amount?: string | null;
 
     /**
-     * The definition of a new price to create and add to the subscription.
+     * New subscription price request body params.
      */
     price?:
       | SubscriptionsAPI.NewSubscriptionUnitPrice
-      | SubscriptionsAPI.NewSubscriptionPackagePrice
-      | SubscriptionsAPI.NewSubscriptionMatrixPrice
       | SubscriptionsAPI.NewSubscriptionTieredPrice
       | SubscriptionsAPI.NewSubscriptionBulkPrice
+      | SubscriptionsAPI.NewSubscriptionPackagePrice
+      | SubscriptionsAPI.NewSubscriptionMatrixPrice
       | SubscriptionsAPI.NewSubscriptionThresholdTotalAmountPrice
       | SubscriptionsAPI.NewSubscriptionTieredPackagePrice
       | SubscriptionsAPI.NewSubscriptionTieredWithMinimumPrice
-      | SubscriptionsAPI.NewSubscriptionUnitWithPercentPrice
+      | SubscriptionsAPI.NewSubscriptionGroupedTieredPrice
+      | SubscriptionsAPI.NewSubscriptionTieredPackageWithMinimumPrice
       | SubscriptionsAPI.NewSubscriptionPackageWithAllocationPrice
-      | SubscriptionsAPI.NewSubscriptionTierWithProrationPrice
+      | SubscriptionsAPI.NewSubscriptionUnitWithPercentPrice
+      | SubscriptionsAPI.NewSubscriptionMatrixWithAllocationPrice
+      | ReplacePrice.NewSubscriptionTieredWithProrationPrice
       | SubscriptionsAPI.NewSubscriptionUnitWithProrationPrice
       | SubscriptionsAPI.NewSubscriptionGroupedAllocationPrice
-      | SubscriptionsAPI.NewSubscriptionGroupedWithProratedMinimumPrice
       | SubscriptionsAPI.NewSubscriptionBulkWithProrationPrice
+      | SubscriptionsAPI.NewSubscriptionGroupedWithProratedMinimumPrice
+      | SubscriptionsAPI.NewSubscriptionGroupedWithMeteredMinimumPrice
+      | ReplacePrice.NewSubscriptionGroupedWithMinMaxThresholdsPrice
+      | SubscriptionsAPI.NewSubscriptionMatrixWithDisplayNamePrice
+      | SubscriptionsAPI.NewSubscriptionGroupedTieredPackagePrice
+      | SubscriptionsAPI.NewSubscriptionMaxGroupTieredPackagePrice
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithUnitPricingPrice
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithTieredPricingPrice
       | SubscriptionsAPI.NewSubscriptionCumulativeGroupedBulkPrice
-      | SubscriptionsAPI.NewSubscriptionMaxGroupTieredPackagePrice
-      | SubscriptionsAPI.NewSubscriptionGroupedWithMeteredMinimumPrice
-      | SubscriptionsAPI.NewSubscriptionMatrixWithDisplayNamePrice
-      | SubscriptionsAPI.NewSubscriptionGroupedTieredPackagePrice
-      | SubscriptionsAPI.NewSubscriptionMatrixWithAllocationPrice
-      | SubscriptionsAPI.NewSubscriptionTieredPackageWithMinimumPrice
-      | SubscriptionsAPI.NewSubscriptionGroupedTieredPrice
-      | ReplacePrice.NewSubscriptionGroupedWithMinMaxThresholdsPrice
       | SubscriptionsAPI.NewSubscriptionMinimumCompositePrice
       | null;
 
@@ -4377,19 +5258,156 @@ export namespace SubscriptionCreateParams {
   }
 
   export namespace ReplacePrice {
-    export interface NewSubscriptionGroupedWithMinMaxThresholdsPrice {
+    export interface NewSubscriptionTieredWithProrationPrice {
       /**
        * The cadence to bill for this price on.
        */
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-      grouped_with_min_max_thresholds_config: { [key: string]: unknown };
 
       /**
        * The id of the item the price will be associated with.
        */
       item_id: string;
 
+      /**
+       * The pricing model type
+       */
+      model_type: 'tiered_with_proration';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * Configuration for tiered_with_proration pricing
+       */
+      tiered_with_proration_config: NewSubscriptionTieredWithProrationPrice.TieredWithProrationConfig;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionTieredWithProrationPrice {
+      /**
+       * Configuration for tiered_with_proration pricing
+       */
+      export interface TieredWithProrationConfig {
+        /**
+         * Tiers for rating based on total usage quantities into the specified tier with
+         * proration
+         */
+        tiers: Array<TieredWithProrationConfig.Tier>;
+      }
+
+      export namespace TieredWithProrationConfig {
+        /**
+         * Configuration for a single tiered with proration tier
+         */
+        export interface Tier {
+          /**
+           * Inclusive tier starting value
+           */
+          tier_lower_bound: string;
+
+          /**
+           * Amount per unit
+           */
+          unit_amount: string;
+        }
+      }
+    }
+
+    export interface NewSubscriptionGroupedWithMinMaxThresholdsPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      grouped_with_min_max_thresholds_config: NewSubscriptionGroupedWithMinMaxThresholdsPrice.GroupedWithMinMaxThresholdsConfig;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
       model_type: 'grouped_with_min_max_thresholds';
 
       /**
@@ -4470,6 +5488,33 @@ export namespace SubscriptionCreateParams {
        * in the same API call.
        */
       reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionGroupedWithMinMaxThresholdsPrice {
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      export interface GroupedWithMinMaxThresholdsConfig {
+        /**
+         * The event property used to group before applying thresholds
+         */
+        grouping_key: string;
+
+        /**
+         * The maximum amount to charge each group
+         */
+        maximum_charge: string;
+
+        /**
+         * The minimum amount to charge each group, regardless of usage
+         */
+        minimum_charge: string;
+
+        /**
+         * The base price charged per group
+         */
+        per_unit_rate: string;
+      }
     }
   }
 }
@@ -4715,35 +5760,35 @@ export namespace SubscriptionPriceIntervalsParams {
     minimum_amount?: number | null;
 
     /**
-     * The definition of a new price to create and add to the subscription.
+     * New floating price request body params.
      */
     price?:
       | Shared.NewFloatingUnitPrice
-      | Shared.NewFloatingPackagePrice
-      | Shared.NewFloatingMatrixPrice
-      | Shared.NewFloatingMatrixWithAllocationPrice
       | Shared.NewFloatingTieredPrice
       | Shared.NewFloatingBulkPrice
+      | Shared.NewFloatingPackagePrice
+      | Shared.NewFloatingMatrixPrice
       | Shared.NewFloatingThresholdTotalAmountPrice
       | Shared.NewFloatingTieredPackagePrice
-      | Shared.NewFloatingGroupedTieredPrice
-      | Shared.NewFloatingMaxGroupTieredPackagePrice
       | Shared.NewFloatingTieredWithMinimumPrice
-      | Shared.NewFloatingPackageWithAllocationPrice
+      | Shared.NewFloatingGroupedTieredPrice
       | Shared.NewFloatingTieredPackageWithMinimumPrice
+      | Shared.NewFloatingPackageWithAllocationPrice
       | Shared.NewFloatingUnitWithPercentPrice
+      | Shared.NewFloatingMatrixWithAllocationPrice
       | Shared.NewFloatingTieredWithProrationPrice
       | Shared.NewFloatingUnitWithProrationPrice
       | Shared.NewFloatingGroupedAllocationPrice
+      | Shared.NewFloatingBulkWithProrationPrice
       | Shared.NewFloatingGroupedWithProratedMinimumPrice
       | Shared.NewFloatingGroupedWithMeteredMinimumPrice
+      | Add.NewFloatingGroupedWithMinMaxThresholdsPrice
       | Shared.NewFloatingMatrixWithDisplayNamePrice
-      | Shared.NewFloatingBulkWithProrationPrice
       | Shared.NewFloatingGroupedTieredPackagePrice
+      | Shared.NewFloatingMaxGroupTieredPackagePrice
       | Shared.NewFloatingScalableMatrixWithUnitPricingPrice
       | Shared.NewFloatingScalableMatrixWithTieredPricingPrice
       | Shared.NewFloatingCumulativeGroupedBulkPrice
-      | Add.NewFloatingGroupedWithMinMaxThresholdsPrice
       | Shared.NewFloatingMinimumCompositePrice
       | null;
 
@@ -4816,13 +5861,19 @@ export namespace SubscriptionPriceIntervalsParams {
        */
       currency: string;
 
-      grouped_with_min_max_thresholds_config: { [key: string]: unknown };
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      grouped_with_min_max_thresholds_config: NewFloatingGroupedWithMinMaxThresholdsPrice.GroupedWithMinMaxThresholdsConfig;
 
       /**
        * The id of the item the price will be associated with.
        */
       item_id: string;
 
+      /**
+       * The pricing model type
+       */
       model_type: 'grouped_with_min_max_thresholds';
 
       /**
@@ -4891,6 +5942,33 @@ export namespace SubscriptionPriceIntervalsParams {
        * by setting `metadata` to `null`.
        */
       metadata?: { [key: string]: string | null } | null;
+    }
+
+    export namespace NewFloatingGroupedWithMinMaxThresholdsPrice {
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      export interface GroupedWithMinMaxThresholdsConfig {
+        /**
+         * The event property used to group before applying thresholds
+         */
+        grouping_key: string;
+
+        /**
+         * The maximum amount to charge each group
+         */
+        maximum_charge: string;
+
+        /**
+         * The minimum amount to charge each group, regardless of usage
+         */
+        minimum_charge: string;
+
+        /**
+         * The base price charged per group
+         */
+        per_unit_rate: string;
+      }
     }
   }
 
@@ -5275,35 +6353,35 @@ export namespace SubscriptionSchedulePlanChangeParams {
     plan_phase_order?: number | null;
 
     /**
-     * The definition of a new price to create and add to the subscription.
+     * New subscription price request body params.
      */
     price?:
       | SubscriptionsAPI.NewSubscriptionUnitPrice
-      | SubscriptionsAPI.NewSubscriptionPackagePrice
-      | SubscriptionsAPI.NewSubscriptionMatrixPrice
       | SubscriptionsAPI.NewSubscriptionTieredPrice
       | SubscriptionsAPI.NewSubscriptionBulkPrice
+      | SubscriptionsAPI.NewSubscriptionPackagePrice
+      | SubscriptionsAPI.NewSubscriptionMatrixPrice
       | SubscriptionsAPI.NewSubscriptionThresholdTotalAmountPrice
       | SubscriptionsAPI.NewSubscriptionTieredPackagePrice
       | SubscriptionsAPI.NewSubscriptionTieredWithMinimumPrice
-      | SubscriptionsAPI.NewSubscriptionUnitWithPercentPrice
+      | SubscriptionsAPI.NewSubscriptionGroupedTieredPrice
+      | SubscriptionsAPI.NewSubscriptionTieredPackageWithMinimumPrice
       | SubscriptionsAPI.NewSubscriptionPackageWithAllocationPrice
-      | SubscriptionsAPI.NewSubscriptionTierWithProrationPrice
+      | SubscriptionsAPI.NewSubscriptionUnitWithPercentPrice
+      | SubscriptionsAPI.NewSubscriptionMatrixWithAllocationPrice
+      | AddPrice.NewSubscriptionTieredWithProrationPrice
       | SubscriptionsAPI.NewSubscriptionUnitWithProrationPrice
       | SubscriptionsAPI.NewSubscriptionGroupedAllocationPrice
-      | SubscriptionsAPI.NewSubscriptionGroupedWithProratedMinimumPrice
       | SubscriptionsAPI.NewSubscriptionBulkWithProrationPrice
+      | SubscriptionsAPI.NewSubscriptionGroupedWithProratedMinimumPrice
+      | SubscriptionsAPI.NewSubscriptionGroupedWithMeteredMinimumPrice
+      | AddPrice.NewSubscriptionGroupedWithMinMaxThresholdsPrice
+      | SubscriptionsAPI.NewSubscriptionMatrixWithDisplayNamePrice
+      | SubscriptionsAPI.NewSubscriptionGroupedTieredPackagePrice
+      | SubscriptionsAPI.NewSubscriptionMaxGroupTieredPackagePrice
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithUnitPricingPrice
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithTieredPricingPrice
       | SubscriptionsAPI.NewSubscriptionCumulativeGroupedBulkPrice
-      | SubscriptionsAPI.NewSubscriptionMaxGroupTieredPackagePrice
-      | SubscriptionsAPI.NewSubscriptionGroupedWithMeteredMinimumPrice
-      | SubscriptionsAPI.NewSubscriptionMatrixWithDisplayNamePrice
-      | SubscriptionsAPI.NewSubscriptionGroupedTieredPackagePrice
-      | SubscriptionsAPI.NewSubscriptionMatrixWithAllocationPrice
-      | SubscriptionsAPI.NewSubscriptionTieredPackageWithMinimumPrice
-      | SubscriptionsAPI.NewSubscriptionGroupedTieredPrice
-      | AddPrice.NewSubscriptionGroupedWithMinMaxThresholdsPrice
       | SubscriptionsAPI.NewSubscriptionMinimumCompositePrice
       | null;
 
@@ -5321,19 +6399,156 @@ export namespace SubscriptionSchedulePlanChangeParams {
   }
 
   export namespace AddPrice {
-    export interface NewSubscriptionGroupedWithMinMaxThresholdsPrice {
+    export interface NewSubscriptionTieredWithProrationPrice {
       /**
        * The cadence to bill for this price on.
        */
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-      grouped_with_min_max_thresholds_config: { [key: string]: unknown };
 
       /**
        * The id of the item the price will be associated with.
        */
       item_id: string;
 
+      /**
+       * The pricing model type
+       */
+      model_type: 'tiered_with_proration';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * Configuration for tiered_with_proration pricing
+       */
+      tiered_with_proration_config: NewSubscriptionTieredWithProrationPrice.TieredWithProrationConfig;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionTieredWithProrationPrice {
+      /**
+       * Configuration for tiered_with_proration pricing
+       */
+      export interface TieredWithProrationConfig {
+        /**
+         * Tiers for rating based on total usage quantities into the specified tier with
+         * proration
+         */
+        tiers: Array<TieredWithProrationConfig.Tier>;
+      }
+
+      export namespace TieredWithProrationConfig {
+        /**
+         * Configuration for a single tiered with proration tier
+         */
+        export interface Tier {
+          /**
+           * Inclusive tier starting value
+           */
+          tier_lower_bound: string;
+
+          /**
+           * Amount per unit
+           */
+          unit_amount: string;
+        }
+      }
+    }
+
+    export interface NewSubscriptionGroupedWithMinMaxThresholdsPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      grouped_with_min_max_thresholds_config: NewSubscriptionGroupedWithMinMaxThresholdsPrice.GroupedWithMinMaxThresholdsConfig;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
       model_type: 'grouped_with_min_max_thresholds';
 
       /**
@@ -5415,6 +6630,33 @@ export namespace SubscriptionSchedulePlanChangeParams {
        */
       reference_id?: string | null;
     }
+
+    export namespace NewSubscriptionGroupedWithMinMaxThresholdsPrice {
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      export interface GroupedWithMinMaxThresholdsConfig {
+        /**
+         * The event property used to group before applying thresholds
+         */
+        grouping_key: string;
+
+        /**
+         * The maximum amount to charge each group
+         */
+        maximum_charge: string;
+
+        /**
+         * The minimum amount to charge each group, regardless of usage
+         */
+        minimum_charge: string;
+
+        /**
+         * The base price charged per group
+         */
+        per_unit_rate: string;
+      }
+    }
   }
 
   export interface RemoveAdjustment {
@@ -5493,35 +6735,35 @@ export namespace SubscriptionSchedulePlanChangeParams {
     minimum_amount?: string | null;
 
     /**
-     * The definition of a new price to create and add to the subscription.
+     * New subscription price request body params.
      */
     price?:
       | SubscriptionsAPI.NewSubscriptionUnitPrice
-      | SubscriptionsAPI.NewSubscriptionPackagePrice
-      | SubscriptionsAPI.NewSubscriptionMatrixPrice
       | SubscriptionsAPI.NewSubscriptionTieredPrice
       | SubscriptionsAPI.NewSubscriptionBulkPrice
+      | SubscriptionsAPI.NewSubscriptionPackagePrice
+      | SubscriptionsAPI.NewSubscriptionMatrixPrice
       | SubscriptionsAPI.NewSubscriptionThresholdTotalAmountPrice
       | SubscriptionsAPI.NewSubscriptionTieredPackagePrice
       | SubscriptionsAPI.NewSubscriptionTieredWithMinimumPrice
-      | SubscriptionsAPI.NewSubscriptionUnitWithPercentPrice
+      | SubscriptionsAPI.NewSubscriptionGroupedTieredPrice
+      | SubscriptionsAPI.NewSubscriptionTieredPackageWithMinimumPrice
       | SubscriptionsAPI.NewSubscriptionPackageWithAllocationPrice
-      | SubscriptionsAPI.NewSubscriptionTierWithProrationPrice
+      | SubscriptionsAPI.NewSubscriptionUnitWithPercentPrice
+      | SubscriptionsAPI.NewSubscriptionMatrixWithAllocationPrice
+      | ReplacePrice.NewSubscriptionTieredWithProrationPrice
       | SubscriptionsAPI.NewSubscriptionUnitWithProrationPrice
       | SubscriptionsAPI.NewSubscriptionGroupedAllocationPrice
-      | SubscriptionsAPI.NewSubscriptionGroupedWithProratedMinimumPrice
       | SubscriptionsAPI.NewSubscriptionBulkWithProrationPrice
+      | SubscriptionsAPI.NewSubscriptionGroupedWithProratedMinimumPrice
+      | SubscriptionsAPI.NewSubscriptionGroupedWithMeteredMinimumPrice
+      | ReplacePrice.NewSubscriptionGroupedWithMinMaxThresholdsPrice
+      | SubscriptionsAPI.NewSubscriptionMatrixWithDisplayNamePrice
+      | SubscriptionsAPI.NewSubscriptionGroupedTieredPackagePrice
+      | SubscriptionsAPI.NewSubscriptionMaxGroupTieredPackagePrice
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithUnitPricingPrice
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithTieredPricingPrice
       | SubscriptionsAPI.NewSubscriptionCumulativeGroupedBulkPrice
-      | SubscriptionsAPI.NewSubscriptionMaxGroupTieredPackagePrice
-      | SubscriptionsAPI.NewSubscriptionGroupedWithMeteredMinimumPrice
-      | SubscriptionsAPI.NewSubscriptionMatrixWithDisplayNamePrice
-      | SubscriptionsAPI.NewSubscriptionGroupedTieredPackagePrice
-      | SubscriptionsAPI.NewSubscriptionMatrixWithAllocationPrice
-      | SubscriptionsAPI.NewSubscriptionTieredPackageWithMinimumPrice
-      | SubscriptionsAPI.NewSubscriptionGroupedTieredPrice
-      | ReplacePrice.NewSubscriptionGroupedWithMinMaxThresholdsPrice
       | SubscriptionsAPI.NewSubscriptionMinimumCompositePrice
       | null;
 
@@ -5532,19 +6774,156 @@ export namespace SubscriptionSchedulePlanChangeParams {
   }
 
   export namespace ReplacePrice {
-    export interface NewSubscriptionGroupedWithMinMaxThresholdsPrice {
+    export interface NewSubscriptionTieredWithProrationPrice {
       /**
        * The cadence to bill for this price on.
        */
       cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
-
-      grouped_with_min_max_thresholds_config: { [key: string]: unknown };
 
       /**
        * The id of the item the price will be associated with.
        */
       item_id: string;
 
+      /**
+       * The pricing model type
+       */
+      model_type: 'tiered_with_proration';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * Configuration for tiered_with_proration pricing
+       */
+      tiered_with_proration_config: NewSubscriptionTieredWithProrationPrice.TieredWithProrationConfig;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionTieredWithProrationPrice {
+      /**
+       * Configuration for tiered_with_proration pricing
+       */
+      export interface TieredWithProrationConfig {
+        /**
+         * Tiers for rating based on total usage quantities into the specified tier with
+         * proration
+         */
+        tiers: Array<TieredWithProrationConfig.Tier>;
+      }
+
+      export namespace TieredWithProrationConfig {
+        /**
+         * Configuration for a single tiered with proration tier
+         */
+        export interface Tier {
+          /**
+           * Inclusive tier starting value
+           */
+          tier_lower_bound: string;
+
+          /**
+           * Amount per unit
+           */
+          unit_amount: string;
+        }
+      }
+    }
+
+    export interface NewSubscriptionGroupedWithMinMaxThresholdsPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      grouped_with_min_max_thresholds_config: NewSubscriptionGroupedWithMinMaxThresholdsPrice.GroupedWithMinMaxThresholdsConfig;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
       model_type: 'grouped_with_min_max_thresholds';
 
       /**
@@ -5625,6 +7004,33 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * in the same API call.
        */
       reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionGroupedWithMinMaxThresholdsPrice {
+      /**
+       * Configuration for grouped_with_min_max_thresholds pricing
+       */
+      export interface GroupedWithMinMaxThresholdsConfig {
+        /**
+         * The event property used to group before applying thresholds
+         */
+        grouping_key: string;
+
+        /**
+         * The maximum amount to charge each group
+         */
+        maximum_charge: string;
+
+        /**
+         * The minimum amount to charge each group, regardless of usage
+         */
+        minimum_charge: string;
+
+        /**
+         * The base price charged per group
+         */
+        per_unit_rate: string;
+      }
     }
   }
 }
@@ -5719,7 +7125,6 @@ export declare namespace Subscriptions {
     type NewSubscriptionScalableMatrixWithTieredPricingPrice as NewSubscriptionScalableMatrixWithTieredPricingPrice,
     type NewSubscriptionScalableMatrixWithUnitPricingPrice as NewSubscriptionScalableMatrixWithUnitPricingPrice,
     type NewSubscriptionThresholdTotalAmountPrice as NewSubscriptionThresholdTotalAmountPrice,
-    type NewSubscriptionTierWithProrationPrice as NewSubscriptionTierWithProrationPrice,
     type NewSubscriptionTieredPackagePrice as NewSubscriptionTieredPackagePrice,
     type NewSubscriptionTieredPackageWithMinimumPrice as NewSubscriptionTieredPackageWithMinimumPrice,
     type NewSubscriptionTieredPrice as NewSubscriptionTieredPrice,
