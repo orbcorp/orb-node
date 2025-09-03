@@ -75,6 +75,7 @@ import {
   NewSubscriptionMatrixWithAllocationPrice,
   NewSubscriptionMatrixWithDisplayNamePrice,
   NewSubscriptionMaxGroupTieredPackagePrice,
+  NewSubscriptionMinimumCompositePrice,
   NewSubscriptionPackagePrice,
   NewSubscriptionPackageWithAllocationPrice,
   NewSubscriptionScalableMatrixWithTieredPricingPrice,
@@ -541,6 +542,7 @@ export declare namespace Orb {
     type NewSubscriptionMatrixWithAllocationPrice as NewSubscriptionMatrixWithAllocationPrice,
     type NewSubscriptionMatrixWithDisplayNamePrice as NewSubscriptionMatrixWithDisplayNamePrice,
     type NewSubscriptionMaxGroupTieredPackagePrice as NewSubscriptionMaxGroupTieredPackagePrice,
+    type NewSubscriptionMinimumCompositePrice as NewSubscriptionMinimumCompositePrice,
     type NewSubscriptionPackagePrice as NewSubscriptionPackagePrice,
     type NewSubscriptionPackageWithAllocationPrice as NewSubscriptionPackageWithAllocationPrice,
     type NewSubscriptionScalableMatrixWithTieredPricingPrice as NewSubscriptionScalableMatrixWithTieredPricingPrice,
@@ -667,6 +669,7 @@ export declare namespace Orb {
   export type NewFloatingMatrixWithAllocationPrice = API.NewFloatingMatrixWithAllocationPrice;
   export type NewFloatingMatrixWithDisplayNamePrice = API.NewFloatingMatrixWithDisplayNamePrice;
   export type NewFloatingMaxGroupTieredPackagePrice = API.NewFloatingMaxGroupTieredPackagePrice;
+  export type NewFloatingMinimumCompositePrice = API.NewFloatingMinimumCompositePrice;
   export type NewFloatingPackagePrice = API.NewFloatingPackagePrice;
   export type NewFloatingPackageWithAllocationPrice = API.NewFloatingPackageWithAllocationPrice;
   export type NewFloatingScalableMatrixWithTieredPricingPrice =
@@ -697,6 +700,7 @@ export declare namespace Orb {
   export type NewPlanMatrixWithAllocationPrice = API.NewPlanMatrixWithAllocationPrice;
   export type NewPlanMatrixWithDisplayNamePrice = API.NewPlanMatrixWithDisplayNamePrice;
   export type NewPlanMaxGroupTieredPackagePrice = API.NewPlanMaxGroupTieredPackagePrice;
+  export type NewPlanMinimumCompositePrice = API.NewPlanMinimumCompositePrice;
   export type NewPlanPackagePrice = API.NewPlanPackagePrice;
   export type NewPlanPackageWithAllocationPrice = API.NewPlanPackageWithAllocationPrice;
   export type NewPlanScalableMatrixWithTieredPricingPrice = API.NewPlanScalableMatrixWithTieredPricingPrice;

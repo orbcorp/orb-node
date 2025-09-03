@@ -61,6 +61,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">NewFloatingMatrixWithAllocationPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingMatrixWithDisplayNamePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingMaxGroupTieredPackagePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingMinimumCompositePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingPackagePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingPackageWithAllocationPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingScalableMatrixWithTieredPricingPrice</a></code>
@@ -89,6 +90,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">NewPlanMatrixWithAllocationPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanMatrixWithDisplayNamePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanMaxGroupTieredPackagePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanMinimumCompositePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanPackagePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanPackageWithAllocationPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanScalableMatrixWithTieredPricingPrice</a></code>
@@ -459,6 +461,7 @@ Types:
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionMatrixWithAllocationPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionMatrixWithDisplayNamePrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionMaxGroupTieredPackagePrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionMinimumCompositePrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionPackagePrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionPackageWithAllocationPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionScalableMatrixWithTieredPricingPrice</a></code>
