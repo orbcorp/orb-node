@@ -136,7 +136,7 @@ export interface InvoiceLineItemCreateResponse {
   sub_line_items: Array<Shared.MatrixSubLineItem | Shared.TierSubLineItem | Shared.OtherSubLineItem>;
 
   /**
-   * The line amount before before any adjustments.
+   * The line amount before any adjustments.
    */
   subtotal: string;
 

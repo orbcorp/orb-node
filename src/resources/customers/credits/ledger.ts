@@ -65,7 +65,7 @@ export class Ledger extends APIResource {
    * Note that for this entry type, `starting_balance` will equal `ending_balance`,
    * and the `amount` represents the balance transferred. The credit block linked to
    * the ledger entry is the source credit block from which there was an expiration
-   * change
+   * change.
    *
    * ## Credits expiry
    *
@@ -414,7 +414,7 @@ export class Ledger extends APIResource {
    * Note that for this entry type, `starting_balance` will equal `ending_balance`,
    * and the `amount` represents the balance transferred. The credit block linked to
    * the ledger entry is the source credit block from which there was an expiration
-   * change
+   * change.
    *
    * ## Credits expiry
    *
@@ -896,11 +896,19 @@ export declare namespace LedgerCreateEntryParams {
       auto_collection: boolean;
 
       /**
-       * The net terms determines the difference between the invoice date and the issue
-       * date for the invoice. If you intend the invoice to be due on issue, set this
-       * to 0.
+       * The net terms determines the due date of the invoice. Due date is calculated
+       * based on the invoice or issuance date, depending on the account's configured due
+       * date calculation method. A value of '0' here represents that the invoice is due
+       * on issue, whereas a value of '30' represents that the customer has 30 days to
+       * pay the invoice. Do not set this field if you want to set a custom due date.
        */
       net_terms: number | null;
+
+      /**
+       * An optional custom due date for the invoice. If not set, the due date will be
+       * calculated based on the `net_terms` value.
+       */
+      custom_due_date?: (string & {}) | (string & {}) | null;
 
       /**
        * An ISO 8601 format date that denotes when this invoice should be dated in the
@@ -1154,11 +1162,19 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
       auto_collection: boolean;
 
       /**
-       * The net terms determines the difference between the invoice date and the issue
-       * date for the invoice. If you intend the invoice to be due on issue, set this
-       * to 0.
+       * The net terms determines the due date of the invoice. Due date is calculated
+       * based on the invoice or issuance date, depending on the account's configured due
+       * date calculation method. A value of '0' here represents that the invoice is due
+       * on issue, whereas a value of '30' represents that the customer has 30 days to
+       * pay the invoice. Do not set this field if you want to set a custom due date.
        */
       net_terms: number | null;
+
+      /**
+       * An optional custom due date for the invoice. If not set, the due date will be
+       * calculated based on the `net_terms` value.
+       */
+      custom_due_date?: (string & {}) | (string & {}) | null;
 
       /**
        * An ISO 8601 format date that denotes when this invoice should be dated in the

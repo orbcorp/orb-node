@@ -1,6 +1,6 @@
 {
   "name": "orb-billing",
-  "version": "5.5.1",
+  "version": "5.6.0",
   "description": "The official TypeScript library for the Orb API",
   "author": "Orb <team@withorb.com>",
   "types": "dist/index.d.ts",
@@ -13,6 +13,9 @@
     "**/*"
   ],
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "./scripts/test",
     "build": "./scripts/build",

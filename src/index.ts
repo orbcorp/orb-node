@@ -63,8 +63,6 @@ import {
 } from './resources/subscription-changes';
 import {
   DiscountOverride,
-  NewSubscriptionBPSPrice,
-  NewSubscriptionBulkBPSPrice,
   NewSubscriptionBulkPrice,
   NewSubscriptionBulkWithProrationPrice,
   NewSubscriptionCumulativeGroupedBulkPrice,
@@ -77,13 +75,13 @@ import {
   NewSubscriptionMatrixWithAllocationPrice,
   NewSubscriptionMatrixWithDisplayNamePrice,
   NewSubscriptionMaxGroupTieredPackagePrice,
+  NewSubscriptionMinimumCompositePrice,
   NewSubscriptionPackagePrice,
   NewSubscriptionPackageWithAllocationPrice,
   NewSubscriptionScalableMatrixWithTieredPricingPrice,
   NewSubscriptionScalableMatrixWithUnitPricingPrice,
   NewSubscriptionThresholdTotalAmountPrice,
   NewSubscriptionTierWithProrationPrice,
-  NewSubscriptionTieredBPSPrice,
   NewSubscriptionTieredPackagePrice,
   NewSubscriptionTieredPackageWithMinimumPrice,
   NewSubscriptionTieredPrice,
@@ -412,6 +410,7 @@ Orb.Alerts = Alerts;
 Orb.AlertsPage = AlertsPage;
 Orb.DimensionalPriceGroupsPage = DimensionalPriceGroupsPage;
 Orb.SubscriptionChanges = SubscriptionChanges;
+
 export declare namespace Orb {
   export type RequestOptions = Core.RequestOptions;
 
@@ -532,8 +531,6 @@ export declare namespace Orb {
   export {
     type Subscriptions as Subscriptions,
     type DiscountOverride as DiscountOverride,
-    type NewSubscriptionBPSPrice as NewSubscriptionBPSPrice,
-    type NewSubscriptionBulkBPSPrice as NewSubscriptionBulkBPSPrice,
     type NewSubscriptionBulkPrice as NewSubscriptionBulkPrice,
     type NewSubscriptionBulkWithProrationPrice as NewSubscriptionBulkWithProrationPrice,
     type NewSubscriptionCumulativeGroupedBulkPrice as NewSubscriptionCumulativeGroupedBulkPrice,
@@ -546,13 +543,13 @@ export declare namespace Orb {
     type NewSubscriptionMatrixWithAllocationPrice as NewSubscriptionMatrixWithAllocationPrice,
     type NewSubscriptionMatrixWithDisplayNamePrice as NewSubscriptionMatrixWithDisplayNamePrice,
     type NewSubscriptionMaxGroupTieredPackagePrice as NewSubscriptionMaxGroupTieredPackagePrice,
+    type NewSubscriptionMinimumCompositePrice as NewSubscriptionMinimumCompositePrice,
     type NewSubscriptionPackagePrice as NewSubscriptionPackagePrice,
     type NewSubscriptionPackageWithAllocationPrice as NewSubscriptionPackageWithAllocationPrice,
     type NewSubscriptionScalableMatrixWithTieredPricingPrice as NewSubscriptionScalableMatrixWithTieredPricingPrice,
     type NewSubscriptionScalableMatrixWithUnitPricingPrice as NewSubscriptionScalableMatrixWithUnitPricingPrice,
     type NewSubscriptionThresholdTotalAmountPrice as NewSubscriptionThresholdTotalAmountPrice,
     type NewSubscriptionTierWithProrationPrice as NewSubscriptionTierWithProrationPrice,
-    type NewSubscriptionTieredBPSPrice as NewSubscriptionTieredBPSPrice,
     type NewSubscriptionTieredPackagePrice as NewSubscriptionTieredPackagePrice,
     type NewSubscriptionTieredPackageWithMinimumPrice as NewSubscriptionTieredPackageWithMinimumPrice,
     type NewSubscriptionTieredPrice as NewSubscriptionTieredPrice,
@@ -624,10 +621,6 @@ export declare namespace Orb {
   export type BillingCycleAnchorConfiguration = API.BillingCycleAnchorConfiguration;
   export type BillingCycleConfiguration = API.BillingCycleConfiguration;
   export type BillingCycleRelativeDate = API.BillingCycleRelativeDate;
-  export type BPSConfig = API.BPSConfig;
-  export type BPSTier = API.BPSTier;
-  export type BulkBPSConfig = API.BulkBPSConfig;
-  export type BulkBPSTier = API.BulkBPSTier;
   export type BulkConfig = API.BulkConfig;
   export type BulkTier = API.BulkTier;
   export type ChangedSubscriptionResources = API.ChangedSubscriptionResources;
@@ -665,8 +658,6 @@ export declare namespace Orb {
   export type NewAmountDiscount = API.NewAmountDiscount;
   export type NewBillingCycleConfiguration = API.NewBillingCycleConfiguration;
   export type NewDimensionalPriceConfiguration = API.NewDimensionalPriceConfiguration;
-  export type NewFloatingBPSPrice = API.NewFloatingBPSPrice;
-  export type NewFloatingBulkBPSPrice = API.NewFloatingBulkBPSPrice;
   export type NewFloatingBulkPrice = API.NewFloatingBulkPrice;
   export type NewFloatingBulkWithProrationPrice = API.NewFloatingBulkWithProrationPrice;
   export type NewFloatingCumulativeGroupedBulkPrice = API.NewFloatingCumulativeGroupedBulkPrice;
@@ -679,6 +670,7 @@ export declare namespace Orb {
   export type NewFloatingMatrixWithAllocationPrice = API.NewFloatingMatrixWithAllocationPrice;
   export type NewFloatingMatrixWithDisplayNamePrice = API.NewFloatingMatrixWithDisplayNamePrice;
   export type NewFloatingMaxGroupTieredPackagePrice = API.NewFloatingMaxGroupTieredPackagePrice;
+  export type NewFloatingMinimumCompositePrice = API.NewFloatingMinimumCompositePrice;
   export type NewFloatingPackagePrice = API.NewFloatingPackagePrice;
   export type NewFloatingPackageWithAllocationPrice = API.NewFloatingPackageWithAllocationPrice;
   export type NewFloatingScalableMatrixWithTieredPricingPrice =
@@ -686,7 +678,6 @@ export declare namespace Orb {
   export type NewFloatingScalableMatrixWithUnitPricingPrice =
     API.NewFloatingScalableMatrixWithUnitPricingPrice;
   export type NewFloatingThresholdTotalAmountPrice = API.NewFloatingThresholdTotalAmountPrice;
-  export type NewFloatingTieredBPSPrice = API.NewFloatingTieredBPSPrice;
   export type NewFloatingTieredPackagePrice = API.NewFloatingTieredPackagePrice;
   export type NewFloatingTieredPackageWithMinimumPrice = API.NewFloatingTieredPackageWithMinimumPrice;
   export type NewFloatingTieredPrice = API.NewFloatingTieredPrice;
@@ -698,8 +689,6 @@ export declare namespace Orb {
   export type NewMaximum = API.NewMaximum;
   export type NewMinimum = API.NewMinimum;
   export type NewPercentageDiscount = API.NewPercentageDiscount;
-  export type NewPlanBPSPrice = API.NewPlanBPSPrice;
-  export type NewPlanBulkBPSPrice = API.NewPlanBulkBPSPrice;
   export type NewPlanBulkPrice = API.NewPlanBulkPrice;
   export type NewPlanBulkWithProrationPrice = API.NewPlanBulkWithProrationPrice;
   export type NewPlanCumulativeGroupedBulkPrice = API.NewPlanCumulativeGroupedBulkPrice;
@@ -712,13 +701,13 @@ export declare namespace Orb {
   export type NewPlanMatrixWithAllocationPrice = API.NewPlanMatrixWithAllocationPrice;
   export type NewPlanMatrixWithDisplayNamePrice = API.NewPlanMatrixWithDisplayNamePrice;
   export type NewPlanMaxGroupTieredPackagePrice = API.NewPlanMaxGroupTieredPackagePrice;
+  export type NewPlanMinimumCompositePrice = API.NewPlanMinimumCompositePrice;
   export type NewPlanPackagePrice = API.NewPlanPackagePrice;
   export type NewPlanPackageWithAllocationPrice = API.NewPlanPackageWithAllocationPrice;
   export type NewPlanScalableMatrixWithTieredPricingPrice = API.NewPlanScalableMatrixWithTieredPricingPrice;
   export type NewPlanScalableMatrixWithUnitPricingPrice = API.NewPlanScalableMatrixWithUnitPricingPrice;
   export type NewPlanThresholdTotalAmountPrice = API.NewPlanThresholdTotalAmountPrice;
   export type NewPlanTierWithProrationPrice = API.NewPlanTierWithProrationPrice;
-  export type NewPlanTieredBPSPrice = API.NewPlanTieredBPSPrice;
   export type NewPlanTieredPackagePrice = API.NewPlanTieredPackagePrice;
   export type NewPlanTieredPackageWithMinimumPrice = API.NewPlanTieredPackageWithMinimumPrice;
   export type NewPlanTieredPrice = API.NewPlanTieredPrice;
@@ -749,7 +738,6 @@ export declare namespace Orb {
   export type Tier = API.Tier;
   export type TierConfig = API.TierConfig;
   export type TierSubLineItem = API.TierSubLineItem;
-  export type TieredBPSConfig = API.TieredBPSConfig;
   export type TieredConfig = API.TieredConfig;
   export type TieredConversionRateConfig = API.TieredConversionRateConfig;
   export type TransformPriceFilter = API.TransformPriceFilter;

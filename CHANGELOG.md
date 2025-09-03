@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.6.0 (2025-09-03)
+
+Full Changelog: [v5.5.1...v5.6.0](https://github.com/orbcorp/orb-node/compare/v5.5.1...v5.6.0)
+
+### Features
+
+* **api:** api update ([854e206](https://github.com/orbcorp/orb-node/commit/854e2068835cc9b9732b3dd2d77cf3069635e2ac))
+* extract minimum composite to type ([562f89d](https://github.com/orbcorp/orb-node/commit/562f89dc39fa924e97e824e6653a85dcb2540961))
+
+
+### Chores
+
+* **internal:** codegen related update ([5114bb9](https://github.com/orbcorp/orb-node/commit/5114bb9876813b88abfde60e4c8ebe992293e8c2))
+
 ## 5.5.1 (2025-07-29)
 
 Full Changelog: [v5.5.0...v5.5.1](https://github.com/orbcorp/orb-node/compare/v5.5.0...v5.5.1)

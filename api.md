@@ -12,10 +12,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">BillingCycleAnchorConfiguration</a></code>
 - <code><a href="./src/resources/shared.ts">BillingCycleConfiguration</a></code>
 - <code><a href="./src/resources/shared.ts">BillingCycleRelativeDate</a></code>
-- <code><a href="./src/resources/shared.ts">BPSConfig</a></code>
-- <code><a href="./src/resources/shared.ts">BPSTier</a></code>
-- <code><a href="./src/resources/shared.ts">BulkBPSConfig</a></code>
-- <code><a href="./src/resources/shared.ts">BulkBPSTier</a></code>
 - <code><a href="./src/resources/shared.ts">BulkConfig</a></code>
 - <code><a href="./src/resources/shared.ts">BulkTier</a></code>
 - <code><a href="./src/resources/shared.ts">ChangedSubscriptionResources</a></code>
@@ -53,8 +49,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">NewAmountDiscount</a></code>
 - <code><a href="./src/resources/shared.ts">NewBillingCycleConfiguration</a></code>
 - <code><a href="./src/resources/shared.ts">NewDimensionalPriceConfiguration</a></code>
-- <code><a href="./src/resources/shared.ts">NewFloatingBPSPrice</a></code>
-- <code><a href="./src/resources/shared.ts">NewFloatingBulkBPSPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingBulkPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingBulkWithProrationPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingCumulativeGroupedBulkPrice</a></code>
@@ -67,12 +61,12 @@ Types:
 - <code><a href="./src/resources/shared.ts">NewFloatingMatrixWithAllocationPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingMatrixWithDisplayNamePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingMaxGroupTieredPackagePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewFloatingMinimumCompositePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingPackagePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingPackageWithAllocationPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingScalableMatrixWithTieredPricingPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingScalableMatrixWithUnitPricingPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingThresholdTotalAmountPrice</a></code>
-- <code><a href="./src/resources/shared.ts">NewFloatingTieredBPSPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingTieredPackagePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingTieredPackageWithMinimumPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewFloatingTieredPrice</a></code>
@@ -84,8 +78,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">NewMaximum</a></code>
 - <code><a href="./src/resources/shared.ts">NewMinimum</a></code>
 - <code><a href="./src/resources/shared.ts">NewPercentageDiscount</a></code>
-- <code><a href="./src/resources/shared.ts">NewPlanBPSPrice</a></code>
-- <code><a href="./src/resources/shared.ts">NewPlanBulkBPSPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanBulkPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanBulkWithProrationPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanCumulativeGroupedBulkPrice</a></code>
@@ -98,13 +90,13 @@ Types:
 - <code><a href="./src/resources/shared.ts">NewPlanMatrixWithAllocationPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanMatrixWithDisplayNamePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanMaxGroupTieredPackagePrice</a></code>
+- <code><a href="./src/resources/shared.ts">NewPlanMinimumCompositePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanPackagePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanPackageWithAllocationPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanScalableMatrixWithTieredPricingPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanScalableMatrixWithUnitPricingPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanThresholdTotalAmountPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanTierWithProrationPrice</a></code>
-- <code><a href="./src/resources/shared.ts">NewPlanTieredBPSPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanTieredPackagePrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanTieredPackageWithMinimumPrice</a></code>
 - <code><a href="./src/resources/shared.ts">NewPlanTieredPrice</a></code>
@@ -135,7 +127,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">Tier</a></code>
 - <code><a href="./src/resources/shared.ts">TierConfig</a></code>
 - <code><a href="./src/resources/shared.ts">TierSubLineItem</a></code>
-- <code><a href="./src/resources/shared.ts">TieredBPSConfig</a></code>
 - <code><a href="./src/resources/shared.ts">TieredConfig</a></code>
 - <code><a href="./src/resources/shared.ts">TieredConversionRateConfig</a></code>
 - <code><a href="./src/resources/shared.ts">TransformPriceFilter</a></code>
@@ -458,8 +449,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/subscriptions.ts">DiscountOverride</a></code>
-- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionBPSPrice</a></code>
-- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionBulkBPSPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionBulkPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionBulkWithProrationPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionCumulativeGroupedBulkPrice</a></code>
@@ -472,13 +461,13 @@ Types:
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionMatrixWithAllocationPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionMatrixWithDisplayNamePrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionMaxGroupTieredPackagePrice</a></code>
+- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionMinimumCompositePrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionPackagePrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionPackageWithAllocationPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionScalableMatrixWithTieredPricingPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionScalableMatrixWithUnitPricingPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionThresholdTotalAmountPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTierWithProrationPrice</a></code>
-- <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTieredBPSPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTieredPackagePrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTieredPackageWithMinimumPrice</a></code>
 - <code><a href="./src/resources/subscriptions.ts">NewSubscriptionTieredPrice</a></code>

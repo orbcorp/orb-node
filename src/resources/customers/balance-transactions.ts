@@ -84,7 +84,8 @@ export interface BalanceTransactionCreateResponse {
     | 'credit_note_applied'
     | 'credit_note_voided'
     | 'overpayment_refund'
-    | 'external_payment';
+    | 'external_payment'
+    | 'small_invoice_carryover';
 
   /**
    * The value of the amount changed in the transaction.
@@ -135,7 +136,8 @@ export interface BalanceTransactionListResponse {
     | 'credit_note_applied'
     | 'credit_note_voided'
     | 'overpayment_refund'
-    | 'external_payment';
+    | 'external_payment'
+    | 'small_invoice_carryover';
 
   /**
    * The value of the amount changed in the transaction.
