@@ -46,7 +46,7 @@ describe('resource invoices', () => {
           name: 'Line Item Name',
           quantity: 1,
           start_date: '2023-09-22',
-          unit_config: { unit_amount: 'unit_amount' },
+          unit_config: { unit_amount: 'unit_amount', scaling_factor: 0 },
         },
       ],
       customer_id: '4khy3nwzktxv7',

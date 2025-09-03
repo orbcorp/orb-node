@@ -848,6 +848,9 @@ export namespace InvoiceCreateParams {
      */
     start_date: string;
 
+    /**
+     * Configuration for unit pricing
+     */
     unit_config: Shared.UnitConfig;
   }
 }

@@ -147,7 +147,6 @@ export {
   type NewSubscriptionScalableMatrixWithTieredPricingPrice,
   type NewSubscriptionScalableMatrixWithUnitPricingPrice,
   type NewSubscriptionThresholdTotalAmountPrice,
-  type NewSubscriptionTierWithProrationPrice,
   type NewSubscriptionTieredPackagePrice,
   type NewSubscriptionTieredPackageWithMinimumPrice,
   type NewSubscriptionTieredPrice,
