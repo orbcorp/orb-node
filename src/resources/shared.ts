@@ -8981,7 +8981,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -9068,7 +9068,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -9160,7 +9160,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -9247,7 +9247,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -9334,7 +9334,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -9416,7 +9416,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -9538,7 +9538,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -9660,7 +9660,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -9797,7 +9797,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -9914,7 +9914,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -10046,7 +10046,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -10150,7 +10150,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -10259,7 +10259,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -10341,7 +10341,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -10458,7 +10458,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -10562,7 +10562,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -10671,7 +10671,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -10787,7 +10787,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -10896,7 +10896,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -11054,7 +11054,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -11168,7 +11168,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -11294,7 +11294,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -11421,7 +11421,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -11542,7 +11542,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -11683,7 +11683,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -11839,7 +11839,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
@@ -11965,7 +11965,7 @@ export namespace Price {
 
     plan_phase_order: number | null;
 
-    price_type: 'usage_price' | 'fixed_price';
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
 
     /**
      * The price id this price replaces. This price will take the place of the replaced
