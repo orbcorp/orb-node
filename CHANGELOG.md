@@ -1,5 +1,24 @@
 # Changelog
 
+## 5.7.0 (2025-09-08)
+
+Full Changelog: [v5.6.0...v5.7.0](https://github.com/orbcorp/orb-node/compare/v5.6.0...v5.7.0)
+
+### Features
+
+* **api:** api update ([513da97](https://github.com/orbcorp/orb-node/commit/513da97a394b525f2acee167a1d4a175159f13ef))
+* **api:** api update ([54b6144](https://github.com/orbcorp/orb-node/commit/54b61445b4098187c1becfe55b2fd770384406a5))
+
+
+### Bug Fixes
+
+* coerce nullable values to undefined ([2cfbbe0](https://github.com/orbcorp/orb-node/commit/2cfbbe032b77b2108c1d76b5f0d2bb6b1a57e9c6))
+
+
+### Chores
+
+* ci build action ([8ecd057](https://github.com/orbcorp/orb-node/commit/8ecd05725660beac4c985e301085e675895eb20d))
+
 ## 5.6.0 (2025-09-03)
 
 Full Changelog: [v5.5.1...v5.6.0](https://github.com/orbcorp/orb-node/compare/v5.5.1...v5.6.0)
