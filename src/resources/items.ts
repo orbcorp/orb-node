@@ -85,7 +85,8 @@ export namespace Item {
       | 'netsuite'
       | 'taxjar'
       | 'avalara'
-      | 'anrok';
+      | 'anrok'
+      | 'numeral';
 
     external_entity_id: string;
   }
@@ -127,7 +128,8 @@ export namespace ItemUpdateParams {
       | 'netsuite'
       | 'taxjar'
       | 'avalara'
-      | 'anrok';
+      | 'anrok'
+      | 'numeral';
 
     external_entity_id: string;
   }
