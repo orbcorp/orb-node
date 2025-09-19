@@ -15,9 +15,6 @@ export class Beta extends APIResource {
   externalPlanId: ExternalPlanIDAPI.ExternalPlanID = new ExternalPlanIDAPI.ExternalPlanID(this._client);
 
   /**
-   * This API endpoint is in beta and its interface may change. It is recommended for
-   * use only in test mode.
-   *
    * This endpoint allows the creation of a new plan version for an existing plan.
    */
   createPlanVersion(
