@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.11.0 (2025-09-19)
+
+Full Changelog: [v5.10.0...v5.11.0](https://github.com/orbcorp/orb-node/compare/v5.10.0...v5.11.0)
+
+### Features
+
+* **api:** api update ([031e5a5](https://github.com/orbcorp/orb-node/commit/031e5a586939c576d120131ed5846c778ee300fb))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([ae0c9fc](https://github.com/orbcorp/orb-node/commit/ae0c9fcf624bdb40f1a5080513b659bbfc186c78))
+
 ## 5.10.0 (2025-09-16)
 
 Full Changelog: [v5.9.0...v5.10.0](https://github.com/orbcorp/orb-node/compare/v5.9.0...v5.10.0)
