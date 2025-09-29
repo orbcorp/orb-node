@@ -1,5 +1,26 @@
 # Changelog
 
+## 5.12.0 (2025-09-29)
+
+Full Changelog: [v5.11.0...v5.12.0](https://github.com/orbcorp/orb-node/compare/v5.11.0...v5.12.0)
+
+### Features
+
+* **api:** api update ([b0d5c86](https://github.com/orbcorp/orb-node/commit/b0d5c86e281ce0b40e24ce8cebc236d966118142))
+
+
+### Performance Improvements
+
+* faster formatting ([50c7725](https://github.com/orbcorp/orb-node/commit/50c77253c12be122ea838a3c00542f638713b2e5))
+
+
+### Chores
+
+* **internal:** codegen related update ([f7e1b19](https://github.com/orbcorp/orb-node/commit/f7e1b190045dc737efee567fa1e8846f842a1315))
+* **internal:** fix incremental formatting in some cases ([e4ce871](https://github.com/orbcorp/orb-node/commit/e4ce87131ac73f953c2b062a7bc6b74fd598c040))
+* **internal:** ignore .eslintcache ([ed5c44b](https://github.com/orbcorp/orb-node/commit/ed5c44b015bfc48032e2950d49fb547b48decc76))
+* **internal:** remove deprecated `compilerOptions.baseUrl` from tsconfig.json ([9da5396](https://github.com/orbcorp/orb-node/commit/9da53961a69eedcb3ed6178f91992bc7dce5ed68))
+
 ## 5.11.0 (2025-09-19)
 
 Full Changelog: [v5.10.0...v5.11.0](https://github.com/orbcorp/orb-node/compare/v5.10.0...v5.11.0)
