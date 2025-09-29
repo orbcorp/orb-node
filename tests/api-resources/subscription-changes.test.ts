@@ -50,7 +50,11 @@ describe('resource subscriptionChanges', () => {
     await expect(
       client.subscriptionChanges.apply(
         'subscription_change_id',
-        { description: 'description', previously_collected_amount: 'previously_collected_amount' },
+        {
+          description: 'description',
+          mark_as_paid: true,
+          previously_collected_amount: 'previously_collected_amount',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);

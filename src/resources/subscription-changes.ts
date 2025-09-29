@@ -321,7 +321,14 @@ export interface SubscriptionChangeApplyParams {
   description?: string | null;
 
   /**
-   * Amount already collected to apply to the customer's balance.
+   * Mark all pending invoices that are payable as paid. If amount is also provided,
+   * mark as paid and credit the difference to the customer's balance.
+   */
+  mark_as_paid?: boolean | null;
+
+  /**
+   * Amount already collected to apply to the customer's balance. If mark_as_paid is
+   * also provided, credit the difference to the customer's balance.
    */
   previously_collected_amount?: string | null;
 }
