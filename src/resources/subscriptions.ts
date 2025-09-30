@@ -5571,6 +5571,10 @@ export interface SubscriptionListParams extends PageParams {
 
   external_customer_id?: Array<string> | null;
 
+  external_plan_id?: string | null;
+
+  plan_id?: string | null;
+
   status?: 'active' | 'ended' | 'upcoming' | null;
 }
 
