@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.13.0 (2025-10-01)
+
+Full Changelog: [v5.12.0...v5.13.0](https://github.com/orbcorp/orb-node/compare/v5.12.0...v5.13.0)
+
+### Features
+
+* **api:** api update ([7bbfaa9](https://github.com/orbcorp/orb-node/commit/7bbfaa9bb73fee06ea4b0cdd2cae00022b254234))
+
+
+### Chores
+
+* **internal:** remove .eslintcache ([d953352](https://github.com/orbcorp/orb-node/commit/d95335270dabf5a45d96397f05244124424f671e))
+
 ## 5.12.0 (2025-09-29)
 
 Full Changelog: [v5.11.0...v5.12.0](https://github.com/orbcorp/orb-node/compare/v5.11.0...v5.12.0)
