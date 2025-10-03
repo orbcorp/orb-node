@@ -2138,6 +2138,11 @@ export interface MatrixSubLineItem {
   quantity: number;
 
   type: 'matrix';
+
+  /**
+   * The scaled quantity for this line item for specific pricing structures
+   */
+  scaled_quantity?: number | null;
 }
 
 /**
