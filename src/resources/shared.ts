@@ -12903,11 +12903,6 @@ export interface UnitConfig {
    * Rate per unit of usage
    */
   unit_amount: string;
-
-  /**
-   * Multiplier to scale rated quantity by
-   */
-  scaling_factor?: number | null;
 }
 
 export interface UnitConversionRateConfig {
