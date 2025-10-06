@@ -59,10 +59,20 @@ export class ItemsPage extends Page<Item> {}
  * external sync behavior for invoices and tax calculation purposes.
  */
 export interface Item {
+  /**
+   * The Orb-assigned unique identifier for the item.
+   */
   id: string;
 
+  /**
+   * The time at which the item was created.
+   */
   created_at: string;
 
+  /**
+   * A list of external connections for this item, used to sync with external
+   * invoicing and tax systems.
+   */
   external_connections: Array<Item.ExternalConnection>;
 
   /**
@@ -73,11 +83,26 @@ export interface Item {
    */
   metadata: { [key: string]: string };
 
+  /**
+   * The name of the item.
+   */
   name: string;
+
+  /**
+   * The time at which the item was archived. If null, the item is not archived.
+   */
+  archived_at?: string | null;
 }
 
 export namespace Item {
+  /**
+   * Represents a connection between an Item and an external system for invoicing or
+   * tax calculation purposes.
+   */
   export interface ExternalConnection {
+    /**
+     * The name of the external system this item is connected to.
+     */
     external_connection_name:
       | 'stripe'
       | 'quickbooks'
@@ -88,6 +113,9 @@ export namespace Item {
       | 'anrok'
       | 'numeral';
 
+    /**
+     * The identifier of this item in the external system.
+     */
     external_entity_id: string;
   }
 }
@@ -120,7 +148,14 @@ export interface ItemUpdateParams {
 }
 
 export namespace ItemUpdateParams {
+  /**
+   * Represents a connection between an Item and an external system for invoicing or
+   * tax calculation purposes.
+   */
   export interface ExternalConnection {
+    /**
+     * The name of the external system this item is connected to.
+     */
     external_connection_name:
       | 'stripe'
       | 'quickbooks'
@@ -131,6 +166,9 @@ export namespace ItemUpdateParams {
       | 'anrok'
       | 'numeral';
 
+    /**
+     * The identifier of this item in the external system.
+     */
     external_entity_id: string;
   }
 }
