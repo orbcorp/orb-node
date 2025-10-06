@@ -4869,6 +4869,7 @@ export namespace SubscriptionCreateParams {
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithTieredPricingPrice
       | SubscriptionsAPI.NewSubscriptionCumulativeGroupedBulkPrice
       | SubscriptionsAPI.NewSubscriptionMinimumCompositePrice
+      | AddPrice.NewSubscriptionEventOutputPrice
       | null;
 
     /**
@@ -5143,6 +5144,125 @@ export namespace SubscriptionCreateParams {
         per_unit_rate: string;
       }
     }
+
+    export interface NewSubscriptionEventOutputPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * Configuration for event_output pricing
+       */
+      event_output_config: NewSubscriptionEventOutputPrice.EventOutputConfig;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'event_output';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionEventOutputPrice {
+      /**
+       * Configuration for event_output pricing
+       */
+      export interface EventOutputConfig {
+        /**
+         * The key in the event data to extract the unit rate from.
+         */
+        unit_rating_key: string;
+
+        /**
+         * An optional key in the event data to group by (e.g., event ID). All events will
+         * also be grouped by their unit rate.
+         */
+        grouping_key?: string | null;
+      }
+    }
   }
 
   export interface RemoveAdjustment {
@@ -5251,6 +5371,7 @@ export namespace SubscriptionCreateParams {
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithTieredPricingPrice
       | SubscriptionsAPI.NewSubscriptionCumulativeGroupedBulkPrice
       | SubscriptionsAPI.NewSubscriptionMinimumCompositePrice
+      | ReplacePrice.NewSubscriptionEventOutputPrice
       | null;
 
     /**
@@ -5516,6 +5637,125 @@ export namespace SubscriptionCreateParams {
          * The base price charged per group
          */
         per_unit_rate: string;
+      }
+    }
+
+    export interface NewSubscriptionEventOutputPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * Configuration for event_output pricing
+       */
+      event_output_config: NewSubscriptionEventOutputPrice.EventOutputConfig;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'event_output';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionEventOutputPrice {
+      /**
+       * Configuration for event_output pricing
+       */
+      export interface EventOutputConfig {
+        /**
+         * The key in the event data to extract the unit rate from.
+         */
+        unit_rating_key: string;
+
+        /**
+         * An optional key in the event data to group by (e.g., event ID). All events will
+         * also be grouped by their unit rate.
+         */
+        grouping_key?: string | null;
       }
     }
   }
@@ -5796,6 +6036,7 @@ export namespace SubscriptionPriceIntervalsParams {
       | Shared.NewFloatingScalableMatrixWithTieredPricingPrice
       | Shared.NewFloatingCumulativeGroupedBulkPrice
       | Shared.NewFloatingMinimumCompositePrice
+      | Add.NewFloatingEventOutputPrice
       | null;
 
     /**
@@ -5974,6 +6215,118 @@ export namespace SubscriptionPriceIntervalsParams {
          * The base price charged per group
          */
         per_unit_rate: string;
+      }
+    }
+
+    export interface NewFloatingEventOutputPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * Configuration for event_output pricing
+       */
+      event_output_config: NewFloatingEventOutputPrice.EventOutputConfig;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'event_output';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+    }
+
+    export namespace NewFloatingEventOutputPrice {
+      /**
+       * Configuration for event_output pricing
+       */
+      export interface EventOutputConfig {
+        /**
+         * The key in the event data to extract the unit rate from.
+         */
+        unit_rating_key: string;
+
+        /**
+         * An optional key in the event data to group by (e.g., event ID). All events will
+         * also be grouped by their unit rate.
+         */
+        grouping_key?: string | null;
       }
     }
   }
@@ -6389,6 +6742,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithTieredPricingPrice
       | SubscriptionsAPI.NewSubscriptionCumulativeGroupedBulkPrice
       | SubscriptionsAPI.NewSubscriptionMinimumCompositePrice
+      | AddPrice.NewSubscriptionEventOutputPrice
       | null;
 
     /**
@@ -6663,6 +7017,125 @@ export namespace SubscriptionSchedulePlanChangeParams {
         per_unit_rate: string;
       }
     }
+
+    export interface NewSubscriptionEventOutputPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * Configuration for event_output pricing
+       */
+      event_output_config: NewSubscriptionEventOutputPrice.EventOutputConfig;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'event_output';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionEventOutputPrice {
+      /**
+       * Configuration for event_output pricing
+       */
+      export interface EventOutputConfig {
+        /**
+         * The key in the event data to extract the unit rate from.
+         */
+        unit_rating_key: string;
+
+        /**
+         * An optional key in the event data to group by (e.g., event ID). All events will
+         * also be grouped by their unit rate.
+         */
+        grouping_key?: string | null;
+      }
+    }
   }
 
   export interface RemoveAdjustment {
@@ -6771,6 +7244,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithTieredPricingPrice
       | SubscriptionsAPI.NewSubscriptionCumulativeGroupedBulkPrice
       | SubscriptionsAPI.NewSubscriptionMinimumCompositePrice
+      | ReplacePrice.NewSubscriptionEventOutputPrice
       | null;
 
     /**
@@ -7036,6 +7510,125 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The base price charged per group
          */
         per_unit_rate: string;
+      }
+    }
+
+    export interface NewSubscriptionEventOutputPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * Configuration for event_output pricing
+       */
+      event_output_config: NewSubscriptionEventOutputPrice.EventOutputConfig;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'event_output';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionEventOutputPrice {
+      /**
+       * Configuration for event_output pricing
+       */
+      export interface EventOutputConfig {
+        /**
+         * The key in the event data to extract the unit rate from.
+         */
+        unit_rating_key: string;
+
+        /**
+         * An optional key in the event data to group by (e.g., event ID). All events will
+         * also be grouped by their unit rate.
+         */
+        grouping_key?: string | null;
       }
     }
   }
