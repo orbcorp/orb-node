@@ -9544,6 +9544,7 @@ export type Price =
   | Price.ScalableMatrixWithTieredPricingPrice
   | Price.CumulativeGroupedBulkPrice
   | Price.MinimumCompositePrice
+  | Price.PercentCompositePrice
   | Price.EventOutputPrice;
 
 export namespace Price {
@@ -12791,6 +12792,111 @@ export namespace Price {
        * If true, subtotals from this price are prorated based on the service period
        */
       prorated?: boolean;
+    }
+  }
+
+  export interface PercentCompositePrice {
+    id: string;
+
+    billable_metric: Shared.BillableMetricTiny | null;
+
+    billing_cycle_configuration: Shared.BillingCycleConfiguration;
+
+    billing_mode: 'in_advance' | 'in_arrear';
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
+    conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    created_at: string;
+
+    credit_allocation: Shared.Allocation | null;
+
+    currency: string;
+
+    /**
+     * @deprecated
+     */
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
+
+    /**
+     * A minimal representation of an Item containing only the essential identifying
+     * information.
+     */
+    item: Shared.ItemSlim;
+
+    /**
+     * @deprecated
+     */
+    maximum: Shared.Maximum | null;
+
+    /**
+     * @deprecated
+     */
+    maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: { [key: string]: string };
+
+    /**
+     * @deprecated
+     */
+    minimum: Shared.Minimum | null;
+
+    /**
+     * @deprecated
+     */
+    minimum_amount: string | null;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'percent';
+
+    name: string;
+
+    /**
+     * Configuration for percent pricing
+     */
+    percent_config: PercentCompositePrice.PercentConfig;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+  }
+
+  export namespace PercentCompositePrice {
+    /**
+     * Configuration for percent pricing
+     */
+    export interface PercentConfig {
+      /**
+       * What percent of the component subtotals to charge
+       */
+      percent: number;
     }
   }
 
