@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.16.0 (2025-10-07)
+
+Full Changelog: [v5.15.0...v5.16.0](https://github.com/orbcorp/orb-node/compare/v5.15.0...v5.16.0)
+
+### Features
+
+* **api:** api update ([9e9ba52](https://github.com/orbcorp/orb-node/commit/9e9ba528654c5b9ef47f9c1d8570a4556e59aadc))
+* **api:** api update ([bf101c9](https://github.com/orbcorp/orb-node/commit/bf101c9a8209099a5b473aba16fed43682b8c324))
+
+
+### Chores
+
+* **internal:** use npm pack for build uploads ([8c41138](https://github.com/orbcorp/orb-node/commit/8c41138e7293e46a6f8335a58b153965b9901053))
+
 ## 5.15.0 (2025-10-03)
 
 Full Changelog: [v5.14.0...v5.15.0](https://github.com/orbcorp/orb-node/compare/v5.14.0...v5.15.0)
