@@ -9520,6 +9520,7 @@ export type Price =
   | Price.UnitPrice
   | Price.TieredPrice
   | Price.BulkPrice
+  | Price.BulkWithFiltersPrice
   | Price.PackagePrice
   | Price.MatrixPrice
   | Price.ThresholdTotalAmountPrice
@@ -9825,6 +9826,148 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+  }
+
+  export interface BulkWithFiltersPrice {
+    id: string;
+
+    billable_metric: Shared.BillableMetricTiny | null;
+
+    billing_cycle_configuration: Shared.BillingCycleConfiguration;
+
+    billing_mode: 'in_advance' | 'in_arrear';
+
+    /**
+     * Configuration for bulk_with_filters pricing
+     */
+    bulk_with_filters_config: BulkWithFiltersPrice.BulkWithFiltersConfig;
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+
+    conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    created_at: string;
+
+    credit_allocation: Shared.Allocation | null;
+
+    currency: string;
+
+    /**
+     * @deprecated
+     */
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
+
+    /**
+     * A minimal representation of an Item containing only the essential identifying
+     * information.
+     */
+    item: Shared.ItemSlim;
+
+    /**
+     * @deprecated
+     */
+    maximum: Shared.Maximum | null;
+
+    /**
+     * @deprecated
+     */
+    maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: { [key: string]: string };
+
+    /**
+     * @deprecated
+     */
+    minimum: Shared.Minimum | null;
+
+    /**
+     * @deprecated
+     */
+    minimum_amount: string | null;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'bulk_with_filters';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+  }
+
+  export namespace BulkWithFiltersPrice {
+    /**
+     * Configuration for bulk_with_filters pricing
+     */
+    export interface BulkWithFiltersConfig {
+      /**
+       * Property filters to apply (all must match)
+       */
+      filters: Array<BulkWithFiltersConfig.Filter>;
+
+      /**
+       * Bulk tiers for rating based on total usage volume
+       */
+      tiers: Array<BulkWithFiltersConfig.Tier>;
+    }
+
+    export namespace BulkWithFiltersConfig {
+      /**
+       * Configuration for a single property filter
+       */
+      export interface Filter {
+        /**
+         * Event property key to filter on
+         */
+        property_key: string;
+
+        /**
+         * Event property value to match
+         */
+        property_value: string;
+      }
+
+      /**
+       * Configuration for a single bulk pricing tier
+       */
+      export interface Tier {
+        /**
+         * Amount per unit
+         */
+        unit_amount: string;
+
+        /**
+         * The lower bound for this tier
+         */
+        tier_lower_bound?: string | null;
+      }
+    }
   }
 
   export interface PackagePrice {
