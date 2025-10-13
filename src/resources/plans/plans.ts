@@ -326,6 +326,7 @@ export namespace PlanCreateParams {
       | Shared.NewPlanUnitPrice
       | Shared.NewPlanTieredPrice
       | Shared.NewPlanBulkPrice
+      | Price.NewPlanBulkWithFiltersPrice
       | Shared.NewPlanPackagePrice
       | Shared.NewPlanMatrixPrice
       | Shared.NewPlanThresholdTotalAmountPrice
@@ -356,6 +357,156 @@ export namespace PlanCreateParams {
   }
 
   export namespace Price {
+    export interface NewPlanBulkWithFiltersPrice {
+      /**
+       * Configuration for bulk_with_filters pricing
+       */
+      bulk_with_filters_config: NewPlanBulkWithFiltersPrice.BulkWithFiltersConfig;
+
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'bulk_with_filters';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewPlanBulkWithFiltersPrice {
+      /**
+       * Configuration for bulk_with_filters pricing
+       */
+      export interface BulkWithFiltersConfig {
+        /**
+         * Property filters to apply (all must match)
+         */
+        filters: Array<BulkWithFiltersConfig.Filter>;
+
+        /**
+         * Bulk tiers for rating based on total usage volume
+         */
+        tiers: Array<BulkWithFiltersConfig.Tier>;
+      }
+
+      export namespace BulkWithFiltersConfig {
+        /**
+         * Configuration for a single property filter
+         */
+        export interface Filter {
+          /**
+           * Event property key to filter on
+           */
+          property_key: string;
+
+          /**
+           * Event property value to match
+           */
+          property_value: string;
+        }
+
+        /**
+         * Configuration for a single bulk pricing tier
+         */
+        export interface Tier {
+          /**
+           * Amount per unit
+           */
+          unit_amount: string;
+
+          /**
+           * The lower bound for this tier
+           */
+          tier_lower_bound?: string | null;
+        }
+      }
+    }
+
     export interface NewPlanTieredWithProrationPrice {
       /**
        * The cadence to bill for this price on.
