@@ -918,6 +918,12 @@ export declare namespace LedgerCreateEntryParams {
       invoice_date?: (string & {}) | (string & {}) | null;
 
       /**
+       * The ID of the Item to be used for the invoice line item. If not provided, a
+       * default 'Credits' item will be used.
+       */
+      item_id?: string | null;
+
+      /**
        * An optional memo to display on the invoice.
        */
       memo?: string | null;
@@ -1182,6 +1188,12 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
        * credit block's effective date.
        */
       invoice_date?: (string & {}) | (string & {}) | null;
+
+      /**
+       * The ID of the Item to be used for the invoice line item. If not provided, a
+       * default 'Credits' item will be used.
+       */
+      item_id?: string | null;
 
       /**
        * An optional memo to display on the invoice.
