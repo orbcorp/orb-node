@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.19.0 (2025-10-15)
+
+Full Changelog: [v5.18.0...v5.19.0](https://github.com/orbcorp/orb-node/compare/v5.18.0...v5.19.0)
+
+### Features
+
+* **api:** api update ([26bae8b](https://github.com/orbcorp/orb-node/commit/26bae8b9e3684010a3b954da9485d1869c413c3f))
+
 ## 5.18.0 (2025-10-13)
 
 Full Changelog: [v5.17.0...v5.18.0](https://github.com/orbcorp/orb-node/compare/v5.17.0...v5.18.0)
