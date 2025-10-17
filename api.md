@@ -127,7 +127,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">TierSubLineItem</a></code>
 - <code><a href="./src/resources/shared.ts">TieredConfig</a></code>
 - <code><a href="./src/resources/shared.ts">TieredConversionRateConfig</a></code>
-- <code><a href="./src/resources/shared.ts">TransformPriceFilter</a></code>
 - <code><a href="./src/resources/shared.ts">TrialDiscount</a></code>
 - <code><a href="./src/resources/shared.ts">UnitConfig</a></code>
 - <code><a href="./src/resources/shared.ts">UnitConversionRateConfig</a></code>

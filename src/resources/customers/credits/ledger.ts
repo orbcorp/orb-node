@@ -471,9 +471,30 @@ export class LedgerListByExternalIDResponsesPage extends Page<LedgerListByExtern
 export interface AffectedBlock {
   id: string;
 
+  block_filters: Array<AffectedBlock.BlockFilter> | null;
+
   expiry_date: string | null;
 
   per_unit_cost_basis: string | null;
+}
+
+export namespace AffectedBlock {
+  export interface BlockFilter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface AmendmentLedgerEntry {
