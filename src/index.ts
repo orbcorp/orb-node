@@ -736,7 +736,6 @@ export declare namespace Orb {
   export type TierSubLineItem = API.TierSubLineItem;
   export type TieredConfig = API.TieredConfig;
   export type TieredConversionRateConfig = API.TieredConversionRateConfig;
-  export type TransformPriceFilter = API.TransformPriceFilter;
   export type TrialDiscount = API.TrialDiscount;
   export type UnitConfig = API.UnitConfig;
   export type UnitConversionRateConfig = API.UnitConversionRateConfig;
