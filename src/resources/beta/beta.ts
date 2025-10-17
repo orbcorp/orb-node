@@ -849,6 +849,13 @@ export namespace BetaCreatePlanVersionParams {
         unit_rating_key: string;
 
         /**
+         * If provided, this amount will be used as the unit rate when an event does not
+         * have a value for the `unit_rating_key`. If not provided, events missing a unit
+         * rate will be ignored.
+         */
+        default_unit_rate?: string | null;
+
+        /**
          * An optional key in the event data to group by (e.g., event ID). All events will
          * also be grouped by their unit rate.
          */
@@ -1589,6 +1596,13 @@ export namespace BetaCreatePlanVersionParams {
          * The key in the event data to extract the unit rate from.
          */
         unit_rating_key: string;
+
+        /**
+         * If provided, this amount will be used as the unit rate when an event does not
+         * have a value for the `unit_rating_key`. If not provided, events missing a unit
+         * rate will be ignored.
+         */
+        default_unit_rate?: string | null;
 
         /**
          * An optional key in the event data to group by (e.g., event ID). All events will

@@ -86,9 +86,28 @@ export interface AmountDiscount {
   /**
    * The filters that determine which prices to apply this discount to.
    */
-  filters?: Array<TransformPriceFilter> | null;
+  filters?: Array<AmountDiscount.Filter> | null;
 
   reason?: string | null;
+}
+
+export namespace AmountDiscount {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface AmountDiscountInterval {
@@ -112,12 +131,31 @@ export interface AmountDiscountInterval {
   /**
    * The filters that determine which prices this discount interval applies to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<AmountDiscountInterval.Filter>;
 
   /**
    * The start date of the discount interval.
    */
   start_date: string;
+}
+
+export namespace AmountDiscountInterval {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface BillableMetricTiny {
@@ -2224,12 +2262,31 @@ export interface Maximum {
   /**
    * The filters that determine which prices to apply this maximum to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<Maximum.Filter>;
 
   /**
    * Maximum amount applied
    */
   maximum_amount: string;
+}
+
+export namespace Maximum {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface MaximumInterval {
@@ -2246,7 +2303,7 @@ export interface MaximumInterval {
   /**
    * The filters that determine which prices this maximum interval applies to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<MaximumInterval.Filter>;
 
   /**
    * The maximum amount to charge in a given billing period for the price intervals
@@ -2260,6 +2317,25 @@ export interface MaximumInterval {
   start_date: string;
 }
 
+export namespace MaximumInterval {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
+}
+
 export interface Minimum {
   /**
    * @deprecated List of price_ids that this minimum amount applies to. For plan/plan
@@ -2270,12 +2346,31 @@ export interface Minimum {
   /**
    * The filters that determine which prices to apply this minimum to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<Minimum.Filter>;
 
   /**
    * Minimum amount applied
    */
   minimum_amount: string;
+}
+
+export namespace Minimum {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface MinimumInterval {
@@ -2292,7 +2387,7 @@ export interface MinimumInterval {
   /**
    * The filters that determine which prices this minimum interval applies to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<MinimumInterval.Filter>;
 
   /**
    * The minimum amount to charge in a given billing period for the price intervals
@@ -2304,6 +2399,25 @@ export interface MinimumInterval {
    * The start date of the minimum interval.
    */
   start_date: string;
+}
+
+export namespace MinimumInterval {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface MonetaryAmountDiscountAdjustment {
@@ -2330,7 +2444,7 @@ export interface MonetaryAmountDiscountAdjustment {
   /**
    * The filters that determine which prices to apply this adjustment to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<MonetaryAmountDiscountAdjustment.Filter>;
 
   /**
    * True for adjustments that apply to an entire invoice, false for adjustments that
@@ -2348,6 +2462,25 @@ export interface MonetaryAmountDiscountAdjustment {
    * of the replaced adjustment in plan version migrations.
    */
   replaces_adjustment_id: string | null;
+}
+
+export namespace MonetaryAmountDiscountAdjustment {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface MonetaryMaximumAdjustment {
@@ -2368,7 +2501,7 @@ export interface MonetaryMaximumAdjustment {
   /**
    * The filters that determine which prices to apply this adjustment to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<MonetaryMaximumAdjustment.Filter>;
 
   /**
    * True for adjustments that apply to an entire invoice, false for adjustments that
@@ -2394,6 +2527,25 @@ export interface MonetaryMaximumAdjustment {
   replaces_adjustment_id: string | null;
 }
 
+export namespace MonetaryMaximumAdjustment {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
+}
+
 export interface MonetaryMinimumAdjustment {
   id: string;
 
@@ -2412,7 +2564,7 @@ export interface MonetaryMinimumAdjustment {
   /**
    * The filters that determine which prices to apply this adjustment to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<MonetaryMinimumAdjustment.Filter>;
 
   /**
    * True for adjustments that apply to an entire invoice, false for adjustments that
@@ -2443,6 +2595,25 @@ export interface MonetaryMinimumAdjustment {
   replaces_adjustment_id: string | null;
 }
 
+export namespace MonetaryMinimumAdjustment {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
+}
+
 export interface MonetaryPercentageDiscountAdjustment {
   id: string;
 
@@ -2461,7 +2632,7 @@ export interface MonetaryPercentageDiscountAdjustment {
   /**
    * The filters that determine which prices to apply this adjustment to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<MonetaryPercentageDiscountAdjustment.Filter>;
 
   /**
    * True for adjustments that apply to an entire invoice, false for adjustments that
@@ -2487,6 +2658,25 @@ export interface MonetaryPercentageDiscountAdjustment {
   replaces_adjustment_id: string | null;
 }
 
+export namespace MonetaryPercentageDiscountAdjustment {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
+}
+
 export interface MonetaryUsageDiscountAdjustment {
   id: string;
 
@@ -2505,7 +2695,7 @@ export interface MonetaryUsageDiscountAdjustment {
   /**
    * The filters that determine which prices to apply this adjustment to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<MonetaryUsageDiscountAdjustment.Filter>;
 
   /**
    * True for adjustments that apply to an entire invoice, false for adjustments that
@@ -2529,6 +2719,25 @@ export interface MonetaryUsageDiscountAdjustment {
    * to in a given billing period.
    */
   usage_discount: number;
+}
+
+export namespace MonetaryUsageDiscountAdjustment {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface NewAllocationPrice {
@@ -2588,7 +2797,7 @@ export interface NewAmountDiscount {
   /**
    * A list of filters that determine which prices this adjustment will apply to.
    */
-  filters?: Array<TransformPriceFilter> | null;
+  filters?: Array<NewAmountDiscount.Filter> | null;
 
   /**
    * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -2600,6 +2809,25 @@ export interface NewAmountDiscount {
    * If set, only prices of the specified type will have the adjustment applied.
    */
   price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+}
+
+export namespace NewAmountDiscount {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface NewBillingCycleConfiguration {
@@ -5813,7 +6041,7 @@ export interface NewMaximum {
   /**
    * A list of filters that determine which prices this adjustment will apply to.
    */
-  filters?: Array<TransformPriceFilter> | null;
+  filters?: Array<NewMaximum.Filter> | null;
 
   /**
    * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -5825,6 +6053,25 @@ export interface NewMaximum {
    * If set, only prices of the specified type will have the adjustment applied.
    */
   price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+}
+
+export namespace NewMaximum {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface NewMinimum {
@@ -5860,7 +6107,7 @@ export interface NewMinimum {
   /**
    * A list of filters that determine which prices this adjustment will apply to.
    */
-  filters?: Array<TransformPriceFilter> | null;
+  filters?: Array<NewMinimum.Filter> | null;
 
   /**
    * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -5872,6 +6119,25 @@ export interface NewMinimum {
    * If set, only prices of the specified type will have the adjustment applied.
    */
   price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+}
+
+export namespace NewMinimum {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface NewPercentageDiscount {
@@ -5902,7 +6168,7 @@ export interface NewPercentageDiscount {
   /**
    * A list of filters that determine which prices this adjustment will apply to.
    */
-  filters?: Array<TransformPriceFilter> | null;
+  filters?: Array<NewPercentageDiscount.Filter> | null;
 
   /**
    * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -5914,6 +6180,25 @@ export interface NewPercentageDiscount {
    * If set, only prices of the specified type will have the adjustment applied.
    */
   price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+}
+
+export namespace NewPercentageDiscount {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface NewPlanBulkPrice {
@@ -9148,7 +9433,7 @@ export interface NewUsageDiscount {
   /**
    * A list of filters that determine which prices this adjustment will apply to.
    */
-  filters?: Array<TransformPriceFilter> | null;
+  filters?: Array<NewUsageDiscount.Filter> | null;
 
   /**
    * When false, this adjustment will be applied to a single price. Otherwise, it
@@ -9160,6 +9445,25 @@ export interface NewUsageDiscount {
    * If set, only prices of the specified type will have the adjustment applied.
    */
   price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+}
+
+export namespace NewUsageDiscount {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface OtherSubLineItem {
@@ -9244,9 +9548,28 @@ export interface PercentageDiscount {
   /**
    * The filters that determine which prices to apply this discount to.
    */
-  filters?: Array<TransformPriceFilter> | null;
+  filters?: Array<PercentageDiscount.Filter> | null;
 
   reason?: string | null;
+}
+
+export namespace PercentageDiscount {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface PercentageDiscountInterval {
@@ -9265,7 +9588,7 @@ export interface PercentageDiscountInterval {
   /**
    * The filters that determine which prices this discount interval applies to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<PercentageDiscountInterval.Filter>;
 
   /**
    * Only available if discount_type is `percentage`.This is a number between 0
@@ -9277,6 +9600,25 @@ export interface PercentageDiscountInterval {
    * The start date of the discount interval.
    */
   start_date: string;
+}
+
+export namespace PercentageDiscountInterval {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface PlanPhaseAmountDiscountAdjustment {
@@ -9298,7 +9640,7 @@ export interface PlanPhaseAmountDiscountAdjustment {
   /**
    * The filters that determine which prices to apply this adjustment to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<PlanPhaseAmountDiscountAdjustment.Filter>;
 
   /**
    * True for adjustments that apply to an entire invoice, false for adjustments that
@@ -9323,6 +9665,25 @@ export interface PlanPhaseAmountDiscountAdjustment {
   replaces_adjustment_id: string | null;
 }
 
+export namespace PlanPhaseAmountDiscountAdjustment {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
+}
+
 export interface PlanPhaseMaximumAdjustment {
   id: string;
 
@@ -9336,7 +9697,7 @@ export interface PlanPhaseMaximumAdjustment {
   /**
    * The filters that determine which prices to apply this adjustment to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<PlanPhaseMaximumAdjustment.Filter>;
 
   /**
    * True for adjustments that apply to an entire invoice, false for adjustments that
@@ -9367,6 +9728,25 @@ export interface PlanPhaseMaximumAdjustment {
   replaces_adjustment_id: string | null;
 }
 
+export namespace PlanPhaseMaximumAdjustment {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
+}
+
 export interface PlanPhaseMinimumAdjustment {
   id: string;
 
@@ -9380,7 +9760,7 @@ export interface PlanPhaseMinimumAdjustment {
   /**
    * The filters that determine which prices to apply this adjustment to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<PlanPhaseMinimumAdjustment.Filter>;
 
   /**
    * True for adjustments that apply to an entire invoice, false for adjustments that
@@ -9416,6 +9796,25 @@ export interface PlanPhaseMinimumAdjustment {
   replaces_adjustment_id: string | null;
 }
 
+export namespace PlanPhaseMinimumAdjustment {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
+}
+
 export interface PlanPhasePercentageDiscountAdjustment {
   id: string;
 
@@ -9429,7 +9828,7 @@ export interface PlanPhasePercentageDiscountAdjustment {
   /**
    * The filters that determine which prices to apply this adjustment to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<PlanPhasePercentageDiscountAdjustment.Filter>;
 
   /**
    * True for adjustments that apply to an entire invoice, false for adjustments that
@@ -9460,6 +9859,25 @@ export interface PlanPhasePercentageDiscountAdjustment {
   replaces_adjustment_id: string | null;
 }
 
+export namespace PlanPhasePercentageDiscountAdjustment {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
+}
+
 export interface PlanPhaseUsageDiscountAdjustment {
   id: string;
 
@@ -9473,7 +9891,7 @@ export interface PlanPhaseUsageDiscountAdjustment {
   /**
    * The filters that determine which prices to apply this adjustment to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<PlanPhaseUsageDiscountAdjustment.Filter>;
 
   /**
    * True for adjustments that apply to an entire invoice, false for adjustments that
@@ -9502,6 +9920,25 @@ export interface PlanPhaseUsageDiscountAdjustment {
    * to in a given billing period.
    */
   usage_discount: number;
+}
+
+export namespace PlanPhaseUsageDiscountAdjustment {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 /**
@@ -9560,7 +9997,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<UnitPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -9642,6 +10079,25 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
+  export namespace UnitPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface TieredPrice {
     id: string;
 
@@ -9653,7 +10109,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<TieredPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -9735,6 +10191,25 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
+  export namespace TieredPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface BulkPrice {
     id: string;
 
@@ -9751,7 +10226,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<BulkPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -9828,6 +10303,25 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
+  export namespace BulkPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface BulkWithFiltersPrice {
     id: string;
 
@@ -9844,7 +10338,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<BulkWithFiltersPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -9968,6 +10462,23 @@ export namespace Price {
         tier_lower_bound?: string | null;
       }
     }
+
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface PackagePrice {
@@ -9981,7 +10492,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<PackagePrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -10063,6 +10574,25 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
+  export namespace PackagePrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface MatrixPrice {
     id: string;
 
@@ -10074,7 +10604,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<MatrixPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -10156,6 +10686,25 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
+  export namespace MatrixPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface ThresholdTotalAmountPrice {
     id: string;
 
@@ -10167,7 +10716,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<ThresholdTotalAmountPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -10250,6 +10799,23 @@ export namespace Price {
   }
 
   export namespace ThresholdTotalAmountPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for threshold_total_amount pricing
      */
@@ -10295,7 +10861,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<TieredPackagePrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -10378,6 +10944,23 @@ export namespace Price {
   }
 
   export namespace TieredPackagePrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for tiered_package pricing
      */
@@ -10425,7 +11008,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<TieredWithMinimumPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -10508,6 +11091,23 @@ export namespace Price {
   }
 
   export namespace TieredWithMinimumPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for tiered_with_minimum pricing
      */
@@ -10563,7 +11163,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<GroupedTieredPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -10646,6 +11246,23 @@ export namespace Price {
   }
 
   export namespace GroupedTieredPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for grouped_tiered pricing
      */
@@ -10691,7 +11308,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<TieredPackageWithMinimumPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -10774,6 +11391,23 @@ export namespace Price {
   }
 
   export namespace TieredPackageWithMinimumPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for tiered_package_with_minimum pricing
      */
@@ -10824,7 +11458,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<PackageWithAllocationPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -10907,6 +11541,23 @@ export namespace Price {
   }
 
   export namespace PackageWithAllocationPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for package_with_allocation pricing
      */
@@ -10939,7 +11590,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<UnitWithPercentPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -11022,6 +11673,23 @@ export namespace Price {
   }
 
   export namespace UnitWithPercentPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for unit_with_percent pricing
      */
@@ -11049,7 +11717,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<MatrixWithAllocationPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -11131,6 +11799,25 @@ export namespace Price {
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
   }
 
+  export namespace MatrixWithAllocationPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+  }
+
   export interface TieredWithProrationPrice {
     id: string;
 
@@ -11142,7 +11829,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<TieredWithProrationPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -11225,6 +11912,23 @@ export namespace Price {
   }
 
   export namespace TieredWithProrationPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for tiered_with_proration pricing
      */
@@ -11265,7 +11969,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<UnitWithProrationPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -11348,6 +12052,23 @@ export namespace Price {
   }
 
   export namespace UnitWithProrationPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for unit_with_proration pricing
      */
@@ -11370,7 +12091,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<GroupedAllocationPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -11453,6 +12174,23 @@ export namespace Price {
   }
 
   export namespace GroupedAllocationPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for grouped_allocation pricing
      */
@@ -11490,7 +12228,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<BulkWithProrationPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -11594,6 +12332,23 @@ export namespace Price {
         tier_lower_bound?: string | null;
       }
     }
+
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
   }
 
   export interface GroupedWithProratedMinimumPrice {
@@ -11607,7 +12362,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<GroupedWithProratedMinimumPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -11690,6 +12445,23 @@ export namespace Price {
   }
 
   export namespace GroupedWithProratedMinimumPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for grouped_with_prorated_minimum pricing
      */
@@ -11722,7 +12494,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<GroupedWithMeteredMinimumPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -11805,6 +12577,23 @@ export namespace Price {
   }
 
   export namespace GroupedWithMeteredMinimumPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for grouped_with_metered_minimum pricing
      */
@@ -11886,7 +12675,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<GroupedWithMinMaxThresholdsPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -11969,6 +12758,23 @@ export namespace Price {
   }
 
   export namespace GroupedWithMinMaxThresholdsPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for grouped_with_min_max_thresholds pricing
      */
@@ -12006,7 +12812,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<MatrixWithDisplayNamePrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -12089,6 +12895,23 @@ export namespace Price {
   }
 
   export namespace MatrixWithDisplayNamePrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for matrix_with_display_name pricing
      */
@@ -12138,7 +12961,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<GroupedTieredPackagePrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -12221,6 +13044,23 @@ export namespace Price {
   }
 
   export namespace GroupedTieredPackagePrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for grouped_tiered_package pricing
      */
@@ -12271,7 +13111,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<MaxGroupTieredPackagePrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -12354,6 +13194,23 @@ export namespace Price {
   }
 
   export namespace MaxGroupTieredPackagePrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for max_group_tiered_package pricing
      */
@@ -12403,7 +13260,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<ScalableMatrixWithUnitPricingPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -12486,6 +13343,23 @@ export namespace Price {
   }
 
   export namespace ScalableMatrixWithUnitPricingPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for scalable_matrix_with_unit_pricing pricing
      */
@@ -12550,7 +13424,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<ScalableMatrixWithTieredPricingPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -12633,6 +13507,23 @@ export namespace Price {
   }
 
   export namespace ScalableMatrixWithTieredPricingPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for scalable_matrix_with_tiered_pricing pricing
      */
@@ -12707,7 +13598,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<CumulativeGroupedBulkPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -12790,6 +13681,23 @@ export namespace Price {
   }
 
   export namespace CumulativeGroupedBulkPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for cumulative_grouped_bulk pricing
      */
@@ -12839,7 +13747,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<MinimumCompositePrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -12922,6 +13830,23 @@ export namespace Price {
   }
 
   export namespace MinimumCompositePrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for minimum pricing
      */
@@ -12949,7 +13874,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<PercentCompositePrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -13032,6 +13957,23 @@ export namespace Price {
   }
 
   export namespace PercentCompositePrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for percent pricing
      */
@@ -13054,7 +13996,7 @@ export namespace Price {
 
     cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
 
-    composite_price_filters: Array<Shared.TransformPriceFilter> | null;
+    composite_price_filters: Array<EventOutputPrice.CompositePriceFilter> | null;
 
     conversion_rate: number | null;
 
@@ -13137,6 +14079,23 @@ export namespace Price {
   }
 
   export namespace EventOutputPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Configuration for event_output pricing
      */
@@ -13145,6 +14104,13 @@ export namespace Price {
        * The key in the event data to extract the unit rate from.
        */
       unit_rating_key: string;
+
+      /**
+       * If provided, this amount will be used as the unit rate when an event does not
+       * have a value for the `unit_rating_key`. If not provided, events missing a unit
+       * rate will be ignored.
+       */
+      default_unit_rate?: string | null;
 
       /**
        * An optional key in the event data to group by (e.g., event ID). All events will
@@ -13335,23 +14301,6 @@ export interface TieredConversionRateConfig {
   tiered_config: ConversionRateTieredConfig;
 }
 
-export interface TransformPriceFilter {
-  /**
-   * The property of the price to filter on.
-   */
-  field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
-
-  /**
-   * Should prices that match the filter be included or excluded.
-   */
-  operator: 'includes' | 'excludes';
-
-  /**
-   * The IDs or values that match this filter.
-   */
-  values: Array<string>;
-}
-
 export interface TrialDiscount {
   discount_type: 'trial';
 
@@ -13364,7 +14313,7 @@ export interface TrialDiscount {
   /**
    * The filters that determine which prices to apply this discount to.
    */
-  filters?: Array<TransformPriceFilter> | null;
+  filters?: Array<TrialDiscount.Filter> | null;
 
   reason?: string | null;
 
@@ -13377,6 +14326,25 @@ export interface TrialDiscount {
    * Only available if discount_type is `trial`
    */
   trial_percentage_discount?: number | null;
+}
+
+export namespace TrialDiscount {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 /**
@@ -13413,9 +14381,28 @@ export interface UsageDiscount {
   /**
    * The filters that determine which prices to apply this discount to.
    */
-  filters?: Array<TransformPriceFilter> | null;
+  filters?: Array<UsageDiscount.Filter> | null;
 
   reason?: string | null;
+}
+
+export namespace UsageDiscount {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface UsageDiscountInterval {
@@ -13434,7 +14421,7 @@ export interface UsageDiscountInterval {
   /**
    * The filters that determine which prices this discount interval applies to.
    */
-  filters: Array<TransformPriceFilter>;
+  filters: Array<UsageDiscountInterval.Filter>;
 
   /**
    * The start date of the discount interval.
@@ -13446,6 +14433,25 @@ export interface UsageDiscountInterval {
    * discount is for
    */
   usage_discount: number;
+}
+
+export namespace UsageDiscountInterval {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export class CreditNotesPage extends Page<CreditNote> {}
