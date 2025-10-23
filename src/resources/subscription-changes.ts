@@ -327,6 +327,23 @@ export interface SubscriptionChangeApplyParams {
   mark_as_paid?: boolean | null;
 
   /**
+   * An optional external ID to associate with the payment. Only applicable when
+   * mark_as_paid is true.
+   */
+  payment_external_id?: string | null;
+
+  /**
+   * Optional notes about the payment. Only applicable when mark_as_paid is true.
+   */
+  payment_notes?: string | null;
+
+  /**
+   * A date string to specify the date the payment was received. Only applicable when
+   * mark_as_paid is true. If not provided, defaults to the current date.
+   */
+  payment_received_date?: string | null;
+
+  /**
    * Amount already collected to apply to the customer's balance. If mark_as_paid is
    * also provided, credit the difference to the customer's balance.
    */

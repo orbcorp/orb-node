@@ -53,6 +53,9 @@ describe('resource subscriptionChanges', () => {
         {
           description: 'description',
           mark_as_paid: true,
+          payment_external_id: 'payment_external_id',
+          payment_notes: 'payment_notes',
+          payment_received_date: '2019-12-27',
           previously_collected_amount: 'previously_collected_amount',
         },
         { path: '/_stainless_unknown_path' },
