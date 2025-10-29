@@ -461,6 +461,12 @@ export interface Customer {
 
   accounting_sync_configuration?: Customer.AccountingSyncConfiguration | null;
 
+  /**
+   * Whether automatic tax calculation is enabled for this customer. This field is
+   * nullable for backwards compatibility but will always return a boolean value.
+   */
+  automatic_tax_enabled?: boolean | null;
+
   reporting_configuration?: Customer.ReportingConfiguration | null;
 }
 
@@ -518,6 +524,12 @@ export interface NewAvalaraTaxConfiguration {
 
   tax_provider: 'avalara';
 
+  /**
+   * Whether to automatically calculate tax for this customer. When null, inherits
+   * from account-level setting. When true or false, overrides the account setting.
+   */
+  automatic_tax_enabled?: boolean | null;
+
   tax_exemption_code?: string | null;
 }
 
@@ -529,12 +541,24 @@ export interface NewSphereConfiguration {
   tax_exempt: boolean;
 
   tax_provider: 'sphere';
+
+  /**
+   * Whether to automatically calculate tax for this customer. When null, inherits
+   * from account-level setting. When true or false, overrides the account setting.
+   */
+  automatic_tax_enabled?: boolean | null;
 }
 
 export interface NewTaxJarConfiguration {
   tax_exempt: boolean;
 
   tax_provider: 'taxjar';
+
+  /**
+   * Whether to automatically calculate tax for this customer. When null, inherits
+   * from account-level setting. When true or false, overrides the account setting.
+   */
+  automatic_tax_enabled?: boolean | null;
 }
 
 export interface CustomerCreateParams {
@@ -625,6 +649,7 @@ export interface CustomerCreateParams {
     | NewTaxJarConfiguration
     | NewSphereConfiguration
     | CustomerCreateParams.NewNumeralConfiguration
+    | CustomerCreateParams.NewAnrokConfiguration
     | null;
 
   /**
@@ -788,6 +813,24 @@ export namespace CustomerCreateParams {
     tax_exempt: boolean;
 
     tax_provider: 'numeral';
+
+    /**
+     * Whether to automatically calculate tax for this customer. When null, inherits
+     * from account-level setting. When true or false, overrides the account setting.
+     */
+    automatic_tax_enabled?: boolean | null;
+  }
+
+  export interface NewAnrokConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'anrok';
+
+    /**
+     * Whether to automatically calculate tax for this customer. When null, inherits
+     * from account-level setting. When true or false, overrides the account setting.
+     */
+    automatic_tax_enabled?: boolean | null;
   }
 }
 
@@ -815,6 +858,13 @@ export interface CustomerUpdateParams {
    * will be inherited from the account-level setting.
    */
   auto_issuance?: boolean | null;
+
+  /**
+   * Whether automatic tax calculation is enabled for this customer. When null,
+   * inherits from account-level setting. When true or false, overrides the account
+   * setting.
+   */
+  automatic_tax_enabled?: boolean | null;
 
   billing_address?: AddressInput | null;
 
@@ -883,6 +933,7 @@ export interface CustomerUpdateParams {
     | NewTaxJarConfiguration
     | NewSphereConfiguration
     | CustomerUpdateParams.NewNumeralConfiguration
+    | CustomerUpdateParams.NewAnrokConfiguration
     | null;
 
   /**
@@ -1039,6 +1090,24 @@ export namespace CustomerUpdateParams {
     tax_exempt: boolean;
 
     tax_provider: 'numeral';
+
+    /**
+     * Whether to automatically calculate tax for this customer. When null, inherits
+     * from account-level setting. When true or false, overrides the account setting.
+     */
+    automatic_tax_enabled?: boolean | null;
+  }
+
+  export interface NewAnrokConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'anrok';
+
+    /**
+     * Whether to automatically calculate tax for this customer. When null, inherits
+     * from account-level setting. When true or false, overrides the account setting.
+     */
+    automatic_tax_enabled?: boolean | null;
   }
 }
 
@@ -1076,6 +1145,13 @@ export interface CustomerUpdateByExternalIDParams {
    * will be inherited from the account-level setting.
    */
   auto_issuance?: boolean | null;
+
+  /**
+   * Whether automatic tax calculation is enabled for this customer. When null,
+   * inherits from account-level setting. When true or false, overrides the account
+   * setting.
+   */
+  automatic_tax_enabled?: boolean | null;
 
   billing_address?: AddressInput | null;
 
@@ -1144,6 +1220,7 @@ export interface CustomerUpdateByExternalIDParams {
     | NewTaxJarConfiguration
     | NewSphereConfiguration
     | CustomerUpdateByExternalIDParams.NewNumeralConfiguration
+    | CustomerUpdateByExternalIDParams.NewAnrokConfiguration
     | null;
 
   /**
@@ -1300,6 +1377,24 @@ export namespace CustomerUpdateByExternalIDParams {
     tax_exempt: boolean;
 
     tax_provider: 'numeral';
+
+    /**
+     * Whether to automatically calculate tax for this customer. When null, inherits
+     * from account-level setting. When true or false, overrides the account setting.
+     */
+    automatic_tax_enabled?: boolean | null;
+  }
+
+  export interface NewAnrokConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'anrok';
+
+    /**
+     * Whether to automatically calculate tax for this customer. When null, inherits
+     * from account-level setting. When true or false, overrides the account setting.
+     */
+    automatic_tax_enabled?: boolean | null;
   }
 }
 
