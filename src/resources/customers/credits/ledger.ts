@@ -471,15 +471,15 @@ export class LedgerListByExternalIDResponsesPage extends Page<LedgerListByExtern
 export interface AffectedBlock {
   id: string;
 
-  block_filters: Array<AffectedBlock.BlockFilter> | null;
-
   expiry_date: string | null;
+
+  filters: Array<AffectedBlock.Filter>;
 
   per_unit_cost_basis: string | null;
 }
 
 export namespace AffectedBlock {
-  export interface BlockFilter {
+  export interface Filter {
     /**
      * The property of the price to filter on.
      */

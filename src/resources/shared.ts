@@ -67,6 +67,27 @@ export interface Allocation {
   currency: string;
 
   custom_expiration: CustomExpiration | null;
+
+  filters?: Array<Allocation.Filter>;
+}
+
+export namespace Allocation {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface AmountDiscount {
