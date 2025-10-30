@@ -16,12 +16,13 @@ export class Invoices extends APIResource {
   }
 
   /**
-   * This endpoint allows you to update the `metadata`, `net_terms`, and `due_date`
-   * properties on an invoice. If you pass null for the metadata value, it will clear
-   * any existing metadata for that invoice.
+   * This endpoint allows you to update the `metadata`, `net_terms`, `due_date`, and
+   * `invoice_date` properties on an invoice. If you pass null for the metadata
+   * value, it will clear any existing metadata for that invoice.
    *
-   * `metadata` can be modified regardless of invoice state. `net_terms` and
-   * `due_date` can only be modified if the invoice is in a `draft` state.
+   * `metadata` can be modified regardless of invoice state. `net_terms`, `due_date`,
+   * and `invoice_date` can only be modified if the invoice is in a `draft` state.
+   * `invoice_date` can only be modified for non-subscription invoices.
    */
   update(
     invoiceId: string,
@@ -861,6 +862,11 @@ export interface InvoiceUpdateParams {
    * calculated based on the `net_terms` value.
    */
   due_date?: (string & {}) | (string & {}) | null;
+
+  /**
+   * The date of the invoice. Can only be modified for one-off draft invoices.
+   */
+  invoice_date?: (string & {}) | (string & {}) | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
