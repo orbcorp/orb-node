@@ -125,11 +125,32 @@ export interface CreditListResponse {
 
   expiry_date: string | null;
 
+  filters: Array<CreditListResponse.Filter>;
+
   maximum_initial_balance: number | null;
 
   per_unit_cost_basis: string | null;
 
   status: 'active' | 'pending_payment';
+}
+
+export namespace CreditListResponse {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface CreditListByExternalIDResponse {
@@ -141,11 +162,32 @@ export interface CreditListByExternalIDResponse {
 
   expiry_date: string | null;
 
+  filters: Array<CreditListByExternalIDResponse.Filter>;
+
   maximum_initial_balance: number | null;
 
   per_unit_cost_basis: string | null;
 
   status: 'active' | 'pending_payment';
+}
+
+export namespace CreditListByExternalIDResponse {
+  export interface Filter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface CreditListParams extends PageParams {
