@@ -300,6 +300,7 @@ describe('resource subscriptions', () => {
             currency: 'USD',
             custom_expiration: { duration: 0, duration_unit: 'day' },
             expires_at_end_of_cadence: true,
+            filters: [{ field: 'item_id', operator: 'includes', values: ['string'] }],
           },
           discounts: [
             {
@@ -389,6 +390,7 @@ describe('resource subscriptions', () => {
             currency: 'USD',
             custom_expiration: { duration: 0, duration_unit: 'day' },
             expires_at_end_of_cadence: true,
+            filters: [{ field: 'item_id', operator: 'includes', values: ['string'] }],
           },
           discounts: [
             {
