@@ -881,6 +881,12 @@ export declare namespace LedgerCreateEntryParams {
     expiry_date?: string | null;
 
     /**
+     * Optional filter to specify which items this credit block applies to. If not
+     * specified, the block will apply to all items for the pricing unit.
+     */
+    filters?: Array<AddIncrementCreditLedgerEntryRequestParams.Filter> | null;
+
+    /**
      * Passing `invoice_settings` automatically generates an invoice for the newly
      * added credits. If `invoice_settings` is passed, you must specify
      * per_unit_cost_basis, as the calculation of the invoice total is done on that
@@ -903,6 +909,26 @@ export declare namespace LedgerCreateEntryParams {
   }
 
   export namespace AddIncrementCreditLedgerEntryRequestParams {
+    /**
+     * A PriceFilter that only allows item_id field for block filters.
+     */
+    export interface Filter {
+      /**
+       * The property of the price the block applies to. Only item_id is supported.
+       */
+      field: 'item_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Passing `invoice_settings` automatically generates an invoice for the newly
      * added credits. If `invoice_settings` is passed, you must specify
@@ -1153,6 +1179,12 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
     expiry_date?: string | null;
 
     /**
+     * Optional filter to specify which items this credit block applies to. If not
+     * specified, the block will apply to all items for the pricing unit.
+     */
+    filters?: Array<AddIncrementCreditLedgerEntryRequestParams.Filter> | null;
+
+    /**
      * Passing `invoice_settings` automatically generates an invoice for the newly
      * added credits. If `invoice_settings` is passed, you must specify
      * per_unit_cost_basis, as the calculation of the invoice total is done on that
@@ -1175,6 +1207,26 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
   }
 
   export namespace AddIncrementCreditLedgerEntryRequestParams {
+    /**
+     * A PriceFilter that only allows item_id field for block filters.
+     */
+    export interface Filter {
+      /**
+       * The property of the price the block applies to. Only item_id is supported.
+       */
+      field: 'item_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
     /**
      * Passing `invoice_settings` automatically generates an invoice for the newly
      * added credits. If `invoice_settings` is passed, you must specify
