@@ -32,6 +32,7 @@ describe('resource plans', () => {
             currency: 'USD',
             custom_expiration: { duration: 0, duration_unit: 'day' },
             expires_at_end_of_cadence: true,
+            filters: [{ field: 'item_id', operator: 'includes', values: ['string'] }],
           },
           plan_phase_order: 0,
           price: {

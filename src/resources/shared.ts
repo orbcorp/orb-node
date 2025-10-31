@@ -2788,6 +2788,33 @@ export interface NewAllocationPrice {
    * over to the next period. Set to null if using custom_expiration.
    */
   expires_at_end_of_cadence?: boolean | null;
+
+  /**
+   * The filters that determine which items the allocation applies to.
+   */
+  filters?: Array<NewAllocationPrice.Filter> | null;
+}
+
+export namespace NewAllocationPrice {
+  /**
+   * A PriceFilter that only allows item_id field for block filters.
+   */
+  export interface Filter {
+    /**
+     * The property of the price the block applies to. Only item_id is supported.
+     */
+    field: 'item_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
 }
 
 export interface NewAmountDiscount {
