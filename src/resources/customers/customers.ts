@@ -859,13 +859,6 @@ export interface CustomerUpdateParams {
    */
   auto_issuance?: boolean | null;
 
-  /**
-   * Whether automatic tax calculation is enabled for this customer. When null,
-   * inherits from account-level setting. When true or false, overrides the account
-   * setting.
-   */
-  automatic_tax_enabled?: boolean | null;
-
   billing_address?: AddressInput | null;
 
   /**
@@ -1145,13 +1138,6 @@ export interface CustomerUpdateByExternalIDParams {
    * will be inherited from the account-level setting.
    */
   auto_issuance?: boolean | null;
-
-  /**
-   * Whether automatic tax calculation is enabled for this customer. When null,
-   * inherits from account-level setting. When true or false, overrides the account
-   * setting.
-   */
-  automatic_tax_enabled?: boolean | null;
 
   billing_address?: AddressInput | null;
 
