@@ -14183,6 +14183,13 @@ export interface PriceInterval {
   billing_cycle_day: number;
 
   /**
+   * For in-arrears prices. If true, and the price interval ends mid-cycle, the final
+   * line item will be deferred to the next scheduled invoice instead of being billed
+   * mid-cycle.
+   */
+  can_defer_billing: boolean;
+
+  /**
    * The end of the current billing period. This is an exclusive timestamp, such that
    * the instant returned is exactly the end of the billing period. Set to null if
    * this price interval is not currently active.
@@ -14341,6 +14348,11 @@ export interface TieredConfig {
    * Tiers for rating based on total usage quantities into the specified tier
    */
   tiers: Array<Tier>;
+
+  /**
+   * If true, subtotals from this price are prorated based on the service period
+   */
+  prorated?: boolean;
 }
 
 export interface TieredConversionRateConfig {
@@ -14403,6 +14415,11 @@ export interface UnitConfig {
    * Rate per unit of usage
    */
   unit_amount: string;
+
+  /**
+   * If true, subtotals from this price are prorated based on the service period
+   */
+  prorated?: boolean;
 }
 
 export interface UnitConversionRateConfig {
