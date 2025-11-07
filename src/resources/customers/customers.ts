@@ -650,6 +650,7 @@ export interface CustomerCreateParams {
     | NewSphereConfiguration
     | CustomerCreateParams.NewNumeralConfiguration
     | CustomerCreateParams.NewAnrokConfiguration
+    | CustomerCreateParams.NewStripeTaxConfiguration
     | null;
 
   /**
@@ -832,6 +833,18 @@ export namespace CustomerCreateParams {
      */
     automatic_tax_enabled?: boolean | null;
   }
+
+  export interface NewStripeTaxConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'stripe';
+
+    /**
+     * Whether to automatically calculate tax for this customer. When null, inherits
+     * from account-level setting. When true or false, overrides the account setting.
+     */
+    automatic_tax_enabled?: boolean | null;
+  }
 }
 
 export interface CustomerUpdateParams {
@@ -927,6 +940,7 @@ export interface CustomerUpdateParams {
     | NewSphereConfiguration
     | CustomerUpdateParams.NewNumeralConfiguration
     | CustomerUpdateParams.NewAnrokConfiguration
+    | CustomerUpdateParams.NewStripeTaxConfiguration
     | null;
 
   /**
@@ -1102,6 +1116,18 @@ export namespace CustomerUpdateParams {
      */
     automatic_tax_enabled?: boolean | null;
   }
+
+  export interface NewStripeTaxConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'stripe';
+
+    /**
+     * Whether to automatically calculate tax for this customer. When null, inherits
+     * from account-level setting. When true or false, overrides the account setting.
+     */
+    automatic_tax_enabled?: boolean | null;
+  }
 }
 
 export interface CustomerListParams extends PageParams {
@@ -1207,6 +1233,7 @@ export interface CustomerUpdateByExternalIDParams {
     | NewSphereConfiguration
     | CustomerUpdateByExternalIDParams.NewNumeralConfiguration
     | CustomerUpdateByExternalIDParams.NewAnrokConfiguration
+    | CustomerUpdateByExternalIDParams.NewStripeTaxConfiguration
     | null;
 
   /**
@@ -1375,6 +1402,18 @@ export namespace CustomerUpdateByExternalIDParams {
     tax_exempt: boolean;
 
     tax_provider: 'anrok';
+
+    /**
+     * Whether to automatically calculate tax for this customer. When null, inherits
+     * from account-level setting. When true or false, overrides the account setting.
+     */
+    automatic_tax_enabled?: boolean | null;
+  }
+
+  export interface NewStripeTaxConfiguration {
+    tax_exempt: boolean;
+
+    tax_provider: 'stripe';
 
     /**
      * Whether to automatically calculate tax for this customer. When null, inherits
