@@ -135,11 +135,14 @@ export interface CreditListResponse {
 }
 
 export namespace CreditListResponse {
+  /**
+   * A PriceFilter that only allows item_id field for block filters.
+   */
   export interface Filter {
     /**
-     * The property of the price to filter on.
+     * The property of the price the block applies to. Only item_id is supported.
      */
-    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+    field: 'item_id';
 
     /**
      * Should prices that match the filter be included or excluded.
@@ -172,11 +175,14 @@ export interface CreditListByExternalIDResponse {
 }
 
 export namespace CreditListByExternalIDResponse {
+  /**
+   * A PriceFilter that only allows item_id field for block filters.
+   */
   export interface Filter {
     /**
-     * The property of the price to filter on.
+     * The property of the price the block applies to. Only item_id is supported.
      */
-    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+    field: 'item_id';
 
     /**
      * Should prices that match the filter be included or excluded.
