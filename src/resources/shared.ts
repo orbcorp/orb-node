@@ -740,11 +740,6 @@ export namespace ChangedSubscriptionResources {
       credits_applied: string;
 
       /**
-       * @deprecated This field is deprecated in favor of `adjustments`
-       */
-      discount: Shared.Discount | null;
-
-      /**
        * The end date of the range of time applied for this line item's price.
        */
       end_date: string;
@@ -760,26 +755,6 @@ export namespace ChangedSubscriptionResources {
        * values for this particular grouping.
        */
       grouping: string | null;
-
-      /**
-       * @deprecated This field is deprecated in favor of `adjustments`.
-       */
-      maximum: Shared.Maximum | null;
-
-      /**
-       * @deprecated This field is deprecated in favor of `adjustments`.
-       */
-      maximum_amount: string | null;
-
-      /**
-       * @deprecated This field is deprecated in favor of `adjustments`.
-       */
-      minimum: Shared.Minimum | null;
-
-      /**
-       * @deprecated This field is deprecated in favor of `adjustments`.
-       */
-      minimum_amount: string | null;
 
       /**
        * The name of the price associated with this line item.
@@ -2010,11 +1985,6 @@ export namespace Invoice {
     credits_applied: string;
 
     /**
-     * @deprecated This field is deprecated in favor of `adjustments`
-     */
-    discount: Shared.Discount | null;
-
-    /**
      * The end date of the range of time applied for this line item's price.
      */
     end_date: string;
@@ -2030,26 +2000,6 @@ export namespace Invoice {
      * values for this particular grouping.
      */
     grouping: string | null;
-
-    /**
-     * @deprecated This field is deprecated in favor of `adjustments`.
-     */
-    maximum: Shared.Maximum | null;
-
-    /**
-     * @deprecated This field is deprecated in favor of `adjustments`.
-     */
-    maximum_amount: string | null;
-
-    /**
-     * @deprecated This field is deprecated in favor of `adjustments`.
-     */
-    minimum: Shared.Minimum | null;
-
-    /**
-     * @deprecated This field is deprecated in favor of `adjustments`.
-     */
-    minimum_amount: string | null;
 
     /**
      * The name of the price associated with this line item.
