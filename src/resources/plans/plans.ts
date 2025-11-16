@@ -94,6 +94,14 @@ export interface Plan {
     | Shared.PlanPhaseMaximumAdjustment
   >;
 
+  base_plan: Plan.BasePlan | null;
+
+  /**
+   * The parent plan id if the given plan was created by overriding one or more of
+   * the parent's prices
+   */
+  base_plan_id: string | null;
+
   created_at: string;
 
   /**
@@ -182,17 +190,22 @@ export interface Plan {
   trial_config: Plan.TrialConfig;
 
   version: number;
-
-  base_plan?: Plan.BasePlan | null;
-
-  /**
-   * The parent plan id if the given plan was created by overriding one or more of
-   * the parent's prices
-   */
-  base_plan_id?: string | null;
 }
 
 export namespace Plan {
+  export interface BasePlan {
+    id: string | null;
+
+    /**
+     * An optional user-defined ID for this plan resource, used throughout the system
+     * as an alias for this Plan. Use this field to identify a plan by an existing
+     * identifier in your system.
+     */
+    external_plan_id: string | null;
+
+    name: string | null;
+  }
+
   export interface PlanPhase {
     id: string;
 
@@ -236,19 +249,6 @@ export namespace Plan {
     trial_period: number | null;
 
     trial_period_unit: 'days';
-  }
-
-  export interface BasePlan {
-    id: string | null;
-
-    /**
-     * An optional user-defined ID for this plan resource, used throughout the system
-     * as an alias for this Plan. Use this field to identify a plan by an existing
-     * identifier in your system.
-     */
-    external_plan_id: string | null;
-
-    name: string | null;
   }
 }
 
