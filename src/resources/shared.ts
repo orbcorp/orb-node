@@ -9979,6 +9979,7 @@ export type Price =
   | Price.ScalableMatrixWithUnitPricingPrice
   | Price.ScalableMatrixWithTieredPricingPrice
   | Price.CumulativeGroupedBulkPrice
+  | Price.CumulativeGroupedAllocationPrice
   | Price.MinimumCompositePrice
   | Price.PercentCompositePrice
   | Price.EventOutputPrice;
@@ -13731,6 +13732,143 @@ export namespace Price {
          */
         unit_amount: string;
       }
+    }
+  }
+
+  export interface CumulativeGroupedAllocationPrice {
+    id: string;
+
+    billable_metric: Shared.BillableMetricTiny | null;
+
+    billing_cycle_configuration: Shared.BillingCycleConfiguration;
+
+    billing_mode: 'in_advance' | 'in_arrear';
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<CumulativeGroupedAllocationPrice.CompositePriceFilter> | null;
+
+    conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    created_at: string;
+
+    credit_allocation: Shared.Allocation | null;
+
+    /**
+     * Configuration for cumulative_grouped_allocation pricing
+     */
+    cumulative_grouped_allocation_config: CumulativeGroupedAllocationPrice.CumulativeGroupedAllocationConfig;
+
+    currency: string;
+
+    /**
+     * @deprecated
+     */
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
+
+    /**
+     * A minimal representation of an Item containing only the essential identifying
+     * information.
+     */
+    item: Shared.ItemSlim;
+
+    /**
+     * @deprecated
+     */
+    maximum: Shared.Maximum | null;
+
+    /**
+     * @deprecated
+     */
+    maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: { [key: string]: string };
+
+    /**
+     * @deprecated
+     */
+    minimum: Shared.Minimum | null;
+
+    /**
+     * @deprecated
+     */
+    minimum_amount: string | null;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'cumulative_grouped_allocation';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+  }
+
+  export namespace CumulativeGroupedAllocationPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
+    /**
+     * Configuration for cumulative_grouped_allocation pricing
+     */
+    export interface CumulativeGroupedAllocationConfig {
+      /**
+       * The overall allocation across all groups
+       */
+      cumulative_allocation: string;
+
+      /**
+       * The allocation per individual group
+       */
+      group_allocation: string;
+
+      /**
+       * The event property used to group usage before applying allocations
+       */
+      grouping_key: string;
+
+      /**
+       * The amount to charge for each unit outside of the allocation
+       */
+      unit_amount: string;
     }
   }
 
