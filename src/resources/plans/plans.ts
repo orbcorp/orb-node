@@ -94,11 +94,15 @@ export interface Plan {
     | Shared.PlanPhaseMaximumAdjustment
   >;
 
+  /**
+   * @deprecated Legacy field representing the parent plan if the current plan is a
+   * 'child plan', overriding prices from the parent.
+   */
   base_plan: Plan.BasePlan | null;
 
   /**
-   * The parent plan id if the given plan was created by overriding one or more of
-   * the parent's prices
+   * @deprecated Legacy field representing the parent plan ID if the current plan is
+   * a 'child plan', overriding prices from the parent.
    */
   base_plan_id: string | null;
 
@@ -193,6 +197,10 @@ export interface Plan {
 }
 
 export namespace Plan {
+  /**
+   * @deprecated Legacy field representing the parent plan if the current plan is a
+   * 'child plan', overriding prices from the parent.
+   */
   export interface BasePlan {
     id: string | null;
 
