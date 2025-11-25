@@ -6739,9 +6739,8 @@ export interface SubscriptionPriceIntervalsParams {
   allow_invoice_credit_or_void?: boolean | null;
 
   /**
-   * If true, ending an in-arrears price interval mid-cycle will defer billing the
-   * final line itemuntil the next scheduled invoice. If false, it will be billed on
-   * its end date. If not provided, behaviorwill follow account default.
+   * If set, the default value to use for added/edited price intervals with an
+   * end_date set.
    */
   can_defer_billing?: boolean | null;
 
@@ -6768,6 +6767,13 @@ export namespace SubscriptionPriceIntervalsParams {
      * The definition of a new allocation price to create and add to the subscription.
      */
     allocation_price?: Shared.NewAllocationPrice | null;
+
+    /**
+     * If true, an in-arrears price interval ending mid-cycle will defer billing the
+     * final line item until the next scheduled invoice. If false, it will be billed on
+     * its end date.
+     */
+    can_defer_billing?: boolean | null;
 
     /**
      * A list of discounts to initialize on the price interval.
@@ -7570,9 +7576,9 @@ export namespace SubscriptionPriceIntervalsParams {
     billing_cycle_day?: number | null;
 
     /**
-     * If true, ending an in-arrears price interval mid-cycle will defer billing the
+     * If true, an in-arrears price interval ending mid-cycle will defer billing the
      * final line item until the next scheduled invoice. If false, it will be billed on
-     * its end date. If not provided, behavior will follow account default.
+     * its end date.
      */
     can_defer_billing?: boolean | null;
 

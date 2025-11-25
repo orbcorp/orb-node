@@ -2743,6 +2743,20 @@ export interface NewAllocationPrice {
    * The filters that determine which items the allocation applies to.
    */
   filters?: Array<NewAllocationPrice.Filter> | null;
+
+  /**
+   * The item ID that line items representing charges for this allocation will be
+   * associated with. If not provided, the default allocation item for the currency
+   * will be used (e.g. 'Included Allocation (USD)').
+   */
+  item_id?: string | null;
+
+  /**
+   * The (per-unit) cost basis of each created block. If non-zero, a customer will be
+   * invoiced according to the quantity and per unit cost basis specified for the
+   * allocation each cadence.
+   */
+  per_unit_cost_basis?: string;
 }
 
 export namespace NewAllocationPrice {
