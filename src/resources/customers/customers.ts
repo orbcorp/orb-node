@@ -467,6 +467,12 @@ export interface Customer {
    */
   automatic_tax_enabled?: boolean | null;
 
+  /**
+   * Payment configuration for the customer, applicable when using Orb Invoicing with
+   * a supported payment provider such as Stripe.
+   */
+  payment_configuration?: Customer.PaymentConfiguration | null;
+
   reporting_configuration?: Customer.ReportingConfiguration | null;
 }
 
@@ -491,6 +497,35 @@ export namespace Customer {
       external_provider_id: string | null;
 
       provider_type: 'quickbooks' | 'netsuite';
+    }
+  }
+
+  /**
+   * Payment configuration for the customer, applicable when using Orb Invoicing with
+   * a supported payment provider such as Stripe.
+   */
+  export interface PaymentConfiguration {
+    /**
+     * Provider-specific payment configuration.
+     */
+    payment_providers?: Array<PaymentConfiguration.PaymentProvider>;
+  }
+
+  export namespace PaymentConfiguration {
+    export interface PaymentProvider {
+      /**
+       * The payment provider to configure.
+       */
+      provider_type: 'stripe';
+
+      /**
+       * List of Stripe payment method types to exclude for this customer. Excluded
+       * payment methods will not be available for the customer to select during payment,
+       * and will not be used for auto-collection. If a customer's default payment method
+       * becomes excluded, Orb will attempt to use the next available compatible payment
+       * method for auto-collection.
+       */
+      excluded_payment_method_types?: Array<string>;
     }
   }
 
@@ -626,6 +661,12 @@ export interface CustomerCreateParams {
    * by setting `metadata` to `null`.
    */
   metadata?: { [key: string]: string | null } | null;
+
+  /**
+   * Payment configuration for the customer, applicable when using Orb Invoicing with
+   * a supported payment provider such as Stripe.
+   */
+  payment_configuration?: CustomerCreateParams.PaymentConfiguration | null;
 
   /**
    * This is used for creating charges or invoices in an external system via Orb.
@@ -810,6 +851,35 @@ export interface CustomerCreateParams {
 }
 
 export namespace CustomerCreateParams {
+  /**
+   * Payment configuration for the customer, applicable when using Orb Invoicing with
+   * a supported payment provider such as Stripe.
+   */
+  export interface PaymentConfiguration {
+    /**
+     * Provider-specific payment configuration.
+     */
+    payment_providers?: Array<PaymentConfiguration.PaymentProvider>;
+  }
+
+  export namespace PaymentConfiguration {
+    export interface PaymentProvider {
+      /**
+       * The payment provider to configure.
+       */
+      provider_type: 'stripe';
+
+      /**
+       * List of Stripe payment method types to exclude for this customer. Excluded
+       * payment methods will not be available for the customer to select during payment,
+       * and will not be used for auto-collection. If a customer's default payment method
+       * becomes excluded, Orb will attempt to use the next available compatible payment
+       * method for auto-collection.
+       */
+      excluded_payment_method_types?: Array<string>;
+    }
+  }
+
   export interface NewNumeralConfiguration {
     tax_exempt: boolean;
 
@@ -912,6 +982,12 @@ export interface CustomerUpdateParams {
    * The full name of the customer
    */
   name?: string | null;
+
+  /**
+   * Payment configuration for the customer, applicable when using Orb Invoicing with
+   * a supported payment provider such as Stripe.
+   */
+  payment_configuration?: CustomerUpdateParams.PaymentConfiguration | null;
 
   /**
    * This is used for creating charges or invoices in an external system via Orb.
@@ -1093,6 +1169,35 @@ export interface CustomerUpdateParams {
 }
 
 export namespace CustomerUpdateParams {
+  /**
+   * Payment configuration for the customer, applicable when using Orb Invoicing with
+   * a supported payment provider such as Stripe.
+   */
+  export interface PaymentConfiguration {
+    /**
+     * Provider-specific payment configuration.
+     */
+    payment_providers?: Array<PaymentConfiguration.PaymentProvider>;
+  }
+
+  export namespace PaymentConfiguration {
+    export interface PaymentProvider {
+      /**
+       * The payment provider to configure.
+       */
+      provider_type: 'stripe';
+
+      /**
+       * List of Stripe payment method types to exclude for this customer. Excluded
+       * payment methods will not be available for the customer to select during payment,
+       * and will not be used for auto-collection. If a customer's default payment method
+       * becomes excluded, Orb will attempt to use the next available compatible payment
+       * method for auto-collection.
+       */
+      excluded_payment_method_types?: Array<string>;
+    }
+  }
+
   export interface NewNumeralConfiguration {
     tax_exempt: boolean;
 
@@ -1205,6 +1310,12 @@ export interface CustomerUpdateByExternalIDParams {
    * The full name of the customer
    */
   name?: string | null;
+
+  /**
+   * Payment configuration for the customer, applicable when using Orb Invoicing with
+   * a supported payment provider such as Stripe.
+   */
+  payment_configuration?: CustomerUpdateByExternalIDParams.PaymentConfiguration | null;
 
   /**
    * This is used for creating charges or invoices in an external system via Orb.
@@ -1386,6 +1497,35 @@ export interface CustomerUpdateByExternalIDParams {
 }
 
 export namespace CustomerUpdateByExternalIDParams {
+  /**
+   * Payment configuration for the customer, applicable when using Orb Invoicing with
+   * a supported payment provider such as Stripe.
+   */
+  export interface PaymentConfiguration {
+    /**
+     * Provider-specific payment configuration.
+     */
+    payment_providers?: Array<PaymentConfiguration.PaymentProvider>;
+  }
+
+  export namespace PaymentConfiguration {
+    export interface PaymentProvider {
+      /**
+       * The payment provider to configure.
+       */
+      provider_type: 'stripe';
+
+      /**
+       * List of Stripe payment method types to exclude for this customer. Excluded
+       * payment methods will not be available for the customer to select during payment,
+       * and will not be used for auto-collection. If a customer's default payment method
+       * becomes excluded, Orb will attempt to use the next available compatible payment
+       * method for auto-collection.
+       */
+      excluded_payment_method_types?: Array<string>;
+    }
+  }
+
   export interface NewNumeralConfiguration {
     tax_exempt: boolean;
 
