@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.37.2 (2025-12-05)
+
+Full Changelog: [v5.37.1...v5.37.2](https://github.com/orbcorp/orb-node/compare/v5.37.1...v5.37.2)
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([f36f1c7](https://github.com/orbcorp/orb-node/commit/f36f1c767ae23ba82e396113cb436cd0994909fd))
+
+
+### Chores
+
+* **internal:** codegen related update ([53ab48f](https://github.com/orbcorp/orb-node/commit/53ab48fcaf4b1c7e45082010d808b7d99ceb7797))
+
 ## 5.37.1 (2025-12-05)
 
 Full Changelog: [v5.37.0...v5.37.1](https://github.com/orbcorp/orb-node/compare/v5.37.0...v5.37.1)
