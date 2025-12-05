@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.37.1 (2025-12-05)
+
+Full Changelog: [v5.37.0...v5.37.1](https://github.com/orbcorp/orb-node/compare/v5.37.0...v5.37.1)
+
+### Bug Fixes
+
+* **mcp:** return correct lines on typescript errors ([970c546](https://github.com/orbcorp/orb-node/commit/970c5461959e54c33514c56be74ffc177612ba48))
+
 ## 5.37.0 (2025-12-03)
 
 Full Changelog: [v5.36.0...v5.37.0](https://github.com/orbcorp/orb-node/compare/v5.36.0...v5.37.0)
