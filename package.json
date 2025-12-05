@@ -1,6 +1,6 @@
 {
   "name": "orb-billing",
-  "version": "5.37.1",
+  "version": "5.37.2",
   "description": "The official TypeScript library for the Orb API",
   "author": "Orb <team@withorb.com>",
   "types": "dist/index.d.ts",
