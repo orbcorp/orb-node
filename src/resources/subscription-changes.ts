@@ -237,6 +237,11 @@ export interface SubscriptionChangeRetrieveResponse {
   id: string;
 
   /**
+   * The type of change (e.g., 'schedule_plan_change', 'create_subscription').
+   */
+  change_type: string;
+
+  /**
    * Subscription change will be cancelled at this time and can no longer be applied.
    */
   expiration_time: string;
@@ -251,9 +256,30 @@ export interface SubscriptionChangeRetrieveResponse {
   applied_at?: string | null;
 
   /**
+   * Billing cycle alignment for plan changes.
+   */
+  billing_cycle_alignment?: string | null;
+
+  /**
    * When this change was cancelled.
    */
   cancelled_at?: string | null;
+
+  /**
+   * How the change is scheduled (e.g., 'immediate', 'end_of_subscription_term',
+   * 'requested_date').
+   */
+  change_option?: string | null;
+
+  /**
+   * When this change will take effect.
+   */
+  effective_date?: string | null;
+
+  /**
+   * The target plan ID for plan changes.
+   */
+  plan_id?: string | null;
 }
 
 /**
@@ -266,6 +292,11 @@ export interface SubscriptionChangeApplyResponse {
   id: string;
 
   /**
+   * The type of change (e.g., 'schedule_plan_change', 'create_subscription').
+   */
+  change_type: string;
+
+  /**
    * Subscription change will be cancelled at this time and can no longer be applied.
    */
   expiration_time: string;
@@ -280,9 +311,30 @@ export interface SubscriptionChangeApplyResponse {
   applied_at?: string | null;
 
   /**
+   * Billing cycle alignment for plan changes.
+   */
+  billing_cycle_alignment?: string | null;
+
+  /**
    * When this change was cancelled.
    */
   cancelled_at?: string | null;
+
+  /**
+   * How the change is scheduled (e.g., 'immediate', 'end_of_subscription_term',
+   * 'requested_date').
+   */
+  change_option?: string | null;
+
+  /**
+   * When this change will take effect.
+   */
+  effective_date?: string | null;
+
+  /**
+   * The target plan ID for plan changes.
+   */
+  plan_id?: string | null;
 }
 
 /**
@@ -295,6 +347,11 @@ export interface SubscriptionChangeCancelResponse {
   id: string;
 
   /**
+   * The type of change (e.g., 'schedule_plan_change', 'create_subscription').
+   */
+  change_type: string;
+
+  /**
    * Subscription change will be cancelled at this time and can no longer be applied.
    */
   expiration_time: string;
@@ -309,9 +366,30 @@ export interface SubscriptionChangeCancelResponse {
   applied_at?: string | null;
 
   /**
+   * Billing cycle alignment for plan changes.
+   */
+  billing_cycle_alignment?: string | null;
+
+  /**
    * When this change was cancelled.
    */
   cancelled_at?: string | null;
+
+  /**
+   * How the change is scheduled (e.g., 'immediate', 'end_of_subscription_term',
+   * 'requested_date').
+   */
+  change_option?: string | null;
+
+  /**
+   * When this change will take effect.
+   */
+  effective_date?: string | null;
+
+  /**
+   * The target plan ID for plan changes.
+   */
+  plan_id?: string | null;
 }
 
 export interface SubscriptionChangeApplyParams {
