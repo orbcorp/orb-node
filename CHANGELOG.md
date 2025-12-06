@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.38.0 (2025-12-06)
+
+Full Changelog: [v5.37.2...v5.38.0](https://github.com/orbcorp/orb-node/compare/v5.37.2...v5.38.0)
+
+### Features
+
+* **api:** api update ([da063a7](https://github.com/orbcorp/orb-node/commit/da063a7d803817dffd3862d0a02a21db1b6c0947))
+
+
+### Chores
+
+* **internal:** codegen related update ([40d3a87](https://github.com/orbcorp/orb-node/commit/40d3a87edb6e7ec4ccafcbeaaf43e33fe9d524cd))
+
 ## 5.37.2 (2025-12-05)
 
 Full Changelog: [v5.37.1...v5.37.2](https://github.com/orbcorp/orb-node/compare/v5.37.1...v5.37.2)
