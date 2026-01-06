@@ -44,7 +44,10 @@ const client = new Orb({
   apiKey: process.env['ORB_API_KEY'], // This is the default and can be omitted
 });
 
-const params: Orb.CustomerCreateParams = { email: 'example-customer@withorb.com', name: 'My Customer' };
+const params: Orb.CustomerCreateParams = {
+  email: 'example-customer@withorb.com',
+  name: 'My Customer',
+};
 const customer: Orb.Customer = await client.customers.create(params);
 ```
 

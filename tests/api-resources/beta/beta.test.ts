@@ -32,7 +32,13 @@ describe('resource beta', () => {
             applies_to_item_ids: ['item_1', 'item_2'],
             applies_to_price_ids: ['price_1', 'price_2'],
             currency: 'currency',
-            filters: [{ field: 'price_id', operator: 'includes', values: ['string'] }],
+            filters: [
+              {
+                field: 'price_id',
+                operator: 'includes',
+                values: ['string'],
+              },
+            ],
             is_invoice_level: true,
             price_type: 'usage',
           },
@@ -47,7 +53,13 @@ describe('resource beta', () => {
             currency: 'USD',
             custom_expiration: { duration: 0, duration_unit: 'day' },
             expires_at_end_of_cadence: true,
-            filters: [{ field: 'item_id', operator: 'includes', values: ['string'] }],
+            filters: [
+              {
+                field: 'item_id',
+                operator: 'includes',
+                values: ['string'],
+              },
+            ],
             item_id: 'item_id',
             per_unit_cost_basis: 'per_unit_cost_basis',
           },
@@ -92,7 +104,13 @@ describe('resource beta', () => {
             applies_to_item_ids: ['item_1', 'item_2'],
             applies_to_price_ids: ['price_1', 'price_2'],
             currency: 'currency',
-            filters: [{ field: 'price_id', operator: 'includes', values: ['string'] }],
+            filters: [
+              {
+                field: 'price_id',
+                operator: 'includes',
+                values: ['string'],
+              },
+            ],
             is_invoice_level: true,
             price_type: 'usage',
           },
@@ -109,7 +127,13 @@ describe('resource beta', () => {
             currency: 'USD',
             custom_expiration: { duration: 0, duration_unit: 'day' },
             expires_at_end_of_cadence: true,
-            filters: [{ field: 'item_id', operator: 'includes', values: ['string'] }],
+            filters: [
+              {
+                field: 'item_id',
+                operator: 'includes',
+                values: ['string'],
+              },
+            ],
             item_id: 'item_id',
             per_unit_cost_basis: 'per_unit_cost_basis',
           },

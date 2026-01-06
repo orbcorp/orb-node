@@ -66,7 +66,11 @@ describe('resource customers', () => {
         automatic_tax_enabled: true,
         tax_exemption_code: 'tax_exemption_code',
       },
-      tax_id: { country: 'AD', type: 'ad_nrt', value: 'value' },
+      tax_id: {
+        country: 'AD',
+        type: 'ad_nrt',
+        value: 'value',
+      },
       timezone: 'timezone',
     });
   });
