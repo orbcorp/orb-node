@@ -54,7 +54,12 @@ describe('resource coupons', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.coupons.list(
-        { cursor: 'cursor', limit: 1, redemption_code: 'redemption_code', show_archived: true },
+        {
+          cursor: 'cursor',
+          limit: 1,
+          redemption_code: 'redemption_code',
+          show_archived: true,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);

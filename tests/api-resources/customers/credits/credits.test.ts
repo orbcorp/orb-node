@@ -32,7 +32,12 @@ describe('resource credits', () => {
     await expect(
       client.customers.credits.list(
         'customer_id',
-        { currency: 'currency', cursor: 'cursor', include_all_blocks: true, limit: 1 },
+        {
+          currency: 'currency',
+          cursor: 'cursor',
+          include_all_blocks: true,
+          limit: 1,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);
@@ -61,7 +66,12 @@ describe('resource credits', () => {
     await expect(
       client.customers.credits.listByExternalId(
         'external_customer_id',
-        { currency: 'currency', cursor: 'cursor', include_all_blocks: true, limit: 1 },
+        {
+          currency: 'currency',
+          cursor: 'cursor',
+          include_all_blocks: true,
+          limit: 1,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Orb.NotFoundError);

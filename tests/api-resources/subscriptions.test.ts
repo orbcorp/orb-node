@@ -283,7 +283,13 @@ describe('resource subscriptions', () => {
             applies_to_item_ids: ['item_1', 'item_2'],
             applies_to_price_ids: ['price_1', 'price_2'],
             currency: 'currency',
-            filters: [{ field: 'price_id', operator: 'includes', values: ['string'] }],
+            filters: [
+              {
+                field: 'price_id',
+                operator: 'includes',
+                values: ['string'],
+              },
+            ],
             is_invoice_level: true,
             price_type: 'usage',
           },
@@ -300,7 +306,13 @@ describe('resource subscriptions', () => {
             currency: 'USD',
             custom_expiration: { duration: 0, duration_unit: 'day' },
             expires_at_end_of_cadence: true,
-            filters: [{ field: 'item_id', operator: 'includes', values: ['string'] }],
+            filters: [
+              {
+                field: 'item_id',
+                operator: 'includes',
+                values: ['string'],
+              },
+            ],
             item_id: 'item_id',
             per_unit_cost_basis: 'per_unit_cost_basis',
           },
@@ -351,7 +363,11 @@ describe('resource subscriptions', () => {
       align_billing_with_plan_change_date: true,
       auto_collection: true,
       billing_cycle_alignment: 'unchanged',
-      billing_cycle_anchor_configuration: { day: 1, month: 1, year: 0 },
+      billing_cycle_anchor_configuration: {
+        day: 1,
+        month: 1,
+        year: 0,
+      },
       change_date: '2017-07-21T17:32:28Z',
       coupon_redemption_code: 'coupon_redemption_code',
       credits_overage_rate: 0,
@@ -376,7 +392,13 @@ describe('resource subscriptions', () => {
             applies_to_item_ids: ['item_1', 'item_2'],
             applies_to_price_ids: ['price_1', 'price_2'],
             currency: 'currency',
-            filters: [{ field: 'price_id', operator: 'includes', values: ['string'] }],
+            filters: [
+              {
+                field: 'price_id',
+                operator: 'includes',
+                values: ['string'],
+              },
+            ],
             is_invoice_level: true,
             price_type: 'usage',
           },
@@ -392,7 +414,13 @@ describe('resource subscriptions', () => {
             currency: 'USD',
             custom_expiration: { duration: 0, duration_unit: 'day' },
             expires_at_end_of_cadence: true,
-            filters: [{ field: 'item_id', operator: 'includes', values: ['string'] }],
+            filters: [
+              {
+                field: 'item_id',
+                operator: 'includes',
+                values: ['string'],
+              },
+            ],
             item_id: 'item_id',
             per_unit_cost_basis: 'per_unit_cost_basis',
           },
