@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.39.0 (2026-01-06)
+
+Full Changelog: [v5.38.0...v5.39.0](https://github.com/orbcorp/orb-node/compare/v5.38.0...v5.39.0)
+
+### Features
+
+* **api:** api update ([82dad40](https://github.com/orbcorp/orb-node/commit/82dad40663113e17ba2eef5252c839c693032513))
+
+
+### Chores
+
+* break long lines in snippets into multiline ([f544ccc](https://github.com/orbcorp/orb-node/commit/f544ccc9e88c4bd7c06c2e50a1c7e8c27af569d2))
+* **internal:** codegen related update ([e6d2b66](https://github.com/orbcorp/orb-node/commit/e6d2b66cbc140104f926886d8442ddb97597ce38))
+
 ## 5.38.0 (2025-12-06)
 
 Full Changelog: [v5.37.2...v5.38.0](https://github.com/orbcorp/orb-node/compare/v5.37.2...v5.38.0)
