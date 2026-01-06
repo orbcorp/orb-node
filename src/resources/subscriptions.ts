@@ -1438,9 +1438,6 @@ export namespace NewSubscriptionCumulativeGroupedBulkPrice {
      */
     dimension_values: Array<CumulativeGroupedBulkConfig.DimensionValue>;
 
-    /**
-     * Grouping key name
-     */
     group: string;
   }
 
@@ -1701,9 +1698,6 @@ export namespace NewSubscriptionGroupedTieredPackagePrice {
      */
     grouping_key: string;
 
-    /**
-     * Package size
-     */
     package_size: string;
 
     /**
@@ -1719,13 +1713,10 @@ export namespace NewSubscriptionGroupedTieredPackagePrice {
      */
     export interface Tier {
       /**
-       * Price per package
+       * Per package
        */
       per_unit: string;
 
-      /**
-       * Tier lower bound
-       */
       tier_lower_bound: string;
     }
   }
@@ -1854,9 +1845,6 @@ export namespace NewSubscriptionGroupedTieredPrice {
      * Configuration for a single tier
      */
     export interface Tier {
-      /**
-       * Tier lower bound
-       */
       tier_lower_bound: string;
 
       /**
@@ -2011,14 +1999,8 @@ export namespace NewSubscriptionGroupedWithMeteredMinimumPrice {
      * Configuration for a scaling factor
      */
     export interface ScalingFactor {
-      /**
-       * Scaling factor
-       */
       scaling_factor: string;
 
-      /**
-       * Scaling value
-       */
       scaling_value: string;
     }
 
@@ -2026,9 +2008,6 @@ export namespace NewSubscriptionGroupedWithMeteredMinimumPrice {
      * Configuration for a unit amount
      */
     export interface UnitAmount {
-      /**
-       * Pricing value
-       */
       pricing_value: string;
 
       /**
@@ -2615,9 +2594,6 @@ export namespace NewSubscriptionMaxGroupTieredPackagePrice {
      */
     grouping_key: string;
 
-    /**
-     * Package size
-     */
     package_size: string;
 
     /**
@@ -2631,9 +2607,6 @@ export namespace NewSubscriptionMaxGroupTieredPackagePrice {
      * Configuration for a single tier
      */
     export interface Tier {
-      /**
-       * Tier lower bound
-       */
       tier_lower_bound: string;
 
       /**
@@ -2969,19 +2942,10 @@ export namespace NewSubscriptionPackageWithAllocationPrice {
    * Configuration for package_with_allocation pricing
    */
   export interface PackageWithAllocationConfig {
-    /**
-     * Usage allocation
-     */
     allocation: string;
 
-    /**
-     * Price per package
-     */
     package_amount: string;
 
-    /**
-     * Package size
-     */
     package_size: string;
   }
 }
@@ -3102,9 +3066,6 @@ export namespace NewSubscriptionScalableMatrixWithTieredPricingPrice {
      */
     matrix_scaling_factors: Array<ScalableMatrixWithTieredPricingConfig.MatrixScalingFactor>;
 
-    /**
-     * Tier pricing structure
-     */
     tiers: Array<ScalableMatrixWithTieredPricingConfig.Tier>;
 
     /**
@@ -3118,19 +3079,10 @@ export namespace NewSubscriptionScalableMatrixWithTieredPricingPrice {
      * Configuration for a single matrix scaling factor
      */
     export interface MatrixScalingFactor {
-      /**
-       * First dimension value
-       */
       first_dimension_value: string;
 
-      /**
-       * Scaling factor
-       */
       scaling_factor: string;
 
-      /**
-       * Second dimension value (optional)
-       */
       second_dimension_value?: string | null;
     }
 
@@ -3138,14 +3090,8 @@ export namespace NewSubscriptionScalableMatrixWithTieredPricingPrice {
      * Configuration for a single tier entry with business logic
      */
     export interface Tier {
-      /**
-       * Tier lower bound
-       */
       tier_lower_bound: string;
 
-      /**
-       * Per unit amount
-       */
       unit_amount: string;
     }
   }
@@ -3288,19 +3234,10 @@ export namespace NewSubscriptionScalableMatrixWithUnitPricingPrice {
      * Configuration for a single matrix scaling factor
      */
     export interface MatrixScalingFactor {
-      /**
-       * First dimension value
-       */
       first_dimension_value: string;
 
-      /**
-       * Scaling factor
-       */
       scaling_factor: string;
 
-      /**
-       * Second dimension value (optional)
-       */
       second_dimension_value?: string | null;
     }
   }
@@ -3429,9 +3366,6 @@ export namespace NewSubscriptionThresholdTotalAmountPrice {
      * Configuration for a single threshold
      */
     export interface ConsumptionTable {
-      /**
-       * Quantity threshold
-       */
       threshold: string;
 
       /**
@@ -3548,9 +3482,6 @@ export namespace NewSubscriptionTieredPackagePrice {
    * Configuration for tiered_package pricing
    */
   export interface TieredPackageConfig {
-    /**
-     * Package size
-     */
     package_size: string;
 
     /**
@@ -3572,9 +3503,6 @@ export namespace NewSubscriptionTieredPackagePrice {
        */
       per_unit: string;
 
-      /**
-       * Tier lower bound
-       */
       tier_lower_bound: string;
     }
   }
@@ -3686,9 +3614,6 @@ export namespace NewSubscriptionTieredPackageWithMinimumPrice {
    * Configuration for tiered_package_with_minimum pricing
    */
   export interface TieredPackageWithMinimumConfig {
-    /**
-     * Package size
-     */
     package_size: number;
 
     /**
@@ -3703,19 +3628,10 @@ export namespace NewSubscriptionTieredPackageWithMinimumPrice {
      * Configuration for a single tier
      */
     export interface Tier {
-      /**
-       * Minimum amount
-       */
       minimum_amount: string;
 
-      /**
-       * Price per package
-       */
       per_unit: string;
 
-      /**
-       * Tier lower bound
-       */
       tier_lower_bound: string;
     }
   }
@@ -3950,14 +3866,8 @@ export namespace NewSubscriptionTieredWithMinimumPrice {
      * Configuration for a single tier
      */
     export interface Tier {
-      /**
-       * Minimum amount
-       */
       minimum_amount: string;
 
-      /**
-       * Tier lower bound
-       */
       tier_lower_bound: string;
 
       /**
