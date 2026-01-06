@@ -10,7 +10,11 @@ const client = new Orb({
 
 describe('resource plans', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.plans.create({ currency: 'currency', name: 'name', prices: [{}] });
+    const responsePromise = client.plans.create({
+      currency: 'currency',
+      name: 'name',
+      prices: [{}],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -32,7 +36,13 @@ describe('resource plans', () => {
             currency: 'USD',
             custom_expiration: { duration: 0, duration_unit: 'day' },
             expires_at_end_of_cadence: true,
-            filters: [{ field: 'item_id', operator: 'includes', values: ['string'] }],
+            filters: [
+              {
+                field: 'item_id',
+                operator: 'includes',
+                values: ['string'],
+              },
+            ],
             item_id: 'item_id',
             per_unit_cost_basis: 'per_unit_cost_basis',
           },
@@ -75,7 +85,13 @@ describe('resource plans', () => {
             applies_to_item_ids: ['item_1', 'item_2'],
             applies_to_price_ids: ['price_1', 'price_2'],
             currency: 'currency',
-            filters: [{ field: 'price_id', operator: 'includes', values: ['string'] }],
+            filters: [
+              {
+                field: 'price_id',
+                operator: 'includes',
+                values: ['string'],
+              },
+            ],
             is_invoice_level: true,
             price_type: 'usage',
           },
@@ -87,7 +103,12 @@ describe('resource plans', () => {
       metadata: { foo: 'string' },
       net_terms: 0,
       plan_phases: [
-        { order: 0, align_billing_with_phase_start_date: true, duration: 1, duration_unit: 'daily' },
+        {
+          order: 0,
+          align_billing_with_phase_start_date: true,
+          duration: 1,
+          duration_unit: 'daily',
+        },
       ],
       status: 'active',
     });
