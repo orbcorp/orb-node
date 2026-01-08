@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.40.0 (2026-01-08)
+
+Full Changelog: [v5.39.0...v5.40.0](https://github.com/orbcorp/orb-node/compare/v5.39.0...v5.40.0)
+
+### Features
+
+* **api:** manual updates ([bdaaa9a](https://github.com/orbcorp/orb-node/commit/bdaaa9af5f4d568507a10b4ca0e0e9daaf27937e))
+
 ## 5.39.0 (2026-01-06)
 
 Full Changelog: [v5.38.0...v5.39.0](https://github.com/orbcorp/orb-node/compare/v5.38.0...v5.39.0)
