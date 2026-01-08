@@ -21,6 +21,7 @@ import {
   AlertsPage,
   Threshold,
 } from './resources/alerts';
+import { CreditBlockRetrieveResponse, CreditBlocks } from './resources/credit-blocks';
 import { CreditNoteCreateParams, CreditNoteListParams, CreditNotes } from './resources/credit-notes';
 import {
   InvoiceLineItemCreateParams,
@@ -33,6 +34,9 @@ import {
   InvoiceFetchUpcomingResponse,
   InvoiceIssueParams,
   InvoiceListParams,
+  InvoiceListSummaryParams,
+  InvoiceListSummaryResponse,
+  InvoiceListSummaryResponsesPage,
   InvoiceMarkPaidParams,
   InvoiceUpdateParams,
   Invoices,
@@ -58,6 +62,9 @@ import {
   SubscriptionChangeApplyParams,
   SubscriptionChangeApplyResponse,
   SubscriptionChangeCancelResponse,
+  SubscriptionChangeListParams,
+  SubscriptionChangeListResponse,
+  SubscriptionChangeListResponsesPage,
   SubscriptionChangeRetrieveResponse,
   SubscriptionChanges,
 } from './resources/subscription-changes';
@@ -326,6 +333,7 @@ export class Orb extends Core.APIClient {
   alerts: API.Alerts = new API.Alerts(this);
   dimensionalPriceGroups: API.DimensionalPriceGroups = new API.DimensionalPriceGroups(this);
   subscriptionChanges: API.SubscriptionChanges = new API.SubscriptionChanges(this);
+  creditBlocks: API.CreditBlocks = new API.CreditBlocks(this);
 
   /**
    * Check whether the base URL is set to its default.
@@ -396,6 +404,7 @@ Orb.CustomersPage = CustomersPage;
 Orb.Events = Events;
 Orb.InvoiceLineItems = InvoiceLineItems;
 Orb.Invoices = Invoices;
+Orb.InvoiceListSummaryResponsesPage = InvoiceListSummaryResponsesPage;
 Orb.Items = Items;
 Orb.ItemsPage = ItemsPage;
 Orb.Metrics = Metrics;
@@ -409,6 +418,8 @@ Orb.Alerts = Alerts;
 Orb.AlertsPage = AlertsPage;
 Orb.DimensionalPriceGroupsPage = DimensionalPriceGroupsPage;
 Orb.SubscriptionChanges = SubscriptionChanges;
+Orb.SubscriptionChangeListResponsesPage = SubscriptionChangeListResponsesPage;
+Orb.CreditBlocks = CreditBlocks;
 
 export declare namespace Orb {
   export type RequestOptions = Core.RequestOptions;
@@ -478,11 +489,14 @@ export declare namespace Orb {
   export {
     Invoices as Invoices,
     type InvoiceFetchUpcomingResponse as InvoiceFetchUpcomingResponse,
+    type InvoiceListSummaryResponse as InvoiceListSummaryResponse,
+    InvoiceListSummaryResponsesPage as InvoiceListSummaryResponsesPage,
     type InvoiceCreateParams as InvoiceCreateParams,
     type InvoiceUpdateParams as InvoiceUpdateParams,
     type InvoiceListParams as InvoiceListParams,
     type InvoiceFetchUpcomingParams as InvoiceFetchUpcomingParams,
     type InvoiceIssueParams as InvoiceIssueParams,
+    type InvoiceListSummaryParams as InvoiceListSummaryParams,
     type InvoiceMarkPaidParams as InvoiceMarkPaidParams,
   };
 
@@ -604,10 +618,15 @@ export declare namespace Orb {
     SubscriptionChanges as SubscriptionChanges,
     type MutatedSubscription as MutatedSubscription,
     type SubscriptionChangeRetrieveResponse as SubscriptionChangeRetrieveResponse,
+    type SubscriptionChangeListResponse as SubscriptionChangeListResponse,
     type SubscriptionChangeApplyResponse as SubscriptionChangeApplyResponse,
     type SubscriptionChangeCancelResponse as SubscriptionChangeCancelResponse,
+    SubscriptionChangeListResponsesPage as SubscriptionChangeListResponsesPage,
+    type SubscriptionChangeListParams as SubscriptionChangeListParams,
     type SubscriptionChangeApplyParams as SubscriptionChangeApplyParams,
   };
+
+  export { CreditBlocks as CreditBlocks, type CreditBlockRetrieveResponse as CreditBlockRetrieveResponse };
 
   export type Address = API.Address;
   export type AdjustmentInterval = API.AdjustmentInterval;

@@ -2,6 +2,14 @@
 
 export { ExternalPlanID, type ExternalPlanIDUpdateParams } from './external-plan-id';
 export {
+  MigrationListResponsesPage,
+  Migrations,
+  type MigrationRetrieveResponse,
+  type MigrationListResponse,
+  type MigrationCancelResponse,
+  type MigrationListParams,
+} from './migrations';
+export {
   PlansPage,
   Plans,
   type Plan,

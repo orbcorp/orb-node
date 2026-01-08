@@ -131,6 +131,24 @@ describe('resource invoices', () => {
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
+  test('deleteLineItem', async () => {
+    const responsePromise = client.invoices.deleteLineItem('invoice_id', 'line_item_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('deleteLineItem: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.invoices.deleteLineItem('invoice_id', 'line_item_id', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
+  });
+
   test('fetch', async () => {
     const responsePromise = client.invoices.fetch('invoice_id');
     const rawResponse = await responsePromise.asResponse();
@@ -186,6 +204,54 @@ describe('resource invoices', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.invoices.issue('invoice_id', { synchronous: true }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Orb.NotFoundError);
+  });
+
+  test('listSummary', async () => {
+    const responsePromise = client.invoices.listSummary();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('listSummary: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(client.invoices.listSummary({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Orb.NotFoundError,
+    );
+  });
+
+  test('listSummary: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.invoices.listSummary(
+        {
+          amount: 'amount',
+          'amount[gt]': 'amount[gt]',
+          'amount[lt]': 'amount[lt]',
+          cursor: 'cursor',
+          customer_id: 'customer_id',
+          date_type: 'due_date',
+          due_date: '2019-12-27',
+          due_date_window: 'due_date_window',
+          'due_date[gt]': '2019-12-27',
+          'due_date[lt]': '2019-12-27',
+          external_customer_id: 'external_customer_id',
+          'invoice_date[gt]': '2019-12-27T18:11:19.117Z',
+          'invoice_date[gte]': '2019-12-27T18:11:19.117Z',
+          'invoice_date[lt]': '2019-12-27T18:11:19.117Z',
+          'invoice_date[lte]': '2019-12-27T18:11:19.117Z',
+          is_recurring: true,
+          limit: 1,
+          status: 'draft',
+          subscription_id: 'subscription_id',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
