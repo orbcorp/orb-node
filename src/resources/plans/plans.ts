@@ -6,10 +6,20 @@ import * as Core from '../../core';
 import * as Shared from '../shared';
 import * as ExternalPlanIDAPI from './external-plan-id';
 import { ExternalPlanID, ExternalPlanIDUpdateParams } from './external-plan-id';
+import * as MigrationsAPI from './migrations';
+import {
+  MigrationCancelResponse,
+  MigrationListParams,
+  MigrationListResponse,
+  MigrationListResponsesPage,
+  MigrationRetrieveResponse,
+  Migrations,
+} from './migrations';
 import { Page, type PageParams } from '../../pagination';
 
 export class Plans extends APIResource {
   externalPlanId: ExternalPlanIDAPI.ExternalPlanID = new ExternalPlanIDAPI.ExternalPlanID(this._client);
+  migrations: MigrationsAPI.Migrations = new MigrationsAPI.Migrations(this._client);
 
   /**
    * This endpoint allows creation of plans including their prices.
@@ -1214,6 +1224,8 @@ export interface PlanListParams extends PageParams {
 
 Plans.PlansPage = PlansPage;
 Plans.ExternalPlanID = ExternalPlanID;
+Plans.Migrations = Migrations;
+Plans.MigrationListResponsesPage = MigrationListResponsesPage;
 
 export declare namespace Plans {
   export {
@@ -1225,4 +1237,13 @@ export declare namespace Plans {
   };
 
   export { ExternalPlanID as ExternalPlanID, type ExternalPlanIDUpdateParams as ExternalPlanIDUpdateParams };
+
+  export {
+    Migrations as Migrations,
+    type MigrationRetrieveResponse as MigrationRetrieveResponse,
+    type MigrationListResponse as MigrationListResponse,
+    type MigrationCancelResponse as MigrationCancelResponse,
+    MigrationListResponsesPage as MigrationListResponsesPage,
+    type MigrationListParams as MigrationListParams,
+  };
 }

@@ -355,15 +355,18 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/invoices.ts">InvoiceFetchUpcomingResponse</a></code>
+- <code><a href="./src/resources/invoices.ts">InvoiceListSummaryResponse</a></code>
 
 Methods:
 
 - <code title="post /invoices">client.invoices.<a href="./src/resources/invoices.ts">create</a>({ ...params }) -> Invoice</code>
 - <code title="put /invoices/{invoice_id}">client.invoices.<a href="./src/resources/invoices.ts">update</a>(invoiceId, { ...params }) -> Invoice</code>
 - <code title="get /invoices">client.invoices.<a href="./src/resources/invoices.ts">list</a>({ ...params }) -> InvoicesPage</code>
+- <code title="delete /invoices/{invoice_id}/invoice_line_items/{line_item_id}">client.invoices.<a href="./src/resources/invoices.ts">deleteLineItem</a>(invoiceId, lineItemId) -> void</code>
 - <code title="get /invoices/{invoice_id}">client.invoices.<a href="./src/resources/invoices.ts">fetch</a>(invoiceId) -> Invoice</code>
 - <code title="get /invoices/upcoming">client.invoices.<a href="./src/resources/invoices.ts">fetchUpcoming</a>({ ...params }) -> InvoiceFetchUpcomingResponse</code>
 - <code title="post /invoices/{invoice_id}/issue">client.invoices.<a href="./src/resources/invoices.ts">issue</a>(invoiceId, { ...params }) -> Invoice</code>
+- <code title="get /invoices/summary">client.invoices.<a href="./src/resources/invoices.ts">listSummary</a>({ ...params }) -> InvoiceListSummaryResponsesPage</code>
 - <code title="post /invoices/{invoice_id}/mark_paid">client.invoices.<a href="./src/resources/invoices.ts">markPaid</a>(invoiceId, { ...params }) -> Invoice</code>
 - <code title="post /invoices/{invoice_id}/pay">client.invoices.<a href="./src/resources/invoices.ts">pay</a>(invoiceId) -> Invoice</code>
 - <code title="post /invoices/{invoice_id}/void">client.invoices.<a href="./src/resources/invoices.ts">void</a>(invoiceId) -> Invoice</code>
@@ -414,6 +417,20 @@ Methods:
 
 - <code title="put /plans/external_plan_id/{external_plan_id}">client.plans.externalPlanId.<a href="./src/resources/plans/external-plan-id.ts">update</a>(otherExternalPlanId, { ...params }) -> Plan</code>
 - <code title="get /plans/external_plan_id/{external_plan_id}">client.plans.externalPlanId.<a href="./src/resources/plans/external-plan-id.ts">fetch</a>(externalPlanId) -> Plan</code>
+
+## Migrations
+
+Types:
+
+- <code><a href="./src/resources/plans/migrations.ts">MigrationRetrieveResponse</a></code>
+- <code><a href="./src/resources/plans/migrations.ts">MigrationListResponse</a></code>
+- <code><a href="./src/resources/plans/migrations.ts">MigrationCancelResponse</a></code>
+
+Methods:
+
+- <code title="get /plans/{plan_id}/migrations/{migration_id}">client.plans.migrations.<a href="./src/resources/plans/migrations.ts">retrieve</a>(planId, migrationId) -> MigrationRetrieveResponse</code>
+- <code title="get /plans/{plan_id}/migrations">client.plans.migrations.<a href="./src/resources/plans/migrations.ts">list</a>(planId, { ...params }) -> MigrationListResponsesPage</code>
+- <code title="post /plans/{plan_id}/migrations/{migration_id}/cancel">client.plans.migrations.<a href="./src/resources/plans/migrations.ts">cancel</a>(planId, migrationId) -> MigrationCancelResponse</code>
 
 # Prices
 
@@ -542,11 +559,24 @@ Types:
 
 - <code><a href="./src/resources/subscription-changes.ts">MutatedSubscription</a></code>
 - <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeRetrieveResponse</a></code>
+- <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeListResponse</a></code>
 - <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeApplyResponse</a></code>
 - <code><a href="./src/resources/subscription-changes.ts">SubscriptionChangeCancelResponse</a></code>
 
 Methods:
 
 - <code title="get /subscription_changes/{subscription_change_id}">client.subscriptionChanges.<a href="./src/resources/subscription-changes.ts">retrieve</a>(subscriptionChangeId) -> SubscriptionChangeRetrieveResponse</code>
+- <code title="get /subscription_changes">client.subscriptionChanges.<a href="./src/resources/subscription-changes.ts">list</a>({ ...params }) -> SubscriptionChangeListResponsesPage</code>
 - <code title="post /subscription_changes/{subscription_change_id}/apply">client.subscriptionChanges.<a href="./src/resources/subscription-changes.ts">apply</a>(subscriptionChangeId, { ...params }) -> SubscriptionChangeApplyResponse</code>
 - <code title="post /subscription_changes/{subscription_change_id}/cancel">client.subscriptionChanges.<a href="./src/resources/subscription-changes.ts">cancel</a>(subscriptionChangeId) -> SubscriptionChangeCancelResponse</code>
+
+# CreditBlocks
+
+Types:
+
+- <code><a href="./src/resources/credit-blocks.ts">CreditBlockRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /credit_blocks/{block_id}">client.creditBlocks.<a href="./src/resources/credit-blocks.ts">retrieve</a>(blockId) -> CreditBlockRetrieveResponse</code>
+- <code title="delete /credit_blocks/{block_id}">client.creditBlocks.<a href="./src/resources/credit-blocks.ts">delete</a>(blockId) -> void</code>

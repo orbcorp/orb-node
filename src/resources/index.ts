@@ -36,6 +36,7 @@ export {
   type CouponCreateParams,
   type CouponListParams,
 } from './coupons/coupons';
+export { CreditBlocks, type CreditBlockRetrieveResponse } from './credit-blocks';
 export { CreditNotes, type CreditNoteCreateParams, type CreditNoteListParams } from './credit-notes';
 export {
   CustomersPage,
@@ -78,13 +79,16 @@ export {
   type InvoiceLineItemCreateParams,
 } from './invoice-line-items';
 export {
+  InvoiceListSummaryResponsesPage,
   Invoices,
   type InvoiceFetchUpcomingResponse,
+  type InvoiceListSummaryResponse,
   type InvoiceCreateParams,
   type InvoiceUpdateParams,
   type InvoiceListParams,
   type InvoiceFetchUpcomingParams,
   type InvoiceIssueParams,
+  type InvoiceListSummaryParams,
   type InvoiceMarkPaidParams,
 } from './invoices';
 export {
@@ -117,11 +121,14 @@ export {
   type PriceEvaluatePreviewEventsParams,
 } from './prices/prices';
 export {
+  SubscriptionChangeListResponsesPage,
   SubscriptionChanges,
   type MutatedSubscription,
   type SubscriptionChangeRetrieveResponse,
+  type SubscriptionChangeListResponse,
   type SubscriptionChangeApplyResponse,
   type SubscriptionChangeCancelResponse,
+  type SubscriptionChangeListParams,
   type SubscriptionChangeApplyParams,
 } from './subscription-changes';
 export {

@@ -6,6 +6,7 @@ import * as Core from '../core';
 import * as Shared from './shared';
 import * as CustomersAPI from './customers/customers';
 import * as PlansAPI from './plans/plans';
+import { Page, type PageParams } from '../pagination';
 
 export class SubscriptionChanges extends APIResource {
   /**
@@ -24,6 +25,31 @@ export class SubscriptionChanges extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<SubscriptionChangeRetrieveResponse> {
     return this._client.get(`/subscription_changes/${subscriptionChangeId}`, options);
+  }
+
+  /**
+   * This endpoint returns a list of pending subscription changes for a customer. Use
+   * the [Fetch Subscription Change](fetch-subscription-change) endpoint to retrieve
+   * the expected subscription state after the pending change is applied.
+   */
+  list(
+    query?: SubscriptionChangeListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<SubscriptionChangeListResponsesPage, SubscriptionChangeListResponse>;
+  list(
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<SubscriptionChangeListResponsesPage, SubscriptionChangeListResponse>;
+  list(
+    query: SubscriptionChangeListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<SubscriptionChangeListResponsesPage, SubscriptionChangeListResponse> {
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
+    }
+    return this._client.getAPIList('/subscription_changes', SubscriptionChangeListResponsesPage, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -63,6 +89,8 @@ export class SubscriptionChanges extends APIResource {
     return this._client.post(`/subscription_changes/${subscriptionChangeId}/cancel`, options);
   }
 }
+
+export class SubscriptionChangeListResponsesPage extends Page<SubscriptionChangeListResponse> {}
 
 export interface MutatedSubscription {
   id: string;
@@ -282,6 +310,29 @@ export interface SubscriptionChangeRetrieveResponse {
   plan_id?: string | null;
 }
 
+export interface SubscriptionChangeListResponse {
+  id: string;
+
+  /**
+   * Subscription change will be cancelled at this time and can no longer be applied.
+   */
+  expiration_time: string;
+
+  status: 'pending' | 'applied' | 'cancelled';
+
+  subscription_id: string | null;
+
+  /**
+   * When this change was applied.
+   */
+  applied_at?: string | null;
+
+  /**
+   * When this change was cancelled.
+   */
+  cancelled_at?: string | null;
+}
+
 /**
  * A subscription change represents a desired new subscription / pending change to
  * an existing subscription. It is a way to first preview the effects on the
@@ -392,6 +443,14 @@ export interface SubscriptionChangeCancelResponse {
   plan_id?: string | null;
 }
 
+export interface SubscriptionChangeListParams extends PageParams {
+  customer_id?: string | null;
+
+  external_customer_id?: string | null;
+
+  status?: 'pending' | 'applied' | 'cancelled' | null;
+}
+
 export interface SubscriptionChangeApplyParams {
   /**
    * Description to apply to the balance transaction representing this credit.
@@ -428,12 +487,17 @@ export interface SubscriptionChangeApplyParams {
   previously_collected_amount?: string | null;
 }
 
+SubscriptionChanges.SubscriptionChangeListResponsesPage = SubscriptionChangeListResponsesPage;
+
 export declare namespace SubscriptionChanges {
   export {
     type MutatedSubscription as MutatedSubscription,
     type SubscriptionChangeRetrieveResponse as SubscriptionChangeRetrieveResponse,
+    type SubscriptionChangeListResponse as SubscriptionChangeListResponse,
     type SubscriptionChangeApplyResponse as SubscriptionChangeApplyResponse,
     type SubscriptionChangeCancelResponse as SubscriptionChangeCancelResponse,
+    SubscriptionChangeListResponsesPage as SubscriptionChangeListResponsesPage,
+    type SubscriptionChangeListParams as SubscriptionChangeListParams,
     type SubscriptionChangeApplyParams as SubscriptionChangeApplyParams,
   };
 }
