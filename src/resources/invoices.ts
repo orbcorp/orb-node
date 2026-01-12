@@ -1465,6 +1465,8 @@ export interface InvoiceListSummaryParams extends PageParams {
 
   status?: 'draft' | 'issued' | 'paid' | 'synced' | 'void' | null;
 
+  status?: Array<'draft' | 'issued' | 'paid' | 'synced' | 'void'> | null;
+
   subscription_id?: string | null;
 }
 
