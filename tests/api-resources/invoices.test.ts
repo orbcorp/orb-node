@@ -248,6 +248,7 @@ describe('resource invoices', () => {
           is_recurring: true,
           limit: 1,
           status: 'draft',
+          status: ['draft'],
           subscription_id: 'subscription_id',
         },
         { path: '/_stainless_unknown_path' },
