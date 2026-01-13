@@ -495,7 +495,7 @@ export interface EventUpdateParams {
 
 export interface EventIngestParams {
   /**
-   * Body param:
+   * Body param
    */
   events: Array<EventIngestParams.Event>;
 
