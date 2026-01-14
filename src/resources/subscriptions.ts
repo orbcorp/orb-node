@@ -2629,14 +2629,14 @@ export interface NewSubscriptionMinimumCompositePrice {
   item_id: string;
 
   /**
-   * Configuration for minimum pricing
+   * Configuration for minimum_composite pricing
    */
-  minimum_config: NewSubscriptionMinimumCompositePrice.MinimumConfig;
+  minimum_composite_config: NewSubscriptionMinimumCompositePrice.MinimumCompositeConfig;
 
   /**
    * The pricing model type
    */
-  model_type: 'minimum';
+  model_type: 'minimum_composite';
 
   /**
    * The name of the price.
@@ -2720,9 +2720,9 @@ export interface NewSubscriptionMinimumCompositePrice {
 
 export namespace NewSubscriptionMinimumCompositePrice {
   /**
-   * Configuration for minimum pricing
+   * Configuration for minimum_composite pricing
    */
-  export interface MinimumConfig {
+  export interface MinimumCompositeConfig {
     /**
      * The minimum amount to apply
      */
@@ -4784,6 +4784,7 @@ export namespace SubscriptionCreateParams {
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithTieredPricingPrice
       | SubscriptionsAPI.NewSubscriptionCumulativeGroupedBulkPrice
       | AddPrice.NewSubscriptionCumulativeGroupedAllocationPrice
+      | AddPrice.NewSubscriptionMinimumPrice
       | SubscriptionsAPI.NewSubscriptionMinimumCompositePrice
       | AddPrice.NewSubscriptionPercentCompositePrice
       | AddPrice.NewSubscriptionEventOutputPrice
@@ -5340,6 +5341,124 @@ export namespace SubscriptionCreateParams {
       }
     }
 
+    export interface NewSubscriptionMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * Configuration for minimum pricing
+       */
+      minimum_config: NewSubscriptionMinimumPrice.MinimumConfig;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionMinimumPrice {
+      /**
+       * Configuration for minimum pricing
+       */
+      export interface MinimumConfig {
+        /**
+         * The minimum amount to apply
+         */
+        minimum_amount: string;
+
+        /**
+         * If true, subtotals from this price are prorated based on the service period
+         */
+        prorated?: boolean;
+      }
+    }
+
     export interface NewSubscriptionPercentCompositePrice {
       /**
        * The cadence to bill for this price on.
@@ -5687,6 +5806,7 @@ export namespace SubscriptionCreateParams {
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithTieredPricingPrice
       | SubscriptionsAPI.NewSubscriptionCumulativeGroupedBulkPrice
       | ReplacePrice.NewSubscriptionCumulativeGroupedAllocationPrice
+      | ReplacePrice.NewSubscriptionMinimumPrice
       | SubscriptionsAPI.NewSubscriptionMinimumCompositePrice
       | ReplacePrice.NewSubscriptionPercentCompositePrice
       | ReplacePrice.NewSubscriptionEventOutputPrice
@@ -6236,6 +6356,124 @@ export namespace SubscriptionCreateParams {
       }
     }
 
+    export interface NewSubscriptionMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * Configuration for minimum pricing
+       */
+      minimum_config: NewSubscriptionMinimumPrice.MinimumConfig;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionMinimumPrice {
+      /**
+       * Configuration for minimum pricing
+       */
+      export interface MinimumConfig {
+        /**
+         * The minimum amount to apply
+         */
+        minimum_amount: string;
+
+        /**
+         * If true, subtotals from this price are prorated based on the service period
+         */
+        prorated?: boolean;
+      }
+    }
+
     export interface NewSubscriptionPercentCompositePrice {
       /**
        * The cadence to bill for this price on.
@@ -6766,6 +7004,7 @@ export namespace SubscriptionPriceIntervalsParams {
       | Shared.NewFloatingScalableMatrixWithTieredPricingPrice
       | Shared.NewFloatingCumulativeGroupedBulkPrice
       | Add.NewFloatingCumulativeGroupedAllocationPrice
+      | Add.NewFloatingMinimumPrice
       | Shared.NewFloatingMinimumCompositePrice
       | Add.NewFloatingPercentCompositePrice
       | Add.NewFloatingEventOutputPrice
@@ -7211,6 +7450,117 @@ export namespace SubscriptionPriceIntervalsParams {
          * The amount to charge for each unit outside of the allocation
          */
         unit_amount: string;
+      }
+    }
+
+    export interface NewFloatingMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * An ISO 4217 currency string for which this price is billed in.
+       */
+      currency: string;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * Configuration for minimum pricing
+       */
+      minimum_config: NewFloatingMinimumPrice.MinimumConfig;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+    }
+
+    export namespace NewFloatingMinimumPrice {
+      /**
+       * Configuration for minimum pricing
+       */
+      export interface MinimumConfig {
+        /**
+         * The minimum amount to apply
+         */
+        minimum_amount: string;
+
+        /**
+         * If true, subtotals from this price are prorated based on the service period
+         */
+        prorated?: boolean;
       }
     }
 
@@ -7859,6 +8209,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithTieredPricingPrice
       | SubscriptionsAPI.NewSubscriptionCumulativeGroupedBulkPrice
       | AddPrice.NewSubscriptionCumulativeGroupedAllocationPrice
+      | AddPrice.NewSubscriptionMinimumPrice
       | SubscriptionsAPI.NewSubscriptionMinimumCompositePrice
       | AddPrice.NewSubscriptionPercentCompositePrice
       | AddPrice.NewSubscriptionEventOutputPrice
@@ -8415,6 +8766,124 @@ export namespace SubscriptionSchedulePlanChangeParams {
       }
     }
 
+    export interface NewSubscriptionMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * Configuration for minimum pricing
+       */
+      minimum_config: NewSubscriptionMinimumPrice.MinimumConfig;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionMinimumPrice {
+      /**
+       * Configuration for minimum pricing
+       */
+      export interface MinimumConfig {
+        /**
+         * The minimum amount to apply
+         */
+        minimum_amount: string;
+
+        /**
+         * If true, subtotals from this price are prorated based on the service period
+         */
+        prorated?: boolean;
+      }
+    }
+
     export interface NewSubscriptionPercentCompositePrice {
       /**
        * The cadence to bill for this price on.
@@ -8762,6 +9231,7 @@ export namespace SubscriptionSchedulePlanChangeParams {
       | SubscriptionsAPI.NewSubscriptionScalableMatrixWithTieredPricingPrice
       | SubscriptionsAPI.NewSubscriptionCumulativeGroupedBulkPrice
       | ReplacePrice.NewSubscriptionCumulativeGroupedAllocationPrice
+      | ReplacePrice.NewSubscriptionMinimumPrice
       | SubscriptionsAPI.NewSubscriptionMinimumCompositePrice
       | ReplacePrice.NewSubscriptionPercentCompositePrice
       | ReplacePrice.NewSubscriptionEventOutputPrice
@@ -9308,6 +9778,124 @@ export namespace SubscriptionSchedulePlanChangeParams {
          * The amount to charge for each unit outside of the allocation
          */
         unit_amount: string;
+      }
+    }
+
+    export interface NewSubscriptionMinimumPrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * Configuration for minimum pricing
+       */
+      minimum_config: NewSubscriptionMinimumPrice.MinimumConfig;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'minimum';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewSubscriptionMinimumPrice {
+      /**
+       * Configuration for minimum pricing
+       */
+      export interface MinimumConfig {
+        /**
+         * The minimum amount to apply
+         */
+        minimum_amount: string;
+
+        /**
+         * If true, subtotals from this price are prorated based on the service period
+         */
+        prorated?: boolean;
       }
     }
 
