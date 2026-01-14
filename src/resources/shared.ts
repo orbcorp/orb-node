@@ -4326,14 +4326,14 @@ export interface NewFloatingMinimumCompositePrice {
   item_id: string;
 
   /**
-   * Configuration for minimum pricing
+   * Configuration for minimum_composite pricing
    */
-  minimum_config: NewFloatingMinimumCompositePrice.MinimumConfig;
+  minimum_composite_config: NewFloatingMinimumCompositePrice.MinimumCompositeConfig;
 
   /**
    * The pricing model type
    */
-  model_type: 'minimum';
+  model_type: 'minimum_composite';
 
   /**
    * The name of the price.
@@ -4405,9 +4405,9 @@ export interface NewFloatingMinimumCompositePrice {
 
 export namespace NewFloatingMinimumCompositePrice {
   /**
-   * Configuration for minimum pricing
+   * Configuration for minimum_composite pricing
    */
-  export interface MinimumConfig {
+  export interface MinimumCompositeConfig {
     /**
      * The minimum amount to apply
      */
@@ -7656,14 +7656,14 @@ export interface NewPlanMinimumCompositePrice {
   item_id: string;
 
   /**
-   * Configuration for minimum pricing
+   * Configuration for minimum_composite pricing
    */
-  minimum_config: NewPlanMinimumCompositePrice.MinimumConfig;
+  minimum_composite_config: NewPlanMinimumCompositePrice.MinimumCompositeConfig;
 
   /**
    * The pricing model type
    */
-  model_type: 'minimum';
+  model_type: 'minimum_composite';
 
   /**
    * The name of the price.
@@ -7747,9 +7747,9 @@ export interface NewPlanMinimumCompositePrice {
 
 export namespace NewPlanMinimumCompositePrice {
   /**
-   * Configuration for minimum pricing
+   * Configuration for minimum_composite pricing
    */
-  export interface MinimumConfig {
+  export interface MinimumCompositeConfig {
     /**
      * The minimum amount to apply
      */
@@ -9814,6 +9814,7 @@ export type Price =
   | Price.ScalableMatrixWithTieredPricingPrice
   | Price.CumulativeGroupedBulkPrice
   | Price.CumulativeGroupedAllocationPrice
+  | Price.MinimumPrice
   | Price.MinimumCompositePrice
   | Price.PercentCompositePrice
   | Price.EventOutputPrice;
@@ -13616,6 +13617,133 @@ export namespace Price {
     }
   }
 
+  export interface MinimumPrice {
+    id: string;
+
+    billable_metric: Shared.BillableMetricTiny | null;
+
+    billing_cycle_configuration: Shared.BillingCycleConfiguration;
+
+    billing_mode: 'in_advance' | 'in_arrear';
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<MinimumPrice.CompositePriceFilter> | null;
+
+    conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    created_at: string;
+
+    credit_allocation: Shared.Allocation | null;
+
+    currency: string;
+
+    /**
+     * @deprecated
+     */
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
+
+    /**
+     * A minimal representation of an Item containing only the essential identifying
+     * information.
+     */
+    item: Shared.ItemSlim;
+
+    /**
+     * @deprecated
+     */
+    maximum: Shared.Maximum | null;
+
+    /**
+     * @deprecated
+     */
+    maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: { [key: string]: string };
+
+    /**
+     * @deprecated
+     */
+    minimum: Shared.Minimum | null;
+
+    /**
+     * @deprecated
+     */
+    minimum_amount: string | null;
+
+    /**
+     * Configuration for minimum pricing
+     */
+    minimum_config: MinimumPrice.MinimumConfig;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'minimum';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+  }
+
+  export namespace MinimumPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
+    /**
+     * Configuration for minimum pricing
+     */
+    export interface MinimumConfig {
+      /**
+       * The minimum amount to apply
+       */
+      minimum_amount: string;
+
+      /**
+       * If true, subtotals from this price are prorated based on the service period
+       */
+      prorated?: boolean;
+    }
+  }
+
   export interface MinimumCompositePrice {
     id: string;
 
@@ -13685,14 +13813,14 @@ export namespace Price {
     minimum_amount: string | null;
 
     /**
-     * Configuration for minimum pricing
+     * Configuration for minimum_composite pricing
      */
-    minimum_config: MinimumCompositePrice.MinimumConfig;
+    minimum_composite_config: MinimumCompositePrice.MinimumCompositeConfig;
 
     /**
      * The pricing model type
      */
-    model_type: 'minimum';
+    model_type: 'minimum_composite';
 
     name: string;
 
@@ -13728,9 +13856,9 @@ export namespace Price {
     }
 
     /**
-     * Configuration for minimum pricing
+     * Configuration for minimum_composite pricing
      */
-    export interface MinimumConfig {
+    export interface MinimumCompositeConfig {
       /**
        * The minimum amount to apply
        */
