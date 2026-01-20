@@ -1,5 +1,23 @@
 # Changelog
 
+## 5.41.0 (2026-01-20)
+
+Full Changelog: [v5.40.0...v5.41.0](https://github.com/orbcorp/orb-node/compare/v5.40.0...v5.41.0)
+
+### Features
+
+* **api:** api update ([4636d83](https://github.com/orbcorp/orb-node/commit/4636d837d5e40940a899b74772eead70ccabe0ab))
+* **api:** api update ([b6bb6d3](https://github.com/orbcorp/orb-node/commit/b6bb6d3d66396f6396fe8602428b845f132e3680))
+
+
+### Chores
+
+* fix typo in descriptions ([866d085](https://github.com/orbcorp/orb-node/commit/866d0854f9dd7ca2a02cc646d8f1058a6d9f4f95))
+* **internal:** codegen related update ([a6e9bbb](https://github.com/orbcorp/orb-node/commit/a6e9bbb917c1b12482e1c2a5d921d063ca28aa77))
+* **internal:** codegen related update ([9795e8d](https://github.com/orbcorp/orb-node/commit/9795e8d7f2ac2c0915641cc8b60a20a787dfc70b))
+* **internal:** update `actions/checkout` version ([3b8337e](https://github.com/orbcorp/orb-node/commit/3b8337e3d162bbfc0bb9181b3f6fc0b1a2cd2df3))
+* **internal:** upgrade babel, qs, js-yaml ([b6c4b1c](https://github.com/orbcorp/orb-node/commit/b6c4b1cac33bff6e1ff3e6a91e5f5e2c550644bb))
+
 ## 5.40.0 (2026-01-08)
 
 Full Changelog: [v5.39.0...v5.40.0](https://github.com/orbcorp/orb-node/compare/v5.39.0...v5.40.0)
