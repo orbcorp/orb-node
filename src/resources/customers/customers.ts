@@ -411,6 +411,7 @@ export interface Customer {
    * | Peru                   | `pe_ruc`     | Peruvian RUC Number                                                                                     |
    * | Philippines            | `ph_tin`     | Philippines Tax Identification Number                                                                   |
    * | Poland                 | `eu_vat`     | European VAT Number                                                                                     |
+   * | Poland                 | `pl_nip`     | Polish Tax ID Number                                                                                    |
    * | Portugal               | `eu_vat`     | European VAT Number                                                                                     |
    * | Romania                | `eu_vat`     | European VAT Number                                                                                     |
    * | Romania                | `ro_tin`     | Romanian Tax ID Number                                                                                  |
@@ -801,6 +802,7 @@ export interface CustomerCreateParams {
    * | Peru                   | `pe_ruc`     | Peruvian RUC Number                                                                                     |
    * | Philippines            | `ph_tin`     | Philippines Tax Identification Number                                                                   |
    * | Poland                 | `eu_vat`     | European VAT Number                                                                                     |
+   * | Poland                 | `pl_nip`     | Polish Tax ID Number                                                                                    |
    * | Portugal               | `eu_vat`     | European VAT Number                                                                                     |
    * | Romania                | `eu_vat`     | European VAT Number                                                                                     |
    * | Romania                | `ro_tin`     | Romanian Tax ID Number                                                                                  |
@@ -1126,6 +1128,7 @@ export interface CustomerUpdateParams {
    * | Peru                   | `pe_ruc`     | Peruvian RUC Number                                                                                     |
    * | Philippines            | `ph_tin`     | Philippines Tax Identification Number                                                                   |
    * | Poland                 | `eu_vat`     | European VAT Number                                                                                     |
+   * | Poland                 | `pl_nip`     | Polish Tax ID Number                                                                                    |
    * | Portugal               | `eu_vat`     | European VAT Number                                                                                     |
    * | Romania                | `eu_vat`     | European VAT Number                                                                                     |
    * | Romania                | `ro_tin`     | Romanian Tax ID Number                                                                                  |
@@ -1454,6 +1457,7 @@ export interface CustomerUpdateByExternalIDParams {
    * | Peru                   | `pe_ruc`     | Peruvian RUC Number                                                                                     |
    * | Philippines            | `ph_tin`     | Philippines Tax Identification Number                                                                   |
    * | Poland                 | `eu_vat`     | European VAT Number                                                                                     |
+   * | Poland                 | `pl_nip`     | Polish Tax ID Number                                                                                    |
    * | Portugal               | `eu_vat`     | European VAT Number                                                                                     |
    * | Romania                | `eu_vat`     | European VAT Number                                                                                     |
    * | Romania                | `ro_tin`     | Romanian Tax ID Number                                                                                  |
