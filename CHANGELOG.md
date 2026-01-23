@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.43.0 (2026-01-23)
+
+Full Changelog: [v5.42.0...v5.43.0](https://github.com/orbcorp/orb-node/compare/v5.42.0...v5.43.0)
+
+### Features
+
+* **api:** api update ([1bb195f](https://github.com/orbcorp/orb-node/commit/1bb195f823aa6666ce19d78c301d70d93d1ed534))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([5f57423](https://github.com/orbcorp/orb-node/commit/5f57423ebc1408007e29af9070818fae2557fc94))
+
 ## 5.42.0 (2026-01-21)
 
 Full Changelog: [v5.41.0...v5.42.0](https://github.com/orbcorp/orb-node/compare/v5.41.0...v5.42.0)
