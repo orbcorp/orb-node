@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.44.0 (2026-02-03)
+
+Full Changelog: [v5.43.0...v5.44.0](https://github.com/orbcorp/orb-node/compare/v5.43.0...v5.44.0)
+
+### Features
+
+* **api:** api update ([e416790](https://github.com/orbcorp/orb-node/commit/e416790073c3b73cdcb84d963a90f3c954f61a25))
+
+
+### Chores
+
+* **client:** do not parse responses with empty content-length ([c494aed](https://github.com/orbcorp/orb-node/commit/c494aed5c72aedd6e0f5d1e0a2e73dbc3cf78713))
+
 ## 5.43.0 (2026-01-23)
 
 Full Changelog: [v5.42.0...v5.43.0](https://github.com/orbcorp/orb-node/compare/v5.42.0...v5.43.0)
