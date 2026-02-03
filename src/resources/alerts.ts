@@ -224,13 +224,19 @@ export interface Alert {
     | 'credit_balance_dropped'
     | 'credit_balance_recovered'
     | 'usage_exceeded'
-    | 'cost_exceeded';
+    | 'cost_exceeded'
+    | 'license_balance_threshold_reached';
 
   /**
    * The current status of the alert. This field is only present for credit balance
    * alerts.
    */
   balance_alert_status?: Array<Alert.BalanceAlertStatus> | null;
+
+  /**
+   * Minified license type for alert serialization.
+   */
+  license_type?: Alert.LicenseType | null;
 }
 
 export namespace Alert {
@@ -272,6 +278,13 @@ export namespace Alert {
      * The value of the threshold that defines the alert status.
      */
     threshold_value: number;
+  }
+
+  /**
+   * Minified license type for alert serialization.
+   */
+  export interface LicenseType {
+    id: string;
   }
 }
 
