@@ -2,13 +2,15 @@
 
 export { ExternalPriceID, type ExternalPriceIDUpdateParams } from './external-price-id';
 export {
-  PricesPage,
   Prices,
   type EvaluatePriceGroup,
-  type Price,
   type PriceEvaluateResponse,
+  type PriceEvaluateMultipleResponse,
+  type PriceEvaluatePreviewEventsResponse,
   type PriceCreateParams,
   type PriceUpdateParams,
   type PriceListParams,
   type PriceEvaluateParams,
+  type PriceEvaluateMultipleParams,
+  type PriceEvaluatePreviewEventsParams,
 } from './prices';

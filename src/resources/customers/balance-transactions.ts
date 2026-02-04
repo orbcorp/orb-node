@@ -3,6 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as Shared from '../shared';
 import { Page, type PageParams } from '../../pagination';
 
 export class BalanceTransactions extends APIResource {
@@ -40,13 +41,6 @@ export class BalanceTransactions extends APIResource {
    * This endpoint retrieves all customer balance transactions in reverse
    * chronological order for a single customer, providing a complete audit trail of
    * all adjustments and invoice applications.
-   *
-   * ## Eligibility
-   *
-   * The customer balance can only be applied to invoices or adjusted manually if
-   * invoices are not synced to a separate invoicing provider. If a payment gateway
-   * such as Stripe is used, the balance will be applied to the invoice before
-   * forwarding payment to the gateway.
    */
   list(
     customerId: string,
@@ -89,7 +83,9 @@ export interface BalanceTransactionCreateResponse {
     | 'return_from_voiding'
     | 'credit_note_applied'
     | 'credit_note_voided'
-    | 'overpayment_refund';
+    | 'overpayment_refund'
+    | 'external_payment'
+    | 'small_invoice_carryover';
 
   /**
    * The value of the amount changed in the transaction.
@@ -101,7 +97,7 @@ export interface BalanceTransactionCreateResponse {
    */
   created_at: string;
 
-  credit_note: BalanceTransactionCreateResponse.CreditNote | null;
+  credit_note: Shared.CreditNoteTiny | null;
 
   /**
    * An optional description provided for manual customer balance adjustments.
@@ -114,7 +110,7 @@ export interface BalanceTransactionCreateResponse {
    */
   ending_balance: string;
 
-  invoice: BalanceTransactionCreateResponse.Invoice | null;
+  invoice: Shared.InvoiceTiny | null;
 
   /**
    * The original value of the customer's balance prior to the transaction, in the
@@ -123,22 +119,6 @@ export interface BalanceTransactionCreateResponse {
   starting_balance: string;
 
   type: 'increment' | 'decrement';
-}
-
-export namespace BalanceTransactionCreateResponse {
-  export interface CreditNote {
-    /**
-     * The id of the Credit note
-     */
-    id: string;
-  }
-
-  export interface Invoice {
-    /**
-     * The Invoice id
-     */
-    id: string;
-  }
 }
 
 export interface BalanceTransactionListResponse {
@@ -155,7 +135,9 @@ export interface BalanceTransactionListResponse {
     | 'return_from_voiding'
     | 'credit_note_applied'
     | 'credit_note_voided'
-    | 'overpayment_refund';
+    | 'overpayment_refund'
+    | 'external_payment'
+    | 'small_invoice_carryover';
 
   /**
    * The value of the amount changed in the transaction.
@@ -167,7 +149,7 @@ export interface BalanceTransactionListResponse {
    */
   created_at: string;
 
-  credit_note: BalanceTransactionListResponse.CreditNote | null;
+  credit_note: Shared.CreditNoteTiny | null;
 
   /**
    * An optional description provided for manual customer balance adjustments.
@@ -180,7 +162,7 @@ export interface BalanceTransactionListResponse {
    */
   ending_balance: string;
 
-  invoice: BalanceTransactionListResponse.Invoice | null;
+  invoice: Shared.InvoiceTiny | null;
 
   /**
    * The original value of the customer's balance prior to the transaction, in the
@@ -189,22 +171,6 @@ export interface BalanceTransactionListResponse {
   starting_balance: string;
 
   type: 'increment' | 'decrement';
-}
-
-export namespace BalanceTransactionListResponse {
-  export interface CreditNote {
-    /**
-     * The id of the Credit note
-     */
-    id: string;
-  }
-
-  export interface Invoice {
-    /**
-     * The Invoice id
-     */
-    id: string;
-  }
 }
 
 export interface BalanceTransactionCreateParams {

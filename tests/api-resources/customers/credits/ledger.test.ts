@@ -71,10 +71,20 @@ describe('resource ledger', () => {
       description: 'description',
       effective_date: '2019-12-27T18:11:19.117Z',
       expiry_date: '2019-12-27T18:11:19.117Z',
+      filters: [
+        {
+          field: 'item_id',
+          operator: 'includes',
+          values: ['string'],
+        },
+      ],
       invoice_settings: {
         auto_collection: true,
-        net_terms: 0,
+        custom_due_date: '2019-12-27',
+        invoice_date: '2019-12-27',
+        item_id: 'item_id',
         memo: 'memo',
+        net_terms: 0,
         require_successful_payment: true,
       },
       metadata: { foo: 'string' },
@@ -104,10 +114,20 @@ describe('resource ledger', () => {
       description: 'description',
       effective_date: '2019-12-27T18:11:19.117Z',
       expiry_date: '2019-12-27T18:11:19.117Z',
+      filters: [
+        {
+          field: 'item_id',
+          operator: 'includes',
+          values: ['string'],
+        },
+      ],
       invoice_settings: {
         auto_collection: true,
-        net_terms: 0,
+        custom_due_date: '2019-12-27',
+        invoice_date: '2019-12-27',
+        item_id: 'item_id',
         memo: 'memo',
+        net_terms: 0,
         require_successful_payment: true,
       },
       metadata: { foo: 'string' },

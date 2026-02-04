@@ -14,7 +14,6 @@ describe('resource invoiceLineItems', () => {
       amount: '12.00',
       end_date: '2023-09-22',
       invoice_id: '4khy3nwzktxv7',
-      name: 'Item Name',
       quantity: 1,
       start_date: '2023-09-22',
     });
@@ -32,9 +31,10 @@ describe('resource invoiceLineItems', () => {
       amount: '12.00',
       end_date: '2023-09-22',
       invoice_id: '4khy3nwzktxv7',
-      name: 'Item Name',
       quantity: 1,
       start_date: '2023-09-22',
+      item_id: '4khy3nwzktxv7',
+      name: 'Item Name',
     });
   });
 });

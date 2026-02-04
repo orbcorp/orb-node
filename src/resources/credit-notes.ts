@@ -3,14 +3,41 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import { Page, type PageParams } from '../pagination';
+import * as Shared from './shared';
+import { CreditNotesPage } from './shared';
+import { type PageParams } from '../pagination';
 
 export class CreditNotes extends APIResource {
   /**
    * This endpoint is used to create a single
-   * [`Credit Note`](../guides/invoicing/credit-notes).
+   * [`Credit Note`](/invoicing/credit-notes).
+   *
+   * The credit note service period configuration supports two explicit modes:
+   *
+   * 1. Global service periods: Specify start_date and end_date at the credit note
+   *    level. These dates will be applied to all line items uniformly.
+   *
+   * 2. Individual service periods: Specify start_date and end_date for each line
+   *    item. When using this mode, ALL line items must have individual periods
+   *    specified.
+   *
+   * 3. Default behavior: If no service periods are specified (neither global nor
+   *    individual), the original invoice line item service periods will be used.
+   *
+   * Note: Mixing global and individual service periods in the same request is not
+   * allowed to prevent confusion.
+   *
+   * Service period dates are normalized to the start of the day in the customer's
+   * timezone to ensure consistent handling across different timezones.
+   *
+   * Date Format: Use start_date and end_date with format "YYYY-MM-DD" (e.g.,
+   * "2023-09-22") to match other Orb APIs like /v1/invoice_line_items.
+   *
+   * Note: Both start_date and end_date are inclusive - the service period will cover
+   * both the start date and end date completely (from start of start_date to end of
+   * end_date).
    */
-  create(body: CreditNoteCreateParams, options?: Core.RequestOptions): Core.APIPromise<CreditNote> {
+  create(body: CreditNoteCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.CreditNote> {
     return this._client.post('/credit_notes', { body, ...options });
   }
 
@@ -22,12 +49,12 @@ export class CreditNotes extends APIResource {
   list(
     query?: CreditNoteListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CreditNotesPage, CreditNote>;
-  list(options?: Core.RequestOptions): Core.PagePromise<CreditNotesPage, CreditNote>;
+  ): Core.PagePromise<CreditNotesPage, Shared.CreditNote>;
+  list(options?: Core.RequestOptions): Core.PagePromise<CreditNotesPage, Shared.CreditNote>;
   list(
     query: CreditNoteListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CreditNotesPage, CreditNote> {
+  ): Core.PagePromise<CreditNotesPage, Shared.CreditNote> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -35,213 +62,11 @@ export class CreditNotes extends APIResource {
   }
 
   /**
-   * This endpoint is used to fetch a single
-   * [`Credit Note`](../guides/invoicing/credit-notes) given an identifier.
+   * This endpoint is used to fetch a single [`Credit Note`](/invoicing/credit-notes)
+   * given an identifier.
    */
-  fetch(creditNoteId: string, options?: Core.RequestOptions): Core.APIPromise<CreditNote> {
+  fetch(creditNoteId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.CreditNote> {
     return this._client.get(`/credit_notes/${creditNoteId}`, options);
-  }
-}
-
-export class CreditNotesPage extends Page<CreditNote> {}
-
-/**
- * The [Credit Note](/guides/invoicing/credit-notes) resource represents a credit
- * that has been applied to a particular invoice.
- */
-export interface CreditNote {
-  /**
-   * The Orb id of this credit note.
-   */
-  id: string;
-
-  /**
-   * The creation time of the resource in Orb.
-   */
-  created_at: string;
-
-  /**
-   * The unique identifier for credit notes.
-   */
-  credit_note_number: string;
-
-  /**
-   * A URL to a PDF of the credit note.
-   */
-  credit_note_pdf: string | null;
-
-  customer: CreditNote.Customer;
-
-  /**
-   * The id of the invoice resource that this credit note is applied to.
-   */
-  invoice_id: string;
-
-  /**
-   * All of the line items associated with this credit note.
-   */
-  line_items: Array<CreditNote.LineItem>;
-
-  /**
-   * The maximum amount applied on the original invoice
-   */
-  maximum_amount_adjustment: CreditNote.MaximumAmountAdjustment | null;
-
-  /**
-   * An optional memo supplied on the credit note.
-   */
-  memo: string | null;
-
-  /**
-   * Any credited amount from the applied minimum on the invoice.
-   */
-  minimum_amount_refunded: string | null;
-
-  reason: 'Duplicate' | 'Fraudulent' | 'Order change' | 'Product unsatisfactory' | null;
-
-  /**
-   * The total prior to any creditable invoice-level discounts or minimums.
-   */
-  subtotal: string;
-
-  /**
-   * The total including creditable invoice-level discounts or minimums, and tax.
-   */
-  total: string;
-
-  type: 'refund' | 'adjustment';
-
-  /**
-   * The time at which the credit note was voided in Orb, if applicable.
-   */
-  voided_at: string | null;
-
-  /**
-   * Any discounts applied on the original invoice.
-   */
-  discounts?: Array<CreditNote.Discount>;
-}
-
-export namespace CreditNote {
-  export interface Customer {
-    id: string;
-
-    external_customer_id: string | null;
-  }
-
-  export interface LineItem {
-    /**
-     * The Orb id of this resource.
-     */
-    id: string;
-
-    /**
-     * The amount of the line item, including any line item minimums and discounts.
-     */
-    amount: string;
-
-    /**
-     * The name of the corresponding invoice line item.
-     */
-    name: string;
-
-    /**
-     * An optional quantity credited.
-     */
-    quantity: number | null;
-
-    /**
-     * The amount of the line item, excluding any line item minimums and discounts.
-     */
-    subtotal: string;
-
-    /**
-     * Any tax amounts applied onto the line item.
-     */
-    tax_amounts: Array<LineItem.TaxAmount>;
-
-    /**
-     * Any line item discounts from the invoice's line item.
-     */
-    discounts?: Array<LineItem.Discount>;
-  }
-
-  export namespace LineItem {
-    export interface TaxAmount {
-      /**
-       * The amount of additional tax incurred by this tax rate.
-       */
-      amount: string;
-
-      /**
-       * The human-readable description of the applied tax rate.
-       */
-      tax_rate_description: string;
-
-      /**
-       * The tax rate percentage, out of 100.
-       */
-      tax_rate_percentage: string | null;
-    }
-
-    export interface Discount {
-      id: string;
-
-      amount_applied: string;
-
-      applies_to_price_ids: Array<string>;
-
-      discount_type: 'percentage' | 'amount';
-
-      percentage_discount: number;
-
-      amount_discount?: string | null;
-
-      reason?: string | null;
-    }
-  }
-
-  /**
-   * The maximum amount applied on the original invoice
-   */
-  export interface MaximumAmountAdjustment {
-    amount_applied: string;
-
-    discount_type: 'percentage';
-
-    percentage_discount: number;
-
-    applies_to_prices?: Array<MaximumAmountAdjustment.AppliesToPrice> | null;
-
-    reason?: string | null;
-  }
-
-  export namespace MaximumAmountAdjustment {
-    export interface AppliesToPrice {
-      id: string;
-
-      name: string;
-    }
-  }
-
-  export interface Discount {
-    amount_applied: string;
-
-    discount_type: 'percentage';
-
-    percentage_discount: number;
-
-    applies_to_prices?: Array<Discount.AppliesToPrice> | null;
-
-    reason?: string | null;
-  }
-
-  export namespace Discount {
-    export interface AppliesToPrice {
-      id: string;
-
-      name: string;
-    }
   }
 }
 
@@ -249,14 +74,30 @@ export interface CreditNoteCreateParams {
   line_items: Array<CreditNoteCreateParams.LineItem>;
 
   /**
+   * An optional reason for the credit note.
+   */
+  reason: 'duplicate' | 'fraudulent' | 'order_change' | 'product_unsatisfactory';
+
+  /**
+   * A date string to specify the global credit note service period end date in the
+   * customer's timezone. This will be applied to all line items that don't have
+   * their own individual service periods specified. If not provided, line items will
+   * use their original invoice line item service periods. This date is inclusive.
+   */
+  end_date?: string | null;
+
+  /**
    * An optional memo to attach to the credit note.
    */
   memo?: string | null;
 
   /**
-   * An optional reason for the credit note.
+   * A date string to specify the global credit note service period start date in the
+   * customer's timezone. This will be applied to all line items that don't have
+   * their own individual service periods specified. If not provided, line items will
+   * use their original invoice line item service periods. This date is inclusive.
    */
-  reason?: 'duplicate' | 'fraudulent' | 'order_change' | 'product_unsatisfactory' | null;
+  start_date?: string | null;
 }
 
 export namespace CreditNoteCreateParams {
@@ -270,18 +111,41 @@ export namespace CreditNoteCreateParams {
      * The ID of the line item to credit.
      */
     invoice_line_item_id: string;
+
+    /**
+     * A date string to specify this line item's credit note service period end date in
+     * the customer's timezone. If provided, this will be used for this specific line
+     * item. If not provided, will use the global end_date if available, otherwise
+     * defaults to the original invoice line item's end date. This date is inclusive.
+     */
+    end_date?: string | null;
+
+    /**
+     * A date string to specify this line item's credit note service period start date
+     * in the customer's timezone. If provided, this will be used for this specific
+     * line item. If not provided, will use the global start_date if available,
+     * otherwise defaults to the original invoice line item's start date. This date is
+     * inclusive.
+     */
+    start_date?: string | null;
   }
 }
 
-export interface CreditNoteListParams extends PageParams {}
+export interface CreditNoteListParams extends PageParams {
+  'created_at[gt]'?: string | null;
 
-CreditNotes.CreditNotesPage = CreditNotesPage;
+  'created_at[gte]'?: string | null;
+
+  'created_at[lt]'?: string | null;
+
+  'created_at[lte]'?: string | null;
+}
 
 export declare namespace CreditNotes {
   export {
-    type CreditNote as CreditNote,
-    CreditNotesPage as CreditNotesPage,
     type CreditNoteCreateParams as CreditNoteCreateParams,
     type CreditNoteListParams as CreditNoteListParams,
   };
 }
+
+export { CreditNotesPage };

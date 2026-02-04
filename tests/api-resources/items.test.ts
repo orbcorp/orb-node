@@ -21,7 +21,10 @@ describe('resource items', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.items.create({ name: 'API requests' });
+    const response = await client.items.create({
+      name: 'API requests',
+      metadata: { foo: 'string' },
+    });
   });
 
   test('update', async () => {
@@ -56,6 +59,24 @@ describe('resource items', () => {
     await expect(
       client.items.list({ cursor: 'cursor', limit: 1 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
+  });
+
+  test('archive', async () => {
+    const responsePromise = client.items.archive('item_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('archive: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(client.items.archive('item_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Orb.NotFoundError,
+    );
   });
 
   test('fetch', async () => {

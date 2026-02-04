@@ -3,6 +3,7 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
+import * as Shared from './shared';
 import { Page, type PageParams } from '../pagination';
 
 export class Alerts extends APIResource {
@@ -30,12 +31,12 @@ export class Alerts extends APIResource {
    * The request must specify one of `customer_id`, `external_customer_id`, or
    * `subscription_id`.
    *
-   * If querying by subscripion_id, the endpoint will return the subscription level
+   * If querying by subscription_id, the endpoint will return the subscription level
    * alerts as well as the plan level alerts associated with the subscription.
    *
    * The list of alerts is ordered starting from the most recently created alert.
    * This endpoint follows Orb's
-   * [standardized pagination format](../reference/pagination).
+   * [standardized pagination format](/api-reference/pagination).
    */
   list(query?: AlertListParams, options?: Core.RequestOptions): Core.PagePromise<AlertsPage, Alert>;
   list(options?: Core.RequestOptions): Core.PagePromise<AlertsPage, Alert>;
@@ -54,8 +55,7 @@ export class Alerts extends APIResource {
    * are three types of alerts that can be scoped to customers:
    * `credit_balance_depleted`, `credit_balance_dropped`, and
    * `credit_balance_recovered`. Customers can have a maximum of one of each type of
-   * alert per
-   * [credit balance currency](https://docs.withorb.com/guides/product-catalog/prepurchase).
+   * alert per [credit balance currency](/product-catalog/prepurchase).
    * `credit_balance_dropped` alerts require a list of thresholds to be provided
    * while `credit_balance_depleted` and `credit_balance_recovered` alerts do not
    * require thresholds.
@@ -73,8 +73,7 @@ export class Alerts extends APIResource {
    * are three types of alerts that can be scoped to customers:
    * `credit_balance_depleted`, `credit_balance_dropped`, and
    * `credit_balance_recovered`. Customers can have a maximum of one of each type of
-   * alert per
-   * [credit balance currency](https://docs.withorb.com/guides/product-catalog/prepurchase).
+   * alert per [credit balance currency](/product-catalog/prepurchase).
    * `credit_balance_dropped` alerts require a list of thresholds to be provided
    * while `credit_balance_depleted` and `credit_balance_recovered` alerts do not
    * require thresholds.
@@ -164,9 +163,8 @@ export class Alerts extends APIResource {
 export class AlertsPage extends Page<Alert> {}
 
 /**
- * [Alerts within Orb](https://docs.withorb.com/guides/product-catalog/configuring-alerts)
- * monitor spending, usage, or credit balance and trigger webhooks when a threshold
- * is exceeded.
+ * [Alerts within Orb](/product-catalog/configuring-alerts) monitor spending,
+ * usage, or credit balance and trigger webhooks when a threshold is exceeded.
  *
  * Alerts created through the API can be scoped to either customers or
  * subscriptions.
@@ -190,7 +188,7 @@ export interface Alert {
   /**
    * The customer the alert applies to.
    */
-  customer: Alert.Customer | null;
+  customer: Shared.CustomerMinified | null;
 
   /**
    * Whether the alert is enabled or disabled.
@@ -210,35 +208,38 @@ export interface Alert {
   /**
    * The subscription the alert applies to.
    */
-  subscription: Alert.Subscription | null;
+  subscription: Shared.SubscriptionMinified | null;
 
   /**
    * The thresholds that define the conditions under which the alert will be
    * triggered.
    */
-  thresholds: Array<Alert.Threshold> | null;
+  thresholds: Array<Threshold> | null;
 
   /**
    * The type of alert. This must be a valid alert type.
    */
   type:
-    | 'usage_exceeded'
-    | 'cost_exceeded'
     | 'credit_balance_depleted'
     | 'credit_balance_dropped'
-    | 'credit_balance_recovered';
+    | 'credit_balance_recovered'
+    | 'usage_exceeded'
+    | 'cost_exceeded'
+    | 'license_balance_threshold_reached';
+
+  /**
+   * The current status of the alert. This field is only present for credit balance
+   * alerts.
+   */
+  balance_alert_status?: Array<Alert.BalanceAlertStatus> | null;
+
+  /**
+   * Minified license type for alert serialization.
+   */
+  license_type?: Alert.LicenseType | null;
 }
 
 export namespace Alert {
-  /**
-   * The customer the alert applies to.
-   */
-  export interface Customer {
-    id: string;
-
-    external_customer_id: string | null;
-  }
-
   /**
    * The metric the alert applies to.
    */
@@ -265,46 +266,46 @@ export namespace Alert {
   }
 
   /**
-   * The subscription the alert applies to.
+   * Alert status is used to determine if an alert is currently in-alert or not.
    */
-  export interface Subscription {
-    id: string;
+  export interface BalanceAlertStatus {
+    /**
+     * Whether the alert is currently in-alert or not.
+     */
+    in_alert: boolean;
+
+    /**
+     * The value of the threshold that defines the alert status.
+     */
+    threshold_value: number;
   }
 
   /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
+   * Minified license type for alert serialization.
    */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
+  export interface LicenseType {
+    id: string;
   }
+}
+
+/**
+ * Thresholds are used to define the conditions under which an alert will be
+ * triggered.
+ */
+export interface Threshold {
+  /**
+   * The value at which an alert will fire. For credit balance alerts, the alert will
+   * fire at or below this value. For usage and cost alerts, the alert will fire at
+   * or above this value.
+   */
+  value: number;
 }
 
 export interface AlertUpdateParams {
   /**
    * The thresholds that define the values at which the alert will be triggered.
    */
-  thresholds: Array<AlertUpdateParams.Threshold>;
-}
-
-export namespace AlertUpdateParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
+  thresholds: Array<Threshold>;
 }
 
 export interface AlertListParams extends PageParams {
@@ -341,32 +342,12 @@ export interface AlertCreateForCustomerParams {
   /**
    * The type of alert to create. This must be a valid alert type.
    */
-  type:
-    | 'usage_exceeded'
-    | 'cost_exceeded'
-    | 'credit_balance_depleted'
-    | 'credit_balance_dropped'
-    | 'credit_balance_recovered';
+  type: 'credit_balance_depleted' | 'credit_balance_dropped' | 'credit_balance_recovered';
 
   /**
    * The thresholds that define the values at which the alert will be triggered.
    */
-  thresholds?: Array<AlertCreateForCustomerParams.Threshold> | null;
-}
-
-export namespace AlertCreateForCustomerParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
+  thresholds?: Array<Threshold> | null;
 }
 
 export interface AlertCreateForExternalCustomerParams {
@@ -378,69 +359,29 @@ export interface AlertCreateForExternalCustomerParams {
   /**
    * The type of alert to create. This must be a valid alert type.
    */
-  type:
-    | 'usage_exceeded'
-    | 'cost_exceeded'
-    | 'credit_balance_depleted'
-    | 'credit_balance_dropped'
-    | 'credit_balance_recovered';
+  type: 'credit_balance_depleted' | 'credit_balance_dropped' | 'credit_balance_recovered';
 
   /**
    * The thresholds that define the values at which the alert will be triggered.
    */
-  thresholds?: Array<AlertCreateForExternalCustomerParams.Threshold> | null;
-}
-
-export namespace AlertCreateForExternalCustomerParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
+  thresholds?: Array<Threshold> | null;
 }
 
 export interface AlertCreateForSubscriptionParams {
   /**
    * The thresholds that define the values at which the alert will be triggered.
    */
-  thresholds: Array<AlertCreateForSubscriptionParams.Threshold>;
+  thresholds: Array<Threshold>;
 
   /**
    * The type of alert to create. This must be a valid alert type.
    */
-  type:
-    | 'usage_exceeded'
-    | 'cost_exceeded'
-    | 'credit_balance_depleted'
-    | 'credit_balance_dropped'
-    | 'credit_balance_recovered';
+  type: 'usage_exceeded' | 'cost_exceeded';
 
   /**
    * The metric to track usage for.
    */
   metric_id?: string | null;
-}
-
-export namespace AlertCreateForSubscriptionParams {
-  /**
-   * Thresholds are used to define the conditions under which an alert will be
-   * triggered.
-   */
-  export interface Threshold {
-    /**
-     * The value at which an alert will fire. For credit balance alerts, the alert will
-     * fire at or below this value. For usage and cost alerts, the alert will fire at
-     * or above this value.
-     */
-    value: number;
-  }
 }
 
 export interface AlertDisableParams {
@@ -462,6 +403,7 @@ Alerts.AlertsPage = AlertsPage;
 export declare namespace Alerts {
   export {
     type Alert as Alert,
+    type Threshold as Threshold,
     AlertsPage as AlertsPage,
     type AlertUpdateParams as AlertUpdateParams,
     type AlertListParams as AlertListParams,

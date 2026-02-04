@@ -207,6 +207,8 @@ export class Events extends APIResource {
    *   flexible query engine to determine usage.
    * - Logging a region or cluster with each event can help you provide customers
    *   more granular visibility into their usage.
+   * - If you are using matrix pricing and matching a matrix price key with a
+   *   property, you should ensure the value for that property is sent as a string.
    *
    * We encourage logging this metadata with an eye towards future use cases to
    * ensure full coverage for historical data. The datatype of the value in the
@@ -299,8 +301,8 @@ export class Events extends APIResource {
    *
    * If `debug=true` is not specified, the response will only contain
    * `validation_failed`. Orb will still honor the idempotency guarantees set
-   * [here](../guides/events-and-metrics/event-ingestion#event-volume-and-concurrency)
-   * in all cases.
+   * [here](/events-and-metrics/event-ingestion#event-volume-and-concurrency) in all
+   * cases.
    *
    * We strongly recommend that you only use debug mode as part of testing your
    * initial Orb integration. Once you're ready to switch to production, disable
@@ -333,7 +335,7 @@ export class Events extends APIResource {
 
   /**
    * This endpoint returns a filtered set of events for an account in a
-   * [paginated list format](../reference/pagination).
+   * [paginated list format](/api-reference/pagination).
    *
    * Note that this is a `POST` endpoint rather than a `GET` endpoint because it
    * employs a JSON body for search criteria rather than query parameters, allowing
@@ -412,10 +414,9 @@ export interface EventSearchResponse {
 
 export namespace EventSearchResponse {
   /**
-   * The [Event](../guides/core-concepts.mdx#event) resource represents a usage event
-   * that has been created for a customer. Events are the core of Orb's usage-based
-   * billing model, and are used to calculate the usage charges for a given billing
-   * period.
+   * The [Event](/core-concepts#event) resource represents a usage event that has
+   * been created for a customer. Events are the core of Orb's usage-based billing
+   * model, and are used to calculate the usage charges for a given billing period.
    */
   export interface Data {
     /**
@@ -450,7 +451,7 @@ export namespace EventSearchResponse {
      * A dictionary of custom properties. Values in this dictionary must be numeric,
      * boolean, or strings. Nested dictionaries are disallowed.
      */
-    properties: unknown;
+    properties: { [key: string]: unknown };
 
     /**
      * An ISO 8601 format date with no timezone offset (i.e. UTC). This should
@@ -471,7 +472,7 @@ export interface EventUpdateParams {
    * A dictionary of custom properties. Values in this dictionary must be numeric,
    * boolean, or strings. Nested dictionaries are disallowed.
    */
-  properties: unknown;
+  properties: { [key: string]: unknown };
 
   /**
    * An ISO 8601 format date with no timezone offset (i.e. UTC). This should
@@ -494,7 +495,7 @@ export interface EventUpdateParams {
 
 export interface EventIngestParams {
   /**
-   * Body param:
+   * Body param
    */
   events: Array<EventIngestParams.Event>;
 
@@ -529,7 +530,7 @@ export namespace EventIngestParams {
      * A dictionary of custom properties. Values in this dictionary must be numeric,
      * boolean, or strings. Nested dictionaries are disallowed.
      */
-    properties: unknown;
+    properties: { [key: string]: unknown };
 
     /**
      * An ISO 8601 format date with no timezone offset (i.e. UTC). This should

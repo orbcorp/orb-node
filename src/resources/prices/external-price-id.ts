@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as PricesAPI from './prices';
+import * as Shared from '../shared';
 
 export class ExternalPriceID extends APIResource {
   /**
@@ -14,16 +14,16 @@ export class ExternalPriceID extends APIResource {
     externalPriceId: string,
     body: ExternalPriceIDUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PricesAPI.Price> {
+  ): Core.APIPromise<Shared.Price> {
     return this._client.put(`/prices/external_price_id/${externalPriceId}`, { body, ...options });
   }
 
   /**
    * This endpoint returns a price given an external price id. See the
-   * [price creation API](../reference/create-price) for more information about
-   * external price aliases.
+   * [price creation API](/api-reference/price/create-price) for more information
+   * about external price aliases.
    */
-  fetch(externalPriceId: string, options?: Core.RequestOptions): Core.APIPromise<PricesAPI.Price> {
+  fetch(externalPriceId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Price> {
     return this._client.get(`/prices/external_price_id/${externalPriceId}`, options);
   }
 }
@@ -34,7 +34,7 @@ export interface ExternalPriceIDUpdateParams {
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
    */
-  metadata?: Record<string, string | null> | null;
+  metadata?: { [key: string]: string | null } | null;
 }
 
 export declare namespace ExternalPriceID {

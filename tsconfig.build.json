@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "orb-billing/*": ["dist/src/*"],
-      "orb-billing": ["dist/src/index.ts"],
+      "orb-billing/*": ["./dist/src/*"],
+      "orb-billing": ["./dist/src/index.ts"],
     },
     "noEmit": false,
     "declaration": true,
