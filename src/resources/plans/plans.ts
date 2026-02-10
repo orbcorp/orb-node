@@ -464,6 +464,11 @@ export namespace PlanCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -614,6 +619,11 @@ export namespace PlanCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -745,6 +755,11 @@ export namespace PlanCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -871,6 +886,11 @@ export namespace PlanCreateParams {
        * If unspecified, a single invoice is produced per billing cycle.
        */
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
 
       /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -1001,6 +1021,11 @@ export namespace PlanCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -1112,6 +1137,11 @@ export namespace PlanCreateParams {
        * If unspecified, a single invoice is produced per billing cycle.
        */
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
 
       /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
