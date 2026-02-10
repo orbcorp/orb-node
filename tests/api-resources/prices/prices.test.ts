@@ -52,6 +52,7 @@ describe('resource prices', () => {
       fixed_price_quantity: 0,
       invoice_grouping_key: 'x',
       invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
+      license_type_id: 'license_type_id',
       metadata: { foo: 'string' },
     });
   });
@@ -164,6 +165,7 @@ describe('resource prices', () => {
             fixed_price_quantity: 0,
             invoice_grouping_key: 'x',
             invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
+            license_type_id: 'license_type_id',
             metadata: { foo: 'string' },
           },
           price_id: 'price_id',
@@ -230,6 +232,7 @@ describe('resource prices', () => {
             fixed_price_quantity: 0,
             invoice_grouping_key: 'x',
             invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
+            license_type_id: 'license_type_id',
             metadata: { foo: 'string' },
           },
           price_id: 'price_id',

@@ -314,6 +314,7 @@ describe('resource subscriptions', () => {
               },
             ],
             item_id: 'item_id',
+            license_type_id: 'license_type_id',
             per_unit_cost_basis: 'per_unit_cost_basis',
           },
           discounts: [
@@ -353,6 +354,7 @@ describe('resource subscriptions', () => {
             fixed_price_quantity: 0,
             invoice_grouping_key: 'x',
             invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
+            license_type_id: 'license_type_id',
             metadata: { foo: 'string' },
             reference_id: 'reference_id',
           },
@@ -422,6 +424,7 @@ describe('resource subscriptions', () => {
               },
             ],
             item_id: 'item_id',
+            license_type_id: 'license_type_id',
             per_unit_cost_basis: 'per_unit_cost_basis',
           },
           discounts: [
@@ -460,6 +463,7 @@ describe('resource subscriptions', () => {
             fixed_price_quantity: 0,
             invoice_grouping_key: 'x',
             invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
+            license_type_id: 'license_type_id',
             metadata: { foo: 'string' },
             reference_id: 'reference_id',
           },
