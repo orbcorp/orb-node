@@ -36,7 +36,11 @@ export {
   type CouponCreateParams,
   type CouponListParams,
 } from './coupons/coupons';
-export { CreditBlocks, type CreditBlockRetrieveResponse } from './credit-blocks';
+export {
+  CreditBlocks,
+  type CreditBlockRetrieveResponse,
+  type CreditBlockListInvoicesResponse,
+} from './credit-blocks';
 export { CreditNotes, type CreditNoteCreateParams, type CreditNoteListParams } from './credit-notes';
 export {
   CustomersPage,
@@ -82,12 +86,14 @@ export {
   InvoiceListSummaryResponsesPage,
   Invoices,
   type InvoiceFetchUpcomingResponse,
+  type InvoiceIssueSummaryResponse,
   type InvoiceListSummaryResponse,
   type InvoiceCreateParams,
   type InvoiceUpdateParams,
   type InvoiceListParams,
   type InvoiceFetchUpcomingParams,
   type InvoiceIssueParams,
+  type InvoiceIssueSummaryParams,
   type InvoiceListSummaryParams,
   type InvoiceMarkPaidParams,
 } from './invoices';
@@ -99,6 +105,28 @@ export {
   type ItemUpdateParams,
   type ItemListParams,
 } from './items';
+export {
+  LicenseListResponsesPage,
+  Licenses,
+  type LicenseCreateResponse,
+  type LicenseRetrieveResponse,
+  type LicenseListResponse,
+  type LicenseDeactivateResponse,
+  type LicenseRetrieveByExternalIDResponse,
+  type LicenseCreateParams,
+  type LicenseListParams,
+  type LicenseDeactivateParams,
+  type LicenseRetrieveByExternalIDParams,
+} from './licenses/licenses';
+export {
+  LicenseTypeListResponsesPage,
+  LicenseTypes,
+  type LicenseTypeCreateResponse,
+  type LicenseTypeRetrieveResponse,
+  type LicenseTypeListResponse,
+  type LicenseTypeCreateParams,
+  type LicenseTypeListParams,
+} from './license-types';
 export {
   PlansPage,
   Plans,

@@ -21,7 +21,11 @@ import {
   AlertsPage,
   Threshold,
 } from './resources/alerts';
-import { CreditBlockRetrieveResponse, CreditBlocks } from './resources/credit-blocks';
+import {
+  CreditBlockListInvoicesResponse,
+  CreditBlockRetrieveResponse,
+  CreditBlocks,
+} from './resources/credit-blocks';
 import { CreditNoteCreateParams, CreditNoteListParams, CreditNotes } from './resources/credit-notes';
 import {
   InvoiceLineItemCreateParams,
@@ -33,6 +37,8 @@ import {
   InvoiceFetchUpcomingParams,
   InvoiceFetchUpcomingResponse,
   InvoiceIssueParams,
+  InvoiceIssueSummaryParams,
+  InvoiceIssueSummaryResponse,
   InvoiceListParams,
   InvoiceListSummaryParams,
   InvoiceListSummaryResponse,
@@ -49,6 +55,15 @@ import {
   Items,
   ItemsPage,
 } from './resources/items';
+import {
+  LicenseTypeCreateParams,
+  LicenseTypeCreateResponse,
+  LicenseTypeListParams,
+  LicenseTypeListResponse,
+  LicenseTypeListResponsesPage,
+  LicenseTypeRetrieveResponse,
+  LicenseTypes,
+} from './resources/license-types';
 import {
   BillableMetric,
   BillableMetricsPage,
@@ -167,6 +182,19 @@ import {
   EventUpdateResponse,
   Events,
 } from './resources/events/events';
+import {
+  LicenseCreateParams,
+  LicenseCreateResponse,
+  LicenseDeactivateParams,
+  LicenseDeactivateResponse,
+  LicenseListParams,
+  LicenseListResponse,
+  LicenseListResponsesPage,
+  LicenseRetrieveByExternalIDParams,
+  LicenseRetrieveByExternalIDResponse,
+  LicenseRetrieveResponse,
+  Licenses,
+} from './resources/licenses/licenses';
 import {
   Plan,
   PlanCreateParams,
@@ -333,6 +361,8 @@ export class Orb extends Core.APIClient {
   dimensionalPriceGroups: API.DimensionalPriceGroups = new API.DimensionalPriceGroups(this);
   subscriptionChanges: API.SubscriptionChanges = new API.SubscriptionChanges(this);
   creditBlocks: API.CreditBlocks = new API.CreditBlocks(this);
+  licenseTypes: API.LicenseTypes = new API.LicenseTypes(this);
+  licenses: API.Licenses = new API.Licenses(this);
 
   /**
    * Check whether the base URL is set to its default.
@@ -419,6 +449,10 @@ Orb.DimensionalPriceGroupsPage = DimensionalPriceGroupsPage;
 Orb.SubscriptionChanges = SubscriptionChanges;
 Orb.SubscriptionChangeListResponsesPage = SubscriptionChangeListResponsesPage;
 Orb.CreditBlocks = CreditBlocks;
+Orb.LicenseTypes = LicenseTypes;
+Orb.LicenseTypeListResponsesPage = LicenseTypeListResponsesPage;
+Orb.Licenses = Licenses;
+Orb.LicenseListResponsesPage = LicenseListResponsesPage;
 
 export declare namespace Orb {
   export type RequestOptions = Core.RequestOptions;
@@ -488,6 +522,7 @@ export declare namespace Orb {
   export {
     Invoices as Invoices,
     type InvoiceFetchUpcomingResponse as InvoiceFetchUpcomingResponse,
+    type InvoiceIssueSummaryResponse as InvoiceIssueSummaryResponse,
     type InvoiceListSummaryResponse as InvoiceListSummaryResponse,
     InvoiceListSummaryResponsesPage as InvoiceListSummaryResponsesPage,
     type InvoiceCreateParams as InvoiceCreateParams,
@@ -495,6 +530,7 @@ export declare namespace Orb {
     type InvoiceListParams as InvoiceListParams,
     type InvoiceFetchUpcomingParams as InvoiceFetchUpcomingParams,
     type InvoiceIssueParams as InvoiceIssueParams,
+    type InvoiceIssueSummaryParams as InvoiceIssueSummaryParams,
     type InvoiceListSummaryParams as InvoiceListSummaryParams,
     type InvoiceMarkPaidParams as InvoiceMarkPaidParams,
   };
@@ -625,7 +661,35 @@ export declare namespace Orb {
     type SubscriptionChangeApplyParams as SubscriptionChangeApplyParams,
   };
 
-  export { CreditBlocks as CreditBlocks, type CreditBlockRetrieveResponse as CreditBlockRetrieveResponse };
+  export {
+    CreditBlocks as CreditBlocks,
+    type CreditBlockRetrieveResponse as CreditBlockRetrieveResponse,
+    type CreditBlockListInvoicesResponse as CreditBlockListInvoicesResponse,
+  };
+
+  export {
+    LicenseTypes as LicenseTypes,
+    type LicenseTypeCreateResponse as LicenseTypeCreateResponse,
+    type LicenseTypeRetrieveResponse as LicenseTypeRetrieveResponse,
+    type LicenseTypeListResponse as LicenseTypeListResponse,
+    LicenseTypeListResponsesPage as LicenseTypeListResponsesPage,
+    type LicenseTypeCreateParams as LicenseTypeCreateParams,
+    type LicenseTypeListParams as LicenseTypeListParams,
+  };
+
+  export {
+    Licenses as Licenses,
+    type LicenseCreateResponse as LicenseCreateResponse,
+    type LicenseRetrieveResponse as LicenseRetrieveResponse,
+    type LicenseListResponse as LicenseListResponse,
+    type LicenseDeactivateResponse as LicenseDeactivateResponse,
+    type LicenseRetrieveByExternalIDResponse as LicenseRetrieveByExternalIDResponse,
+    LicenseListResponsesPage as LicenseListResponsesPage,
+    type LicenseCreateParams as LicenseCreateParams,
+    type LicenseListParams as LicenseListParams,
+    type LicenseDeactivateParams as LicenseDeactivateParams,
+    type LicenseRetrieveByExternalIDParams as LicenseRetrieveByExternalIDParams,
+  };
 
   export type Address = API.Address;
   export type AdjustmentInterval = API.AdjustmentInterval;

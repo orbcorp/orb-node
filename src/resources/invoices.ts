@@ -126,6 +126,37 @@ export class Invoices extends APIResource {
   }
 
   /**
+   * This endpoint allows an eligible invoice to be issued manually. This is only
+   * possible with invoices where status is `draft`, `will_auto_issue` is false, and
+   * an `eligible_to_issue_at` is a time in the past. Issuing an invoice could
+   * possibly trigger side effects, some of which could be customer-visible (e.g.
+   * sending emails, auto-collecting payment, syncing the invoice to external
+   * providers, etc).
+   *
+   * This is a lighter-weight alternative to the issue invoice endpoint, returning an
+   * invoice summary without any line item details.
+   */
+  issueSummary(
+    invoiceId: string,
+    body?: InvoiceIssueSummaryParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<InvoiceIssueSummaryResponse>;
+  issueSummary(
+    invoiceId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<InvoiceIssueSummaryResponse>;
+  issueSummary(
+    invoiceId: string,
+    body: InvoiceIssueSummaryParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<InvoiceIssueSummaryResponse> {
+    if (isRequestOptions(body)) {
+      return this.issueSummary(invoiceId, {}, body);
+    }
+    return this._client.post(`/invoices/summary/${invoiceId}/issue`, { body, ...options });
+  }
+
+  /**
    * This is a lighter-weight endpoint that returns a list of all
    * [`Invoice`](/core-concepts#invoice) summaries for an account in a list format.
    *
@@ -748,6 +779,458 @@ export namespace InvoiceFetchUpcomingResponse {
      * A list of customer ids that were used to calculate the usage for this line item.
      */
     usage_customer_ids: Array<string> | null;
+  }
+
+  export interface PaymentAttempt {
+    /**
+     * The ID of the payment attempt.
+     */
+    id: string;
+
+    /**
+     * The amount of the payment attempt.
+     */
+    amount: string;
+
+    /**
+     * The time at which the payment attempt was created.
+     */
+    created_at: string;
+
+    /**
+     * The payment provider that attempted to collect the payment.
+     */
+    payment_provider: 'stripe' | null;
+
+    /**
+     * The ID of the payment attempt in the payment provider.
+     */
+    payment_provider_id: string | null;
+
+    /**
+     * URL to the downloadable PDF version of the receipt. This field will be `null`
+     * for payment attempts that did not succeed.
+     */
+    receipt_pdf: string | null;
+
+    /**
+     * Whether the payment attempt succeeded.
+     */
+    succeeded: boolean;
+  }
+}
+
+/**
+ * #InvoiceApiResourceWithoutLineItems
+ */
+export interface InvoiceIssueSummaryResponse {
+  id: string;
+
+  /**
+   * This is the final amount required to be charged to the customer and reflects the
+   * application of the customer balance to the `total` of the invoice.
+   */
+  amount_due: string;
+
+  auto_collection: InvoiceIssueSummaryResponse.AutoCollection;
+
+  billing_address: Shared.Address | null;
+
+  /**
+   * The creation time of the resource in Orb.
+   */
+  created_at: string;
+
+  /**
+   * A list of credit notes associated with the invoice
+   */
+  credit_notes: Array<InvoiceIssueSummaryResponse.CreditNote>;
+
+  /**
+   * An ISO 4217 currency string or `credits`
+   */
+  currency: string;
+
+  customer: Shared.CustomerMinified;
+
+  customer_balance_transactions: Array<InvoiceIssueSummaryResponse.CustomerBalanceTransaction>;
+
+  /**
+   * Tax IDs are commonly required to be displayed on customer invoices, which are
+   * added to the headers of invoices.
+   *
+   * ### Supported Tax ID Countries and Types
+   *
+   * | Country                | Type         | Description                                                                                             |
+   * | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+   * | Albania                | `al_tin`     | Albania Tax Identification Number                                                                       |
+   * | Andorra                | `ad_nrt`     | Andorran NRT Number                                                                                     |
+   * | Angola                 | `ao_tin`     | Angola Tax Identification Number                                                                        |
+   * | Argentina              | `ar_cuit`    | Argentinian Tax ID Number                                                                               |
+   * | Armenia                | `am_tin`     | Armenia Tax Identification Number                                                                       |
+   * | Aruba                  | `aw_tin`     | Aruba Tax Identification Number                                                                         |
+   * | Australia              | `au_abn`     | Australian Business Number (AU ABN)                                                                     |
+   * | Australia              | `au_arn`     | Australian Taxation Office Reference Number                                                             |
+   * | Austria                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Azerbaijan             | `az_tin`     | Azerbaijan Tax Identification Number                                                                    |
+   * | Bahamas                | `bs_tin`     | Bahamas Tax Identification Number                                                                       |
+   * | Bahrain                | `bh_vat`     | Bahraini VAT Number                                                                                     |
+   * | Bangladesh             | `bd_bin`     | Bangladesh Business Identification Number                                                               |
+   * | Barbados               | `bb_tin`     | Barbados Tax Identification Number                                                                      |
+   * | Belarus                | `by_tin`     | Belarus TIN Number                                                                                      |
+   * | Belgium                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Benin                  | `bj_ifu`     | Benin Tax Identification Number (Identifiant Fiscal Unique)                                             |
+   * | Bolivia                | `bo_tin`     | Bolivian Tax ID                                                                                         |
+   * | Bosnia and Herzegovina | `ba_tin`     | Bosnia and Herzegovina Tax Identification Number                                                        |
+   * | Brazil                 | `br_cnpj`    | Brazilian CNPJ Number                                                                                   |
+   * | Brazil                 | `br_cpf`     | Brazilian CPF Number                                                                                    |
+   * | Bulgaria               | `bg_uic`     | Bulgaria Unified Identification Code                                                                    |
+   * | Bulgaria               | `eu_vat`     | European VAT Number                                                                                     |
+   * | Burkina Faso           | `bf_ifu`     | Burkina Faso Tax Identification Number (Numéro d'Identifiant Fiscal Unique)                             |
+   * | Cambodia               | `kh_tin`     | Cambodia Tax Identification Number                                                                      |
+   * | Cameroon               | `cm_niu`     | Cameroon Tax Identification Number (Numéro d'Identifiant fiscal Unique)                                 |
+   * | Canada                 | `ca_bn`      | Canadian BN                                                                                             |
+   * | Canada                 | `ca_gst_hst` | Canadian GST/HST Number                                                                                 |
+   * | Canada                 | `ca_pst_bc`  | Canadian PST Number (British Columbia)                                                                  |
+   * | Canada                 | `ca_pst_mb`  | Canadian PST Number (Manitoba)                                                                          |
+   * | Canada                 | `ca_pst_sk`  | Canadian PST Number (Saskatchewan)                                                                      |
+   * | Canada                 | `ca_qst`     | Canadian QST Number (Québec)                                                                            |
+   * | Cape Verde             | `cv_nif`     | Cape Verde Tax Identification Number (Número de Identificação Fiscal)                                   |
+   * | Chile                  | `cl_tin`     | Chilean TIN                                                                                             |
+   * | China                  | `cn_tin`     | Chinese Tax ID                                                                                          |
+   * | Colombia               | `co_nit`     | Colombian NIT Number                                                                                    |
+   * | Congo-Kinshasa         | `cd_nif`     | Congo (DR) Tax Identification Number (Número de Identificação Fiscal)                                   |
+   * | Costa Rica             | `cr_tin`     | Costa Rican Tax ID                                                                                      |
+   * | Croatia                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Croatia                | `hr_oib`     | Croatian Personal Identification Number (OIB)                                                           |
+   * | Cyprus                 | `eu_vat`     | European VAT Number                                                                                     |
+   * | Czech Republic         | `eu_vat`     | European VAT Number                                                                                     |
+   * | Denmark                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Dominican Republic     | `do_rcn`     | Dominican RCN Number                                                                                    |
+   * | Ecuador                | `ec_ruc`     | Ecuadorian RUC Number                                                                                   |
+   * | Egypt                  | `eg_tin`     | Egyptian Tax Identification Number                                                                      |
+   * | El Salvador            | `sv_nit`     | El Salvadorian NIT Number                                                                               |
+   * | Estonia                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Ethiopia               | `et_tin`     | Ethiopia Tax Identification Number                                                                      |
+   * | European Union         | `eu_oss_vat` | European One Stop Shop VAT Number for non-Union scheme                                                  |
+   * | Finland                | `eu_vat`     | European VAT Number                                                                                     |
+   * | France                 | `eu_vat`     | European VAT Number                                                                                     |
+   * | Georgia                | `ge_vat`     | Georgian VAT                                                                                            |
+   * | Germany                | `de_stn`     | German Tax Number (Steuernummer)                                                                        |
+   * | Germany                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Greece                 | `eu_vat`     | European VAT Number                                                                                     |
+   * | Guinea                 | `gn_nif`     | Guinea Tax Identification Number (Número de Identificação Fiscal)                                       |
+   * | Hong Kong              | `hk_br`      | Hong Kong BR Number                                                                                     |
+   * | Hungary                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Hungary                | `hu_tin`     | Hungary Tax Number (adószám)                                                                            |
+   * | Iceland                | `is_vat`     | Icelandic VAT                                                                                           |
+   * | India                  | `in_gst`     | Indian GST Number                                                                                       |
+   * | Indonesia              | `id_npwp`    | Indonesian NPWP Number                                                                                  |
+   * | Ireland                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Israel                 | `il_vat`     | Israel VAT                                                                                              |
+   * | Italy                  | `eu_vat`     | European VAT Number                                                                                     |
+   * | Japan                  | `jp_cn`      | Japanese Corporate Number (_Hōjin Bangō_)                                                               |
+   * | Japan                  | `jp_rn`      | Japanese Registered Foreign Businesses' Registration Number (_Tōroku Kokugai Jigyōsha no Tōroku Bangō_) |
+   * | Japan                  | `jp_trn`     | Japanese Tax Registration Number (_Tōroku Bangō_)                                                       |
+   * | Kazakhstan             | `kz_bin`     | Kazakhstani Business Identification Number                                                              |
+   * | Kenya                  | `ke_pin`     | Kenya Revenue Authority Personal Identification Number                                                  |
+   * | Kyrgyzstan             | `kg_tin`     | Kyrgyzstan Tax Identification Number                                                                    |
+   * | Laos                   | `la_tin`     | Laos Tax Identification Number                                                                          |
+   * | Latvia                 | `eu_vat`     | European VAT Number                                                                                     |
+   * | Liechtenstein          | `li_uid`     | Liechtensteinian UID Number                                                                             |
+   * | Liechtenstein          | `li_vat`     | Liechtenstein VAT Number                                                                                |
+   * | Lithuania              | `eu_vat`     | European VAT Number                                                                                     |
+   * | Luxembourg             | `eu_vat`     | European VAT Number                                                                                     |
+   * | Malaysia               | `my_frp`     | Malaysian FRP Number                                                                                    |
+   * | Malaysia               | `my_itn`     | Malaysian ITN                                                                                           |
+   * | Malaysia               | `my_sst`     | Malaysian SST Number                                                                                    |
+   * | Malta                  | `eu_vat`     | European VAT Number                                                                                     |
+   * | Mauritania             | `mr_nif`     | Mauritania Tax Identification Number (Número de Identificação Fiscal)                                   |
+   * | Mexico                 | `mx_rfc`     | Mexican RFC Number                                                                                      |
+   * | Moldova                | `md_vat`     | Moldova VAT Number                                                                                      |
+   * | Montenegro             | `me_pib`     | Montenegro PIB Number                                                                                   |
+   * | Morocco                | `ma_vat`     | Morocco VAT Number                                                                                      |
+   * | Nepal                  | `np_pan`     | Nepal PAN Number                                                                                        |
+   * | Netherlands            | `eu_vat`     | European VAT Number                                                                                     |
+   * | New Zealand            | `nz_gst`     | New Zealand GST Number                                                                                  |
+   * | Nigeria                | `ng_tin`     | Nigerian Tax Identification Number                                                                      |
+   * | North Macedonia        | `mk_vat`     | North Macedonia VAT Number                                                                              |
+   * | Northern Ireland       | `eu_vat`     | Northern Ireland VAT Number                                                                             |
+   * | Norway                 | `no_vat`     | Norwegian VAT Number                                                                                    |
+   * | Norway                 | `no_voec`    | Norwegian VAT on e-commerce Number                                                                      |
+   * | Oman                   | `om_vat`     | Omani VAT Number                                                                                        |
+   * | Peru                   | `pe_ruc`     | Peruvian RUC Number                                                                                     |
+   * | Philippines            | `ph_tin`     | Philippines Tax Identification Number                                                                   |
+   * | Poland                 | `eu_vat`     | European VAT Number                                                                                     |
+   * | Poland                 | `pl_nip`     | Polish Tax ID Number                                                                                    |
+   * | Portugal               | `eu_vat`     | European VAT Number                                                                                     |
+   * | Romania                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Romania                | `ro_tin`     | Romanian Tax ID Number                                                                                  |
+   * | Russia                 | `ru_inn`     | Russian INN                                                                                             |
+   * | Russia                 | `ru_kpp`     | Russian KPP                                                                                             |
+   * | Saudi Arabia           | `sa_vat`     | Saudi Arabia VAT                                                                                        |
+   * | Senegal                | `sn_ninea`   | Senegal NINEA Number                                                                                    |
+   * | Serbia                 | `rs_pib`     | Serbian PIB Number                                                                                      |
+   * | Singapore              | `sg_gst`     | Singaporean GST                                                                                         |
+   * | Singapore              | `sg_uen`     | Singaporean UEN                                                                                         |
+   * | Slovakia               | `eu_vat`     | European VAT Number                                                                                     |
+   * | Slovenia               | `eu_vat`     | European VAT Number                                                                                     |
+   * | Slovenia               | `si_tin`     | Slovenia Tax Number (davčna številka)                                                                   |
+   * | South Africa           | `za_vat`     | South African VAT Number                                                                                |
+   * | South Korea            | `kr_brn`     | Korean BRN                                                                                              |
+   * | Spain                  | `es_cif`     | Spanish NIF Number (previously Spanish CIF Number)                                                      |
+   * | Spain                  | `eu_vat`     | European VAT Number                                                                                     |
+   * | Suriname               | `sr_fin`     | Suriname FIN Number                                                                                     |
+   * | Sweden                 | `eu_vat`     | European VAT Number                                                                                     |
+   * | Switzerland            | `ch_uid`     | Switzerland UID Number                                                                                  |
+   * | Switzerland            | `ch_vat`     | Switzerland VAT Number                                                                                  |
+   * | Taiwan                 | `tw_vat`     | Taiwanese VAT                                                                                           |
+   * | Tajikistan             | `tj_tin`     | Tajikistan Tax Identification Number                                                                    |
+   * | Tanzania               | `tz_vat`     | Tanzania VAT Number                                                                                     |
+   * | Thailand               | `th_vat`     | Thai VAT                                                                                                |
+   * | Turkey                 | `tr_tin`     | Turkish Tax Identification Number                                                                       |
+   * | Uganda                 | `ug_tin`     | Uganda Tax Identification Number                                                                        |
+   * | Ukraine                | `ua_vat`     | Ukrainian VAT                                                                                           |
+   * | United Arab Emirates   | `ae_trn`     | United Arab Emirates TRN                                                                                |
+   * | United Kingdom         | `gb_vat`     | United Kingdom VAT Number                                                                               |
+   * | United States          | `us_ein`     | United States EIN                                                                                       |
+   * | Uruguay                | `uy_ruc`     | Uruguayan RUC Number                                                                                    |
+   * | Uzbekistan             | `uz_tin`     | Uzbekistan TIN Number                                                                                   |
+   * | Uzbekistan             | `uz_vat`     | Uzbekistan VAT Number                                                                                   |
+   * | Venezuela              | `ve_rif`     | Venezuelan RIF Number                                                                                   |
+   * | Vietnam                | `vn_tin`     | Vietnamese Tax ID Number                                                                                |
+   * | Zambia                 | `zm_tin`     | Zambia Tax Identification Number                                                                        |
+   * | Zimbabwe               | `zw_tin`     | Zimbabwe Tax Identification Number                                                                      |
+   */
+  customer_tax_id: Shared.CustomerTaxID | null;
+
+  /**
+   * When the invoice payment is due. The due date is null if the invoice is not yet
+   * finalized.
+   */
+  due_date: string | null;
+
+  /**
+   * If the invoice has a status of `draft`, this will be the time that the invoice
+   * will be eligible to be issued, otherwise it will be `null`. If `auto-issue` is
+   * true, the invoice will automatically begin issuing at this time.
+   */
+  eligible_to_issue_at: string | null;
+
+  /**
+   * A URL for the customer-facing invoice portal. This URL expires 30 days after the
+   * invoice's due date, or 60 days after being re-generated through the UI.
+   */
+  hosted_invoice_url: string | null;
+
+  /**
+   * The scheduled date of the invoice
+   */
+  invoice_date: string;
+
+  /**
+   * Automatically generated invoice number to help track and reconcile invoices.
+   * Invoice numbers have a prefix such as `RFOBWG`. These can be sequential per
+   * account or customer.
+   */
+  invoice_number: string;
+
+  /**
+   * The link to download the PDF representation of the `Invoice`.
+   */
+  invoice_pdf: string | null;
+
+  invoice_source: 'subscription' | 'partial' | 'one_off';
+
+  /**
+   * If the invoice failed to issue, this will be the last time it failed to issue
+   * (even if it is now in a different state.)
+   */
+  issue_failed_at: string | null;
+
+  /**
+   * If the invoice has been issued, this will be the time it transitioned to
+   * `issued` (even if it is now in a different state.)
+   */
+  issued_at: string | null;
+
+  /**
+   * Free-form text which is available on the invoice PDF and the Orb invoice portal.
+   */
+  memo: string | null;
+
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: { [key: string]: string };
+
+  /**
+   * If the invoice has a status of `paid`, this gives a timestamp when the invoice
+   * was paid.
+   */
+  paid_at: string | null;
+
+  /**
+   * A list of payment attempts associated with the invoice
+   */
+  payment_attempts: Array<InvoiceIssueSummaryResponse.PaymentAttempt>;
+
+  /**
+   * If payment was attempted on this invoice but failed, this will be the time of
+   * the most recent attempt.
+   */
+  payment_failed_at: string | null;
+
+  /**
+   * If payment was attempted on this invoice, this will be the start time of the
+   * most recent attempt. This field is especially useful for delayed-notification
+   * payment mechanisms (like bank transfers), where payment can take 3 days or more.
+   */
+  payment_started_at: string | null;
+
+  /**
+   * If the invoice is in draft, this timestamp will reflect when the invoice is
+   * scheduled to be issued.
+   */
+  scheduled_issue_at: string | null;
+
+  shipping_address: Shared.Address | null;
+
+  status: 'issued' | 'paid' | 'synced' | 'void' | 'draft';
+
+  subscription: Shared.SubscriptionMinified | null;
+
+  /**
+   * If the invoice failed to sync, this will be the last time an external invoicing
+   * provider sync was attempted. This field will always be `null` for invoices using
+   * Orb Invoicing.
+   */
+  sync_failed_at: string | null;
+
+  /**
+   * The total after any minimums and discounts have been applied.
+   */
+  total: string;
+
+  /**
+   * If the invoice has a status of `void`, this gives a timestamp when the invoice
+   * was voided.
+   */
+  voided_at: string | null;
+
+  /**
+   * This is true if the invoice will be automatically issued in the future, and
+   * false otherwise.
+   */
+  will_auto_issue: boolean;
+}
+
+export namespace InvoiceIssueSummaryResponse {
+  export interface AutoCollection {
+    /**
+     * True only if auto-collection is enabled for this invoice.
+     */
+    enabled: boolean | null;
+
+    /**
+     * If the invoice is scheduled for auto-collection, this field will reflect when
+     * the next attempt will occur. If dunning has been exhausted, or auto-collection
+     * is not enabled for this invoice, this field will be `null`.
+     */
+    next_attempt_at: string | null;
+
+    /**
+     * Number of auto-collection payment attempts.
+     */
+    num_attempts: number | null;
+
+    /**
+     * If Orb has ever attempted payment auto-collection for this invoice, this field
+     * will reflect when that attempt occurred. In conjunction with `next_attempt_at`,
+     * this can be used to tell whether the invoice is currently in dunning (that is,
+     * `previously_attempted_at` is non-null, and `next_attempt_time` is non-null), or
+     * if dunning has been exhausted (`previously_attempted_at` is non-null, but
+     * `next_attempt_time` is null).
+     */
+    previously_attempted_at: string | null;
+  }
+
+  export interface CreditNote {
+    id: string;
+
+    credit_note_number: string;
+
+    /**
+     * An optional memo supplied on the credit note.
+     */
+    memo: string | null;
+
+    reason: string;
+
+    total: string;
+
+    type: string;
+
+    /**
+     * If the credit note has a status of `void`, this gives a timestamp when the
+     * credit note was voided.
+     */
+    voided_at: string | null;
+  }
+
+  export interface CustomerBalanceTransaction {
+    /**
+     * A unique id for this transaction.
+     */
+    id: string;
+
+    action:
+      | 'applied_to_invoice'
+      | 'manual_adjustment'
+      | 'prorated_refund'
+      | 'revert_prorated_refund'
+      | 'return_from_voiding'
+      | 'credit_note_applied'
+      | 'credit_note_voided'
+      | 'overpayment_refund'
+      | 'external_payment'
+      | 'small_invoice_carryover';
+
+    /**
+     * The value of the amount changed in the transaction.
+     */
+    amount: string;
+
+    /**
+     * The creation time of this transaction.
+     */
+    created_at: string;
+
+    credit_note: Shared.CreditNoteTiny | null;
+
+    /**
+     * An optional description provided for manual customer balance adjustments.
+     */
+    description: string | null;
+
+    /**
+     * The new value of the customer's balance prior to the transaction, in the
+     * customer's currency.
+     */
+    ending_balance: string;
+
+    invoice: Shared.InvoiceTiny | null;
+
+    /**
+     * The original value of the customer's balance prior to the transaction, in the
+     * customer's currency.
+     */
+    starting_balance: string;
+
+    type: 'increment' | 'decrement';
   }
 
   export interface PaymentAttempt {
@@ -1428,6 +1911,17 @@ export interface InvoiceIssueParams {
   synchronous?: boolean;
 }
 
+export interface InvoiceIssueSummaryParams {
+  /**
+   * If true, the invoice will be issued synchronously. If false, the invoice will be
+   * issued asynchronously. The synchronous option is only available for invoices
+   * that have no usage fees. If the invoice is configured to sync to an external
+   * provider, a successful response from this endpoint guarantees the invoice is
+   * present in the provider.
+   */
+  synchronous?: boolean;
+}
+
 export interface InvoiceListSummaryParams extends PageParams {
   amount?: string | null;
 
@@ -1492,6 +1986,7 @@ Invoices.InvoiceListSummaryResponsesPage = InvoiceListSummaryResponsesPage;
 export declare namespace Invoices {
   export {
     type InvoiceFetchUpcomingResponse as InvoiceFetchUpcomingResponse,
+    type InvoiceIssueSummaryResponse as InvoiceIssueSummaryResponse,
     type InvoiceListSummaryResponse as InvoiceListSummaryResponse,
     InvoiceListSummaryResponsesPage as InvoiceListSummaryResponsesPage,
     type InvoiceCreateParams as InvoiceCreateParams,
@@ -1499,6 +1994,7 @@ export declare namespace Invoices {
     type InvoiceListParams as InvoiceListParams,
     type InvoiceFetchUpcomingParams as InvoiceFetchUpcomingParams,
     type InvoiceIssueParams as InvoiceIssueParams,
+    type InvoiceIssueSummaryParams as InvoiceIssueSummaryParams,
     type InvoiceListSummaryParams as InvoiceListSummaryParams,
     type InvoiceMarkPaidParams as InvoiceMarkPaidParams,
   };

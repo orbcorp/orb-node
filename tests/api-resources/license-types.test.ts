@@ -8,9 +8,24 @@ const client = new Orb({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource creditBlocks', () => {
+describe('resource licenseTypes', () => {
+  test('create: only required params', async () => {
+    const responsePromise = client.licenseTypes.create({ grouping_key: 'grouping_key', name: 'name' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('create: required and optional params', async () => {
+    const response = await client.licenseTypes.create({ grouping_key: 'grouping_key', name: 'name' });
+  });
+
   test('retrieve', async () => {
-    const responsePromise = client.creditBlocks.retrieve('block_id');
+    const responsePromise = client.licenseTypes.retrieve('license_type_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,12 +38,12 @@ describe('resource creditBlocks', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.creditBlocks.retrieve('block_id', { path: '/_stainless_unknown_path' }),
+      client.licenseTypes.retrieve('license_type_id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 
-  test('delete', async () => {
-    const responsePromise = client.creditBlocks.delete('block_id');
+  test('list', async () => {
+    const responsePromise = client.licenseTypes.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -38,28 +53,17 @@ describe('resource creditBlocks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('delete: request options instead of params are passed correctly', async () => {
+  test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.creditBlocks.delete('block_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Orb.NotFoundError);
+    await expect(client.licenseTypes.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Orb.NotFoundError,
+    );
   });
 
-  test('listInvoices', async () => {
-    const responsePromise = client.creditBlocks.listInvoices('block_id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('listInvoices: request options instead of params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.creditBlocks.listInvoices('block_id', { path: '/_stainless_unknown_path' }),
+      client.licenseTypes.list({ cursor: 'cursor', limit: 1 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Orb.NotFoundError);
   });
 });

@@ -355,6 +355,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/invoices.ts">InvoiceFetchUpcomingResponse</a></code>
+- <code><a href="./src/resources/invoices.ts">InvoiceIssueSummaryResponse</a></code>
 - <code><a href="./src/resources/invoices.ts">InvoiceListSummaryResponse</a></code>
 
 Methods:
@@ -366,6 +367,7 @@ Methods:
 - <code title="get /invoices/{invoice_id}">client.invoices.<a href="./src/resources/invoices.ts">fetch</a>(invoiceId) -> Invoice</code>
 - <code title="get /invoices/upcoming">client.invoices.<a href="./src/resources/invoices.ts">fetchUpcoming</a>({ ...params }) -> InvoiceFetchUpcomingResponse</code>
 - <code title="post /invoices/{invoice_id}/issue">client.invoices.<a href="./src/resources/invoices.ts">issue</a>(invoiceId, { ...params }) -> Invoice</code>
+- <code title="post /invoices/summary/{invoice_id}/issue">client.invoices.<a href="./src/resources/invoices.ts">issueSummary</a>(invoiceId, { ...params }) -> InvoiceIssueSummaryResponse</code>
 - <code title="get /invoices/summary">client.invoices.<a href="./src/resources/invoices.ts">listSummary</a>({ ...params }) -> InvoiceListSummaryResponsesPage</code>
 - <code title="post /invoices/{invoice_id}/mark_paid">client.invoices.<a href="./src/resources/invoices.ts">markPaid</a>(invoiceId, { ...params }) -> Invoice</code>
 - <code title="post /invoices/{invoice_id}/pay">client.invoices.<a href="./src/resources/invoices.ts">pay</a>(invoiceId) -> Invoice</code>
@@ -575,8 +577,64 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/credit-blocks.ts">CreditBlockRetrieveResponse</a></code>
+- <code><a href="./src/resources/credit-blocks.ts">CreditBlockListInvoicesResponse</a></code>
 
 Methods:
 
 - <code title="get /credit_blocks/{block_id}">client.creditBlocks.<a href="./src/resources/credit-blocks.ts">retrieve</a>(blockId) -> CreditBlockRetrieveResponse</code>
 - <code title="delete /credit_blocks/{block_id}">client.creditBlocks.<a href="./src/resources/credit-blocks.ts">delete</a>(blockId) -> void</code>
+- <code title="get /credit_blocks/{block_id}/invoices">client.creditBlocks.<a href="./src/resources/credit-blocks.ts">listInvoices</a>(blockId) -> CreditBlockListInvoicesResponse</code>
+
+# LicenseTypes
+
+Types:
+
+- <code><a href="./src/resources/license-types.ts">LicenseTypeCreateResponse</a></code>
+- <code><a href="./src/resources/license-types.ts">LicenseTypeRetrieveResponse</a></code>
+- <code><a href="./src/resources/license-types.ts">LicenseTypeListResponse</a></code>
+
+Methods:
+
+- <code title="post /license_types">client.licenseTypes.<a href="./src/resources/license-types.ts">create</a>({ ...params }) -> LicenseTypeCreateResponse</code>
+- <code title="get /license_types/{license_type_id}">client.licenseTypes.<a href="./src/resources/license-types.ts">retrieve</a>(licenseTypeId) -> LicenseTypeRetrieveResponse</code>
+- <code title="get /license_types">client.licenseTypes.<a href="./src/resources/license-types.ts">list</a>({ ...params }) -> LicenseTypeListResponsesPage</code>
+
+# Licenses
+
+Types:
+
+- <code><a href="./src/resources/licenses/licenses.ts">LicenseCreateResponse</a></code>
+- <code><a href="./src/resources/licenses/licenses.ts">LicenseRetrieveResponse</a></code>
+- <code><a href="./src/resources/licenses/licenses.ts">LicenseListResponse</a></code>
+- <code><a href="./src/resources/licenses/licenses.ts">LicenseDeactivateResponse</a></code>
+- <code><a href="./src/resources/licenses/licenses.ts">LicenseRetrieveByExternalIDResponse</a></code>
+
+Methods:
+
+- <code title="post /licenses">client.licenses.<a href="./src/resources/licenses/licenses.ts">create</a>({ ...params }) -> LicenseCreateResponse</code>
+- <code title="get /licenses/{license_id}">client.licenses.<a href="./src/resources/licenses/licenses.ts">retrieve</a>(licenseId) -> LicenseRetrieveResponse</code>
+- <code title="get /licenses">client.licenses.<a href="./src/resources/licenses/licenses.ts">list</a>({ ...params }) -> LicenseListResponsesPage</code>
+- <code title="post /licenses/{license_id}/deactivate">client.licenses.<a href="./src/resources/licenses/licenses.ts">deactivate</a>(licenseId, { ...params }) -> LicenseDeactivateResponse</code>
+- <code title="get /licenses/external_license_id/{external_license_id}">client.licenses.<a href="./src/resources/licenses/licenses.ts">retrieveByExternalId</a>(externalLicenseId, { ...params }) -> LicenseRetrieveByExternalIDResponse</code>
+
+## ExternalLicenses
+
+Types:
+
+- <code><a href="./src/resources/licenses/external-licenses.ts">ExternalLicenseGetUsageResponse</a></code>
+
+Methods:
+
+- <code title="get /licenses/external_licenses/{external_license_id}/usage">client.licenses.externalLicenses.<a href="./src/resources/licenses/external-licenses.ts">getUsage</a>(externalLicenseId, { ...params }) -> ExternalLicenseGetUsageResponse</code>
+
+## Usage
+
+Types:
+
+- <code><a href="./src/resources/licenses/usage.ts">UsageGetAllUsageResponse</a></code>
+- <code><a href="./src/resources/licenses/usage.ts">UsageGetUsageResponse</a></code>
+
+Methods:
+
+- <code title="get /licenses/usage">client.licenses.usage.<a href="./src/resources/licenses/usage.ts">getAllUsage</a>({ ...params }) -> UsageGetAllUsageResponse</code>
+- <code title="get /licenses/{license_id}/usage">client.licenses.usage.<a href="./src/resources/licenses/usage.ts">getUsage</a>(licenseId, { ...params }) -> UsageGetUsageResponse</code>
