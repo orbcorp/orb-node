@@ -35,6 +35,10 @@ describe('resource credits', () => {
         {
           currency: 'currency',
           cursor: 'cursor',
+          'effective_date[gt]': '2019-12-27T18:11:19.117Z',
+          'effective_date[gte]': '2019-12-27T18:11:19.117Z',
+          'effective_date[lt]': '2019-12-27T18:11:19.117Z',
+          'effective_date[lte]': '2019-12-27T18:11:19.117Z',
           include_all_blocks: true,
           limit: 1,
         },
@@ -69,6 +73,10 @@ describe('resource credits', () => {
         {
           currency: 'currency',
           cursor: 'cursor',
+          'effective_date[gt]': '2019-12-27T18:11:19.117Z',
+          'effective_date[gte]': '2019-12-27T18:11:19.117Z',
+          'effective_date[lt]': '2019-12-27T18:11:19.117Z',
+          'effective_date[lte]': '2019-12-27T18:11:19.117Z',
           include_all_blocks: true,
           limit: 1,
         },
