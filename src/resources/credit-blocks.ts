@@ -52,6 +52,14 @@ export interface CreditBlockRetrieveResponse {
 
   maximum_initial_balance: number | null;
 
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: { [key: string]: string };
+
   per_unit_cost_basis: string | null;
 
   status: 'active' | 'pending_payment';

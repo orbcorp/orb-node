@@ -54,6 +54,11 @@ export class Credits extends APIResource {
    *
    * Note that `currency` defaults to credits if not specified. To use a real world
    * currency, set `currency` to an ISO 4217 string.
+   *
+   * Results can be filtered by the block's `effective_date` using the
+   * `effective_date[gte]`, `effective_date[gt]`, `effective_date[lt]`, and
+   * `effective_date[lte]` query parameters. This filters on when the credit block
+   * becomes effective, which may differ from creation time for backdated credits.
    */
   list(
     customerId: string,
@@ -86,6 +91,11 @@ export class Credits extends APIResource {
    *
    * Note that `currency` defaults to credits if not specified. To use a real world
    * currency, set `currency` to an ISO 4217 string.
+   *
+   * Results can be filtered by the block's `effective_date` using the
+   * `effective_date[gte]`, `effective_date[gt]`, `effective_date[lt]`, and
+   * `effective_date[lte]` query parameters. This filters on when the credit block
+   * becomes effective, which may differ from creation time for backdated credits.
    */
   listByExternalId(
     externalCustomerId: string,
@@ -129,6 +139,14 @@ export interface CreditListResponse {
 
   maximum_initial_balance: number | null;
 
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: { [key: string]: string };
+
   per_unit_cost_basis: string | null;
 
   status: 'active' | 'pending_payment';
@@ -169,6 +187,14 @@ export interface CreditListByExternalIDResponse {
 
   maximum_initial_balance: number | null;
 
+  /**
+   * User specified key-value pairs for the resource. If not present, this defaults
+   * to an empty dictionary. Individual keys can be removed by setting the value to
+   * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+   * `null`.
+   */
+  metadata: { [key: string]: string };
+
   per_unit_cost_basis: string | null;
 
   status: 'active' | 'pending_payment';
@@ -202,6 +228,14 @@ export interface CreditListParams extends PageParams {
    */
   currency?: string | null;
 
+  'effective_date[gt]'?: string | null;
+
+  'effective_date[gte]'?: string | null;
+
+  'effective_date[lt]'?: string | null;
+
+  'effective_date[lte]'?: string | null;
+
   /**
    * If set to True, all expired and depleted blocks, as well as active block will be
    * returned.
@@ -214,6 +248,14 @@ export interface CreditListByExternalIDParams extends PageParams {
    * The ledger currency or custom pricing unit to use.
    */
   currency?: string | null;
+
+  'effective_date[gt]'?: string | null;
+
+  'effective_date[gte]'?: string | null;
+
+  'effective_date[lt]'?: string | null;
+
+  'effective_date[lte]'?: string | null;
 
   /**
    * If set to True, all expired and depleted blocks, as well as active block will be
