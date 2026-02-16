@@ -960,6 +960,11 @@ export declare namespace LedgerCreateEntryParams {
       item_id?: string | null;
 
       /**
+       * If true, the new credits purchase invoice will be marked as paid.
+       */
+      mark_as_paid?: boolean;
+
+      /**
        * An optional memo to display on the invoice.
        */
       memo?: string | null;
@@ -1256,6 +1261,11 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
        * default 'Credits' item will be used.
        */
       item_id?: string | null;
+
+      /**
+       * If true, the new credits purchase invoice will be marked as paid.
+       */
+      mark_as_paid?: boolean;
 
       /**
        * An optional memo to display on the invoice.
