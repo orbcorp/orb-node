@@ -4161,6 +4161,12 @@ export interface PriceEvaluateParams {
    * to group the underlying billable metric
    */
   grouping_keys?: Array<string>;
+
+  /**
+   * Optional overrides for parameterized billable metric parameters. If the metric
+   * has parameter definitions and no overrides are provided, defaults will be used.
+   */
+  metric_parameter_overrides?: { [key: string]: unknown } | null;
 }
 
 export interface PriceEvaluateMultipleParams {
@@ -4210,6 +4216,12 @@ export namespace PriceEvaluateMultipleParams {
      * to group the underlying billable metric
      */
     grouping_keys?: Array<string>;
+
+    /**
+     * Optional overrides for parameterized billable metric parameters. If the metric
+     * has parameter definitions and no overrides are provided, defaults will be used.
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
 
     /**
      * New floating price request body params.
@@ -4975,6 +4987,12 @@ export namespace PriceEvaluatePreviewEventsParams {
      * to group the underlying billable metric
      */
     grouping_keys?: Array<string>;
+
+    /**
+     * Optional overrides for parameterized billable metric parameters. If the metric
+     * has parameter definitions and no overrides are provided, defaults will be used.
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
 
     /**
      * New floating price request body params.

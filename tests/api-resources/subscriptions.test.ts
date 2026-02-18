@@ -328,6 +328,7 @@ describe('resource subscriptions', () => {
           end_date: '2019-12-27T18:11:19.117Z',
           external_price_id: 'external_price_id',
           maximum_amount: '1.23',
+          metric_parameter_overrides: { foo: 'bar' },
           minimum_amount: '1.23',
           plan_phase_order: 0,
           price: {
@@ -438,6 +439,7 @@ describe('resource subscriptions', () => {
           external_price_id: 'external_price_id',
           fixed_price_quantity: 2,
           maximum_amount: '1.23',
+          metric_parameter_overrides: { foo: 'bar' },
           minimum_amount: '1.23',
           price: {
             cadence: 'annual',

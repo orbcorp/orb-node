@@ -113,6 +113,7 @@ describe('resource prices', () => {
       external_customer_id: 'external_customer_id',
       filter: "my_numeric_property > 100 AND my_other_property = 'bar'",
       grouping_keys: ["case when my_event_type = 'foo' then true else false end"],
+      metric_parameter_overrides: { foo: 'bar' },
     });
   });
 
@@ -141,6 +142,7 @@ describe('resource prices', () => {
           external_price_id: 'external_price_id',
           filter: "my_numeric_property > 100 AND my_other_property = 'bar'",
           grouping_keys: ["case when my_event_type = 'foo' then true else false end"],
+          metric_parameter_overrides: { foo: 'bar' },
           price: {
             cadence: 'annual',
             currency: 'currency',
@@ -208,6 +210,7 @@ describe('resource prices', () => {
           external_price_id: 'external_price_id',
           filter: "my_numeric_property > 100 AND my_other_property = 'bar'",
           grouping_keys: ["case when my_event_type = 'foo' then true else false end"],
+          metric_parameter_overrides: { foo: 'bar' },
           price: {
             cadence: 'annual',
             currency: 'currency',

@@ -15273,6 +15273,12 @@ export interface PriceInterval {
    * this price interval.
    */
   usage_customer_ids: Array<string> | null;
+
+  /**
+   * Override values for parameterized billable metric variables. Keys are parameter
+   * names, values are the override values.
+   */
+  metric_parameter_overrides?: { [key: string]: unknown } | null;
 }
 
 export interface SubLineItemGrouping {
