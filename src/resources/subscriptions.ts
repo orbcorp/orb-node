@@ -4867,6 +4867,12 @@ export namespace SubscriptionCreateParams {
     maximum_amount?: string | null;
 
     /**
+     * Override values for parameterized billable metric variables. Keys are parameter
+     * names, values are the override values.
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
+
+    /**
      * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's minimum
      * amount for this price.
      */
@@ -5803,6 +5809,12 @@ export namespace SubscriptionCreateParams {
      * amount for the replacement price.
      */
     maximum_amount?: string | null;
+
+    /**
+     * Override values for parameterized billable metric variables. Keys are parameter
+     * names, values are the override values.
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
 
     /**
      * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's minimum
@@ -6914,6 +6926,12 @@ export namespace SubscriptionPriceIntervalsParams {
     maximum_amount?: number | null;
 
     /**
+     * Override values for parameterized billable metric variables. Keys are parameter
+     * names, values are the override values (number or string).
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
+
+    /**
      * The minimum amount that will be billed for this price interval for a given
      * billing period.
      */
@@ -7728,6 +7746,12 @@ export namespace SubscriptionPriceIntervalsParams {
     fixed_fee_quantity_transitions?: Array<Edit.FixedFeeQuantityTransition> | null;
 
     /**
+     * Override values for parameterized billable metric variables. Keys are parameter
+     * names, values are the override values (number or string).
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
+
+    /**
      * The updated start date of this price interval. If not specified, the start date
      * will not be updated.
      */
@@ -8025,6 +8049,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
      * amount for this price.
      */
     maximum_amount?: string | null;
+
+    /**
+     * Override values for parameterized billable metric variables. Keys are parameter
+     * names, values are the override values.
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
 
     /**
      * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's minimum
@@ -8963,6 +8993,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
      * amount for the replacement price.
      */
     maximum_amount?: string | null;
+
+    /**
+     * Override values for parameterized billable metric variables. Keys are parameter
+     * names, values are the override values.
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
 
     /**
      * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's minimum

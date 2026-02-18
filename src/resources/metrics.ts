@@ -88,6 +88,8 @@ export interface BillableMetric {
   name: string;
 
   status: 'active' | 'draft' | 'archived';
+
+  parameter_definitions?: Array<{ [key: string]: unknown }> | null;
 }
 
 export interface MetricCreateParams {
