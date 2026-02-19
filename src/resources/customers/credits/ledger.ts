@@ -162,8 +162,12 @@ export class Ledger extends APIResource {
    * also generate a one-off invoice for the customer for the credits pre-purchase.
    * Note that you _must_ provide the `per_unit_cost_basis`, since the total charges
    * on the invoice are calculated by multiplying the cost basis with the number of
-   * credit units added. Additionally, Orb also enforces invoice generation when a
-   * non-zero `per_unit_cost_basis` value is provided.
+   * credit units added.
+   *
+   * - if `per_unit_cost_basis` is greater than zero, an invoice will be generated
+   *   and `invoice_settings` must be included
+   * - if `invoice_settings` is passed, one of either `custom_due_date` or
+   *   `net_terms` is required to determine the due date
    *
    * ## Deducting Credits
    *
@@ -283,8 +287,12 @@ export class Ledger extends APIResource {
    * also generate a one-off invoice for the customer for the credits pre-purchase.
    * Note that you _must_ provide the `per_unit_cost_basis`, since the total charges
    * on the invoice are calculated by multiplying the cost basis with the number of
-   * credit units added. Additionally, Orb also enforces invoice generation when a
-   * non-zero `per_unit_cost_basis` value is provided.
+   * credit units added.
+   *
+   * - if `per_unit_cost_basis` is greater than zero, an invoice will be generated
+   *   and `invoice_settings` must be included
+   * - if `invoice_settings` is passed, one of either `custom_due_date` or
+   *   `net_terms` is required to determine the due date
    *
    * ## Deducting Credits
    *
@@ -974,7 +982,8 @@ export declare namespace LedgerCreateEntryParams {
        * based on the invoice or issuance date, depending on the account's configured due
        * date calculation method. A value of '0' here represents that the invoice is due
        * on issue, whereas a value of '30' represents that the customer has 30 days to
-       * pay the invoice. Do not set this field if you want to set a custom due date.
+       * pay the invoice. You must set either `net_terms` or `custom_due_date`, but not
+       * both.
        */
       net_terms?: number | null;
 
@@ -1277,7 +1286,8 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
        * based on the invoice or issuance date, depending on the account's configured due
        * date calculation method. A value of '0' here represents that the invoice is due
        * on issue, whereas a value of '30' represents that the customer has 30 days to
-       * pay the invoice. Do not set this field if you want to set a custom due date.
+       * pay the invoice. You must set either `net_terms` or `custom_due_date`, but not
+       * both.
        */
       net_terms?: number | null;
 
