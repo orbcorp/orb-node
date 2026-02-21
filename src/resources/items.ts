@@ -111,7 +111,8 @@ export namespace Item {
       | 'taxjar'
       | 'avalara'
       | 'anrok'
-      | 'numeral';
+      | 'numeral'
+      | 'stripe_tax';
 
     /**
      * The identifier of this item in the external system.
@@ -164,7 +165,8 @@ export namespace ItemUpdateParams {
       | 'taxjar'
       | 'avalara'
       | 'anrok'
-      | 'numeral';
+      | 'numeral'
+      | 'stripe_tax';
 
     /**
      * The identifier of this item in the external system.
