@@ -3304,6 +3304,11 @@ export namespace NewSubscriptionScalableMatrixWithUnitPricingPrice {
     unit_price: string;
 
     /**
+     * The property used to group this price
+     */
+    grouping_key?: string | null;
+
+    /**
      * If true, the unit price will be prorated to the billing period
      */
     prorate?: boolean | null;
