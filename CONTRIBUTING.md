@@ -60,7 +60,7 @@ $ yarn link orb-billing
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global orb-billing
+$ pnpm link --global orb-billing
 ```
 
 ## Running tests
