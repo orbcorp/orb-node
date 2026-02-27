@@ -22,13 +22,14 @@ export class Invoices extends APIResource {
   }
 
   /**
-   * This endpoint allows you to update the `metadata`, `net_terms`, `due_date`, and
-   * `invoice_date` properties on an invoice. If you pass null for the metadata
-   * value, it will clear any existing metadata for that invoice.
+   * This endpoint allows you to update the `metadata`, `net_terms`, `due_date`,
+   * `invoice_date`, and `auto_collection` properties on an invoice. If you pass null
+   * for the metadata value, it will clear any existing metadata for that invoice.
    *
    * `metadata` can be modified regardless of invoice state. `net_terms`, `due_date`,
-   * and `invoice_date` can only be modified if the invoice is in a `draft` state.
-   * `invoice_date` can only be modified for non-subscription invoices.
+   * `invoice_date`, and `auto_collection` can only be modified if the invoice is in
+   * a `draft` state. `invoice_date` can only be modified for non-subscription
+   * invoices.
    */
   update(
     invoiceId: string,
@@ -1746,6 +1747,13 @@ export interface InvoiceCreateParams {
   line_items: Array<InvoiceCreateParams.LineItem>;
 
   /**
+   * Determines whether this invoice will automatically attempt to charge a saved
+   * payment method, if any. If not specified, the invoice inherits the customer's
+   * auto_collection setting.
+   */
+  auto_collection?: boolean | null;
+
+  /**
    * The id of the `Customer` to create this invoice for. One of `customer_id` and
    * `external_customer_id` are required.
    */
@@ -1832,6 +1840,13 @@ export namespace InvoiceCreateParams {
 }
 
 export interface InvoiceUpdateParams {
+  /**
+   * Determines whether this invoice will automatically attempt to charge a saved
+   * payment method, if any. Can only be modified on draft invoices. If not
+   * specified, the invoice's existing setting is unchanged.
+   */
+  auto_collection?: boolean | null;
+
   /**
    * An optional custom due date for the invoice. If not set, the due date will be
    * calculated based on the `net_terms` value.

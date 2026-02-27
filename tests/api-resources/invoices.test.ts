@@ -49,6 +49,7 @@ describe('resource invoices', () => {
           unit_config: { unit_amount: 'unit_amount', prorated: true },
         },
       ],
+      auto_collection: true,
       customer_id: '4khy3nwzktxv7',
       discount: {
         discount_type: 'percentage',
