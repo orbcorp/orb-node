@@ -6,6 +6,12 @@ import * as Core from '../core';
 import * as Shared from './shared';
 import { Page, type PageParams } from '../pagination';
 
+/**
+ * [Alerts within Orb](/product-catalog/configuring-alerts) monitor spending,
+ * usage, or credit balance and trigger webhooks when a threshold is exceeded.
+ *
+ * Alerts created through the API can be scoped to either customers or subscriptions.
+ */
 export class Alerts extends APIResource {
   /**
    * This endpoint retrieves an alert by its ID.

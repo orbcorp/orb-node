@@ -11,6 +11,11 @@ import {
 } from './external-plan-id';
 import * as PlansAPI from '../plans/plans';
 
+/**
+ * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be subscribed to by a
+ * customer. Plans define the billing behavior of the subscription. You can see more about how to configure prices
+ * in the [Price resource](/reference/price).
+ */
 export class Beta extends APIResource {
   externalPlanId: ExternalPlanIDAPI.ExternalPlanID = new ExternalPlanIDAPI.ExternalPlanID(this._client);
 

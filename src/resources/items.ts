@@ -5,6 +5,10 @@ import { isRequestOptions } from '../core';
 import * as Core from '../core';
 import { Page, type PageParams } from '../pagination';
 
+/**
+ * The Item resource represents a sellable product or good. Items are associated with all line items, billable metrics,
+ * and prices and are used for defining external sync behavior for invoices and tax calculation purposes.
+ */
 export class Items extends APIResource {
   /**
    * This endpoint is used to create an [Item](/core-concepts#item).

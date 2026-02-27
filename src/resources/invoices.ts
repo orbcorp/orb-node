@@ -7,6 +7,12 @@ import * as Shared from './shared';
 import { InvoicesPage } from './shared';
 import { Page, type PageParams } from '../pagination';
 
+/**
+ * An [`Invoice`](/core-concepts#invoice) is a fundamental billing entity, representing the request for payment for
+ * a single subscription. This includes a set of line items, which correspond to prices in the subscription's plan and
+ * can represent fixed recurring fees or usage-based fees. They are generated at the end of a billing period, or as
+ * the result of an action, such as a cancellation.
+ */
 export class Invoices extends APIResource {
   /**
    * This endpoint is used to create a one-off invoice for a customer.

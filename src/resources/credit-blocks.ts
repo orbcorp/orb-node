@@ -4,6 +4,9 @@ import { APIResource } from '../resource';
 import * as Core from '../core';
 import * as Shared from './shared';
 
+/**
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid credits within Orb.
+ */
 export class CreditBlocks extends APIResource {
   /**
    * This endpoint returns a credit block identified by its block_id.

@@ -6,6 +6,9 @@ import * as Core from '../../../core';
 import * as Shared from '../../shared';
 import { Page, type PageParams } from '../../../pagination';
 
+/**
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid credits within Orb.
+ */
 export class Ledger extends APIResource {
   /**
    * The credits ledger provides _auditing_ functionality over Orb's credits system

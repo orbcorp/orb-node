@@ -4,6 +4,11 @@ import { APIResource } from '../../resource';
 import * as Core from '../../core';
 import * as PlansAPI from './plans';
 
+/**
+ * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be subscribed to by a
+ * customer. Plans define the billing behavior of the subscription. You can see more about how to configure prices
+ * in the [Price resource](/reference/price).
+ */
 export class ExternalPlanID extends APIResource {
   /**
    * This endpoint can be used to update the `external_plan_id`, and `metadata` of an

@@ -17,6 +17,11 @@ import {
 } from './migrations';
 import { Page, type PageParams } from '../../pagination';
 
+/**
+ * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be subscribed to by a
+ * customer. Plans define the billing behavior of the subscription. You can see more about how to configure prices
+ * in the [Price resource](/reference/price).
+ */
 export class Plans extends APIResource {
   externalPlanId: ExternalPlanIDAPI.ExternalPlanID = new ExternalPlanIDAPI.ExternalPlanID(this._client);
   migrations: MigrationsAPI.Migrations = new MigrationsAPI.Migrations(this._client);

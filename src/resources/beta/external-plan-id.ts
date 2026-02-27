@@ -6,6 +6,11 @@ import * as Shared from '../shared';
 import * as BetaAPI from './beta';
 import * as PlansAPI from '../plans/plans';
 
+/**
+ * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be subscribed to by a
+ * customer. Plans define the billing behavior of the subscription. You can see more about how to configure prices
+ * in the [Price resource](/reference/price).
+ */
 export class ExternalPlanID extends APIResource {
   /**
    * This endpoint allows the creation of a new plan version for an existing plan.

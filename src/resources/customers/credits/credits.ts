@@ -42,6 +42,9 @@ import {
 } from './top-ups';
 import { Page, type PageParams } from '../../../pagination';
 
+/**
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid credits within Orb.
+ */
 export class Credits extends APIResource {
   ledger: LedgerAPI.Ledger = new LedgerAPI.Ledger(this._client);
   topUps: TopUpsAPI.TopUps = new TopUpsAPI.TopUps(this._client);
