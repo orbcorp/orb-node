@@ -42,7 +42,7 @@ export interface ExternalDimensionalPriceGroupIDUpdateParams {
    * field to identify a dimensional price group by an existing identifier in your
    * system.
    */
-  body_external_dimensional_price_group_id?: string | null;
+  external_dimensional_price_group_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
