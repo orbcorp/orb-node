@@ -76,9 +76,10 @@ export class Customers extends APIResource {
   /**
    * This endpoint can be used to update the `payment_provider`,
    * `payment_provider_id`, `name`, `email`, `email_delivery`, `tax_id`,
-   * `auto_collection`, `metadata`, `shipping_address`, `billing_address`, and
-   * `additional_emails` of an existing customer. Other fields on a customer are
-   * currently immutable.
+   * `auto_collection`, `metadata`, `shipping_address`, `billing_address`,
+   * `additional_emails`, and `currency` of an existing customer. `currency` can only
+   * be set if it has not already been set on the customer. Other fields on a
+   * customer are currently immutable.
    */
   update(
     customerId: string,
@@ -963,8 +964,10 @@ export interface CustomerUpdateParams {
   billing_address?: AddressInput | null;
 
   /**
-   * An ISO 4217 currency string used for the customer's invoices and balance. If not
-   * set at creation time, will be set at subscription creation time.
+   * An ISO 4217 currency string used for the customer's invoices and balance. This
+   * can only be set if the customer does not already have a currency configured. If
+   * not set at creation or update time, it will be set at subscription creation
+   * time.
    */
   currency?: string | null;
 
@@ -1292,8 +1295,10 @@ export interface CustomerUpdateByExternalIDParams {
   billing_address?: AddressInput | null;
 
   /**
-   * An ISO 4217 currency string used for the customer's invoices and balance. If not
-   * set at creation time, will be set at subscription creation time.
+   * An ISO 4217 currency string used for the customer's invoices and balance. This
+   * can only be set if the customer does not already have a currency configured. If
+   * not set at creation or update time, it will be set at subscription creation
+   * time.
    */
   currency?: string | null;
 
