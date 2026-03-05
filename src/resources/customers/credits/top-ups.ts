@@ -5,6 +5,9 @@ import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
 import { Page, type PageParams } from '../../../pagination';
 
+/**
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid credits within Orb.
+ */
 export class TopUps extends APIResource {
   /**
    * This endpoint allows you to create a new top-up for a specified customer's

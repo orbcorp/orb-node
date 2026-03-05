@@ -17,6 +17,11 @@ import {
 import * as VolumeAPI from './volume';
 import { EventVolumes, Volume, VolumeListParams } from './volume';
 
+/**
+ * The [Event](/core-concepts#event) resource represents a usage event that has been created for a
+ * customer. Events are the core of Orb's usage-based billing model, and are used to calculate the usage charges for
+ * a given billing period.
+ */
 export class Events extends APIResource {
   backfills: BackfillsAPI.Backfills = new BackfillsAPI.Backfills(this._client);
   volume: VolumeAPI.Volume = new VolumeAPI.Volume(this._client);

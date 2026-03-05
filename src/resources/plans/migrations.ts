@@ -5,6 +5,11 @@ import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import { Page, type PageParams } from '../../pagination';
 
+/**
+ * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be subscribed to by a
+ * customer. Plans define the billing behavior of the subscription. You can see more about how to configure prices
+ * in the [Price resource](/reference/price).
+ */
 export class Migrations extends APIResource {
   /**
    * Fetch migration

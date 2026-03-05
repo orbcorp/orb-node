@@ -6,6 +6,10 @@ import * as Core from '../core';
 import * as ItemsAPI from './items';
 import { Page, type PageParams } from '../pagination';
 
+/**
+ * The Metric resource represents a calculation of a quantity based on events.
+ * Metrics are defined by the query that transforms raw usage events into meaningful values for your customers.
+ */
 export class Metrics extends APIResource {
   /**
    * This endpoint is used to create a [metric](/core-concepts###metric) using a SQL

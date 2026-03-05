@@ -345,23 +345,103 @@ export class Orb extends Core.APIClient {
   }
 
   topLevel: API.TopLevel = new API.TopLevel(this);
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be subscribed to by a
+   * customer. Plans define the billing behavior of the subscription. You can see more about how to configure prices
+   * in the [Price resource](/reference/price).
+   */
   beta: API.Beta = new API.Beta(this);
+  /**
+   * A coupon represents a reusable discount configuration that can be applied either as a fixed or percentage amount to an invoice or subscription. Coupons are activated using a redemption code, which applies the discount to a subscription or invoice. The duration of a coupon determines how long it remains available for use by end users.
+   */
   coupons: API.Coupons = new API.Coupons(this);
+  /**
+   * The [Credit Note](/invoicing/credit-notes) resource represents a credit that has been applied to a
+   * particular invoice.
+   */
   creditNotes: API.CreditNotes = new API.CreditNotes(this);
+  /**
+   * A customer is a buyer of your products, and the other party to the billing relationship.
+   *
+   * In Orb, customers are assigned system generated identifiers automatically, but it's often desirable to have these
+   * match existing identifiers in your system. To avoid having to denormalize Orb ID information, you can pass in an
+   * `external_customer_id` with your own identifier. See
+   * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further information about how these
+   * aliases work in Orb.
+   *
+   * In addition to having an identifier in your system, a customer may exist in a payment provider solution like
+   * Stripe. Use the `payment_provider_id` and the `payment_provider` enum field to express this mapping.
+   *
+   * A customer also has a timezone (from the standard [IANA timezone database](https://www.iana.org/time-zones)), which
+   * defaults to your account's timezone. See [Timezone localization](/essentials/timezones) for
+   * information on what this timezone parameter influences within Orb.
+   */
   customers: API.Customers = new API.Customers(this);
+  /**
+   * The [Event](/core-concepts#event) resource represents a usage event that has been created for a
+   * customer. Events are the core of Orb's usage-based billing model, and are used to calculate the usage charges for
+   * a given billing period.
+   */
   events: API.Events = new API.Events(this);
+  /**
+   * An [`Invoice`](/core-concepts#invoice) is a fundamental billing entity, representing the request for payment for
+   * a single subscription. This includes a set of line items, which correspond to prices in the subscription's plan and
+   * can represent fixed recurring fees or usage-based fees. They are generated at the end of a billing period, or as
+   * the result of an action, such as a cancellation.
+   */
   invoiceLineItems: API.InvoiceLineItems = new API.InvoiceLineItems(this);
+  /**
+   * An [`Invoice`](/core-concepts#invoice) is a fundamental billing entity, representing the request for payment for
+   * a single subscription. This includes a set of line items, which correspond to prices in the subscription's plan and
+   * can represent fixed recurring fees or usage-based fees. They are generated at the end of a billing period, or as
+   * the result of an action, such as a cancellation.
+   */
   invoices: API.Invoices = new API.Invoices(this);
+  /**
+   * The Item resource represents a sellable product or good. Items are associated with all line items, billable metrics,
+   * and prices and are used for defining external sync behavior for invoices and tax calculation purposes.
+   */
   items: API.Items = new API.Items(this);
+  /**
+   * The Metric resource represents a calculation of a quantity based on events.
+   * Metrics are defined by the query that transforms raw usage events into meaningful values for your customers.
+   */
   metrics: API.Metrics = new API.Metrics(this);
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be subscribed to by a
+   * customer. Plans define the billing behavior of the subscription. You can see more about how to configure prices
+   * in the [Price resource](/reference/price).
+   */
   plans: API.Plans = new API.Plans(this);
+  /**
+   * The Price resource represents a price that can be billed on a subscription, resulting in a charge on an invoice in
+   * the form of an invoice line item. Prices take a quantity and determine an amount to bill.
+   *
+   * Orb supports a few different pricing models out of the box. Each of these models is serialized differently in a
+   * given Price object. The model_type field determines the key for the configuration object that is present.
+   *
+   * For more on the types of prices, see [the core concepts documentation](/core-concepts#plan-and-price)
+   */
   prices: API.Prices = new API.Prices(this);
   subscriptions: API.Subscriptions = new API.Subscriptions(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
+  /**
+   * [Alerts within Orb](/product-catalog/configuring-alerts) monitor spending,
+   * usage, or credit balance and trigger webhooks when a threshold is exceeded.
+   *
+   * Alerts created through the API can be scoped to either customers or subscriptions.
+   */
   alerts: API.Alerts = new API.Alerts(this);
   dimensionalPriceGroups: API.DimensionalPriceGroups = new API.DimensionalPriceGroups(this);
   subscriptionChanges: API.SubscriptionChanges = new API.SubscriptionChanges(this);
+  /**
+   * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid credits within Orb.
+   */
   creditBlocks: API.CreditBlocks = new API.CreditBlocks(this);
+  /**
+   * The LicenseType resource represents a type of license that can be assigned to users.
+   * License types are used during billing by grouping metrics on the configured grouping key.
+   */
   licenseTypes: API.LicenseTypes = new API.LicenseTypes(this);
   licenses: API.Licenses = new API.Licenses(this);
 

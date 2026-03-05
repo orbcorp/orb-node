@@ -5,6 +5,10 @@ import { isRequestOptions } from '../core';
 import * as Core from '../core';
 import { Page, type PageParams } from '../pagination';
 
+/**
+ * The LicenseType resource represents a type of license that can be assigned to users.
+ * License types are used during billing by grouping metrics on the configured grouping key.
+ */
 export class LicenseTypes extends APIResource {
   /**
    * This endpoint is used to create a new license type.
