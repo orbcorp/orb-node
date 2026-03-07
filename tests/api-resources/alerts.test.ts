@@ -143,7 +143,9 @@ describe('resource alerts', () => {
     const response = await client.alerts.createForSubscription('subscription_id', {
       thresholds: [{ value: 0 }],
       type: 'usage_exceeded',
+      grouping_keys: ['string'],
       metric_id: 'metric_id',
+      pricing_unit_id: 'pricing_unit_id',
     });
   });
 
