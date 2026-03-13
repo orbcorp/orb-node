@@ -1,5 +1,44 @@
 # Changelog
 
+## 5.45.0 (2026-03-13)
+
+Full Changelog: [v5.44.0...v5.45.0](https://github.com/orbcorp/orb-node/compare/v5.44.0...v5.45.0)
+
+### Features
+
+* **api:** api update ([9594849](https://github.com/orbcorp/orb-node/commit/9594849e01bee424c4577c188d3a9ea05e213244))
+* **api:** api update ([fc0292b](https://github.com/orbcorp/orb-node/commit/fc0292bb065e65eba0010879df704f97b422ca41))
+* **api:** api update ([295182a](https://github.com/orbcorp/orb-node/commit/295182a5de863633a751117d261047c830bc499d))
+* **api:** api update ([4e98ace](https://github.com/orbcorp/orb-node/commit/4e98ace57d456ad4e77421ae74eab18ade208ce7))
+* **api:** api update ([bfe8270](https://github.com/orbcorp/orb-node/commit/bfe8270c1e7aaa297e8dc5258f0e9bc905f3a88a))
+* **api:** api update ([57b665f](https://github.com/orbcorp/orb-node/commit/57b665f8d62be71de028d9d2944cacabb41edfc8))
+* **api:** api update ([a8fe88d](https://github.com/orbcorp/orb-node/commit/a8fe88da2c64e76c8bff26161dc97a29f8110909))
+* **api:** api update ([c76b284](https://github.com/orbcorp/orb-node/commit/c76b2844ff044681670d98568efd179058783f6f))
+* **api:** api update ([720c5a3](https://github.com/orbcorp/orb-node/commit/720c5a3e0989b93ee36734ef09e7d3795fe3a2dc))
+* **api:** api update ([1ddb26c](https://github.com/orbcorp/orb-node/commit/1ddb26ca1c2f60891ef1a11a7a1182a8ea4483d3))
+* **api:** api update ([5476617](https://github.com/orbcorp/orb-node/commit/5476617ca804ee1de20da3f084b8d9d02ad7e361))
+* **api:** manual updates ([d6168c3](https://github.com/orbcorp/orb-node/commit/d6168c30d48d79be48dc074b8c61350354cdbe69))
+
+
+### Bug Fixes
+
+* **client:** preserve URL params already embedded in path ([ff159b3](https://github.com/orbcorp/orb-node/commit/ff159b3a11672e6cf9a9bd37df098b5373e7dd97))
+* **docs/contributing:** correct pnpm link command ([69cfdec](https://github.com/orbcorp/orb-node/commit/69cfdec7ae1c862e6430fedba7a1534257153054))
+* fix request delays for retrying to be more respectful of high requested delays ([e28e89e](https://github.com/orbcorp/orb-node/commit/e28e89e3828daee3333582f654b9811611027357))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([c0dc840](https://github.com/orbcorp/orb-node/commit/c0dc84020c1a346e76d23f474f847485c818a016))
+* **docs:** add missing descriptions ([bb3d420](https://github.com/orbcorp/orb-node/commit/bb3d420ec711c7783d7ebf84a3fc3188dafc65e2))
+* **docs:** remove www prefix ([37e00fc](https://github.com/orbcorp/orb-node/commit/37e00fc4e60ac1107d74b83a1d2057aad91d13b5))
+* **internal:** codegen related update ([43c7ba8](https://github.com/orbcorp/orb-node/commit/43c7ba830b0546c01132ae9a333f631186706ff7))
+* **internal:** codegen related update ([8128355](https://github.com/orbcorp/orb-node/commit/8128355f63538b59a5be56e67397b65a1ca560f9))
+* **internal:** move stringifyQuery implementation to internal function ([cd14352](https://github.com/orbcorp/orb-node/commit/cd1435211504da9a1c270636477b1dd60904d522))
+* **test:** do not count install time for mock server timeout ([352ee5f](https://github.com/orbcorp/orb-node/commit/352ee5fcb680e65bf7a5f65182f9ade565a45f4e))
+* **tests:** update mock server to steady ([413ace9](https://github.com/orbcorp/orb-node/commit/413ace90a673b6a7d75d1803433710b9b1c1e802))
+* update mock server docs ([7186ac0](https://github.com/orbcorp/orb-node/commit/7186ac06f4803670d98bc10c97ee5bfce1a0b7f3))
+
 ## 5.44.0 (2026-02-03)
 
 Full Changelog: [v5.43.0...v5.44.0](https://github.com/orbcorp/orb-node/compare/v5.43.0...v5.44.0)
