@@ -309,7 +309,14 @@ export interface Customer {
    * When not in test mode, the connection must first be configured in the Orb
    * webapp.
    */
-  payment_provider: 'quickbooks' | 'bill.com' | 'stripe_charge' | 'stripe_invoice' | 'netsuite' | null;
+  payment_provider:
+    | 'quickbooks'
+    | 'bill.com'
+    | 'stripe_charge'
+    | 'stripe_invoice'
+    | 'netsuite'
+    | 'netsuite_ampersand'
+    | null;
 
   /**
    * The ID of this customer in an external payments solution, such as Stripe. This
@@ -514,7 +521,7 @@ export namespace Customer {
     export interface AccountingProvider {
       external_provider_id: string | null;
 
-      provider_type: 'quickbooks' | 'netsuite';
+      provider_type: 'quickbooks' | 'netsuite' | 'netsuite_ampersand';
     }
   }
 
@@ -691,7 +698,14 @@ export interface CustomerCreateParams {
    * When not in test mode, the connection must first be configured in the Orb
    * webapp.
    */
-  payment_provider?: 'quickbooks' | 'bill.com' | 'stripe_charge' | 'stripe_invoice' | 'netsuite' | null;
+  payment_provider?:
+    | 'quickbooks'
+    | 'bill.com'
+    | 'stripe_charge'
+    | 'stripe_invoice'
+    | 'netsuite'
+    | 'netsuite_ampersand'
+    | null;
 
   /**
    * The ID of this customer in an external payments solution, such as Stripe. This
@@ -1019,7 +1033,14 @@ export interface CustomerUpdateParams {
    *   `bill.com`, `netsuite`), any product mappings must first be configured with
    *   the Orb team.
    */
-  payment_provider?: 'quickbooks' | 'bill.com' | 'stripe_charge' | 'stripe_invoice' | 'netsuite' | null;
+  payment_provider?:
+    | 'quickbooks'
+    | 'bill.com'
+    | 'stripe_charge'
+    | 'stripe_invoice'
+    | 'netsuite'
+    | 'netsuite_ampersand'
+    | null;
 
   /**
    * The ID of this customer in an external payments solution, such as Stripe. This
@@ -1350,7 +1371,14 @@ export interface CustomerUpdateByExternalIDParams {
    *   `bill.com`, `netsuite`), any product mappings must first be configured with
    *   the Orb team.
    */
-  payment_provider?: 'quickbooks' | 'bill.com' | 'stripe_charge' | 'stripe_invoice' | 'netsuite' | null;
+  payment_provider?:
+    | 'quickbooks'
+    | 'bill.com'
+    | 'stripe_charge'
+    | 'stripe_invoice'
+    | 'netsuite'
+    | 'netsuite_ampersand'
+    | null;
 
   /**
    * The ID of this customer in an external payments solution, such as Stripe. This
