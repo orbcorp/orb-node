@@ -7,6 +7,10 @@ import * as Shared from './shared';
 import { CreditNotesPage } from './shared';
 import { type PageParams } from '../pagination';
 
+/**
+ * The [Credit Note](/invoicing/credit-notes) resource represents a credit that has been applied to a
+ * particular invoice.
+ */
 export class CreditNotes extends APIResource {
   /**
    * This endpoint is used to create a single

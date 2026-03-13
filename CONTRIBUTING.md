@@ -60,15 +60,15 @@ $ yarn link orb-billing
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global orb-billing
+$ pnpm link --global orb-billing
 ```
 
 ## Running tests
 
-Most tests require you to [set up a mock server](https://github.com/stoplightio/prism) against the OpenAPI spec to run the tests.
+Most tests require you to [set up a mock server](https://github.com/dgellow/steady) against the OpenAPI spec to run the tests.
 
 ```sh
-$ npx prism mock path/to/your/openapi.yml
+$ ./scripts/mock
 ```
 
 ```sh

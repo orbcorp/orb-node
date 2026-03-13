@@ -314,6 +314,7 @@ describe('resource subscriptions', () => {
               },
             ],
             item_id: 'item_id',
+            license_type_id: 'license_type_id',
             per_unit_cost_basis: 'per_unit_cost_basis',
           },
           discounts: [
@@ -327,6 +328,7 @@ describe('resource subscriptions', () => {
           end_date: '2019-12-27T18:11:19.117Z',
           external_price_id: 'external_price_id',
           maximum_amount: '1.23',
+          metric_parameter_overrides: { foo: 'bar' },
           minimum_amount: '1.23',
           plan_phase_order: 0,
           price: {
@@ -353,6 +355,7 @@ describe('resource subscriptions', () => {
             fixed_price_quantity: 0,
             invoice_grouping_key: 'x',
             invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
+            license_type_id: 'license_type_id',
             metadata: { foo: 'string' },
             reference_id: 'reference_id',
           },
@@ -422,6 +425,7 @@ describe('resource subscriptions', () => {
               },
             ],
             item_id: 'item_id',
+            license_type_id: 'license_type_id',
             per_unit_cost_basis: 'per_unit_cost_basis',
           },
           discounts: [
@@ -435,6 +439,7 @@ describe('resource subscriptions', () => {
           external_price_id: 'external_price_id',
           fixed_price_quantity: 2,
           maximum_amount: '1.23',
+          metric_parameter_overrides: { foo: 'bar' },
           minimum_amount: '1.23',
           price: {
             cadence: 'annual',
@@ -460,6 +465,7 @@ describe('resource subscriptions', () => {
             fixed_price_quantity: 0,
             invoice_grouping_key: 'x',
             invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
+            license_type_id: 'license_type_id',
             metadata: { foo: 'string' },
             reference_id: 'reference_id',
           },

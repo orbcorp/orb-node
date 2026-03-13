@@ -6,6 +6,12 @@ import * as Core from '../core';
 import * as Shared from './shared';
 import { Page, type PageParams } from '../pagination';
 
+/**
+ * [Alerts within Orb](/product-catalog/configuring-alerts) monitor spending,
+ * usage, or credit balance and trigger webhooks when a threshold is exceeded.
+ *
+ * Alerts created through the API can be scoped to either customers or subscriptions.
+ */
 export class Alerts extends APIResource {
   /**
    * This endpoint retrieves an alert by its ID.
@@ -234,6 +240,12 @@ export interface Alert {
   balance_alert_status?: Array<Alert.BalanceAlertStatus> | null;
 
   /**
+   * The property keys to group cost alerts by. Only present for cost alerts with
+   * grouping enabled.
+   */
+  grouping_keys?: Array<string> | null;
+
+  /**
    * Minified license type for alert serialization.
    */
   license_type?: Alert.LicenseType | null;
@@ -379,9 +391,21 @@ export interface AlertCreateForSubscriptionParams {
   type: 'usage_exceeded' | 'cost_exceeded';
 
   /**
+   * The property keys to group cost alerts by. Only applicable for cost_exceeded
+   * alerts.
+   */
+  grouping_keys?: Array<string> | null;
+
+  /**
    * The metric to track usage for.
    */
   metric_id?: string | null;
+
+  /**
+   * The pricing unit to use for grouped cost alerts. Required when grouping_keys is
+   * set.
+   */
+  pricing_unit_id?: string | null;
 }
 
 export interface AlertDisableParams {

@@ -33,6 +33,22 @@ import {
 } from './credits/credits';
 import { Page, type PageParams } from '../../pagination';
 
+/**
+ * A customer is a buyer of your products, and the other party to the billing relationship.
+ *
+ * In Orb, customers are assigned system generated identifiers automatically, but it's often desirable to have these
+ * match existing identifiers in your system. To avoid having to denormalize Orb ID information, you can pass in an
+ * `external_customer_id` with your own identifier. See
+ * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further information about how these
+ * aliases work in Orb.
+ *
+ * In addition to having an identifier in your system, a customer may exist in a payment provider solution like
+ * Stripe. Use the `payment_provider_id` and the `payment_provider` enum field to express this mapping.
+ *
+ * A customer also has a timezone (from the standard [IANA timezone database](https://www.iana.org/time-zones)), which
+ * defaults to your account's timezone. See [Timezone localization](/essentials/timezones) for
+ * information on what this timezone parameter influences within Orb.
+ */
 export class Customers extends APIResource {
   costs: CostsAPI.Costs = new CostsAPI.Costs(this._client);
   credits: CreditsAPI.Credits = new CreditsAPI.Credits(this._client);
@@ -60,9 +76,10 @@ export class Customers extends APIResource {
   /**
    * This endpoint can be used to update the `payment_provider`,
    * `payment_provider_id`, `name`, `email`, `email_delivery`, `tax_id`,
-   * `auto_collection`, `metadata`, `shipping_address`, `billing_address`, and
-   * `additional_emails` of an existing customer. Other fields on a customer are
-   * currently immutable.
+   * `auto_collection`, `metadata`, `shipping_address`, `billing_address`,
+   * `additional_emails`, and `currency` of an existing customer. `currency` can only
+   * be set if it has not already been set on the customer. Other fields on a
+   * customer are currently immutable.
    */
   update(
     customerId: string,
@@ -292,7 +309,14 @@ export interface Customer {
    * When not in test mode, the connection must first be configured in the Orb
    * webapp.
    */
-  payment_provider: 'quickbooks' | 'bill.com' | 'stripe_charge' | 'stripe_invoice' | 'netsuite' | null;
+  payment_provider:
+    | 'quickbooks'
+    | 'bill.com'
+    | 'stripe_charge'
+    | 'stripe_invoice'
+    | 'netsuite'
+    | 'netsuite_ampersand'
+    | null;
 
   /**
    * The ID of this customer in an external payments solution, such as Stripe. This
@@ -497,7 +521,7 @@ export namespace Customer {
     export interface AccountingProvider {
       external_provider_id: string | null;
 
-      provider_type: 'quickbooks' | 'netsuite';
+      provider_type: 'quickbooks' | 'netsuite' | 'netsuite_ampersand';
     }
   }
 
@@ -674,7 +698,14 @@ export interface CustomerCreateParams {
    * When not in test mode, the connection must first be configured in the Orb
    * webapp.
    */
-  payment_provider?: 'quickbooks' | 'bill.com' | 'stripe_charge' | 'stripe_invoice' | 'netsuite' | null;
+  payment_provider?:
+    | 'quickbooks'
+    | 'bill.com'
+    | 'stripe_charge'
+    | 'stripe_invoice'
+    | 'netsuite'
+    | 'netsuite_ampersand'
+    | null;
 
   /**
    * The ID of this customer in an external payments solution, such as Stripe. This
@@ -947,8 +978,10 @@ export interface CustomerUpdateParams {
   billing_address?: AddressInput | null;
 
   /**
-   * An ISO 4217 currency string used for the customer's invoices and balance. If not
-   * set at creation time, will be set at subscription creation time.
+   * An ISO 4217 currency string used for the customer's invoices and balance. This
+   * can only be set if the customer does not already have a currency configured. If
+   * not set at creation or update time, it will be set at subscription creation
+   * time.
    */
   currency?: string | null;
 
@@ -1000,7 +1033,14 @@ export interface CustomerUpdateParams {
    *   `bill.com`, `netsuite`), any product mappings must first be configured with
    *   the Orb team.
    */
-  payment_provider?: 'quickbooks' | 'bill.com' | 'stripe_charge' | 'stripe_invoice' | 'netsuite' | null;
+  payment_provider?:
+    | 'quickbooks'
+    | 'bill.com'
+    | 'stripe_charge'
+    | 'stripe_invoice'
+    | 'netsuite'
+    | 'netsuite_ampersand'
+    | null;
 
   /**
    * The ID of this customer in an external payments solution, such as Stripe. This
@@ -1276,8 +1316,10 @@ export interface CustomerUpdateByExternalIDParams {
   billing_address?: AddressInput | null;
 
   /**
-   * An ISO 4217 currency string used for the customer's invoices and balance. If not
-   * set at creation time, will be set at subscription creation time.
+   * An ISO 4217 currency string used for the customer's invoices and balance. This
+   * can only be set if the customer does not already have a currency configured. If
+   * not set at creation or update time, it will be set at subscription creation
+   * time.
    */
   currency?: string | null;
 
@@ -1329,7 +1371,14 @@ export interface CustomerUpdateByExternalIDParams {
    *   `bill.com`, `netsuite`), any product mappings must first be configured with
    *   the Orb team.
    */
-  payment_provider?: 'quickbooks' | 'bill.com' | 'stripe_charge' | 'stripe_invoice' | 'netsuite' | null;
+  payment_provider?:
+    | 'quickbooks'
+    | 'bill.com'
+    | 'stripe_charge'
+    | 'stripe_invoice'
+    | 'netsuite'
+    | 'netsuite_ampersand'
+    | null;
 
   /**
    * The ID of this customer in an external payments solution, such as Stripe. This

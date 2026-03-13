@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { type Agent } from './_shims/index';
-import * as qs from './internal/qs';
+import { stringifyQuery } from './internal/utils/query';
 import * as Core from './core';
 import * as Errors from './error';
 import * as Pagination from './pagination';
@@ -21,7 +21,11 @@ import {
   AlertsPage,
   Threshold,
 } from './resources/alerts';
-import { CreditBlockRetrieveResponse, CreditBlocks } from './resources/credit-blocks';
+import {
+  CreditBlockListInvoicesResponse,
+  CreditBlockRetrieveResponse,
+  CreditBlocks,
+} from './resources/credit-blocks';
 import { CreditNoteCreateParams, CreditNoteListParams, CreditNotes } from './resources/credit-notes';
 import {
   InvoiceLineItemCreateParams,
@@ -33,6 +37,8 @@ import {
   InvoiceFetchUpcomingParams,
   InvoiceFetchUpcomingResponse,
   InvoiceIssueParams,
+  InvoiceIssueSummaryParams,
+  InvoiceIssueSummaryResponse,
   InvoiceListParams,
   InvoiceListSummaryParams,
   InvoiceListSummaryResponse,
@@ -49,6 +55,15 @@ import {
   Items,
   ItemsPage,
 } from './resources/items';
+import {
+  LicenseTypeCreateParams,
+  LicenseTypeCreateResponse,
+  LicenseTypeListParams,
+  LicenseTypeListResponse,
+  LicenseTypeListResponsesPage,
+  LicenseTypeRetrieveResponse,
+  LicenseTypes,
+} from './resources/license-types';
 import {
   BillableMetric,
   BillableMetricsPage,
@@ -167,6 +182,19 @@ import {
   EventUpdateResponse,
   Events,
 } from './resources/events/events';
+import {
+  LicenseCreateParams,
+  LicenseCreateResponse,
+  LicenseDeactivateParams,
+  LicenseDeactivateResponse,
+  LicenseListParams,
+  LicenseListResponse,
+  LicenseListResponsesPage,
+  LicenseRetrieveByExternalIDParams,
+  LicenseRetrieveByExternalIDResponse,
+  LicenseRetrieveResponse,
+  Licenses,
+} from './resources/licenses/licenses';
 import {
   Plan,
   PlanCreateParams,
@@ -317,23 +345,105 @@ export class Orb extends Core.APIClient {
   }
 
   topLevel: API.TopLevel = new API.TopLevel(this);
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be subscribed to by a
+   * customer. Plans define the billing behavior of the subscription. You can see more about how to configure prices
+   * in the [Price resource](/reference/price).
+   */
   beta: API.Beta = new API.Beta(this);
+  /**
+   * A coupon represents a reusable discount configuration that can be applied either as a fixed or percentage amount to an invoice or subscription. Coupons are activated using a redemption code, which applies the discount to a subscription or invoice. The duration of a coupon determines how long it remains available for use by end users.
+   */
   coupons: API.Coupons = new API.Coupons(this);
+  /**
+   * The [Credit Note](/invoicing/credit-notes) resource represents a credit that has been applied to a
+   * particular invoice.
+   */
   creditNotes: API.CreditNotes = new API.CreditNotes(this);
+  /**
+   * A customer is a buyer of your products, and the other party to the billing relationship.
+   *
+   * In Orb, customers are assigned system generated identifiers automatically, but it's often desirable to have these
+   * match existing identifiers in your system. To avoid having to denormalize Orb ID information, you can pass in an
+   * `external_customer_id` with your own identifier. See
+   * [Customer ID Aliases](/events-and-metrics/customer-aliases) for further information about how these
+   * aliases work in Orb.
+   *
+   * In addition to having an identifier in your system, a customer may exist in a payment provider solution like
+   * Stripe. Use the `payment_provider_id` and the `payment_provider` enum field to express this mapping.
+   *
+   * A customer also has a timezone (from the standard [IANA timezone database](https://www.iana.org/time-zones)), which
+   * defaults to your account's timezone. See [Timezone localization](/essentials/timezones) for
+   * information on what this timezone parameter influences within Orb.
+   */
   customers: API.Customers = new API.Customers(this);
+  /**
+   * The [Event](/core-concepts#event) resource represents a usage event that has been created for a
+   * customer. Events are the core of Orb's usage-based billing model, and are used to calculate the usage charges for
+   * a given billing period.
+   */
   events: API.Events = new API.Events(this);
+  /**
+   * An [`Invoice`](/core-concepts#invoice) is a fundamental billing entity, representing the request for payment for
+   * a single subscription. This includes a set of line items, which correspond to prices in the subscription's plan and
+   * can represent fixed recurring fees or usage-based fees. They are generated at the end of a billing period, or as
+   * the result of an action, such as a cancellation.
+   */
   invoiceLineItems: API.InvoiceLineItems = new API.InvoiceLineItems(this);
+  /**
+   * An [`Invoice`](/core-concepts#invoice) is a fundamental billing entity, representing the request for payment for
+   * a single subscription. This includes a set of line items, which correspond to prices in the subscription's plan and
+   * can represent fixed recurring fees or usage-based fees. They are generated at the end of a billing period, or as
+   * the result of an action, such as a cancellation.
+   */
   invoices: API.Invoices = new API.Invoices(this);
+  /**
+   * The Item resource represents a sellable product or good. Items are associated with all line items, billable metrics,
+   * and prices and are used for defining external sync behavior for invoices and tax calculation purposes.
+   */
   items: API.Items = new API.Items(this);
+  /**
+   * The Metric resource represents a calculation of a quantity based on events.
+   * Metrics are defined by the query that transforms raw usage events into meaningful values for your customers.
+   */
   metrics: API.Metrics = new API.Metrics(this);
+  /**
+   * The [Plan](/core-concepts#plan-and-price) resource represents a plan that can be subscribed to by a
+   * customer. Plans define the billing behavior of the subscription. You can see more about how to configure prices
+   * in the [Price resource](/reference/price).
+   */
   plans: API.Plans = new API.Plans(this);
+  /**
+   * The Price resource represents a price that can be billed on a subscription, resulting in a charge on an invoice in
+   * the form of an invoice line item. Prices take a quantity and determine an amount to bill.
+   *
+   * Orb supports a few different pricing models out of the box. Each of these models is serialized differently in a
+   * given Price object. The model_type field determines the key for the configuration object that is present.
+   *
+   * For more on the types of prices, see [the core concepts documentation](/core-concepts#plan-and-price)
+   */
   prices: API.Prices = new API.Prices(this);
   subscriptions: API.Subscriptions = new API.Subscriptions(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
+  /**
+   * [Alerts within Orb](/product-catalog/configuring-alerts) monitor spending,
+   * usage, or credit balance and trigger webhooks when a threshold is exceeded.
+   *
+   * Alerts created through the API can be scoped to either customers or subscriptions.
+   */
   alerts: API.Alerts = new API.Alerts(this);
   dimensionalPriceGroups: API.DimensionalPriceGroups = new API.DimensionalPriceGroups(this);
   subscriptionChanges: API.SubscriptionChanges = new API.SubscriptionChanges(this);
+  /**
+   * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid credits within Orb.
+   */
   creditBlocks: API.CreditBlocks = new API.CreditBlocks(this);
+  /**
+   * The LicenseType resource represents a type of license that can be assigned to users.
+   * License types are used during billing by grouping metrics on the configured grouping key.
+   */
+  licenseTypes: API.LicenseTypes = new API.LicenseTypes(this);
+  licenses: API.Licenses = new API.Licenses(this);
 
   /**
    * Check whether the base URL is set to its default.
@@ -357,8 +467,8 @@ export class Orb extends Core.APIClient {
     return { Authorization: `Bearer ${this.apiKey}` };
   }
 
-  protected override stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'brackets' });
+  protected override stringifyQuery(query: object | Record<string, unknown>): string {
+    return stringifyQuery(query);
   }
 
   static Orb = this;
@@ -420,6 +530,10 @@ Orb.DimensionalPriceGroupsPage = DimensionalPriceGroupsPage;
 Orb.SubscriptionChanges = SubscriptionChanges;
 Orb.SubscriptionChangeListResponsesPage = SubscriptionChangeListResponsesPage;
 Orb.CreditBlocks = CreditBlocks;
+Orb.LicenseTypes = LicenseTypes;
+Orb.LicenseTypeListResponsesPage = LicenseTypeListResponsesPage;
+Orb.Licenses = Licenses;
+Orb.LicenseListResponsesPage = LicenseListResponsesPage;
 
 export declare namespace Orb {
   export type RequestOptions = Core.RequestOptions;
@@ -489,6 +603,7 @@ export declare namespace Orb {
   export {
     Invoices as Invoices,
     type InvoiceFetchUpcomingResponse as InvoiceFetchUpcomingResponse,
+    type InvoiceIssueSummaryResponse as InvoiceIssueSummaryResponse,
     type InvoiceListSummaryResponse as InvoiceListSummaryResponse,
     InvoiceListSummaryResponsesPage as InvoiceListSummaryResponsesPage,
     type InvoiceCreateParams as InvoiceCreateParams,
@@ -496,6 +611,7 @@ export declare namespace Orb {
     type InvoiceListParams as InvoiceListParams,
     type InvoiceFetchUpcomingParams as InvoiceFetchUpcomingParams,
     type InvoiceIssueParams as InvoiceIssueParams,
+    type InvoiceIssueSummaryParams as InvoiceIssueSummaryParams,
     type InvoiceListSummaryParams as InvoiceListSummaryParams,
     type InvoiceMarkPaidParams as InvoiceMarkPaidParams,
   };
@@ -626,7 +742,35 @@ export declare namespace Orb {
     type SubscriptionChangeApplyParams as SubscriptionChangeApplyParams,
   };
 
-  export { CreditBlocks as CreditBlocks, type CreditBlockRetrieveResponse as CreditBlockRetrieveResponse };
+  export {
+    CreditBlocks as CreditBlocks,
+    type CreditBlockRetrieveResponse as CreditBlockRetrieveResponse,
+    type CreditBlockListInvoicesResponse as CreditBlockListInvoicesResponse,
+  };
+
+  export {
+    LicenseTypes as LicenseTypes,
+    type LicenseTypeCreateResponse as LicenseTypeCreateResponse,
+    type LicenseTypeRetrieveResponse as LicenseTypeRetrieveResponse,
+    type LicenseTypeListResponse as LicenseTypeListResponse,
+    LicenseTypeListResponsesPage as LicenseTypeListResponsesPage,
+    type LicenseTypeCreateParams as LicenseTypeCreateParams,
+    type LicenseTypeListParams as LicenseTypeListParams,
+  };
+
+  export {
+    Licenses as Licenses,
+    type LicenseCreateResponse as LicenseCreateResponse,
+    type LicenseRetrieveResponse as LicenseRetrieveResponse,
+    type LicenseListResponse as LicenseListResponse,
+    type LicenseDeactivateResponse as LicenseDeactivateResponse,
+    type LicenseRetrieveByExternalIDResponse as LicenseRetrieveByExternalIDResponse,
+    LicenseListResponsesPage as LicenseListResponsesPage,
+    type LicenseCreateParams as LicenseCreateParams,
+    type LicenseListParams as LicenseListParams,
+    type LicenseDeactivateParams as LicenseDeactivateParams,
+    type LicenseRetrieveByExternalIDParams as LicenseRetrieveByExternalIDParams,
+  };
 
   export type Address = API.Address;
   export type AdjustmentInterval = API.AdjustmentInterval;

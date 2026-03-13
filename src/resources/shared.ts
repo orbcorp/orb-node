@@ -69,6 +69,8 @@ export interface Allocation {
   custom_expiration: CustomExpiration | null;
 
   filters?: Array<Allocation.Filter>;
+
+  license_type_id?: string | null;
 }
 
 export namespace Allocation {
@@ -2756,6 +2758,11 @@ export interface NewAllocationPrice {
   item_id?: string | null;
 
   /**
+   * The license type ID to associate the price with license allocation.
+   */
+  license_type_id?: string | null;
+
+  /**
    * The (per-unit) cost basis of each created block. If non-zero, a customer will be
    * invoiced according to the quantity and per unit cost basis specified for the
    * allocation each cadence.
@@ -2963,6 +2970,11 @@ export interface NewFloatingBulkPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -3055,6 +3067,11 @@ export interface NewFloatingBulkWithProrationPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3178,6 +3195,11 @@ export interface NewFloatingCumulativeGroupedBulkPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3310,6 +3332,11 @@ export interface NewFloatingGroupedAllocationPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -3424,6 +3451,11 @@ export interface NewFloatingGroupedTieredPackagePrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3554,6 +3586,11 @@ export interface NewFloatingGroupedTieredPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -3678,6 +3715,11 @@ export interface NewFloatingGroupedWithMeteredMinimumPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3836,6 +3878,11 @@ export interface NewFloatingGroupedWithProratedMinimumPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -3952,6 +3999,11 @@ export interface NewFloatingMatrixPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -4046,6 +4098,11 @@ export interface NewFloatingMatrixWithAllocationPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -4138,6 +4195,11 @@ export interface NewFloatingMatrixWithDisplayNamePrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4273,6 +4335,11 @@ export interface NewFloatingMaxGroupTieredPackagePrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -4400,6 +4467,11 @@ export interface NewFloatingMinimumCompositePrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -4511,6 +4583,11 @@ export interface NewFloatingPackagePrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -4603,6 +4680,11 @@ export interface NewFloatingPackageWithAllocationPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4710,6 +4792,11 @@ export interface NewFloatingScalableMatrixWithTieredPricingPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4852,6 +4939,11 @@ export interface NewFloatingScalableMatrixWithUnitPricingPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -4878,6 +4970,11 @@ export namespace NewFloatingScalableMatrixWithUnitPricingPrice {
      * The final unit price to rate against the output of the matrix
      */
     unit_price: string;
+
+    /**
+     * The property used to group this price
+     */
+    grouping_key?: string | null;
 
     /**
      * If true, the unit price will be prorated to the billing period
@@ -4989,6 +5086,11 @@ export interface NewFloatingThresholdTotalAmountPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -5117,6 +5219,11 @@ export interface NewFloatingTieredPackagePrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -5242,6 +5349,11 @@ export interface NewFloatingTieredPackageWithMinimumPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -5364,6 +5476,11 @@ export interface NewFloatingTieredPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -5456,6 +5573,11 @@ export interface NewFloatingTieredWithMinimumPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -5591,6 +5713,11 @@ export interface NewFloatingTieredWithProrationPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -5715,6 +5842,11 @@ export interface NewFloatingUnitPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -5807,6 +5939,11 @@ export interface NewFloatingUnitWithPercentPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -5918,6 +6055,11 @@ export interface NewFloatingUnitWithProrationPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6215,6 +6357,11 @@ export interface NewPlanBulkPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -6314,6 +6461,11 @@ export interface NewPlanBulkWithProrationPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6444,6 +6596,11 @@ export interface NewPlanCumulativeGroupedBulkPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6583,6 +6740,11 @@ export interface NewPlanGroupedAllocationPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -6704,6 +6866,11 @@ export interface NewPlanGroupedTieredPackagePrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6841,6 +7008,11 @@ export interface NewPlanGroupedTieredPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -6972,6 +7144,11 @@ export interface NewPlanGroupedWithMeteredMinimumPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -7137,6 +7314,11 @@ export interface NewPlanGroupedWithProratedMinimumPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -7260,6 +7442,11 @@ export interface NewPlanMatrixPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -7361,6 +7548,11 @@ export interface NewPlanMatrixWithAllocationPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -7460,6 +7652,11 @@ export interface NewPlanMatrixWithDisplayNamePrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -7602,6 +7799,11 @@ export interface NewPlanMaxGroupTieredPackagePrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -7736,6 +7938,11 @@ export interface NewPlanMinimumCompositePrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -7854,6 +8061,11 @@ export interface NewPlanPackagePrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -7953,6 +8165,11 @@ export interface NewPlanPackageWithAllocationPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -8067,6 +8284,11 @@ export interface NewPlanScalableMatrixWithTieredPricingPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -8216,6 +8438,11 @@ export interface NewPlanScalableMatrixWithUnitPricingPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -8248,6 +8475,11 @@ export namespace NewPlanScalableMatrixWithUnitPricingPrice {
      * The final unit price to rate against the output of the matrix
      */
     unit_price: string;
+
+    /**
+     * The property used to group this price
+     */
+    grouping_key?: string | null;
 
     /**
      * If true, the unit price will be prorated to the billing period
@@ -8360,6 +8592,11 @@ export interface NewPlanThresholdTotalAmountPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -8495,6 +8732,11 @@ export interface NewPlanTieredPackagePrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -8627,6 +8869,11 @@ export interface NewPlanTieredPackageWithMinimumPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -8756,6 +9003,11 @@ export interface NewPlanTieredPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -8855,6 +9107,11 @@ export interface NewPlanTieredWithMinimumPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -8997,6 +9254,11 @@ export interface NewPlanUnitPrice {
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -9096,6 +9358,11 @@ export interface NewPlanUnitWithPercentPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -9214,6 +9481,11 @@ export interface NewPlanUnitWithProrationPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -9914,6 +10186,13 @@ export namespace Price {
     unit_config: Shared.UnitConfig;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: UnitPrice.LicenseType | null;
   }
 
   export namespace UnitPrice {
@@ -9932,6 +10211,29 @@ export namespace Price {
        * The IDs or values that match this filter.
        */
       values: Array<string>;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -10026,6 +10328,13 @@ export namespace Price {
     tiered_config: Shared.TieredConfig;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: TieredPrice.LicenseType | null;
   }
 
   export namespace TieredPrice {
@@ -10044,6 +10353,29 @@ export namespace Price {
        * The IDs or values that match this filter.
        */
       values: Array<string>;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -10138,6 +10470,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: BulkPrice.LicenseType | null;
   }
 
   export namespace BulkPrice {
@@ -10156,6 +10495,29 @@ export namespace Price {
        * The IDs or values that match this filter.
        */
       values: Array<string>;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -10250,6 +10612,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: BulkWithFiltersPrice.LicenseType | null;
   }
 
   export namespace BulkWithFiltersPrice {
@@ -10315,6 +10684,29 @@ export namespace Price {
        * The IDs or values that match this filter.
        */
       values: Array<string>;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -10409,6 +10801,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: PackagePrice.LicenseType | null;
   }
 
   export namespace PackagePrice {
@@ -10427,6 +10826,29 @@ export namespace Price {
        * The IDs or values that match this filter.
        */
       values: Array<string>;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -10521,6 +10943,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: MatrixPrice.LicenseType | null;
   }
 
   export namespace MatrixPrice {
@@ -10539,6 +10968,29 @@ export namespace Price {
        * The IDs or values that match this filter.
        */
       values: Array<string>;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -10633,6 +11085,13 @@ export namespace Price {
     threshold_total_amount_config: ThresholdTotalAmountPrice.ThresholdTotalAmountConfig;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: ThresholdTotalAmountPrice.LicenseType | null;
   }
 
   export namespace ThresholdTotalAmountPrice {
@@ -10681,6 +11140,29 @@ export namespace Price {
          */
         total_amount: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -10775,6 +11257,13 @@ export namespace Price {
     tiered_package_config: TieredPackagePrice.TieredPackageConfig;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: TieredPackagePrice.LicenseType | null;
   }
 
   export namespace TieredPackagePrice {
@@ -10822,6 +11311,29 @@ export namespace Price {
 
         tier_lower_bound: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -10916,6 +11428,13 @@ export namespace Price {
     tiered_with_minimum_config: TieredWithMinimumPrice.TieredWithMinimumConfig;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: TieredWithMinimumPrice.LicenseType | null;
   }
 
   export namespace TieredWithMinimumPrice {
@@ -10971,6 +11490,29 @@ export namespace Price {
          */
         unit_amount: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -11065,6 +11607,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: GroupedTieredPrice.LicenseType | null;
   }
 
   export namespace GroupedTieredPrice {
@@ -11113,6 +11662,29 @@ export namespace Price {
          */
         unit_amount: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -11207,6 +11779,13 @@ export namespace Price {
     tiered_package_with_minimum_config: TieredPackageWithMinimumPrice.TieredPackageWithMinimumConfig;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: TieredPackageWithMinimumPrice.LicenseType | null;
   }
 
   export namespace TieredPackageWithMinimumPrice {
@@ -11251,6 +11830,29 @@ export namespace Price {
 
         tier_lower_bound: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -11345,6 +11947,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: PackageWithAllocationPrice.LicenseType | null;
   }
 
   export namespace PackageWithAllocationPrice {
@@ -11374,6 +11983,29 @@ export namespace Price {
       package_amount: string;
 
       package_size: string;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -11468,6 +12100,13 @@ export namespace Price {
     unit_with_percent_config: UnitWithPercentPrice.UnitWithPercentConfig;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: UnitWithPercentPrice.LicenseType | null;
   }
 
   export namespace UnitWithPercentPrice {
@@ -11501,6 +12140,29 @@ export namespace Price {
        * Rate per unit of usage
        */
       unit_amount: string;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -11595,6 +12257,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: MatrixWithAllocationPrice.LicenseType | null;
   }
 
   export namespace MatrixWithAllocationPrice {
@@ -11613,6 +12282,29 @@ export namespace Price {
        * The IDs or values that match this filter.
        */
       values: Array<string>;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -11707,6 +12399,13 @@ export namespace Price {
     tiered_with_proration_config: TieredWithProrationPrice.TieredWithProrationConfig;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: TieredWithProrationPrice.LicenseType | null;
   }
 
   export namespace TieredWithProrationPrice {
@@ -11753,6 +12452,29 @@ export namespace Price {
          */
         unit_amount: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -11847,6 +12569,13 @@ export namespace Price {
     unit_with_proration_config: UnitWithProrationPrice.UnitWithProrationConfig;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: UnitWithProrationPrice.LicenseType | null;
   }
 
   export namespace UnitWithProrationPrice {
@@ -11875,6 +12604,29 @@ export namespace Price {
        * Rate per unit of usage
        */
       unit_amount: string;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -11969,6 +12721,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: GroupedAllocationPrice.LicenseType | null;
   }
 
   export namespace GroupedAllocationPrice {
@@ -12007,6 +12766,29 @@ export namespace Price {
        * Unit rate for post-allocation
        */
       overage_unit_rate: string;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -12101,6 +12883,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: BulkWithProrationPrice.LicenseType | null;
   }
 
   export namespace BulkWithProrationPrice {
@@ -12146,6 +12935,29 @@ export namespace Price {
        * The IDs or values that match this filter.
        */
       values: Array<string>;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -12240,6 +13052,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: GroupedWithProratedMinimumPrice.LicenseType | null;
   }
 
   export namespace GroupedWithProratedMinimumPrice {
@@ -12278,6 +13097,29 @@ export namespace Price {
        * The amount to charge per unit
        */
       unit_rate: string;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -12372,6 +13214,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: GroupedWithMeteredMinimumPrice.LicenseType | null;
   }
 
   export namespace GroupedWithMeteredMinimumPrice {
@@ -12450,6 +13299,29 @@ export namespace Price {
          */
         unit_amount: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -12544,6 +13416,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: GroupedWithMinMaxThresholdsPrice.LicenseType | null;
   }
 
   export namespace GroupedWithMinMaxThresholdsPrice {
@@ -12587,6 +13466,29 @@ export namespace Price {
        * The base price charged per group
        */
       per_unit_rate: string;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -12681,6 +13583,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: MatrixWithDisplayNamePrice.LicenseType | null;
   }
 
   export namespace MatrixWithDisplayNamePrice {
@@ -12736,6 +13645,29 @@ export namespace Price {
          */
         unit_amount: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -12830,6 +13762,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: GroupedTieredPackagePrice.LicenseType | null;
   }
 
   export namespace GroupedTieredPackagePrice {
@@ -12880,6 +13819,29 @@ export namespace Price {
 
         tier_lower_bound: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -12974,6 +13936,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: MaxGroupTieredPackagePrice.LicenseType | null;
   }
 
   export namespace MaxGroupTieredPackagePrice {
@@ -13023,6 +13992,29 @@ export namespace Price {
          */
         unit_amount: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -13117,6 +14109,13 @@ export namespace Price {
     scalable_matrix_with_unit_pricing_config: ScalableMatrixWithUnitPricingPrice.ScalableMatrixWithUnitPricingConfig;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: ScalableMatrixWithUnitPricingPrice.LicenseType | null;
   }
 
   export namespace ScalableMatrixWithUnitPricingPrice {
@@ -13157,6 +14156,11 @@ export namespace Price {
       unit_price: string;
 
       /**
+       * The property used to group this price
+       */
+      grouping_key?: string | null;
+
+      /**
        * If true, the unit price will be prorated to the billing period
        */
       prorate?: boolean | null;
@@ -13178,6 +14182,29 @@ export namespace Price {
 
         second_dimension_value?: string | null;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -13272,6 +14299,13 @@ export namespace Price {
     scalable_matrix_with_tiered_pricing_config: ScalableMatrixWithTieredPricingPrice.ScalableMatrixWithTieredPricingConfig;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: ScalableMatrixWithTieredPricingPrice.LicenseType | null;
   }
 
   export namespace ScalableMatrixWithTieredPricingPrice {
@@ -13334,6 +14368,29 @@ export namespace Price {
 
         unit_amount: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -13428,6 +14485,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: CumulativeGroupedBulkPrice.LicenseType | null;
   }
 
   export namespace CumulativeGroupedBulkPrice {
@@ -13480,6 +14544,29 @@ export namespace Price {
          */
         unit_amount: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -13574,6 +14661,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: CumulativeGroupedAllocationPrice.LicenseType | null;
   }
 
   export namespace CumulativeGroupedAllocationPrice {
@@ -13617,6 +14711,29 @@ export namespace Price {
        * The amount to charge for each unit outside of the allocation
        */
       unit_amount: string;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -13711,6 +14828,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: MinimumCompositePrice.LicenseType | null;
   }
 
   export namespace MinimumCompositePrice {
@@ -13744,6 +14868,29 @@ export namespace Price {
        * If true, subtotals from this price are prorated based on the service period
        */
       prorated?: boolean;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -13838,6 +14985,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: PercentCompositePrice.LicenseType | null;
   }
 
   export namespace PercentCompositePrice {
@@ -13866,6 +15020,29 @@ export namespace Price {
        * What percent of the component subtotals to charge
        */
       percent: number;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 
@@ -13960,6 +15137,13 @@ export namespace Price {
     replaces_price_id: string | null;
 
     dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: EventOutputPrice.LicenseType | null;
   }
 
   export namespace EventOutputPrice {
@@ -14001,6 +15185,29 @@ export namespace Price {
        * also be grouped by their unit rate.
        */
       grouping_key?: string | null;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
     }
   }
 }
@@ -14081,6 +15288,12 @@ export interface PriceInterval {
    * this price interval.
    */
   usage_customer_ids: Array<string> | null;
+
+  /**
+   * Override values for parameterized billable metric variables. Keys are parameter
+   * names, values are the override values.
+   */
+  metric_parameter_overrides?: { [key: string]: unknown } | null;
 }
 
 export interface SubLineItemGrouping {

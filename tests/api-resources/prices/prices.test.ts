@@ -52,6 +52,7 @@ describe('resource prices', () => {
       fixed_price_quantity: 0,
       invoice_grouping_key: 'x',
       invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
+      license_type_id: 'license_type_id',
       metadata: { foo: 'string' },
     });
   });
@@ -112,6 +113,7 @@ describe('resource prices', () => {
       external_customer_id: 'external_customer_id',
       filter: "my_numeric_property > 100 AND my_other_property = 'bar'",
       grouping_keys: ["case when my_event_type = 'foo' then true else false end"],
+      metric_parameter_overrides: { foo: 'bar' },
     });
   });
 
@@ -140,6 +142,7 @@ describe('resource prices', () => {
           external_price_id: 'external_price_id',
           filter: "my_numeric_property > 100 AND my_other_property = 'bar'",
           grouping_keys: ["case when my_event_type = 'foo' then true else false end"],
+          metric_parameter_overrides: { foo: 'bar' },
           price: {
             cadence: 'annual',
             currency: 'currency',
@@ -164,6 +167,7 @@ describe('resource prices', () => {
             fixed_price_quantity: 0,
             invoice_grouping_key: 'x',
             invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
+            license_type_id: 'license_type_id',
             metadata: { foo: 'string' },
           },
           price_id: 'price_id',
@@ -206,6 +210,7 @@ describe('resource prices', () => {
           external_price_id: 'external_price_id',
           filter: "my_numeric_property > 100 AND my_other_property = 'bar'",
           grouping_keys: ["case when my_event_type = 'foo' then true else false end"],
+          metric_parameter_overrides: { foo: 'bar' },
           price: {
             cadence: 'annual',
             currency: 'currency',
@@ -230,6 +235,7 @@ describe('resource prices', () => {
             fixed_price_quantity: 0,
             invoice_grouping_key: 'x',
             invoicing_cycle_configuration: { duration: 0, duration_unit: 'day' },
+            license_type_id: 'license_type_id',
             metadata: { foo: 'string' },
           },
           price_id: 'price_id',

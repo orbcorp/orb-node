@@ -6,6 +6,9 @@ import * as Core from '../../../core';
 import * as Shared from '../../shared';
 import { Page, type PageParams } from '../../../pagination';
 
+/**
+ * The [Credit Ledger Entry resource](/product-catalog/prepurchase) models prepaid credits within Orb.
+ */
 export class Ledger extends APIResource {
   /**
    * The credits ledger provides _auditing_ functionality over Orb's credits system
@@ -162,7 +165,14 @@ export class Ledger extends APIResource {
    * also generate a one-off invoice for the customer for the credits pre-purchase.
    * Note that you _must_ provide the `per_unit_cost_basis`, since the total charges
    * on the invoice are calculated by multiplying the cost basis with the number of
-   * credit units added.
+   * credit units added. If you invoice or handle payment of credits outside of Orb
+   * (i.e. marketplace customers), set `mark_as_paid` in the `invoice_settings` to
+   * `true` to prevent duplicate invoicing effects.
+   *
+   * - if `per_unit_cost_basis` is greater than zero, an invoice will be generated
+   *   and `invoice_settings` must be included
+   * - if `invoice_settings` is passed, one of either `custom_due_date` or
+   *   `net_terms` is required to determine the due date
    *
    * ## Deducting Credits
    *
@@ -282,7 +292,14 @@ export class Ledger extends APIResource {
    * also generate a one-off invoice for the customer for the credits pre-purchase.
    * Note that you _must_ provide the `per_unit_cost_basis`, since the total charges
    * on the invoice are calculated by multiplying the cost basis with the number of
-   * credit units added.
+   * credit units added. If you invoice or handle payment of credits outside of Orb
+   * (i.e. marketplace customers), set `mark_as_paid` in the `invoice_settings` to
+   * `true` to prevent duplicate invoicing effects.
+   *
+   * - if `per_unit_cost_basis` is greater than zero, an invoice will be generated
+   *   and `invoice_settings` must be included
+   * - if `invoice_settings` is passed, one of either `custom_due_date` or
+   *   `net_terms` is required to determine the due date
    *
    * ## Deducting Credits
    *
@@ -958,6 +975,11 @@ export declare namespace LedgerCreateEntryParams {
       item_id?: string | null;
 
       /**
+       * If true, the new credits purchase invoice will be marked as paid.
+       */
+      mark_as_paid?: boolean;
+
+      /**
        * An optional memo to display on the invoice.
        */
       memo?: string | null;
@@ -967,7 +989,8 @@ export declare namespace LedgerCreateEntryParams {
        * based on the invoice or issuance date, depending on the account's configured due
        * date calculation method. A value of '0' here represents that the invoice is due
        * on issue, whereas a value of '30' represents that the customer has 30 days to
-       * pay the invoice. Do not set this field if you want to set a custom due date.
+       * pay the invoice. You must set either `net_terms` or `custom_due_date`, but not
+       * both.
        */
       net_terms?: number | null;
 
@@ -1256,6 +1279,11 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
       item_id?: string | null;
 
       /**
+       * If true, the new credits purchase invoice will be marked as paid.
+       */
+      mark_as_paid?: boolean;
+
+      /**
        * An optional memo to display on the invoice.
        */
       memo?: string | null;
@@ -1265,7 +1293,8 @@ export declare namespace LedgerCreateEntryByExternalIDParams {
        * based on the invoice or issuance date, depending on the account's configured due
        * date calculation method. A value of '0' here represents that the invoice is due
        * on issue, whereas a value of '30' represents that the customer has 30 days to
-       * pay the invoice. Do not set this field if you want to set a custom due date.
+       * pay the invoice. You must set either `net_terms` or `custom_due_date`, but not
+       * both.
        */
       net_terms?: number | null;
 

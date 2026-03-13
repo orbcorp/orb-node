@@ -1184,6 +1184,11 @@ export interface NewSubscriptionBulkPrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -1283,6 +1288,11 @@ export interface NewSubscriptionBulkWithProrationPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -1413,6 +1423,11 @@ export interface NewSubscriptionCumulativeGroupedBulkPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -1552,6 +1567,11 @@ export interface NewSubscriptionGroupedAllocationPrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -1673,6 +1693,11 @@ export interface NewSubscriptionGroupedTieredPackagePrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -1810,6 +1835,11 @@ export interface NewSubscriptionGroupedTieredPrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -1941,6 +1971,11 @@ export interface NewSubscriptionGroupedWithMeteredMinimumPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -2106,6 +2141,11 @@ export interface NewSubscriptionGroupedWithProratedMinimumPrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -2229,6 +2269,11 @@ export interface NewSubscriptionMatrixPrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -2330,6 +2375,11 @@ export interface NewSubscriptionMatrixWithAllocationPrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -2429,6 +2479,11 @@ export interface NewSubscriptionMatrixWithDisplayNamePrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -2571,6 +2626,11 @@ export interface NewSubscriptionMaxGroupTieredPackagePrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -2705,6 +2765,11 @@ export interface NewSubscriptionMinimumCompositePrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -2823,6 +2888,11 @@ export interface NewSubscriptionPackagePrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -2922,6 +2992,11 @@ export interface NewSubscriptionPackageWithAllocationPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3036,6 +3111,11 @@ export interface NewSubscriptionScalableMatrixWithTieredPricingPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3185,6 +3265,11 @@ export interface NewSubscriptionScalableMatrixWithUnitPricingPrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -3217,6 +3302,11 @@ export namespace NewSubscriptionScalableMatrixWithUnitPricingPrice {
      * The final unit price to rate against the output of the matrix
      */
     unit_price: string;
+
+    /**
+     * The property used to group this price
+     */
+    grouping_key?: string | null;
 
     /**
      * If true, the unit price will be prorated to the billing period
@@ -3329,6 +3419,11 @@ export interface NewSubscriptionThresholdTotalAmountPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3464,6 +3559,11 @@ export interface NewSubscriptionTieredPackagePrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -3596,6 +3696,11 @@ export interface NewSubscriptionTieredPackageWithMinimumPrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -3725,6 +3830,11 @@ export interface NewSubscriptionTieredPrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -3824,6 +3934,11 @@ export interface NewSubscriptionTieredWithMinimumPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -3966,6 +4081,11 @@ export interface NewSubscriptionUnitPrice {
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
   /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
+
+  /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
    * by setting the value to `null`, and the entire metadata mapping can be cleared
    * by setting `metadata` to `null`.
@@ -4065,6 +4185,11 @@ export interface NewSubscriptionUnitWithPercentPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4183,6 +4308,11 @@ export interface NewSubscriptionUnitWithProrationPrice {
    * If unspecified, a single invoice is produced per billing cycle.
    */
   invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+  /**
+   * The ID of the license type to associate with this price.
+   */
+  license_type_id?: string | null;
 
   /**
    * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -4742,6 +4872,12 @@ export namespace SubscriptionCreateParams {
     maximum_amount?: string | null;
 
     /**
+     * Override values for parameterized billable metric variables. Keys are parameter
+     * names, values are the override values.
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
+
+    /**
      * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's minimum
      * amount for this price.
      */
@@ -4891,6 +5027,11 @@ export namespace SubscriptionCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -5041,6 +5182,11 @@ export namespace SubscriptionCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -5172,6 +5318,11 @@ export namespace SubscriptionCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -5298,6 +5449,11 @@ export namespace SubscriptionCreateParams {
        * If unspecified, a single invoice is produced per billing cycle.
        */
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
 
       /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -5428,6 +5584,11 @@ export namespace SubscriptionCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -5541,6 +5702,11 @@ export namespace SubscriptionCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -5648,6 +5814,12 @@ export namespace SubscriptionCreateParams {
      * amount for the replacement price.
      */
     maximum_amount?: string | null;
+
+    /**
+     * Override values for parameterized billable metric variables. Keys are parameter
+     * names, values are the override values.
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
 
     /**
      * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's minimum
@@ -5787,6 +5959,11 @@ export namespace SubscriptionCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -5937,6 +6114,11 @@ export namespace SubscriptionCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -6068,6 +6250,11 @@ export namespace SubscriptionCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -6194,6 +6381,11 @@ export namespace SubscriptionCreateParams {
        * If unspecified, a single invoice is produced per billing cycle.
        */
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
 
       /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6324,6 +6516,11 @@ export namespace SubscriptionCreateParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -6435,6 +6632,11 @@ export namespace SubscriptionCreateParams {
        * If unspecified, a single invoice is produced per billing cycle.
        */
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
 
       /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -6729,6 +6931,12 @@ export namespace SubscriptionPriceIntervalsParams {
     maximum_amount?: number | null;
 
     /**
+     * Override values for parameterized billable metric variables. Keys are parameter
+     * names, values are the override values (number or string).
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
+
+    /**
      * The minimum amount that will be billed for this price interval for a given
      * billing period.
      */
@@ -6916,6 +7124,11 @@ export namespace SubscriptionPriceIntervalsParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -7059,6 +7272,11 @@ export namespace SubscriptionPriceIntervalsParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -7178,6 +7396,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * If unspecified, a single invoice is produced per billing cycle.
        */
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
 
       /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -7301,6 +7524,11 @@ export namespace SubscriptionPriceIntervalsParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -7405,6 +7633,11 @@ export namespace SubscriptionPriceIntervalsParams {
        * If unspecified, a single invoice is produced per billing cycle.
        */
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
 
       /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -7516,6 +7749,12 @@ export namespace SubscriptionPriceIntervalsParams {
      * price interval.
      */
     fixed_fee_quantity_transitions?: Array<Edit.FixedFeeQuantityTransition> | null;
+
+    /**
+     * Override values for parameterized billable metric variables. Keys are parameter
+     * names, values are the override values (number or string).
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
 
     /**
      * The updated start date of this price interval. If not specified, the start date
@@ -7817,6 +8056,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
     maximum_amount?: string | null;
 
     /**
+     * Override values for parameterized billable metric variables. Keys are parameter
+     * names, values are the override values.
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
+
+    /**
      * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's minimum
      * amount for this price.
      */
@@ -7966,6 +8211,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -8116,6 +8366,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -8247,6 +8502,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -8373,6 +8633,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * If unspecified, a single invoice is produced per billing cycle.
        */
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
 
       /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -8503,6 +8768,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -8616,6 +8886,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -8723,6 +8998,12 @@ export namespace SubscriptionSchedulePlanChangeParams {
      * amount for the replacement price.
      */
     maximum_amount?: string | null;
+
+    /**
+     * Override values for parameterized billable metric variables. Keys are parameter
+     * names, values are the override values.
+     */
+    metric_parameter_overrides?: { [key: string]: unknown } | null;
 
     /**
      * @deprecated [DEPRECATED] Use add_adjustments instead. The subscription's minimum
@@ -8862,6 +9143,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -9012,6 +9298,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -9143,6 +9434,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -9269,6 +9565,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * If unspecified, a single invoice is produced per billing cycle.
        */
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
 
       /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
@@ -9399,6 +9700,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
 
       /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
        * by setting the value to `null`, and the entire metadata mapping can be cleared
        * by setting `metadata` to `null`.
@@ -9510,6 +9816,11 @@ export namespace SubscriptionSchedulePlanChangeParams {
        * If unspecified, a single invoice is produced per billing cycle.
        */
       invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
 
       /**
        * User-specified key/value pairs for the resource. Individual keys can be removed
