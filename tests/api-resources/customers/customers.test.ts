@@ -47,7 +47,13 @@ describe('resource customers', () => {
       hierarchy: { child_customer_ids: ['string'], parent_customer_id: 'parent_customer_id' },
       metadata: { foo: 'string' },
       payment_configuration: {
-        payment_providers: [{ provider_type: 'stripe', excluded_payment_method_types: ['string'] }],
+        payment_providers: [
+          {
+            provider_type: 'stripe',
+            default_shared_payment_token: 'default_shared_payment_token',
+            excluded_payment_method_types: ['string'],
+          },
+        ],
       },
       payment_provider: 'quickbooks',
       payment_provider_id: 'payment_provider_id',

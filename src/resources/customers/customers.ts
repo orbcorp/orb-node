@@ -544,6 +544,13 @@ export namespace Customer {
       provider_type: 'stripe';
 
       /**
+       * The ID of a shared payment token granted by an agent to use as the default
+       * payment instrument for this customer. When set, auto-collection will use this
+       * token instead of the customer's default payment method.
+       */
+      default_shared_payment_token?: string | null;
+
+      /**
        * List of Stripe payment method types to exclude for this customer. Excluded
        * payment methods will not be available for the customer to select during payment,
        * and will not be used for auto-collection. If a customer's default payment method
@@ -903,6 +910,13 @@ export namespace CustomerCreateParams {
       provider_type: 'stripe';
 
       /**
+       * The ID of a shared payment token granted by an agent to use as the default
+       * payment instrument for this customer. When set, auto-collection will use this
+       * token instead of the customer's default payment method.
+       */
+      default_shared_payment_token?: string | null;
+
+      /**
        * List of Stripe payment method types to exclude for this customer. Excluded
        * payment methods will not be available for the customer to select during payment,
        * and will not be used for auto-collection. If a customer's default payment method
@@ -1229,6 +1243,13 @@ export namespace CustomerUpdateParams {
        * The payment provider to configure.
        */
       provider_type: 'stripe';
+
+      /**
+       * The ID of a shared payment token granted by an agent to use as the default
+       * payment instrument for this customer. When set, auto-collection will use this
+       * token instead of the customer's default payment method.
+       */
+      default_shared_payment_token?: string | null;
 
       /**
        * List of Stripe payment method types to exclude for this customer. Excluded
@@ -1567,6 +1588,13 @@ export namespace CustomerUpdateByExternalIDParams {
        * The payment provider to configure.
        */
       provider_type: 'stripe';
+
+      /**
+       * The ID of a shared payment token granted by an agent to use as the default
+       * payment instrument for this customer. When set, auto-collection will use this
+       * token instead of the customer's default payment method.
+       */
+      default_shared_payment_token?: string | null;
 
       /**
        * List of Stripe payment method types to exclude for this customer. Excluded

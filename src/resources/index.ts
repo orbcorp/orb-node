@@ -96,6 +96,7 @@ export {
   type InvoiceIssueSummaryParams,
   type InvoiceListSummaryParams,
   type InvoiceMarkPaidParams,
+  type InvoicePayParams,
 } from './invoices';
 export {
   ItemsPage,
