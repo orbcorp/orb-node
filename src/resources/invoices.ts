@@ -214,11 +214,17 @@ export class Invoices extends APIResource {
   }
 
   /**
-   * This endpoint collects payment for an invoice using the customer's default
-   * payment method. This action can only be taken on invoices with status "issued".
+   * This endpoint collects payment for an invoice. By default, it uses the
+   * customer's default payment method. Optionally, a shared payment token (SPT) can
+   * be provided to pay using agent-granted credentials instead. This action can only
+   * be taken on invoices with status "issued".
    */
-  pay(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Invoice> {
-    return this._client.post(`/invoices/${invoiceId}/pay`, options);
+  pay(
+    invoiceId: string,
+    body: InvoicePayParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Invoice> {
+    return this._client.post(`/invoices/${invoiceId}/pay`, { body, ...options });
   }
 
   /**
@@ -2002,6 +2008,13 @@ export interface InvoiceMarkPaidParams {
   notes?: string | null;
 }
 
+export interface InvoicePayParams {
+  /**
+   * The ID of a shared payment token granted by an agent to use for this payment.
+   */
+  shared_payment_token_id: string;
+}
+
 Invoices.InvoiceListSummaryResponsesPage = InvoiceListSummaryResponsesPage;
 
 export declare namespace Invoices {
@@ -2018,6 +2031,7 @@ export declare namespace Invoices {
     type InvoiceIssueSummaryParams as InvoiceIssueSummaryParams,
     type InvoiceListSummaryParams as InvoiceListSummaryParams,
     type InvoiceMarkPaidParams as InvoiceMarkPaidParams,
+    type InvoicePayParams as InvoicePayParams,
   };
 }
 

@@ -300,8 +300,10 @@ describe('resource invoices', () => {
     });
   });
 
-  test('pay', async () => {
-    const responsePromise = client.invoices.pay('invoice_id');
+  test('pay: only required params', async () => {
+    const responsePromise = client.invoices.pay('invoice_id', {
+      shared_payment_token_id: 'shared_payment_token_id',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -311,11 +313,10 @@ describe('resource invoices', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('pay: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.invoices.pay('invoice_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Orb.NotFoundError,
-    );
+  test('pay: required and optional params', async () => {
+    const response = await client.invoices.pay('invoice_id', {
+      shared_payment_token_id: 'shared_payment_token_id',
+    });
   });
 
   test('void', async () => {

@@ -44,6 +44,7 @@ import {
   InvoiceListSummaryResponse,
   InvoiceListSummaryResponsesPage,
   InvoiceMarkPaidParams,
+  InvoicePayParams,
   InvoiceUpdateParams,
   Invoices,
 } from './resources/invoices';
@@ -614,6 +615,7 @@ export declare namespace Orb {
     type InvoiceIssueSummaryParams as InvoiceIssueSummaryParams,
     type InvoiceListSummaryParams as InvoiceListSummaryParams,
     type InvoiceMarkPaidParams as InvoiceMarkPaidParams,
+    type InvoicePayParams as InvoicePayParams,
   };
 
   export {
