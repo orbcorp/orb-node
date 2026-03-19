@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.46.0 (2026-03-19)
+
+Full Changelog: [v5.45.0...v5.46.0](https://github.com/orbcorp/orb-node/compare/v5.45.0...v5.46.0)
+
+### Features
+
+* **api:** api update ([2841671](https://github.com/orbcorp/orb-node/commit/28416713d38876a4851d6d0ba0563397c14bf8c8))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([3630df1](https://github.com/orbcorp/orb-node/commit/3630df163abab61e0233bebfe5100a68227fa57e))
+
 ## 5.45.0 (2026-03-13)
 
 Full Changelog: [v5.44.0...v5.45.0](https://github.com/orbcorp/orb-node/compare/v5.44.0...v5.45.0)
