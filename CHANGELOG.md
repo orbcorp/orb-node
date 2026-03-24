@@ -1,5 +1,23 @@
 # Changelog
 
+## 5.47.0 (2026-03-24)
+
+Full Changelog: [v5.46.0...v5.47.0](https://github.com/orbcorp/orb-node/compare/v5.46.0...v5.47.0)
+
+### Features
+
+* **api:** api update ([b4faa41](https://github.com/orbcorp/orb-node/commit/b4faa41c581aed28c3e017ed68476dbb4f239d4e))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([f86a7bb](https://github.com/orbcorp/orb-node/commit/f86a7bb2423aa422340638742bac924104198aa4))
+* **internal:** update gitignore ([99f9c81](https://github.com/orbcorp/orb-node/commit/99f9c817c7a60157521e865b0dcfa990a549812e))
+* **tests:** bump steady to v0.19.4 ([ca97478](https://github.com/orbcorp/orb-node/commit/ca9747877af33cb458da5939c469b15bd80bbfa1))
+* **tests:** bump steady to v0.19.5 ([ea3f563](https://github.com/orbcorp/orb-node/commit/ea3f563f86d8bba255857981ce7f3abbe52cb757))
+* **tests:** bump steady to v0.19.6 ([627d537](https://github.com/orbcorp/orb-node/commit/627d537c4e9fe2da92efc401e44ac96d4f77c551))
+* **tests:** bump steady to v0.19.7 ([ac41aff](https://github.com/orbcorp/orb-node/commit/ac41aff7a7547d9baed667023299359d7567e4f5))
+
 ## 5.46.0 (2026-03-19)
 
 Full Changelog: [v5.45.0...v5.46.0](https://github.com/orbcorp/orb-node/compare/v5.45.0...v5.46.0)
