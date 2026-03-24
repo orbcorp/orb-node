@@ -611,6 +611,10 @@ export interface DecrementLedgerEntry {
 
   starting_balance: number;
 
+  /**
+   * @deprecated This field is deprecated and will always be null. Decrements are not
+   * associated with individual events.
+   */
   event_id?: string | null;
 
   invoice_id?: string | null;
