@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.47.1 (2026-03-26)
+
+Full Changelog: [v5.47.0...v5.47.1](https://github.com/orbcorp/orb-node/compare/v5.47.0...v5.47.1)
+
+### Chores
+
+* **internal:** update multipart form array serialization ([db828d0](https://github.com/orbcorp/orb-node/commit/db828d0faf28f4a4ea474bbcbe876712d9eafd50))
+
 ## 5.47.0 (2026-03-24)
 
 Full Changelog: [v5.46.0...v5.47.0](https://github.com/orbcorp/orb-node/compare/v5.46.0...v5.47.0)
