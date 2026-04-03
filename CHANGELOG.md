@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.48.0 (2026-04-03)
+
+Full Changelog: [v5.47.0...v5.48.0](https://github.com/orbcorp/orb-node/compare/v5.47.0...v5.48.0)
+
+### Features
+
+* **api:** api update ([21188d7](https://github.com/orbcorp/orb-node/commit/21188d7b6fcc100083c6f509a0ff16fa31e75bdd))
+
+
+### Chores
+
+* **internal:** update multipart form array serialization ([db828d0](https://github.com/orbcorp/orb-node/commit/db828d0faf28f4a4ea474bbcbe876712d9eafd50))
+* **tests:** bump steady to v0.20.1 ([15bd6d0](https://github.com/orbcorp/orb-node/commit/15bd6d05067159182562d1f7358308aed4cd1d9f))
+* **tests:** bump steady to v0.20.2 ([d995a94](https://github.com/orbcorp/orb-node/commit/d995a94f5517a8bfc2064c652fa39dc104b9131e))
+
 ## 5.47.0 (2026-03-24)
 
 Full Changelog: [v5.46.0...v5.47.0](https://github.com/orbcorp/orb-node/compare/v5.46.0...v5.47.0)
