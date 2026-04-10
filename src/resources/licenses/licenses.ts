@@ -30,6 +30,15 @@ export class Licenses extends APIResource {
    * If a start date is provided, the license will be activated at the **start** of
    * the specified date in the customer's timezone. Otherwise, the activation time
    * will default to the **start** of the current day in the customer's timezone.
+   *
+   * @example
+   * ```ts
+   * const license = await client.licenses.create({
+   *   external_license_id: 'external_license_id',
+   *   license_type_id: 'license_type_id',
+   *   subscription_id: 'subscription_id',
+   * });
+   * ```
    */
   create(body: LicenseCreateParams, options?: Core.RequestOptions): Core.APIPromise<LicenseCreateResponse> {
     return this._client.post('/licenses', { body, ...options });
@@ -37,6 +46,13 @@ export class Licenses extends APIResource {
 
   /**
    * This endpoint is used to fetch a license given an identifier.
+   *
+   * @example
+   * ```ts
+   * const license = await client.licenses.retrieve(
+   *   'license_id',
+   * );
+   * ```
    */
   retrieve(licenseId: string, options?: Core.RequestOptions): Core.APIPromise<LicenseRetrieveResponse> {
     return this._client.get(`/licenses/${licenseId}`, options);
@@ -44,6 +60,16 @@ export class Licenses extends APIResource {
 
   /**
    * This endpoint returns a list of all licenses for a subscription.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const licenseListResponse of client.licenses.list(
+   *   { subscription_id: 'subscription_id' },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: LicenseListParams,
@@ -58,6 +84,13 @@ export class Licenses extends APIResource {
    * If an end date is provided, the license will be deactivated at the **start** of
    * the specified date in the customer's timezone. Otherwise, the deactivation time
    * will default to the **end** of the current day in the customer's timezone.
+   *
+   * @example
+   * ```ts
+   * const response = await client.licenses.deactivate(
+   *   'license_id',
+   * );
+   * ```
    */
   deactivate(
     licenseId: string,
@@ -69,6 +102,17 @@ export class Licenses extends APIResource {
 
   /**
    * This endpoint is used to fetch a license given an external license identifier.
+   *
+   * @example
+   * ```ts
+   * const response = await client.licenses.retrieveByExternalId(
+   *   'external_license_id',
+   *   {
+   *     license_type_id: 'license_type_id',
+   *     subscription_id: 'subscription_id',
+   *   },
+   * );
+   * ```
    */
   retrieveByExternalId(
     externalLicenseId: string,

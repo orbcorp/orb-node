@@ -72,6 +72,15 @@ export class Events extends APIResource {
    * - By default, no more than 100 events can be amended for a single customer in a
    *   100 day period. For higher volume updates, consider using the
    *   [event backfill](create-backfill) endpoint.
+   *
+   * @example
+   * ```ts
+   * const event = await client.events.update('event_id', {
+   *   event_name: 'event_name',
+   *   properties: { foo: 'bar' },
+   *   timestamp: '2020-12-09T16:09:53Z',
+   * });
+   * ```
    */
   update(
     eventId: string,
@@ -122,6 +131,11 @@ export class Events extends APIResource {
    * - By default, no more than 100 events can be deprecated for a single customer in
    *   a 100 day period. For higher volume updates, consider using the
    *   [event backfill](create-backfill) endpoint.
+   *
+   * @example
+   * ```ts
+   * const response = await client.events.deprecate('event_id');
+   * ```
    */
   deprecate(eventId: string, options?: Core.RequestOptions): Core.APIPromise<EventDeprecateResponse> {
     return this._client.put(`/events/${eventId}/deprecate`, options);
@@ -332,6 +346,20 @@ export class Events extends APIResource {
    *   "validation_failed": []
    * }
    * ```
+   *
+   * @example
+   * ```ts
+   * const response = await client.events.ingest({
+   *   events: [
+   *     {
+   *       event_name: 'event_name',
+   *       idempotency_key: 'idempotency_key',
+   *       properties: { foo: 'bar' },
+   *       timestamp: '2020-12-09T16:09:53Z',
+   *     },
+   *   ],
+   * });
+   * ```
    */
   ingest(params: EventIngestParams, options?: Core.RequestOptions): Core.APIPromise<EventIngestResponse> {
     const { backfill_id, debug, ...body } = params;
@@ -354,6 +382,13 @@ export class Events extends APIResource {
    *
    * By default, Orb will not throw a `404` if no events matched, Orb will return an
    * empty array for `data` instead.
+   *
+   * @example
+   * ```ts
+   * const response = await client.events.search({
+   *   event_ids: ['string'],
+   * });
+   * ```
    */
   search(body: EventSearchParams, options?: Core.RequestOptions): Core.APIPromise<EventSearchResponse> {
     return this._client.post('/events/search', { body, ...options });

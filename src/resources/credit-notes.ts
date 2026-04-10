@@ -40,6 +40,19 @@ export class CreditNotes extends APIResource {
    * Note: Both start_date and end_date are inclusive - the service period will cover
    * both the start date and end date completely (from start of start_date to end of
    * end_date).
+   *
+   * @example
+   * ```ts
+   * const creditNote = await client.creditNotes.create({
+   *   line_items: [
+   *     {
+   *       amount: 'amount',
+   *       invoice_line_item_id: '4khy3nwzktxv7',
+   *     },
+   *   ],
+   *   reason: 'duplicate',
+   * });
+   * ```
    */
   create(body: CreditNoteCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.CreditNote> {
     return this._client.post('/credit_notes', { body, ...options });
@@ -49,6 +62,14 @@ export class CreditNotes extends APIResource {
    * Get a paginated list of CreditNotes. Users can also filter by customer_id,
    * subscription_id, or external_customer_id. The credit notes will be returned in
    * reverse chronological order by `creation_time`.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const creditNote of client.creditNotes.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: CreditNoteListParams,
@@ -68,6 +89,13 @@ export class CreditNotes extends APIResource {
   /**
    * This endpoint is used to fetch a single [`Credit Note`](/invoicing/credit-notes)
    * given an identifier.
+   *
+   * @example
+   * ```ts
+   * const creditNote = await client.creditNotes.fetch(
+   *   'credit_note_id',
+   * );
+   * ```
    */
   fetch(creditNoteId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.CreditNote> {
     return this._client.get(`/credit_notes/${creditNoteId}`, options);

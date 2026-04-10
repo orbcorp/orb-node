@@ -11,6 +11,14 @@ export class Usage extends APIResource {
    * subscription.
    *
    * Date range defaults to the current billing period if not specified.
+   *
+   * @example
+   * ```ts
+   * const response = await client.licenses.usage.getAllUsage({
+   *   license_type_id: 'license_type_id',
+   *   subscription_id: 'subscription_id',
+   * });
+   * ```
    */
   getAllUsage(
     query: UsageGetAllUsageParams,
@@ -23,6 +31,13 @@ export class Usage extends APIResource {
    * Returns usage and remaining credits for a specific license over a date range.
    *
    * Date range defaults to the current billing period if not specified.
+   *
+   * @example
+   * ```ts
+   * const response = await client.licenses.usage.getUsage(
+   *   'license_id',
+   * );
+   * ```
    */
   getUsage(
     licenseId: string,

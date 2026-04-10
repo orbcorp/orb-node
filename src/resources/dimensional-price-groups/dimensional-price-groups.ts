@@ -24,6 +24,16 @@ export class DimensionalPriceGroups extends APIResource {
    * widgets used and we want to charge differently depending on the color of the
    * widget. We can create a price group with a dimension "color" and two prices: one
    * that charges \$10 per red widget and one that charges \$20 per blue widget.
+   *
+   * @example
+   * ```ts
+   * const dimensionalPriceGroup =
+   *   await client.dimensionalPriceGroups.create({
+   *     billable_metric_id: 'billable_metric_id',
+   *     dimensions: ['region', 'instance_type'],
+   *     name: 'name',
+   *   });
+   * ```
    */
   create(
     body: DimensionalPriceGroupCreateParams,
@@ -34,6 +44,14 @@ export class DimensionalPriceGroups extends APIResource {
 
   /**
    * Fetch dimensional price group
+   *
+   * @example
+   * ```ts
+   * const dimensionalPriceGroup =
+   *   await client.dimensionalPriceGroups.retrieve(
+   *     'dimensional_price_group_id',
+   *   );
+   * ```
    */
   retrieve(
     dimensionalPriceGroupId: string,
@@ -46,6 +64,14 @@ export class DimensionalPriceGroups extends APIResource {
    * This endpoint can be used to update the `external_dimensional_price_group_id`
    * and `metadata` of an existing dimensional price group. Other fields on a
    * dimensional price group are currently immutable.
+   *
+   * @example
+   * ```ts
+   * const dimensionalPriceGroup =
+   *   await client.dimensionalPriceGroups.update(
+   *     'dimensional_price_group_id',
+   *   );
+   * ```
    */
   update(
     dimensionalPriceGroupId: string,
@@ -57,6 +83,14 @@ export class DimensionalPriceGroups extends APIResource {
 
   /**
    * List dimensional price groups
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const dimensionalPriceGroup of client.dimensionalPriceGroups.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: DimensionalPriceGroupListParams,

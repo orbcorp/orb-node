@@ -15,6 +15,16 @@ export class Metrics extends APIResource {
    * This endpoint is used to create a [metric](/core-concepts###metric) using a SQL
    * string. See [SQL support](/extensibility/advanced-metrics#sql-support) for a
    * description of constructing SQL queries with examples.
+   *
+   * @example
+   * ```ts
+   * const billableMetric = await client.metrics.create({
+   *   description: 'Sum of bytes downloaded in fast mode',
+   *   item_id: 'item_id',
+   *   name: 'Bytes downloaded',
+   *   sql: "SELECT sum(bytes_downloaded) FROM events WHERE download_speed = 'fast'",
+   * });
+   * ```
    */
   create(body: MetricCreateParams, options?: Core.RequestOptions): Core.APIPromise<BillableMetric> {
     return this._client.post('/metrics', { body, ...options });
@@ -24,6 +34,13 @@ export class Metrics extends APIResource {
    * This endpoint allows you to update the `metadata` property on a metric. If you
    * pass `null` for the metadata value, it will clear any existing metadata for that
    * invoice.
+   *
+   * @example
+   * ```ts
+   * const billableMetric = await client.metrics.update(
+   *   'metric_id',
+   * );
+   * ```
    */
   update(
     metricId: string,
@@ -37,6 +54,14 @@ export class Metrics extends APIResource {
    * This endpoint is used to fetch [metric](/core-concepts##metric) details given a
    * metric identifier. It returns information about the metrics including its name,
    * description, and item.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const billableMetric of client.metrics.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: MetricListParams,
@@ -56,6 +81,13 @@ export class Metrics extends APIResource {
   /**
    * This endpoint is used to list [metrics](/core-concepts#metric). It returns
    * information about the metrics including its name, description, and item.
+   *
+   * @example
+   * ```ts
+   * const billableMetric = await client.metrics.fetch(
+   *   'metric_id',
+   * );
+   * ```
    */
   fetch(metricId: string, options?: Core.RequestOptions): Core.APIPromise<BillableMetric> {
     return this._client.get(`/metrics/${metricId}`, options);
