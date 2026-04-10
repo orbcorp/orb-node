@@ -52,6 +52,14 @@ export class Backfills extends APIResource {
    *
    * You may not have multiple backfills in a pending or pending_revert state with
    * overlapping timeframes.
+   *
+   * @example
+   * ```ts
+   * const backfill = await client.events.backfills.create({
+   *   timeframe_end: '2019-12-27T18:11:19.117Z',
+   *   timeframe_start: '2019-12-27T18:11:19.117Z',
+   * });
+   * ```
    */
   create(body: BackfillCreateParams, options?: Core.RequestOptions): Core.APIPromise<BackfillCreateResponse> {
     return this._client.post('/events/backfills', { body, ...options });
@@ -64,6 +72,14 @@ export class Backfills extends APIResource {
    * backfill. The response also includes
    * [`pagination_metadata`](/api-reference/pagination), which lets the caller
    * retrieve the next page of results if they exist.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const backfillListResponse of client.events.backfills.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: BackfillListParams,
@@ -85,6 +101,13 @@ export class Backfills extends APIResource {
    * backfill, Orb will asynchronously reflect the updated usage in invoice amounts
    * and usage graphs. Once all of the updates are complete, the backfill's status
    * will transition to `reflected`.
+   *
+   * @example
+   * ```ts
+   * const response = await client.events.backfills.close(
+   *   'backfill_id',
+   * );
+   * ```
    */
   close(backfillId: string, options?: Core.RequestOptions): Core.APIPromise<BackfillCloseResponse> {
     return this._client.post(`/events/backfills/${backfillId}/close`, options);
@@ -92,6 +115,13 @@ export class Backfills extends APIResource {
 
   /**
    * This endpoint is used to fetch a backfill given an identifier.
+   *
+   * @example
+   * ```ts
+   * const response = await client.events.backfills.fetch(
+   *   'backfill_id',
+   * );
+   * ```
    */
   fetch(backfillId: string, options?: Core.RequestOptions): Core.APIPromise<BackfillFetchResponse> {
     return this._client.get(`/events/backfills/${backfillId}`, options);
@@ -105,6 +135,13 @@ export class Backfills extends APIResource {
    *
    * If a backfill is reverted before its closed, no usage will be updated as a
    * result of the backfill and it will immediately transition to `reverted`.
+   *
+   * @example
+   * ```ts
+   * const response = await client.events.backfills.revert(
+   *   'backfill_id',
+   * );
+   * ```
    */
   revert(backfillId: string, options?: Core.RequestOptions): Core.APIPromise<BackfillRevertResponse> {
     return this._client.post(`/events/backfills/${backfillId}/revert`, options);

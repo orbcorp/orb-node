@@ -16,6 +16,25 @@ import { Page, type PageParams } from '../pagination';
 export class Invoices extends APIResource {
   /**
    * This endpoint is used to create a one-off invoice for a customer.
+   *
+   * @example
+   * ```ts
+   * const invoice = await client.invoices.create({
+   *   currency: 'USD',
+   *   invoice_date: '2019-12-27T18:11:19.117Z',
+   *   line_items: [
+   *     {
+   *       end_date: '2023-09-22',
+   *       item_id: '4khy3nwzktxv7',
+   *       model_type: 'unit',
+   *       name: 'Line Item Name',
+   *       quantity: 1,
+   *       start_date: '2023-09-22',
+   *       unit_config: { unit_amount: 'unit_amount' },
+   *     },
+   *   ],
+   * });
+   * ```
    */
   create(body: InvoiceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Invoice> {
     return this._client.post('/invoices', { body, ...options });
@@ -30,6 +49,11 @@ export class Invoices extends APIResource {
    * `invoice_date`, and `auto_collection` can only be modified if the invoice is in
    * a `draft` state. `invoice_date` can only be modified for non-subscription
    * invoices.
+   *
+   * @example
+   * ```ts
+   * const invoice = await client.invoices.update('invoice_id');
+   * ```
    */
   update(
     invoiceId: string,
@@ -53,6 +77,14 @@ export class Invoices extends APIResource {
    * When fetching any `draft` invoices, this returns the last-computed invoice
    * values for each draft invoice, which may not always be up-to-date since Orb
    * regularly refreshes invoices asynchronously.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const invoice of client.invoices.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: InvoiceListParams,
@@ -75,6 +107,14 @@ export class Invoices extends APIResource {
    * This endpoint only allows deletion of one-off line items (not subscription-based
    * line items). The invoice must be in a draft status for this operation to
    * succeed.
+   *
+   * @example
+   * ```ts
+   * await client.invoices.deleteLineItem(
+   *   'invoice_id',
+   *   'line_item_id',
+   * );
+   * ```
    */
   deleteLineItem(
     invoiceId: string,
@@ -90,6 +130,11 @@ export class Invoices extends APIResource {
   /**
    * This endpoint is used to fetch an [`Invoice`](/core-concepts#invoice) given an
    * identifier.
+   *
+   * @example
+   * ```ts
+   * const invoice = await client.invoices.fetch('invoice_id');
+   * ```
    */
   fetch(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Invoice> {
     return this._client.get(`/invoices/${invoiceId}`, options);
@@ -99,6 +144,13 @@ export class Invoices extends APIResource {
    * This endpoint can be used to fetch the upcoming
    * [invoice](/core-concepts#invoice) for the current billing period given a
    * subscription.
+   *
+   * @example
+   * ```ts
+   * const response = await client.invoices.fetchUpcoming({
+   *   subscription_id: 'subscription_id',
+   * });
+   * ```
    */
   fetchUpcoming(
     query: InvoiceFetchUpcomingParams,
@@ -114,6 +166,11 @@ export class Invoices extends APIResource {
    * possibly trigger side effects, some of which could be customer-visible (e.g.
    * sending emails, auto-collecting payment, syncing the invoice to external
    * providers, etc).
+   *
+   * @example
+   * ```ts
+   * const invoice = await client.invoices.issue('invoice_id');
+   * ```
    */
   issue(
     invoiceId: string,
@@ -142,6 +199,13 @@ export class Invoices extends APIResource {
    *
    * This is a lighter-weight alternative to the issue invoice endpoint, returning an
    * invoice summary without any line item details.
+   *
+   * @example
+   * ```ts
+   * const response = await client.invoices.issueSummary(
+   *   'invoice_id',
+   * );
+   * ```
    */
   issueSummary(
     invoiceId: string,
@@ -180,6 +244,14 @@ export class Invoices extends APIResource {
    * When fetching any `draft` invoices, this returns the last-computed invoice
    * values for each draft invoice, which may not always be up-to-date since Orb
    * regularly refreshes invoices asynchronously.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const invoiceListSummaryResponse of client.invoices.listSummary()) {
+   *   // ...
+   * }
+   * ```
    */
   listSummary(
     query?: InvoiceListSummaryParams,
@@ -204,6 +276,14 @@ export class Invoices extends APIResource {
   /**
    * This endpoint allows an invoice's status to be set to the `paid` status. This
    * can only be done to invoices that are in the `issued` or `synced` status.
+   *
+   * @example
+   * ```ts
+   * const invoice = await client.invoices.markPaid(
+   *   'invoice_id',
+   *   { payment_received_date: '2023-09-22' },
+   * );
+   * ```
    */
   markPaid(
     invoiceId: string,
@@ -218,6 +298,13 @@ export class Invoices extends APIResource {
    * customer's default payment method. Optionally, a shared payment token (SPT) can
    * be provided to pay using agent-granted credentials instead. This action can only
    * be taken on invoices with status "issued".
+   *
+   * @example
+   * ```ts
+   * const invoice = await client.invoices.pay('invoice_id', {
+   *   shared_payment_token_id: 'shared_payment_token_id',
+   * });
+   * ```
    */
   pay(
     invoiceId: string,
@@ -239,6 +326,11 @@ export class Invoices extends APIResource {
    * If the invoice was used to purchase a credit block, but the invoice is not yet
    * paid, the credit block will be voided. If the invoice was created due to a
    * top-up, the top-up will be disabled.
+   *
+   * @example
+   * ```ts
+   * const invoice = await client.invoices.void('invoice_id');
+   * ```
    */
   void(invoiceId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Invoice> {
     return this._client.post(`/invoices/${invoiceId}/void`, options);

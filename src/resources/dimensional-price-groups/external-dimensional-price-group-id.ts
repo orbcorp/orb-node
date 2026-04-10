@@ -7,6 +7,14 @@ import * as DimensionalPriceGroupsAPI from './dimensional-price-groups';
 export class ExternalDimensionalPriceGroupID extends APIResource {
   /**
    * Fetch dimensional price group by external ID
+   *
+   * @example
+   * ```ts
+   * const dimensionalPriceGroup =
+   *   await client.dimensionalPriceGroups.externalDimensionalPriceGroupId.retrieve(
+   *     'external_dimensional_price_group_id',
+   *   );
+   * ```
    */
   retrieve(
     externalDimensionalPriceGroupId: string,
@@ -22,6 +30,14 @@ export class ExternalDimensionalPriceGroupID extends APIResource {
    * This endpoint can be used to update the `external_dimensional_price_group_id`
    * and `metadata` of an existing dimensional price group. Other fields on a
    * dimensional price group are currently immutable.
+   *
+   * @example
+   * ```ts
+   * const dimensionalPriceGroup =
+   *   await client.dimensionalPriceGroups.externalDimensionalPriceGroupId.update(
+   *     'external_dimensional_price_group_id',
+   *   );
+   * ```
    */
   update(
     externalDimensionalPriceGroupId: string,

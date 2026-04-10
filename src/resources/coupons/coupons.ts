@@ -17,6 +17,17 @@ export class Coupons extends APIResource {
   /**
    * This endpoint allows the creation of coupons, which can then be redeemed at
    * subscription creation or plan change.
+   *
+   * @example
+   * ```ts
+   * const coupon = await client.coupons.create({
+   *   discount: {
+   *     discount_type: 'percentage',
+   *     percentage_discount: 0,
+   *   },
+   *   redemption_code: 'HALFOFF',
+   * });
+   * ```
    */
   create(body: CouponCreateParams, options?: Core.RequestOptions): Core.APIPromise<Coupon> {
     return this._client.post('/coupons', { body, ...options });
@@ -28,6 +39,14 @@ export class Coupons extends APIResource {
    * The list of coupons is ordered starting from the most recently created coupon.
    * The response also includes `pagination_metadata`, which lets the caller retrieve
    * the next page of results if they exist.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const coupon of client.coupons.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(query?: CouponListParams, options?: Core.RequestOptions): Core.PagePromise<CouponsPage, Coupon>;
   list(options?: Core.RequestOptions): Core.PagePromise<CouponsPage, Coupon>;
@@ -45,6 +64,11 @@ export class Coupons extends APIResource {
    * This endpoint allows a coupon to be archived. Archived coupons can no longer be
    * redeemed, and will be hidden from lists of active coupons. Additionally, once a
    * coupon is archived, its redemption code can be reused for a different coupon.
+   *
+   * @example
+   * ```ts
+   * const coupon = await client.coupons.archive('coupon_id');
+   * ```
    */
   archive(couponId: string, options?: Core.RequestOptions): Core.APIPromise<Coupon> {
     return this._client.post(`/coupons/${couponId}/archive`, options);
@@ -54,6 +78,11 @@ export class Coupons extends APIResource {
    * This endpoint retrieves a coupon by its ID. To fetch coupons by their redemption
    * code, use the [List coupons](list-coupons) endpoint with the redemption_code
    * parameter.
+   *
+   * @example
+   * ```ts
+   * const coupon = await client.coupons.fetch('coupon_id');
+   * ```
    */
   fetch(couponId: string, options?: Core.RequestOptions): Core.APIPromise<Coupon> {
     return this._client.get(`/coupons/${couponId}`, options);

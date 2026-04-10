@@ -16,6 +16,16 @@ export class Subscriptions extends APIResource {
    * coupon as a [paginated](/api-reference/pagination) list, ordered starting from
    * the most recently created subscription. For a full discussion of the
    * subscription resource, see [Subscription](/core-concepts#subscription).
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const subscription of client.coupons.subscriptions.list(
+   *   'coupon_id',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     couponId: string,

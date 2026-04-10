@@ -18,6 +18,13 @@ export class ExternalPriceID extends APIResource {
    * This endpoint allows you to update the `metadata` property on a price. If you
    * pass null for the metadata value, it will clear any existing metadata for that
    * price.
+   *
+   * @example
+   * ```ts
+   * const price = await client.prices.externalPriceId.update(
+   *   'external_price_id',
+   * );
+   * ```
    */
   update(
     externalPriceId: string,
@@ -31,6 +38,13 @@ export class ExternalPriceID extends APIResource {
    * This endpoint returns a price given an external price id. See the
    * [price creation API](/api-reference/price/create-price) for more information
    * about external price aliases.
+   *
+   * @example
+   * ```ts
+   * const price = await client.prices.externalPriceId.fetch(
+   *   'external_price_id',
+   * );
+   * ```
    */
   fetch(externalPriceId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Price> {
     return this._client.get(`/prices/external_price_id/${externalPriceId}`, options);

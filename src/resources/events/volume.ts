@@ -23,6 +23,13 @@ export class Volume extends APIResource {
    * where the start and end time are hour-aligned and in UTC. When a specific
    * timestamp is passed in for either start or end time, the response includes the
    * hours the timestamp falls in.
+   *
+   * @example
+   * ```ts
+   * const eventVolumes = await client.events.volume.list({
+   *   timeframe_start: '2019-12-27T18:11:19.117Z',
+   * });
+   * ```
    */
   list(query: VolumeListParams, options?: Core.RequestOptions): Core.APIPromise<EventVolumes> {
     return this._client.get('/events/volume', { query, ...options });
