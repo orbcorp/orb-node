@@ -25,6 +25,18 @@ export class InvoiceLineItems extends APIResource {
    * - If both `item_id` and `name` are provided: The item is looked up by ID for
    *   association, but the provided `name` is used for the line item (not the item's
    *   name).
+   *
+   * @example
+   * ```ts
+   * const invoiceLineItem =
+   *   await client.invoiceLineItems.create({
+   *     amount: '12.00',
+   *     end_date: '2023-09-22',
+   *     invoice_id: '4khy3nwzktxv7',
+   *     quantity: 1,
+   *     start_date: '2023-09-22',
+   *   });
+   * ```
    */
   create(
     body: InvoiceLineItemCreateParams,

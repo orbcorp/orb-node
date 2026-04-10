@@ -12,6 +12,13 @@ import { Page, type PageParams } from '../pagination';
 export class Items extends APIResource {
   /**
    * This endpoint is used to create an [Item](/core-concepts#item).
+   *
+   * @example
+   * ```ts
+   * const item = await client.items.create({
+   *   name: 'API requests',
+   * });
+   * ```
    */
   create(body: ItemCreateParams, options?: Core.RequestOptions): Core.APIPromise<Item> {
     return this._client.post('/items', { body, ...options });
@@ -19,6 +26,11 @@ export class Items extends APIResource {
 
   /**
    * This endpoint can be used to update properties on the Item.
+   *
+   * @example
+   * ```ts
+   * const item = await client.items.update('item_id');
+   * ```
    */
   update(itemId: string, body: ItemUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Item> {
     return this._client.put(`/items/${itemId}`, { body, ...options });
@@ -27,6 +39,14 @@ export class Items extends APIResource {
   /**
    * This endpoint returns a list of all Items, ordered in descending order by
    * creation time.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const item of client.items.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(query?: ItemListParams, options?: Core.RequestOptions): Core.PagePromise<ItemsPage, Item>;
   list(options?: Core.RequestOptions): Core.PagePromise<ItemsPage, Item>;
@@ -42,6 +62,11 @@ export class Items extends APIResource {
 
   /**
    * Archive item
+   *
+   * @example
+   * ```ts
+   * const item = await client.items.archive('item_id');
+   * ```
    */
   archive(itemId: string, options?: Core.RequestOptions): Core.APIPromise<Item> {
     return this._client.post(`/items/${itemId}/archive`, options);
@@ -49,6 +74,11 @@ export class Items extends APIResource {
 
   /**
    * This endpoint returns an item identified by its item_id.
+   *
+   * @example
+   * ```ts
+   * const item = await client.items.fetch('item_id');
+   * ```
    */
   fetch(itemId: string, options?: Core.RequestOptions): Core.APIPromise<Item> {
     return this._client.get(`/items/${itemId}`, options);

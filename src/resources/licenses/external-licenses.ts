@@ -10,6 +10,18 @@ export class ExternalLicenses extends APIResource {
    * license ID.
    *
    * Date range defaults to the current billing period if not specified.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.licenses.externalLicenses.getUsage(
+   *     'external_license_id',
+   *     {
+   *       license_type_id: 'license_type_id',
+   *       subscription_id: 'subscription_id',
+   *     },
+   *   );
+   * ```
    */
   getUsage(
     externalLicenseId: string,

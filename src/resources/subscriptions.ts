@@ -272,6 +272,12 @@ export class Subscriptions extends APIResource {
    * ## Limits
    *
    * By default, Orb limits the number of subscriptions per customer to 100.
+   *
+   * @example
+   * ```ts
+   * const mutatedSubscription =
+   *   await client.subscriptions.create();
+   * ```
    */
   create(
     body: SubscriptionCreateParams,
@@ -284,6 +290,13 @@ export class Subscriptions extends APIResource {
    * This endpoint can be used to update the `metadata`, `net terms`,
    * `auto_collection`, `invoicing_threshold`, and `default_invoice_memo` properties
    * on a subscription.
+   *
+   * @example
+   * ```ts
+   * const subscription = await client.subscriptions.update(
+   *   'subscription_id',
+   * );
+   * ```
    */
   update(
     subscriptionId: string,
@@ -303,6 +316,14 @@ export class Subscriptions extends APIResource {
    * customer_id or external_customer_id query parameters. To filter subscriptions
    * for multiple customers, use the customer_id[] or external_customer_id[] query
    * parameters.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const subscription of client.subscriptions.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: SubscriptionListParams,
@@ -381,6 +402,14 @@ export class Subscriptions extends APIResource {
    * Orb will void the intervening invoice and generate a new one based on the new
    * dates for the subscription. See the section on
    * [cancellation behaviors](/product-catalog/creating-subscriptions#cancellation-behaviors).
+   *
+   * @example
+   * ```ts
+   * const mutatedSubscription =
+   *   await client.subscriptions.cancel('subscription_id', {
+   *     cancel_option: 'end_of_subscription_term',
+   *   });
+   * ```
    */
   cancel(
     subscriptionId: string,
@@ -393,6 +422,13 @@ export class Subscriptions extends APIResource {
   /**
    * This endpoint is used to fetch a [Subscription](/core-concepts##subscription)
    * given an identifier.
+   *
+   * @example
+   * ```ts
+   * const subscription = await client.subscriptions.fetch(
+   *   'subscription_id',
+   * );
+   * ```
    */
   fetch(subscriptionId: string, options?: Core.RequestOptions): Core.APIPromise<Subscription> {
     return this._client.get(`/subscriptions/${subscriptionId}`, options);
@@ -409,6 +445,13 @@ export class Subscriptions extends APIResource {
    * this endpoint to limit your analysis of costs to a specific subscription for the
    * customer (e.g. to de-aggregate costs when a customer's subscription has started
    * and stopped on the same day).
+   *
+   * @example
+   * ```ts
+   * const response = await client.subscriptions.fetchCosts(
+   *   'subscription_id',
+   * );
+   * ```
    */
   fetchCosts(
     subscriptionId: string,
@@ -435,6 +478,16 @@ export class Subscriptions extends APIResource {
    * associated with a subscription along with their start and end dates. This list
    * contains the subscription's initial plan along with past and future plan
    * changes.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const subscriptionFetchScheduleResponse of client.subscriptions.fetchSchedule(
+   *   'subscription_id',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   fetchSchedule(
     subscriptionId: string,
@@ -655,6 +708,12 @@ export class Subscriptions extends APIResource {
    * - `first_dimension_value`: `us-east-1`
    * - `second_dimension_key`: `provider`
    * - `second_dimension_value`: `aws`
+   *
+   * @example
+   * ```ts
+   * const subscriptionUsage =
+   *   await client.subscriptions.fetchUsage('subscription_id');
+   * ```
    */
   fetchUsage(
     subscriptionId: string,
@@ -746,6 +805,14 @@ export class Subscriptions extends APIResource {
    * existing list of transitions can be retrieved using the
    * `fixed_fee_quantity_transitions` property on a subscription’s serialized price
    * intervals.
+   *
+   * @example
+   * ```ts
+   * const mutatedSubscription =
+   *   await client.subscriptions.priceIntervals(
+   *     'subscription_id',
+   *   );
+   * ```
    */
   priceIntervals(
     subscriptionId: string,
@@ -757,6 +824,15 @@ export class Subscriptions extends APIResource {
 
   /**
    * Redeem a coupon effective at a given time.
+   *
+   * @example
+   * ```ts
+   * const mutatedSubscription =
+   *   await client.subscriptions.redeemCoupon(
+   *     'subscription_id',
+   *     { change_option: 'requested_date' },
+   *   );
+   * ```
    */
   redeemCoupon(
     subscriptionId: string,
@@ -950,6 +1026,15 @@ export class Subscriptions extends APIResource {
    * a plan change, adjusting the customer balance as needed. For details on this
    * behavior, see
    * [Modifying subscriptions](/product-catalog/modifying-subscriptions#prorations-for-in-advance-fees).
+   *
+   * @example
+   * ```ts
+   * const mutatedSubscription =
+   *   await client.subscriptions.schedulePlanChange(
+   *     'subscription_id',
+   *     { change_option: 'requested_date' },
+   *   );
+   * ```
    */
   schedulePlanChange(
     subscriptionId: string,
@@ -962,6 +1047,14 @@ export class Subscriptions extends APIResource {
   /**
    * Manually trigger a phase, effective the given date (or the current time, if not
    * specified).
+   *
+   * @example
+   * ```ts
+   * const mutatedSubscription =
+   *   await client.subscriptions.triggerPhase(
+   *     'subscription_id',
+   *   );
+   * ```
    */
   triggerPhase(
     subscriptionId: string,
@@ -978,6 +1071,14 @@ export class Subscriptions extends APIResource {
    * To be eligible, the subscription must currently be active and have a future
    * cancellation. This operation will turn on auto-renew, ensuring that the
    * subscription does not end at the currently scheduled cancellation time.
+   *
+   * @example
+   * ```ts
+   * const mutatedSubscription =
+   *   await client.subscriptions.unscheduleCancellation(
+   *     'subscription_id',
+   *   );
+   * ```
    */
   unscheduleCancellation(
     subscriptionId: string,
@@ -992,6 +1093,15 @@ export class Subscriptions extends APIResource {
    *
    * If there are no updates scheduled, a request validation error will be returned
    * with a 400 status code.
+   *
+   * @example
+   * ```ts
+   * const mutatedSubscription =
+   *   await client.subscriptions.unscheduleFixedFeeQuantityUpdates(
+   *     'subscription_id',
+   *     { price_id: 'price_id' },
+   *   );
+   * ```
    */
   unscheduleFixedFeeQuantityUpdates(
     subscriptionId: string,
@@ -1007,6 +1117,14 @@ export class Subscriptions extends APIResource {
   /**
    * This endpoint can be used to unschedule any pending plan changes on an existing
    * subscription. When called, all upcoming plan changes will be unscheduled.
+   *
+   * @example
+   * ```ts
+   * const mutatedSubscription =
+   *   await client.subscriptions.unschedulePendingPlanChanges(
+   *     'subscription_id',
+   *   );
+   * ```
    */
   unschedulePendingPlanChanges(
     subscriptionId: string,
@@ -1030,6 +1148,15 @@ export class Subscriptions extends APIResource {
    *
    * If the fee is an in-advance fixed fee, it will also issue an immediate invoice
    * for the difference for the remainder of the billing period.
+   *
+   * @example
+   * ```ts
+   * const mutatedSubscription =
+   *   await client.subscriptions.updateFixedFeeQuantity(
+   *     'subscription_id',
+   *     { price_id: 'price_id', quantity: 0 },
+   *   );
+   * ```
    */
   updateFixedFeeQuantity(
     subscriptionId: string,
@@ -1061,6 +1188,15 @@ export class Subscriptions extends APIResource {
    * end date shift (so, e.g., if a plan change is scheduled or an add-on price was
    * added, that change will be pushed back by the same amount of time the trial is
    * extended).
+   *
+   * @example
+   * ```ts
+   * const mutatedSubscription =
+   *   await client.subscriptions.updateTrial(
+   *     'subscription_id',
+   *     { trial_end_date: '2017-07-21T17:32:28Z' },
+   *   );
+   * ```
    */
   updateTrial(
     subscriptionId: string,

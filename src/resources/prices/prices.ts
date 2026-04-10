@@ -33,6 +33,18 @@ export class Prices extends APIResource {
    *
    * See the [Price resource](/product-catalog/price-configuration) for the
    * specification of different price model configurations possible in this endpoint.
+   *
+   * @example
+   * ```ts
+   * const price = await client.prices.create({
+   *   cadence: 'annual',
+   *   currency: 'currency',
+   *   item_id: 'item_id',
+   *   model_type: 'unit',
+   *   name: 'Annual fee',
+   *   unit_config: { unit_amount: 'unit_amount' },
+   * });
+   * ```
    */
   create(body: PriceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Price> {
     return this._client.post('/prices', { body, ...options });
@@ -42,6 +54,11 @@ export class Prices extends APIResource {
    * This endpoint allows you to update the `metadata` property on a price. If you
    * pass null for the metadata value, it will clear any existing metadata for that
    * price.
+   *
+   * @example
+   * ```ts
+   * const price = await client.prices.update('price_id');
+   * ```
    */
   update(
     priceId: string,
@@ -54,6 +71,14 @@ export class Prices extends APIResource {
   /**
    * This endpoint is used to list all add-on prices created using the
    * [price creation endpoint](/api-reference/price/create-price).
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const price of client.prices.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(query?: PriceListParams, options?: Core.RequestOptions): Core.PagePromise<PricesPage, Shared.Price>;
   list(options?: Core.RequestOptions): Core.PagePromise<PricesPage, Shared.Price>;
@@ -93,6 +118,14 @@ export class Prices extends APIResource {
    * the length of the results must be no greater than 1000. Note that this is a POST
    * endpoint rather than a GET endpoint because it employs a JSON body rather than
    * query parameters.
+   *
+   * @example
+   * ```ts
+   * const response = await client.prices.evaluate('price_id', {
+   *   timeframe_end: '2019-12-27T18:11:19.117Z',
+   *   timeframe_start: '2019-12-27T18:11:19.117Z',
+   * });
+   * ```
    */
   evaluate(
     priceId: string,
@@ -132,6 +165,14 @@ export class Prices extends APIResource {
    *
    * Note that this is a POST endpoint rather than a GET endpoint because it employs
    * a JSON body rather than query parameters.
+   *
+   * @example
+   * ```ts
+   * const response = await client.prices.evaluateMultiple({
+   *   timeframe_end: '2019-12-27T18:11:19.117Z',
+   *   timeframe_start: '2019-12-27T18:11:19.117Z',
+   * });
+   * ```
    */
   evaluateMultiple(
     body: PriceEvaluateMultipleParams,
@@ -159,6 +200,14 @@ export class Prices extends APIResource {
    *
    * Note that this is a POST endpoint rather than a GET endpoint because it employs
    * a JSON body rather than query parameters.
+   *
+   * @example
+   * ```ts
+   * const response = await client.prices.evaluatePreviewEvents({
+   *   timeframe_end: '2019-12-27T18:11:19.117Z',
+   *   timeframe_start: '2019-12-27T18:11:19.117Z',
+   * });
+   * ```
    */
   evaluatePreviewEvents(
     body: PriceEvaluatePreviewEventsParams,
@@ -169,6 +218,11 @@ export class Prices extends APIResource {
 
   /**
    * This endpoint returns a price given an identifier.
+   *
+   * @example
+   * ```ts
+   * const price = await client.prices.fetch('price_id');
+   * ```
    */
   fetch(priceId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Price> {
     return this._client.get(`/prices/${priceId}`, options);
