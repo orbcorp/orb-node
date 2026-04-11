@@ -10127,6 +10127,8 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -10268,6 +10270,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -10416,6 +10420,8 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -10557,6 +10563,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -10742,6 +10750,8 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -10884,6 +10894,8 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -11025,6 +11037,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -11198,6 +11212,8 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -11368,6 +11384,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -11553,6 +11571,8 @@ export namespace Price {
      */
     grouped_tiered_config: GroupedTieredPrice.GroupedTieredConfig;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -11719,6 +11739,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -11888,6 +11910,8 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -12040,6 +12064,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -12198,6 +12224,8 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -12339,6 +12367,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -12510,6 +12540,8 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -12666,6 +12698,8 @@ export namespace Price {
      * Configuration for grouped_allocation pricing
      */
     grouped_allocation_config: GroupedAllocationPrice.GroupedAllocationConfig;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -12828,6 +12862,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -12998,6 +13034,8 @@ export namespace Price {
      */
     grouped_with_prorated_minimum_config: GroupedWithProratedMinimumPrice.GroupedWithProratedMinimumConfig;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -13159,6 +13197,8 @@ export namespace Price {
      * Configuration for grouped_with_metered_minimum pricing
      */
     grouped_with_metered_minimum_config: GroupedWithMeteredMinimumPrice.GroupedWithMeteredMinimumConfig;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -13362,6 +13402,8 @@ export namespace Price {
      */
     grouped_with_min_max_thresholds_config: GroupedWithMinMaxThresholdsPrice.GroupedWithMinMaxThresholdsConfig;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -13523,6 +13565,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -13708,6 +13752,8 @@ export namespace Price {
      */
     grouped_tiered_package_config: GroupedTieredPackagePrice.GroupedTieredPackageConfig;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -13876,6 +13922,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -14049,6 +14097,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -14239,6 +14289,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
@@ -14431,6 +14483,8 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -14607,6 +14661,8 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -14769,6 +14825,8 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -14926,6 +14984,8 @@ export namespace Price {
 
     fixed_price_quantity: number | null;
 
+    invoice_grouping_key: string | null;
+
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
     /**
@@ -15082,6 +15142,8 @@ export namespace Price {
     external_price_id: string | null;
 
     fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
 
     invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
 
