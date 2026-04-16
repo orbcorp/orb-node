@@ -34,8 +34,8 @@ export class Plans extends APIResource {
   }
 
   /**
-   * This endpoint can be used to update the `external_plan_id`, and `metadata` of an
-   * existing plan.
+   * This endpoint can be used to update the `external_plan_id`, `description`, and
+   * `metadata` of an existing plan.
    *
    * Other fields on a plan are currently immutable.
    */
@@ -300,6 +300,11 @@ export interface PlanCreateParams {
    * Free-form text which is available on the invoice PDF and the Orb invoice portal.
    */
   default_invoice_memo?: string | null;
+
+  /**
+   * An optional user-defined description of the plan.
+   */
+  description?: string | null;
 
   external_plan_id?: string | null;
 
@@ -6070,6 +6075,11 @@ export namespace PlanCreateParams {
 }
 
 export interface PlanUpdateParams {
+  /**
+   * An optional user-defined description of the plan.
+   */
+  description?: string | null;
+
   /**
    * An optional user-defined ID for this plan resource, used throughout the system
    * as an alias for this Plan. Use this field to identify a plan by an existing
