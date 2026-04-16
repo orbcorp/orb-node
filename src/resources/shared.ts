@@ -2763,6 +2763,13 @@ export interface NewAllocationPrice {
   license_type_id?: string | null;
 
   /**
+   * User-specified key/value pairs for the resource. Individual keys can be removed
+   * by setting the value to `null`, and the entire metadata mapping can be cleared
+   * by setting `metadata` to `null`.
+   */
+  metadata?: { [key: string]: string | null } | null;
+
+  /**
    * The (per-unit) cost basis of each created block. If non-zero, a customer will be
    * invoiced according to the quantity and per unit cost basis specified for the
    * allocation each cadence.

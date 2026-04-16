@@ -45,6 +45,7 @@ describe('resource plans', () => {
             ],
             item_id: 'item_id',
             license_type_id: 'license_type_id',
+            metadata: { foo: 'string' },
             per_unit_cost_basis: 'per_unit_cost_basis',
           },
           license_allocation_price: {
@@ -136,6 +137,7 @@ describe('resource plans', () => {
         },
       ],
       default_invoice_memo: 'default_invoice_memo',
+      description: 'description',
       external_plan_id: 'external_plan_id',
       metadata: { foo: 'string' },
       net_terms: 0,
