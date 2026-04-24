@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.53.0 (2026-04-24)
+
+Full Changelog: [v5.52.0...v5.53.0](https://github.com/orbcorp/orb-node/compare/v5.52.0...v5.53.0)
+
+### Features
+
+* **api:** api update ([450a37e](https://github.com/orbcorp/orb-node/commit/450a37e4e6b854b504990af831c202c4af7ab42d))
+
+
+### Chores
+
+* **internal:** more robust bootstrap script ([9e4bf6e](https://github.com/orbcorp/orb-node/commit/9e4bf6ea3ebab22ba6f3f940a6c7000a4c8a2358))
+
 ## 5.52.0 (2026-04-17)
 
 Full Changelog: [v5.51.0...v5.52.0](https://github.com/orbcorp/orb-node/compare/v5.51.0...v5.52.0)
