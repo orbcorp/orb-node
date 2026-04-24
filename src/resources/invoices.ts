@@ -78,6 +78,10 @@ export class Invoices extends APIResource {
    * values for each draft invoice, which may not always be up-to-date since Orb
    * regularly refreshes invoices asynchronously.
    *
+   * If you don't need line item details, minimums, maximums, or discounts, prefer
+   * the [list invoices summary](/api-reference/invoice/list-invoices-summary)
+   * endpoint for better performance.
+   *
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
