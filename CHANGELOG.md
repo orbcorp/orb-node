@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.55.0 (2026-04-27)
+
+Full Changelog: [v5.54.0...v5.55.0](https://github.com/orbcorp/orb-node/compare/v5.54.0...v5.55.0)
+
+### Features
+
+* support setting headers via env ([783ea25](https://github.com/orbcorp/orb-node/commit/783ea250cc5d7087f55dcd51744cdba53db2885b))
+
 ## 5.54.0 (2026-04-26)
 
 Full Changelog: [v5.53.0...v5.54.0](https://github.com/orbcorp/orb-node/compare/v5.53.0...v5.54.0)
