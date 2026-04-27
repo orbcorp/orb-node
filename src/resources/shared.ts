@@ -10097,6 +10097,7 @@ export type Price =
   | Price.ScalableMatrixWithTieredPricingPrice
   | Price.CumulativeGroupedBulkPrice
   | Price.CumulativeGroupedAllocationPrice
+  | Price.DailyCreditAllowancePrice
   | Price.MinimumCompositePrice
   | Price.PercentCompositePrice
   | Price.EventOutputPrice;
@@ -14774,6 +14775,201 @@ export namespace Price {
        * The amount to charge for each unit outside of the allocation
        */
       unit_amount: string;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
+    }
+  }
+
+  export interface DailyCreditAllowancePrice {
+    id: string;
+
+    billable_metric: Shared.BillableMetricTiny | null;
+
+    billing_cycle_configuration: Shared.BillingCycleConfiguration;
+
+    billing_mode: 'in_advance' | 'in_arrear';
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<DailyCreditAllowancePrice.CompositePriceFilter> | null;
+
+    conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    created_at: string;
+
+    credit_allocation: Shared.Allocation | null;
+
+    currency: string;
+
+    /**
+     * Configuration for daily_credit_allowance pricing
+     */
+    daily_credit_allowance_config: DailyCreditAllowancePrice.DailyCreditAllowanceConfig;
+
+    /**
+     * @deprecated
+     */
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
+
+    invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
+
+    /**
+     * A minimal representation of an Item containing only the essential identifying
+     * information.
+     */
+    item: Shared.ItemSlim;
+
+    /**
+     * @deprecated
+     */
+    maximum: Shared.Maximum | null;
+
+    /**
+     * @deprecated
+     */
+    maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: { [key: string]: string };
+
+    /**
+     * @deprecated
+     */
+    minimum: Shared.Minimum | null;
+
+    /**
+     * @deprecated
+     */
+    minimum_amount: string | null;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'daily_credit_allowance';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: DailyCreditAllowancePrice.LicenseType | null;
+  }
+
+  export namespace DailyCreditAllowancePrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
+    /**
+     * Configuration for daily_credit_allowance pricing
+     */
+    export interface DailyCreditAllowanceConfig {
+      /**
+       * Credits granted per day. Lose-it-or-use-it; does not roll over.
+       */
+      daily_allowance: string;
+
+      /**
+       * Default per-unit credit rate for any usage not bucketed into a specified
+       * matrix_value
+       */
+      default_unit_amount: string;
+
+      /**
+       * One or two event property values to evaluate matrix groups by
+       */
+      dimensions: Array<string | null>;
+
+      /**
+       * Event property whose value identifies the day bucket the event belongs to (e.g.
+       * 'event_day' set to an ISO date string in the customer's timezone). The allowance
+       * resets per distinct value of this property.
+       */
+      event_day_property: string;
+
+      /**
+       * Per-dimension credit rates
+       */
+      matrix_values: Array<DailyCreditAllowanceConfig.MatrixValue>;
+    }
+
+    export namespace DailyCreditAllowanceConfig {
+      /**
+       * Per-dimension credit price for the daily credit allowance model.
+       */
+      export interface MatrixValue {
+        /**
+         * One or two matrix keys to filter usage to this value by. For example, ["model"]
+         * could be used to apply a different credit rate to each AI model.
+         */
+        dimension_values: Array<string | null>;
+
+        /**
+         * Credits charged per unit of usage matching the specified dimension_values
+         */
+        unit_amount: string;
+      }
     }
 
     /**

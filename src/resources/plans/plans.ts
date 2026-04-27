@@ -384,6 +384,7 @@ export namespace PlanCreateParams {
       | Shared.NewPlanScalableMatrixWithTieredPricingPrice
       | Shared.NewPlanCumulativeGroupedBulkPrice
       | Price.NewPlanCumulativeGroupedAllocationPrice
+      | Price.NewPlanDailyCreditAllowancePrice
       | Shared.NewPlanMinimumCompositePrice
       | Price.NewPlanPercentCompositePrice
       | Price.NewPlanEventOutputPrice
@@ -1080,6 +1081,165 @@ export namespace PlanCreateParams {
          * The amount to charge for each unit outside of the allocation
          */
         unit_amount: string;
+      }
+    }
+
+    export interface NewPlanDailyCreditAllowancePrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * Configuration for daily_credit_allowance pricing
+       */
+      daily_credit_allowance_config: NewPlanDailyCreditAllowancePrice.DailyCreditAllowanceConfig;
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'daily_credit_allowance';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewPlanDailyCreditAllowancePrice {
+      /**
+       * Configuration for daily_credit_allowance pricing
+       */
+      export interface DailyCreditAllowanceConfig {
+        /**
+         * Credits granted per day. Lose-it-or-use-it; does not roll over.
+         */
+        daily_allowance: string;
+
+        /**
+         * Default per-unit credit rate for any usage not bucketed into a specified
+         * matrix_value
+         */
+        default_unit_amount: string;
+
+        /**
+         * One or two event property values to evaluate matrix groups by
+         */
+        dimensions: Array<string | null>;
+
+        /**
+         * Event property whose value identifies the day bucket the event belongs to (e.g.
+         * 'event_day' set to an ISO date string in the customer's timezone). The allowance
+         * resets per distinct value of this property.
+         */
+        event_day_property: string;
+
+        /**
+         * Per-dimension credit rates
+         */
+        matrix_values: Array<DailyCreditAllowanceConfig.MatrixValue>;
+      }
+
+      export namespace DailyCreditAllowanceConfig {
+        /**
+         * Per-dimension credit price for the daily credit allowance model.
+         */
+        export interface MatrixValue {
+          /**
+           * One or two matrix keys to filter usage to this value by. For example, ["model"]
+           * could be used to apply a different credit rate to each AI model.
+           */
+          dimension_values: Array<string | null>;
+
+          /**
+           * Credits charged per unit of usage matching the specified dimension_values
+           */
+          unit_amount: string;
+        }
       }
     }
 
