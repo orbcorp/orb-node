@@ -145,7 +145,15 @@ describe('resource alerts', () => {
       type: 'usage_exceeded',
       grouping_keys: ['string'],
       metric_id: 'metric_id',
+      price_filters: [
+        {
+          field: 'price_id',
+          operator: 'includes',
+          values: ['string'],
+        },
+      ],
       pricing_unit_id: 'pricing_unit_id',
+      threshold_overrides: [{ group_values: ['string'], thresholds: [{ value: 0 }] }],
     });
   });
 
