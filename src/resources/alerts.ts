@@ -3,6 +3,7 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
+import * as AlertsAPI from './alerts';
 import * as Shared from './shared';
 import { Page, type PageParams } from '../pagination';
 
@@ -249,6 +250,18 @@ export interface Alert {
    * Minified license type for alert serialization.
    */
   license_type?: Alert.LicenseType | null;
+
+  /**
+   * Filters scoping which prices are included in grouped cost alert evaluation.
+   */
+  price_filters?: Array<Alert.PriceFilter> | null;
+
+  /**
+   * Per-group threshold overrides. Each override maps a specific combination of
+   * grouping_keys values to a replacement threshold list. Only present for grouped
+   * cost alerts that have at least one override.
+   */
+  threshold_overrides?: Array<Alert.ThresholdOverride> | null;
 }
 
 export namespace Alert {
@@ -297,6 +310,42 @@ export namespace Alert {
    */
   export interface LicenseType {
     id: string;
+  }
+
+  export interface PriceFilter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
+
+  /**
+   * A per-group threshold override on a grouped cost alert.
+   *
+   * An empty `thresholds` list means the group is silenced (never fires). A
+   * non-empty list fully replaces the default thresholds for that group.
+   */
+  export interface ThresholdOverride {
+    /**
+     * The values of the grouping keys that identify this group. The list length
+     * matches the alert's grouping_keys.
+     */
+    group_values: Array<string>;
+
+    /**
+     * The thresholds applied to this group. An empty list means the group is silenced.
+     */
+    thresholds: Array<AlertsAPI.Threshold>;
   }
 }
 
@@ -402,10 +451,66 @@ export interface AlertCreateForSubscriptionParams {
   metric_id?: string | null;
 
   /**
+   * Filters to scope which prices are included in grouped cost alert evaluation.
+   * Supports filtering by price_id, item_id, or price_type with includes/excludes
+   * operators. Only applicable when grouping_keys is set.
+   */
+  price_filters?: Array<AlertCreateForSubscriptionParams.PriceFilter> | null;
+
+  /**
    * The pricing unit to use for grouped cost alerts. Required when grouping_keys is
    * set.
    */
   pricing_unit_id?: string | null;
+
+  /**
+   * Per-group threshold overrides. Each override maps a specific combination of
+   * grouping_keys values to a list of thresholds that fully replaces the default
+   * thresholds for that group. An empty thresholds list silences the group. Groups
+   * without an override use the default thresholds. Only applicable when
+   * grouping_keys is set.
+   */
+  threshold_overrides?: Array<AlertCreateForSubscriptionParams.ThresholdOverride> | null;
+}
+
+export namespace AlertCreateForSubscriptionParams {
+  export interface PriceFilter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
+
+  /**
+   * Per-group threshold override on a grouped cost alert.
+   *
+   * - An empty `thresholds` list silences alerts for this group (never fires).
+   * - A non-empty list fully replaces the default thresholds for this group.
+   */
+  export interface ThresholdOverride {
+    /**
+     * The values of the grouping keys that identify this group. The list length must
+     * match the alert's grouping_keys, and values appear in the same order as
+     * grouping_keys.
+     */
+    group_values: Array<string>;
+
+    /**
+     * The thresholds to apply to this group. An empty list silences alerts for this
+     * group. A non-empty list fully replaces the default thresholds for this group.
+     */
+    thresholds: Array<AlertsAPI.Threshold>;
+  }
 }
 
 export interface AlertDisableParams {
