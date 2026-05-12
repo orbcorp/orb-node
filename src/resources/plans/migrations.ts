@@ -66,32 +66,74 @@ export class Migrations extends APIResource {
 export class MigrationListResponsesPage extends Page<MigrationListResponse> {}
 
 export interface MigrationRetrieveResponse {
+  /**
+   * Unique identifier for this plan version change.
+   */
   id: string;
 
+  /**
+   * When the migration takes effect. Can be a specific date/time, or 'end_of_term'
+   * when scheduled to be at the end of the current billing period.
+   */
   effective_time: (string & {}) | (string & {}) | 'end_of_term' | null;
 
+  /**
+   * The ID of the plan being migrated.
+   */
   plan_id: string;
 
+  /**
+   * Current status of the migration: 'not_started', 'in_progress', 'completed',
+   * 'action_needed', or 'canceled'.
+   */
   status: 'not_started' | 'in_progress' | 'completed' | 'action_needed' | 'canceled';
 }
 
 export interface MigrationListResponse {
+  /**
+   * Unique identifier for this plan version change.
+   */
   id: string;
 
+  /**
+   * When the migration takes effect. Can be a specific date/time, or 'end_of_term'
+   * when scheduled to be at the end of the current billing period.
+   */
   effective_time: (string & {}) | (string & {}) | 'end_of_term' | null;
 
+  /**
+   * The ID of the plan being migrated.
+   */
   plan_id: string;
 
+  /**
+   * Current status of the migration: 'not_started', 'in_progress', 'completed',
+   * 'action_needed', or 'canceled'.
+   */
   status: 'not_started' | 'in_progress' | 'completed' | 'action_needed' | 'canceled';
 }
 
 export interface MigrationCancelResponse {
+  /**
+   * Unique identifier for this plan version change.
+   */
   id: string;
 
+  /**
+   * When the migration takes effect. Can be a specific date/time, or 'end_of_term'
+   * when scheduled to be at the end of the current billing period.
+   */
   effective_time: (string & {}) | (string & {}) | 'end_of_term' | null;
 
+  /**
+   * The ID of the plan being migrated.
+   */
   plan_id: string;
 
+  /**
+   * Current status of the migration: 'not_started', 'in_progress', 'completed',
+   * 'action_needed', or 'canceled'.
+   */
   status: 'not_started' | 'in_progress' | 'completed' | 'action_needed' | 'canceled';
 }
 
