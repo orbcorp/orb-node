@@ -214,6 +214,7 @@ export namespace BetaCreatePlanVersionParams {
       | Shared.NewPlanCumulativeGroupedBulkPrice
       | AddPrice.NewPlanCumulativeGroupedAllocationPrice
       | AddPrice.NewPlanDailyCreditAllowancePrice
+      | AddPrice.NewPlanMeteredAllowancePrice
       | Shared.NewPlanMinimumCompositePrice
       | AddPrice.NewPlanPercentCompositePrice
       | AddPrice.NewPlanEventOutputPrice
@@ -1072,6 +1073,154 @@ export namespace BetaCreatePlanVersionParams {
       }
     }
 
+    export interface NewPlanMeteredAllowancePrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * Configuration for metered_allowance pricing
+       */
+      metered_allowance_config: NewPlanMeteredAllowancePrice.MeteredAllowanceConfig;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'metered_allowance';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewPlanMeteredAllowancePrice {
+      /**
+       * Configuration for metered_allowance pricing
+       */
+      export interface MeteredAllowanceConfig {
+        /**
+         * The grouping_key value whose summed quantity represents the allowance for this
+         * period (e.g. 'storage_snapshot' emitting 3 × avg storage). Capped at consumption
+         * — credit can never exceed actual usage.
+         */
+        allowance_grouping_value: string;
+
+        /**
+         * The grouping_key value whose summed quantity represents consumption (e.g.
+         * 'download'). Charged at unit_amount.
+         */
+        consumption_grouping_value: string;
+
+        /**
+         * Event property used to partition the metric into consumption and allowance
+         * quantities (e.g. 'event_name'). The metric is queried with this key and the two
+         * values below select which partition is which.
+         */
+        grouping_key: string;
+
+        /**
+         * Per-unit price applied to gross consumption and to the allowance credit.
+         */
+        unit_amount: string;
+
+        /**
+         * Sub-line label for the credit row (e.g. 'Up to 3x free egress').
+         */
+        allowance_display_name?: string;
+
+        /**
+         * Sub-line label for the gross consumption row (e.g. 'bytes gotten').
+         */
+        consumption_display_name?: string;
+      }
+    }
+
     export interface NewPlanPercentCompositePrice {
       /**
        * The cadence to bill for this price on.
@@ -1422,6 +1571,7 @@ export namespace BetaCreatePlanVersionParams {
       | Shared.NewPlanCumulativeGroupedBulkPrice
       | ReplacePrice.NewPlanCumulativeGroupedAllocationPrice
       | ReplacePrice.NewPlanDailyCreditAllowancePrice
+      | ReplacePrice.NewPlanMeteredAllowancePrice
       | Shared.NewPlanMinimumCompositePrice
       | ReplacePrice.NewPlanPercentCompositePrice
       | ReplacePrice.NewPlanEventOutputPrice
@@ -2277,6 +2427,154 @@ export namespace BetaCreatePlanVersionParams {
            */
           unit_amount: string;
         }
+      }
+    }
+
+    export interface NewPlanMeteredAllowancePrice {
+      /**
+       * The cadence to bill for this price on.
+       */
+      cadence: 'annual' | 'semi_annual' | 'monthly' | 'quarterly' | 'one_time' | 'custom';
+
+      /**
+       * The id of the item the price will be associated with.
+       */
+      item_id: string;
+
+      /**
+       * Configuration for metered_allowance pricing
+       */
+      metered_allowance_config: NewPlanMeteredAllowancePrice.MeteredAllowanceConfig;
+
+      /**
+       * The pricing model type
+       */
+      model_type: 'metered_allowance';
+
+      /**
+       * The name of the price.
+       */
+      name: string;
+
+      /**
+       * The id of the billable metric for the price. Only needed if the price is
+       * usage-based.
+       */
+      billable_metric_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, the price will be billed in-advance if
+       * this is true, and in-arrears if this is false.
+       */
+      billed_in_advance?: boolean | null;
+
+      /**
+       * For custom cadence: specifies the duration of the billing period in days or
+       * months.
+       */
+      billing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The per unit conversion rate of the price currency to the invoicing currency.
+       */
+      conversion_rate?: number | null;
+
+      /**
+       * The configuration for the rate of the price currency to the invoicing currency.
+       */
+      conversion_rate_config?: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+      /**
+       * An ISO 4217 currency string, or custom pricing unit identifier, in which this
+       * price is billed.
+       */
+      currency?: string | null;
+
+      /**
+       * For dimensional price: specifies a price group and dimension values
+       */
+      dimensional_price_configuration?: Shared.NewDimensionalPriceConfiguration | null;
+
+      /**
+       * An alias for the price.
+       */
+      external_price_id?: string | null;
+
+      /**
+       * If the Price represents a fixed cost, this represents the quantity of units
+       * applied.
+       */
+      fixed_price_quantity?: number | null;
+
+      /**
+       * The property used to group this price on an invoice
+       */
+      invoice_grouping_key?: string | null;
+
+      /**
+       * Within each billing cycle, specifies the cadence at which invoices are produced.
+       * If unspecified, a single invoice is produced per billing cycle.
+       */
+      invoicing_cycle_configuration?: Shared.NewBillingCycleConfiguration | null;
+
+      /**
+       * The ID of the license type to associate with this price.
+       */
+      license_type_id?: string | null;
+
+      /**
+       * User-specified key/value pairs for the resource. Individual keys can be removed
+       * by setting the value to `null`, and the entire metadata mapping can be cleared
+       * by setting `metadata` to `null`.
+       */
+      metadata?: { [key: string]: string | null } | null;
+
+      /**
+       * A transient ID that can be used to reference this price when adding adjustments
+       * in the same API call.
+       */
+      reference_id?: string | null;
+    }
+
+    export namespace NewPlanMeteredAllowancePrice {
+      /**
+       * Configuration for metered_allowance pricing
+       */
+      export interface MeteredAllowanceConfig {
+        /**
+         * The grouping_key value whose summed quantity represents the allowance for this
+         * period (e.g. 'storage_snapshot' emitting 3 × avg storage). Capped at consumption
+         * — credit can never exceed actual usage.
+         */
+        allowance_grouping_value: string;
+
+        /**
+         * The grouping_key value whose summed quantity represents consumption (e.g.
+         * 'download'). Charged at unit_amount.
+         */
+        consumption_grouping_value: string;
+
+        /**
+         * Event property used to partition the metric into consumption and allowance
+         * quantities (e.g. 'event_name'). The metric is queried with this key and the two
+         * values below select which partition is which.
+         */
+        grouping_key: string;
+
+        /**
+         * Per-unit price applied to gross consumption and to the allowance credit.
+         */
+        unit_amount: string;
+
+        /**
+         * Sub-line label for the credit row (e.g. 'Up to 3x free egress').
+         */
+        allowance_display_name?: string;
+
+        /**
+         * Sub-line label for the gross consumption row (e.g. 'bytes gotten').
+         */
+        consumption_display_name?: string;
       }
     }
 
