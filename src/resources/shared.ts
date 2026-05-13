@@ -10098,6 +10098,7 @@ export type Price =
   | Price.CumulativeGroupedBulkPrice
   | Price.CumulativeGroupedAllocationPrice
   | Price.DailyCreditAllowancePrice
+  | Price.MeteredAllowancePrice
   | Price.MinimumCompositePrice
   | Price.PercentCompositePrice
   | Price.EventOutputPrice;
@@ -14970,6 +14971,190 @@ export namespace Price {
          */
         unit_amount: string;
       }
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
+    }
+  }
+
+  export interface MeteredAllowancePrice {
+    id: string;
+
+    billable_metric: Shared.BillableMetricTiny | null;
+
+    billing_cycle_configuration: Shared.BillingCycleConfiguration;
+
+    billing_mode: 'in_advance' | 'in_arrear';
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<MeteredAllowancePrice.CompositePriceFilter> | null;
+
+    conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    created_at: string;
+
+    credit_allocation: Shared.Allocation | null;
+
+    currency: string;
+
+    /**
+     * @deprecated
+     */
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
+
+    invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
+
+    /**
+     * A minimal representation of an Item containing only the essential identifying
+     * information.
+     */
+    item: Shared.ItemSlim;
+
+    /**
+     * @deprecated
+     */
+    maximum: Shared.Maximum | null;
+
+    /**
+     * @deprecated
+     */
+    maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: { [key: string]: string };
+
+    /**
+     * Configuration for metered_allowance pricing
+     */
+    metered_allowance_config: MeteredAllowancePrice.MeteredAllowanceConfig;
+
+    /**
+     * @deprecated
+     */
+    minimum: Shared.Minimum | null;
+
+    /**
+     * @deprecated
+     */
+    minimum_amount: string | null;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'metered_allowance';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: MeteredAllowancePrice.LicenseType | null;
+  }
+
+  export namespace MeteredAllowancePrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
+    /**
+     * Configuration for metered_allowance pricing
+     */
+    export interface MeteredAllowanceConfig {
+      /**
+       * The grouping_key value whose summed quantity represents the allowance for this
+       * period (e.g. 'storage_snapshot' emitting 3 × avg storage). Capped at consumption
+       * — credit can never exceed actual usage.
+       */
+      allowance_grouping_value: string;
+
+      /**
+       * The grouping_key value whose summed quantity represents consumption (e.g.
+       * 'download'). Charged at unit_amount.
+       */
+      consumption_grouping_value: string;
+
+      /**
+       * Event property used to partition the metric into consumption and allowance
+       * quantities (e.g. 'event_name'). The metric is queried with this key and the two
+       * values below select which partition is which.
+       */
+      grouping_key: string;
+
+      /**
+       * Per-unit price applied to gross consumption and to the allowance credit.
+       */
+      unit_amount: string;
+
+      /**
+       * Sub-line label for the credit row (e.g. 'Up to 3x free egress').
+       */
+      allowance_display_name?: string;
+
+      /**
+       * Sub-line label for the gross consumption row (e.g. 'bytes gotten').
+       */
+      consumption_display_name?: string;
     }
 
     /**
