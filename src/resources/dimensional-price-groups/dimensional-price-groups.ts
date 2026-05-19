@@ -115,7 +115,7 @@ export class DimensionalPriceGroupsPage extends Page<DimensionalPriceGroup> {}
 
 /**
  * A dimensional price group is used to partition the result of a billable metric
- * by a set of dimensions. Prices in a price group must specify the parition used
+ * by a set of dimensions. Prices in a price group must specify the partition used
  * to derive their usage.
  */
 export interface DimensionalPriceGroup {
