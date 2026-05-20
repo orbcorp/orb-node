@@ -25,9 +25,7 @@ describe('resource customers', () => {
       email: 'dev@stainless.com',
       name: 'x',
       accounting_sync_configuration: {
-        accounting_providers: [
-          { external_provider_id: 'external_provider_id', provider_type: 'provider_type' },
-        ],
+        accounting_providers: [{ external_provider_id: 'external_provider_id', provider_type: 'quickbooks' }],
         excluded: true,
       },
       additional_emails: ['dev@stainless.com'],
