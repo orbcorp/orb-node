@@ -206,7 +206,7 @@ export class CustomersPage extends Page<Customer> {}
 export interface AccountingProviderConfig {
   external_provider_id: string;
 
-  provider_type: string;
+  provider_type: 'quickbooks' | 'netsuite';
 }
 
 export interface AddressInput {
@@ -521,7 +521,7 @@ export namespace Customer {
     export interface AccountingProvider {
       external_provider_id: string | null;
 
-      provider_type: 'quickbooks' | 'netsuite' | 'netsuite_ampersand';
+      provider_type: 'quickbooks' | 'netsuite';
     }
   }
 
