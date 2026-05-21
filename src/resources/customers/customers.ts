@@ -386,11 +386,13 @@ export interface Customer {
    * | Estonia                | `eu_vat`     | European VAT Number                                                                                     |
    * | Ethiopia               | `et_tin`     | Ethiopia Tax Identification Number                                                                      |
    * | European Union         | `eu_oss_vat` | European One Stop Shop VAT Number for non-Union scheme                                                  |
+   * | Faroe Islands          | `fo_vat`     | Faroe Islands VAT Number                                                                                |
    * | Finland                | `eu_vat`     | European VAT Number                                                                                     |
    * | France                 | `eu_vat`     | European VAT Number                                                                                     |
    * | Georgia                | `ge_vat`     | Georgian VAT                                                                                            |
    * | Germany                | `de_stn`     | German Tax Number (Steuernummer)                                                                        |
    * | Germany                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Gibraltar              | `gi_tin`     | Gibraltar Tax Identification Number                                                                     |
    * | Greece                 | `eu_vat`     | European VAT Number                                                                                     |
    * | Guinea                 | `gn_nif`     | Guinea Tax Identification Number (Número de Identificação Fiscal)                                       |
    * | Hong Kong              | `hk_br`      | Hong Kong BR Number                                                                                     |
@@ -402,6 +404,7 @@ export interface Customer {
    * | Ireland                | `eu_vat`     | European VAT Number                                                                                     |
    * | Israel                 | `il_vat`     | Israel VAT                                                                                              |
    * | Italy                  | `eu_vat`     | European VAT Number                                                                                     |
+   * | Italy                  | `it_cf`      | Italian Codice Fiscale Number                                                                           |
    * | Japan                  | `jp_cn`      | Japanese Corporate Number (_Hōjin Bangō_)                                                               |
    * | Japan                  | `jp_rn`      | Japanese Registered Foreign Businesses' Registration Number (_Tōroku Kokugai Jigyōsha no Tōroku Bangō_) |
    * | Japan                  | `jp_trn`     | Japanese Tax Registration Number (_Tōroku Bangō_)                                                       |
@@ -432,6 +435,7 @@ export interface Customer {
    * | Norway                 | `no_vat`     | Norwegian VAT Number                                                                                    |
    * | Norway                 | `no_voec`    | Norwegian VAT on e-commerce Number                                                                      |
    * | Oman                   | `om_vat`     | Omani VAT Number                                                                                        |
+   * | Paraguay               | `py_ruc`     | Paraguayan RUC Number                                                                                   |
    * | Peru                   | `pe_ruc`     | Peruvian RUC Number                                                                                     |
    * | Philippines            | `ph_tin`     | Philippines Tax Identification Number                                                                   |
    * | Poland                 | `eu_vat`     | European VAT Number                                                                                     |
@@ -453,6 +457,7 @@ export interface Customer {
    * | South Korea            | `kr_brn`     | Korean BRN                                                                                              |
    * | Spain                  | `es_cif`     | Spanish NIF Number (previously Spanish CIF Number)                                                      |
    * | Spain                  | `eu_vat`     | European VAT Number                                                                                     |
+   * | Sri Lanka              | `lk_vat`     | Sri Lanka VAT Number                                                                                    |
    * | Suriname               | `sr_fin`     | Suriname FIN Number                                                                                     |
    * | Sweden                 | `eu_vat`     | European VAT Number                                                                                     |
    * | Switzerland            | `ch_uid`     | Switzerland UID Number                                                                                  |
@@ -791,11 +796,13 @@ export interface CustomerCreateParams {
    * | Estonia                | `eu_vat`     | European VAT Number                                                                                     |
    * | Ethiopia               | `et_tin`     | Ethiopia Tax Identification Number                                                                      |
    * | European Union         | `eu_oss_vat` | European One Stop Shop VAT Number for non-Union scheme                                                  |
+   * | Faroe Islands          | `fo_vat`     | Faroe Islands VAT Number                                                                                |
    * | Finland                | `eu_vat`     | European VAT Number                                                                                     |
    * | France                 | `eu_vat`     | European VAT Number                                                                                     |
    * | Georgia                | `ge_vat`     | Georgian VAT                                                                                            |
    * | Germany                | `de_stn`     | German Tax Number (Steuernummer)                                                                        |
    * | Germany                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Gibraltar              | `gi_tin`     | Gibraltar Tax Identification Number                                                                     |
    * | Greece                 | `eu_vat`     | European VAT Number                                                                                     |
    * | Guinea                 | `gn_nif`     | Guinea Tax Identification Number (Número de Identificação Fiscal)                                       |
    * | Hong Kong              | `hk_br`      | Hong Kong BR Number                                                                                     |
@@ -807,6 +814,7 @@ export interface CustomerCreateParams {
    * | Ireland                | `eu_vat`     | European VAT Number                                                                                     |
    * | Israel                 | `il_vat`     | Israel VAT                                                                                              |
    * | Italy                  | `eu_vat`     | European VAT Number                                                                                     |
+   * | Italy                  | `it_cf`      | Italian Codice Fiscale Number                                                                           |
    * | Japan                  | `jp_cn`      | Japanese Corporate Number (_Hōjin Bangō_)                                                               |
    * | Japan                  | `jp_rn`      | Japanese Registered Foreign Businesses' Registration Number (_Tōroku Kokugai Jigyōsha no Tōroku Bangō_) |
    * | Japan                  | `jp_trn`     | Japanese Tax Registration Number (_Tōroku Bangō_)                                                       |
@@ -837,6 +845,7 @@ export interface CustomerCreateParams {
    * | Norway                 | `no_vat`     | Norwegian VAT Number                                                                                    |
    * | Norway                 | `no_voec`    | Norwegian VAT on e-commerce Number                                                                      |
    * | Oman                   | `om_vat`     | Omani VAT Number                                                                                        |
+   * | Paraguay               | `py_ruc`     | Paraguayan RUC Number                                                                                   |
    * | Peru                   | `pe_ruc`     | Peruvian RUC Number                                                                                     |
    * | Philippines            | `ph_tin`     | Philippines Tax Identification Number                                                                   |
    * | Poland                 | `eu_vat`     | European VAT Number                                                                                     |
@@ -858,6 +867,7 @@ export interface CustomerCreateParams {
    * | South Korea            | `kr_brn`     | Korean BRN                                                                                              |
    * | Spain                  | `es_cif`     | Spanish NIF Number (previously Spanish CIF Number)                                                      |
    * | Spain                  | `eu_vat`     | European VAT Number                                                                                     |
+   * | Sri Lanka              | `lk_vat`     | Sri Lanka VAT Number                                                                                    |
    * | Suriname               | `sr_fin`     | Suriname FIN Number                                                                                     |
    * | Sweden                 | `eu_vat`     | European VAT Number                                                                                     |
    * | Switzerland            | `ch_uid`     | Switzerland UID Number                                                                                  |
@@ -1133,11 +1143,13 @@ export interface CustomerUpdateParams {
    * | Estonia                | `eu_vat`     | European VAT Number                                                                                     |
    * | Ethiopia               | `et_tin`     | Ethiopia Tax Identification Number                                                                      |
    * | European Union         | `eu_oss_vat` | European One Stop Shop VAT Number for non-Union scheme                                                  |
+   * | Faroe Islands          | `fo_vat`     | Faroe Islands VAT Number                                                                                |
    * | Finland                | `eu_vat`     | European VAT Number                                                                                     |
    * | France                 | `eu_vat`     | European VAT Number                                                                                     |
    * | Georgia                | `ge_vat`     | Georgian VAT                                                                                            |
    * | Germany                | `de_stn`     | German Tax Number (Steuernummer)                                                                        |
    * | Germany                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Gibraltar              | `gi_tin`     | Gibraltar Tax Identification Number                                                                     |
    * | Greece                 | `eu_vat`     | European VAT Number                                                                                     |
    * | Guinea                 | `gn_nif`     | Guinea Tax Identification Number (Número de Identificação Fiscal)                                       |
    * | Hong Kong              | `hk_br`      | Hong Kong BR Number                                                                                     |
@@ -1149,6 +1161,7 @@ export interface CustomerUpdateParams {
    * | Ireland                | `eu_vat`     | European VAT Number                                                                                     |
    * | Israel                 | `il_vat`     | Israel VAT                                                                                              |
    * | Italy                  | `eu_vat`     | European VAT Number                                                                                     |
+   * | Italy                  | `it_cf`      | Italian Codice Fiscale Number                                                                           |
    * | Japan                  | `jp_cn`      | Japanese Corporate Number (_Hōjin Bangō_)                                                               |
    * | Japan                  | `jp_rn`      | Japanese Registered Foreign Businesses' Registration Number (_Tōroku Kokugai Jigyōsha no Tōroku Bangō_) |
    * | Japan                  | `jp_trn`     | Japanese Tax Registration Number (_Tōroku Bangō_)                                                       |
@@ -1179,6 +1192,7 @@ export interface CustomerUpdateParams {
    * | Norway                 | `no_vat`     | Norwegian VAT Number                                                                                    |
    * | Norway                 | `no_voec`    | Norwegian VAT on e-commerce Number                                                                      |
    * | Oman                   | `om_vat`     | Omani VAT Number                                                                                        |
+   * | Paraguay               | `py_ruc`     | Paraguayan RUC Number                                                                                   |
    * | Peru                   | `pe_ruc`     | Peruvian RUC Number                                                                                     |
    * | Philippines            | `ph_tin`     | Philippines Tax Identification Number                                                                   |
    * | Poland                 | `eu_vat`     | European VAT Number                                                                                     |
@@ -1200,6 +1214,7 @@ export interface CustomerUpdateParams {
    * | South Korea            | `kr_brn`     | Korean BRN                                                                                              |
    * | Spain                  | `es_cif`     | Spanish NIF Number (previously Spanish CIF Number)                                                      |
    * | Spain                  | `eu_vat`     | European VAT Number                                                                                     |
+   * | Sri Lanka              | `lk_vat`     | Sri Lanka VAT Number                                                                                    |
    * | Suriname               | `sr_fin`     | Suriname FIN Number                                                                                     |
    * | Sweden                 | `eu_vat`     | European VAT Number                                                                                     |
    * | Switzerland            | `ch_uid`     | Switzerland UID Number                                                                                  |
@@ -1478,11 +1493,13 @@ export interface CustomerUpdateByExternalIDParams {
    * | Estonia                | `eu_vat`     | European VAT Number                                                                                     |
    * | Ethiopia               | `et_tin`     | Ethiopia Tax Identification Number                                                                      |
    * | European Union         | `eu_oss_vat` | European One Stop Shop VAT Number for non-Union scheme                                                  |
+   * | Faroe Islands          | `fo_vat`     | Faroe Islands VAT Number                                                                                |
    * | Finland                | `eu_vat`     | European VAT Number                                                                                     |
    * | France                 | `eu_vat`     | European VAT Number                                                                                     |
    * | Georgia                | `ge_vat`     | Georgian VAT                                                                                            |
    * | Germany                | `de_stn`     | German Tax Number (Steuernummer)                                                                        |
    * | Germany                | `eu_vat`     | European VAT Number                                                                                     |
+   * | Gibraltar              | `gi_tin`     | Gibraltar Tax Identification Number                                                                     |
    * | Greece                 | `eu_vat`     | European VAT Number                                                                                     |
    * | Guinea                 | `gn_nif`     | Guinea Tax Identification Number (Número de Identificação Fiscal)                                       |
    * | Hong Kong              | `hk_br`      | Hong Kong BR Number                                                                                     |
@@ -1494,6 +1511,7 @@ export interface CustomerUpdateByExternalIDParams {
    * | Ireland                | `eu_vat`     | European VAT Number                                                                                     |
    * | Israel                 | `il_vat`     | Israel VAT                                                                                              |
    * | Italy                  | `eu_vat`     | European VAT Number                                                                                     |
+   * | Italy                  | `it_cf`      | Italian Codice Fiscale Number                                                                           |
    * | Japan                  | `jp_cn`      | Japanese Corporate Number (_Hōjin Bangō_)                                                               |
    * | Japan                  | `jp_rn`      | Japanese Registered Foreign Businesses' Registration Number (_Tōroku Kokugai Jigyōsha no Tōroku Bangō_) |
    * | Japan                  | `jp_trn`     | Japanese Tax Registration Number (_Tōroku Bangō_)                                                       |
@@ -1524,6 +1542,7 @@ export interface CustomerUpdateByExternalIDParams {
    * | Norway                 | `no_vat`     | Norwegian VAT Number                                                                                    |
    * | Norway                 | `no_voec`    | Norwegian VAT on e-commerce Number                                                                      |
    * | Oman                   | `om_vat`     | Omani VAT Number                                                                                        |
+   * | Paraguay               | `py_ruc`     | Paraguayan RUC Number                                                                                   |
    * | Peru                   | `pe_ruc`     | Peruvian RUC Number                                                                                     |
    * | Philippines            | `ph_tin`     | Philippines Tax Identification Number                                                                   |
    * | Poland                 | `eu_vat`     | European VAT Number                                                                                     |
@@ -1545,6 +1564,7 @@ export interface CustomerUpdateByExternalIDParams {
    * | South Korea            | `kr_brn`     | Korean BRN                                                                                              |
    * | Spain                  | `es_cif`     | Spanish NIF Number (previously Spanish CIF Number)                                                      |
    * | Spain                  | `eu_vat`     | European VAT Number                                                                                     |
+   * | Sri Lanka              | `lk_vat`     | Sri Lanka VAT Number                                                                                    |
    * | Suriname               | `sr_fin`     | Suriname FIN Number                                                                                     |
    * | Sweden                 | `eu_vat`     | European VAT Number                                                                                     |
    * | Switzerland            | `ch_uid`     | Switzerland UID Number                                                                                  |
