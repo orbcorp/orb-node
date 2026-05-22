@@ -10107,6 +10107,7 @@ export type Price =
   | Price.PackageWithAllocationPrice
   | Price.UnitWithPercentPrice
   | Price.MatrixWithAllocationPrice
+  | Price.MatrixWithThresholdDiscountsPrice
   | Price.TieredWithProrationPrice
   | Price.UnitWithProrationPrice
   | Price.GroupedAllocationPrice
@@ -12343,6 +12344,211 @@ export namespace Price {
        * The IDs or values that match this filter.
        */
       values: Array<string>;
+    }
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    export interface LicenseType {
+      /**
+       * The Orb-assigned unique identifier for the license type.
+       */
+      id: string;
+
+      /**
+       * The key used for grouping licenses of this type. This is typically a user
+       * identifier field.
+       */
+      grouping_key: string;
+
+      /**
+       * The name of the license type.
+       */
+      name: string;
+    }
+  }
+
+  export interface MatrixWithThresholdDiscountsPrice {
+    id: string;
+
+    billable_metric: Shared.BillableMetricTiny | null;
+
+    billing_cycle_configuration: Shared.BillingCycleConfiguration;
+
+    billing_mode: 'in_advance' | 'in_arrear';
+
+    cadence: 'one_time' | 'monthly' | 'quarterly' | 'semi_annual' | 'annual' | 'custom';
+
+    composite_price_filters: Array<MatrixWithThresholdDiscountsPrice.CompositePriceFilter> | null;
+
+    conversion_rate: number | null;
+
+    conversion_rate_config: Shared.UnitConversionRateConfig | Shared.TieredConversionRateConfig | null;
+
+    created_at: string;
+
+    credit_allocation: Shared.Allocation | null;
+
+    currency: string;
+
+    /**
+     * @deprecated
+     */
+    discount: Shared.Discount | null;
+
+    external_price_id: string | null;
+
+    fixed_price_quantity: number | null;
+
+    invoice_grouping_key: string | null;
+
+    invoicing_cycle_configuration: Shared.BillingCycleConfiguration | null;
+
+    /**
+     * A minimal representation of an Item containing only the essential identifying
+     * information.
+     */
+    item: Shared.ItemSlim;
+
+    /**
+     * Configuration for matrix_with_threshold_discounts pricing
+     */
+    matrix_with_threshold_discounts_config: MatrixWithThresholdDiscountsPrice.MatrixWithThresholdDiscountsConfig;
+
+    /**
+     * @deprecated
+     */
+    maximum: Shared.Maximum | null;
+
+    /**
+     * @deprecated
+     */
+    maximum_amount: string | null;
+
+    /**
+     * User specified key-value pairs for the resource. If not present, this defaults
+     * to an empty dictionary. Individual keys can be removed by setting the value to
+     * `null`, and the entire metadata mapping can be cleared by setting `metadata` to
+     * `null`.
+     */
+    metadata: { [key: string]: string };
+
+    /**
+     * @deprecated
+     */
+    minimum: Shared.Minimum | null;
+
+    /**
+     * @deprecated
+     */
+    minimum_amount: string | null;
+
+    /**
+     * The pricing model type
+     */
+    model_type: 'matrix_with_threshold_discounts';
+
+    name: string;
+
+    plan_phase_order: number | null;
+
+    price_type: 'usage_price' | 'fixed_price' | 'composite_price';
+
+    /**
+     * The price id this price replaces. This price will take the place of the replaced
+     * price in plan version migrations.
+     */
+    replaces_price_id: string | null;
+
+    dimensional_price_configuration?: Shared.DimensionalPriceConfiguration | null;
+
+    /**
+     * The LicenseType resource represents a type of license that can be assigned to
+     * users. License types are used during billing by grouping metrics on the
+     * configured grouping key.
+     */
+    license_type?: MatrixWithThresholdDiscountsPrice.LicenseType | null;
+  }
+
+  export namespace MatrixWithThresholdDiscountsPrice {
+    export interface CompositePriceFilter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
+    /**
+     * Configuration for matrix_with_threshold_discounts pricing
+     */
+    export interface MatrixWithThresholdDiscountsConfig {
+      /**
+       * Unit price used for usage that does not match any defined matrix cell.
+       */
+      default_unit_amount: string;
+
+      /**
+       * First matrix dimension key.
+       */
+      first_dimension: string;
+
+      /**
+       * Per-cell unit prices.
+       */
+      matrix_values: Array<MatrixWithThresholdDiscountsConfig.MatrixValue>;
+
+      /**
+       * Optional second matrix dimension key.
+       */
+      second_dimension?: string | null;
+
+      threshold_discount_groups?: Array<MatrixWithThresholdDiscountsConfig.ThresholdDiscountGroup>;
+    }
+
+    export namespace MatrixWithThresholdDiscountsConfig {
+      export interface MatrixValue {
+        first_dimension_value: string;
+
+        unit_amount: string;
+
+        second_dimension_value?: string | null;
+      }
+
+      export interface ThresholdDiscountGroup {
+        /**
+         * Discount rate applied to spend above the threshold.
+         */
+        above_threshold_discount_percentage: string;
+
+        /**
+         * Discount rate applied to spend at or below the threshold. Set to 0 for no
+         * baseline discount.
+         */
+        below_threshold_discount_percentage: string;
+
+        /**
+         * Semicolon-separated list of matrix cell coordinates targeted by this group. Each
+         * coordinate is `first,second` when the matrix has two dimensions, or just `first`
+         * for a single-dimension matrix. Example: `blue,circle;green,triangle`.
+         */
+        cell_coordinates: string;
+
+        threshold_amount: string;
+
+        description?: string | null;
+      }
     }
 
     /**
