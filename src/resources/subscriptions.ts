@@ -317,6 +317,11 @@ export class Subscriptions extends APIResource {
    * for multiple customers, use the customer_id[] or external_customer_id[] query
    * parameters.
    *
+   * Subscriptions can be filtered by status using the status query parameter (one of
+   * `active`, `ended`, or `upcoming`). To filter for multiple statuses in a single
+   * request, use the status[] query parameter, e.g.
+   * `status[]=active&status[]=ended`.
+   *
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
