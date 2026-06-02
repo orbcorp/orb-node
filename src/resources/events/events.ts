@@ -257,8 +257,8 @@ export class Events extends APIResource {
    * billed for in the corresponding billing period.
    *
    * In general, Orb does not expect events with future dated timestamps. In cases
-   * where the timestamp is at least 24 hours ahead of the current time, the event
-   * will not be accepted as a valid event, and will throw validation errors.
+   * where the timestamp is 5 minutes ahead of the current time, the event will not
+   * be accepted as a valid event, and will throw validation errors.
    *
    * ## Event validation
    *
@@ -273,9 +273,9 @@ export class Events extends APIResource {
    * - If the `external_customer_id` is specified, the customer in Orb does not need
    *   to exist. Events will be attributed to any future customers with the
    *   `external_customer_id` on subscription creation.
-   * - `timestamp` must conform to ISO 8601 and represent a timestamp at most 1 hour
-   *   in the future. This timestamp should be sent in UTC timezone (no timezone
-   *   offset).
+   * - `timestamp` must conform to ISO 8601 and represent a timestamp at most 5
+   *   minutes in the future. This timestamp should be sent in UTC timezone (no
+   *   timezone offset).
    *
    * ## Idempotency and retry semantics
    *
