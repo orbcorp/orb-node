@@ -552,8 +552,8 @@ export interface InvoiceFetchUpcomingResponse {
   eligible_to_issue_at: string | null;
 
   /**
-   * A URL for the customer-facing invoice portal. This URL expires 30 days after the
-   * invoice's due date, or 60 days after being re-generated through the UI.
+   * A URL for the customer-facing invoice portal. This URL expires 60 days after the
+   * link is generated, or 30 days after the invoice's due date — whichever is later.
    */
   hosted_invoice_url: string | null;
 
@@ -1137,8 +1137,8 @@ export interface InvoiceIssueSummaryResponse {
   eligible_to_issue_at: string | null;
 
   /**
-   * A URL for the customer-facing invoice portal. This URL expires 30 days after the
-   * invoice's due date, or 60 days after being re-generated through the UI.
+   * A URL for the customer-facing invoice portal. This URL expires 60 days after the
+   * link is generated, or 30 days after the invoice's due date — whichever is later.
    */
   hosted_invoice_url: string | null;
 
@@ -1594,8 +1594,8 @@ export interface InvoiceListSummaryResponse {
   eligible_to_issue_at: string | null;
 
   /**
-   * A URL for the customer-facing invoice portal. This URL expires 30 days after the
-   * invoice's due date, or 60 days after being re-generated through the UI.
+   * A URL for the customer-facing invoice portal. This URL expires 60 days after the
+   * link is generated, or 30 days after the invoice's due date — whichever is later.
    */
   hosted_invoice_url: string | null;
 
