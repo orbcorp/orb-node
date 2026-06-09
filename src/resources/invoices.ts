@@ -914,7 +914,7 @@ export namespace InvoiceFetchUpcomingResponse {
     /**
      * The payment provider that attempted to collect the payment.
      */
-    payment_provider: 'stripe' | null;
+    payment_provider: 'stripe' | 'adyen' | null;
 
     /**
      * The ID of the payment attempt in the payment provider.
@@ -1371,7 +1371,7 @@ export namespace InvoiceIssueSummaryResponse {
     /**
      * The payment provider that attempted to collect the payment.
      */
-    payment_provider: 'stripe' | null;
+    payment_provider: 'stripe' | 'adyen' | null;
 
     /**
      * The ID of the payment attempt in the payment provider.
@@ -1828,7 +1828,7 @@ export namespace InvoiceListSummaryResponse {
     /**
      * The payment provider that attempted to collect the payment.
      */
-    payment_provider: 'stripe' | null;
+    payment_provider: 'stripe' | 'adyen' | null;
 
     /**
      * The ID of the payment attempt in the payment provider.

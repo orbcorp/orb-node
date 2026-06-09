@@ -143,6 +143,7 @@ describe('resource alerts', () => {
     const response = await client.alerts.createForSubscription('subscription_id', {
       thresholds: [{ value: 0 }],
       type: 'usage_exceeded',
+      currency: 'currency',
       grouping_keys: ['string'],
       metric_id: 'metric_id',
       price_filters: [
@@ -152,7 +153,6 @@ describe('resource alerts', () => {
           values: ['string'],
         },
       ],
-      pricing_unit_id: 'pricing_unit_id',
       threshold_overrides: [{ group_values: ['string'], thresholds: [{ value: 0 }] }],
     });
   });
