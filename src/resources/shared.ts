@@ -840,7 +840,7 @@ export namespace ChangedSubscriptionResources {
       /**
        * The payment provider that attempted to collect the payment.
        */
-      payment_provider: 'stripe' | null;
+      payment_provider: 'stripe' | 'adyen' | null;
 
       /**
        * The ID of the payment attempt in the payment provider.
@@ -2107,7 +2107,7 @@ export namespace Invoice {
     /**
      * The payment provider that attempted to collect the payment.
      */
-    payment_provider: 'stripe' | null;
+    payment_provider: 'stripe' | 'adyen' | null;
 
     /**
      * The ID of the payment attempt in the payment provider.
@@ -15695,9 +15695,26 @@ export namespace Price {
      */
     export interface PercentConfig {
       /**
-       * What percent of the component subtotals to charge
+       * Fraction of the component subtotals to charge (0 < percent <= 1).
        */
       percent: number;
+
+      /**
+       * Maximum amount to charge. If unset, the fee has no upper bound.
+       */
+      maximum_amount?: string | null;
+
+      /**
+       * Minimum amount to charge. If unset, the fee is bounded below by 0.
+       */
+      minimum_amount?: string | null;
+
+      /**
+       * If true, the minimum_amount is prorated based on the service period. The
+       * maximum_amount is an absolute cap (never prorated), and the percent applied to
+       * upstream subtotals is never prorated either.
+       */
+      prorated?: boolean;
     }
 
     /**

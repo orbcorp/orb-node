@@ -309,7 +309,14 @@ export interface Customer {
    * When not in test mode, the connection must first be configured in the Orb
    * webapp.
    */
-  payment_provider: 'quickbooks' | 'bill.com' | 'stripe_charge' | 'stripe_invoice' | 'netsuite' | null;
+  payment_provider:
+    | 'quickbooks'
+    | 'bill.com'
+    | 'stripe_charge'
+    | 'stripe_invoice'
+    | 'netsuite'
+    | 'adyen'
+    | null;
 
   /**
    * The ID of this customer in an external payments solution, such as Stripe. This
@@ -497,6 +504,15 @@ export interface Customer {
   automatic_tax_enabled?: boolean | null;
 
   /**
+   * A payment method represents a customer's stored payment instrument held with an
+   * external payment provider (such as Adyen or Stripe).
+   *
+   * The serialization is intentionally minimal for now; provider-pulled details
+   * (e.g. card display metadata) will be added over time.
+   */
+  default_payment_method?: Customer.DefaultPaymentMethod | null;
+
+  /**
    * Payment configuration for the customer, applicable when using Orb Invoicing with
    * a supported payment provider such as Stripe.
    */
@@ -527,6 +543,52 @@ export namespace Customer {
 
       provider_type: 'quickbooks' | 'netsuite';
     }
+  }
+
+  /**
+   * A payment method represents a customer's stored payment instrument held with an
+   * external payment provider (such as Adyen or Stripe).
+   *
+   * The serialization is intentionally minimal for now; provider-pulled details
+   * (e.g. card display metadata) will be added over time.
+   */
+  export interface DefaultPaymentMethod {
+    /**
+     * The Orb-assigned unique identifier for the payment method.
+     */
+    id: string;
+
+    /**
+     * The time at which the payment method was created.
+     */
+    created_at: string;
+
+    /**
+     * The ID of the Orb customer this payment method is attached to.
+     */
+    customer_id: string;
+
+    /**
+     * Whether this is the customer's default payment method.
+     */
+    default: boolean;
+
+    /**
+     * The identifier of this payment method in the external payment provider.
+     */
+    external_payment_method_id: string;
+
+    /**
+     * The type of the underlying payment instrument, e.g. `card` or `us_bank_account`.
+     */
+    payment_method_type: 'card' | 'us_bank_account' | 'link' | 'amazon_pay' | 'crypto';
+
+    /**
+     * The external payment provider this method belongs to, derived from the linked
+     * payment gateway connection (e.g. `adyen` or `stripe`). Null if the connection
+     * has been removed.
+     */
+    provider_type: string | null;
   }
 
   /**
@@ -709,7 +771,14 @@ export interface CustomerCreateParams {
    * When not in test mode, the connection must first be configured in the Orb
    * webapp.
    */
-  payment_provider?: 'quickbooks' | 'bill.com' | 'stripe_charge' | 'stripe_invoice' | 'netsuite' | null;
+  payment_provider?:
+    | 'quickbooks'
+    | 'bill.com'
+    | 'stripe_charge'
+    | 'stripe_invoice'
+    | 'netsuite'
+    | 'adyen'
+    | null;
 
   /**
    * The ID of this customer in an external payments solution, such as Stripe. This
@@ -1002,6 +1071,12 @@ export interface CustomerUpdateParams {
   currency?: string | null;
 
   /**
+   * The Orb ID of the payment method to set as this customer's default. Pass `null`
+   * to clear the customer's default payment method.
+   */
+  default_payment_method_id?: string | null;
+
+  /**
    * A valid customer email, to be used for invoicing and notifications.
    */
   email?: string | null;
@@ -1049,7 +1124,14 @@ export interface CustomerUpdateParams {
    *   `bill.com`, `netsuite`), any product mappings must first be configured with
    *   the Orb team.
    */
-  payment_provider?: 'quickbooks' | 'bill.com' | 'stripe_charge' | 'stripe_invoice' | 'netsuite' | null;
+  payment_provider?:
+    | 'quickbooks'
+    | 'bill.com'
+    | 'stripe_charge'
+    | 'stripe_invoice'
+    | 'netsuite'
+    | 'adyen'
+    | null;
 
   /**
    * The ID of this customer in an external payments solution, such as Stripe. This
@@ -1345,6 +1427,12 @@ export interface CustomerUpdateByExternalIDParams {
   currency?: string | null;
 
   /**
+   * The Orb ID of the payment method to set as this customer's default. Pass `null`
+   * to clear the customer's default payment method.
+   */
+  default_payment_method_id?: string | null;
+
+  /**
    * A valid customer email, to be used for invoicing and notifications.
    */
   email?: string | null;
@@ -1392,7 +1480,14 @@ export interface CustomerUpdateByExternalIDParams {
    *   `bill.com`, `netsuite`), any product mappings must first be configured with
    *   the Orb team.
    */
-  payment_provider?: 'quickbooks' | 'bill.com' | 'stripe_charge' | 'stripe_invoice' | 'netsuite' | null;
+  payment_provider?:
+    | 'quickbooks'
+    | 'bill.com'
+    | 'stripe_charge'
+    | 'stripe_invoice'
+    | 'netsuite'
+    | 'adyen'
+    | null;
 
   /**
    * The ID of this customer in an external payments solution, such as Stripe. This
