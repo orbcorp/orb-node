@@ -440,6 +440,12 @@ export interface AlertCreateForSubscriptionParams {
   type: 'usage_exceeded' | 'cost_exceeded';
 
   /**
+   * The case sensitive currency or custom pricing unit to use for grouped cost
+   * alerts. Required when grouping_keys is set.
+   */
+  currency?: string | null;
+
+  /**
    * The property keys to group cost alerts by. Only applicable for cost_exceeded
    * alerts.
    */
@@ -456,12 +462,6 @@ export interface AlertCreateForSubscriptionParams {
    * operators. Only applicable when grouping_keys is set.
    */
   price_filters?: Array<AlertCreateForSubscriptionParams.PriceFilter> | null;
-
-  /**
-   * The pricing unit to use for grouped cost alerts. Required when grouping_keys is
-   * set.
-   */
-  pricing_unit_id?: string | null;
 
   /**
    * Per-group threshold overrides. Each override maps a specific combination of
