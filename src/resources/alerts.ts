@@ -367,6 +367,59 @@ export interface AlertUpdateParams {
    * The thresholds that define the values at which the alert will be triggered.
    */
   thresholds: Array<Threshold>;
+
+  /**
+   * Replaces the price filters on a grouped cost alert; an empty list clears them.
+   * Only applicable to cost alerts with grouping_keys. Omit to leave unchanged.
+   */
+  price_filters?: Array<AlertUpdateParams.PriceFilter> | null;
+
+  /**
+   * Replaces the per-group threshold overrides on a grouped cost alert; an empty
+   * list clears them. Only applicable to cost alerts with grouping_keys. Omit to
+   * leave unchanged.
+   */
+  threshold_overrides?: Array<AlertUpdateParams.ThresholdOverride> | null;
+}
+
+export namespace AlertUpdateParams {
+  export interface PriceFilter {
+    /**
+     * The property of the price to filter on.
+     */
+    field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+    /**
+     * Should prices that match the filter be included or excluded.
+     */
+    operator: 'includes' | 'excludes';
+
+    /**
+     * The IDs or values that match this filter.
+     */
+    values: Array<string>;
+  }
+
+  /**
+   * Per-group threshold override on a grouped cost alert.
+   *
+   * - An empty `thresholds` list silences alerts for this group (never fires).
+   * - A non-empty list fully replaces the default thresholds for this group.
+   */
+  export interface ThresholdOverride {
+    /**
+     * The values of the grouping keys that identify this group. The list length must
+     * match the alert's grouping_keys, and values appear in the same order as
+     * grouping_keys.
+     */
+    group_values: Array<string>;
+
+    /**
+     * The thresholds to apply to this group. An empty list silences alerts for this
+     * group. A non-empty list fully replaces the default thresholds for this group.
+     */
+    thresholds: Array<AlertsAPI.Threshold>;
+  }
 }
 
 export interface AlertListParams extends PageParams {

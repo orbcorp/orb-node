@@ -39,7 +39,17 @@ describe('resource alerts', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await client.alerts.update('alert_configuration_id', { thresholds: [{ value: 0 }] });
+    const response = await client.alerts.update('alert_configuration_id', {
+      thresholds: [{ value: 0 }],
+      price_filters: [
+        {
+          field: 'price_id',
+          operator: 'includes',
+          values: ['string'],
+        },
+      ],
+      threshold_overrides: [{ group_values: ['string'], thresholds: [{ value: 0 }] }],
+    });
   });
 
   // plan_version=0 breaks Prism
