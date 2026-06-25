@@ -102,12 +102,93 @@ export namespace ExternalPlanIDCreatePlanVersionParams {
       | Shared.NewUsageDiscount
       | Shared.NewAmountDiscount
       | Shared.NewMinimum
-      | Shared.NewMaximum;
+      | Shared.NewMaximum
+      | AddAdjustment.NewTieredPercentageDiscount;
 
     /**
      * The phase to add this adjustment to.
      */
     plan_phase_order?: number | null;
+  }
+
+  export namespace AddAdjustment {
+    export interface NewTieredPercentageDiscount {
+      adjustment_type: 'tiered_percentage_discount';
+
+      tiers: Array<NewTieredPercentageDiscount.Tier>;
+
+      /**
+       * If set, the adjustment will apply to every price on the subscription.
+       */
+      applies_to_all?: true | null;
+
+      /**
+       * The set of item IDs to which this adjustment applies.
+       */
+      applies_to_item_ids?: Array<string> | null;
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * If set, only prices in the specified currency will have the adjustment applied.
+       */
+      currency?: string | null;
+
+      /**
+       * A list of filters that determine which prices this adjustment will apply to.
+       */
+      filters?: Array<NewTieredPercentageDiscount.Filter> | null;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
+
+      /**
+       * If set, only prices of the specified type will have the adjustment applied.
+       */
+      price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+    }
+
+    export namespace NewTieredPercentageDiscount {
+      export interface Tier {
+        /**
+         * Exclusive lower bound of cumulative spend for this tier.
+         */
+        lower_bound: number;
+
+        /**
+         * The percentage (0-1) discounted from spend in this tier.
+         */
+        percentage: number;
+
+        /**
+         * Inclusive upper bound of cumulative spend; null for the final open-ended tier.
+         */
+        upper_bound?: number | null;
+      }
+
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
   }
 
   export interface AddPrice {
@@ -1636,7 +1717,8 @@ export namespace ExternalPlanIDCreatePlanVersionParams {
       | Shared.NewUsageDiscount
       | Shared.NewAmountDiscount
       | Shared.NewMinimum
-      | Shared.NewMaximum;
+      | Shared.NewMaximum
+      | ReplaceAdjustment.NewTieredPercentageDiscount;
 
     /**
      * The id of the adjustment on the plan to replace in the plan.
@@ -1647,6 +1729,86 @@ export namespace ExternalPlanIDCreatePlanVersionParams {
      * The phase to replace this adjustment from.
      */
     plan_phase_order?: number | null;
+  }
+
+  export namespace ReplaceAdjustment {
+    export interface NewTieredPercentageDiscount {
+      adjustment_type: 'tiered_percentage_discount';
+
+      tiers: Array<NewTieredPercentageDiscount.Tier>;
+
+      /**
+       * If set, the adjustment will apply to every price on the subscription.
+       */
+      applies_to_all?: true | null;
+
+      /**
+       * The set of item IDs to which this adjustment applies.
+       */
+      applies_to_item_ids?: Array<string> | null;
+
+      /**
+       * The set of price IDs to which this adjustment applies.
+       */
+      applies_to_price_ids?: Array<string> | null;
+
+      /**
+       * If set, only prices in the specified currency will have the adjustment applied.
+       */
+      currency?: string | null;
+
+      /**
+       * A list of filters that determine which prices this adjustment will apply to.
+       */
+      filters?: Array<NewTieredPercentageDiscount.Filter> | null;
+
+      /**
+       * When false, this adjustment will be applied to a single price. Otherwise, it
+       * will be applied at the invoice level, possibly to multiple prices.
+       */
+      is_invoice_level?: boolean;
+
+      /**
+       * If set, only prices of the specified type will have the adjustment applied.
+       */
+      price_type?: 'usage' | 'fixed_in_advance' | 'fixed_in_arrears' | 'fixed' | 'in_arrears' | null;
+    }
+
+    export namespace NewTieredPercentageDiscount {
+      export interface Tier {
+        /**
+         * Exclusive lower bound of cumulative spend for this tier.
+         */
+        lower_bound: number;
+
+        /**
+         * The percentage (0-1) discounted from spend in this tier.
+         */
+        percentage: number;
+
+        /**
+         * Inclusive upper bound of cumulative spend; null for the final open-ended tier.
+         */
+        upper_bound?: number | null;
+      }
+
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+    }
   }
 
   export interface ReplacePrice {

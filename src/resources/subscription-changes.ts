@@ -173,7 +173,10 @@ export interface MutatedSubscription {
    * start_date. This field is deprecated in favor of `adjustment_intervals`.
    */
   discount_intervals: Array<
-    Shared.AmountDiscountInterval | Shared.PercentageDiscountInterval | Shared.UsageDiscountInterval
+    | Shared.AmountDiscountInterval
+    | Shared.PercentageDiscountInterval
+    | Shared.UsageDiscountInterval
+    | MutatedSubscription.TieredPercentageDiscountInterval
   >;
 
   /**
@@ -253,6 +256,82 @@ export interface MutatedSubscription {
    * `include_changed_resources` parameter was passed in the request.
    */
   changed_resources?: Shared.ChangedSubscriptionResources | null;
+}
+
+export namespace MutatedSubscription {
+  export interface TieredPercentageDiscountInterval {
+    /**
+     * The price interval ids that this discount interval applies to.
+     */
+    applies_to_price_interval_ids: Array<string>;
+
+    discount_type: 'tiered_percentage';
+
+    /**
+     * The end date of the discount interval.
+     */
+    end_date: string | null;
+
+    /**
+     * The filters that determine which prices this discount interval applies to.
+     */
+    filters: Array<TieredPercentageDiscountInterval.Filter>;
+
+    /**
+     * The start date of the discount interval.
+     */
+    start_date: string;
+
+    /**
+     * Only available if discount_type is `tiered_percentage`. The ordered, contiguous
+     * bands of cumulative eligible spend, each discounted at its own percentage.
+     */
+    tiers: Array<TieredPercentageDiscountInterval.Tier>;
+  }
+
+  export namespace TieredPercentageDiscountInterval {
+    export interface Filter {
+      /**
+       * The property of the price to filter on.
+       */
+      field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+      /**
+       * Should prices that match the filter be included or excluded.
+       */
+      operator: 'includes' | 'excludes';
+
+      /**
+       * The IDs or values that match this filter.
+       */
+      values: Array<string>;
+    }
+
+    /**
+     * One band of a tiered percentage discount. Bounds are denominated in the
+     * discount's currency. `lower_bound` is the exclusive start of the band and
+     * `upper_bound` is the inclusive end; `upper_bound` is null only for the
+     * open-ended final tier.
+     */
+    export interface Tier {
+      /**
+       * Exclusive lower bound of cumulative spend for this tier.
+       */
+      lower_bound: number;
+
+      /**
+       * The percentage (between 0 and 1) discounted from spend that falls within this
+       * tier.
+       */
+      percentage: number;
+
+      /**
+       * Inclusive upper bound of cumulative spend for this tier; null for the final
+       * open-ended tier.
+       */
+      upper_bound?: number | null;
+    }
+  }
 }
 
 /**

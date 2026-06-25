@@ -806,6 +806,7 @@ export namespace InvoiceFetchUpcomingResponse {
       | Shared.MonetaryUsageDiscountAdjustment
       | Shared.MonetaryAmountDiscountAdjustment
       | Shared.MonetaryPercentageDiscountAdjustment
+      | LineItem.MonetaryTieredPercentageDiscountAdjustment
       | Shared.MonetaryMinimumAdjustment
       | Shared.MonetaryMaximumAdjustment
     >;
@@ -893,6 +894,97 @@ export namespace InvoiceFetchUpcomingResponse {
      * A list of customer ids that were used to calculate the usage for this line item.
      */
     usage_customer_ids: Array<string> | null;
+  }
+
+  export namespace LineItem {
+    export interface MonetaryTieredPercentageDiscountAdjustment {
+      id: string;
+
+      adjustment_type: 'tiered_percentage_discount';
+
+      /**
+       * The value applied by an adjustment.
+       */
+      amount: string;
+
+      /**
+       * @deprecated The price IDs that this adjustment applies to.
+       */
+      applies_to_price_ids: Array<string>;
+
+      /**
+       * The filters that determine which prices to apply this adjustment to.
+       */
+      filters: Array<MonetaryTieredPercentageDiscountAdjustment.Filter>;
+
+      /**
+       * True for adjustments that apply to an entire invoice, false for adjustments that
+       * apply to only one price.
+       */
+      is_invoice_level: boolean;
+
+      /**
+       * The reason for the adjustment.
+       */
+      reason: string | null;
+
+      /**
+       * The adjustment id this adjustment replaces. This adjustment will take the place
+       * of the replaced adjustment in plan version migrations.
+       */
+      replaces_adjustment_id: string | null;
+
+      /**
+       * The ordered, contiguous bands of cumulative eligible spend, each discounted at
+       * its own percentage (progressive fill-a-tier), applied to the prices this
+       * adjustment covers in a given billing period.
+       */
+      tiers: Array<MonetaryTieredPercentageDiscountAdjustment.Tier>;
+    }
+
+    export namespace MonetaryTieredPercentageDiscountAdjustment {
+      export interface Filter {
+        /**
+         * The property of the price to filter on.
+         */
+        field: 'price_id' | 'item_id' | 'price_type' | 'currency' | 'pricing_unit_id';
+
+        /**
+         * Should prices that match the filter be included or excluded.
+         */
+        operator: 'includes' | 'excludes';
+
+        /**
+         * The IDs or values that match this filter.
+         */
+        values: Array<string>;
+      }
+
+      /**
+       * One band of a tiered percentage discount. Bounds are denominated in the
+       * discount's currency. `lower_bound` is the exclusive start of the band and
+       * `upper_bound` is the inclusive end; `upper_bound` is null only for the
+       * open-ended final tier.
+       */
+      export interface Tier {
+        /**
+         * Exclusive lower bound of cumulative spend for this tier.
+         */
+        lower_bound: number;
+
+        /**
+         * The percentage (between 0 and 1) discounted from spend that falls within this
+         * tier.
+         */
+        percentage: number;
+
+        /**
+         * Inclusive upper bound of cumulative spend for this tier; null for the final
+         * open-ended tier.
+         */
+        upper_bound?: number | null;
+      }
+    }
   }
 
   export interface PaymentAttempt {
