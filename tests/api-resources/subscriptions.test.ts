@@ -366,6 +366,7 @@ describe('resource subscriptions', () => {
       ],
       align_billing_with_plan_change_date: true,
       auto_collection: true,
+      auto_issuance: true,
       billing_cycle_alignment: 'unchanged',
       billing_cycle_anchor_configuration: {
         day: 1,
