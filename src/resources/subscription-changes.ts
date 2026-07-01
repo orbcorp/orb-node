@@ -114,6 +114,14 @@ export interface MutatedSubscription {
    */
   auto_collection: boolean | null;
 
+  /**
+   * Determines whether invoices for this subscription will be automatically issued.
+   * This resolves the effective setting for the subscription: a subscription-level
+   * override if set, otherwise the customer-level setting, otherwise the
+   * account-level default.
+   */
+  auto_issuance: boolean | null;
+
   billing_cycle_anchor_configuration: Shared.BillingCycleAnchorConfiguration;
 
   /**
