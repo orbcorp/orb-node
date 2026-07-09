@@ -29,7 +29,7 @@ describe('resource usage', () => {
       subscription_id: 'subscription_id',
       cursor: 'cursor',
       end_date: '2019-12-27',
-      group_by: ['string'],
+      group_by: 'group_by',
       limit: 1,
       start_date: '2019-12-27',
     });
@@ -61,7 +61,7 @@ describe('resource usage', () => {
         {
           cursor: 'cursor',
           end_date: '2019-12-27',
-          group_by: ['string'],
+          group_by: 'group_by',
           limit: 1,
           start_date: '2019-12-27',
         },
