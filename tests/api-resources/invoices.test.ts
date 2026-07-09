@@ -64,7 +64,7 @@ describe('resource invoices', () => {
         ],
         reason: 'reason',
       },
-      due_date: '2023-09-22',
+      due_date: '2025-09-22',
       external_customer_id: 'external-customer-id',
       memo: 'An optional memo for my invoice.',
       metadata: { foo: 'string' },
