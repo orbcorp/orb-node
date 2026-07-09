@@ -241,7 +241,7 @@ export interface UsageGetAllUsageParams {
    * How to group the results. Valid values: 'license', 'day'. Can be combined (e.g.,
    * 'license,day').
    */
-  group_by?: Array<string> | null;
+  group_by?: string | null;
 
   /**
    * Maximum number of rows in the response data (default 20, max 100).
@@ -271,7 +271,7 @@ export interface UsageGetUsageParams {
    * How to group the results. Valid values: 'license', 'day'. Can be combined (e.g.,
    * 'license,day').
    */
-  group_by?: Array<string> | null;
+  group_by?: string | null;
 
   /**
    * Maximum number of rows in the response data (default 20, max 100).
