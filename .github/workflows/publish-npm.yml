@@ -32,7 +32,8 @@ jobs:
           yarn install
 
       - name: Update npm (OIDC trusted publishing needs >= 11.5.1)
-        run: npm install -g npm@latest
+        # Pinned to 11: npm 12 requires node >= 22 and this workflow runs node 20.
+        run: npm install -g npm@11
 
       - name: Publish to NPM
         run: |
