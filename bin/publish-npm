@@ -2,8 +2,8 @@
 
 set -eux
 
-npm config set '//registry.npmjs.org/:_authToken' "$NPM_TOKEN"
-
+# No auth token: publishing uses npm Trusted Publishing (GitHub Actions OIDC),
+# configured on the package at npmjs.com. Requires npm >= 11.5.1.
 yarn build
 cd dist
 
@@ -57,5 +57,6 @@ else
   TAG="latest"
 fi
 
-# Publish with the appropriate tag
-yarn publish --tag "$TAG"
+# Publish with the appropriate tag. npm (not yarn v1): yarn v1 cannot do the
+# OIDC exchange trusted publishing requires.
+npm publish --tag "$TAG"
