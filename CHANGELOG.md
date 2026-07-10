@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.75.1 (2026-07-10)
+
+Full Changelog: [v5.75.0...v5.75.1](https://github.com/orbcorp/orb-node/compare/v5.75.0...v5.75.1)
+
 ## 5.75.0 (2026-07-09)
 
 Full Changelog: [v5.74.0...v5.75.0](https://github.com/orbcorp/orb-node/compare/v5.74.0...v5.75.0)
