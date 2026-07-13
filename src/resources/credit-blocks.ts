@@ -76,11 +76,12 @@ export interface CreditBlockRetrieveResponse {
 
   /**
    * How this credit block was created: `allocation` (a subscription's recurring
-   * credit allocation), `top_up` (an automatic balance-threshold top-up), or
+   * credit allocation), `top_up` (an automatic balance-threshold top-up),
+   * `commitment` (a subscription commitment true-up rolled forward as credit), or
    * `manual` (a manual credit ledger increment, including credits voided or expired
    * off another block).
    */
-  credit_block_source: 'allocation' | 'top_up' | 'manual';
+  credit_block_source: 'allocation' | 'top_up' | 'commitment' | 'manual';
 
   effective_date: string | null;
 
@@ -107,6 +108,12 @@ export interface CreditBlockRetrieveResponse {
    * serialized on prices with the catalog-item attribution of the funding price.
    */
   credit_allocation?: CreditBlockRetrieveResponse.CreditAllocation | null;
+
+  /**
+   * The subscription commitment whose true-up rolled forward into this credit block.
+   * Present only when `credit_block_source` is `commitment`.
+   */
+  credit_commitment?: CreditBlockRetrieveResponse.CreditCommitment | null;
 }
 
 export namespace CreditBlockRetrieveResponse {
@@ -167,6 +174,22 @@ export namespace CreditBlockRetrieveResponse {
       values: Array<string>;
     }
   }
+
+  /**
+   * The subscription commitment whose true-up rolled forward into this credit block.
+   * Present only when `credit_block_source` is `commitment`.
+   */
+  export interface CreditCommitment {
+    /**
+     * The ID of the subscription commitment this block was rolled forward from.
+     */
+    id: string;
+
+    /**
+     * The subscription the commitment belongs to.
+     */
+    subscription_id?: string | null;
+  }
 }
 
 export interface CreditBlockListInvoicesResponse {
@@ -189,11 +212,12 @@ export namespace CreditBlockListInvoicesResponse {
 
     /**
      * How this credit block was created: `allocation` (a subscription's recurring
-     * credit allocation), `top_up` (an automatic balance-threshold top-up), or
+     * credit allocation), `top_up` (an automatic balance-threshold top-up),
+     * `commitment` (a subscription commitment true-up rolled forward as credit), or
      * `manual` (a manual credit ledger increment, including credits voided or expired
      * off another block).
      */
-    credit_block_source: 'allocation' | 'top_up' | 'manual';
+    credit_block_source: 'allocation' | 'top_up' | 'commitment' | 'manual';
 
     effective_date: string | null;
 
@@ -220,6 +244,12 @@ export namespace CreditBlockListInvoicesResponse {
      * serialized on prices with the catalog-item attribution of the funding price.
      */
     credit_allocation?: Block.CreditAllocation | null;
+
+    /**
+     * The subscription commitment whose true-up rolled forward into this credit block.
+     * Present only when `credit_block_source` is `commitment`.
+     */
+    credit_commitment?: Block.CreditCommitment | null;
   }
 
   export namespace Block {
@@ -279,6 +309,22 @@ export namespace CreditBlockListInvoicesResponse {
          */
         values: Array<string>;
       }
+    }
+
+    /**
+     * The subscription commitment whose true-up rolled forward into this credit block.
+     * Present only when `credit_block_source` is `commitment`.
+     */
+    export interface CreditCommitment {
+      /**
+       * The ID of the subscription commitment this block was rolled forward from.
+       */
+      id: string;
+
+      /**
+       * The subscription the commitment belongs to.
+       */
+      subscription_id?: string | null;
     }
   }
 
