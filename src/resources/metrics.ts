@@ -123,6 +123,12 @@ export interface BillableMetric {
 
   name: string;
 
+  /**
+   * The SQL definition of the metric. For metrics defined via configuration rather
+   * than SQL, this is a derived SQL representation.
+   */
+  sql: string;
+
   status: 'active' | 'draft' | 'archived';
 
   parameter_definitions?: Array<{ [key: string]: unknown }> | null;
