@@ -390,8 +390,7 @@ export interface EventIngestResponse {
   validation_failed: Array<EventIngestResponse.ValidationFailed>;
 
   /**
-   * Optional debug information (only present when debug=true is passed to the
-   * endpoint). Contains ingested and duplicate event idempotency keys.
+   * @deprecated
    */
   debug?: EventIngestResponse.Debug | null;
 }
@@ -411,8 +410,7 @@ export namespace EventIngestResponse {
   }
 
   /**
-   * Optional debug information (only present when debug=true is passed to the
-   * endpoint). Contains ingested and duplicate event idempotency keys.
+   * @deprecated
    */
   export interface Debug {
     duplicate: Array<string>;
