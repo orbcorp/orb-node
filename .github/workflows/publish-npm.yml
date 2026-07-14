@@ -17,7 +17,9 @@ permissions:
 jobs:
   publish:
     name: publish
-    runs-on: runs-on=${{ github.run_id }}/image=ubuntu24-full-x64/runner=4cpu-linux-x64/spot=false/tag=sdk-publish
+    # github-hosted deliberately: npm rejects provenance attestations minted on
+    # self-hosted runners ("Only github-hosted runners are supported").
+    runs-on: ubuntu-latest
     # The trusted-publisher registration names this environment; its deployment
     # branch policy restricts publishes to jobs running against main.
     environment: npm
