@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.76.0](https://github.com/orbcorp/orb-node/compare/v5.75.1...v5.76.0) (2026-07-14)
+
+
+### Features
+
+* **api:** add `commitment` credit block source and `credit_commitment` field ([9134ecf](https://github.com/orbcorp/orb-node/commit/9134ecf0523babb24be8b002baf9f1a6e7a5e715))
+* **api:** api update ([2b70910](https://github.com/orbcorp/orb-node/commit/2b70910635857281f113f253b3c7535bc708e232))
+
 ## 5.75.1 (2026-07-10)
 
 Full Changelog: [v5.75.0...v5.75.1](https://github.com/orbcorp/orb-node/compare/v5.75.0...v5.75.1)
